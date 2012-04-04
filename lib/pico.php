@@ -4,8 +4,6 @@ class Pico {
 
 	function __construct()
 	{
-		
-
 		// Get request url and script url
 		$url = '';
 		$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
