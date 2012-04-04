@@ -1,0 +1,170 @@
+/*=================================*/
+/* Pico Default Theme
+/* By: Gilbert Pellegrom
+/* http: //dev7studios.com
+/*=================================*/
+
+/*====================*/
+/*=== Reset Styles ===*/
+/*====================*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* HTML5 tags */
+header, section, footer,
+aside, nav, article, figure {
+	display: block;
+}
+
+/*===================*/
+/*=== Main Styles ===*/
+/*===================*/
+body {
+	font: 14px/1.6 "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #000;
+	background: #fff;
+	padding: 40px;
+}
+
+a, a:visited {
+	color: blue;
+	text-decoration: none;
+	border-bottom: 1px solid blue;
+}
+a:hover, a:active {
+	color: #000;
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.2;
+	margin-bottom: 0.6em;
+}
+h1 {
+	font-size: 2.2em;
+}
+h2 {
+	font-size: 1.9em;
+}
+h3 {
+	font-size: 1.7em;
+	margin-top: 2em;
+}
+h4 {
+	font-size: 1.5em;
+}
+h5 {
+	font-size: 1.3em;
+}
+h6 {
+	font-size: 1.2em;
+}
+p {
+	margin-bottom: 1em;
+}
+
+ol, ul {
+	padding-left: 30px;
+	margin-bottom: 1em;
+}
+
+b, strong {
+	font-weight: bold;
+}
+i, em {
+	font-style: italic;
+}
+u {
+	text-decoration: underline;
+}
+abbr, acronym {
+	cursor: help;
+	border-bottom: .1em dotted;
+}
+td, td img { vertical-align: top; }
+sub { vertical-align: sub; font-size: smaller; }
+sup { vertical-align: super; font-size: smaller; }
+
+code {
+	font-family: Courier,"Courier New",Monaco,Tahoma;
+	background: #eee;
+	color: #000;
+	padding: 0px 2px;
+}
+pre {
+	background: #eee;
+	padding: 20px;
+	margin-bottom: 1em;
+}
+blockquote {
+	font-style: italic;
+	margin: 0 0 1em 15px;
+	padding-left: 10px;
+	border-left: 5px solid #999;
+}
+
+/* hand cursor on clickable input elements */
+label, input[type=button], input[type=submit], button { cursor: pointer; }
+/* make buttons play nice in IE:   
+    www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {  width: auto; overflow: visible; }
+
+table { margin-bottom: 1em; }
+th { 
+	font-weight: bold;
+	padding: 0 5px; 
+}
+td { padding: 0 5px; }
+
+/*====================*/
+/*=== Other Styles ===*/
+/*====================*/
+
+/* Clearfix */
+.cf:before,
+.cf:after {
+    content:"";
+    display:table;
+}
+.cf:after {
+    clear:both;
+}
+/* For IE 6/7 (trigger hasLayout) */
+.cf {
+    zoom:1;
+}

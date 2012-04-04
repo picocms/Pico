@@ -1,0 +1,469 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"str_rp",
+				"str_replace"
+			],
+			[
+				"tr",
+				"transition	transition"
+			],
+			[
+				"font-s",
+				"font-style"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"box",
+				"webkit-box-shadow"
+			],
+			[
+				"r",
+				"repeat"
+			],
+			[
+				"backgroun",
+				"background	background: color image repeat attachment position"
+			],
+			[
+				"verti",
+				"vertical-align"
+			],
+			[
+				"vert",
+				"vertical-align"
+			],
+			[
+				"col",
+				"color	color: hex"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.php",
+			"settings":
+			{
+				"buffer_size": 406,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "config.php",
+			"settings":
+			{
+				"buffer_size": 436,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "lib/pico.php",
+			"settings":
+			{
+				"buffer_size": 2945,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "themes/default/index.html",
+			"settings":
+			{
+				"buffer_size": 777,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "themes/default/style.css",
+			"settings":
+			{
+				"buffer_size": 2871,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "content/index.txt",
+			"settings":
+			{
+				"buffer_size": 179,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "content/404.txt",
+			"settings":
+			{
+				"buffer_size": 112,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: ",
+				"Snippet: display: inline"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/gilbitron/Dropbox/_xampp/pico/themes/default/template.php",
+		"/Users/gilbitron/Dropbox/_xampp/pico/themes/default/template.html",
+		"/Users/gilbitron/Dropbox/_xampp/pico/config.php",
+		"/Users/gilbitron/Dropbox/_xampp/pico/.htaccess",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/template-galleries.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/js/jquery.custom.js",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/single.php",
+		"/Users/gilbitron/Library/Application Support/Sublime Text 2/Packages/User/transition.sublime-snippet",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/page.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/framework/styles/zilla-admin.css",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/includes/js/zilla_gallery_sort.js",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/loop-index.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/index.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/style.css",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/includes/js/zilla_gallery.js",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/includes/init.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/includes/posttype-portfolio.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/includes/js/zilla_portfolio_sort.js",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/framework/zilla-admin-functions.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/template-contact.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/template-archives.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/comments.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/404.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/archive.php",
+		"/Users/gilbitron/Dropbox/_zilla/themes/wp-content/themes/shutterbug/framework/zilla-theme-functions.php",
+		"/Users/gilbitron/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/gilbitron/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"<open folders>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"body",
+			"geor",
+			"zilla_post_type_labels",
+			"gallerys",
+			"portfolio",
+			".post",
+			"webkit",
+			"input"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"galleries",
+			"gallery"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.php",
+					"settings":
+					{
+						"buffer_size": 406,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								256,
+								256
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "config.php",
+					"settings":
+					{
+						"buffer_size": 436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								432,
+								432
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "lib/pico.php",
+					"settings":
+					{
+						"buffer_size": 2945,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1573,
+								1573
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "themes/default/index.html",
+					"settings":
+					{
+						"buffer_size": 777,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								339,
+								339
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "themes/default/style.css",
+					"settings":
+					{
+						"buffer_size": 2871,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2348,
+								2348
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1406.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "content/index.txt",
+					"settings":
+					{
+						"buffer_size": 179,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								87
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "content/404.txt",
+					"settings":
+					{
+						"buffer_size": 112,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								48,
+								48
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 205.0,
+	"status_bar_visible": true
+}

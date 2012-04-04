@@ -1,0 +1,9 @@
+/*
+Title: Error 404
+Robots: noindex,nofollow
+*/
+
+Error 404
+=========
+
+Woops. Looks like this page doesn't exist.

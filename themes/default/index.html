@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    {% if meta.description %}<meta name="description" content="{{ meta.description }}">{% endif %}
+    {% if meta.robots %}<meta name="robots" content="{{ meta.robots }}">{% endif %}
+    
+    <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" media="screen" />
+
+    <!--[if IE]>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script type="text/javascript" src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="{{ theme_url }}/scripts/modernizr-1.7.min.js"></script>
+</head>
+<body>
+
+    {{ content }}
+
+</body>
+</html>
