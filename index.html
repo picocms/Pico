@@ -21,8 +21,7 @@
 <p>Pico is a stupidly simple, blazing fast, flat file CMS.</p>
         <p class="view"><a href="https://github.com/gilbitron/Pico">View the Project on GitHub <small>gilbitron/Pico</small></a></p>
         <ul>
-          <li><a href="https://github.com/gilbitron/Pico/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/gilbitron/Pico/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gilbitron/Pico/zipball/master">Download <strong>v0.1</strong></a></li>
           <li><a href="https://github.com/gilbitron/Pico">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
@@ -30,11 +29,13 @@
         <h2>Creating Content</h2>
 
 <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.txt</code> files in the "content"
-folder and that becomes a page. For example this file is called <code>index.txt</code> and is shown as the main landing page. </p>
+folder and that becomes a page.</p>
 
 <p>If you created folder within the content folder (e.g. <code>content/sub</code>) and put an <code>index.txt</code> inside it, you can access that folder at the URL 
 <code><a href="http://yousite.com/sub">http://yousite.com/sub</a></code>. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. <code>content/sub/page.txt</code>)
-and will be able to access it from the URL <code><a href="http://yousite.com/sub/page">http://yousite.com/sub/page</a></code>. Below we've shown some examples of content locations and their corresponing URL's:</p>
+and will be able to access it from the URL <code><a href="http://yousite.com/sub/page">http://yousite.com/sub/page</a></code>.</p> 
+
+<p>Below we've shown some examples of content locations and their corresponing URL's:</p>
 
 <table>
 <tr>
@@ -111,11 +112,15 @@ in config.php to your theme folder.</p>
 
 <p>You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
 list all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.</p>
+
+<h2>Contirbute</h2>
+<p>Help make Pico better by checking out <a href="https://github.com/gilbitron/Pico">the Git repoistory</a> and submitting pull requests. If you find a bug
+please report it on <a href="https://github.com/gilbitron/Pico/issues">the issues page</a>.</p>
       </section>
     </div>
     <footer>
-      <p>Project maintained by <a href="https://github.com/gilbitron">gilbitron</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+      <p>Pico was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a> from <a href="http://dev7studios.com">Dev7studios</a></p>
+      <p>Released under the MIT license</p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
   </body>

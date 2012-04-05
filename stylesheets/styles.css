@@ -122,7 +122,7 @@ header ul {
   -webkit-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
   -o-box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
   box-shadow: inset rgba(255, 255, 255, 0.45) 0 1px 0, inset rgba(0, 0, 0, 0.2) 0 -1px 0;
-  width: 240px;
+  width: 161px;
 }
 header ul:before {
   content: '';
@@ -151,10 +151,6 @@ header ul li {
   height: 38px;
 }
 header ul li + li {
-  width: 78px;
-  border-left: 1px solid #8BBEF3;
-}
-header ul li + li + li {
   border-right: none;
   width: 79px;
 }
