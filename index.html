@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pico by gilbitron</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Pico</h1>
+<p>Pico is a stupidly simple, blazing fast, flat file CMS.</p>
+        <p class="view"><a href="https://github.com/gilbitron/Pico">View the Project on GitHub <small>gilbitron/Pico</small></a></p>
+        <ul>
+          <li><a href="https://github.com/gilbitron/Pico/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gilbitron/Pico/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gilbitron/Pico">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Creating Content</h2>
+
+<p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.txt</code> files in the "content"
+folder and that becomes a page. For example this file is called <code>index.txt</code> and is shown as the main landing page. </p>
+
+<p>If you created folder within the content folder (e.g. <code>content/sub</code>) and put an <code>index.txt</code> inside it, you can access that folder at the URL 
+<code><a href="http://yousite.com/sub">http://yousite.com/sub</a></code>. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. <code>content/sub/page.txt</code>)
+and will be able to access it from the URL <code><a href="http://yousite.com/sub/page">http://yousite.com/sub/page</a></code>. Below we've shown some examples of content locations and their corresponing URL's:</p>
+
+<table>
+<tr>
+<th>Physical Location</th>
+<th>URL</th>
+</tr>
+<tr>
+<td>content/index.txt</td>
+<td>/</td>
+</tr>
+<tr>
+<td>content/sub.txt</td>
+<td>/sub</td>
+</tr>
+<tr>
+<td>content/sub/index.txt</td>
+<td>/sub (same as above)</td>
+</tr>
+<tr>
+<td>content/sub/page.txt</td>
+<td>/sub/page</td>
+</tr>
+<tr>
+<td>content/a/very/long/url.txt</td>
+<td>/a/very/long/url</td>
+</tr>
+</table><p>If a file cannot be found, the file <code>content/404.txt</code> will be shown.</p>
+
+<h2>Text File Markup</h2>
+
+<p>Text files are marked up using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>. They can also contain regular HTML.</p>
+
+<p>At the top of text files you can place a block comment and specify certain attributes of the page. For example:</p>
+
+<pre><code>/*
+Title: Welcome
+Description: This description will go in the meta description tag
+Robots: noindex,nofollow
+*/
+</code></pre>
+
+<p>These values will be contained in the <code>{{ meta }}</code> variable in themes (see below).</p>
+
+<p>There are also certain variables that you can use in your text files:</p>
+
+<ul>
+<li>%base_url% - The URL to your Pico site</li>
+</ul><h2>Themes</h2>
+
+<p>You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
+<a href="http://twig.sensiolabs.org/documentation">Twig</a> for it's templating engine. You can select your theme by setting the <code>$config['theme']</code> variable
+in config.php to your theme folder.</p>
+
+<p>All themes must include an <code>index.html</code> file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme:</p>
+
+<ul>
+<li>
+<code>{{ config }}</code> - Conatins the values you set in config.php (e.g. <code>{{ config.theme }}</code> = "default")</li>
+<li>
+<code>{{ base_dir }}</code> - The path to your Pico root directory</li>
+<li>
+<code>{{ base_url }}</code> - The URL to your Pico site</li>
+<li>
+<code>{{ theme_dir }}</code> - The path to the Pico active theme direcotry</li>
+<li>
+<code>{{ theme_url }}</code> - The URL to the Pico active theme direcotry</li>
+<li>
+<code>{{ site_title }}</code> - Shortcut to the site title (defined in config.php)</li>
+<li>
+<code>{{ meta }}</code> - Contains the meta values from the current page (e.g. <code>{{ meta.title }}</code>, <code>{{ meta.description }}</code>, <code>{{ meta.robots }}</code>)</li>
+<li>
+<code>{{ content }}</code> - The content of the current page (after it has been processed through Markdown)</li>
+</ul><h2>Config</h2>
+
+<p>You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
+list all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/gilbitron">gilbitron</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
