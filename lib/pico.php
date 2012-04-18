@@ -103,8 +103,14 @@ class Pico {
 		$script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
 
-		$protocol = $_SERVER['HTTPS'] ? "https" : "http";
+		$protocol = $this->get_protocol();
 		return rtrim(str_replace($url, '', $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']), '/');
+	}
+
+	function get_protocol()
+	{
+		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
+		return strtolower($m[0]);
 	}
 
 }
