@@ -1,6 +1,8 @@
 /*
 Title: Welcome
 Description: This description will go in the meta description tag
+Robots: noindex,nofollow
+Theme: default
 */
 
 Welcome to Pico
@@ -12,9 +14,9 @@ Creating Content
 ----------------
 
 Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.txt` files in the "content"
-folder and that becomes a page. For example this file is called `index.txt` and is shown as the main landing page. 
+folder and that becomes a page. For example this file is called `index.txt` and is shown as the main landing page.
 
-If you created folder within the content folder (e.g. `content/sub`) and put an `index.txt` inside it, you can access that folder at the URL 
+If you created folder within the content folder (e.g. `content/sub`) and put an `index.txt` inside it, you can access that folder at the URL
 `http://yousite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content/sub/page.txt`)
 and will be able to access it from the URL `http://yousite.com/sub/page`. Below we've shown some examples of content locations and their corresponing URL's:
 
@@ -44,6 +46,7 @@ At the top of text files you can place a block comment and specify certain attri
 	Title: Welcome
 	Description: This description will go in the meta description tag
 	Robots: noindex,nofollow
+	Theme: default
 	*/
 
 These values will be contained in the `{{ meta }}` variable in themes (see below).
@@ -56,7 +59,7 @@ Themes
 ------
 
 You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
-[Twig](http://twig.sensiolabs.org/documentation) for it's templating engine. You can select your theme by setting the `$config['theme']` variable
+[Twig](http://twig.sensiolabs.org/documentation) for it's templating engine. You can select your theme by changing the meta `Theme:`-tag or by setting the `$config['theme']` variable
 in config.php to your theme folder.
 
 All themes must include an `index.html` file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme:
@@ -67,7 +70,7 @@ All themes must include an `index.html` file to define the HTML structure of the
 * `{{ theme_dir }}` - The path to the Pico active theme direcotry
 * `{{ theme_url }}` - The URL to the Pico active theme direcotry
 * `{{ site_title }}` - Shortcut to the site title (defined in config.php)
-* `{{ meta }}` - Contains the meta values from the current page (e.g. `{{ meta.title }}`, `{{ meta.description }}`, `{{ meta.robots }}`)
+* `{{ meta }}` - Contains the meta values from the current page (e.g. `{{ meta.title }}`, `{{ meta.description }}`, `{{ meta.robots }}`, `{{meta.theme}}`)
 * `{{ content }}` - The content of the current page (after it has been processed through Markdown)
 
 Config
