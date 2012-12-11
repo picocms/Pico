@@ -33,15 +33,16 @@ class Pico {
 		if($settings['enable_cache']) $env['cache'] = CACHE_DIR;
 
 		// Load the theme
+		$theme = $meta['theme'] ? $meta['theme'] : $settings['theme'];
 		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
+		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $theme);
 		$twig = new Twig_Environment($loader, $env);
 		echo $twig->render('index.html', array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
 			'base_url' => $settings['base_url'],
-			'theme_dir' => THEMES_DIR . $settings['theme'],
-			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $settings['theme'],
+			'theme_dir' => THEMES_DIR . $theme,
+			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $theme,
 			'site_title' => $settings['site_title'],
 			'meta' => $meta,
 			'content' => $content
@@ -79,12 +80,12 @@ class Pico {
 
 	function get_config()
 	{
-		global $config, $headers;
+		global $config;
 
 		$defaults = array(
 			'site_title' => 'Pico',
 			'base_url' => $this->base_url(),
-			'theme' => $headers['theme'] ? $headers['theme'] : 'default',
+			'theme' => 'default',
 			'enable_cache' => false
 		);
 
