@@ -50,12 +50,34 @@ class Pico {
 
 	function parse_content($content)
 	{
+		$content = $this->parse_snippets($content);
 		$content = str_replace('%base_url%', $this->base_url(), $content);
 		$content = Markdown($content);
 
 		return $content;
 	}
+	function parse_snippets($content) 
+	{
+		$pattern  = '|\{\{ snippet (.+)\}\}|U'; // match things between '{{ snippet ' and '}}'
+		preg_match_all($pattern, $content, $matches);
+		$matchCount = isset($matches[0]) ? count($matches[0]) : 0;
+		if ($matchCount) {
+			foreach (range(0, $matchCount -1) as $index) {
+				$matched_str = $matches[0][$index];
+				$snippet = strtolower(trim($matches[1][$index]));
+				
+				// load the replacement text from file
+				$file = CONTENT_DIR . '/snippets/' . $snippet . '.txt';
+				$replacement = file_exists($file) ? file_get_contents($file) : '';
+							
+				// replace the {{ snippet snippet-name }} string with the loaded text
+				$content = str_replace($matched_str, $replacement, $content);				
+			}
+		}
 
+		return $content;
+	}
+	
 	function read_file_meta($content)
 	{
 		$headers = array(
