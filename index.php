@@ -1,4 +1,7 @@
 <?php
+// ini_set('display_errors',1); 
+// error_reporting(E_ALL);
+
 /*
  * Pico v0.1
  */
@@ -11,9 +14,10 @@ define('THEMES_DIR', ROOT_DIR .'themes/');
 define('CACHE_DIR', LIB_DIR .'cache/');
 
 require('config.php');
-require(LIB_DIR .'markdown.php');
-require(LIB_DIR .'twig/lib/Twig/Autoloader.php');
-require(LIB_DIR .'pico.php');
+require(LIB_DIR .'Michelf/Markdown.php');
+require(LIB_DIR .'Michelf/MarkdownExtra.php');
+require(LIB_DIR .'Twig/Autoloader.php');
+require(LIB_DIR .'gilbitron/Pico.php');
 $pico = new Pico();
 
 ?>
