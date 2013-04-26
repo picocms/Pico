@@ -1,9 +1,5 @@
 <?php
-/*
- * Pico v0.1
- */
 
-// Defines
 define('ROOT_DIR', realpath(dirname(__FILE__)) .'/');
 define('CONTENT_DIR', ROOT_DIR .'content/');
 define('LIB_DIR', ROOT_DIR .'lib/');

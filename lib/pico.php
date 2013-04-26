@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Pico
+ *
+ * @author Gilbert Pellegrom
+ * @link http://pico.dev7studios.com/
+ * @license http://opensource.org/licenses/MIT
+ * @version 0.2
+ */
 class Pico {
 
+	/**
+	 * The constructor carries out all the processing in Pico.
+	 * Does URL routing, Markdown processing and Twig processing.
+	 */
 	function __construct()
 	{
 		// Get request url and script url
@@ -51,6 +63,12 @@ class Pico {
 		));
 	}
 
+	/**
+	 * Parses the content using Markdown
+	 *
+	 * @param string $content the raw txt content
+	 * @return string $content the Markdown formatted content
+	 */
 	function parse_content($content)
 	{
 		$content = str_replace('%base_url%', $this->base_url(), $content);
@@ -59,6 +77,12 @@ class Pico {
 		return $content;
 	}
 
+	/**
+	 * Parses the file meta from the txt file header
+	 *
+	 * @param string $content the raw txt content
+	 * @return array $headers an array of meta values
+	 */
 	function read_file_meta($content)
 	{
 		$headers = array(
@@ -78,6 +102,11 @@ class Pico {
 		return $headers;
 	}
 
+	/**
+	 * Loads the config
+	 *
+	 * @return array $defaults an array of config values
+	 */
 	function get_config()
 	{
 		global $config;
@@ -96,6 +125,11 @@ class Pico {
 		return $defaults;
 	}
 
+	/**
+	 * Helper function to work out the base URL
+	 *
+	 * @return string the base url
+	 */
 	function base_url()
 	{
 		global $config;
@@ -110,6 +144,11 @@ class Pico {
 		return rtrim(str_replace($url, '', $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']), '/');
 	}
 
+	/**
+	 * Tries to guess the server protocol. Used in base_url()
+	 *
+	 * @return string the current protocol
+	 */
 	function get_protocol()
 	{
 		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
