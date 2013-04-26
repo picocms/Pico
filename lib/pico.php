@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Pico {
 
@@ -8,12 +8,12 @@ class Pico {
 		$url = '';
 		$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
 		$script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-			
+
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
 
 		// Get the file path
-		if($url) $file = strtolower(CONTENT_DIR . $url);
+		if($url) $file = CONTENT_DIR . $url;
 		else $file = CONTENT_DIR .'index';
 
 		// Load the file
@@ -34,7 +34,7 @@ class Pico {
 		$settings = $this->get_config();
 		$env = array('autoescape' => false);
 		if($settings['enable_cache']) $env['cache'] = CACHE_DIR;
-		
+
 		// Load the theme
 		Twig_Autoloader::register();
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
