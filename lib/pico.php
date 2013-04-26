@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Pico {
 
@@ -8,7 +8,7 @@ class Pico {
 		$url = '';
 		$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
 		$script_url  = (isset($_SERVER['PHP_SELF'])) ? $_SERVER['PHP_SELF'] : '';
-			
+
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
 
@@ -31,17 +31,18 @@ class Pico {
 		$settings = $this->get_config();
 		$env = array('autoescape' => false);
 		if($settings['enable_cache']) $env['cache'] = CACHE_DIR;
-		
+
 		// Load the theme
+		$theme = $meta['theme'] ? $meta['theme'] : $settings['theme'];
 		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
+		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $theme);
 		$twig = new Twig_Environment($loader, $env);
 		echo $twig->render('index.html', array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
 			'base_url' => $settings['base_url'],
-			'theme_dir' => THEMES_DIR . $settings['theme'],
-			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $settings['theme'],
+			'theme_dir' => THEMES_DIR . $theme,
+			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $theme,
 			'site_title' => $settings['site_title'],
 			'meta' => $meta,
 			'content' => $content
@@ -58,10 +59,12 @@ class Pico {
 
 	function read_file_meta($content)
 	{
+		global $headers;
 		$headers = array(
 			'title'       => 'Title',
 			'description' => 'Description',
-			'robots'      => 'Robots'
+			'robots'      => 'Robots',
+			'theme'       => 'Theme'
 		);
 
 	 	foreach ($headers as $field => $regex){
