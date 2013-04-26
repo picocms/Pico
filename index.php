@@ -11,8 +11,8 @@ define('THEMES_DIR', ROOT_DIR .'themes/');
 define('CACHE_DIR', LIB_DIR .'cache/');
 
 require('config.php');
+require(ROOT_DIR .'vendor/autoload.php');
 require(LIB_DIR .'markdown.php');
-require(LIB_DIR .'twig/lib/Twig/Autoloader.php');
 require(LIB_DIR .'pico.php');
 $pico = new Pico();
 
