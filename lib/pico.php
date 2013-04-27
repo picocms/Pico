@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com/
  * @license http://opensource.org/licenses/MIT
- * @version 0.2
+ * @version 0.3
  */
 class Pico {
 
