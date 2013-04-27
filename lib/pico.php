@@ -105,11 +105,14 @@ class Pico {
 	/**
 	 * Loads the config
 	 *
-	 * @return array $defaults an array of config values
+	 * @return array $config an array of config values
 	 */
 	function get_config()
 	{
+		if(!file_exists(ROOT_DIR .'config.php')) return array();
+		
 		global $config;
+		require_once(ROOT_DIR .'config.php');
 
 		$defaults = array(
 			'site_title' => 'Pico',
@@ -118,11 +121,10 @@ class Pico {
 			'enable_cache' => false
 		);
 
-		foreach($defaults as $key=>$val){
-			if(isset($config[$key]) && $config[$key]) $defaults[$key] = $config[$key];
-		}
+		if(is_array($config)) $config = array_merge($defaults, $config);
+		else $config = $defaults;
 
-		return $defaults;
+		return $config;
 	}
 
 	/**
