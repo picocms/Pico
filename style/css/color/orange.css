@@ -1,0 +1,125 @@
+a {
+    color: #ee6325;
+}
+h2.post-title a:hover {
+    color: #ee6325
+}
+a.button,
+.forms fieldset .btn-submit,
+.comment-form .btn-submit,
+.filter li a,
+.page-navi ul li a {
+    background-color: #ee6325;
+}
+ul li:before {
+    color: #ee6325;
+}
+.lite1 {
+    color: #ee6325;
+    border-bottom: 1px dotted #ee6325;
+}
+.menu ul li.active a,
+.menu ul li a:hover,
+.menu ul li a.selected {
+    color: #ee6325
+}
+.menu ul li ul:before {
+    border-bottom: 5px solid #ee6325;
+}
+.menu ul li ul li:first-child {
+    border-top: 2px solid #ee6325
+}
+.menu ul li ul li a:hover {
+    background-color: #ee6325;
+}
+.box-wrapper .box:hover i.special {
+    color: #ee6325;
+}
+.box-wrapper .box:hover p,
+.box-wrapper .box:hover h3 {
+    color: #ee6325;
+}
+footer a:hover {
+    color: #ee6325
+}
+.subfooter-wrapper a:hover {
+    color: #ee6325
+}
+ul.contact-info li i {
+    color: #ee6325;
+}
+.post .info .date {
+    background: #ee6325;
+}
+.post-list h6 a:hover {
+    color: #ee6325
+}
+.related-wrapper h2 a:hover {
+    color: #ee6325
+}
+#comments .info h2 a:hover {
+    color: #ee6325
+}
+#comments a.reply-link:hover {
+    color: #ee6325
+}
+.tab a.active,
+.tab a:hover {
+    color: #ee6325
+}
+#testimonials .author {
+    color: #ee6325;
+}
+#testimonials .tab a.active,
+#testimonials .tab a:hover {
+    background: #ee6325;
+}
+.toggle h4.title:hover,
+.toggle h4.title.active {
+    color: #ee6325
+}
+.tp-caption .colored {
+    color: #ee6325
+}
+.tp-bullets.simplebullets.round .bullet.selected,
+.tp-bullets.simplebullets.round .bullet:hover {
+    background-color: #ee6325
+}
+.tparrows:hover {
+    background-color: #ee6325;
+}
+.touchcarousel .touchcarousel-item .link:hover {
+    background-color: #ee6325;
+}
+.touchcarousel .touchcarousel-item .caption a:hover {
+	color: #ee6325;
+}
+.touch-carousel .scrollbar {
+    background-color: #ee6325 !important;
+}
+.fancybox-close:hover,
+.fancybox-prev span:hover,
+.fancybox-next span:hover {
+    background: #ee6325 !important;
+}
+.meter > span {
+    background-color: #ee6325;
+}
+.pricing .plan h4 span {
+    color: #ee6325;
+}
+.portfolio-detail-view .closebutton:hover,
+.portfolio-detail-view-remove .closebutton:hover {
+    background: #ee6325;
+}
+.carousel .item .link:hover,
+.portfolio-detail-view .single .link:hover {
+    background-color: #ee6325;
+}
+.carousel-control:hover {
+    background-color: #ee6325;
+}
+.items li a .overlay,
+.overlay a .more {
+    background-color: rgba(238,99,37, 0.92);
+}
