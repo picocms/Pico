@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com/
  * @license http://opensource.org/licenses/MIT
- * @version 0.3
+ * @version 0.4
  */
 class Pico {
 
@@ -46,6 +46,9 @@ class Pico {
 		$settings = $this->get_config();
 		$env = array('autoescape' => false);
 		if($settings['enable_cache']) $env['cache'] = CACHE_DIR;
+		
+		// Get all the pages
+		$pages = $this->get_pages($settings['base_url']);
 
 		// Load the theme
 		Twig_Autoloader::register();
@@ -59,7 +62,8 @@ class Pico {
 			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $settings['theme'],
 			'site_title' => $settings['site_title'],
 			'meta' => $meta,
-			'content' => $content
+			'content' => $content,
+			'pages' => $pages
 		));
 	}
 
@@ -126,6 +130,37 @@ class Pico {
 
 		return $config;
 	}
+	
+	/**
+	 * Get a list of pages
+	 *
+	 * @param string $base_url the base URL of the site
+	 * @return array $pages an array of pages
+	 */
+	function get_pages($base_url)
+	{
+		$pages = $this->glob_recursive(CONTENT_DIR .'*.txt');
+		foreach($pages as $key=>$page){
+			// Skip 404
+			if(basename($page) == '404.txt'){
+				unset($pages[$key]);
+				continue;
+			}
+			
+			// Get title and format $page
+			$page_content = file_get_contents($page);
+			$page_meta = $this->read_file_meta($page_content);
+			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+			$url = str_replace('index.txt', '', $url);
+			$url = str_replace('.txt', '', $url);
+			$pages[$key] = array(
+				'title' => $page_meta['title'],
+				'url' => $url
+			);
+		}
+		
+		return $pages;
+	}
 
 	/**
 	 * Helper function to work out the base URL
@@ -155,6 +190,22 @@ class Pico {
 	{
 		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
 		return strtolower($m[0]);
+	}
+	     
+	/**
+	 * Helper function to make glob recursive
+	 *
+	 * @param string $pattern glob pattern
+	 * @param int $flags glob flags
+	 * @return array the matched files/directories
+	 */ 
+	function glob_recursive($pattern, $flags = 0)
+	{
+		$files = glob($pattern, $flags);
+		foreach(glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
+			$files = array_merge($files, $this->glob_recursive($dir.'/'.basename($pattern), $flags));
+		}
+		return $files;
 	}
 
 }

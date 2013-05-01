@@ -3,13 +3,11 @@ Title: Welcome
 Description: This description will go in the meta description tag
 */
 
-Welcome to Pico
-===============
+## Welcome to Pico
 
 Congratulations you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
 
-Creating Content
-----------------
+### Creating Content
 
 Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.txt` files in the "content"
 folder and that becomes a page. For example this file is called `index.txt` and is shown as the main landing page. 
@@ -33,8 +31,7 @@ and will be able to access it from the URL `http://yousite.com/sub/page`. Below 
 
 If a file cannot be found, the file `content/404.txt` will be shown.
 
-Text File Markup
-----------------
+### Text File Markup
 
 Text files are marked up using [Markdown](http://daringfireball.net/projects/markdown/syntax). They can also contain regular HTML.
 
@@ -50,10 +47,9 @@ These values will be contained in the `{{ meta }}` variable in themes (see below
 
 There are also certain variables that you can use in your text files:
 
-* &#37;base_url&#37; - The URL to your Pico site
+* <code>&#37;base_url&#37;</code> - The URL to your Pico site
 
-Themes
-------
+### Themes
 
 You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
 [Twig](http://twig.sensiolabs.org/documentation) for it's templating engine. You can select your theme by setting the `$config['theme']` variable
@@ -69,9 +65,15 @@ All themes must include an `index.html` file to define the HTML structure of the
 * `{{ site_title }}` - Shortcut to the site title (defined in config.php)
 * `{{ meta }}` - Contains the meta values from the current page (e.g. `{{ meta.title }}`, `{{ meta.description }}`, `{{ meta.robots }}`)
 * `{{ content }}` - The content of the current page (after it has been processed through Markdown)
+* `{{ pages }}` - A collection of all the content in your site. Use it like:
 
-Config
-------
+<pre>&lt;ul class=&quot;nav&quot;&gt;
+	{% for page in pages %}
+	&lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
+	{% endfor %}
+&lt;/ul&gt;</pre>
+
+### Config
 
 You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
 list all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.

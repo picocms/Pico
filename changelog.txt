@@ -1,0 +1,19 @@
+*** Pico Changelog ***
+
+2013.05.01 - version 0.4
+ * [New] Add get_pages() function for listing content
+ * [New] Added changelog.txt
+ * [Changed] Updated default theme
+ * [Changed] Updated documentation
+
+2013.04.27 - version 0.3
+ * [Fixed] get_config() function
+
+2013.04.26 - version 0.2
+ * [Changed] Updated Twig
+ * [Changed] Better checking for HTTPS
+ * [Fixed] Add 404 header to 404 page
+ * [Fixed] Case sensitive folder bug
+
+2012.04.04 - version 0.1
+ * Initial release
