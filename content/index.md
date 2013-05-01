@@ -9,11 +9,11 @@ Congratulations you have successfully installed [Pico](http://pico.dev7studios.c
 
 ### Creating Content
 
-Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.txt` files in the "content"
-folder and that becomes a page. For example this file is called `index.txt` and is shown as the main landing page. 
+Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.md` files in the "content"
+folder and that becomes a page. For example this file is called `index.md` and is shown as the main landing page. 
 
-If you created folder within the content folder (e.g. `content/sub`) and put an `index.txt` inside it, you can access that folder at the URL 
-`http://yousite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content/sub/page.txt`)
+If you created folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL 
+`http://yousite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content/sub/page.md`)
 and will be able to access it from the URL `http://yousite.com/sub/page`. Below we've shown some examples of content locations and their corresponing URL's:
 
 <table>
@@ -21,15 +21,15 @@ and will be able to access it from the URL `http://yousite.com/sub/page`. Below 
 		<tr><th>Physical Location</th><th>URL</th></tr>
 	</thead>
 	<tbody>
-		<tr><td>content/index.txt</td><td>/</td></tr>
-		<tr><td>content/sub.txt</td><td>/sub</td></tr>
-		<tr><td>content/sub/index.txt</td><td>/sub (same as above)</td></tr>
-		<tr><td>content/sub/page.txt</td><td>/sub/page</td></tr>
-		<tr><td>content/a/very/long/url.txt</td><td>/a/very/long/url</td></tr>
+		<tr><td>content/index.md</td><td>/</td></tr>
+		<tr><td>content/sub.md</td><td>/sub</td></tr>
+		<tr><td>content/sub/index.md</td><td>/sub (same as above)</td></tr>
+		<tr><td>content/sub/page.md</td><td>/sub/page</td></tr>
+		<tr><td>content/a/very/long/url.md</td><td>/a/very/long/url</td></tr>
 	</tbody>
 </table>
 
-If a file cannot be found, the file `content/404.txt` will be shown.
+If a file cannot be found, the file `content/404.md` will be shown.
 
 ### Text File Markup
 

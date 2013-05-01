@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com/
  * @license http://opensource.org/licenses/MIT
- * @version 0.4
+ * @version 0.4.1
  */
 class Pico {
 
@@ -29,12 +29,12 @@ class Pico {
 		else $file = CONTENT_DIR .'index';
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index.txt';
-		else $file .= '.txt';
+		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
+		else $file .= CONTENT_EXT;
 
 		if(file_exists($file)) $content = file_get_contents($file);
 		else {
-			$content = file_get_contents(CONTENT_DIR .'404.txt');
+			$content = file_get_contents(CONTENT_DIR .'404'. CONTENT_EXT);
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 		}
 
@@ -139,10 +139,10 @@ class Pico {
 	 */
 	function get_pages($base_url)
 	{
-		$pages = $this->glob_recursive(CONTENT_DIR .'*.txt');
+		$pages = $this->glob_recursive(CONTENT_DIR .'*'. CONTENT_EXT);
 		foreach($pages as $key=>$page){
 			// Skip 404
-			if(basename($page) == '404.txt'){
+			if(basename($page) == '404'. CONTENT_EXT){
 				unset($pages[$key]);
 				continue;
 			}
@@ -151,8 +151,8 @@ class Pico {
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
-			$url = str_replace('index.txt', '', $url);
-			$url = str_replace('.txt', '', $url);
+			$url = str_replace('index'. CONTENT_EXT, '', $url);
+			$url = str_replace(CONTENT_EXT, '', $url);
 			$pages[$key] = array(
 				'title' => $page_meta['title'],
 				'url' => $url

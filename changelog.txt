@@ -1,5 +1,9 @@
 *** Pico Changelog ***
 
+2013.05.01 - version 0.4.1
+ * [New] Added CONTENT_EXT global
+ * [Changed] Use .md files instead of .txt
+
 2013.05.01 - version 0.4
  * [New] Add get_pages() function for listing content
  * [New] Added changelog.txt
