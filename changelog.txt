@@ -1,5 +1,13 @@
 *** Pico Changelog ***
 
+2013.05.03 - version 0.5
+ * [New] Added ability to order pages by "alpha" or "date" (asc or desc)
+ * [New] Added prev_page, current_page, next_page and is_front_page template vars
+ * [New] Added "Author" and "Date" title meta fields
+ * [Changed] Added "twig_config" to settings
+ * [Changed] Updated documentation
+ * [Fixed] Query string 404 bug
+
 2013.05.01 - version 0.4.1
  * [New] Added CONTENT_EXT global
  * [Changed] Use .md files instead of .txt

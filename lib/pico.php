@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com/
  * @license http://opensource.org/licenses/MIT
- * @version 0.4.1
+ * @version 0.5
  */
 class Pico {
 
@@ -23,6 +23,7 @@ class Pico {
 
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
+		$url = preg_replace('/\?.*/', '', $url); // Strip query string
 
 		// Get the file path
 		if($url) $file = CONTENT_DIR . $url;
@@ -37,23 +38,34 @@ class Pico {
 			$content = file_get_contents(CONTENT_DIR .'404'. CONTENT_EXT);
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 		}
+		
+		// Load the settings
+		$settings = $this->get_config();
 
 		$meta = $this->read_file_meta($content);
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = $this->parse_content($content);
-
-		// Load the settings
-		$settings = $this->get_config();
-		$env = array('autoescape' => false);
-		if($settings['enable_cache']) $env['cache'] = CACHE_DIR;
 		
 		// Get all the pages
-		$pages = $this->get_pages($settings['base_url']);
+		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order']);
+		$prev_page = array();
+		$current_page = array();
+		$next_page = array();
+		while($current_page = current($pages)){
+			if($meta['title'] == $current_page['title']){
+				break;
+			}
+			next($pages);
+		}
+		$prev_page = next($pages);
+		prev($pages);
+		$next_page = prev($pages);
 
 		// Load the theme
 		Twig_Autoloader::register();
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
-		$twig = new Twig_Environment($loader, $env);
+		$twig = new Twig_Environment($loader, $settings['twig_config']);
+		$twig->addExtension(new Twig_Extension_Debug());
 		echo $twig->render('index.html', array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
@@ -63,7 +75,11 @@ class Pico {
 			'site_title' => $settings['site_title'],
 			'meta' => $meta,
 			'content' => $content,
-			'pages' => $pages
+			'pages' => $pages,
+			'prev_page' => $prev_page,
+			'current_page' => $current_page,
+			'next_page' => $next_page,
+			'is_front_page' => $url ? false : true,
 		));
 	}
 
@@ -89,10 +105,14 @@ class Pico {
 	 */
 	function read_file_meta($content)
 	{
+		global $config;
+		
 		$headers = array(
-			'title'       => 'Title',
-			'description' => 'Description',
-			'robots'      => 'Robots'
+			'title'       	=> 'Title',
+			'description' 	=> 'Description',
+			'author' 		=> 'Author',
+			'date' 			=> 'Date',
+			'robots'     	=> 'Robots'
 		);
 
 	 	foreach ($headers as $field => $regex){
@@ -102,6 +122,8 @@ class Pico {
 				$headers[ $field ] = '';
 			}
 		}
+		
+		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
 	}
@@ -122,7 +144,10 @@ class Pico {
 			'site_title' => 'Pico',
 			'base_url' => $this->base_url(),
 			'theme' => 'default',
-			'enable_cache' => false
+			'date_format' => 'jS M Y',
+			'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
+			'pages_order_by' => 'alpha',
+			'pages_order' => 'asc'
 		);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
@@ -135,11 +160,16 @@ class Pico {
 	 * Get a list of pages
 	 *
 	 * @param string $base_url the base URL of the site
-	 * @return array $pages an array of pages
+	 * @param string $order_by order by "alpha" or "date"
+	 * @param string $order order "asc" or "desc"
+	 * @return array $sorted_pages an array of pages
 	 */
-	function get_pages($base_url)
+	function get_pages($base_url, $order_by = 'alpha', $order = 'asc')
 	{
+		global $config;
+		
 		$pages = $this->glob_recursive(CONTENT_DIR .'*'. CONTENT_EXT);
+		$sorted_pages = array();
 		foreach($pages as $key=>$page){
 			// Skip 404
 			if(basename($page) == '404'. CONTENT_EXT){
@@ -153,13 +183,21 @@ class Pico {
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
-			$pages[$key] = array(
+			$data = array(
 				'title' => $page_meta['title'],
-				'url' => $url
+				'url' => $url,
+				'author' => $page_meta['author'],
+				'date' => $page_meta['date'],
+				'date_formatted' => date($config['date_format'], strtotime($page_meta['date']))
 			);
+			if($order_by == 'date') $sorted_pages[$page_meta['date']] = $data;
+			else $sorted_pages[] = $data;
 		}
 		
-		return $pages;
+		if($order == 'desc') krsort($sorted_pages);
+		else ksort($sorted_pages);
+		
+		return $sorted_pages;
 	}
 
 	/**

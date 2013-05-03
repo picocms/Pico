@@ -40,6 +40,8 @@ At the top of text files you can place a block comment and specify certain attri
 	/ *
 	Title: Welcome
 	Description: This description will go in the meta description tag
+	Author: Joe Bloggs
+	Date: 2013/01/01
 	Robots: noindex,nofollow
 	*/
 
@@ -63,15 +65,34 @@ All themes must include an `index.html` file to define the HTML structure of the
 * `{{ theme_dir }}` - The path to the Pico active theme direcotry
 * `{{ theme_url }}` - The URL to the Pico active theme direcotry
 * `{{ site_title }}` - Shortcut to the site title (defined in config.php)
-* `{{ meta }}` - Contains the meta values from the current page (e.g. `{{ meta.title }}`, `{{ meta.description }}`, `{{ meta.robots }}`)
+* `{{ meta }}` - Contains the meta values from the current page
+	* `{{ meta.title }}`
+	* `{{ meta.description }}`
+	* `{{ meta.author }}`
+	* `{{ meta.date }}`
+	* `{{ meta.date_formatted }}`
+	* `{{ meta.robots }}`
 * `{{ content }}` - The content of the current page (after it has been processed through Markdown)
-* `{{ pages }}` - A collection of all the content in your site. Use it like:
+* `{{ pages }}` - A collection of all the content in your site
+	* `{{ page.title }}`
+	* `{{ page.url }}`
+	* `{{ page.author }}`
+	* `{{ page.date }}`
+	* `{{ page.date_formatted }}`
+* `{{ prev_page }}` - A page object of the previous page (relative to current_page)
+* `{{ current_page }}` - A page object of the current_page
+* `{{ next_page }}` - A page object of the next page (relative to current_page)
+* `{{ is_front_page }}` - A boolean flag for the front page
+
+Pages can be used like:
 
 <pre>&lt;ul class=&quot;nav&quot;&gt;
 	{% for page in pages %}
 	&lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
 	{% endfor %}
 &lt;/ul&gt;</pre>
+
+Note the `{{ pages }}` objects don't contain `content`. It is mainly to be used in creating navigaiton.
 
 ### Config
 
