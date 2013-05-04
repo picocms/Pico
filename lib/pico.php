@@ -50,16 +50,18 @@ class Pico {
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order']);
 		$prev_page = array();
 		$current_page = array();
-		$next_page = array();
+		$next_page = current($pages);
 		while($current_page = current($pages)){
 			if($meta['title'] == $current_page['title']){
+				if ($next_page['title'] == $current_page['title']){
+					$next_page = array();
+				}
 				break;
 			}
+			$next_page = current($pages);
 			next($pages);
 		}
 		$prev_page = next($pages);
-		prev($pages);
-		$next_page = prev($pages);
 
 		// Load the theme
 		Twig_Autoloader::register();
