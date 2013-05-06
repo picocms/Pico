@@ -1,5 +1,9 @@
 *** Pico Changelog ***
 
+2013.05.06 - version 0.6
+ * [New] Added plugin functionality
+ * [Changed] Other small cleanup
+
 2013.05.03 - version 0.5
  * [New] Added ability to order pages by "alpha" or "date" (asc or desc)
  * [New] Added prev_page, current_page, next_page and is_front_page template vars

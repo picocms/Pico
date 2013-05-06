@@ -4,18 +4,24 @@
  * Pico
  *
  * @author Gilbert Pellegrom
- * @link http://pico.dev7studios.com/
+ * @link http://pico.dev7studios.com
  * @license http://opensource.org/licenses/MIT
- * @version 0.5
+ * @version 0.6
  */
 class Pico {
+
+	private $plugins;
 
 	/**
 	 * The constructor carries out all the processing in Pico.
 	 * Does URL routing, Markdown processing and Twig processing.
 	 */
-	function __construct()
+	public function __construct()
 	{
+		// Load plugins
+		$this->load_plugins();
+		$this->run_hooks('plugins_loaded');
+		
 		// Get request url and script url
 		$url = '';
 		$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
@@ -24,6 +30,7 @@ class Pico {
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
 		$url = preg_replace('/\?.*/', '', $url); // Strip query string
+		$this->run_hooks('request_url', array(&$url));
 
 		// Get the file path
 		if($url) $file = CONTENT_DIR . $url;
@@ -33,18 +40,26 @@ class Pico {
 		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
 		else $file .= CONTENT_EXT;
 
-		if(file_exists($file)) $content = file_get_contents($file);
-		else {
+		$this->run_hooks('before_load_content', array(&$file));
+		if(file_exists($file)){
+			$content = file_get_contents($file);
+		} else {
+			$this->run_hooks('before_404_load_content', array(&$file));
 			$content = file_get_contents(CONTENT_DIR .'404'. CONTENT_EXT);
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+			$this->run_hooks('after_404_load_content', array(&$file, &$content));
 		}
+		$this->run_hooks('after_load_content', array(&$file, &$content));
 		
 		// Load the settings
 		$settings = $this->get_config();
+		$this->run_hooks('config_loaded', array(&$settings));
 
 		$meta = $this->read_file_meta($content);
+		$this->run_hooks('file_meta', array(&$meta));
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = $this->parse_content($content);
+		$this->run_hooks('content_parsed', array(&$content));
 		
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order']);
@@ -60,13 +75,15 @@ class Pico {
 		$prev_page = next($pages);
 		prev($pages);
 		$next_page = prev($pages);
+		$this->run_hooks('get_pages', array(&$pages, &$current_page, &$prev_page, &$next_page));
 
 		// Load the theme
+		$this->run_hooks('before_twig_register');
 		Twig_Autoloader::register();
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
 		$twig = new Twig_Environment($loader, $settings['twig_config']);
 		$twig->addExtension(new Twig_Extension_Debug());
-		echo $twig->render('index.html', array(
+		$twig_vars = array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
 			'base_url' => $settings['base_url'],
@@ -80,7 +97,30 @@ class Pico {
 			'current_page' => $current_page,
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
-		));
+		);
+		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
+		$output = $twig->render('index.html', $twig_vars);
+		$this->run_hooks('after_render', array(&$output));
+		echo $output;
+	}
+	
+	/**
+	 * Load any plugins
+	 */
+	private function load_plugins()
+	{
+		$this->plugins = array();
+		$plugins = $this->glob_recursive(PLUGINS_DIR .'*.php');
+		if(!empty($plugins)){
+			foreach($plugins as $plugin){
+				include_once($plugin);
+				$plugin_name = preg_replace("/\\.[^.\\s]{3}$/", '', basename($plugin));
+				if(class_exists($plugin_name)){
+					$obj = new $plugin_name;
+					$this->plugins[] = $obj;
+				}
+			}
+		}
 	}
 
 	/**
@@ -89,7 +129,7 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
 	 */
-	function parse_content($content)
+	private function parse_content($content)
 	{
 		$content = str_replace('%base_url%', $this->base_url(), $content);
 		$content = Markdown($content);
@@ -103,7 +143,7 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return array $headers an array of meta values
 	 */
-	function read_file_meta($content)
+	private function read_file_meta($content)
 	{
 		global $config;
 		
@@ -133,7 +173,7 @@ class Pico {
 	 *
 	 * @return array $config an array of config values
 	 */
-	function get_config()
+	private function get_config()
 	{
 		if(!file_exists(ROOT_DIR .'config.php')) return array();
 		
@@ -164,7 +204,7 @@ class Pico {
 	 * @param string $order order "asc" or "desc"
 	 * @return array $sorted_pages an array of pages
 	 */
-	function get_pages($base_url, $order_by = 'alpha', $order = 'asc')
+	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc')
 	{
 		global $config;
 		
@@ -199,13 +239,30 @@ class Pico {
 		
 		return $sorted_pages;
 	}
+	
+	/**
+	 * Processes any hooks and runs them
+	 *
+	 * @param string $hook_id the ID of the hook
+	 * @param array $args optional arguments
+	 */
+	private function run_hooks($hook_id, $args = array())
+	{
+		if(!empty($this->plugins)){
+			foreach($this->plugins as $plugin){
+				if(is_callable(array($plugin, $hook_id))){
+					call_user_func_array(array($plugin, $hook_id), $args);
+				}
+			}
+		}
+	}
 
 	/**
 	 * Helper function to work out the base URL
 	 *
 	 * @return string the base url
 	 */
-	function base_url()
+	private function base_url()
 	{
 		global $config;
 		if(isset($config['base_url']) && $config['base_url']) return $config['base_url'];
@@ -224,7 +281,7 @@ class Pico {
 	 *
 	 * @return string the current protocol
 	 */
-	function get_protocol()
+	private function get_protocol()
 	{
 		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
 		return strtolower($m[0]);
@@ -237,7 +294,7 @@ class Pico {
 	 * @param int $flags glob flags
 	 * @return array the matched files/directories
 	 */ 
-	function glob_recursive($pattern, $flags = 0)
+	private function glob_recursive($pattern, $flags = 0)
 	{
 		$files = glob($pattern, $flags);
 		foreach(glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
