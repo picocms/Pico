@@ -79,6 +79,8 @@ All themes must include an `index.html` file to define the HTML structure of the
 	* `{{ page.author }}`
 	* `{{ page.date }}`
 	* `{{ page.date_formatted }}`
+	* `{{ page.content }}`
+	* `{{ page.excerpt }}`
 * `{{ prev_page }}` - A page object of the previous page (relative to current_page)
 * `{{ current_page }}` - A page object of the current_page
 * `{{ next_page }}` - A page object of the next page (relative to current_page)
@@ -91,8 +93,6 @@ Pages can be used like:
 	&lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
 	{% endfor %}
 &lt;/ul&gt;</pre>
-
-Note the `{{ pages }}` objects don't contain `content`. It is mainly to be used in creating navigaiton.
 
 ### Config
 

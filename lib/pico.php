@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com
  * @license http://opensource.org/licenses/MIT
- * @version 0.6
+ * @version 0.6.1
  */
 class Pico {
 
@@ -57,12 +57,11 @@ class Pico {
 
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
-		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = $this->parse_content($content);
 		$this->run_hooks('content_parsed', array(&$content));
 		
 		// Get all the pages
-		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order']);
+		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
 		$prev_page = array();
 		$current_page = array();
 		$next_page = array();
@@ -131,6 +130,7 @@ class Pico {
 	 */
 	private function parse_content($content)
 	{
+		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
 		$content = Markdown($content);
 
@@ -187,7 +187,8 @@ class Pico {
 			'date_format' => 'jS M Y',
 			'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
 			'pages_order_by' => 'alpha',
-			'pages_order' => 'asc'
+			'pages_order' => 'asc',
+			'excerpt_length' => 50
 		);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
@@ -204,7 +205,7 @@ class Pico {
 	 * @param string $order order "asc" or "desc"
 	 * @return array $sorted_pages an array of pages
 	 */
-	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc')
+	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
 		global $config;
 		
@@ -220,6 +221,7 @@ class Pico {
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
+			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
@@ -228,7 +230,9 @@ class Pico {
 				'url' => $url,
 				'author' => $page_meta['author'],
 				'date' => $page_meta['date'],
-				'date_formatted' => date($config['date_format'], strtotime($page_meta['date']))
+				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
+				'content' => $page_content,
+				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
 			if($order_by == 'date') $sorted_pages[$page_meta['date']] = $data;
 			else $sorted_pages[] = $data;
@@ -301,6 +305,19 @@ class Pico {
 			$files = array_merge($files, $this->glob_recursive($dir.'/'.basename($pattern), $flags));
 		}
 		return $files;
+	}
+	
+	/**
+	 * Helper function to limit the words in a string
+	 *
+	 * @param string $string the given string
+	 * @param int $word_limit the number of words to limit to
+	 * @return string the limited string
+	 */ 
+	private function limit_words($string, $word_limit)
+	{
+		$words = explode(' ',$string);
+		return trim(implode(' ', array_splice($words, 0, $word_limit))) .'...';
 	}
 
 }

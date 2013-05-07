@@ -1,5 +1,9 @@
 *** Pico Changelog ***
 
+2013.05.07 - version 0.6.1
+ * [New] Added "content" and "excerpt" fields to pages
+ * [New] Added excerpt_length config setting
+
 2013.05.06 - version 0.6
  * [New] Added plugin functionality
  * [Changed] Other small cleanup
