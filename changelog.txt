@@ -1,5 +1,8 @@
 *** Pico Changelog ***
 
+2013.05.07 - version 0.6.2
+ * [Changed] Replaced glob_recursive with get_files
+
 2013.05.07 - version 0.6.1
  * [New] Added "content" and "excerpt" fields to pages
  * [New] Added excerpt_length config setting

@@ -6,7 +6,7 @@
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com
  * @license http://opensource.org/licenses/MIT
- * @version 0.6.1
+ * @version 0.6.2
  */
 class Pico {
 
@@ -109,7 +109,7 @@ class Pico {
 	private function load_plugins()
 	{
 		$this->plugins = array();
-		$plugins = $this->glob_recursive(PLUGINS_DIR .'*.php');
+		$plugins = $this->get_files(PLUGINS_DIR, '.php');
 		if(!empty($plugins)){
 			foreach($plugins as $plugin){
 				include_once($plugin);
@@ -209,7 +209,7 @@ class Pico {
 	{
 		global $config;
 		
-		$pages = $this->glob_recursive(CONTENT_DIR .'*'. CONTENT_EXT);
+		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
 		$sorted_pages = array();
 		foreach($pages as $key=>$page){
 			// Skip 404
@@ -292,19 +292,29 @@ class Pico {
 	}
 	     
 	/**
-	 * Helper function to make glob recursive
+	 * Helper function to recusively get all files in a directory
 	 *
-	 * @param string $pattern glob pattern
-	 * @param int $flags glob flags
-	 * @return array the matched files/directories
+	 * @param string $directory start directory
+	 * @param string $ext optional limit to file extensions
+	 * @return array the matched files
 	 */ 
-	private function glob_recursive($pattern, $flags = 0)
+	private function get_files($directory, $ext = '')
 	{
-		$files = glob($pattern, $flags);
-		foreach(glob(dirname($pattern).'/*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
-			$files = array_merge($files, $this->glob_recursive($dir.'/'.basename($pattern), $flags));
-		}
-		return $files;
+	    $array_items = array();
+	    if($handle = opendir($directory)){
+	        while(false !== ($file = readdir($handle))){
+	            if($file != "." && $file != ".."){
+	                if(is_dir($directory. "/" . $file)){
+	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
+	                } else {
+	                    $file = $directory . "/" . $file;
+	                    if(!$ext || strstr($file, $ext)) $array_items[] = preg_replace("/\/\//si", "/", $file);
+	                }
+	            }
+	        }
+	        closedir($handle);
+	    }
+	    return $array_items;
 	}
 	
 	/**
