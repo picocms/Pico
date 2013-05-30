@@ -211,6 +211,7 @@ class Pico {
 		
 		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
 		$sorted_pages = array();
+		$date_id = 0;
 		foreach($pages as $key=>$page){
 			// Skip 404
 			if(basename($page) == '404'. CONTENT_EXT){
@@ -234,7 +235,10 @@ class Pico {
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
-			if($order_by == 'date') $sorted_pages[$page_meta['date']] = $data;
+			if($order_by == 'date'){
+				$sorted_pages[$page_meta['date'].$date_id] = $data;
+				$date_id++;
+			}
 			else $sorted_pages[] = $data;
 		}
 		
