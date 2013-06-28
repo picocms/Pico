@@ -213,7 +213,7 @@ blockquote {
 }
 #header a { color: #afe1da; }
 #header h1 a,
-#header a:hover { color: #fff; }
+#header a:hover, #header li.active a { color: #fff; }
 #header h1 { 
 	font-weight: bold;
 	margin: 0; 
