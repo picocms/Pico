@@ -213,7 +213,7 @@ blockquote {
 }
 #header a { color: #afe1da; }
 #header h1 a,
-#header a:hover, #header li.active a { color: #fff; }
+#header a:hover, #header li.active span { color: #fff; }
 #header h1 { 
 	font-weight: bold;
 	margin: 0; 
@@ -226,7 +226,7 @@ blockquote {
 	padding: 0;
 }
 #header .nav li { display: inline; }
-#header .nav a {
+#header .nav a, #header .nav span {
 	font-weight: bold;
 	margin-left: 20px;
 }
