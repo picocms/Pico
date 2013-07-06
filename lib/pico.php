@@ -155,6 +155,9 @@ class Pico {
 			'robots'     	=> 'Robots'
 		);
 
+		if (isset($config['extra_meta']))
+			$headers = array_merge($headers, $config['extra_meta']);
+
 	 	foreach ($headers as $field => $regex){
 			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
 				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
@@ -235,6 +238,11 @@ class Pico {
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
+			if (isset($config['extra_meta'])){
+				foreach($config['extra_meta'] as $key=>$name) {
+					$data[$key] = $page_meta[$key];
+				}
+			}
 			if($order_by == 'date'){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
