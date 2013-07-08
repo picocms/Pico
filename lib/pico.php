@@ -97,8 +97,11 @@ class Pico {
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
 		);
+		// use a custom template if specified Template: [filename] in page meta e.g. Template: spesh to try and use spesh.html in theme folder
+		$template = ((isset($meta['template']) && file_exists($twig_vars['theme_dir'].'/'.$meta['template'].'.html')) ? $meta['template'].'.html' : 'index.html');
+
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
-		$output = $twig->render('index.html', $twig_vars);
+		$output = $twig->render($template, $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -155,11 +158,12 @@ class Pico {
 			'robots'     	=> 'Robots'
 		);
 
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
+		// parse values and custom fields, add to headers array
+		$rval = preg_match_all('/^[ \\t\\/*#@]*(.*):(.*)$/mi', $content, $matches);
+		if($rval){
+			for($m=0;$m<count($matches[1]);$m++){
+				$field = trim(strtolower($matches[1][$m]));
+				$headers[$field] = trim($matches[2][$m]);
 			}
 		}
 		
