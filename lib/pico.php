@@ -156,7 +156,7 @@ class Pico {
 		);
 
 		// Add support for custom headers by hooking into the headers array
-		$this->run_hooks('before_read_file_meata', array(&$headers));
+		$this->run_hooks('before_read_file_meta', array(&$headers));
 
 	 	foreach ($headers as $field => $regex){
 			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
@@ -240,7 +240,7 @@ class Pico {
 			);
 
 			// Extend the data provided with each page by hooking into the data array
-			$this->run_hooks('get_page_data', array(&$data, &$page_meta));
+			$this->run_hooks('get_page_data', array(&$data, $page_meta));
 
 			if($order_by == 'date'){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
