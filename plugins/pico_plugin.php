@@ -75,5 +75,3 @@ class Pico_Plugin {
 	}
 	
 }
-
-?>

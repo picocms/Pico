@@ -12,5 +12,3 @@ require(ROOT_DIR .'vendor/autoload.php');
 require(LIB_DIR .'markdown.php');
 require(LIB_DIR .'pico.php');
 $pico = new Pico();
-
-?>
