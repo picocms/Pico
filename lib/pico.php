@@ -155,7 +155,7 @@ class Pico {
 		$content = $match[0];
 
 		// parse values and custom fields, add to headers array
-		$rval = preg_match_all('/^[ \t\/*#@](.*):(.*)$/mi', $content, $matches);
+		$rval = preg_match_all('/^(.*):(.*)$/mi', $content, $matches);
 		if($rval){
 			for($m=0;$m<count($matches[1]);$m++){
 				$field = trim(strtolower($matches[1][$m]));
@@ -220,6 +220,7 @@ class Pico {
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
+			if(!$page_meta) trigger_error("$page meta not read");
 			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
