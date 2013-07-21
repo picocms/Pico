@@ -66,7 +66,7 @@ class Pico {
 		$current_page = array();
 		$next_page = array();
 		while($current_page = current($pages)){
-			if($meta['title'] == $current_page['title']){
+			if((isset($meta['title'])) && ($meta['title'] == $current_page['title'])){
 				break;
 			}
 			next($pages);
@@ -149,6 +149,7 @@ class Pico {
 	private function read_file_meta($content)
 	{
 		global $config;
+		$headers = array();
 
 		preg_match('/\/\*.*?\*\//ism', $content, $match);
 		$content = $match[0];
@@ -224,9 +225,9 @@ class Pico {
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
-				'title' => $page_meta['title'],
+				'title' => isset($page_meta['title']) ? $page_meta['title'] : null,
 				'url' => $url,
-				'author' => $page_meta['author'],
+				'author' => isset($page_meta['author']) ? $page_meta['author'] : null,
 				'date' => isset($page_meta['date']) ? $page_meta['date'] : null,
 				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : null,
 				'content' => $page_content,
