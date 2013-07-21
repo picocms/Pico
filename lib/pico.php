@@ -179,10 +179,8 @@ class Pico {
 	 */
 	private function get_config()
 	{
-		if(!file_exists(ROOT_DIR .'config.php')) return array();
-		
 		global $config;
-		require_once(ROOT_DIR .'config.php');
+		@include_once(ROOT_DIR .'config.php');
 
 		$defaults = array(
 			'site_title' => 'Pico',
