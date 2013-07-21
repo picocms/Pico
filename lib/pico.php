@@ -149,25 +149,20 @@ class Pico {
 	private function read_file_meta($content)
 	{
 		global $config;
-		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
-		);
+
+		preg_match('/\/\*.*?\*\//ism', $content, $match);
+		$content = $match[0];
 
 		// parse values and custom fields, add to headers array
-		$rval = preg_match_all('/^[ \\t\\/*#@]*(.*):(.*)$/mi', $content, $matches);
+		$rval = preg_match_all('/^[ \t\/*#@](.*):(.*)$/mi', $content, $matches);
 		if($rval){
 			for($m=0;$m<count($matches[1]);$m++){
 				$field = trim(strtolower($matches[1][$m]));
 				$headers[$field] = trim($matches[2][$m]);
 			}
 		}
-		
-		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+
+		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
 	}
@@ -232,12 +227,12 @@ class Pico {
 				'title' => $page_meta['title'],
 				'url' => $url,
 				'author' => $page_meta['author'],
-				'date' => $page_meta['date'],
-				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
+				'date' => isset($page_meta['date']) ? $page_meta['date'] : null,
+				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : null,
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
-			if($order_by == 'date'){
+			if($order_by == 'date' && isset($page_meta['date'])){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
 			}
