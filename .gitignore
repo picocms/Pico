@@ -20,4 +20,4 @@ themes/*
 !themes/default/*
 
 # User config
-config.php.dist
+config.php
