@@ -166,6 +166,7 @@
 		  <ul>
 		  	<li>%base_url% - The URL to your Pico site</li>
 		  </ul>
+		  <p>You can optionally set any other meta field to access within your theme (see below).</p>
 	      <hr>
 	      <h3 id="themeing">Themeing</h3>
 	      <p>You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
@@ -211,6 +212,7 @@
     &lt;li&gt;&lt;a href="{{ page.url }}"&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
     {% endfor %}
 &lt;/ul&gt;</pre>
+		  <p>Optionally added meta data is accessible via <code>{{ meta.option }}</code></p>
 		  <h4 id="templating">Templating</h4>
 		  <p>Sometimes we don't want to use the same page layout, but want to stay in theme. To use a different template for a page you can define a template in your pages meta data like so:</p>
 		  <pre><code>/*
