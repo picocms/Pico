@@ -21,6 +21,10 @@ class Pico {
 		// Load plugins
 		$this->load_plugins();
 		$this->run_hooks('plugins_loaded');
+
+		// Load the settings
+		$settings = $this->get_config();
+		$this->run_hooks('config_loaded', array(&$settings));
 		
 		// Get request url and script url
 		$url = '';
@@ -51,10 +55,6 @@ class Pico {
 		}
 		$this->run_hooks('after_load_content', array(&$file, &$content));
 		
-		// Load the settings
-		$settings = $this->get_config();
-		$this->run_hooks('config_loaded', array(&$settings));
-
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
 		$content = $this->parse_content($content);
