@@ -37,8 +37,8 @@ class Pico {
 		else $file = CONTENT_DIR .'index';
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
-		else $file .= CONTENT_EXT;
+		if(file_exists($file.CONTENT_EXT)) $file .= CONTENT_EXT;
+		else if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
 
 		$this->run_hooks('before_load_content', array(&$file));
 		if(file_exists($file)){
