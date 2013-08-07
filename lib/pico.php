@@ -218,6 +218,7 @@ class Pico {
 				unset($pages[$key]);
 				continue;
 			}
+
                         // Ignore Emacs (and Nano) temp files
                         if (in_array(substr($page, -1), array('~','#'))) {
 			    unset($pages[$key]);
