@@ -216,7 +216,12 @@ class Pico {
 				unset($pages[$key]);
 				continue;
 			}
-			
+
+			// Ignore Emacs (and Nano) temp files
+			if (in_array(substr($page, -1), array('~','#'))) {
+				unset($pages[$key]);
+				continue;
+			}			
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
