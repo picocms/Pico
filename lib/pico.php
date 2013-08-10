@@ -138,7 +138,7 @@ class Pico {
 	}
 
 	/**
-	 * Parses the file meta from the txt file header
+	 * Parses the file meta from the txt file header. Meta keys are converted to lowercase automatically.
 	 *
 	 * @param string $content the raw txt content
 	 * @return array $headers an array of meta values
