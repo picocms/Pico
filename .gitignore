@@ -1,5 +1,6 @@
 composer.lock
 composer.phar
+*.sublime-*
 vendor/twig/twig/doc/*
 vendor/twig/twig/ext/*
 vendor/twig/twig/test/*

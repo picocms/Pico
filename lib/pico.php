@@ -96,7 +96,7 @@ class Pico {
 			'current_page' => $current_page,
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
-		);
+			);
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
 		$output = $twig->render('index.html', $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
@@ -147,25 +147,17 @@ class Pico {
 	{
 		global $config;
 		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
-		);
-
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
+		$headers = array();
+		if (preg_match_all("/\/\*(.+?)\*\/(.*)/ms", $content, $h_and_c)) {
+			preg_match_all('/(\w+)\s*:\s*(.*)/i', $h_and_c[1][0], $m);
+			for ($i = 0; $i < count($m[0]); $i++) {
+				$headers[strtolower($m[1][$i])] = trim($m[2][$i]);
 			}
 		}
 		
 		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
-		return $headers;
+		return  $headers;
 	}
 
 	/**
@@ -189,7 +181,7 @@ class Pico {
 			'pages_order_by' => 'alpha',
 			'pages_order' => 'asc',
 			'excerpt_length' => 50
-		);
+			);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
 		else $config = $defaults;
@@ -234,7 +226,7 @@ class Pico {
 				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
-			);
+				);
 			if($order_by == 'date'){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
@@ -294,7 +286,7 @@ class Pico {
 		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
 		return strtolower($m[0]);
 	}
-	     
+
 	/**
 	 * Helper function to recusively get all files in a directory
 	 *
@@ -304,21 +296,21 @@ class Pico {
 	 */ 
 	private function get_files($directory, $ext = '')
 	{
-	    $array_items = array();
-	    if($handle = opendir($directory)){
-	        while(false !== ($file = readdir($handle))){
-	            if($file != "." && $file != ".."){
-	                if(is_dir($directory. "/" . $file)){
-	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
-	                } else {
-	                    $file = $directory . "/" . $file;
-	                    if(!$ext || strstr($file, $ext)) $array_items[] = preg_replace("/\/\//si", "/", $file);
-	                }
-	            }
-	        }
-	        closedir($handle);
-	    }
-	    return $array_items;
+		$array_items = array();
+		if($handle = opendir($directory)){
+			while(false !== ($file = readdir($handle))){
+				if($file != "." && $file != ".."){
+					if(is_dir($directory. "/" . $file)){
+						$array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
+					} else {
+						$file = $directory . "/" . $file;
+						if(!$ext || strstr($file, $ext)) $array_items[] = preg_replace("/\/\//si", "/", $file);
+					}
+				}
+			}
+			closedir($handle);
+		}
+		return $array_items;
 	}
 	
 	/**

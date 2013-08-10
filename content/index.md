@@ -1,6 +1,7 @@
 /*
 Title: Welcome
 Description: This description will go in the meta description tag
+keywords: Pico CMS
 */
 
 ## Welcome to Pico
