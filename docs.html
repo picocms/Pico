@@ -87,7 +87,10 @@
       	  	  	  <ul><li><a href="#text-file-markup">Text File Markup</a></li></ul>
       	  	  </li>
       	  	  <li><a href="#themeing">Themeing</a>
-      	  	      <ul><li><a href="#blogging">Blogging</a></li></ul>
+      	  	      <ul>
+      	  	      	<li><a href="#templating">Templating</a></li>
+      	  	      	<li><a href="#blogging">Blogging</a></li>
+      	  	      </ul>
       	  	  </li>
       	  	  <li><a href="#plugins">Plugins</a></li>
       	  	  <li><a href="#contribute">Contribute</a></li>
@@ -105,8 +108,7 @@
 	      	<li>That's it. Tweak the <code>.htaccess</code> file if required.</li>
 	      <ol>
 	      <br />
-	      <p>You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
-		  lists all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.</p>
+	      <p>You can override the default Pico settings (and add your own custom settings) by creating a config.php file in the root Pico directory. The config.php.dist file lists all of the settings and their defaults. To override a setting simply copy config.php.dist to config.php, and uncomment the setting in config.php and set your custom value.</p>
 	      <hr>
 	      <h3 id="creating-content">Creating Content</h3>
 	      <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.md</code> files in the "content"
@@ -151,18 +153,21 @@
 		  They can also contain regular HTML. At the top of text files you can place a block comment and specify certain attributes of the page. 
 		  For example:</p>
 		  <pre><code>/*
-Title: Welcome
-Description: This description will go in the meta description tag
-Author: Joe Bloggs
-Date: 2013/01/01
-Robots: noindex,nofollow
+    Title: Welcome
+    Description: This description will go in the meta description tag
+    Author: Joe Bloggs
+    Date: 2013/01/01
+    Template: index
+    Robots: noindex,nofollow
 */
 </code></pre>
+		  <p><em>If no title meta data is provided, the first heading in the file will be used.</em></p>
 		  <p>These values will be contained in the <code>{{ meta }}</code> variable in themes (see below).
 		  There are also certain variables that you can use in your text files:</p>
 		  <ul>
 		  	<li>%base_url% - The URL to your Pico site</li>
 		  </ul>
+		  <p>You can optionally set any other meta field to access within your theme (see below).</p>
 	      <hr>
 	      <h3 id="themeing">Themeing</h3>
 	      <p>You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
@@ -183,6 +188,7 @@ Robots: noindex,nofollow
 				<li><code>{{ meta.author }}</code></li>
 				<li><code>{{ meta.date }}</code></li>
 				<li><code>{{ meta.date_formatted }}</code></li>
+				<li><code>{{ meta.template }}</code></li>
 				<li><code>{{ meta.robots }}</code></li>
 				</ul></li>
 			<li><code>{{ content }}</code> - The content of the current page (after it has been processed through Markdown)</li>
@@ -207,6 +213,13 @@ Robots: noindex,nofollow
     &lt;li&gt;&lt;a href="{{ page.url }}"&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
     {% endfor %}
 &lt;/ul&gt;</pre>
+		  <p>Optionally added meta data is accessible via <code>{{ meta.option }}</code></p>
+		  <h4 id="templating">Templating</h4>
+		  <p>Sometimes we don't want to use the same page layout, but want to stay in theme. To use a different template for a page you can define a template in your pages meta data like so:</p>
+		  <pre><code>/*
+    Template: template_name
+*/</code></pre>
+		  <p>A templates name is the same as the template file in your theme (minus the .html extension). If the template does not exist within you current theme, Pico will default to the themes index.html template.</p>
 		  <h4 id="blogging">Blogging</h4>
 		  <p>If you would like to add a blog to your Pico site we suggest taking the following steps:</p>
 		  <ul>
