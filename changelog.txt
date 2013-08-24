@@ -1,5 +1,14 @@
 *** Pico Changelog ***
 
+2013.07.21 - version 0.7a2
+ * [new] Added ability to use custom meta data 
+ * [new] Added ability to choose custom template per page
+ * [changed] Removed closing php tags from files
+ * [changed] Now managing markdown parser via composer
+ * [changed] Updated Twig version
+ * [changed] get_files no longer gets dotfiles
+ * [fixed] Issues with updating Pico install once in use
+
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
 
