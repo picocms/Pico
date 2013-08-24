@@ -163,7 +163,7 @@ class Pico {
 			}
 		}
 		
-		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 		
 		if(empty($headers['title'])){
 			preg_match('/^(.+?)[ ]*\n(=+|-+)[ ]*\n+/imu',$content,$matches);
