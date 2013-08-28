@@ -1,5 +1,12 @@
 *** Pico Changelog ***
 
+2013.08.28 - version 0.6.3
+ * [New] Added any meta tag support
+ * [New] Added layout meta tag to support custom templates for each page
+ * [New] Ignore Emacs and Nano tmp files like: "~", "#"; in content folder
+ * [New] Ignore hidden files in content folder
+ * [Fixed] - empty title/date headers
+
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
 
