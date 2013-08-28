@@ -151,7 +151,7 @@ class Pico {
 	 */
 	private function parse_content($content)
 	{
-		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
+		$content = preg_replace('#^/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
 		$content = MarkdownExtra::defaultTransform($content);
 
