@@ -79,6 +79,11 @@ class Pico {
 		// Load the theme
 		$this->run_hooks('before_twig_register');
 		Twig_Autoloader::register();
+
+        if(!is_dir(THEMES_DIR . $settings['theme'])) {
+            die(sprintf("Can't open defined theme: %s in dir %s", $settings['theme'], THEMES_DIR));
+        }
+
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
 		$twig = new Twig_Environment($loader, $settings['twig_config']);
 		$twig->addExtension(new Twig_Extension_Debug());

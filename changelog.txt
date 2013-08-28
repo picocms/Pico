@@ -6,6 +6,7 @@
  * [New] Ignore Emacs and Nano tmp files like: "~", "#"; in content folder
  * [New] Ignore hidden files in content folder
  * [Fixed] - empty title/date headers
+ * [Fixed] - Error handling on wrong theme name
 
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
