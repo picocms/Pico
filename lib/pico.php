@@ -1,5 +1,7 @@
 <?php
 
+use \Michelf\MarkdownExtra;
+
 /**
  * Pico
  *
@@ -79,6 +81,11 @@ class Pico {
 		// Load the theme
 		$this->run_hooks('before_twig_register');
 		Twig_Autoloader::register();
+
+        if(!is_dir(THEMES_DIR . $settings['theme'])) {
+            die(sprintf("Can't open defined theme: %s in dir %s", $settings['theme'], THEMES_DIR));
+        }
+
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
 		$twig = new Twig_Environment($loader, $settings['twig_config']);
 		$twig->addExtension(new Twig_Extension_Debug());
@@ -144,9 +151,9 @@ class Pico {
 	 */
 	private function parse_content($content)
 	{
-		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
+		$content = preg_replace('#^/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = Markdown($content);
+		$content = MarkdownExtra::defaultTransform($content);
 
 		return $content;
 	}
@@ -155,30 +162,21 @@ class Pico {
 	 * Parses the file meta from the txt file header
 	 *
 	 * @param string $content the raw txt content
-	 * @return array $headers an array of meta values
+	 * @return array $headers an array of meta values. Meta keys are converted to lowercase automatically.
 	 */
-	private function read_file_meta($content)
-	{
-		global $config;
-		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots',
-            'layout'        => 'Layout'
-		);
+    private function read_file_meta($content)
+    {
+        global $config;
 
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
-			}
-		}
-		
-		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+        $headers = array();
+        if (preg_match_all("/\/\*(.+?)\*\/(.*)/ms", $content, $h_and_c)) {
+            preg_match_all('/(\w+)\s*:\s*(.*)/i', $h_and_c[1][0], $m);
+            for ($i = 0; $i < count($m[0]); $i++) {
+                $headers[strtolower($m[1][$i])] = trim($m[2][$i]);
+            }
+        }
+
+        if (isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
         if (empty($headers['title'])) {
             preg_match('/^(.+?)[ ]*\n(=+|-+)[ ]*\n+/imu', $content, $matches);
@@ -193,7 +191,7 @@ class Pico {
         }
 
         return $headers;
-	}
+    }
 
 	/**
 	 * Loads the config
@@ -255,6 +253,7 @@ class Pico {
             // Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
+            if(!$page_meta) trigger_error("$page meta not read");
 			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);

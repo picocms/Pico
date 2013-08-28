@@ -1,6 +1,4 @@
 composer.lock
 composer.phar
-vendor/twig/twig/doc/*
-vendor/twig/twig/ext/*
-vendor/twig/twig/test/*
+vendor/*
 .idea
