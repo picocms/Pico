@@ -9,6 +9,7 @@
  * [Fixed] Error handling on wrong theme name
  * [Changed] remove vendor from git repository; install them using composer;
  * [Changed] remove php closing tag ?>
+ * [Changed] Now it is possible to use "/** */" in content, if there is a space or something in front of first slash
 
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
