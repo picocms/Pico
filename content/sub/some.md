@@ -1,5 +1,6 @@
 /*
-Title: Somepage
+Title: Something
+Layout: special.html
 */
 
 ## This is a Sub Page
