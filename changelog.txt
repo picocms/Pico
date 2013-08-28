@@ -2,7 +2,7 @@
 
 2013.08.28 - version 0.6.3
  * [New] Added any meta tag support
- * [New] Added layout meta tag to support custom templates for each page
+ * [New] Added layout meta tag to support custom templates for each page (some.md is an example)
  * [New] Ignore Emacs and Nano tmp files like: "~", "#"; in content folder
  * [New] Ignore hidden files in content folder
  * [Fixed] empty title/date headers
