@@ -65,13 +65,13 @@ class Pico {
 		$prev_page = array();
 		$current_page = array();
 		$next_page = array();
-		while($current_page = current($pages)){
-			if($meta['title'] == $current_page['title']){
-				break;
-			}
-			next($pages);
-		}
-		$prev_page = next($pages);
+        while ($current_page = current($pages)) {
+            if ((isset($meta['title'])) && ($meta['title'] == $current_page['title'])) {
+                break;
+            }
+            next($pages);
+        }
+        $prev_page = next($pages);
 		prev($pages);
 		$next_page = prev($pages);
 		$this->run_hooks('get_pages', array(&$pages, &$current_page, &$prev_page, &$next_page));
@@ -100,10 +100,19 @@ class Pico {
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
 
         if (isset($meta['layout']) && !empty($meta['layout'])) {
-            $output = $twig->render($meta['layout'], $twig_vars);
+
+            $ext = pathinfo($meta['layout'], PATHINFO_EXTENSION);
+            $layout = (empty($ext)) ? '.html' : '';
+
+            if (file_exists(THEMES_DIR . $settings['theme'] . '/' . $layout) == false) {
+                $layout = 'index.html';
+            }
+
         } else {
-            $output = $twig->render('index.html', $twig_vars);
+            $layout = 'index.html';
         }
+        $output = $twig->render($layout, $twig_vars);
+
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -171,7 +180,19 @@ class Pico {
 		
 		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
-		return $headers;
+        if (empty($headers['title'])) {
+            preg_match('/^(.+?)[ ]*\n(=+|-+)[ ]*\n+/imu', $content, $matches);
+            if (count($matches) > 0) {
+                $headers['title'] = $matches[1];
+            } else {
+                preg_match('/^\#{1}([^\#].*)$/imu', $content, $matches);
+                if (count($matches) > 0) {
+                    $headers['title'] = $matches[1];
+                }
+            }
+        }
+
+        return $headers;
 	}
 
 	/**
@@ -224,28 +245,41 @@ class Pico {
 				unset($pages[$key]);
 				continue;
 			}
-			
-			// Get title and format $page
+
+            // Ignore Emacs (and Nano) temp files
+            if (in_array(substr($page, -1), array('~', '#'))) {
+                unset($pages[$key]);
+                continue;
+            }
+
+            // Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
 			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
-			$data = array(
-				'title' => $page_meta['title'],
-				'url' => $url,
-				'author' => $page_meta['author'],
-				'date' => $page_meta['date'],
-				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
-				'content' => $page_content,
-				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
-			);
-			if($order_by == 'date'){
-				$sorted_pages[$page_meta['date'].$date_id] = $data;
-				$date_id++;
-			}
-			else $sorted_pages[] = $data;
+
+            $data = array();
+            // these are generic fields that are added
+            foreach ($page_meta as $key => $value) {
+                $data[$key] = isset($page_meta[$key]) ? $value : null;
+            }
+
+            // these are special fields and need to be overwritten
+            $extras = array(
+                'url' => $url,
+                'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : null,
+                'content' => $page_content,
+                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
+            );
+
+            $data = array_merge($data, $extras);
+            if ($order_by == 'date' && isset($page_meta['date'])) {
+                $sorted_pages[$page_meta['date'] . $date_id] = $data;
+                $date_id++;
+            }
+            else $sorted_pages[] = $data;
 		}
 		
 		if($order == 'desc') krsort($sorted_pages);
@@ -313,7 +347,7 @@ class Pico {
 	    $array_items = array();
 	    if($handle = opendir($directory)){
 	        while(false !== ($file = readdir($handle))){
-	            if($file != "." && $file != ".." && substr($file,0,1) != "."){
+	            if(preg_match("/^(^\.)/", $file) === 0){
 	                if(is_dir($directory. "/" . $file)){
 	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
 	                } else {
@@ -341,5 +375,3 @@ class Pico {
 	}
 
 }
-
-?>
