@@ -98,7 +98,12 @@ class Pico {
 			'is_front_page' => $url ? false : true,
 		);
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
-		$output = $twig->render('index.html', $twig_vars);
+
+        if (isset($meta['layout']) && !empty($meta['layout'])) {
+            $output = $twig->render($meta['layout'], $twig_vars);
+        } else {
+            $output = $twig->render('index.html', $twig_vars);
+        }
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -152,7 +157,8 @@ class Pico {
 			'description' 	=> 'Description',
 			'author' 		=> 'Author',
 			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
+			'robots'     	=> 'Robots',
+            'layout'        => 'Layout'
 		);
 
 	 	foreach ($headers as $field => $regex){
