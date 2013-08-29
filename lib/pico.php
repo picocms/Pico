@@ -133,6 +133,7 @@ class Pico {
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
 		$content = Markdown($content);
+		if (function_exists('SmartyPants'))  $content = SmartyPants($content);
 
 		return $content;
 	}
