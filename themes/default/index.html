@@ -4,11 +4,10 @@
 	<meta charset="utf-8" />
 	
 	<title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
-{% if meta.description %}
-	<meta name="description" content="{{ meta.description }}"> 
-{% endif %}{% if meta.robots %}
-	<meta name="robots" content="{{ meta.robots }}">
-{% endif %}
+
+    {% for key, val in meta if key in ['description', 'keywords', 'author', 'robots', 'url'] %}
+    <meta name="{{ key }}" content="{{ val }}">
+    {% endfor %}
 	
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
 	<link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />

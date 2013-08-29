@@ -1,5 +1,16 @@
 *** Pico Changelog ***
 
+2013.08.28 - version 0.6.3
+ * [New] Added any meta tag support
+ * [New] Added layout meta tag to support custom templates for each page (some.md is an example)
+ * [New] Ignore Emacs and Nano tmp files like: "~", "#"; in content folder
+ * [New] Ignore hidden files in content folder
+ * [Fixed] empty title/date headers
+ * [Fixed] Error handling on wrong theme name
+ * [Changed] remove vendor from git repository; install them using composer;
+ * [Changed] remove php closing tag ?>
+ * [Changed] Now it is possible to use "/** */" in content, if there is a space or something in front of first slash
+
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+	
+	<title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+
+    {% for key, val in meta if key in ['description', 'keywords', 'author', 'robots', 'url'] %}
+        <meta name="{{ key }}" content="{{ val }}">
+    {% endfor %}
+	
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+	<link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
+	
+	<script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+</head>
+<body>
+
+	<header id="header">
+		<div class="inner clearfix">
+			<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
+            <p>This is template without menu</p>
+		</div>
+	</header>
+
+	<section id="content">
+		<div class="inner">
+			{{ content }}
+		</div>
+	</section>
+	
+	<footer id="footer">
+		<div class="inner">
+			This is second template;
+		</div>
+	</footer>
+    
+</body>
+</html>
