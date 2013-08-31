@@ -96,11 +96,10 @@ class Pico {
 			'current_page' => $current_page,
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
-			);
 		);
 		// use a custom template if specified Template: [filename] in page meta e.g. Template: spesh to try and use spesh.html in theme folder
 		$template = ((isset($meta['template']) && file_exists($twig_vars['theme_dir'].'/'.$meta['template'].'.html')) ? $meta['template'].'.html' : 'index.html');
-		
+
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
 		$output = $twig->render($template, $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
@@ -150,7 +149,7 @@ class Pico {
 	private function read_file_meta($content)
 	{
 		global $config;
-		
+
 		$headers = array();
 		if (preg_match_all("/\/\*(.+?)\*\/(.*)/ms", $content, $h_and_c)) {
 			preg_match_all('/(\w+)\s*:\s*(.*)/i', $h_and_c[1][0], $m);
@@ -158,7 +157,7 @@ class Pico {
 				$headers[strtolower($m[1][$i])] = trim($m[2][$i]);
 			}
 		}
-		
+
 		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		if(empty($headers['title'])){
@@ -240,8 +239,8 @@ class Pico {
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array();
 			// these are generic fields that are added
-			foreach ($page_meta as $key => $value) {
-				$data[$key] = isset($page_meta[$key]) ? $value : null;
+			foreach ($page_meta as $meta_key => $value) {
+				$data[$meta_key] = isset($page_meta[$meta_key]) ? $value : null;
 			}
 			// these are special fields and need to be overwritten
 			$extras = array(
@@ -250,6 +249,7 @@ class Pico {
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
+            $data = array_merge($data, $extras);
 			if($order_by == 'date') {
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
