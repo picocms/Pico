@@ -1,3 +1,25 @@
+* 1.13.2 (2013-08-03)
+
+ * fixed the error line number for an error occurs in and embedded template
+ * fixed crashes of the C extension on some edge cases
+
+* 1.13.1 (2013-06-06)
+
+ * added the possibility to ignore the filesystem constructor argument in Twig_Loader_Filesystem
+ * fixed Twig_Loader_Chain::exists() for a loader which implements Twig_ExistsLoaderInterface
+ * adjusted backtrace call to reduce memory usage when an error occurs
+ * added support for object instances as the second argument of the constant test
+ * fixed the include function when used in an assignment
+
+* 1.13.0 (2013-05-10)
+
+ * fixed getting a numeric-like item on a variable ('09' for instance)
+ * fixed getting a boolean or float key on an array, so it is consistent with PHP's array access:
+   `{{ array[false] }}` behaves the same as `echo $array[false];` (equals `$array[0]`)
+ * made the escape filter 20% faster for happy path (escaping string for html with UTF-8)
+ * changed ☃ to § in tests
+ * enforced usage of named arguments after positional ones
+
 * 1.12.3 (2013-04-08)
 
  * fixed a security issue in the filesystem loader where it was possible to include a template one
