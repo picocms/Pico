@@ -251,7 +251,7 @@ class Pico
                 'url' => $url,
                 'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : null,
                 'content' => $page_content,
-                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length),
+                'excerpt' => isset($page_meta['excerpt']) ? $page_meta['excerpt'] : $this->limit_words(strip_tags($page_content), $excerpt_length),
                 'last_modified' => new DateTime('@' . filemtime($page))
             );
             $data = array_merge($data, $extras);

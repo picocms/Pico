@@ -1,3 +1,8 @@
+* 1.13.2 (2013-08-03)
+
+ * fixed the error line number for an error occurs in and embedded template
+ * fixed crashes of the C extension on some edge cases
+
 * 1.13.1 (2013-06-06)
 
  * added the possibility to ignore the filesystem constructor argument in Twig_Loader_Filesystem
