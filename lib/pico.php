@@ -63,7 +63,8 @@ class Pico
         $this->run_hooks('content_parsed', array(&$content));
 
         // Get all the pages
-        $pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
+        $pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'],
+            $settings['meta_max_length'], $settings['excerpt_length']);
         $prev_page = array();
         $current_page = array();
         $next_page = array();
@@ -133,7 +134,7 @@ class Pico
      * @param string $content the raw txt content
      * @return string $content the Markdown formatted content
      */
-    private function parse_content($content)
+    private function parse_content(&$content)
     {
         $content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
         $content = str_replace('%base_url%', $this->base_url(), $content);
@@ -213,7 +214,7 @@ class Pico
      * @param string $order order "asc" or "desc"
      * @return array $sorted_pages an array of pages
      */
-    private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
+    private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $meta_max_length = 2048, $excerpt_length = 50)
     {
         global $config;
 
@@ -233,7 +234,7 @@ class Pico
                 continue;
             }
             // Get title and format $page
-            $page_content = file_get_contents($page);
+            $page_content = file_get_contents($page, NULL, NULL, 0, $meta_max_length);
             $page_meta = $this->read_file_meta($page_content);
             if (!$page_meta) trigger_error("$page meta not read");
             $page_content = $this->parse_content($page_content);
@@ -250,7 +251,8 @@ class Pico
                 'url' => $url,
                 'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : null,
                 'content' => $page_content,
-                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
+                'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length),
+                'last_modified' => new DateTime('@' . filemtime($page))
             );
             $data = array_merge($data, $extras);
             if ($order_by == 'date') {
@@ -350,6 +352,4 @@ class Pico
         $words = explode(' ', $string);
         return trim(implode(' ', array_splice($words, 0, $word_limit))) . '...';
     }
-
 }
-
