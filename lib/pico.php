@@ -21,6 +21,10 @@ class Pico {
 		// Load plugins
 		$this->load_plugins();
 		$this->run_hooks('plugins_loaded');
+
+		// Load the settings
+		$settings = $this->get_config();
+		$this->run_hooks('config_loaded', array(&$settings));
 		
 		// Get request url and script url
 		$url = '';
@@ -51,10 +55,6 @@ class Pico {
 		}
 		$this->run_hooks('after_load_content', array(&$file, &$content));
 		
-		// Load the settings
-		$settings = $this->get_config();
-		$this->run_hooks('config_loaded', array(&$settings));
-
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
 		$content = $this->parse_content($content);
@@ -155,6 +155,9 @@ class Pico {
 			'robots'     	=> 'Robots'
 		);
 
+		if (isset($config['extra_meta']))
+			$headers = array_merge($headers, $config['extra_meta']);
+
 	 	foreach ($headers as $field => $regex){
 			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
 				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
@@ -235,6 +238,11 @@ class Pico {
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
+			if (isset($config['extra_meta'])){
+				foreach($config['extra_meta'] as $key=>$name) {
+					$data[$key] = $page_meta[$key];
+				}
+			}
 			if($order_by == 'date'){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
