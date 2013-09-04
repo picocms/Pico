@@ -155,6 +155,9 @@ class Pico {
 			'robots'     	=> 'Robots'
 		);
 
+		// Add support for custom headers by hooking into the headers array
+		$this->run_hooks('before_read_file_meta', array(&$headers));
+
 	 	foreach ($headers as $field => $regex){
 			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
 				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
@@ -235,6 +238,10 @@ class Pico {
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
+
+			// Extend the data provided with each page by hooking into the data array
+			$this->run_hooks('get_page_data', array(&$data, $page_meta));
+
 			if($order_by == 'date'){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
