@@ -94,7 +94,15 @@ Pages can be used like:
 	{% endfor %}
 &lt;/ul&gt;</pre>
 
+### Plugins
+
+See [http://pico.dev7studios.com/plugins](http://pico.dev7studios.com/plugins)
+
 ### Config
 
 You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
 lists all of the settings and their defaults. To override a setting, simply uncomment it in config.php and set your custom value.
+
+### Documentation
+
+For more help have a look at the Pico documentation at [http://pico.dev7studios.com/docs](http://pico.dev7studios.com/docs)

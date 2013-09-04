@@ -1,12 +1,13 @@
 <?php
 use \Michelf\MarkdownExtra;
+
 /**
  * Pico
  *
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com
  * @license http://opensource.org/licenses/MIT
- * @version 0.6.2
+ * @version 0.7
  */
 class Pico {
 
@@ -66,7 +67,7 @@ class Pico {
 		$current_page = array();
 		$next_page = array();
 		while($current_page = current($pages)){
-			if($meta['title'] == $current_page['title']){
+			if((isset($meta['title'])) && ($meta['title'] == $current_page['title'])){
 				break;
 			}
 			next($pages);
@@ -166,7 +167,7 @@ class Pico {
 			}
 		}
 		
-		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
 	}
@@ -178,10 +179,8 @@ class Pico {
 	 */
 	private function get_config()
 	{
-		if(!file_exists(ROOT_DIR .'config.php')) return array();
-		
 		global $config;
-		require_once(ROOT_DIR .'config.php');
+		@include_once(ROOT_DIR .'config.php');
 
 		$defaults = array(
 			'site_title' => 'Pico',
@@ -235,11 +234,11 @@ class Pico {
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
-				'title' => $page_meta['title'],
+				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
 				'url' => $url,
-				'author' => $page_meta['author'],
-				'date' => $page_meta['date'],
-				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
+				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
+				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
+				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
@@ -247,7 +246,7 @@ class Pico {
 			// Extend the data provided with each page by hooking into the data array
 			$this->run_hooks('get_page_data', array(&$data, $page_meta));
 
-			if($order_by == 'date'){
+			if($order_by == 'date' && isset($page_meta['date'])){
 				$sorted_pages[$page_meta['date'].$date_id] = $data;
 				$date_id++;
 			}
@@ -347,5 +346,3 @@ class Pico {
 	}
 
 }
-
-?>

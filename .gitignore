@@ -1,5 +1,23 @@
+# Composer
 composer.lock
 composer.phar
+
+# Twig
 vendor/twig/twig/doc/*
 vendor/twig/twig/ext/*
 vendor/twig/twig/test/*
+
+# OS Generated
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.swp
+
+# User themes
+themes/*
+!themes/index.html
+!themes/default/*
+
+# User config
+config.php

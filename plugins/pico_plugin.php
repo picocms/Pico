@@ -44,12 +44,22 @@ class Pico_Plugin {
 		
 	}
 	
+	public function before_read_file_meta(&$headers)
+	{
+		
+	}
+	
 	public function file_meta(&$meta)
 	{
 		
 	}
 	
 	public function content_parsed(&$content)
+	{
+		
+	}
+	
+	public function get_page_data(&$data, $page_meta)
 	{
 		
 	}
