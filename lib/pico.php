@@ -314,7 +314,7 @@ class Pico {
 	    $array_items = array();
 	    if($handle = opendir($directory)){
 	        while(false !== ($file = readdir($handle))){
-	            if($file != "." && $file != ".."){
+	            if(preg_match("/^(^\.)/", $file) === 0){
 	                if(is_dir($directory. "/" . $file)){
 	                    $array_items = array_merge($array_items, $this->get_files($directory. "/" . $file, $ext));
 	                } else {
