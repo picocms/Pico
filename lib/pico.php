@@ -37,8 +37,8 @@ class Pico {
 		else $file = CONTENT_DIR .'index';
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
-		else $file .= CONTENT_EXT;
+		if(file_exists($file.CONTENT_EXT)) $file .= CONTENT_EXT;
+		else if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
 
 		$this->run_hooks('before_load_content', array(&$file));
 		if(file_exists($file)){
@@ -66,7 +66,7 @@ class Pico {
 		$current_page = array();
 		$next_page = array();
 		while($current_page = current($pages)){
-			if($meta['title'] == $current_page['title']){
+			if($this->gen_url($file) == $current_page['url']){
 				break;
 			}
 			next($pages);
@@ -226,12 +226,9 @@ class Pico {
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
 			$page_content = $this->parse_content($page_content);
-			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
-			$url = str_replace('index'. CONTENT_EXT, '', $url);
-			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
 				'title' => $page_meta['title'],
-				'url' => $url,
+				'url' => $this->gen_url($page),
 				'author' => $page_meta['author'],
 				'date' => $page_meta['date'],
 				'date_formatted' => date($config['date_format'], strtotime($page_meta['date'])),
@@ -339,6 +336,20 @@ class Pico {
 	{
 		$words = explode(' ',$string);
 		return trim(implode(' ', array_splice($words, 0, $word_limit))) .'...';
+	}
+	
+	/**
+	 * Helper function to generate page url
+	 *
+	 * @param string $page a content file
+	 * @return string the absolute url to the file
+	 */
+	private function gen_url($page)
+	{
+		$url = str_replace(CONTENT_DIR, $this->base_url() .'/', $page);
+		$url = str_replace('index'. CONTENT_EXT, '', $url);
+		$url = str_replace(CONTENT_EXT, '', $url);
+		return $url;
 	}
 
 }
