@@ -89,7 +89,9 @@
       	  	  <li><a href="#themeing">Themeing</a>
       	  	      <ul><li><a href="#blogging">Blogging</a></li></ul>
       	  	  </li>
-      	  	  <li><a href="#plugins">Plugins</a></li>
+      	  	  <li><a href="#plugins">Plugins</a>
+      	  	  	  <ul><li><a href="#adding-custom-meta">Adding Custom Meta</a></li></ul>
+      	  	  </li>
       	  	  <li><a href="#contribute">Contribute</a></li>
       	  </ul>
       </div>
@@ -264,8 +266,10 @@ Robots: noindex,nofollow
 			<li><code>before_404_load_content(&$file)</code></li>
 			<li><code>after_404_load_content(&$file, &$content)</code></li>
 			<li><code>config_loaded(&$settings)</code></li>
+			<li><code>before_read_file_meta(&$headers)</code></li>
 			<li><code>file_meta(&$meta)</code></li>
 			<li><code>content_parsed(&$content)</code></li>
+			<li><code>get_page_data(&$data, $page_meta)</code></li>
 			<li><code>get_pages(&$pages, &$current_page, &$prev_page, &$next_page)</code></li>
 			<li><code>before_twig_register()</code></li>
 			<li><code>before_render(&$twig_vars, &$twig)</code></li>
@@ -273,6 +277,20 @@ Robots: noindex,nofollow
 		  </ul>
 		  <p>Note that parameter variables are <a href="http://php.net/manual/en/language.references.pass.php" target="_blank">passed by reference</a>
 		  so that they can be modified.</p>
+		  <h4 id="adding-custom-meta">Adding Custom Meta</h4>
+		  <p>If you need to add custom meta variables you can do so using the <code>before_read_file_meta()</code> hook. For example:</p>
+		  <pre><code>public function before_read_file_meta(&$headers)
+{
+	$headers['layout'] = 'Layout';
+}</code></pre>
+		  <p>Then in your content meta you would add the relevant meta value:</p>
+		  <pre><code>/*
+Title: Example
+Description: This is a description
+Layout: 2col
+*/
+</code></pre>
+		  <p>You will then be able to access this value via the <code>{{ meta.layout }}</code> template variable.</p>
 	      <hr>
 	      <h3 id="contribute">Contribute</h3>
 	      <p>Help make Pico better by checking out <a href="https://github.com/gilbitron/Pico">the GitHub repoistory</a> and submitting pull requests. If you find a bug
