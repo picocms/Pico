@@ -167,6 +167,18 @@ class Pico {
 		}
 		
 		if($headers['date']) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+		
+		if(empty($headers['title'])){
+			preg_match('/^(.+?)[ ]*\n(=+|-+)[ ]*\n+/imu',$content,$matches);
+			if(count($matches) > 0){
+					$headers['title'] = $matches[1];
+			}else{
+				preg_match('/^\#{1}([^\#].*)$/imu',$content,$matches);
+				if(count($matches) > 0){
+					$headers['title'] = $matches[1];
+				}
+			}
+		}
 
 		return $headers;
 	}
