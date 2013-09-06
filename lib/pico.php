@@ -22,7 +22,7 @@ class Pico {
 		// Load plugins
 		$this->load_plugins();
 		$this->run_hooks('plugins_loaded');
-		
+
 		// Get request url and script url
 		$url = '';
 		$request_url = (isset($_SERVER['REQUEST_URI'])) ? $_SERVER['REQUEST_URI'] : '';
@@ -51,7 +51,7 @@ class Pico {
 			$this->run_hooks('after_404_load_content', array(&$file, &$content));
 		}
 		$this->run_hooks('after_load_content', array(&$file, &$content));
-		
+
 		// Load the settings
 		$settings = $this->get_config();
 		$this->run_hooks('config_loaded', array(&$settings));
@@ -60,7 +60,7 @@ class Pico {
 		$this->run_hooks('file_meta', array(&$meta));
 		$content = $this->parse_content($content);
 		$this->run_hooks('content_parsed', array(&$content));
-		
+
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
 		$prev_page = array();
@@ -103,11 +103,11 @@ class Pico {
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
-	
+
 	/**
 	 * Load any plugins
 	 */
-	private function load_plugins()
+	protected function load_plugins()
 	{
 		$this->plugins = array();
 		$plugins = $this->get_files(PLUGINS_DIR, '.php');
@@ -129,7 +129,7 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
 	 */
-	private function parse_content($content)
+	protected function parse_content($content)
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
@@ -144,10 +144,10 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return array $headers an array of meta values
 	 */
-	private function read_file_meta($content)
+	protected function read_file_meta($content)
 	{
 		global $config;
-		
+
 		$headers = array(
 			'title'       	=> 'Title',
 			'description' 	=> 'Description',
@@ -166,7 +166,7 @@ class Pico {
 				$headers[ $field ] = '';
 			}
 		}
-		
+
 		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
@@ -177,7 +177,7 @@ class Pico {
 	 *
 	 * @return array $config an array of config values
 	 */
-	private function get_config()
+	protected function get_config()
 	{
 		global $config;
 		@include_once(ROOT_DIR .'config.php');
@@ -198,7 +198,7 @@ class Pico {
 
 		return $config;
 	}
-	
+
 	/**
 	 * Get a list of pages
 	 *
@@ -207,10 +207,10 @@ class Pico {
 	 * @param string $order order "asc" or "desc"
 	 * @return array $sorted_pages an array of pages
 	 */
-	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
+	protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
 		global $config;
-		
+
 		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
 		$sorted_pages = array();
 		$date_id = 0;
@@ -225,7 +225,7 @@ class Pico {
 			if (in_array(substr($page, -1), array('~','#'))) {
 				unset($pages[$key]);
 				continue;
-			}			
+			}
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
@@ -252,20 +252,20 @@ class Pico {
 			}
 			else $sorted_pages[] = $data;
 		}
-		
+
 		if($order == 'desc') krsort($sorted_pages);
 		else ksort($sorted_pages);
-		
+
 		return $sorted_pages;
 	}
-	
+
 	/**
 	 * Processes any hooks and runs them
 	 *
 	 * @param string $hook_id the ID of the hook
 	 * @param array $args optional arguments
 	 */
-	private function run_hooks($hook_id, $args = array())
+	protected function run_hooks($hook_id, $args = array())
 	{
 		if(!empty($this->plugins)){
 			foreach($this->plugins as $plugin){
@@ -281,7 +281,7 @@ class Pico {
 	 *
 	 * @return string the base url
 	 */
-	private function base_url()
+	protected function base_url()
 	{
 		global $config;
 		if(isset($config['base_url']) && $config['base_url']) return $config['base_url'];
@@ -300,20 +300,20 @@ class Pico {
 	 *
 	 * @return string the current protocol
 	 */
-	private function get_protocol()
+	protected function get_protocol()
 	{
 		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
 		return strtolower($m[0]);
 	}
-	     
+
 	/**
 	 * Helper function to recusively get all files in a directory
 	 *
 	 * @param string $directory start directory
 	 * @param string $ext optional limit to file extensions
 	 * @return array the matched files
-	 */ 
-	private function get_files($directory, $ext = '')
+	 */
+	protected function get_files($directory, $ext = '')
 	{
 	    $array_items = array();
 	    if($handle = opendir($directory)){
@@ -331,15 +331,15 @@ class Pico {
 	    }
 	    return $array_items;
 	}
-	
+
 	/**
 	 * Helper function to limit the words in a string
 	 *
 	 * @param string $string the given string
 	 * @param int $word_limit the number of words to limit to
 	 * @return string the limited string
-	 */ 
-	private function limit_words($string, $word_limit)
+	 */
+	protected function limit_words($string, $word_limit)
 	{
 		$words = explode(' ',$string);
 		return trim(implode(' ', array_splice($words, 0, $word_limit))) .'...';
