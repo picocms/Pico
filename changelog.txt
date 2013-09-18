@@ -9,6 +9,14 @@
  * [changed] get_files no longer gets dotfiles
  * [fixed] Issues with updating Pico install once in use
 
+2013.09.04 - version 0.7
+ * [New] Added before_read_file_meta and get_page_data plugin hooks to customize page meta data
+ * [Changed] Make get_files() ignore dotfiles
+ * [Changed] Make get_pages() ignore Emacs and temp files
+ * [Changed] Use composer version of Markdown
+ * [Changed] Other small tweaks
+ * [Fixed] Date warnings and other small bugs
+
 2013.05.07 - version 0.6.2
  * [Changed] Replaced glob_recursive with get_files
 

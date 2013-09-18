@@ -6,16 +6,16 @@ keywords: Pico CMS
 
 ## Welcome to Pico
 
-Congratulations you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
+Congratulations, you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
 
 ### Creating Content
 
 Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.md` files in the "content"
-folder and that becomes a page. For example this file is called `index.md` and is shown as the main landing page. 
+folder and that becomes a page. For example, this file is called `index.md` and is shown as the main landing page. 
 
-If you created folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL 
+If you create a folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL 
 `http://yousite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content/sub/page.md`)
-and will be able to access it from the URL `http://yousite.com/sub/page`. Below we've shown some examples of content locations and their corresponing URL's:
+and you will be able to access it from the URL `http://yousite.com/sub/page`. Below we've shown some examples of content locations and their corresponing URL's:
 
 <table>
 	<thead>
@@ -56,7 +56,7 @@ There are also certain variables that you can use in your text files:
 
 ### Themes
 
-You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
+You can create themes for your Pico installation in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
 [Twig](http://twig.sensiolabs.org/documentation) for it's templating engine. You can select your theme by setting the `$config['theme']` variable
 in config.php to your theme folder.
 
@@ -99,7 +99,15 @@ Pages can be used like:
 	{% endfor %}
 &lt;/ul&gt;</pre>
 
+### Plugins
+
+See [http://pico.dev7studios.com/plugins](http://pico.dev7studios.com/plugins)
+
 ### Config
 
 You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
-list all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.
+lists all of the settings and their defaults. To override a setting, simply uncomment it in config.php and set your custom value.
+
+### Documentation
+
+For more help have a look at the Pico documentation at [http://pico.dev7studios.com/docs](http://pico.dev7studios.com/docs)
