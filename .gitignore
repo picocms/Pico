@@ -21,3 +21,6 @@ themes/*
 
 # User config
 config.php
+*.iml
+*.sublime-*
+.idea
