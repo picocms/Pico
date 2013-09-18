@@ -8,6 +8,10 @@ define('PLUGINS_DIR', ROOT_DIR .'plugins/');
 define('THEMES_DIR', ROOT_DIR .'themes/');
 define('CACHE_DIR', LIB_DIR .'cache/');
 
+date_default_timezone_set('UTC');
+
 require(ROOT_DIR .'vendor/autoload.php');
 require(LIB_DIR .'pico.php');
 $pico = new Pico();
+
+// End of file

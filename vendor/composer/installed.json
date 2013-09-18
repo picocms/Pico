@@ -1,27 +1,27 @@
 [
     {
         "name": "twig/twig",
-        "version": "v1.12.3",
-        "version_normalized": "1.12.3.0",
+        "version": "v1.13.2",
+        "version_normalized": "1.13.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fabpot/Twig.git",
-            "reference": "v1.12.3"
+            "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fabpot/Twig/zipball/v1.12.3",
-            "reference": "v1.12.3",
+            "url": "https://api.github.com/repos/fabpot/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
+            "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2013-04-08 12:40:11",
+        "time": "2013-08-03 15:35:31",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.12-dev"
+                "dev-master": "1.13-dev"
             }
         },
         "installation-source": "dist",
@@ -32,7 +32,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "BSD-3"
+            "BSD-3-Clause"
         ],
         "authors": [
             {

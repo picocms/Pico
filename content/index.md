@@ -1,6 +1,7 @@
 /*
 Title: Welcome
 Description: This description will go in the meta description tag
+keywords: Pico CMS
 */
 
 ## Welcome to Pico
@@ -43,6 +44,8 @@ At the top of text files you can place a block comment and specify certain attri
 	Author: Joe Bloggs
 	Date: 2013/01/01
 	Robots: noindex,nofollow
+	Keywords: keyword1, keyword2
+	Foo: Bar
 	*/
 
 These values will be contained in the `{{ meta }}` variable in themes (see below).
@@ -65,13 +68,15 @@ All themes must include an `index.html` file to define the HTML structure of the
 * `{{ theme_dir }}` - The path to the Pico active theme direcotry
 * `{{ theme_url }}` - The URL to the Pico active theme direcotry
 * `{{ site_title }}` - Shortcut to the site title (defined in config.php)
-* `{{ meta }}` - Contains the meta values from the current page
+* `{{ meta }}` - Contains the meta values from the current page. Meta keys are always converted to lowercase.
 	* `{{ meta.title }}`
 	* `{{ meta.description }}`
 	* `{{ meta.author }}`
 	* `{{ meta.date }}`
 	* `{{ meta.date_formatted }}`
 	* `{{ meta.robots }}`
+	* `{{ meta.keywords }}`
+	* `{{ meta.foo }}`
 * `{{ content }}` - The content of the current page (after it has been processed through Markdown)
 * `{{ pages }}` - A collection of all the content in your site
 	* `{{ page.title }}`

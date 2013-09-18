@@ -1,5 +1,14 @@
 *** Pico Changelog ***
 
+2013.07.21 - version 0.7a2
+ * [new] Added ability to use custom meta data 
+ * [new] Added ability to choose custom template per page
+ * [changed] Removed closing php tags from files
+ * [changed] Now managing markdown parser via composer
+ * [changed] Updated Twig version
+ * [changed] get_files no longer gets dotfiles
+ * [fixed] Issues with updating Pico install once in use
+
 2013.09.04 - version 0.7
  * [New] Added before_read_file_meta and get_page_data plugin hooks to customize page meta data
  * [Changed] Make get_files() ignore dotfiles

@@ -86,4 +86,4 @@ class Pico_Plugin {
 	
 }
 
-?>
+// End of file
