@@ -19,6 +19,11 @@ class Pico {
 	 */
 	public function __construct()
 	{
+		// Load the settings
+		$settings = $this->get_config();
+		$this->run_hooks('config_loaded', array(&$settings));
+		global $config;
+
 		// Load plugins
 		$this->load_plugins();
 		$this->run_hooks('plugins_loaded');
@@ -30,7 +35,9 @@ class Pico {
 
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-		$url = preg_replace('/\?.*/', '', $url); // Strip query string
+		if (!$config['mod_rewrite']) $repl_str = '/^\?/';
+		else $repl_str = '/\?.*/';
+		$url = preg_replace($repl_str, '', $url); // Strip query string
 		$this->run_hooks('request_url', array(&$url));
 
 		// Get the file path
@@ -51,10 +58,6 @@ class Pico {
 			$this->run_hooks('after_404_load_content', array(&$file, &$content));
 		}
 		$this->run_hooks('after_load_content', array(&$file, &$content));
-		
-		// Load the settings
-		$settings = $this->get_config();
-		$this->run_hooks('config_loaded', array(&$settings));
 
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
@@ -190,7 +193,8 @@ class Pico {
 			'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
 			'pages_order_by' => 'alpha',
 			'pages_order' => 'asc',
-			'excerpt_length' => 50
+			'excerpt_length' => 50,
+			'mod_rewrite' => true
 		);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
@@ -230,7 +234,9 @@ class Pico {
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
 			$page_content = $this->parse_content($page_content);
-			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+			if (!$config['mod_rewrite']) $base_url_part = '/?';
+			else $base_url_part = '/';
+			$url = str_replace(CONTENT_DIR, $base_url . $base_url_part, $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
