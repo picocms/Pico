@@ -61,7 +61,7 @@ class Pico {
 
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
-		$content = $this->parse_content($content);
+		$content = $this->parse_content($content,$file);
 		$this->run_hooks('content_parsed', array(&$content));
 		
 		// Get all the pages
@@ -132,10 +132,11 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
 	 */
-	private function parse_content($content)
+	private function parse_content($content,$page)
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
+		$content = str_replace('%curr_dir_url%', $this->base_url() ."/". dirname(str_replace(ROOT_DIR,"",$page)), $content);
 		$content = MarkdownExtra::defaultTransform($content);
 
 		return $content;
@@ -233,7 +234,7 @@ class Pico {
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
-			$page_content = $this->parse_content($page_content);
+			$page_content = $this->parse_content($page_content,$page);
 			if (!$config['mod_rewrite']) $base_url_part = '/?';
 			else $base_url_part = '/';
 			$url = str_replace(CONTENT_DIR, $base_url . $base_url_part, $page);
