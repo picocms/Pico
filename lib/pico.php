@@ -43,6 +43,7 @@ class Pico {
 		// Get the file path
 		if($url) $file = CONTENT_DIR . $url;
 		else $file = CONTENT_DIR .'index';
+		$file=urldecode($file);
 
 		// Load the file
 		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
