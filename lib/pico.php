@@ -302,8 +302,14 @@ class Pico {
 	 */
 	private function get_protocol()
 	{
-		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
-		return strtolower($m[0]);
+        // need to check if HTTPS is set and is not 'off' (and ISAPI/IIS 
+        // peculiarity)
+        if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
+            $protocol = 'https';
+        } else {
+            $protocol = 'http';
+        }
+		return $protocol;
 	}
 	     
 	/**
