@@ -302,8 +302,8 @@ class Pico {
 	 */
 	private function get_protocol()
 	{
-        // need to check if HTTPS is set and is not 'off' (and ISAPI/IIS 
-        // peculiarity)
+        // need to check if HTTPS is set and is not 'off' (a documented
+        // ISAPI/IIS peculiarity)
         if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } else {
