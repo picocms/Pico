@@ -17,6 +17,7 @@ Thumbs.db
 # User themes
 themes/*
 !themes/index.html
+!themes/default
 !themes/default/*
 
 # User config
