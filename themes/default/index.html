@@ -29,9 +29,18 @@
 	</header>
 
 	<section id="content">
-		<div class="inner">
+        <!-- old {{ content }} variable works also -->
+		<!-- div class="inner">
 			{{ content }}
-		</div>
+		</div -->
+        <div class="inner">
+            <div class="col_content">
+                {{ column_content }}
+            </div>
+            <div class="col_sidebar">
+                {{ column_sidebar }}
+            </div>
+        </div>
 	</section>
 	
 	<footer id="footer">

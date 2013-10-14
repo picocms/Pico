@@ -11,6 +11,7 @@ use \Michelf\MarkdownExtra;
  */
 class Pico {
 
+	private $columns = array();
 	private $plugins;
 
 	/**
@@ -98,6 +99,9 @@ class Pico {
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
 		);
+		foreach ($this->columns as $var => $code) {
+			$twig_vars["column_{$var}"] = $code;
+		}
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
 		$output = $twig->render('index.html', $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
@@ -133,6 +137,17 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
+
+		// pattern to find {column:xyz} {/column:xyz} column marker
+		$pattern = '#({column:(.*?)})(.+?)({/column:\\2})#ims';
+		preg_match_all($pattern, $content, $matches);
+
+		$counter = 0;
+		foreach ($matches[2] as $var) {
+			$this->columns[$var] = MarkdownExtra::defaultTransform($matches[3][$counter]);
+			$counter++;
+		}
+
 		$content = MarkdownExtra::defaultTransform($content);
 
 		return $content;
