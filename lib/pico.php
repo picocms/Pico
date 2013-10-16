@@ -100,6 +100,10 @@ class Pico {
 		);
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
 		$template = (isset($meta['template']) && strlen($meta['template']) > 0) ? $meta['template'] : 'index';
+		if (!file_exists(THEMES_DIR . $settings['theme'] . "/{$template}.html")) {
+			// fallback to index.html if template not exists...
+			$template = 'index';
+		}
 		$output = $twig->render("{$template}.html", $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
