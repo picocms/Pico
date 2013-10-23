@@ -158,6 +158,7 @@ Description: This description will go in the meta description tag
 Author: Joe Bloggs
 Date: 2013/01/01
 Robots: noindex,nofollow
+Template: index (allows you to use different templates in your theme)
 */
 </code></pre>
 		  <p>These values will be contained in the <code>{{ meta }}</code> variable in themes (see below).
@@ -260,19 +261,20 @@ Robots: noindex,nofollow
 		  <p>Below is a list of available hooks and their parameters:</p>
 		  <ul>
 			<li><code>plugins_loaded()</code></li>
+			<li><code>config_loaded(&$settings)</code></li>
 			<li><code>request_url(&$url)</code></li>
 			<li><code>before_load_content(&$file)</code></li>
 			<li><code>after_load_content(&$file, &$content)</code></li>
 			<li><code>before_404_load_content(&$file)</code></li>
 			<li><code>after_404_load_content(&$file, &$content)</code></li>
-			<li><code>config_loaded(&$settings)</code></li>
 			<li><code>before_read_file_meta(&$headers)</code></li>
 			<li><code>file_meta(&$meta)</code></li>
-			<li><code>content_parsed(&$content)</code></li>
+			<li><code>before_parse_content(&$content)</code></li>
+			<li><code>after_parse_content(&$content)</code></li>
 			<li><code>get_page_data(&$data, $page_meta)</code></li>
 			<li><code>get_pages(&$pages, &$current_page, &$prev_page, &$next_page)</code></li>
 			<li><code>before_twig_register()</code></li>
-			<li><code>before_render(&$twig_vars, &$twig)</code></li>
+			<li><code>before_render(&$twig_vars, &$twig, &$template)</code></li>
 			<li><code>after_render(&$output)</code></li>
 		  </ul>
 		  <p>Note that parameter variables are <a href="http://php.net/manual/en/language.references.pass.php" target="_blank">passed by reference</a>
