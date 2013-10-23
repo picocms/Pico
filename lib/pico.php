@@ -110,7 +110,7 @@ class Pico {
 	/**
 	 * Load any plugins
 	 */
-	private function load_plugins()
+	protected function load_plugins()
 	{
 		$this->plugins = array();
 		$plugins = $this->get_files(PLUGINS_DIR, '.php');
@@ -132,7 +132,7 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
 	 */
-	private function parse_content($content)
+	protected function parse_content($content)
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
@@ -147,7 +147,7 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return array $headers an array of meta values
 	 */
-	private function read_file_meta($content)
+	protected function read_file_meta($content)
 	{
 		global $config;
 		
@@ -180,7 +180,7 @@ class Pico {
 	 *
 	 * @return array $config an array of config values
 	 */
-	private function get_config()
+	protected function get_config()
 	{
 		global $config;
 		@include_once(ROOT_DIR .'config.php');
@@ -210,7 +210,7 @@ class Pico {
 	 * @param string $order order "asc" or "desc"
 	 * @return array $sorted_pages an array of pages
 	 */
-	private function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
+	protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
 		global $config;
 		
@@ -268,7 +268,7 @@ class Pico {
 	 * @param string $hook_id the ID of the hook
 	 * @param array $args optional arguments
 	 */
-	private function run_hooks($hook_id, $args = array())
+	protected function run_hooks($hook_id, $args = array())
 	{
 		if(!empty($this->plugins)){
 			foreach($this->plugins as $plugin){
@@ -284,7 +284,7 @@ class Pico {
 	 *
 	 * @return string the base url
 	 */
-	private function base_url()
+	protected function base_url()
 	{
 		global $config;
 		if(isset($config['base_url']) && $config['base_url']) return $config['base_url'];
@@ -303,7 +303,7 @@ class Pico {
 	 *
 	 * @return string the current protocol
 	 */
-	private function get_protocol()
+	protected function get_protocol()
 	{
 		$protocol = 'http';
 		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'){
@@ -319,7 +319,7 @@ class Pico {
 	 * @param string $ext optional limit to file extensions
 	 * @return array the matched files
 	 */ 
-	private function get_files($directory, $ext = '')
+	protected function get_files($directory, $ext = '')
 	{
 	    $array_items = array();
 	    if($handle = opendir($directory)){
@@ -345,7 +345,7 @@ class Pico {
 	 * @param int $word_limit the number of words to limit to
 	 * @return string the limited string
 	 */ 
-	private function limit_words($string, $word_limit)
+	protected function limit_words($string, $word_limit)
 	{
 		$words = explode(' ',$string);
 		$excerpt = trim(implode(' ', array_splice($words, 0, $word_limit)));
