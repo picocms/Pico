@@ -342,7 +342,9 @@ class Pico {
 	private function limit_words($string, $word_limit)
 	{
 		$words = explode(' ',$string);
-		return trim(implode(' ', array_splice($words, 0, $word_limit))) .'...';
+		$excerpt = trim(implode(' ', array_splice($words, 0, $word_limit)));
+		if(count($words) > $word_limit) $excerpt .= '&hellip;';
+		return $excerpt;
 	}
 
 }
