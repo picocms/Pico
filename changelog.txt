@@ -1,5 +1,14 @@
 *** Pico Changelog ***
 
+2013.10.23 - version 0.8
+ * [New] Added ability to set template in content meta
+ * [New] Added before_parse_content and after_parse_content hooks
+ * [Changed] content_parsed hook is now depreciated
+ * [Changed] Moved loading the config to nearer the beginning of the class
+ * [Changed] Only append ellipsis in limit_words() when word count exceeds max
+ * [Changed] Made private methods protected for better inheritance
+ * [Fixed] Fixed get_protocol() method to work in more situations
+
 2013.09.04 - version 0.7
  * [New] Added before_read_file_meta and get_page_data plugin hooks to customize page meta data
  * [Changed] Make get_files() ignore dotfiles
