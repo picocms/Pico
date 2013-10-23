@@ -102,7 +102,12 @@ class Pico {
 			'is_front_page' => $url ? false : true,
 		);
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
-		$output = $twig->render('index.html', $twig_vars);
+		$template = (isset($meta['template']) && strlen($meta['template']) > 0) ? $meta['template'] : 'index';
+		if (!file_exists(THEMES_DIR . $settings['theme'] . "/{$template}.html")) {
+			// fallback to index.html if template not exists...
+			$template = 'index';
+		}
+		$output = $twig->render("{$template}.html", $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -156,7 +161,8 @@ class Pico {
 			'description' 	=> 'Description',
 			'author' 		=> 'Author',
 			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
+			'robots'     	=> 'Robots',
+			'template'      => 'Template'
 		);
 
 		// Add support for custom headers by hooking into the headers array

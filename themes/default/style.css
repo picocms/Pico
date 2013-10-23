@@ -201,8 +201,17 @@ blockquote {
 /* Structure Styles
 /*---------------------------------------------*/
 .inner {
-	width: 850px;
-	margin: 0 auto;
+    width: 850px;
+    margin: 0 auto;
+}
+
+.inner .sidebar {
+    width: 250px;
+    margin: 0 20px 20px 0;
+    padding: 20px;
+    min-height: 300px;
+    background: #dddddd;
+    float: left;
 }
 
 #header {
