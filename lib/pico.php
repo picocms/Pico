@@ -102,7 +102,19 @@ class Pico {
 			'is_front_page' => $url ? false : true,
 		);
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
-		$output = $twig->render('index.html', $twig_vars);
+		// use layout or index
+		if (isset($meta['layout'])) {
+			$layout = $meta['layout'];
+			$ext = pathinfo($meta['layout'], PATHINFO_EXTENSION);
+			$layout .= (empty($ext)) ? '.html' : '';
+
+			if (file_exists(THEMES_DIR . $settings['theme'] . '/' . $layout) == false) {
+				$layout = 'index.html';
+			}
+		} else {
+			$layout = 'index.html';
+		}
+		$output = $twig->render($layout, $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -154,9 +166,10 @@ class Pico {
 		$headers = array(
 			'title'       	=> 'Title',
 			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
+			'author' 	=> 'Author',
+			'date' 		=> 'Date',
+			'robots'     	=> 'Robots',
+			'layout'	=> 'Layout'
 		);
 
 		// Add support for custom headers by hooking into the headers array
