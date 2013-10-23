@@ -58,8 +58,11 @@ class Pico {
 
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
+
+		$this->run_hooks('before_parse_content', array(&$content));
 		$content = $this->parse_content($content);
-		$this->run_hooks('content_parsed', array(&$content));
+		$this->run_hooks('after_parse_content', array(&$content));
+		$this->run_hooks('content_parsed', array(&$content)); // Depreciated @ v0.8
 		
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
@@ -302,8 +305,11 @@ class Pico {
 	 */
 	private function get_protocol()
 	{
-		preg_match("|^HTTP[S]?|is",$_SERVER['SERVER_PROTOCOL'],$m);
-		return strtolower($m[0]);
+		$protocol = 'http';
+		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'){
+			$protocol = 'https';
+		}
+		return $protocol;
 	}
 	     
 	/**

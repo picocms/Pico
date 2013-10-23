@@ -13,6 +13,11 @@ class Pico_Plugin {
 	{
 		
 	}
+
+	public function config_loaded(&$settings)
+	{
+		
+	}
 	
 	public function request_url(&$url)
 	{
@@ -39,11 +44,6 @@ class Pico_Plugin {
 		
 	}
 	
-	public function config_loaded(&$settings)
-	{
-		
-	}
-	
 	public function before_read_file_meta(&$headers)
 	{
 		
@@ -53,8 +53,13 @@ class Pico_Plugin {
 	{
 		
 	}
+
+	public function before_parse_content(&$content)
+	{
+		
+	}
 	
-	public function content_parsed(&$content)
+	public function after_parse_content(&$content)
 	{
 		
 	}
