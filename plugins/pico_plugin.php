@@ -54,7 +54,12 @@ class Pico_Plugin {
 		
 	}
 	
-	public function content_parsed(&$content)
+	public function before_parse_content(&$content)
+	{
+		
+	}
+	
+	public function after_parse_content(&$content)
 	{
 		
 	}

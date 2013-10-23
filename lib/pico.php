@@ -58,8 +58,11 @@ class Pico {
 
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
+                
+		$this->run_hooks('before_parse_content', array(&$content));
 		$content = $this->parse_content($content);
-		$this->run_hooks('content_parsed', array(&$content));
+		$this->run_hooks('after_parse_content', array(&$content));
+		$this->run_hooks('content_parsed', array(&$content)); // Backwards compatibility
 		
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
