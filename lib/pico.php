@@ -7,7 +7,7 @@ use \Michelf\MarkdownExtra;
  * @author Gilbert Pellegrom
  * @link http://pico.dev7studios.com
  * @license http://opensource.org/licenses/MIT
- * @version 0.7
+ * @version 0.8
  */
 class Pico {
 
@@ -101,8 +101,10 @@ class Pico {
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
 		);
-		$this->run_hooks('before_render', array(&$twig_vars, &$twig));
-		$output = $twig->render('index.html', $twig_vars);
+
+		$template = (isset($meta['template']) && $meta['template']) ? $meta['template'] : 'index';
+		$this->run_hooks('before_render', array(&$twig_vars, &$twig, &$template));
+		$output = $twig->render($template .'.html', $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
 	}
@@ -156,7 +158,8 @@ class Pico {
 			'description' 	=> 'Description',
 			'author' 		=> 'Author',
 			'date' 			=> 'Date',
-			'robots'     	=> 'Robots'
+			'robots'     	=> 'Robots',
+			'template'      => 'Template'
 		);
 
 		// Add support for custom headers by hooking into the headers array
