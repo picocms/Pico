@@ -70,7 +70,7 @@ class Pico {
 		$current_page = array();
 		$next_page = array();
 		while($current_page = current($pages)){
-			if((isset($meta['title'])) && ($meta['title'] == $current_page['title'])){
+			if($meta->Title && ($meta->Title == $current_page['title'])) {
 				break;
 			}
 			next($pages);
@@ -102,7 +102,7 @@ class Pico {
 			'is_front_page' => $url ? false : true,
 		);
 
-		$template = (isset($meta['template']) && $meta['template']) ? $meta['template'] : 'index';
+		$template = ($meta->Template !== null) ? $meta->Template : 'index';
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig, &$template));
 		$output = $twig->render($template .'.html', $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
@@ -151,31 +151,7 @@ class Pico {
 	 */
 	protected function read_file_meta($content)
 	{
-		global $config;
-		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots',
-			'template'      => 'Template'
-		);
-
-		// Add support for custom headers by hooking into the headers array
-		$this->run_hooks('before_read_file_meta', array(&$headers));
-
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
-			}
-		}
-		
-		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
-
-		return $headers;
+		return new \Pico\Model\Meta($content);
 	}
 
 	/**
@@ -240,11 +216,11 @@ class Pico {
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
-				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
+				'title' => ($page_meta->Title !== null) ? $page_meta->Title : '',
 				'url' => $url,
-				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
-				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
-				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
+				'author' => ($page_meta->Author !== null) ? $page_meta>Author : '',
+				'date' => ($page_meta->Date) ? $page_meta->Date : '',
+				'date_formatted' => ($page_meta->Date) ? date($config['date_format'], strtotime($page_meta->Date)) : '',
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
@@ -252,8 +228,8 @@ class Pico {
 			// Extend the data provided with each page by hooking into the data array
 			$this->run_hooks('get_page_data', array(&$data, $page_meta));
 
-			if($order_by == 'date' && isset($page_meta['date'])){
-				$sorted_pages[$page_meta['date'].$date_id] = $data;
+			if($order_by == 'date' && $page_meta->Date !== null){
+				$sorted_pages[$page_meta->Date.$date_id] = $data;
 				$date_id++;
 			}
 			else $sorted_pages[] = $data;
