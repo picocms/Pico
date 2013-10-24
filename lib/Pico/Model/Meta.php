@@ -10,12 +10,10 @@ namespace Pico\Model;
  * @license http://opensource.org/licenses/MIT
  * @version 0.1
  */
-class Meta {
-	protected $headers  = array();
-
+class Meta extends AbstractModel {
 	public function __construct($rawData = null) {
 		if ($rawData !== null) {
-			$this->parseRawData($rawData);
+			$this->setRawData($rawData);
 		}
 	}
 
@@ -23,27 +21,12 @@ class Meta {
 		$this->parseRawData($rawData);
 	}
 	
-	public function get($key) {
-		return (isset($this->headers[$key])) ? $this->headers[$key] : null;
-	}
-
 	public function getFormattedDate() {
 		global $config;
-		if (isset($this->headers['date'])) {
-			return date($config['date_format'], strtotime($this->headers['date']));
+		if (isset($this->data['date'])) {
+			return date($config['date_format'], strtotime($this->data['date']));
 		}
 		return null;
-	}
-	
-	public function __get($name) {
-		return $this->get($name);
-	}
-
-	public function __call($name, $args) {
-		if (strpos($name, 'get') !== false) {
-			$name = substr($name, 3);
-			return $this->get($name);
-		}
 	}
 
 	protected function parseRawData($rawData) {
@@ -55,7 +38,7 @@ class Meta {
 				$parts  = explode(':', $line);
 				$key    = array_shift($parts);
 				$val    = implode($parts);
-				$this->headers[$key]    = trim($val);
+				$this->set($key, trim($val));
 			}
 		}
 	}
