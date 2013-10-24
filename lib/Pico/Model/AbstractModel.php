@@ -14,6 +14,7 @@ class AbstractModel implements \ArrayAccess {
 	protected $data  = array();
 
 	public function get($key) {
+		$key = ucfirst($key);
 		return (isset($this->data[$key])) ? $this->data[$key] : null;
 	}
 
