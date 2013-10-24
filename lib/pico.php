@@ -60,6 +60,10 @@ class Pico {
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
 
+		$this->run_hooks('before_parse_columns', array(&$content, $this->columns));
+		$this->parse_columns($content);
+		$this->run_hooks('after_parse_columns', array(&$content, $this->columns));
+
 		$this->run_hooks('before_parse_content', array(&$content));
 		$content = $this->parse_content($content);
 		$this->run_hooks('after_parse_content', array(&$content));
@@ -131,6 +135,18 @@ class Pico {
 		}
 	}
 
+	protected function parse_columns($content) {
+		// pattern to find {column:xyz} {/column:xyz} column marker
+		$pattern = '#({column:(.*?)})(.+?)({/column:\\2})#ims';
+		preg_match_all($pattern, $content, $matches);
+
+		$counter = 0;
+		foreach ($matches[2] as $var) {
+			$this->columns[$var] = MarkdownExtra::defaultTransform($matches[3][$counter]);
+			$counter++;
+		}
+	}
+
 	/**
 	 * Parses the content using Markdown
 	 *
@@ -141,17 +157,6 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-
-		// pattern to find {column:xyz} {/column:xyz} column marker
-		$pattern = '#({column:(.*?)})(.+?)({/column:\\2})#ims';
-		preg_match_all($pattern, $content, $matches);
-
-		$counter = 0;
-		foreach ($matches[2] as $var) {
-			$this->columns[$var] = MarkdownExtra::defaultTransform($matches[3][$counter]);
-			$counter++;
-		}
-
 		$content = MarkdownExtra::defaultTransform($content);
 
 		return $content;
