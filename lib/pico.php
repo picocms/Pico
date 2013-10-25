@@ -63,7 +63,7 @@ class Pico {
 		$content = $this->parse_content($content);
 		$this->run_hooks('after_parse_content', array(&$content));
 		$this->run_hooks('content_parsed', array(&$content)); // Depreciated @ v0.8
-		
+
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
 		$prev_page = array();
@@ -86,6 +86,7 @@ class Pico {
 		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
 		$twig = new Twig_Environment($loader, $settings['twig_config']);
 		$twig->addExtension(new Twig_Extension_Debug());
+                $twig->addExtension(new Twig_Extension_StringLoader());
 		$twig_vars = array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
@@ -102,13 +103,15 @@ class Pico {
 			'is_front_page' => $url ? false : true,
 		);
 
-		$template = (isset($meta['template']) && $meta['template']) ? $meta['template'] : 'index';
+                //check if template file exist
+		$template = (isset($meta['template']) && $meta['template'] && file_exists($twig_vars['theme_dir'].'/'.$meta['template'].'.html')) ? $meta['template'] : 'index';
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig, &$template));
 		$output = $twig->render($template .'.html', $twig_vars);
 		$this->run_hooks('after_render', array(&$output));
 		echo $output;
+
 	}
-	
+
 	/**
 	 * Load any plugins
 	 */
@@ -152,7 +155,7 @@ class Pico {
 	protected function read_file_meta($content)
 	{
 		global $config;
-		
+
 		$headers = array(
 			'title'       	=> 'Title',
 			'description' 	=> 'Description',
@@ -172,7 +175,7 @@ class Pico {
 				$headers[ $field ] = '';
 			}
 		}
-		
+
 		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
@@ -204,7 +207,7 @@ class Pico {
 
 		return $config;
 	}
-	
+
 	/**
 	 * Get a list of pages
 	 *
@@ -216,7 +219,7 @@ class Pico {
 	protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
 		global $config;
-		
+
 		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
 		$sorted_pages = array();
 		$date_id = 0;
@@ -231,7 +234,7 @@ class Pico {
 			if (in_array(substr($page, -1), array('~','#'))) {
 				unset($pages[$key]);
 				continue;
-			}			
+			}
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
@@ -258,13 +261,13 @@ class Pico {
 			}
 			else $sorted_pages[] = $data;
 		}
-		
+
 		if($order == 'desc') krsort($sorted_pages);
 		else ksort($sorted_pages);
-		
+
 		return $sorted_pages;
 	}
-	
+
 	/**
 	 * Processes any hooks and runs them
 	 *
@@ -314,14 +317,14 @@ class Pico {
 		}
 		return $protocol;
 	}
-	     
+
 	/**
 	 * Helper function to recusively get all files in a directory
 	 *
 	 * @param string $directory start directory
 	 * @param string $ext optional limit to file extensions
 	 * @return array the matched files
-	 */ 
+	 */
 	protected function get_files($directory, $ext = '')
 	{
 	    $array_items = array();
@@ -340,14 +343,14 @@ class Pico {
 	    }
 	    return $array_items;
 	}
-	
+
 	/**
 	 * Helper function to limit the words in a string
 	 *
 	 * @param string $string the given string
 	 * @param int $word_limit the number of words to limit to
 	 * @return string the limited string
-	 */ 
+	 */
 	protected function limit_words($string, $word_limit)
 	{
 		$words = explode(' ',$string);
