@@ -11,6 +11,7 @@ use \Michelf\MarkdownExtra;
  */
 class Pico {
 
+	protected $columns = array();
 	private $plugins;
 
 	/**
@@ -59,6 +60,10 @@ class Pico {
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
 
+		$this->run_hooks('before_parse_columns', array(&$content, $this->columns));
+		$this->parse_columns($content);
+		$this->run_hooks('after_parse_columns', array(&$content, $this->columns));
+
 		$this->run_hooks('before_parse_content', array(&$content));
 		$content = $this->parse_content($content);
 		$this->run_hooks('after_parse_content', array(&$content));
@@ -101,7 +106,9 @@ class Pico {
 			'next_page' => $next_page,
 			'is_front_page' => $url ? false : true,
 		);
-
+		foreach ($this->columns as $var => $code) {
+			$twig_vars["column_{$var}"] = $code;
+		}
 		$template = (isset($meta['template']) && $meta['template']) ? $meta['template'] : 'index';
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig, &$template));
 		$output = $twig->render($template .'.html', $twig_vars);
@@ -125,6 +132,18 @@ class Pico {
 					$this->plugins[] = $obj;
 				}
 			}
+		}
+	}
+
+	protected function parse_columns($content) {
+		// pattern to find {column:xyz} {/column:xyz} column marker
+		$pattern = '#({column:(.*?)})(.+?)({/column:\\2})#ims';
+		preg_match_all($pattern, $content, $matches);
+
+		$counter = 0;
+		foreach ($matches[2] as $var) {
+			$this->columns[$var] = MarkdownExtra::defaultTransform($matches[3][$counter]);
+			$counter++;
 		}
 	}
 

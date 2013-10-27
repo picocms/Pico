@@ -3,6 +3,7 @@ Title: Welcome
 Description: This description will go in the meta description tag
 */
 
+
 ## Welcome to Pico
 
 Congratulations, you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
@@ -73,6 +74,7 @@ All themes must include an `index.html` file to define the HTML structure of the
 	* `{{ meta.date_formatted }}`
 	* `{{ meta.robots }}`
 * `{{ content }}` - The content of the current page (after it has been processed through Markdown)
+* `{{ column_<name> }}` - The column name of the content of the current page (after it has been processed through Markdown) [more information](#columns)
 * `{{ pages }}` - A collection of all the content in your site
 	* `{{ page.title }}`
 	* `{{ page.url }}`
@@ -93,6 +95,15 @@ Pages can be used like:
 	&lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
 	{% endfor %}
 &lt;/ul&gt;</pre>
+
+### <a name="columns"></a> Columns
+
+You can use multiple columns within the templates. A good example is the 404 error page. The basic logic is very simple. In the template you can use twig variables like `{{ column_content }}`.
+To define which content should be displayed in which column, you have to wrap the content (in the *.md files) with markers like this:
+
+<pre>{column:content}
+  my content for column content
+{/column:content}</pre>
 
 ### Plugins
 

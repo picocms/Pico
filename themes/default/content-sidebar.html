@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+	
+	<title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+{% if meta.description %}
+	<meta name="description" content="{{ meta.description }}"> 
+{% endif %}{% if meta.robots %}
+	<meta name="robots" content="{{ meta.robots }}">
+{% endif %}
+	
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+	<link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
+	
+	<script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+</head>
+<body>
+
+	<header id="header">
+		<div class="inner clearfix">
+			<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
+			<ul class="nav">
+				{% for page in pages %}
+				<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</header>
+
+	<section id="content">
+		<div class="inner clearfix">
+            <div class="col_sidebar">
+                {{ column_sidebar }}
+            </div>
+            <div class="col_content">
+                {{ column_content }}
+            </div>
+		</div>
+	</section>
+	
+	<footer id="footer">
+		<div class="inner">
+			<a href="http://pico.dev7studios.com">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a> 
+			from <a href="http://dev7studios.com">Dev7studios</a>.
+		</div>
+	</footer>
+    
+</body>
+</html>
