@@ -1,5 +1,6 @@
 <?php
 use \Michelf\MarkdownExtra;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Pico
@@ -153,26 +154,14 @@ class Pico {
 	{
 		global $config;
 		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots',
-			'template'      => 'Template'
-		);
+		$meta_start  = '/*';
+	    $meta_end  = '*/';
 
-		// Add support for custom headers by hooking into the headers array
-		$this->run_hooks('before_read_file_meta', array(&$headers));
+	    $metaPart = trim(substr($content, strlen($meta_start), strpos($content, $meta_end)-(strlen($meta_end)+1)));
 
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
-			}
-		}
-		
+	    $yaml = new Parser();
+	    $headers = array_change_key_case($yaml->parse($metaPart));
+
 		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 
 		return $headers;
@@ -239,15 +228,14 @@ class Pico {
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
+
 			$data = array(
-				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
 				'url' => $url,
-				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
-				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
-				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 			);
+			
+			$data = array_merge($data,$page_meta);
 
 			// Extend the data provided with each page by hooking into the data array
 			$this->run_hooks('get_page_data', array(&$data, $page_meta));
