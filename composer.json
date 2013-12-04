@@ -1,6 +1,22 @@
 {
+    "name": "gilbitron/pico",
+    "type": "library",
+    "description": "Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create .md files in the \"content\" folder and that becomes a page.",
+    "keywords": ["cms"],
+    "homepage": "http://pico.dev7studios.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gilbert Pellegrom",
+            "email": "gilbert@pellegrom.me"
+        }
+    ],
     "require": {
+        "php": ">=5.2.4",
         "twig/twig": "1.12.*",
-		"michelf/php-markdown": "1.3"
+        "michelf/php-markdown": "1.3"
+    },
+    "autoload": {
+        "files": ["lib/pico.php"]
     }
 }
