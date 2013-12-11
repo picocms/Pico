@@ -34,7 +34,7 @@ class Pico {
 
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-		if (!$config['mod_rewrite']) $repl_str = '/^\?/';
+		if (!$settings['mod_rewrite']) $repl_str = '/^\?/';
 		else $repl_str = '/\?.*/';
 		$url = preg_replace($repl_str, '', $url); // Strip query string
 		$this->run_hooks('request_url', array(&$url));
