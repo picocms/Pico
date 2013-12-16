@@ -49,7 +49,7 @@
 </head>
 <body class="full-layout">
 <!-- Begin Body Wrapper -->
-<div class="body-wrapper"> 
+<div class="body-wrapper">
   <!-- Begin Top Wrapper -->
   <div class="top-wrapper">
     <header>
@@ -62,6 +62,7 @@
             <li class="active"><a href="docs.html">Docs</a></li>
             <li><a href="plugins.html">Plugins</a></li>
             <li><a href="download.html">Download</a></li>
+            <li><a href="hosting.html">Hosting</a></li>
           </ul>
         </nav>
         <!-- End Menu -->
@@ -69,14 +70,14 @@
       </div>
     </header>
   </div>
-  <!-- End Top Wrapper --> 
+  <!-- End Top Wrapper -->
   <!-- Begin Light Wrapper -->
-  <div class="light-wrapper"> 
-    
+  <div class="light-wrapper">
+
     <!-- Begin Inner -->
     <div class="inner">
       <h1 class="aligncenter">Pico Documentation</h1>
-      <p class="description aligncenter">Pico is a flat file CMS, this means there is no administration backend and database to deal with. 
+      <p class="description aligncenter">Pico is a flat file CMS, this means there is no administration backend and database to deal with.
       <br />You simply create .md files in the "content" folder and that becomes a page.</p>
       <br />
       <div class="one-fourth">
@@ -113,7 +114,7 @@
 	      <h3 id="creating-content">Creating Content</h3>
 	      <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.md</code> files in the "content"
 		  folder and that becomes a page.</p>
-		  <p>If you created folder within the content folder (e.g. <code>content/sub</code>) and put an <code>index.md</code> inside it, you can access that folder at the URL 
+		  <p>If you created folder within the content folder (e.g. <code>content/sub</code>) and put an <code>index.md</code> inside it, you can access that folder at the URL
 		  <code><a href="http://yousite.com/sub">http://yousite.com/sub</a></code>. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. <code>content/sub/page.md</code>)
 		  and will be able to access it from the URL <code><a href="http://yousite.com/sub/page">http://yousite.com/sub/page</a></code>.</p>
 		  <p>Below we've shown some examples of content locations and their corresponing URL's:</p>
@@ -147,10 +148,10 @@
 		  </table>
 		  <br />
 		  <p>If a file cannot be found, the file <code>content/404.md</code> will be shown.</p>
-		  
+
 		  <h4 id="text-file-markup">Text File Markup</h4>
-		  <p>Text files are marked up using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>. 
-		  They can also contain regular HTML. At the top of text files you can place a block comment and specify certain attributes of the page. 
+		  <p>Text files are marked up using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>.
+		  They can also contain regular HTML. At the top of text files you can place a block comment and specify certain attributes of the page.
 		  For example:</p>
 		  <pre><code>/*
 Title: Welcome
@@ -219,7 +220,7 @@ Template: index (allows you to use different templates in your theme)
 		  	<li>In your template do something like this:</li>
 		  </ul>
 		  <pre>{% if is_front_page %} &lt;!-- Front page lists all blog posts --&gt;
-		
+
 	&lt;div id=&quot;posts&quot;&gt;
 	{% for page in pages %}
 		{% if page.date %} &lt;!-- Note we check for Date field (posts) here --&gt;
@@ -244,9 +245,9 @@ Template: index (allows you to use different templates in your theme)
 		  <hr>
 	      <h3 id="plugins">Plugins</h3>
 	      <p><a href="plugins.html">Plugins</a> can be created by creating a new PHP file and placing it in the "plugins" folder. Plugins can be placed
-		  in a sub folder if required. In your new plugin PHP file you need to create class with the <strong>same name</strong> as 
+		  in a sub folder if required. In your new plugin PHP file you need to create class with the <strong>same name</strong> as
 		  the file. So if you create a file called <code>my_plugin.php</code> your class needs to be called <code>My_Plugin</code>.</p>
-		  
+
 		  <p>Plugins can hook into Pico by adding functions with predefined names (hooks) to their class. For example you could
 		  add a custom template variable by adding a <code>before_render</code> hook:</p>
 		  <pre>class My_Plugin {
@@ -301,12 +302,12 @@ Layout: 2col
       </div>
       <div class="clear"></div>
     </div>
-    <!-- End Inner --> 
+    <!-- End Inner -->
   </div>
-  <!-- End Light Wrapper --> 
-  
+  <!-- End Light Wrapper -->
+
   <!-- Begin Footer Wrapper -->
-  <footer class="aligncenter"> 
+  <footer class="aligncenter">
     <!-- Begin Inner -->
     <div class="inner">
       <h1>Want to Contribute?</h1>
@@ -317,23 +318,23 @@ Layout: 2col
         <li><a href="https://www.facebook.com/dev7studios"><i class="icon-s-facebook"></i></a></li>
       </ul>
     </div>
-    <!-- Begin Inner --> 
+    <!-- Begin Inner -->
   </footer>
-  <!-- End Footer Wrapper --> 
-  
+  <!-- End Footer Wrapper -->
+
   <!-- Begin Sub Footer Wrapper -->
-  <div class="subfooter-wrapper"> 
+  <div class="subfooter-wrapper">
     <!-- Begin Inner -->
     <div class="inner">
       <p>Pico was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a> from <a href="http://dev7studios.com">Dev7studios</a>.
       Released under the MIT license.</p>
     </div>
-    <!-- Begin Inner --> 
+    <!-- Begin Inner -->
   </div>
-  <!-- End Sub Footer Wrapper --> 
-  
+  <!-- End Sub Footer Wrapper -->
+
 </div>
-<!-- End Body Wrapper --> 
+<!-- End Body Wrapper -->
 <script type="text/javascript" src="style/js/scripts.js"></script>
 </body>
 </html>
