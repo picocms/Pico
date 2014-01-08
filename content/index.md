@@ -37,7 +37,7 @@ Text files are marked up using [Markdown](http://daringfireball.net/projects/mar
 
 At the top of text files you can place a block comment and specify certain attributes of the page. For example:
 
-	/ *
+	/*
 	Title: Welcome
 	Description: This description will go in the meta description tag
 	Author: Joe Bloggs
