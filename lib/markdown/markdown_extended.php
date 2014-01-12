@@ -30,8 +30,9 @@ class MarkdownExtraExtended_Parser extends MarkdownExtra_Parser {
 	function doHardBreaks($text) {
 		# Do hard breaks:
 		# EXTENDED: changed to allow breaks without two spaces and just one new line
-		# original code /* return preg_replace_callback('/ {2,}\n/', */
-		return preg_replace_callback('/ *\n/', 
+		# to activate this, uncomment the following code:
+		# return preg_replace_callback('/ *\n/', 
+		return preg_replace_callback('/ {2,}\n/',
 			array(&$this, '_doHardBreaks_callback'), $text);
 	}
 

@@ -246,7 +246,7 @@ class Pico {
 				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
 				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
 				'content' => $page_content,
-				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
+				'excerpt' => $this->limit_words($page_content, $excerpt_length)
 			);
 
 			// Extend the data provided with each page by hooking into the data array
