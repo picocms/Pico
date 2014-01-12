@@ -1,5 +1,5 @@
 <?php
-use \Michelf\MarkdownExtra;
+require_once( 'markdown/markdown_extended.php' );
 
 /**
  * Pico
@@ -138,7 +138,7 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = MarkdownExtra::defaultTransform($content);
+		$content = MarkdownExtended($content);
 
 		return $content;
 	}
@@ -246,7 +246,7 @@ class Pico {
 				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
 				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
 				'content' => $page_content,
-				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
+				'excerpt' => $this->limit_words($page_content, $excerpt_length)
 			);
 
 			// Extend the data provided with each page by hooking into the data array
