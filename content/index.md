@@ -62,8 +62,8 @@ All themes must include an `index.html` file to define the HTML structure of the
 * `{{ config }}` - Conatins the values you set in config.php (e.g. `{{ config.theme }}` = "default")
 * `{{ base_dir }}` - The path to your Pico root directory
 * `{{ base_url }}` - The URL to your Pico site
-* `{{ theme_dir }}` - The path to the Pico active theme direcotry
-* `{{ theme_url }}` - The URL to the Pico active theme direcotry
+* `{{ theme_dir }}` - The path to the Pico active theme directory
+* `{{ theme_url }}` - The URL to the Pico active theme directory
 * `{{ site_title }}` - Shortcut to the site title (defined in config.php)
 * `{{ meta }}` - Contains the meta values from the current page
 	* `{{ meta.title }}`
