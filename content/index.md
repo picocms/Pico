@@ -105,4 +105,4 @@ lists all of the settings and their defaults. To override a setting, simply unco
 
 ### Documentation
 
-For more help have a look at the Pico documentation at [http://pico.dev7studios.com/docs](http://picocms.org/docs)
+For more help have a look at the Pico documentation at [http://picocms.org/docs](http://picocms.org/docs)
