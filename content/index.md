@@ -5,7 +5,7 @@ Description: This description will go in the meta description tag
 
 ## Welcome to Pico
 
-Congratulations, you have successfully installed [Pico](http://pico.dev7studios.com). Pico is a stupidly simple, blazing fast, flat file CMS.
+Congratulations, you have successfully installed [Pico](http://picocms.org/). Pico is a stupidly simple, blazing fast, flat file CMS.
 
 ### Creating Content
 
@@ -96,7 +96,7 @@ Pages can be used like:
 
 ### Plugins
 
-See [http://pico.dev7studios.com/plugins](http://pico.dev7studios.com/plugins)
+See [http://pico.dev7studios.com/plugins](http://picocms.org/plugins)
 
 ### Config
 
@@ -105,4 +105,4 @@ lists all of the settings and their defaults. To override a setting, simply unco
 
 ### Documentation
 
-For more help have a look at the Pico documentation at [http://pico.dev7studios.com/docs](http://pico.dev7studios.com/docs)
+For more help have a look at the Pico documentation at [http://pico.dev7studios.com/docs](http://picocms.org/docs)
