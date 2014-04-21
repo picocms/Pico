@@ -5,7 +5,7 @@ use \Michelf\MarkdownExtra;
  * Pico
  *
  * @author Gilbert Pellegrom
- * @link http://pico.dev7studios.com
+ * @link http://picocms.org
  * @license http://opensource.org/licenses/MIT
  * @version 0.8
  */

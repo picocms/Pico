@@ -4,7 +4,7 @@
  * Example hooks for a Pico plugin
  *
  * @author Gilbert Pellegrom
- * @link http://pico.dev7studios.com
+ * @link http://picocms.org
  * @license http://opensource.org/licenses/MIT
  */
 class Pico_Plugin {
