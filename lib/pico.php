@@ -1,5 +1,5 @@
 <?php
-namespace Pico;
+namespace PicoCMS;
 /**
  * Pico
  *
@@ -8,7 +8,7 @@ namespace Pico;
  * @license http://opensource.org/licenses/MIT
  * @version 0.8
  */
-class pico
+class Pico
 {
     private $plugins;
 
