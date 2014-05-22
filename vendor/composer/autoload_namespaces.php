@@ -7,5 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'ParsedownExtra' => array($vendorDir . '/erusev/parsedown-extra'),
+    'Parsedown' => array($vendorDir . '/erusev/parsedown'),
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
 );

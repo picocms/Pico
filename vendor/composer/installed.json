@@ -102,5 +102,92 @@
         "keywords": [
             "markdown"
         ]
+    },
+    {
+        "name": "erusev/parsedown",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "d24439ada0704948deef0d3eda2ea20fd8db1747"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/d24439ada0704948deef0d3eda2ea20fd8db1747",
+            "reference": "d24439ada0704948deef0d3eda2ea20fd8db1747",
+            "shasum": ""
+        },
+        "time": "2014-05-21 20:20:46",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Parsedown": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
+            }
+        ],
+        "description": "Parser for Markdown.",
+        "homepage": "http://parsedown.org",
+        "keywords": [
+            "markdown",
+            "parser"
+        ]
+    },
+    {
+        "name": "erusev/parsedown-extra",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/erusev/parsedown-extra.git",
+            "reference": "032a244dd7cae4f1562e9ff6e23a9fcba75c9e56"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/032a244dd7cae4f1562e9ff6e23a9fcba75c9e56",
+            "reference": "032a244dd7cae4f1562e9ff6e23a9fcba75c9e56",
+            "shasum": ""
+        },
+        "require": {
+            "erusev/parsedown": "~1.0"
+        },
+        "time": "2014-05-14 17:04:59",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "ParsedownExtra": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
+            }
+        ],
+        "description": "An extension of Parsedown that adds support for Markdown Extra.",
+        "homepage": "https://github.com/erusev/parsedown-extra",
+        "keywords": [
+            "markdown",
+            "markdown extra",
+            "parsedown",
+            "parser"
+        ]
     }
 ]
