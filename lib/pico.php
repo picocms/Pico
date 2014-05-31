@@ -42,12 +42,18 @@ class Pico {
 		else $file = CONTENT_DIR .'index';
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
-		else $file .= CONTENT_EXT;
+		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index';
 
 		$this->run_hooks('before_load_content', array(&$file));
-		if(file_exists($file)){
+
+		$isTwigContent=false;
+		if(file_exists($file . CONTENT_EXT)){
+			$file=$file . CONTENT_EXT;
 			$content = file_get_contents($file);
+		}elseif (file_exists ($file . CONTENT_EXT_TWIG)) {
+			$file=$file . CONTENT_EXT_TWIG;
+			$content = file_get_contents($file);
+			$isTwigContent=true;
 		} else {
 			$this->run_hooks('before_404_load_content', array(&$file));
 			$content = file_get_contents(CONTENT_DIR .'404'. CONTENT_EXT);
@@ -59,11 +65,7 @@ class Pico {
 		$meta = $this->read_file_meta($content);
 		$this->run_hooks('file_meta', array(&$meta));
 
-		$this->run_hooks('before_parse_content', array(&$content));
-		$content = $this->parse_content($content);
-		$this->run_hooks('after_parse_content', array(&$content));
-		$this->run_hooks('content_parsed', array(&$content)); // Depreciated @ v0.8
-		
+	
 		// Get all the pages
 		$pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'], $settings['excerpt_length']);
 		$prev_page = array();
@@ -80,12 +82,8 @@ class Pico {
 		$next_page = prev($pages);
 		$this->run_hooks('get_pages', array(&$pages, &$current_page, &$prev_page, &$next_page));
 
-		// Load the theme
-		$this->run_hooks('before_twig_register');
-		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
-		$twig = new Twig_Environment($loader, $settings['twig_config']);
-		$twig->addExtension(new Twig_Extension_Debug());
+
+		/* Parse content*/
 		$twig_vars = array(
 			'config' => $settings,
 			'base_dir' => rtrim(ROOT_DIR, '/'),
@@ -94,13 +92,26 @@ class Pico {
 			'theme_url' => $settings['base_url'] .'/'. basename(THEMES_DIR) .'/'. $settings['theme'],
 			'site_title' => $settings['site_title'],
 			'meta' => $meta,
-			'content' => $content,
 			'pages' => $pages,
 			'prev_page' => $prev_page,
 			'current_page' => $current_page,
 			'next_page' => $next_page,
-			'is_front_page' => $url ? false : true,
+			'is_front_page' => $url ? false : true
 		);
+
+		$this->run_hooks('before_parse_content', array(&$content));
+		$content = $this->parse_content($content, $isTwigContent, $twig_vars);
+		$this->run_hooks('after_parse_content', array(&$content));
+		$this->run_hooks('content_parsed', array(&$content)); // Depreciated @ v0.8
+
+		
+		// Load the theme
+		$this->run_hooks('before_twig_register');
+		$loader = new Twig_Loader_Filesystem(THEMES_DIR . $settings['theme']);
+		$twig = new Twig_Environment($loader, $settings['twig_config']);
+		$twig->addExtension(new Twig_Extension_Debug());
+
+		$twig_vars['content'] = $content;
 
 		$template = (isset($meta['template']) && $meta['template']) ? $meta['template'] : 'index';
 		$this->run_hooks('before_render', array(&$twig_vars, &$twig, &$template));
@@ -129,17 +140,26 @@ class Pico {
 	}
 
 	/**
-	 * Parses the content using Markdown
+	 * Parses the content using Markdown or Twig
 	 *
 	 * @param string $content the raw txt content
-	 * @return string $content the Markdown formatted content
+	 * @return string $content the Markdown or Twig formatted content
 	 */
-	protected function parse_content($content)
+
+	protected function parse_content($content, $isTwigContent = false, $twig_vars = null)
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
-		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = MarkdownExtra::defaultTransform($content);
+		
+		if ($isTwigContent){
+			$loader = new Twig_Loader_String();
+			$twig = new Twig_Environment($loader);
+			$content=$twig->render($content, $twig_vars);
+		}else{
+			$content = str_replace('%base_url%', $this->base_url(), $content);  
+			$content = MarkdownExtra::defaultTransform($content);	
+		}	
 
+	
 		return $content;
 	}
 
@@ -218,6 +238,7 @@ class Pico {
 		global $config;
 		
 		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
+		$pages = array_merge($pages,$this->get_files(CONTENT_DIR, CONTENT_EXT_TWIG));
 		$sorted_pages = array();
 		$date_id = 0;
 		foreach($pages as $key=>$page){
@@ -235,10 +256,20 @@ class Pico {
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
-			$page_content = $this->parse_content($page_content);
+
+			// Only parse content for Markdown files.
+			if ('.' . pathinfo($page,PATHINFO_EXTENSION) == CONTENT_EXT){
+				$page_content = $this->parse_content($page_content);
+			}else{
+				$page_content="";
+			}	
+
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
+			$url = str_replace('index'. CONTENT_EXT_TWIG, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
+			$url = str_replace(CONTENT_EXT_TWIG, '', $url);
+
 			$data = array(
 				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
 				'url' => $url,
