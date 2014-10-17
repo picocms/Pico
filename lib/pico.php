@@ -1,5 +1,4 @@
 <?php
-use \Michelf\MarkdownExtra;
 
 /**
  * Pico
@@ -138,8 +137,8 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = MarkdownExtra::defaultTransform($content);
-
+		//$content = MarkdownExtra::defaultTransform($content);
+		$content = Parsedown::instance()->text($content);
 		return $content;
 	}
 
