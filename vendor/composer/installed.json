@@ -51,56 +51,44 @@
         ]
     },
     {
-        "name": "michelf/php-markdown",
-        "version": "1.3",
-        "version_normalized": "1.3.0.0",
+        "name": "erusev/parsedown",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/michelf/php-markdown.git",
-            "reference": "fcdd3e0781ae40c2b9847874e0755ff4f5559688"
+            "url": "https://github.com/erusev/parsedown.git",
+            "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/michelf/php-markdown/zipball/fcdd3e0781ae40c2b9847874e0755ff4f5559688",
-            "reference": "fcdd3e0781ae40c2b9847874e0755ff4f5559688",
+            "url": "https://api.github.com/repos/erusev/parsedown/zipball/c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
+            "reference": "c62365adc4488e1c35a8f45ea86f7d4a22bd58a0",
             "shasum": ""
         },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "time": "2013-04-11 18:53:11",
+        "time": "2014-09-25 23:06:16",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-lib": "1.3.x-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-0": {
-                "Michelf": ""
+                "Parsedown": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "BSD-3-Clause"
+            "MIT"
         ],
         "authors": [
             {
-                "name": "Michel Fortin",
-                "email": "michel.fortin@michelf.ca",
-                "homepage": "http://michelf.ca/",
-                "role": "Developer"
-            },
-            {
-                "name": "John Gruber",
-                "homepage": "http://daringfireball.net/"
+                "name": "Emanuil Rusev",
+                "email": "hello@erusev.com",
+                "homepage": "http://erusev.com"
             }
         ],
-        "description": "PHP Markdown",
-        "homepage": "http://michelf.ca/projects/php-markdown/",
+        "description": "Parser for Markdown.",
+        "homepage": "http://parsedown.org",
         "keywords": [
-            "markdown"
+            "markdown",
+            "parser"
         ]
     }
 ]

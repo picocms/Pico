@@ -1,5 +1,4 @@
 <?php
-use \Michelf\MarkdownExtra;
 
 /**
  * Pico
@@ -138,8 +137,7 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = MarkdownExtra::defaultTransform($content);
-
+		$content = Parsedown::instance()->text($content);
 		return $content;
 	}
 
@@ -152,30 +150,25 @@ class Pico {
 	protected function read_file_meta($content)
 	{
 		global $config;
-		
-		$headers = array(
-			'title'       	=> 'Title',
-			'description' 	=> 'Description',
-			'author' 		=> 'Author',
-			'date' 			=> 'Date',
-			'robots'     	=> 'Robots',
-			'template'      => 'Template'
-		);
 
+		$headers = array();
+		
 		// Add support for custom headers by hooking into the headers array
+		// Is no longer needed but kept for compatibility reasons.
 		$this->run_hooks('before_read_file_meta', array(&$headers));
 
-	 	foreach ($headers as $field => $regex){
-			if (preg_match('/^[ \t\/*#@]*' . preg_quote($regex, '/') . ':(.*)$/mi', $content, $match) && $match[1]){
-				$headers[ $field ] = trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $match[1]));
-			} else {
-				$headers[ $field ] = '';
+		// Add any meta-headers from your *.md-files.
+		if (preg_match_all('/^\/\*.(.*?)\*\//ims', $content, $match) && isset($match[1]) && isset($match[1][0])) {
+			$lines = array_filter(explode("\n", $match[1][0]));
+			foreach ($lines as $line) {
+				if (strpos($line, ':') == true) {
+					list($key, $val) = explode(':', $line);
+					$headers[trim(strtolower($key))] = trim($val);
+				}
 			}
-		}
-		
-		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
-
+		if (isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
 		return $headers;
+		}
 	}
 
 	/**
