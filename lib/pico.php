@@ -38,13 +38,13 @@ class Pico {
 		$this->run_hooks('request_url', array(&$url));
 
 		// Get the file path
-		if($url) $file = CONTENT_DIR . $url;
-		else $file = CONTENT_DIR .'index';
+		if(!$url) $file = CONTENT_DIR .'index'. CONTENT_EXT;
+		else {
+			$file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
+			if(!is_file($file)) $file = CONTENT_DIR . $url . CONTENT_EXT;
+		}
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
-		else $file .= CONTENT_EXT;
-
 		$this->run_hooks('before_load_content', array(&$file));
 		if(file_exists($file)){
 			$content = file_get_contents($file);
