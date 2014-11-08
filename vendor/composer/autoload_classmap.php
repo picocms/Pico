@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'PicoCMS\\Pico' => $baseDir . '/lib/Pico.php',
 );
