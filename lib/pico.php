@@ -232,6 +232,13 @@ class Pico {
 				unset($pages[$key]);
 				continue;
 			}			
+
+			// Ignore files starting with an underscore
+			if (substr(basename($page), 0, 1) == '_') {
+				unset($pages[$key]);
+				continue;
+			}
+
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
@@ -239,15 +246,10 @@ class Pico {
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
-			$data = array(
-				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
-				'url' => $url,
-				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
-				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
-				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
-				'content' => $page_content,
-				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
-			);
+			$data = $page_meta;
+			$data['url'] = $url;
+			$data['content'] = $page_content;
+			$data['excerpt'] = $this->limit_words(strip_tags($page_content), $excerpt_length);
 
 			// Extend the data provided with each page by hooking into the data array
 			$this->run_hooks('get_page_data', array(&$data, $page_meta));
