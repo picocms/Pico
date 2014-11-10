@@ -237,11 +237,13 @@ class Pico {
 			$page_meta = $this->read_file_meta($page_content);
 			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+			$dir_url =  dirname($url);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
 				'title' => isset($page_meta['title']) ? $page_meta['title'] : '',
 				'url' => $url,
+				'directory_url' => $dir_url,
 				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
 				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
 				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
