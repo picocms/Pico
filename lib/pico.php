@@ -147,9 +147,10 @@ class Pico {
 	 * Parses the file meta from the txt file header
 	 *
 	 * @param string $content the raw txt content
+	 * @param array $metakeys key-value array for append header keys
 	 * @return array $headers an array of meta values
 	 */
-	protected function read_file_meta($content)
+	protected function read_file_meta($content, $metakeys = array())
 	{
 		global $config;
 		
@@ -161,6 +162,7 @@ class Pico {
 			'robots'     	=> 'Robots',
 			'template'      => 'Template'
 		);
+		$headers = array_merge($headers, $metakeys);
 
 		// Add support for custom headers by hooking into the headers array
 		$this->run_hooks('before_read_file_meta', array(&$headers));
@@ -217,9 +219,21 @@ class Pico {
 	{
 		global $config;
 		
+		// create sorting options
+		$sortByDate = $order_by == 'date';
+		$sortByMeta = strpos($order_by, 'meta') !== false;
+		$sortMeta   = null;
+		if ($sortByMeta)
+		{
+			$split = explode(".", $order_by);
+			if (count($split) != 2)
+				$sortByMeta = false;
+			else
+				$sortMeta = $split[1];
+		}
+		
 		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
 		$sorted_pages = array();
-		$date_id = 0;
 		foreach($pages as $key=>$page){
 			// Skip 404
 			if(basename($page) == '404'. CONTENT_EXT){
@@ -234,7 +248,7 @@ class Pico {
 			}			
 			// Get title and format $page
 			$page_content = file_get_contents($page);
-			$page_meta = $this->read_file_meta($page_content);
+			$page_meta = $this->read_file_meta($page_content, empty($sortMeta) ? array() : array($sortMeta => $sortMeta));
 			$page_content = $this->parse_content($page_content);
 			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
@@ -252,15 +266,19 @@ class Pico {
 			// Extend the data provided with each page by hooking into the data array
 			$this->run_hooks('get_page_data', array(&$data, $page_meta));
 
-			if($order_by == 'date' && isset($page_meta['date'])){
-				$sorted_pages[$page_meta['date'].$date_id] = $data;
-				$date_id++;
-			}
-			else $sorted_pages[] = $data;
+			// run sorting
+			if ($sortByDate && isset($page_meta['date']))
+				$sorted_pages[$page_meta['date']] = $data;
+			elseif ($sortByMeta && isset($page_meta[$sortMeta]))
+				$sorted_pages[$page_meta[$sortMeta]] = $data;
+			else
+				array_push($sorted_pages, $data);
 		}
 		
-		if($order == 'desc') krsort($sorted_pages);
-		else ksort($sorted_pages);
+		if ($order == 'desc')
+			krsort($sorted_pages);
+		else
+			ksort($sorted_pages);
 		
 		return $sorted_pages;
 	}
