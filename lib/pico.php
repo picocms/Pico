@@ -34,12 +34,15 @@ class Pico {
 
 		// Get our url path and trim the / of the left and the right
 		if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
-		$url = preg_replace('/\?.*/', '', $url); // Strip query string
+		if (!$settings['mod_rewrite']) $repl_str = '/^\?/';
+		else $repl_str = '/\?.*/';
+		$url = preg_replace($repl_str, '', $url); // Strip query string
 		$this->run_hooks('request_url', array(&$url));
 
 		// Get the file path
 		if($url) $file = CONTENT_DIR . $url;
 		else $file = CONTENT_DIR .'index';
+		$file=urldecode($file);
 
 		// Load the file
 		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
@@ -60,7 +63,7 @@ class Pico {
 		$this->run_hooks('file_meta', array(&$meta));
 
 		$this->run_hooks('before_parse_content', array(&$content));
-		$content = $this->parse_content($content);
+		$content = $this->parse_content($content,$file);
 		$this->run_hooks('after_parse_content', array(&$content));
 		$this->run_hooks('content_parsed', array(&$content)); // Depreciated @ v0.8
 		
@@ -134,10 +137,11 @@ class Pico {
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
 	 */
-	protected function parse_content($content)
+	protected function parse_content($content,$page)
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content); // Remove comments and meta
 		$content = str_replace('%base_url%', $this->base_url(), $content);
+		$content = str_replace('%curr_dir_url%', $this->base_url() ."/". dirname(str_replace(ROOT_DIR,"",$page)), $content);
 		$content = MarkdownExtra::defaultTransform($content);
 
 		return $content;
@@ -196,7 +200,8 @@ class Pico {
 			'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
 			'pages_order_by' => 'alpha',
 			'pages_order' => 'asc',
-			'excerpt_length' => 50
+			'excerpt_length' => 50,
+			'mod_rewrite' => true
 		);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
@@ -235,8 +240,10 @@ class Pico {
 			// Get title and format $page
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
-			$page_content = $this->parse_content($page_content);
-			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+			$page_content = $this->parse_content($page_content,$page);
+			if (!$config['mod_rewrite']) $base_url_part = '/?';
+			else $base_url_part = '/';
+			$url = str_replace(CONTENT_DIR, $base_url . $base_url_part, $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(

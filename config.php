@@ -15,6 +15,7 @@ $config['twig_config'] = array(			// Twig settings
 $config['pages_order_by'] = 'alpha';	// Order pages by "alpha" or "date"
 $config['pages_order'] = 'asc';			// Order pages "asc" or "desc"
 $config['excerpt_length'] = 50;			// The pages excerpt length (in words)
+$config['mod_rewrite'] = false;			//  Disable mod_rewrite
 
 // To add a custom config setting:
 
