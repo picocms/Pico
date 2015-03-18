@@ -8,7 +8,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ 
 Install
 -------
 
-Download composer and run it with install option.
+Download [composer](<https://getcomposer.org/>) and run it with install option.
 
     $ curl -sS https://getcomposer.org/installer | php
     $ php composer.phar install
@@ -16,7 +16,7 @@ Download composer and run it with install option.
 Run
 ---
 
-The easiest way to Pico is using [the built-in web server on PHP]{http://php.net/manual/en/features.commandline.webserver.php}.
+The easiest way to Pico is using [the built-in web server on PHP](<http://php.net/manual/en/features.commandline.webserver.php>).
 
     php -S 0.0.0.0:8080 ./
 
