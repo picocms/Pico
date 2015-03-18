@@ -38,11 +38,11 @@ class Pico {
 		$this->run_hooks('request_url', array(&$url));
 
 		// Get the file path
-		if($url) $file = CONTENT_DIR . $url;
-		else $file = CONTENT_DIR .'index';
+		if($url) $file = $settings['content_dir'] . $url;
+		else $file = $settings['content_dir'] .'index';
 
 		// Load the file
-		if(is_dir($file)) $file = CONTENT_DIR . $url .'/index'. CONTENT_EXT;
+		if(is_dir($file)) $file = $settings['content_dir'] . $url .'/index'. CONTENT_EXT;
 		else $file .= CONTENT_EXT;
 
 		$this->run_hooks('before_load_content', array(&$file));
@@ -50,7 +50,7 @@ class Pico {
 			$content = file_get_contents($file);
 		} else {
 			$this->run_hooks('before_404_load_content', array(&$file));
-			$content = file_get_contents(CONTENT_DIR .'404'. CONTENT_EXT);
+			$content = file_get_contents($settings['content_dir'] .'404'. CONTENT_EXT);
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 			$this->run_hooks('after_404_load_content', array(&$file, &$content));
 		}
@@ -196,7 +196,8 @@ class Pico {
 			'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
 			'pages_order_by' => 'alpha',
 			'pages_order' => 'asc',
-			'excerpt_length' => 50
+			'excerpt_length' => 50,
+            'content_dir' => 'content-sample/',
 		);
 
 		if(is_array($config)) $config = array_merge($defaults, $config);
@@ -217,7 +218,7 @@ class Pico {
 	{
 		global $config;
 		
-		$pages = $this->get_files(CONTENT_DIR, CONTENT_EXT);
+		$pages = $this->get_files($config['content_dir'], CONTENT_EXT);
 		$sorted_pages = array();
 		$date_id = 0;
 		foreach($pages as $key=>$page){
@@ -236,7 +237,7 @@ class Pico {
 			$page_content = file_get_contents($page);
 			$page_meta = $this->read_file_meta($page_content);
 			$page_content = $this->parse_content($page_content);
-			$url = str_replace(CONTENT_DIR, $base_url .'/', $page);
+			$url = str_replace($config['content_dir'], $base_url .'/', $page);
 			$url = str_replace('index'. CONTENT_EXT, '', $url);
 			$url = str_replace(CONTENT_EXT, '', $url);
 			$data = array(
