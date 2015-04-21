@@ -1,11 +1,7 @@
 # Composer
 composer.lock
 composer.phar
-
-# Twig
-vendor/twig/twig/doc/*
-vendor/twig/twig/ext/*
-vendor/twig/twig/test/*
+vendor
 
 # OS Generated
 .DS_Store*
