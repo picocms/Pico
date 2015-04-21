@@ -173,7 +173,7 @@ class Pico {
 			}
 		}
 		
-		if(isset($headers['date'])) $headers['date_formatted'] = date($config['date_format'], strtotime($headers['date']));
+		if(isset($headers['date'])) $headers['date_formatted'] = utf8_encode(strftime($config['date_format'], strtotime($headers['date'])));
 
 		return $headers;
 	}
@@ -245,7 +245,7 @@ class Pico {
 				'url' => $url,
 				'author' => isset($page_meta['author']) ? $page_meta['author'] : '',
 				'date' => isset($page_meta['date']) ? $page_meta['date'] : '',
-				'date_formatted' => isset($page_meta['date']) ? date($config['date_format'], strtotime($page_meta['date'])) : '',
+				'date_formatted' => isset($page_meta['date']) ? utf8_encode(strftime($config['date_format'], strtotime($page_meta['date']))) : '',
 				'content' => $page_content,
 				'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length)
 				//this addition allows the 'description' meta to be picked up in content areas... specifically to replace 'excerpt'
