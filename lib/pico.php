@@ -310,7 +310,7 @@ class Pico {
 	protected function get_protocol()
 	{
 		$protocol = 'http';
-		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'){
+		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' && $_SERVER['HTTPS'] != ''){
 			$protocol = 'https';
 		}
 		return $protocol;
