@@ -19,12 +19,15 @@
 
 	<header id="header">
 		<div class="inner clearfix">
-			<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
-			<ul class="nav">
-				{% for page in pages %}
-				<li><a href="{{ page.url }}">{{ page.title }}</a></li>
-				{% endfor %}
-			</ul>
+			<h1><a href="{{ base_url }}" id="logo">{{ site_title }}</a></h1>
+			<nav>
+				<a href="#" class="menu-icon"></a>
+				<ul>
+					{% for page in pages %}
+						<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+					{% endfor %}
+				</ul>
+			</nav>
 		</div>
 	</header>
 
