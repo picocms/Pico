@@ -219,18 +219,33 @@ blockquote {
 	margin: 0; 
 	float: left;
 }
-#header .nav {
+#header .menu-icon {
+	display: none;
+	width: 35px;
+	height: 35px;
+	background: #afe1da url(menu-icon.png) center;
+}
+#header nav {
 	float: right;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-#header .nav li { display: inline; }
-#header .nav a {
+#header nav a {
 	font-weight: bold;
 	margin-left: 20px;
 }
-
+#header a:hover#menu-icon {
+	background-color: #444;
+	border-radius: 4px 4px 0 0;
+}
+#header ul {
+	list-style: none;
+}
+#header li {
+	display: inline-block;
+	float: left;
+}
 #footer {
 	background: #707070;
 	padding: 60px 0;
@@ -254,3 +269,91 @@ blockquote {
     *zoom: 1;
 }
 
+/* Media Queries
+/*---------------------------------------------*/
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+	
+	.inner {
+		width: 85%;
+	}
+	.inner img {
+		width:100%;
+	}
+	#header {
+		margin-bottom: 40px;
+	}
+	#header h1 a {
+		font-size:1em;
+	}
+	#header .menu-icon {
+		display:inline-block;
+	}
+	#header nav a { color: #000; }
+	#header nav a:hover { color: #afe1da; }
+	#header nav ul, nav:active ul { 
+		display: none;
+		position: absolute;
+		padding: 20px;
+		background: #fff;
+		border: 5px solid #444;
+		right: 2.7em;
+		top: 100px;
+		width: 80%;
+		border-radius: 4px 0 4px 4px;
+		z-index: 9999;
+	}
+	#header nav li {
+		text-align: center;
+		width: 100%;
+		padding: 10px 0;
+		margin: 0;
+	}
+	#header nav:hover ul {
+		display: block;
+	}
+	
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+	
+	.inner {
+		width: 85%;
+	}
+	.inner img {
+		width:100%;
+	}
+	#header {
+		margin-bottom: 30px;
+	}
+	#header h1 a {
+		font-size:1em;
+	}
+	#header .menu-icon {
+		display:inline-block;
+	}
+	#header nav a { color: #000; }
+	#header nav a:hover { color: #afe1da; }
+	#header nav ul, nav:active ul { 
+		display: none;
+		position: absolute;
+		padding: 20px;
+		background: #fff;
+		border: 5px solid #444;
+		right: 0em;
+		top: 100px;
+		width: auto;
+		border-radius: 4px 0 4px 4px;
+	}
+	#header nav li {
+		text-align: center;
+		width: 100%;
+		padding: 10px 0;
+		margin: 0;
+	}
+	#header nav:hover ul {
+		display: block;
+	}
+}
