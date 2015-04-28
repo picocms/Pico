@@ -9,27 +9,27 @@ Congratulations, you have successfully installed [Pico](http://picocms.org/). Pi
 
 ### Creating Content
 
-Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.md` files in the "content"
+Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create `.md` files in the "content-sample"
 folder and that becomes a page. For example, this file is called `index.md` and is shown as the main landing page. 
 
-If you create a folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL 
-`http://yoursite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content/sub/page.md`)
-and you will be able to access it from the URL `http://yoursite.com/sub/page`. Below we've shown some examples of content locations and their corresponing URL's:
+If you create a folder within the content-sample folder (e.g. `content-sample/sub`) and put an `index.md` inside it, you can access that folder at the URL 
+`http://yoursite.com/sub`. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. `content-sample/sub/page.md`)
+and you will be able to access it from the URL `http://yoursite.com/sub/page`. Below we've shown some examples of content-sample locations and their corresponing URL's:
 
 <table>
 	<thead>
 		<tr><th>Physical Location</th><th>URL</th></tr>
 	</thead>
 	<tbody>
-		<tr><td>content/index.md</td><td>/</td></tr>
-		<tr><td>content/sub.md</td><td>/sub</td></tr>
-		<tr><td>content/sub/index.md</td><td>/sub (same as above)</td></tr>
-		<tr><td>content/sub/page.md</td><td>/sub/page</td></tr>
-		<tr><td>content/a/very/long/url.md</td><td>/a/very/long/url</td></tr>
+		<tr><td>content-sample/index.md</td><td>/</td></tr>
+		<tr><td>content-sample/sub.md</td><td>/sub</td></tr>
+		<tr><td>content-sample/sub/index.md</td><td>/sub (same as above)</td></tr>
+		<tr><td>content-sample/sub/page.md</td><td>/sub/page</td></tr>
+		<tr><td>content-sample/a/very/long/url.md</td><td>/a/very/long/url</td></tr>
 	</tbody>
 </table>
 
-If a file cannot be found, the file `content/404.md` will be shown.
+If a file cannot be found, the file `content-sample/404.md` will be shown.
 
 ### Text File Markup
 
@@ -72,14 +72,14 @@ All themes must include an `index.html` file to define the HTML structure of the
 	* `{{ meta.date }}`
 	* `{{ meta.date_formatted }}`
 	* `{{ meta.robots }}`
-* `{{ content }}` - The content of the current page (after it has been processed through Markdown)
-* `{{ pages }}` - A collection of all the content in your site
+* `{{ content-sample }}` - The content-sample of the current page (after it has been processed through Markdown)
+* `{{ pages }}` - A collection of all the content-sample in your site
 	* `{{ page.title }}`
 	* `{{ page.url }}`
 	* `{{ page.author }}`
 	* `{{ page.date }}`
 	* `{{ page.date_formatted }}`
-	* `{{ page.content }}`
+	* `{{ page.content-sample }}`
 	* `{{ page.excerpt }}`
 * `{{ prev_page }}` - A page object of the previous page (relative to current_page)
 * `{{ current_page }}` - A page object of the current_page
