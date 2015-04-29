@@ -22,3 +22,7 @@ The easiest way to Pico is using [the built-in web server on PHP](<http://php.ne
     $ php -S 0.0.0.0:8080 ./
 
 Pico will be accessible from <http://localhost:8080>.
+
+Wiki
+---
+[Pico Wiki](https://github.com/picocms/Pico/wiki)
