@@ -95,6 +95,18 @@
 	      <ol>
 	      	<li>First <a href="download.html">download</a> and extract the latest version of Pico.</li>
 	      	<li>Upload the files to your server (via FTP or some other deployment).</li>
+	      	<li>Download <a href="https://getcomposer.org/">composer</a> and run it with install option.</li>
+		<li>
+		<pre><code>$ curl -sS https://getcomposer.org/installer | php
+		$ php composer.phar install
+		</code></pre>
+		</li>
+		<li>The easiest way to Pico is using <a href="http://php.net/manual/en/features.commandline.webserver.php">the built-in web server on PHP</a>.</li>
+		<li>
+		<pre><code>$ php -S 0.0.0.0:8080 ./
+		</code></pre>
+		</li>
+		<li>Pico will be accessible from <a href="http://localhost:8080">http://localhost:8080</a>.</li>
 	      	<li>That's it. Tweak the <code>.htaccess</code> file if required.</li>
 	      <ol>
 	      <br />
