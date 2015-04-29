@@ -14,7 +14,7 @@
     "require": {
         "php": ">=5.2.4",
         "twig/twig": "1.18.*",
-        "michelf/php-markdown": "1.3"
+        "erusev/parsedown-extra": "dev-master@dev"
     },
     "autoload": {
         "files": ["lib/pico.php"]
