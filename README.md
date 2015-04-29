@@ -25,4 +25,4 @@ Pico will be accessible from <http://localhost:8080>.
 
 Wiki
 ---
-[Pico Wiki](https://github.com/picocms/Pico/wiki)
+Visit the [Pico Wiki](https://github.com/picocms/Pico/wiki) for plugins, themes, etc...
