@@ -7,7 +7,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ 
 
 Install
 -------
-
+Requires PHP 5.3+
 Download [composer](<https://getcomposer.org/>) and run it with install option.
 
     $ curl -sS https://getcomposer.org/installer | php
