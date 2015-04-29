@@ -102,10 +102,10 @@
 		  lists all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.</p>
 	      <hr>
 	      <h3 id="creating-content">Creating Content</h3>
-	      <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.md</code> files in the "content"
+	      <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.md</code> files in the "content-sample"
 		  folder and that becomes a page.</p>
-		  <p>If you created folder within the content folder (e.g. <code>content/sub</code>) and put an <code>index.md</code> inside it, you can access that folder at the URL
-		  <code><a href="http://yousite.com/sub">http://yousite.com/sub</a></code>. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. <code>content/sub/page.md</code>)
+		  <p>If you created folder within the content-sample folder (e.g. <code>content-sample/sub</code>) and put an <code>index.md</code> inside it, you can access that folder at the URL
+		  <code><a href="http://yousite.com/sub">http://yousite.com/sub</a></code>. If you want another page within the sub folder, simply create a text file with the corresponding name (e.g. <code>content-sample/sub/page.md</code>)
 		  and will be able to access it from the URL <code><a href="http://yousite.com/sub/page">http://yousite.com/sub/page</a></code>.</p>
 		  <p>Below we've shown some examples of content locations and their corresponing URL's:</p>
 		  <table>
@@ -115,29 +115,29 @@
 		  <th style="text-align:left">URL</th>
 		  </tr>
 		  <tr>
-		  <td>content/index.md</td>
+		  <td>content-sample/index.md</td>
 		  <td>/</td>
 		  </tr>
 		  <tr>
-		  <td>content/sub.md</td>
+		  <td>content-sample/sub.md</td>
 		  <td>/sub</td>
 		  </tr>
 		  <tr>
-		  <td>content/sub/index.md</td>
+		  <td>content-sample/sub/index.md</td>
 		  <td>/sub (same as above)</td>
 		  </tr>
 		  <tr>
-		  <td>content/sub/page.md</td>
+		  <td>content-sample/sub/page.md</td>
 		  <td>/sub/page</td>
 		  </tr>
 		  <tr>
-		  <td>content/a/very/long/url.md&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  <td>content-sample/a/very/long/url.md&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		  <td>/a/very/long/url</td>
 		  </tr>
 		  </tbody>
 		  </table>
 		  <br />
-		  <p>If a file cannot be found, the file <code>content/404.md</code> will be shown.</p>
+		  <p>If a file cannot be found, the file <code>content-sample/404.md</code> will be shown.</p>
 
 		  <h4 id="text-file-markup">Text File Markup</h4>
 		  <p>Text files are marked up using <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>.
@@ -204,8 +204,8 @@ Template: index (allows you to use different templates in your theme)
 		  <h4 id="blogging">Blogging</h4>
 		  <p>If you would like to add a blog to your Pico site we suggest taking the following steps:</p>
 		  <ul>
-		  	<li>Put all of your post .md files in your content folder</li>
-		  	<li>Make sure you add a "Date" field to all of your post .md files in the content folder so you can distinguish between
+		  	<li>Put all of your post .md files in your content-sample folder</li>
+		  	<li>Make sure you add a "Date" field to all of your post .md files in the content-sample folder so you can distinguish between
 		  	posts and pages (i.e. posts will have a "Date", pages won't)</li>
 		  	<li>In your template do something like this:</li>
 		  </ul>
