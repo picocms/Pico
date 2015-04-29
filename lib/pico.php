@@ -129,7 +129,7 @@ class Pico {
 	}
 
 	/**
-	 * Parses the content using Markdown
+	 * Parses the content using Parsedown-extra
 	 *
 	 * @param string $content the raw txt content
 	 * @return string $content the Markdown formatted content
@@ -138,7 +138,7 @@ class Pico {
 	{
 		$content = preg_replace('#/\*.+?\*/#s', '', $content, 1); // Remove first comment (with meta)
 		$content = str_replace('%base_url%', $this->base_url(), $content);
-		$content = MarkdownExtra::defaultTransform($content);
+		$content = (new ParsedownExtra())->text($content);
 
 		return $content;
 	}
