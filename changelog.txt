@@ -1,5 +1,16 @@
 *** Pico Changelog ***
 
+2015.04.28 - version 0.9
+ * [New] Default theme is now mobile-friendly
+ * [New] Description meta now available in content areas
+ * [Changed] content folder is now content-sample
+ * [Changed] Updated documentation & wiki
+ * [Changed] Removed Composer, Twig files in /vendor, you must run composer install now
+ * [Changed] Localized date format; strftime() instead of date()
+ * [Changed] Added ignore for tmp file extensions in the get_files() method
+ * [Fixed] Pico now only removes the 1st comment block in .md file 
+ * [Fixed] Issue wherein the alphabetical sorting of pages did not happen
+
 2013.10.23 - version 0.8
  * [New] Added ability to set template in content meta
  * [New] Added before_parse_content and after_parse_content hooks
