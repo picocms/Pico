@@ -47,10 +47,16 @@ class Pico {
 
 		$this->run_hooks('before_load_content', array(&$file));
 		if(file_exists($file)){
-			$content = file_get_contents($file);
+			ob_start();
+			include($file);
+			$content = ob_get_contents();
+			ob_end_clean();
 		} else {
 			$this->run_hooks('before_404_load_content', array(&$file));
-			$content = file_get_contents($settings['content_dir'] .'404'. CONTENT_EXT);
+			ob_start();
+			include($settings['content_dir'] .'404'. CONTENT_EXT);
+			$content = ob_get_contents();
+			ob_end_clean();
 			header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
 			$this->run_hooks('after_404_load_content', array(&$file, &$content));
 		}
