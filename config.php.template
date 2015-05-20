@@ -2,7 +2,7 @@
 /**
  * Pico Configuration
  *
- * This is the configuration file for Pico. It comes loaded with the 
+ *  This is the configuration file for Pico. It comes loaded with the 
  *  default values, which can be found in the get_config() method of
  *  the Pico class (lib/pico.php).
  *
@@ -11,7 +11,8 @@
  * @license http://opensource.org/licenses/MIT
  * @version 0.9
  *
- * Override any of the default settings below:
+ * To override any of the default settings below, uncomment the line, 
+ * make and save the changes, then rename this file to `config.php`
  */
 
 /*
