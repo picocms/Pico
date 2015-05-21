@@ -1,5 +1,5 @@
 <?php
-use \Michelf\MarkdownExtra;
+use \ParsedownExtra;
 
 /**
  * Pico
