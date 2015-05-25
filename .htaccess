@@ -1,9 +1,11 @@
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d 
-RewriteRule . index.php [L]
+<IfModule mod_rewrite.c>                    # Check for mod_rewite module.
+    RewriteEngine On                        # Turn mod_rewrite module on
+    #RewriteBase /                          # May be required to access sub-directories
+    RewriteCond %{REQUEST_FILENAME} !-f     # Any request that is not a file,
+    RewriteCond %{REQUEST_FILENAME} !-d     # Any request that is not a directory,
+    RewriteRule . index.php [L]             # Reroute the request to index.php
 </IfModule>
+
 
 # Prevent file browsing
 Options -Indexes
