@@ -10,6 +10,7 @@
  */
 class Pico {
 
+	private $config;
 	private $plugins;
 
 	/**
@@ -150,7 +151,7 @@ class Pico {
 	 */
 	protected function read_file_meta($content)
 	{
-		global $config;
+		$config = $this->config;
 
 		$headers = array(
 			'title'       	=> 'Title',
@@ -184,8 +185,8 @@ class Pico {
 	 */
 	protected function get_config()
 	{
-		global $config;
-		@include_once(ROOT_DIR .'config.php');
+
+        $this->config = @include_once(ROOT_DIR .'config.php');
 
 		$defaults = array(
 			'site_title' => 'Pico',
@@ -199,10 +200,10 @@ class Pico {
             'content_dir' => 'content-sample/',
 		);
 
-		if(is_array($config)) $config = array_merge($defaults, $config);
-		else $config = $defaults;
+		if(is_array($this->config)) $this->config = array_merge($defaults, $this->config);
+		else $this->config = $defaults;
 
-		return $config;
+		return $this->config;
 	}
 
 	/**
@@ -215,7 +216,7 @@ class Pico {
 	 */
 	protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
-		global $config;
+        $config = $this->config;
 
 		$pages = $this->get_files($config['content_dir'], CONTENT_EXT);
 		$sorted_pages = array();
@@ -292,7 +293,8 @@ class Pico {
 	 */
 	protected function base_url()
 	{
-		global $config;
+        $config = $this->config;
+
 		if(isset($config['base_url']) && $config['base_url']) return $config['base_url'];
 
 		$url = '';
