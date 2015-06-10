@@ -186,7 +186,7 @@ class Pico {
 	protected function get_config()
 	{
 
-        $this->config = @include_once(ROOT_DIR .'config.php');
+		$this->config = @include_once(ROOT_DIR .'config.php');
 
 		$defaults = array(
 			'site_title' => 'Pico',
@@ -216,7 +216,7 @@ class Pico {
 	 */
 	protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
 	{
-        $config = $this->config;
+		$config = $this->config;
 
 		$pages = $this->get_files($config['content_dir'], CONTENT_EXT);
 		$sorted_pages = array();
@@ -293,7 +293,7 @@ class Pico {
 	 */
 	protected function base_url()
 	{
-        $config = $this->config;
+		$config = $this->config;
 
 		if(isset($config['base_url']) && $config['base_url']) return $config['base_url'];
 
