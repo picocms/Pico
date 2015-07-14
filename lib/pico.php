@@ -359,8 +359,8 @@ class Pico
     protected function get_files($directory, $ext = '')
     {
         $array_items = array();
-        if ($handle = opendir($directory)) {
-            while (false !== ($file = readdir($handle))) {
+        if ($files = scandir($directory)) {
+            foreach ($files as $file) {
                 if (in_array(substr($file, -1), array('~', '#'))) {
                     continue;
                 }
@@ -375,7 +375,6 @@ class Pico
                     }
                 }
             }
-            closedir($handle);
         }
 
         return $array_items;
