@@ -112,8 +112,7 @@
 	      	<li>That's it. Tweak the <code>.htaccess</code> file if required.</li>
 	      <ol>
 	      <br />
-	      <p>You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
-		  lists all of the settings and their defaults. To override a setting simply uncomment it in config.php and set your custom value.</p>
+	      <p>You can override the default Pico settings (and add your own custom settings) by editing <code>config/config.php</code> in the Pico directory. The <code>config/config.php.template</code> lists all of the settings and their defaults. To override a setting simply copy <code>config/config.php.template</code> to <code>config/config.php</code>, uncomment the setting and set your custom value.</p>
 	      <hr>
 	      <h3 id="creating-content">Creating Content</h3>
 	      <p>Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create <code>.md</code> files in the "content-sample"
@@ -175,15 +174,15 @@ Template: index (allows you to use different templates in your theme)
 	      <h3 id="themeing">Themeing</h3>
 	      <p>You can create themes for your Pico installation and in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
 	<a href="http://twig.sensiolabs.org/documentation">Twig</a> for it's templating engine. You can select your theme by setting the <code>$config['theme']</code> variable
-	in config.php to your theme folder.</p>
+	in <code>config/config.php</code> to your theme folder.</p>
 		  <p>All themes must include an <code>index.html</code> file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme:</p>
 		  <ul>
-			<li><code>{{ config }}</code> - Conatins the values you set in config.php (e.g. <code>{{ config.theme }}</code> = "default")</li>
+			<li><code>{{ config }}</code> - Conatins the values you set in <code>config/config.php</code> (e.g. <code>{{ config.theme }}</code> = "default")</li>
 			<li><code>{{ base_dir }}</code> - The path to your Pico root directory</li>
 			<li><code>{{ base_url }}</code> - The URL to your Pico site</li>
 			<li><code>{{ theme_dir }}</code> - The path to the Pico active theme direcotry</li>
 			<li><code>{{ theme_url }}</code> - The URL to the Pico active theme direcotry</li>
-			<li><code>{{ site_title }}</code> - Shortcut to the site title (defined in config.php)</li>
+			<li><code>{{ site_title }}</code> - Shortcut to the site title (defined in <code>config/config.php</code>)</li>
 			<li><code>{{ meta }}</code> - Contains the meta values from the current page
 				<ul>
 				<li><code>{{ meta.title }}</code></li>
