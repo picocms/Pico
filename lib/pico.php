@@ -199,8 +199,12 @@ class Pico
      */
     protected function get_config()
     {
-
-        $this->config = @include_once(ROOT_DIR . 'config.php');
+        if (file_exists(CONFIG_DIR . 'config.php')) {
+            $this->config = require(CONFIG_DIR . 'config.php');
+        } else if (file_exists(ROOT_DIR . 'config.php')) {
+            // deprecated
+            $this->config = require(ROOT_DIR . 'config.php');
+        }
 
         $defaults = array(
             'site_title' => 'Pico',
