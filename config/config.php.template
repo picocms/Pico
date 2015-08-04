@@ -11,8 +11,8 @@
  * @license http://opensource.org/licenses/MIT
  * @version 0.9
  *
- * To override any of the default settings below, uncomment the line,
- * make and save the changes, then rename this file to `config.php`
+ * To override any of the default settings below, copy this file to
+ * `config.php`, uncomment the line and make and save your changes.
  */
 
 /*

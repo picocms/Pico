@@ -55,16 +55,16 @@ There are also certain variables that you can use in your text files:
 
 You can create themes for your Pico installation in the "themes" folder. Check out the default theme for an example of a theme. Pico uses
 [Twig](http://twig.sensiolabs.org/documentation) for it's templating engine. You can select your theme by setting the `$config['theme']` variable
-in config.php to your theme folder.
+in `config/config.php` to your theme folder.
 
 All themes must include an `index.html` file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme:
 
-* `{{ config }}` - Conatins the values you set in config.php (e.g. `{{ config.theme }}` = "default")
+* `{{ config }}` - Conatins the values you set in `config/config.php` (e.g. `{{ config.theme }}` = "default")
 * `{{ base_dir }}` - The path to your Pico root directory
 * `{{ base_url }}` - The URL to your Pico site
 * `{{ theme_dir }}` - The path to the Pico active theme directory
 * `{{ theme_url }}` - The URL to the Pico active theme directory
-* `{{ site_title }}` - Shortcut to the site title (defined in config.php)
+* `{{ site_title }}` - Shortcut to the site title (defined in `config/config.php`)
 * `{{ meta }}` - Contains the meta values from the current page
 	* `{{ meta.title }}`
 	* `{{ meta.description }}`
@@ -100,8 +100,9 @@ See [http://pico.dev7studios.com/plugins](http://picocms.org/plugins)
 
 ### Config
 
-You can override the default Pico settings (and add your own custom settings) by editing config.php in the root Pico directory. The config.php file
-lists all of the settings and their defaults. To override a setting, simply uncomment it in config.php and set your custom value.
+You can override the default Pico settings (and add your own custom settings) by editing `config/config.php` in the Pico directory.
+The `config/config.php.template` lists all of the settings and their defaults. To override a setting simply copy
+`config/config.php.template` to `config/config.php`, uncomment the setting and set your custom value.
 
 ### Documentation
 
