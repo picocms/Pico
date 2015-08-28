@@ -4,7 +4,11 @@
     #RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule . index.php [L]
+    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
+
+    <IfModule mod_env.c>
+        SetEnv PICO_URL_REWRITING 1
+    </IfModule>
 </IfModule>
 
 # Prevent file browsing
