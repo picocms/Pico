@@ -14,9 +14,14 @@
     "require": {
         "php": ">=5.3.2",
         "twig/twig": "1.18.*",
-        "erusev/parsedown-extra": "dev-master@dev"
+        "erusev/parsedown-extra": "dev-master@dev",
+        "symfony/yaml" : "2.3"
     },
     "autoload": {
-        "files": ["lib/pico.php"]
+        "files": [
+            "lib/Pico.php",
+            "lib/IPicoPlugin.php",
+            "lib/AbstractPicoPlugin.php"
+        ]
     }
 }
