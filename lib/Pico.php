@@ -374,7 +374,7 @@ class Pico
         //
         // Note: you MUST NOT call the index page with /pico/?someBooleanParameter;
         // use /pico/?someBooleanParameter= or /pico/?index&someBooleanParameter instead
-        $pathComponent = $_SERVER['QUERY_STRING'];
+        $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
         if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
             $pathComponent = substr($pathComponent, 0, $pathComponentLength);
         }
