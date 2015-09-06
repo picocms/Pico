@@ -243,7 +243,11 @@ class Pico
 
             $className = preg_replace('/^[0-9]+-/', '', basename($pluginFile, '.php'));
             if (class_exists($className)) {
-                $this->plugins[$className] = new $className($this);
+                // class name and file name can differ regarding case sensitivity
+                $plugin = new $className($this);
+                $className = get_class($plugin);
+
+                $this->plugins[$className] = $plugin;
             } else {
                 // TODO: breaks backward compatibility
                 //throw new RuntimeException("Unable to load plugin '".$className."'");
