@@ -193,7 +193,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico parsed the contents of the file to serve
      *
      * @see    Pico::getFileContent()
-     * @param  stirng &$content parsed contents
+     * @param  string &$content parsed contents
      * @return void
      */
     public function onContentParsed(&$content)

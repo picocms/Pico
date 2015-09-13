@@ -209,17 +209,17 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
                         } else {
                             throw new RuntimeException(
                                 "Unable to disable plugin '" . get_called_class() . "': "
-                                + "Required by manually enabled plugin '" . $pluginName . "'"
+                                . "Required by manually enabled plugin '" . $pluginName . "'"
                             );
                         }
                     }
                 }
             } else {
                 $dependantsList = 'plugin' . ((count($dependants) > 1) ? 's' : '') . ' ';
-                $dependantsList .= "'" + implode("', '", array_keys($dependants)) + "'";
+                $dependantsList .= "'" . implode("', '", array_keys($dependants)) . "'";
                 throw new RuntimeException(
                     "Unable to disable plugin '" . get_called_class() . "': "
-                    + "Required by " . $dependantsList
+                    . "Required by " . $dependantsList
                 );
             }
         }

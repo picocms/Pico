@@ -228,7 +228,7 @@ class Pico
      * Loads plugins from PLUGINS_DIR in alphabetical order
      *
      * Plugin files may be prefixed by a number (e.g. 00-PicoDeprecated.php)
-     * to indicate their processsing order. You MUST NOT use prefixes between
+     * to indicate their processing order. You MUST NOT use prefixes between
      * 00 and 19 (reserved for built-in plugins).
      *
      * @return void
@@ -497,9 +497,9 @@ class Pico
      * ignored and won't be returned.
      *
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
-     * @param  string $content the raw file contents
-     * @param  array  $headers a array containing the known headers
-     * @return array           parsed meta data
+     * @param  string $rawContent the raw file contents
+     * @param  array  $headers    a array containing the known headers
+     * @return array              parsed meta data
      */
     public function parseFileMeta($rawContent, array $headers)
     {
@@ -887,9 +887,10 @@ class Pico
      * Recursively walks through a directory and returns all containing files
      * matching the specified file extension in alphabetical order
      *
-     * @param  string $directory start directory
-     * @param  string $ext       return files with this file extension only (optional)
-     * @return array             list of found files
+     * @param  string $directory     start directory
+     * @param  string $fileExtension return files with the given file extension
+     *     only (optional)
+     * @return array                 list of found files
      */
     protected function getFiles($directory, $fileExtension = '')
     {
@@ -910,7 +911,7 @@ class Pico
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
                     $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension));
-                } elseif (empty($fileExtension) || (substr($file, -strlen($fileExtension)) === $fileExtension)) {
+                } elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
                     $result[] = $directory . '/' . $file;
                 }
             }
