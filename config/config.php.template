@@ -16,6 +16,8 @@
  * @version 0.9
  */
 
+$config = array();
+
 /*
  * BASIC
  */
