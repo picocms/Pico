@@ -307,7 +307,7 @@ class Pico
             'timezone' => ''
         );
 
-        $config = require(CONFIG_DIR . 'config.php');
+        $config = file_exists(CONFIG_DIR . 'config.php') ? require(CONFIG_DIR . 'config.php') : null;
         $this->config = is_array($config) ? $config + $defaultConfig : $defaultConfig;
 
         if (empty($this->config['base_url'])) {
@@ -835,8 +835,9 @@ class Pico
      */
     public function getBaseUrl()
     {
-        if (!empty($this->getConfig('base_url'))) {
-            return $this->getConfig('base_url');
+        $baseUrl = $this->getConfig('base_url');
+        if (!empty($baseUrl)) {
+            return $baseUrl;
         }
 
         if (
