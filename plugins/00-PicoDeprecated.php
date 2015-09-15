@@ -5,8 +5,8 @@
  *
  * This plugin exists for backward compatibility and is disabled by default.
  * It gets automatically enabled when a plugin which doesn't implement
- * {@link IPicoPlugin} is loaded. This plugin mainly triggers deprecated
- * events, but also automatically enables {@link PicoParsePagesContent} and
+ * {@link PicoPluginInterface} is loaded. This plugin triggers deprecated
+ * events and automatically enables {@link PicoParsePagesContent} and
  * {@link PicoExcerpt}. These plugins heavily impact Picos performance! You
  * can disable this plugin by calling {@link PicoDeprecated::setEnabled()}.
  *
@@ -68,8 +68,8 @@ class PicoDeprecated extends AbstractPicoPlugin
     public function onPluginsLoaded(&$plugins)
     {
         foreach ($plugins as $plugin) {
-            if (!is_a($plugin, 'IPicoPlugin')) {
-                // the plugin doesn't implement IPicoPlugin; it uses deprecated events
+            if (!is_a($plugin, 'PicoPluginInterface')) {
+                // the plugin doesn't implement PicoPluginInterface; it uses deprecated events
                 // enable PicoDeprecated if it hasn't be explicitly enabled/disabled yet
                 if (!$this->isStatusChanged()) {
                     $this->setEnabled(true, true, true);

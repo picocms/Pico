@@ -20,7 +20,7 @@
     "autoload": {
         "files": [
             "lib/Pico.php",
-            "lib/IPicoPlugin.php",
+            "lib/PicoPluginInterface.php",
             "lib/AbstractPicoPlugin.php"
         ]
     }

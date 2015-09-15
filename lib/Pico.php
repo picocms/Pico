@@ -258,8 +258,8 @@ class Pico
     /**
      * Returns the instance of a named plugin
      *
-     * Plugins SHOULD implement {@link IPicoPlugin}, but you MUST NOT rely on
-     * it. For more information see {@link IPicoPlugin}.
+     * Plugins SHOULD implement {@link PicoPluginInterface}, but you MUST NOT
+     * rely on it. For more information see {@link PicoPluginInterface}.
      *
      * @see    Pico::loadPlugins()
      * @param  string           $pluginName name of the plugin
@@ -922,7 +922,7 @@ class Pico
     }
 
     /**
-     * Triggers events on plugins which implement {@link IPicoPlugin}
+     * Triggers events on plugins which implement {@link PicoPluginInterface}
      *
      * Deprecated events (as used by plugins not implementing
      * {@link IPocPlugin}) are triggered by {@link PicoDeprecated}.
@@ -934,10 +934,10 @@ class Pico
     protected function triggerEvent($eventName, array $params = array())
     {
         foreach ($this->plugins as $plugin) {
-            // only trigger events for plugins that implement IPicoPlugin
+            // only trigger events for plugins that implement PicoPluginInterface
             // deprecated events (plugins for Pico 0.9 and older) will be
             // triggered by the `PicoPluginDeprecated` plugin
-            if (is_a($plugin, 'IPicoPlugin')) {
+            if (is_a($plugin, 'PicoPluginInterface')) {
                 $plugin->handleEvent($eventName, $params);
             }
         }

@@ -3,21 +3,21 @@
 /**
  * Abstract class to extend from when implementing a Pico plugin
  *
- * @see IPicoPlugin
+ * @see PicoPluginInterface
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT
  * @version 1.0
  */
-abstract class AbstractPicoPlugin implements IPicoPlugin
+abstract class AbstractPicoPlugin implements PicoPluginInterface
 {
     /**
      * Current instance of Pico
      *
      * @var Pico
-     * @see IPicoPlugin::__construct()
-     * @see IPicoPlugin::getPico()
+     * @see PicoPluginInterface::__construct()
+     * @see PicoPluginInterface::getPico()
      */
     private $pico;
 
@@ -25,8 +25,8 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
      * Boolean indicating if this plugin is enabled (true) or disabled (false)
      *
      * @var boolean
-     * @see IPicoPlugin::isEnabled()
-     * @see IPicoPlugin::setEnabled()
+     * @see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::setEnabled()
      */
     protected $enabled = true;
 
@@ -34,7 +34,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
      * Boolean indicating if this plugin was ever enabled/disabled manually
      *
      * @var boolean
-     * @see IPicoPlugin::isStatusChanged()
+     * @see PicoPluginInterface::isStatusChanged()
      */
     protected $statusChanged = false;
 
@@ -42,7 +42,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
      * List of plugins this plugin depends on
      *
      * @var array<string>
-     * @see IPicoPlugin::getDependencies()
+     * @see PicoPluginInterface::getDependencies()
      * @see AbstractPicoPlugin::checkDependencies()
      */
     protected $dependsOn = array();
@@ -51,13 +51,13 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
      * List of plugin which depend on this plugin
      *
      * @var array<object>
-     * @see IPicoPlugin::getDependants()
+     * @see PicoPluginInterface::getDependants()
      * @see AbstractPicoPlugin::checkDependants()
      */
     private $dependants;
 
     /**
-     * @see IPicoPlugin::__construct()
+     * @see PicoPluginInterface::__construct()
      */
     public function __construct(Pico $pico)
     {
@@ -65,7 +65,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::handleEvent()
+     * @see PicoPluginInterface::handleEvent()
      */
     public function handleEvent($eventName, array $params)
     {
@@ -85,7 +85,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::setEnabled()
+     * @see PicoPluginInterface::setEnabled()
      */
     public function setEnabled($enabled, $recursive = true, $auto = false)
     {
@@ -100,7 +100,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::isEnabled()
+     * @see PicoPluginInterface::isEnabled()
      */
     public function isEnabled()
     {
@@ -108,7 +108,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::isStatusChanged()
+     * @see PicoPluginInterface::isStatusChanged()
      */
     public function isStatusChanged()
     {
@@ -116,7 +116,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::getPico()
+     * @see PicoPluginInterface::getPico()
      */
     public function getPico()
     {
@@ -161,8 +161,8 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
                 );
             }
 
-            // plugins which don't implement IPicoPlugin are always enabled
-            if (is_a($plugin, 'IPicoPlugin') && !$plugin->isEnabled()) {
+            // plugins which don't implement PicoPluginInterface are always enabled
+            if (is_a($plugin, 'PicoPluginInterface') && !$plugin->isEnabled()) {
                 if ($recursive) {
                     if (!$plugin->isStatusChanged()) {
                         $plugin->setEnabled(true, true, true);
@@ -183,7 +183,7 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::getDependencies()
+     * @see PicoPluginInterface::getDependencies()
      */
     public function getDependencies()
     {
@@ -226,15 +226,15 @@ abstract class AbstractPicoPlugin implements IPicoPlugin
     }
 
     /**
-     * @see IPicoPlugin::getDependants()
+     * @see PicoPluginInterface::getDependants()
      */
     public function getDependants()
     {
         if ($this->dependants === null) {
             $this->dependants = array();
             foreach ($this->getPlugins() as $pluginName => $plugin) {
-                // only plugins which implement IPicoPlugin support dependencies
-                if (is_a($plugin, 'IPicoPlugin')) {
+                // only plugins which implement PicoPluginInterface support dependencies
+                if (is_a($plugin, 'PicoPluginInterface')) {
                     $dependencies = $plugin->getDependencies();
                     if (in_array(get_called_class(), $dependencies)) {
                         $this->dependants[$pluginName] = $plugin;
