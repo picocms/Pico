@@ -41,6 +41,14 @@
 // $config['content_dir'] = 'content-sample/';    // Content directory
 
 /*
+ * BLOG POSTS
+ */
+
+$config['blog_dir'] = 'content-posts/';         // Blog post directory
+$config['blog_url'] = 'blog';                   // Route for blog content, appended to base url
+                                                // when parsing blog URIs
+ 
+/*
  * TIMEZONE
  */
 // date_default_timezone_set('UTC');              // Timezone may be reqired by your php install

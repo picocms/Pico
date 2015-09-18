@@ -42,11 +42,19 @@ class Pico
         $this->run_hooks('request_url', array(&$url));
 
         // Get the file path
-        if ($url) {
-            $file = $settings['content_dir'] . $url;
-        } else {
-            $file = $settings['content_dir'] . 'index';
-        }
+	if (isset($settings['blog_dir']) && strpos($url, $settings['blog_url']) !== FALSE) {
+	    if (preg_match('/' . $settings['blog_url'] . '\/\S+/', $url)) {
+            	$file = $settings['blog_dir'] . '/' . str_replace($settings['blog_url'] . '/', '', $url);
+            } else {
+            	$file = $settings['blog_dir'] . '/' . 'index';
+            }
+	} else {
+            if ($url) {
+               $file = $settings['content_dir'] . $url;
+            } else {
+                $file = $settings['content_dir'] . 'index';
+            }
+	}
 
         // Load the file
         if (is_dir($file)) {
@@ -76,7 +84,11 @@ class Pico
 
         // Get all the pages
         $pages = $this->get_pages($settings['base_url'], $settings['pages_order_by'], $settings['pages_order'],
-            $settings['excerpt_length']);
+            $settings['excerpt_length'], $settings['content_dir']);
+	if (isset($settings['blog_dir'])) {
+        	$blog_pages = $this->get_pages($settings['blog_url'], $settings['pages_order_by'], $settings['pages_order'],
+            		$settings['excerpt_length'], $settings['blog_dir']);
+	}
         $prev_page = array();
         $current_page = array();
         $next_page = array();
@@ -107,6 +119,7 @@ class Pico
             'meta' => $meta,
             'content' => $content,
             'pages' => $pages,
+            'blog_pages' => $blog_pages,
             'prev_page' => $prev_page,
             'current_page' => $current_page,
             'next_page' => $next_page,
@@ -216,6 +229,8 @@ class Pico
             'pages_order' => 'asc',
             'excerpt_length' => 50,
             'content_dir' => 'content-sample/',
+	    'blog_dir' => 'content-posts/',
+	    'blog_url' => 'blog',
         );
 
         if (is_array($this->config)) {
@@ -235,11 +250,11 @@ class Pico
      * @param string $order order "asc" or "desc"
      * @return array $sorted_pages an array of pages
      */
-    protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50)
+    protected function get_pages($base_url, $order_by = 'alpha', $order = 'asc', $excerpt_length = 50, $content_dir)
     {
         $config = $this->config;
 
-        $pages = $this->get_files($config['content_dir'], CONTENT_EXT);
+        $pages = $this->get_files($content_dir, CONTENT_EXT);
         $sorted_pages = array();
         $date_id = 0;
         foreach ($pages as $key => $page) {
@@ -254,11 +269,16 @@ class Pico
                 unset($pages[$key]);
                 continue;
             }
+            // If retreiving blog pages, ignore index page
+            if (basename($page) == 'index' . CONTENT_EXT && isset($config['blog_dir']) && $content_dir==$config['blog_dir']) {
+                unset($pages[$key]);
+                continue;
+            }
             // Get title and format $page
             $page_content = file_get_contents($page);
             $page_meta = $this->read_file_meta($page_content);
             $page_content = $this->parse_content($page_content);
-            $url = str_replace($config['content_dir'], $base_url . '/', $page);
+            $url = str_replace($content_dir, $base_url . '/', $page);
             $url = str_replace('index' . CONTENT_EXT, '', $url);
             $url = str_replace(CONTENT_EXT, '', $url);
             $data = array(
@@ -272,7 +292,6 @@ class Pico
                 'excerpt' => $this->limit_words(strip_tags($page_content), $excerpt_length),
                 //this addition allows the 'description' meta to be picked up in content areas... specifically to replace 'excerpt'
                 'description' => isset($page_meta['description']) ? $page_meta['description'] : '',
-
             );
 
             // Extend the data provided with each page by hooking into the data array
