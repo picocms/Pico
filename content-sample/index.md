@@ -113,7 +113,7 @@ have a trailing slash.
 * `{{ content }}` - The content of the current page
                     (after it has been processed through Markdown)
 * `{{ pages }}` - A collection of all the content pages in your site
-	* `{{ page.id }}`
+    * `{{ page.id }}`
     * `{{ page.url }}`
     * `{{ page.title }}`
     * `{{ page.description }}`
