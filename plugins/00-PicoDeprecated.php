@@ -270,11 +270,12 @@ class PicoDeprecated extends AbstractPicoPlugin
             }
 
             // prevent duplicates
-            for ($i = 1, $origId = $pageData['id']; isset($pages[$pageData['id']]); $i++) {
-                $pageData['id'] = $origId . '~dup' . $i;
+            $id = $pageData['id'];
+            for ($i = 1; isset($pages[$id]); $i++) {
+                $id = $pageData['id'] . '~dup' . $i;
             }
 
-            $pages[$pageData['id']] = &$pageData;
+            $pages[$id] = &$pageData;
         }
     }
 
