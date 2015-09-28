@@ -242,13 +242,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onSinglePageLoaded(&$pageData)
     {
-        // remove array keys
-        $pages = array();
-        foreach ($pageData as &$page) {
-            $pages[] = &$page;
-        }
-
-        $this->triggerEvent('get_page_data', array(&$pages, $pageData['meta']));
+        $this->triggerEvent('get_page_data', array(&$pageData, $pageData['meta']));
     }
 
     /**
@@ -258,7 +252,30 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onPagesLoaded(&$pages, &$currentPage, &$previousPage, &$nextPage)
     {
-        $this->triggerEvent('get_pages', array(&$pages, &$currentPage, &$previousPage, &$nextPage));
+        // remove keys of pages array
+        $plainPages = array();
+        foreach ($pages as &$pageData) {
+            $plainPages[] = &$pageData;
+        }
+        unset($pageData);
+
+        $this->triggerEvent('get_pages', array(&$plainPages, &$currentPage, &$previousPage, &$nextPage));
+
+        // re-index pages array
+        $pages = array();
+        foreach ($plainPages as &$pageData) {
+            if (!isset($pageData['id'])) {
+                $urlPrefixLength = strlen($this->getBaseUrl()) + intval(!$this->isUrlRewritingEnabled());
+                $pageData['id'] = substr($pageData['url'], $urlPrefixLength);
+            }
+
+            // prevent duplicates
+            for ($i = 1, $origId = $pageData['id']; isset($pages[$pageData['id']]); $i++) {
+                $pageData['id'] = $origId . '~dup' . $i;
+            }
+
+            $pages[$pageData['id']] = &$pageData;
+        }
     }
 
     /**
