@@ -717,6 +717,13 @@ class Pico
             }
 
             $id = substr($file, strlen($this->getConfig('content_dir')), -strlen($this->getConfig('content_ext')));
+
+            // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
+            $conflictFile = $this->getConfig('content_dir') . $id . '/index' . $this->getConfig('content_ext');
+            if (in_array($conflictFile, $files, true)) {
+                continue;
+            }
+
             $url = $this->getPageUrl($id);
             if ($file != $this->requestFile) {
                 $rawContent = file_get_contents($file);
@@ -724,13 +731,6 @@ class Pico
             } else {
                 $rawContent = &$this->rawContent;
                 $meta = &$this->meta;
-            }
-
-            // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
-            if (substr($id, -6) === '/index') {
-                unset($pages[dirname($id)]);
-            } elseif (isset($pages[$id . '/index'])) {
-                continue;
             }
 
             // build page data
