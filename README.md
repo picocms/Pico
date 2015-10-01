@@ -19,7 +19,7 @@ Run
 
 The easiest way to Pico is using [the built-in web server on PHP](<http://php.net/manual/en/features.commandline.webserver.php>).
 
-    $ php -S 0.0.0.0:8080 ./
+    $ php -S 0.0.0.0:8080
 
 Pico will be accessible from <http://localhost:8080>.
 
