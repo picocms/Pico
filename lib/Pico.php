@@ -309,7 +309,7 @@ class Pico
     }
 
     /**
-     * Loads plugins from PLUGINS_DIR in alphabetical order
+     * Loads plugins from Pico::$pluginsDir in alphabetical order
      *
      * Plugin files may be prefixed by a number (e.g. 00-PicoDeprecated.php)
      * to indicate their processing order. You MUST NOT use prefixes between
@@ -371,7 +371,7 @@ class Pico
     }
 
     /**
-     * Loads the config.php from CONFIG_DIR
+     * Loads the config.php from Pico::$configDir
      *
      * @return void
      */

@@ -86,15 +86,15 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Triggers the deprecated event config_loaded($config), tries to read
      * {@path "config.php"} in Picos root dir, enables the plugins
-     * {@link PicoParsePagesContent} and {@link PicoExcerpt} and defines the
-     * deprecated constants CONTENT_DIR and CONTENT_EXT
+     * {@link PicoParsePagesContent} and {@link PicoExcerpt} and defines some
+     * deprecated constants (ROOT_DIR, CONTENT_DIR etc.)
      *
      * @see DummyPlugin::onConfigLoaded()
      */
     public function onConfigLoaded(&$config)
     {
         if (file_exists($this->getRootDir() . 'config.php')) {
-            // config.php in ROOT_DIR is deprecated; use CONFIG_DIR instead
+            // config.php in Pico::$rootDir is deprecated; use Pico::$configDir instead
             $newConfig = require($this->getRootDir() . 'config.php');
             if (is_array($newConfig)) {
                 $config = $newConfig + $config;
