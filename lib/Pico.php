@@ -726,6 +726,13 @@ class Pico
                 $meta = &$this->meta;
             }
 
+            // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
+            if (substr($id, -6) === '/index') {
+                unset($pages[dirname($id)]);
+            } elseif (isset($pages[$id . '/index'])) {
+                continue;
+            }
+
             // build page data
             // title, description, author and date are assumed to be pretty basic data
             // everything else is accessible through $page['meta']
