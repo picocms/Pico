@@ -166,9 +166,9 @@ class Pico
     public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
     {
         $this->rootDir = rtrim($rootDir, '/') . '/';
-        $this->configDir = rtrim($configDir, '/') . '/';
-        $this->pluginsDir = rtrim($pluginsDir, '/') . '/';
-        $this->themesDir = rtrim($themesDir, '/') . '/';
+        $this->configDir = $this->getAbsolutePath($configDir);
+        $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
+        $this->themesDir = $this->getAbsolutePath($themesDir);
     }
 
     /**
@@ -399,7 +399,7 @@ class Pico
             $this->config['base_url'] = $this->getBaseUrl();
         }
         if (!empty($this->config['content_dir'])) {
-            $this->config['content_dir'] = rtrim($this->config['content_dir'], '/') . '/';
+            $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
         if (!empty($this->config['timezone'])) {
             date_default_timezone_set($this->config['timezone']);
@@ -1004,6 +1004,22 @@ class Pico
         }
 
         return $result;
+    }
+
+    /**
+     * Makes a relative path absolute to Picos root dir
+     *
+     * This method also guarantees a trailing slash.
+     *
+     * @param  string $path relative or absolute path
+     * @return string       absolute path
+     */
+    protected function getAbsolutePath($path)
+    {
+        if (substr($path, 0, 1) !== '/') {
+            $path = $this->getRootDir() . $path;
+        }
+        return rtrim($path, '/') . '/';
     }
 
     /**
