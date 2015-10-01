@@ -658,7 +658,7 @@ class Pico
             // we'll replace the links accordingly, depending on enabled rewriting
             $content = str_replace('%base_url%?', $this->getBaseUrl(), $content);
         } else {
-            // actually not necessary, but makes the URLs look a little nicer
+            // actually not necessary, but makes the URL look a little nicer
             $content = str_replace('%base_url%?', $this->getBaseUrl() . '?', $content);
         }
         $content = str_replace('%base_url%', rtrim($this->getBaseUrl(), '/'), $content);
@@ -707,8 +707,8 @@ class Pico
      */
     protected function readPages()
     {
-        $pages = array();
-        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'));
+        $this->pages = array();
+        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), SCANDIR_SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
             if (basename($file) == '404' . $this->getConfig('content_ext')) {
@@ -758,17 +758,22 @@ class Pico
             // trigger event
             $this->triggerEvent('onSinglePageLoaded', array(&$page));
 
-            $pages[$id] = $page;
+            $this->pages[$id] = $page;
         }
 
-        // sort pages by date
-        // Pico::getFiles() already sorts alphabetically
-        $this->pages = $pages;
-        if ($this->getConfig('pages_order_by') == 'date') {
-            $pageIds = array_keys($this->pages);
-            $order = $this->getConfig('pages_order');
+        // sort pages
+        $order = $this->getConfig('pages_order');
+        $alphaSortClosure = function ($a, $b) use ($order) {
+            $aSortKey = (basename($a['id']) === 'index') ? dirname($a['id']) : $a['id'];
+            $bSortKey = (basename($b['id']) === 'index') ? dirname($b['id']) : $b['id'];
 
-            uasort($this->pages, function ($a, $b) use ($pageIds, $order) {
+            $cmp = strcmp($aSortKey, $bSortKey);
+            return $cmp * (($order == 'desc') ? -1 : 1);
+        };
+
+        if ($this->getConfig('pages_order_by') == 'date') {
+            // sort by date
+            uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
                 if (empty($a['time']) || empty($b['time'])) {
                     $cmp = (empty($a['time']) - empty($b['time']));
                 } else {
@@ -776,14 +781,15 @@ class Pico
                 }
 
                 if ($cmp === 0) {
-                    // never assume equality; fallback to the original order (= alphabetical)
-                    $cmp = (array_search($b['id'], $pageIds) - array_search($a['id'], $pageIds));
+                    // never assume equality; fallback to alphabetical order
+                    return $alphaSortClosure($a, $b);
                 }
 
                 return $cmp * (($order == 'desc') ? 1 : -1);
             });
-        } elseif ($this->getConfig('pages_order') == 'desc') {
-            $this->pages = array_reverse($this->pages);
+        } else {
+            // sort alphabetically
+            uasort($this->pages, $alphaSortClosure);
         }
     }
 
@@ -978,20 +984,24 @@ class Pico
 
     /**
      * Recursively walks through a directory and returns all containing files
-     * matching the specified file extension in alphabetical order
+     * matching the specified file extension
      *
      * @param  string $directory     start directory
      * @param  string $fileExtension return files with the given file extension
      *     only (optional)
+     * @param  int    $order         specify whether and how files should be
+     *     sorted; use SCANDIR_SORT_ASCENDING for a alphabetical ascending
+     *     order (default), SCANDIR_SORT_DESCENDING for a descending order or
+     *     SCANDIR_SORT_NONE to leave the result unsorted
      * @return array                 list of found files
      */
-    protected function getFiles($directory, $fileExtension = '')
+    protected function getFiles($directory, $fileExtension = '', $order = SCANDIR_SORT_ASCENDING)
     {
         $directory = rtrim($directory, '/');
         $result = array();
 
         // scandir() reads files in alphabetical order
-        $files = scandir($directory);
+        $files = scandir($directory, $order);
         $fileExtensionLength = strlen($fileExtension);
         if ($files !== false) {
             foreach ($files as $file) {
