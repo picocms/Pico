@@ -27,6 +27,34 @@
 class Pico
 {
     /**
+     * Root directory of this Pico instance
+     *
+     * @var string
+     */
+    protected $rootDir;
+
+    /**
+     * Config directory of this Pico instance
+     *
+     * @var string
+     */
+    protected $configDir;
+
+    /**
+     * Plugins directory of this Pico instance
+     *
+     * @var string
+     */
+    protected $pluginsDir;
+
+    /**
+     * Themes directory of this Pico instance
+     *
+     * @var string
+     */
+    protected $themesDir;
+
+    /**
      * List of loaded plugins
      *
      * @see Pico::loadPlugins()
@@ -133,10 +161,66 @@ class Pico
     /**
      * Constructs a new Pico instance
      *
-     * The constructor carries out all the processing in Pico.
-     * Does URL routing, Markdown processing and Twig processing.
+     * To carry out all the processing in Pico, call the run() method.
      */
-    public function __construct()
+    public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
+    {
+        $this->rootDir = rtrim($rootDir, '/') . '/';
+        $this->configDir = rtrim($configDir, '/') . '/';
+        $this->pluginsDir = rtrim($pluginsDir, '/') . '/';
+        $this->themesDir = rtrim($themesDir, '/') . '/';
+    }
+
+    /**
+     * Returns the root directory of this Pico instance
+     *
+     * @return string root directory path
+     */
+    public function getRootDir()
+    {
+        return $this->rootDir;
+    }
+
+    /**
+     * Returns the config directory of this Pico instance
+     *
+     * @return string config directory path
+     */
+    public function getConfigDir()
+    {
+        return $this->configDir;
+    }
+
+    /**
+     * Returns the plugins directory of this Pico instance
+     *
+     * @return string plugins directory path
+     */
+    public function getPluginsDir()
+    {
+        return $this->pluginsDir;
+    }
+
+    /**
+     * Returns the themes directory of this Pico instance
+     *
+     * @return string themes directory path
+     */
+    public function getThemesDir()
+    {
+        return $this->themesDir;
+    }
+
+    /**
+     * Runs this Pico instance
+     *
+     * Loads plugins, evaluates the config file, does URL routing, parses
+     * meta headers, processes Markdown, does Twig processing and returns
+     * the rendered contents.
+     *
+     * @return string rendered Pico contents
+     */
+    public function run()
     {
         // load plugins
         $this->loadPlugins();
@@ -210,7 +294,7 @@ class Pico
         } else {
             $templateName = 'index';
         }
-        if (file_exists(THEMES_DIR . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
+        if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
             $templateName .= '.twig';
         } else {
             $templateName .= '.html';
@@ -221,7 +305,7 @@ class Pico
         $output = $this->twig->render($templateName, $this->twigVariables);
         $this->triggerEvent('onPageRendered', array(&$output));
 
-        echo $output;
+        return $output;
     }
 
     /**
@@ -237,7 +321,7 @@ class Pico
     protected function loadPlugins()
     {
         $this->plugins = array();
-        $pluginFiles = $this->getFiles(PLUGINS_DIR, '.php');
+        $pluginFiles = $this->getFiles($this->getPluginsDir(), '.php');
         foreach ($pluginFiles as $pluginFile) {
             require_once($pluginFile);
 
@@ -302,12 +386,13 @@ class Pico
             'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
-            'content_dir' => ROOT_DIR . 'content-sample/',
+            'content_dir' => $this->getRootDir() . 'content-sample/',
             'content_ext' => '.md',
             'timezone' => ''
         );
 
-        $config = file_exists(CONFIG_DIR . 'config.php') ? require(CONFIG_DIR . 'config.php') : null;
+        $configFile = $this->getConfigDir() . 'config.php';
+        $config = file_exists($configFile) ? require($configFile) : null;
         $this->config = is_array($config) ? $config + $defaultConfig : $defaultConfig;
 
         if (empty($this->config['base_url'])) {
@@ -579,7 +664,7 @@ class Pico
         $content = str_replace('%base_url%', rtrim($this->getBaseUrl(), '/'), $content);
 
         // replace %theme_url%
-        $themeUrl = $this->getBaseUrl() . basename(THEMES_DIR) . '/' . $this->getConfig('theme');
+        $themeUrl = $this->getBaseUrl() . basename($this->getThemesDir()) . '/' . $this->getConfig('theme');
         $content = str_replace('%theme_url%', $themeUrl, $content);
 
         // replace %meta.*%
@@ -783,7 +868,7 @@ class Pico
      */
     protected function registerTwig()
     {
-        $twigLoader = new Twig_Loader_Filesystem(THEMES_DIR . $this->getConfig('theme'));
+        $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
         $this->twig->addFilter(new Twig_SimpleFilter('link', array($this, 'getPageUrl')));
@@ -812,10 +897,10 @@ class Pico
         $frontPage = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
         return array(
             'config' => $this->getConfig(),
-            'base_dir' => rtrim(ROOT_DIR, '/'),
+            'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
-            'theme_dir' => THEMES_DIR . $this->getConfig('theme'),
-            'theme_url' => $this->getBaseUrl() . basename(THEMES_DIR) . '/' . $this->getConfig('theme'),
+            'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
+            'theme_url' => $this->getBaseUrl() . basename($this->getThemesDir()) . '/' . $this->getConfig('theme'),
             'rewrite_url' => $this->isUrlRewritingEnabled(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,

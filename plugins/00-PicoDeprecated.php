@@ -93,9 +93,9 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onConfigLoaded(&$config)
     {
-        if (file_exists(ROOT_DIR . 'config.php')) {
+        if (file_exists($this->getRootDir() . 'config.php')) {
             // config.php in ROOT_DIR is deprecated; use CONFIG_DIR instead
-            $newConfig = require(ROOT_DIR . 'config.php');
+            $newConfig = require($this->getRootDir() . 'config.php');
             if (is_array($newConfig)) {
                 $config = $newConfig + $config;
             }
@@ -119,7 +119,25 @@ class PicoDeprecated extends AbstractPicoPlugin
         }
 
         // CONTENT_DIR constant is deprecated since v0.9,
-        // CONTENT_EXT constant since v1.0
+        // ROOT_DIR, LIB_DIR, PLUGINS_DIR, THEMES_DIR and CONTENT_EXT constants since v1.0,
+        // CONFIG_DIR constant existed just for a short time between v0.9 and v1.0,
+        // CACHE_DIR constant was dropped with v1.0 without a replacement
+        if (!defined('ROOT_DIR')) {
+            define('ROOT_DIR', $this->getRootDir());
+        }
+        if (!defined('CONFIG_DIR')) {
+            define('CONFIG_DIR', $this->getConfigDir());
+        }
+        if (!defined('LIB_DIR')) {
+            $picoReflector = new ReflectionClass('Pico');
+            define('LIB_DIR', dirname($picoReflector->getFileName() . '/'));
+        }
+        if (!defined('PLUGINS_DIR')) {
+            define('PLUGINS_DIR', $this->getPluginsDir());
+        }
+        if (!defined('THEMES_DIR')) {
+            define('THEMES_DIR', $this->getThemesDir());
+        }
         if (!defined('CONTENT_DIR')) {
             define('CONTENT_DIR', $config['content_dir']);
         }
