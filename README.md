@@ -29,7 +29,7 @@ Open a shell and navigate to the desired install directory of Pico within the `h
 ```shell
 $ git clone https://github.com/picocms/Pico.git .
 ```
-Please note that this gives you the current development version of Pico, what is likely unstable and not ready for production use!
+Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
 ###### Step 2
 Download [composer][] and run it with the `install` option:
@@ -53,7 +53,7 @@ Navigate to Picos installation directory using a shell.
 ###### Step 2
 Start PHPs built-in web server:
 ```shell
-$ php -S 0.0.0.0:8080
+$ php -S 127.0.0.1:8080
 ```
 
 ###### Step 3
