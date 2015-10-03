@@ -21,17 +21,17 @@ Just [download the latest Pico release][LatestRelease] and upload all files to t
 
 #### Composer
 
-**Step 1 - for users**
+###### Step 1 - for users
 [Download the *source code* of Picos latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
 
-**Step 1 - for developers**
+###### Step 1 - for developers
 Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Picos Git repository as follows:
 ```shell
 $ git clone https://github.com/picocms/Pico.git .
 ```
 Please note that this gives you the current development version of Pico, what is likely unstable and not ready for production use!
 
-**Step 2**
+###### Step 2
 Download [composer][] and run it with the `install` option:
 ```shell
 $ curl -sS https://getcomposer.org/installer | php
@@ -43,20 +43,20 @@ Run
 
 You have nothing to consider specially, simply navigate to your Pico install using your favourite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
-**You don't have a web server?**
+#### You don't have a web server?
 
 The easiest way to Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
 
-**Step 1**
+###### Step 1
 Navigate to Picos installation directory using a shell.
 
-**Step 2**
+###### Step 2
 Start PHPs built-in web server:
 ```shell
 $ php -S 0.0.0.0:8080
 ```
 
-**Step 3**
+###### Step 3
 Access Pico from <http://localhost:8080>.
 
 Getting Help
