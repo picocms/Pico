@@ -1,49 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-<head>
-    <meta charset="utf-8" />
 
-    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+<head>
+    <!-- Page Meta
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8" />
     {% if meta.description %}
         <meta name="description" content="{{ meta.description|striptags }}">
-    {% endif %}{% if meta.robots %}
+    {% endif %}
+    {% if meta.robots %}
         <meta name="robots" content="{{ meta.robots }}">
     {% endif %}
 
+    <!-- Site Title
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+
+    <!-- Page Meta
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+
+    <!-- Theme
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
-
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
-</head>
-<body>
 
+</head>
+
+<body>
+    <!-- Header/Navigation
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <header id="header">
         <div class="inner clearfix">
-            <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
+            <h1><a href="{{ " index "|link }}" id="logo">{{ site_title }}</a></h1>
             <nav>
                 <a href="#" class="menu-icon"></a>
                 <ul>
                     {% for page in pages %}
-                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
                     {% endfor %}
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Main Content
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <section id="content">
         <div class="inner">
             {{ content }}
         </div>
     </section>
 
+    <!-- Footer
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <footer id="footer">
         <div class="inner">
-            <a href="http://picocms.org/">Pico</a>
-            was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
-            from <a href="http://dev7studios.com">Dev7studios</a>.
+            <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a> from <a href="http://dev7studios.com">Dev7studios</a>.
         </div>
     </footer>
 
+    <!-- Javascript
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
 </body>
+
 </html>
