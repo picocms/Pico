@@ -27,6 +27,30 @@
 class Pico
 {
     /**
+     * Sort files in alphabetical ascending order
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_ASC = 0;
+
+    /**
+     * Sort files in alphabetical descending order
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_DESC = 1;
+
+    /**
+     * Don't sort files
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_NONE = 2;
+
+    /**
      * Root directory of this Pico instance
      *
      * @var string
@@ -708,7 +732,7 @@ class Pico
     protected function readPages()
     {
         $this->pages = array();
-        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), SCANDIR_SORT_NONE);
+        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), Pico::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
             if (basename($file) == '404' . $this->getConfig('content_ext')) {
@@ -990,12 +1014,12 @@ class Pico
      * @param  string $fileExtension return files with the given file extension
      *     only (optional)
      * @param  int    $order         specify whether and how files should be
-     *     sorted; use SCANDIR_SORT_ASCENDING for a alphabetical ascending
-     *     order (default), SCANDIR_SORT_DESCENDING for a descending order or
-     *     SCANDIR_SORT_NONE to leave the result unsorted
+     *     sorted; use Pico::SORT_ASC for a alphabetical ascending order (this
+     *     is the default behaviour), Pico::SORT_DESC for a descending order
+     *     or Pico::SORT_NONE to leave the result unsorted
      * @return array                 list of found files
      */
-    protected function getFiles($directory, $fileExtension = '', $order = SCANDIR_SORT_ASCENDING)
+    protected function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
     {
         $directory = rtrim($directory, '/');
         $result = array();
@@ -1013,7 +1037,7 @@ class Pico
 
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
-                    $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension));
+                    $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
                 } elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
                     $result[] = $directory . '/' . $file;
                 }
