@@ -1,5 +1,63 @@
 *** Pico Changelog ***
 
+2015.10.XX - version 1.0-beta
+ * NOTE: This changelog only provides basic information about the enormous
+         changes introduced with Pico 1.0-beta. Please refer to the UPGRADE
+         section of the docs for details.
+ * [New] Pico is on its way to its first stable release!
+ * [New] Provide pre-bundled releases
+ * [New] Heavily expanded documentation (inline code docs, user docs, dev docs)
+ * [New] New routing system using the QUERY_STRING method; Pico now works
+         out-of-the-box with any webserver and without URL rewriting; use
+         `%base_url%?sub/page` in markdown files and `{{ "sub/page"|link }}`
+         in Twig templates to declare internal links
+ * [New] Brand new plugin system with dependencies (see `PicoPluginInterface`
+         and `AbstractPicoPlugin`); if you're plugin developer, you really
+         should take a look at the UPGRADE section of the docs!
+ * [New] Introducing the `PicoDeprecated` plugin to maintain full backward
+         compatibility with Pico 0.9 and older
+ * [New] Support YAML-style meta header comments (`---`)
+ * [New] Various new placeholders to use in content files (e.g. `%site_title%`)
+ * [New] Provide access to all meta headers in content files (`%meta.*%`)
+ * [New] Provide access to meta headers in `$page` arrays (`$page['meta']`)
+ * [New] The file extension of content files is now configurable
+ * [New] Supporting per-directory `404.md` files
+ * [New] #103: Providing access to `sub.md` even when the `sub` directory
+         exists, provided that there is no `sub/index.md`
+ * [New] #249: Support the `.twig` file extension for templates
+ * [Changed] Complete code refactoring
+ * [Changed] Source code now follows PSR code styling
+ * [Changed] Replacing constants (e.g. `ROOT_DIR`) with constructor parameters
+ * [Changed] Paths (e.g. `content_dir`) are now relative to Picos root dir
+ * [Changed] Adding `Pico::run()` method that performs Picos processing and
+             returns the rendered contents
+ * [Changed] Renaming all plugin events; adding some new events
+ * [Changed] `Pico_Plugin` is now the fully documented `DummyPlugin`
+ * [Changed] Meta data must start on the first line of the file now
+ * [Changed] Exclude inaccessible files from pages list
+ * [Changed] With alphabetical order, index files (e.g. `sub/index.md`) are
+             now always placed before their sub pages (e.g. `sub/foo.md`)
+ * [Changed] Pico requires PHP >= 5.3.6 (due to `erusev/parsedown-extra`)
+ * [Changed] Composer: Require a v0.7 release of `erusev/parsedown-extra`
+ * [Changed] #93, #158: Pico doesn't parse all content files anymore; moved to
+             `PicoParsePagesContent` plugin, but still impacts performance;
+             Note: This means `$page['content']` isn't available anymore, but
+             usually the new `$page['raw_content']` is suitable as replacement.
+ * [Changed] #116: Parse meta headers using the Symfony YAML component
+ * [Changed] #244: Replace opendir() with scandir()
+ * [Changed] #246: Move `config.php` to `config/` directory
+ * [Changed] #253: Assume HTTPS if page is requested through port 443
+ * [Changed] A vast number of small improvements and changes...
+ * [Fixed] Sorting by date now uses timestamps and works as expected
+ * [Fixed] Fixing `$currentPage`, `$nextPage` and `$previousPage`
+ * [Fixed] #99: Support content filenames with spaces
+ * [Fixed] #140, #241: Use file paths as page identifiers rather than titles
+ * [Fixed] #248: Always set a timezone; adding `$config['timezone']` option
+ * [Fixed] A vast number of small bugs...
+ * [Removed] Removing the default Twig cache dir
+ * [Removed] Removing various empty `index.html` files
+ * [Removed] Moving Picos excerpt feature to `PicoExcerpt` plugin
+
 2015.04.28 - version 0.9
  * [New] Default theme is now mobile-friendly
  * [New] Description meta now available in content areas
@@ -8,13 +66,13 @@
  * [Changed] Removed Composer, Twig files in /vendor, you must run composer install now
  * [Changed] Localized date format; strftime() instead of date()
  * [Changed] Added ignore for tmp file extensions in the get_files() method
- * [Fixed] Pico now only removes the 1st comment block in .md file 
+ * [Fixed] Pico now only removes the 1st comment block in .md files
  * [Fixed] Issue wherein the alphabetical sorting of pages did not happen
 
 2013.10.23 - version 0.8
  * [New] Added ability to set template in content meta
  * [New] Added before_parse_content and after_parse_content hooks
- * [Changed] content_parsed hook is now depreciated
+ * [Changed] content_parsed hook is now deprecated
  * [Changed] Moved loading the config to nearer the beginning of the class
  * [Changed] Only append ellipsis in limit_words() when word count exceeds max
  * [Changed] Made private methods protected for better inheritance
