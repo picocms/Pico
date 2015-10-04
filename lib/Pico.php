@@ -380,7 +380,7 @@ class Pico
             return $this->plugins[$pluginName];
         }
 
-        throw new RuntimeException("Missing plugin '".$pluginName."'");
+        throw new RuntimeException("Missing plugin '" . $pluginName . "'");
     }
 
     /**
@@ -570,7 +570,7 @@ class Pico
 
         if (!file_exists($this->getConfig('content_dir') . $errorFile)) {
             $errorFile = ($errorFileDir === '.') ? '404' . $this->getConfig('content_ext') : $errorFile;
-            throw new RuntimeException('Required "' . $errorFile .'" not found');
+            throw new RuntimeException('Required "' . $errorFile . '" not found');
         }
 
         return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
