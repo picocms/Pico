@@ -298,6 +298,7 @@ class Pico
         $this->triggerEvent('onPagesLoading');
 
         $this->readPages();
+        $this->sortPages();
         $this->discoverCurrentPage();
 
         $this->triggerEvent('onPagesLoaded', array(
@@ -798,7 +799,15 @@ class Pico
 
             $this->pages[$id] = $page;
         }
+    }
 
+    /**
+     * Sorts all pages known to Pico
+     *
+     * @return void
+     */
+    protected function sortPages()
+    {
         // sort pages
         $order = $this->getConfig('pages_order');
         $alphaSortClosure = function ($a, $b) use ($order) {
