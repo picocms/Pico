@@ -2,7 +2,7 @@ Pico
 ====
 
 [![License](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://scrutinizer-ci.com/g/theshka/Pico/build-status/LICENSE)
-[![Version](https://img.shields.io/badge/version-0.9-lightgrey.svg)]()
+[![Version](https://img.shields.io/badge/version-1.0-lightgrey.svg)]()
 [![Build Status](https://scrutinizer-ci.com/g/theshka/Pico/badges/build.png?b=master)](https://scrutinizer-ci.com/g/theshka/Pico/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/theshka/Pico/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
 
 Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
@@ -45,7 +45,7 @@ You have nothing to consider specially, simply navigate to your Pico install usi
 
 #### You don't have a web server?
 
-The easiest way to Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
+Starting with PHP 5.4 the easiest way to try Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
 
 ###### Step 1
 Navigate to Picos installation directory using a shell.
@@ -62,7 +62,7 @@ Access Pico from <http://localhost:8080>.
 Getting Help
 ------------
 
-You can read the wiki if you are looking for examples and read the inline-docs for more development information.
+You can read the [wiki][Wiki] if you are looking for examples and read the inline-docs for more development information.
 
 If you find a bug please report it on the issues page, but remember to include as much detail as possible, and what someone can do to re-create the issue.
 
