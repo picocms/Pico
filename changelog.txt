@@ -12,8 +12,8 @@
          `%base_url%?sub/page` in markdown files and `{{ "sub/page"|link }}`
          in Twig templates to declare internal links
  * [New] Brand new plugin system with dependencies (see `PicoPluginInterface`
-         and `AbstractPicoPlugin`); if you're plugin developer, you really
-         should take a look at the UPGRADE section of the docs!
+         and `AbstractPicoPlugin`); if you're plugin dev, you really should
+         take a look at the UPGRADE section of the docs!
  * [New] Introducing the `PicoDeprecated` plugin to maintain full backward
          compatibility with Pico 0.9 and older
  * [New] Support YAML-style meta header comments (`---`)
@@ -34,6 +34,9 @@
  * [Changed] Renaming all plugin events; adding some new events
  * [Changed] `Pico_Plugin` is now the fully documented `DummyPlugin`
  * [Changed] Meta data must start on the first line of the file now
+ * [Changed] Dropping the need to register meta headers for the convenience of
+             users and pure (!) theme devs; plugin devs are still REQUIRED to
+             register their meta headers during `onMetaHeaders`
  * [Changed] Exclude inaccessible files from pages list
  * [Changed] With alphabetical order, index files (e.g. `sub/index.md`) are
              now always placed before their sub pages (e.g. `sub/foo.md`)
