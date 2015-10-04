@@ -44,7 +44,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico readed its configuration
+     * Triggered after Pico read its configuration
      *
      * @see    Pico::getConfig()
      * @param  array &$config array of config variables
