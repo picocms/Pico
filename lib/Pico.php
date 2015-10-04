@@ -553,10 +553,12 @@ class Pico
     }
 
     /**
-     * Returns the raw contents of the 404 file if the requested file wasn't found
+     * Returns the raw contents of the first found 404 file when traversing
+     * up from the directory the requested file is in
      *
-     * @param  string $file path to requested (but not existing) file
-     * @return string       raw contents of the 404 file
+     * @param  string $file     path to requested (but not existing) file
+     * @return string           raw contents of the 404 file
+     * @throws RuntimeException thrown when no suitable 404 file is found
      */
     public function load404Content($file)
     {
