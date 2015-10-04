@@ -104,6 +104,7 @@ class PicoDeprecated extends AbstractPicoPlugin
         // enable PicoParsePagesContent and PicoExcerpt
         // we can't enable them during onPluginsLoaded because we can't know
         // if the user disabled us (PicoDeprecated) manually in the config
+        $plugins = $this->getPlugins();
         if (isset($plugins['PicoParsePagesContent'])) {
             // parse all pages content if this plugin hasn't
             // be explicitly enabled/disabled yet
