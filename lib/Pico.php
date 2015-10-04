@@ -271,7 +271,7 @@ class Pico
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
 
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-            $this->rawContent = $this->load404Content();
+            $this->rawContent = $this->load404Content($this->requestFile);
 
             $this->triggerEvent('on404ContentLoaded', array(&$this->rawContent));
         }
@@ -555,11 +555,23 @@ class Pico
     /**
      * Returns the raw contents of the 404 file if the requested file wasn't found
      *
-     * @return string raw contents of the 404 file
+     * @param  string $file path to requested (but not existing) file
+     * @return string       raw contents of the 404 file
      */
-    public function load404Content()
+    public function load404Content($file)
     {
-        return $this->loadFileContent($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'));
+        $errorFileDir = substr($file, strlen($this->getConfig('content_dir')));
+        do {
+            $errorFileDir = dirname($errorFileDir);
+            $errorFile = $errorFileDir . '/404' . $this->getConfig('content_ext');
+        } while (!file_exists($this->getConfig('content_dir') . $errorFile) && ($errorFileDir !== '.'));
+
+        if (!file_exists($this->getConfig('content_dir') . $errorFile)) {
+            $errorFile = ($errorFileDir === '.') ? '404' . $this->getConfig('content_ext') : $errorFile;
+            throw new RuntimeException('Required "' . $errorFile .'" not found');
+        }
+
+        return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
     }
 
     /**
