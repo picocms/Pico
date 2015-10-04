@@ -187,7 +187,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      */
     public function getDependencies()
     {
-        return $this->dependsOn;
+        return (array) $this->dependsOn;
     }
 
     /**
