@@ -616,9 +616,10 @@ class Pico
      *
      * Meta data MUST start on the first line of the file, either opened and
      * closed by --- or C-style block comments (deprecated). The headers are
-     * parsed by the YAML component of the Symfony project. You MUST register
-     * new headers during the `onMetaHeaders` event first, otherwise they are
-     * ignored and won't be returned.
+     * parsed by the YAML component of the Symfony project, keys are lowered.
+     * If you're a plugin developer, you MUST register new headers during the
+     * `onMetaHeaders` event first. The implicit availability of headers is
+     * for users and pure (!) theme developers ONLY.
      *
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
      * @param  string $rawContent the raw file contents
@@ -632,16 +633,19 @@ class Pico
             . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches)) {
             $yamlParser = new \Symfony\Component\Yaml\Parser();
-            $rawMeta = $yamlParser->parse($rawMetaMatches[3]);
-            $rawMeta = array_change_key_case($rawMeta, CASE_LOWER);
+            $meta = $yamlParser->parse($rawMetaMatches[3]);
+            $meta = array_change_key_case($meta, CASE_LOWER);
 
-            // TODO: maybe we should change this to pass all headers, no matter
-            // they are registered during the `onMetaHeaders` event or not...
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
-                if (isset($rawMeta[$fieldName])) {
-                    $meta[$fieldId] = $rawMeta[$fieldName];
+                if (isset($meta[$fieldName])) {
+                    // rename field (e.g. remove whitespaces)
+                    if ($fieldId != $fieldName) {
+                        $meta[$fieldId] = $meta[$fieldName];
+                        unset($meta[$fieldName]);
+                    }
                 } else {
+                    // guarantee array key existance
                     $meta[$fieldId] = '';
                 }
             }
@@ -653,6 +657,7 @@ class Pico
                 $meta['time'] = $meta['date_formatted'] = '';
             }
         } else {
+            // guarantee array key existance
             foreach ($headers as $id => $field) {
                 $meta[$id] = '';
             }
