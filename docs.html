@@ -124,7 +124,7 @@ title: Docs
                 */
             </code></pre>
             <p>
-                These values will be contained in the <code>{{ meta }}</code> variable in themes (see below).
+                These values will be contained in the <code>{% raw %}{{ meta }}{% endraw %}</code> variable in themes (see below).
                 There are also certain variables that you can use in your text files:
             </p>
             <ul>
@@ -141,48 +141,48 @@ title: Docs
             </p>
             <p>All themes must include an <code>index.html</code> file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme:</p>
             <ul>
-                <li><code>{{ config }}</code> - Conatins the values you set in <code>config/config.php</code> (e.g. <code>{{ config.theme }}</code> = "default")</li>
-                <li><code>{{ base_dir }}</code> - The path to your Pico root directory</li>
-                <li><code>{{ base_url }}</code> - The URL to your Pico site</li>
-                <li><code>{{ theme_dir }}</code> - The path to the Pico active theme direcotry</li>
-                <li><code>{{ theme_url }}</code> - The URL to the Pico active theme direcotry</li>
-                <li><code>{{ site_title }}</code> - Shortcut to the site title (defined in <code>config/config.php</code>)</li>
+                <li><code>{% raw %}{{ config }}{% endraw %}</code> - Conatins the values you set in <code>config/config.php</code> (e.g. <code>{% raw %}{{ config.theme }}{% endraw %}</code> = "default")</li>
+                <li><code>{% raw %}{{ base_dir }}{% endraw %}</code> - The path to your Pico root directory</li>
+                <li><code>{% raw %}{{ base_url }}{% endraw %}</code> - The URL to your Pico site</li>
+                <li><code>{% raw %}{{ theme_dir }}{% endraw %}</code> - The path to the Pico active theme direcotry</li>
+                <li><code>{% raw %}{{ theme_url }}{% endraw %}</code> - The URL to the Pico active theme direcotry</li>
+                <li><code>{% raw %}{{ site_title }}{% endraw %}</code> - Shortcut to the site title (defined in <code>config/config.php</code>)</li>
                 <li>
-                    <code>{{ meta }}</code> - Contains the meta values from the current page
+                    <code>{% raw %}{{ meta }}{% endraw %}</code> - Contains the meta values from the current page
                     <ul>
-                        <li><code>{{ meta.title }}</code></li>
-                        <li><code>{{ meta.description }}</code></li>
-                        <li><code>{{ meta.author }}</code></li>
-                        <li><code>{{ meta.date }}</code></li>
-                        <li><code>{{ meta.date_formatted }}</code></li>
-                        <li><code>{{ meta.robots }}</code></li>
+                        <li><code>{% raw %}{{ meta.title }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ meta.description }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ meta.author }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ meta.date }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ meta.date_formatted }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ meta.robots }}{% endraw %}</code></li>
                     </ul>
                 </li>
-                <li><code>{{ content }}</code> - The content of the current page (after it has been processed through Markdown)</li>
+                <li><code>{% raw %}{{ content }}{% endraw %}</code> - The content of the current page (after it has been processed through Markdown)</li>
                 <li>
-                    <code>{{ pages }}</code> - A collection of all the content in your site
+                    <code>{% raw %}{{ pages }}{% endraw %}</code> - A collection of all the content in your site
                     <ul>
-                        <li><code>{{ page.title }}</code></li>
-                        <li><code>{{ page.url }}</code></li>
-                        <li><code>{{ page.author }}</code></li>
-                        <li><code>{{ page.date }}</code></li>
-                        <li><code>{{ page.date_formatted }}</code></li>
-                        <li><code>{{ page.content }}</code></li>
-                        <li><code>{{ page.excerpt }}</code></li>
+                        <li><code>{% raw %}{{ page.title }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.url }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.author }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.date }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.date_formatted }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.content }}{% endraw %}</code></li>
+                        <li><code>{% raw %}{{ page.excerpt }}{% endraw %}</code></li>
                     </ul>
                 </li>
-                <li><code>{{ prev_page }}</code> - A page object of the previous page (relative to current_page)</li>
-                <li><code>{{ current_page }}</code> - A page object of the current_page</li>
-                <li><code>{{ next_page }}</code> - A page object of the next page (relative to current_page)</li>
-                <li><code>{{ is_front_page }}</code> - A boolean flag for the front page</li>
+                <li><code>{% raw %}{{ prev_page }}{% endraw %}</code> - A page object of the previous page (relative to current_page)</li>
+                <li><code>{% raw %}{{ current_page }}{% endraw %}</code> - A page object of the current_page</li>
+                <li><code>{% raw %}{{ next_page }}{% endraw %}</code> - A page object of the next page (relative to current_page)</li>
+                <li><code>{% raw %}{{ is_front_page }}{% endraw %}</code> - A boolean flag for the front page</li>
             </ul>
 
             <p>Pages can be used like:</p>
-            <pre>&lt;ul class="nav"&gt;
+            <pre>{% raw %}&lt;ul class="nav"&gt;
             {% for page in pages %}
             &lt;li&gt;&lt;a href="{{ page.url }}"&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
             {% endfor %}
-            &lt;/ul&gt;</pre>
+            &lt;/ul&gt;{% endraw %}</pre>
 
             <h4 id="blogging">Blogging</h4>
             <p>If you would like to add a blog to your Pico site we suggest taking the following steps:</p>
@@ -195,7 +195,7 @@ title: Docs
                 <li>In your template do something like this:</li>
             </ul>
 
-            <pre>{% if is_front_page %} &lt;!-- Front page lists all blog posts --&gt;
+            <pre>{% raw %}{% if is_front_page %} &lt;!-- Front page lists all blog posts --&gt;
 
             &lt;div id=&quot;posts&quot;&gt;
             {% for page in pages %}
@@ -217,7 +217,7 @@ title: Docs
             {{ content }}
             &lt;/div&gt;
 
-            {% endif %}</pre>
+            {% endif %}{% endraw %}</pre>
 
             <hr>
 
@@ -281,7 +281,7 @@ title: Docs
             */
             </code></pre>
 
-            <p>You will then be able to access this value via the <code>{{ meta.layout }}</code> template variable.</p>
+            <p>You will then be able to access this value via the <code>{% raw %}{{ meta.layout }}{% endraw %}</code> template variable.</p>
 
             <hr>
 
