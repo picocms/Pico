@@ -2,7 +2,7 @@
 <head>
 
     {% include headInclude.html %}
-    <title>{{ page.title }} | {{ site.title }}</title>
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
 
 </head>
 <body class="full-layout">

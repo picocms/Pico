@@ -6,7 +6,7 @@
             <ul id="tiny">
                 {% assign pages = site.pages|sort:"nav" %}
                 {% for nav in pages %}
-                    {% if nav.nav > 0 %}
+                    {% if nav.title and nav.nav > 0 %}
                         <li {% if nav.url == page.url %}class="active"{% endif %}>
                             <a href="{{ site.base_url }}{{ nav.url }}">{{ nav.title }}</a>
                         </li>
