@@ -27,6 +27,30 @@
 class Pico
 {
     /**
+     * Sort files in alphabetical ascending order
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_ASC = 0;
+
+    /**
+     * Sort files in alphabetical descending order
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_DESC = 1;
+
+    /**
+     * Don't sort files
+     *
+     * @see Pico::getFiles()
+     * @var int
+     */
+    const SORT_NONE = 2;
+
+    /**
      * Root directory of this Pico instance
      *
      * @var string
@@ -247,7 +271,7 @@ class Pico
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
 
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
-            $this->rawContent = $this->load404Content();
+            $this->rawContent = $this->load404Content($this->requestFile);
 
             $this->triggerEvent('on404ContentLoaded', array(&$this->rawContent));
         }
@@ -274,6 +298,7 @@ class Pico
         $this->triggerEvent('onPagesLoading');
 
         $this->readPages();
+        $this->sortPages();
         $this->discoverCurrentPage();
 
         $this->triggerEvent('onPagesLoaded', array(
@@ -356,7 +381,7 @@ class Pico
             return $this->plugins[$pluginName];
         }
 
-        throw new RuntimeException("Missing plugin '".$pluginName."'");
+        throw new RuntimeException("Missing plugin '" . $pluginName . "'");
     }
 
     /**
@@ -529,13 +554,27 @@ class Pico
     }
 
     /**
-     * Returns the raw contents of the 404 file if the requested file wasn't found
+     * Returns the raw contents of the first found 404 file when traversing
+     * up from the directory the requested file is in
      *
-     * @return string raw contents of the 404 file
+     * @param  string $file     path to requested (but not existing) file
+     * @return string           raw contents of the 404 file
+     * @throws RuntimeException thrown when no suitable 404 file is found
      */
-    public function load404Content()
+    public function load404Content($file)
     {
-        return $this->loadFileContent($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'));
+        $errorFileDir = substr($file, strlen($this->getConfig('content_dir')));
+        do {
+            $errorFileDir = dirname($errorFileDir);
+            $errorFile = $errorFileDir . '/404' . $this->getConfig('content_ext');
+        } while (!file_exists($this->getConfig('content_dir') . $errorFile) && ($errorFileDir !== '.'));
+
+        if (!file_exists($this->getConfig('content_dir') . $errorFile)) {
+            $errorFile = ($errorFileDir === '.') ? '404' . $this->getConfig('content_ext') : $errorFile;
+            throw new RuntimeException('Required "' . $errorFile . '" not found');
+        }
+
+        return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
     }
 
     /**
@@ -577,9 +616,10 @@ class Pico
      *
      * Meta data MUST start on the first line of the file, either opened and
      * closed by --- or C-style block comments (deprecated). The headers are
-     * parsed by the YAML component of the Symfony project. You MUST register
-     * new headers during the `onMetaHeaders` event first, otherwise they are
-     * ignored and won't be returned.
+     * parsed by the YAML component of the Symfony project, keys are lowered.
+     * If you're a plugin developer, you MUST register new headers during the
+     * `onMetaHeaders` event first. The implicit availability of headers is
+     * for users and pure (!) theme developers ONLY.
      *
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
      * @param  string $rawContent the raw file contents
@@ -593,16 +633,19 @@ class Pico
             . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches)) {
             $yamlParser = new \Symfony\Component\Yaml\Parser();
-            $rawMeta = $yamlParser->parse($rawMetaMatches[3]);
-            $rawMeta = array_change_key_case($rawMeta, CASE_LOWER);
+            $meta = $yamlParser->parse($rawMetaMatches[3]);
+            $meta = array_change_key_case($meta, CASE_LOWER);
 
-            // TODO: maybe we should change this to pass all headers, no matter
-            // they are registered during the `onMetaHeaders` event or not...
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
-                if (isset($rawMeta[$fieldName])) {
-                    $meta[$fieldId] = $rawMeta[$fieldName];
+                if (isset($meta[$fieldName])) {
+                    // rename field (e.g. remove whitespaces)
+                    if ($fieldId != $fieldName) {
+                        $meta[$fieldId] = $meta[$fieldName];
+                        unset($meta[$fieldName]);
+                    }
                 } else {
+                    // guarantee array key existance
                     $meta[$fieldId] = '';
                 }
             }
@@ -614,6 +657,7 @@ class Pico
                 $meta['time'] = $meta['date_formatted'] = '';
             }
         } else {
+            // guarantee array key existance
             foreach ($headers as $id => $field) {
                 $meta[$id] = '';
             }
@@ -708,7 +752,7 @@ class Pico
     protected function readPages()
     {
         $this->pages = array();
-        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), SCANDIR_SORT_NONE);
+        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), Pico::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
             if (basename($file) == '404' . $this->getConfig('content_ext')) {
@@ -760,7 +804,15 @@ class Pico
 
             $this->pages[$id] = $page;
         }
+    }
 
+    /**
+     * Sorts all pages known to Pico
+     *
+     * @return void
+     */
+    protected function sortPages()
+    {
         // sort pages
         $order = $this->getConfig('pages_order');
         $alphaSortClosure = function ($a, $b) use ($order) {
@@ -990,12 +1042,12 @@ class Pico
      * @param  string $fileExtension return files with the given file extension
      *     only (optional)
      * @param  int    $order         specify whether and how files should be
-     *     sorted; use SCANDIR_SORT_ASCENDING for a alphabetical ascending
-     *     order (default), SCANDIR_SORT_DESCENDING for a descending order or
-     *     SCANDIR_SORT_NONE to leave the result unsorted
+     *     sorted; use Pico::SORT_ASC for a alphabetical ascending order (this
+     *     is the default behaviour), Pico::SORT_DESC for a descending order
+     *     or Pico::SORT_NONE to leave the result unsorted
      * @return array                 list of found files
      */
-    protected function getFiles($directory, $fileExtension = '', $order = SCANDIR_SORT_ASCENDING)
+    protected function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
     {
         $directory = rtrim($directory, '/');
         $result = array();
@@ -1013,7 +1065,7 @@ class Pico
 
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
-                    $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension));
+                    $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
                 } elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
                     $result[] = $directory . '/' . $file;
                 }

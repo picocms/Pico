@@ -71,9 +71,14 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     {
         // plugins can be enabled/disabled using the config
         if ($eventName === 'onConfigLoaded') {
-            $pluginEnabled = $this->getConfig(get_called_class().'.enabled');
+            $pluginEnabled = $this->getConfig(get_called_class() . '.enabled');
             if ($pluginEnabled !== null) {
                 $this->setEnabled($pluginEnabled);
+            } else {
+                $pluginConfig = $this->getConfig(get_called_class());
+                if (is_array($pluginConfig) && isset($pluginConfig['enabled'])) {
+                    $this->setEnabled($pluginConfig['enabled']);
+                }
             }
         }
 
@@ -137,8 +142,8 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
         }
 
         throw new BadMethodCallException(
-            'Call to undefined method '.get_class($this->getPico()).'::'.$methodName.'() '
-            . 'through '.get_called_class().'::__call()'
+            'Call to undefined method ' . get_class($this->getPico()) . '::' . $methodName . '() '
+            . 'through ' . get_called_class() . '::__call()'
         );
     }
 
@@ -187,7 +192,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      */
     public function getDependencies()
     {
-        return $this->dependsOn;
+        return (array) $this->dependsOn;
     }
 
     /**

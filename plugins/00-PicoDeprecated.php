@@ -84,44 +84,34 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Triggers the deprecated event config_loaded($config), tries to read
-     * {@path "config.php"} in Picos root dir, enables the plugins
-     * {@link PicoParsePagesContent} and {@link PicoExcerpt} and defines some
-     * deprecated constants (ROOT_DIR, CONTENT_DIR etc.)
+     * Triggers the deprecated event config_loaded($config)
      *
+     * @see PicoDeprecated::defineConstants()
+     * @see PicoDeprecated::loadRootDirConfig()
+     * @see PicoDeprecated::enablePlugins()
      * @see DummyPlugin::onConfigLoaded()
      */
     public function onConfigLoaded(&$config)
     {
-        if (file_exists($this->getRootDir() . 'config.php')) {
-            // config.php in Pico::$rootDir is deprecated; use Pico::$configDir instead
-            $newConfig = require($this->getRootDir() . 'config.php');
-            if (is_array($newConfig)) {
-                $config = $newConfig + $config;
-            }
-        }
+        $this->defineConstants();
+        $this->loadRootDirConfig($config);
+        $this->enablePlugins();
 
-        // enable PicoParsePagesContent and PicoExcerpt
-        // we can't enable them during onPluginsLoaded because we can't know
-        // if the user disabled us (PicoDeprecated) manually in the config
-        if (isset($plugins['PicoParsePagesContent'])) {
-            // parse all pages content if this plugin hasn't
-            // be explicitly enabled/disabled yet
-            if (!$plugins['PicoParsePagesContent']->isStatusChanged()) {
-                $plugins['PicoParsePagesContent']->setEnabled(true, true, true);
-            }
-        }
-        if (isset($plugins['PicoExcerpt'])) {
-            // enable excerpt plugin if it hasn't be explicitly enabled/disabled yet
-            if (!$plugins['PicoExcerpt']->isStatusChanged()) {
-                $plugins['PicoExcerpt']->setEnabled(true, true, true);
-            }
-        }
+        $this->triggerEvent('config_loaded', array(&$config));
+    }
 
-        // CONTENT_DIR constant is deprecated since v0.9,
-        // ROOT_DIR, LIB_DIR, PLUGINS_DIR, THEMES_DIR and CONTENT_EXT constants since v1.0,
-        // CONFIG_DIR constant existed just for a short time between v0.9 and v1.0,
-        // CACHE_DIR constant was dropped with v1.0 without a replacement
+    /**
+     * Defines deprecated constants
+     *
+     * CONTENT_DIR is deprecated since v0.9, ROOT_DIR, LIB_DIR, PLUGINS_DIR,
+     * THEMES_DIR and CONTENT_EXT since v1.0, CONFIG_DIR existed just for a
+     * short time between v0.9 and v1.0 and CACHE_DIR was dropped with v1.0
+     * without a replacement.
+     *
+     * @return void
+     */
+    protected function defineConstants()
+    {
         if (!defined('ROOT_DIR')) {
             define('ROOT_DIR', $this->getRootDir());
         }
@@ -139,13 +129,54 @@ class PicoDeprecated extends AbstractPicoPlugin
             define('THEMES_DIR', $this->getThemesDir());
         }
         if (!defined('CONTENT_DIR')) {
-            define('CONTENT_DIR', $config['content_dir']);
+            define('CONTENT_DIR', $this->getConfig('content_dir'));
         }
         if (!defined('CONTENT_EXT')) {
-            define('CONTENT_EXT', $config['content_ext']);
+            define('CONTENT_EXT', $this->getConfig('content_ext'));
         }
+    }
 
-        $this->triggerEvent('config_loaded', array(&$config));
+    /**
+     * Read {@path "config.php"} in Picos root dir
+     *
+     * @param  array &$config array of config variables
+     * @return void
+     */
+    protected function loadRootDirConfig(&$config)
+    {
+        if (file_exists($this->getRootDir() . 'config.php')) {
+            // config.php in Pico::$rootDir is deprecated; use Pico::$configDir instead
+            $newConfig = require($this->getRootDir() . 'config.php');
+            if (is_array($newConfig)) {
+                $config = $newConfig + $config;
+            }
+        }
+    }
+
+    /**
+     * Enables the plugins {@link PicoParsePagesContent} and {@link PicoExcerpt}
+     *
+     * @return void
+     */
+    protected function enablePlugins()
+    {
+        // enable PicoParsePagesContent and PicoExcerpt
+        // we can't enable them during onPluginsLoaded because we can't know
+        // if the user disabled us (PicoDeprecated) manually in the config
+        $plugins = $this->getPlugins();
+        if (isset($plugins['PicoParsePagesContent'])) {
+            // parse all pages content if this plugin hasn't
+            // be explicitly enabled/disabled yet
+            if (!$plugins['PicoParsePagesContent']->isStatusChanged()) {
+                $plugins['PicoParsePagesContent']->setEnabled(true, true, true);
+            }
+        }
+        if (isset($plugins['PicoExcerpt'])) {
+            // enable excerpt plugin if it hasn't be explicitly enabled/disabled yet
+            if (!$plugins['PicoExcerpt']->isStatusChanged()) {
+                $plugins['PicoExcerpt']->setEnabled(true, true, true);
+            }
+        }
     }
 
     /**
