@@ -1,21 +1,21 @@
 {% include documentHeader.html %}
 <head>
-{% include headInclude.html %}
-<title>{{ page.title }} | {{ site.title }}</title>
+
+    {% include headInclude.html %}
+    <title>{{ page.title }} | {{ site.title }}</title>
+
 </head>
 <body class="full-layout">
-<!-- Begin Body Wrapper -->
-<div class="body-wrapper">
-  <!-- Begin Top Wrapper -->
-  <div class="top-wrapper">
-    {% include pageHeader.html %}
-  </div>
-  <!-- End Top Wrapper -->
 
-  {{ content }}
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            {% include pageHeader.html %}
+        </div>
 
-  {% include pageFooter.html %}
-</div>
-<!-- End Body Wrapper -->
+        {{ content }}
+
+        {% include pageFooter.html %}
+    </div>
+
 </body>
 {% include documentFooter.html %}

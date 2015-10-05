@@ -1,37 +1,39 @@
 {% include documentHeader.html %}
 <head>
-{% include headInclude.html %}
-<title>Pico - A stupidly simple, blazing fast, flat file CMS.</title>
-<meta name="description" content="Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create .txt files in the 'content' folder and that becomes a page." />
-<link href="http://picocms.org" rel="canonical" />
+
+    {% include headInclude.html %}
+    <title>Pico - A stupidly simple, blazing fast, flat file CMS.</title>
+    <meta name="description" content="Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create .txt files in the 'content' folder and that becomes a page." />
+    <link href="http://picocms.org" rel="canonical" />
+
 </head>
 <body class="full-layout">
-<!-- Begin Body Wrapper -->
-<div class="body-wrapper">
-  <!-- Begin Top Wrapper -->
-  <div class="top-wrapper">
-    {% include pageHeader.html %}
-    <div class="bannercontainer">
-      <div class="banner">
-        <ul>
-          <li data-transition="fade"> <img src="style/images/art/slider-transparent.png" alt="" style="background-color:#2a2a2a" />
-            <div class="caption sfl huge" data-x="320" data-y="90" data-speed="300" data-start="100" data-easing="easeOutExpo">Introducing</div>
-            <div class="caption sft huge" data-x="630" data-y="90" data-speed="300" data-start="800" data-easing="easeOutExpo"><strong>Pico.</strong></div>
-            <div class="caption sfl big" data-x="center" data-y="176" data-speed="300" data-start="1100" data-easing="easeOutExpo">A stupidly <em>simple</em> <span class="colored">&</span> blazing <em>fast</em>, flat file CMS.</div>
-            <div class="caption sfr big" data-x="center" data-y="245" data-speed="300" data-start="1400" data-easing="easeOutExpo">Making the web easy.</div>
-            <div class="caption sfb" data-x="center" data-y="329" data-speed="300" data-start="1700" data-easing="easeOutExpo"><a href="download.html" class="button">Download Now</a></div>
-          </li>
-        </ul>
-        <div class="tp-bannertimer tp-bottom"></div>
-      </div>
+
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            {% include pageHeader.html %}
+
+            <div class="bannercontainer">
+                <div class="banner">
+                    <ul>
+                        <li data-transition="fade">
+                            <img src="style/images/art/slider-transparent.png" alt="" style="background-color:#2a2a2a" />
+                            <div class="caption sfl huge" data-x="320" data-y="90" data-speed="300" data-start="100" data-easing="easeOutExpo">Introducing</div>
+                            <div class="caption sft huge" data-x="630" data-y="90" data-speed="300" data-start="800" data-easing="easeOutExpo"><strong>Pico.</strong></div>
+                            <div class="caption sfl big" data-x="center" data-y="176" data-speed="300" data-start="1100" data-easing="easeOutExpo">A stupidly <em>simple</em> <span class="colored">&</span> blazing <em>fast</em>, flat file CMS.</div>
+                            <div class="caption sfr big" data-x="center" data-y="245" data-speed="300" data-start="1400" data-easing="easeOutExpo">Making the web easy.</div>
+                            <div class="caption sfb" data-x="center" data-y="329" data-speed="300" data-start="1700" data-easing="easeOutExpo"><a href="download.html" class="button">Download Now</a></div>
+                        </li>
+                    </ul>
+                    <div class="tp-bannertimer tp-bottom"></div>
+                </div>
+            </div>
+        </div>
+
+        {{ content }}
+
+        {% include pageFooter.html %}
     </div>
-  </div>
-  <!-- End Top Wrapper -->
 
-  {{ content }}
-
-  {% include pageFooter.html %}
-</div>
-<!-- End Body Wrapper -->
 </body>
 {% include documentFooter.html %}
