@@ -246,6 +246,9 @@ class Pico
      */
     public function run()
     {
+        // lock config
+        $this->config = is_array($this->config) ? $this->config : array();
+
         // load plugins
         $this->loadPlugins();
         $this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
@@ -418,7 +421,7 @@ class Pico
 
         $configFile = $this->getConfigDir() . 'config.php';
         $config = file_exists($configFile) ? require($configFile) : null;
-        $this->config = is_array($config) ? $config + $defaultConfig : $defaultConfig;
+        $this->config += is_array($config) ? $config + $defaultConfig : $defaultConfig;
 
         if (empty($this->config['base_url'])) {
             $this->config['base_url'] = $this->getBaseUrl();
@@ -435,6 +438,29 @@ class Pico
             $defaultTimezone = date_default_timezone_get();
             date_default_timezone_set($defaultTimezone);
         }
+    }
+
+    /**
+     * Sets Picos config before calling Pico::run()
+     *
+     * This method allows you to modify Picos config without creating a
+     * {@path "config/config.php"} or changing some of its variables before
+     * Pico starts processing. It can only be called between the constructor
+     * call and Pico::run(). Options set with this method cannot be overwritten
+     * by {@path "config/config.php"}.
+     *
+     * @param array $config     array with configuration variables, like
+     *     $config in {@path "config/config.php"}
+     * @return void
+     * @throws RuntimeException thrown if Pico already started processing
+     */
+    public function setConfig(array $config)
+    {
+        if ($this->config !== null) {
+            throw new RuntimeException('You cannot modify Picos config after processing has started');
+        }
+
+        $this->config = $config;
     }
 
     /**
