@@ -21,6 +21,7 @@
  * [New] Provide access to all meta headers in content files (`%meta.*%`)
  * [New] Provide access to meta headers in `$page` arrays (`$page['meta']`)
  * [New] The file extension of content files is now configurable
+ * [New] Add `Pico::setConfig()` method to predefine config variables
  * [New] Supporting per-directory `404.md` files
  * [New] #103: Providing access to `sub.md` even when the `sub` directory
          exists, provided that there is no `sub/index.md`
