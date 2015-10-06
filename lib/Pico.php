@@ -79,6 +79,13 @@ class Pico
     protected $themesDir;
 
     /**
+     * Boolean indicating whether Picos processing started yet
+     *
+     * @var boolean
+     */
+    protected $locked = false;
+
+    /**
      * List of loaded plugins
      *
      * @see Pico::loadPlugins()
@@ -246,8 +253,8 @@ class Pico
      */
     public function run()
     {
-        // lock config
-        $this->config = is_array($this->config) ? $this->config : array();
+        // lock Pico
+        $this->locked = true;
 
         // load plugins
         $this->loadPlugins();
@@ -421,6 +428,8 @@ class Pico
 
         $configFile = $this->getConfigDir() . 'config.php';
         $config = file_exists($configFile) ? require($configFile) : null;
+
+        $this->config = is_array($this->config) ? $this->config : array();
         $this->config += is_array($config) ? $config + $defaultConfig : $defaultConfig;
 
         if (empty($this->config['base_url'])) {
@@ -456,7 +465,7 @@ class Pico
      */
     public function setConfig(array $config)
     {
-        if ($this->config !== null) {
+        if ($this->locked) {
             throw new RuntimeException('You cannot modify Picos config after processing has started');
         }
 
