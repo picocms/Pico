@@ -92,7 +92,7 @@ variable in `config/config.php` to your theme folder.
 
 All themes must include an `index.twig` file to define the HTML structure of
 the theme. Below are the Twig variables that are available to use in your
-theme. Paths (e.g. `{{ base_dir }}``) and URLs (e.g. `{{ base_url }}`) don't
+theme. Paths (e.g. `{{ base_dir }}`) and URLs (e.g. `{{ base_url }}`) don't
 have a trailing slash.
 
 * `{{ config }}` - Conatins the values you set in `config/config.php`
