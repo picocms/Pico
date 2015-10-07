@@ -80,8 +80,9 @@ class Pico
         $prev_page = array();
         $current_page = array();
         $next_page = array();
+        $checkurl = $settings['base_url'] . "/" . $url;
         while ($current_page = current($pages)) {
-            if ((isset($meta['title'])) && ($meta['title'] == $current_page['title'])) {
+            if ($current_page['url'] == $checkurl || $current_page['url'] == $checkurl . "/" ) {
                 break;
             }
             next($pages);
