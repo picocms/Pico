@@ -18,10 +18,10 @@
         "symfony/yaml" : "2.3"
     },
     "autoload": {
-        "files": [
-            "lib/Pico.php",
-            "lib/PicoPluginInterface.php",
-            "lib/AbstractPicoPlugin.php"
-        ]
+        "psr-0": {
+            "Pico": "lib/",
+            "PicoPluginInterface": "lib/",
+            "AbstractPicoPlugin": "lib/"
+        }
     }
 }
