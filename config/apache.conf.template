@@ -1,0 +1,26 @@
+# Place this file inside /etc/httpd/conf.d and edit the fields. E.g.:
+#     cp ./config/apache.conf.template /etc/httpd/conf.d/pico.conf
+
+<VirtualHost *:80>
+    # fill in your email
+    ServerAdmin admin@yourdomain.com 
+
+    # replace by the real path
+    DocumentRoot /home/dmelo/Pico
+
+    # The ServerName is optional
+    ServerName pico.localhost
+
+    # Set the timezone. Refer to http://php.net/manual/pt_BR/timezones.php for
+    # complete list
+    php_admin_value date.timezone "America/Sao_Paulo"
+
+    <Directory />
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Set custom log files
+    CustomLog /var/log/httpd/pico_log_access combined
+    ErrorLog /var/log/httpd/pico_log_error
+</VirtualHost>
