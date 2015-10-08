@@ -6,7 +6,7 @@ Description: Pico is a stupidly simple, blazing fast, flat file CMS.
 ## Welcome to Pico
 
 Congratulations, you have successfully installed [Pico](http://picocms.org/).
-%meta.description%
+%meta.description% <!-- replaced by the above Description meta header -->
 
 ### Creating Content
 
@@ -54,7 +54,9 @@ and their corresponing URLs:
     </tbody>
 </table>
 
-If a file cannot be found, the file `content-sample/404.md` will be shown.
+If a file cannot be found, the file `content-sample/404.md` will be shown. You
+can add `404.md` files to any directory, so if you want to use a special error
+page for your blog, simply create `content-sample/blog/404.md`.
 
 ### Text File Markup
 
@@ -81,26 +83,68 @@ There are also certain variables that you can use in your text files:
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
 * <code>&#37;meta.*&#37;</code> - Access any meta variable of the current page,
-  e.g. <code>&#37;meta.author&#37;</code> returns `Joe Bloggs`
+  e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+
+### Blogging
+
+Pico is no blogging software - but makes it very easy for you to use it as a
+blogging software. You can find many plugins out there implementing typical
+blogging features like authentication, tagging, pagination and social plugins.
+See the below Plugins section for details.
+
+If you want to use Pico as a blogging software, you probably want to do
+something like the following:
+1. Put all your blog articles in a separate `blog` folder in your `content`
+   directory. All these articles should have both a `Date` and `Template` meta
+   header, the latter with e.g. `blog-post` as value (see Step 2).
+2. Create a new Twig template called `blog-post.twig` (this must match the
+   `Template` meta header from Step 1) in your theme directory. This template
+   probably isn't very different from your default `index.twig`, it specifies
+   how your article pages will look like.
+3. Create a `blog.md` in your `content` folder and set its `Template` meta
+   header to e.g. `blog`. Also create a `blog.twig` in your theme directory.
+   This template will show a list of your articles, so you probably want to
+   do something like this:
+   ```
+    {% for page in pages %}
+        {% if page.id starts with "blog/" %}
+            <div class="post">
+                <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
+                <p class="date">{{ page.date_formatted }}</p>
+                <p class="excerpt">{{ page.description }}</p>
+            </div>
+        {% endif %}
+    {% endfor %}
+   ```
+4. Let Pico sort pages by date by setting `$config['pages_order_by'] = 'date';`
+   in your `config/config.php`. To use a descending order (newest articles
+   first), also add `$config['pages_order'] = 'desc';`. The former won't affect
+   pages without a `Date` meta header, but the latter does. To use ascending
+   order for your page navigation again, add Twigs `reverse` filter to the
+   navigation loop (`{% for page in pages|reverse %}...{% endfor %}`) in your
+   themes `index.twig`.
+5. Make sure to exclude the blog articles from your page navigation. You can
+   achieve this by adding `{% if not page starts with "blog/" %}...{% endif %}`
+   to the navigation loop.
 
 ### Themes
 
 You can create themes for your Pico installation in the `themes` folder. Check
-out the default theme for an example of a theme. Pico uses [Twig][] for
-template rendering. You can select your theme by setting the `$config['theme']`
-variable in `config/config.php` to your theme folder.
+out the default theme for an example. Pico uses [Twig][] for template
+rendering. You can select your theme by setting the `$config['theme']` option
+in `config/config.php` to the name of your theme folder.
 
-All themes must include an `index.twig` file to define the HTML structure of
-the theme. Below are the Twig variables that are available to use in your
-theme. Paths (e.g. `{{ base_dir }}``) and URLs (e.g. `{{ base_url }}`) don't
-have a trailing slash.
+All themes must include an `index.twig` (or `index.html`) file to define the
+HTML structure of the theme. Below are the Twig variables that are available
+to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
+(e.g. `{{ base_url }}`) don't have a trailing slash.
 
 * `{{ config }}` - Conatins the values you set in `config/config.php`
-                   (e.g. `{{ config.theme }}` = "default")
+                   (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
 * `{{ base_url }}` - The URL to your Pico site
-* `{{ theme_dir }}` - The path to the Pico active theme directory
-* `{{ theme_url }}` - The URL to the Pico active theme directory
+* `{{ theme_dir }}` - The path to the currently active theme
+* `{{ theme_url }}` - The URL to the currently active theme
 * `{{ rewrite_url }}` - A boolean flag indicating enabled/disabled URL rewriting
 * `{{ site_title }}` - Shortcut to the site title (see `config/config.php`)
 * `{{ meta }}` - Contains the meta values from the current page
@@ -109,7 +153,9 @@ have a trailing slash.
     * `{{ meta.author }}`
     * `{{ meta.date }}`
     * `{{ meta.date_formatted }}`
+    * `{{ meta.time }}`
     * `{{ meta.robots }}`
+    * ...
 * `{{ content }}` - The content of the current page
                     (after it has been processed through Markdown)
 * `{{ pages }}` - A collection of all the content pages in your site
@@ -128,24 +174,81 @@ have a trailing slash.
 * `{{ next_page }}` - The data of the next page (relative to `current_page`)
 * `{{ is_front_page }}` - A boolean flag for the front page
 
-Pages can be used like:
+Pages can be used like the following:
 
-<pre>&lt;ul class=&quot;nav&quot;&gt;
-    {% for page in pages %}
-    &lt;li&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/li&gt;
-    {% endfor %}
-&lt;/ul&gt;</pre>
+    <ul class="nav">
+        {% for page in pages %}
+            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+You can use different templates for different content files by specifing the
+`Template` meta header. Simply add e.g. `Template: blog-post` to a content file
+and Pico will use the `blog-post.twig` file in your theme folder to render
+the page.
+
+You don't have to create your own theme if Picos default theme isn't sufficient
+for you, you can use one of the great themes third-party developers and
+designers created in the past. As with plugins, you can find themes in
+[our Wiki](https://github.com/picocms/Pico/wiki/Pico-Themes).
 
 ### Plugins
 
-See [http://pico.dev7studios.com/plugins](http://picocms.org/plugins)
+#### Plugins for users
+
+Officially tested plugins can be found at http://pico.dev7studios.com/plugins,
+but there are many awesome third-party plugins out there! A good start point
+for discovery is [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Plugins).
+
+Pico makes it very easy for you to add new features to your website. Simply
+upload the files of the plugin to the `plugins/` directory and you're done.
+Depending on the plugin you've installed, you may have to go through some more
+steps (e.g. specifing config variables), the plugin docs or `README` file will
+explain what to do.
+
+Plugins which were written to work with Pico 1.0 can be enabled and disabled
+through your `config/config.php`. If you want to e.g. disable the `PicoExcerpt`
+plugin, add the following line to your `config/config.php`:
+`$config['PicoExcerpt.enabled'] = false;`. To force the plugin to be enabled
+replace `false` with `true`.
+
+#### Plugins for developers
+
+You're a plugin developer? We love you guys! You can find tons of information
+about how to develop plugins at http://picocms.org/plugin-dev.html. If you'd
+developed a plugin for Pico 0.9 and older, you probably want to upgrade it
+to the brand new plugin system introduced with Pico 1.0. Please refer to the
+[Upgrade section of the docs](http://picocms.org/plugin-dev.html#upgrade).
+
+### URL Rewriting
+
+Picos default URLs (e.g. %base_url%/?sub/page) already are very user friendly.
+Pico anyway offers you an URL rewrite feature to make URLs even more user
+friendly (e.g. %base_url%/sub/page).
+
+If you're using the Apache web server, URL rewriting probably already is
+enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
+you get an error message from your web server, please make sure to enable the
+`mod_rewrite` module. Assumed the second URL works, but Pico still shows no
+rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;`
+in your `config/config.php`.
+
+If you're using Nginx, you can use the following configuration to enable
+URL rewriting. Don't forget to adjust the path (`/pico/`; line `1` and `4`)
+to match your installation directory. You can then enable URL rewriting by
+setting `$config['rewrite_url'] = true;` in your `config/config.php`.
+
+    location /pico/ {
+        index index.php;
+        try_files $uri $uri/ /pico/?$uri&$args;
+    }
 
 ### Config
 
 You can override the default Pico settings (and add your own custom settings)
 by editing `config/config.php` in the Pico directory. For a brief overview of
 the available settings and their defaults see `config/config.php.template`. To
-override a setting copy `config/config.php.template` to `config/config.php`,
+override a setting, copy `config/config.php.template` to `config/config.php`,
 uncomment the setting and set your custom value.
 
 ### Documentation
