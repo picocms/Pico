@@ -10,7 +10,7 @@ Congratulations, you have successfully installed [Pico](http://picocms.org/).
 
 ### Creating Content
 
-Pico is a flat file CMS, this means there is no administration backend and
+Pico is a flat file CMS, this means there is no administration backend or
 database to deal with. You simply create `.md` files in the `content-sample`
 folder and that becomes a page. For example, this file is called `index.md`
 and is shown as the main landing page.
@@ -71,6 +71,7 @@ attributes of the page. For example:
     Author: Joe Bloggs
     Date: 2013/01/01
     Robots: noindex,nofollow
+    Template: index
     ---
 
 These values will be contained in the `{{ meta }}` variable in themes
@@ -82,13 +83,13 @@ There are also certain variables that you can use in your text files:
 * <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
-* <code>&#37;meta.*&#37;</code> - Access any meta variable of the current page,
+* <code>&#37;meta.* &#37;</code> - Access any meta variable of the current page,
   e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
 
 ### Blogging
 
-Pico is no blogging software - but makes it very easy for you to use it as a
-blogging software. You can find many plugins out there implementing typical
+Pico is not blogging software - but makes it very easy for you to use it as a
+blog. You can find many plugins out there implementing typical
 blogging features like authentication, tagging, pagination and social plugins.
 See the below Plugins section for details.
 
