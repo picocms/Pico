@@ -142,7 +142,10 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 * `{{ config }}` - Conatins the values you set in `config/config.php`
                    (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
-* `{{ base_url }}` - The URL to your Pico site
+* `{{ base_url }}` - The URL to your Pico site; use Twigs `link` filter to
+                     specify internal links (e.g. `{{ "sub/page"|link }}`),
+                     this guarantees that your link works whether URL rewriting
+                     is enabled or not
 * `{{ theme_dir }}` - The path to the currently active theme
 * `{{ theme_url }}` - The URL to the currently active theme
 * `{{ rewrite_url }}` - A boolean flag indicating enabled/disabled URL rewriting
