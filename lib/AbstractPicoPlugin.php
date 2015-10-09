@@ -39,7 +39,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     protected $statusChanged = false;
 
     /**
-     * List of plugins this plugin depends on
+     * List of plugins which this plugin depends on
      *
      * @var array<string>
      * @see PicoPluginInterface::getDependencies()
@@ -148,7 +148,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * Enables all plugins on which this plugin depends
+     * Enables all plugins which this plugin depends on
      *
      * @param  boolean $recursive enable required plugins automatically
      * @return void
