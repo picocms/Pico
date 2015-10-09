@@ -14,7 +14,7 @@
 class DummyPlugin extends AbstractPicoPlugin
 {
     /**
-     * This plugin is disabled by default
+     * This plugin is enabled by default?
      *
      * @see AbstractPicoPlugin::$enabled
      */
@@ -28,7 +28,7 @@ class DummyPlugin extends AbstractPicoPlugin
     protected $dependsOn = array();
 
     /**
-     * Triggered after Pico loaded all available plugins
+     * Triggered after has Pico loaded all available plugins
      *
      * This event is triggered nevertheless the plugin is enabled or not.
      * It is NOT guaranteed that plugin dependencies are fulfilled!
@@ -44,7 +44,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico read its configuration
+     * Triggered after Pico has read its configuration
      *
      * @see    Pico::getConfig()
      * @param  array &$config array of config variables
@@ -56,7 +56,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico evaluated the request URL
+     * Triggered after Pico has evaluated the request URL
      *
      * @see    Pico::getBaseUrl()
      * @see    Pico::getRequestUrl()
@@ -69,7 +69,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico discovered the content file to serve
+     * Triggered after Pico has discovered the content file to serve
      *
      * @see    Pico::getRequestFile()
      * @param  string &$file path to the content file to serve
@@ -93,7 +93,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico read the contents of the file to serve
+     * Triggered after Pico has read the contents of the file to serve
      *
      * @see    Pico::getRawContent()
      * @param  string &$rawContent raw file contents
@@ -117,7 +117,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico read the contents of the 404 file
+     * Triggered after Pico has read the contents of the 404 file
      *
      * @see    Pico::getRawContent()
      * @param  string &$rawContent raw file contents
@@ -129,7 +129,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered when Pico reads its known meta header fields
+     * Triggered when Pico reads its known meta/header fields
      *
      * @see    Pico::getMetaHeaders()
      * @param  array<string> &$headers list of known meta header fields
@@ -154,7 +154,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico parsed the meta header
+     * Triggered after Pico has parsed the meta header
      *
      * @see    Pico::getFileMeta()
      * @param  array &$meta parsed meta data
@@ -178,7 +178,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico prepared the raw file contents for parsing
+     * Triggered after Pico has prepared the raw file contents for parsing
      *
      * @see    Pico::parseFileContent()
      * @param  string &$content prepared file contents for parsing
@@ -190,7 +190,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico parsed the contents of the file to serve
+     * Triggered after Pico has parsed the contents of the file to serve
      *
      * @see    Pico::getFileContent()
      * @param  string &$content parsed contents
@@ -202,7 +202,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered when Pico reads a single page for the list of all known pages
+     * Triggered when Pico reads a single page from the list of all known pages
      *
      * @param  array &$pageData data of the loaded page
      * @return void
@@ -213,7 +213,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico read all known pages
+     * Triggered after Pico has read all known pages
      *
      * @see    Pico::getPages()
      * @see    Pico::getCurrentPage()
@@ -255,7 +255,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico rendered the page
+     * Triggered after Pico has rendered the page
      *
      * @param  string &$output contents which will be sent to the user
      * @return void
