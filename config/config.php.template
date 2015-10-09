@@ -7,7 +7,7 @@
  * {@path "lib/Pico.php"}).
  *
  * To override any of the default settings below, copy this file to
- * {@path "config/config.php"}, uncomment the line and make and
+ * {@path "config/config.php"}, uncomment the line, then make and
  * save your changes.
  *
  * @author  Gilbert Pellegrom
@@ -31,7 +31,7 @@ $config = array();
 // $config['theme'] = 'default';                // Set the theme (defaults to "default")
 // $config['twig_config'] = array(              // Twig settings
 //     'cache' => false,                        // To enable Twig caching change this to a path to a writable directory
-//     'autoescape' => false,                   // Autoescape Twig vars
+//     'autoescape' => false,                   // Auto-escape Twig vars
 //     'debug' => false                         // Enable Twig debug
 // );
 
