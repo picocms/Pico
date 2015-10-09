@@ -236,6 +236,14 @@ developed a plugin for Pico 0.9 and older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
 [Upgrade section of the docs](http://picocms.org/plugin-dev.html#upgrade).
 
+## Config
+
+You can override the default Pico settings (and add your own custom settings)
+by editing `config/config.php` in the Pico directory. For a brief overview of
+the available settings and their defaults see `config/config.php.template`. To
+override a setting, copy `config/config.php.template` to `config/config.php`,
+uncomment the setting and set your custom value.
+
 ### URL Rewriting
 
 Picos default URLs (e.g. %base_url%/?sub/page) already are very user friendly.
@@ -258,14 +266,6 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
         index index.php;
         try_files $uri $uri/ /pico/?$uri&$args;
     }
-
-## Config
-
-You can override the default Pico settings (and add your own custom settings)
-by editing `config/config.php` in the Pico directory. For a brief overview of
-the available settings and their defaults see `config/config.php.template`. To
-override a setting, copy `config/config.php.template` to `config/config.php`,
-uncomment the setting and set your custom value.
 
 ## Documentation
 
