@@ -504,13 +504,13 @@ class Pico
      *
      * Pico 0.9 and older required Apache with mod_rewrite enabled, thus old
      * plugins, templates and contents may require you to enable URL rewriting
-     * to work. If you're upgrading from Pico 0.9, you probably have to update
-     * your rewriting rules.
+     * to work. If you're upgrading from Pico 0.9, you will probably have to
+     * update your rewriting rules.
      *
      * We recommend you to use the `link` filter in templates to create
      * internal links, e.g. `{{ "sub/page"|link }}` is equivalent to
      * `{{ base_url }}sub/page`. In content files you can still use the
-     * `%base_url%` variable; e.g. `%base_url%?sub/page` is automatically
+     * `%base_url%` variable; e.g. `%base_url%?sub/page` will be automatically
      * replaced accordingly.
      *
      * @return void
@@ -531,7 +531,7 @@ class Pico
     }
 
     /**
-     * Returns the URL with which the user requested the page
+     * Returns the URL where a user requested the page
      *
      * @see    Pico::evaluateRequestUrl()
      * @return string request URL
