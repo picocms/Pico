@@ -8,7 +8,7 @@ Description: Pico is a stupidly simple, blazing fast, flat file CMS.
 Congratulations, you have successfully installed [Pico](http://picocms.org/).
 %meta.description% <!-- replaced by the above Description meta header -->
 
-### Creating Content
+## Creating Content
 
 Pico is a flat file CMS, this means there is no administration backend or
 database to deal with. You simply create `.md` files in the `content-sample`
@@ -127,6 +127,18 @@ something like the following:
 5. Make sure to exclude the blog articles from your page navigation. You can
    achieve this by adding `{% if not page starts with "blog/" %}...{% endif %}`
    to the navigation loop.
+
+## Customization
+
+Pico is highly customizable in two different ways: On the one hand you can
+change Picos apperance by using themes, on the other hand you can add new
+functionality by using plugins. Doing the former includes changing Picos HTML,
+CSS and JavaScript, the latter mostly consists of PHP programming.
+
+This is all Greek to you? Don't worry, you don't have to spend time on these
+techie talk - it's very easy to use one of the great themes or plugins others
+developed and released to the public. Please refer to the next sections for
+details.
 
 ### Themes
 
@@ -247,7 +259,7 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
         try_files $uri $uri/ /pico/?$uri&$args;
     }
 
-### Config
+## Config
 
 You can override the default Pico settings (and add your own custom settings)
 by editing `config/config.php` in the Pico directory. For a brief overview of
@@ -255,7 +267,7 @@ the available settings and their defaults see `config/config.php.template`. To
 override a setting, copy `config/config.php.template` to `config/config.php`,
 uncomment the setting and set your custom value.
 
-### Documentation
+## Documentation
 
 For more help have a look at the Pico documentation at
 [http://picocms.org/docs](http://picocms.org/docs)
