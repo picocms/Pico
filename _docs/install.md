@@ -1,6 +1,9 @@
 ---
 toc:
-    install: Install
+    install:
+        _title: Install
+        using-a-pre-bundled-release: Using a pre-bundled released
+        composer: Composer
     run: Run
 ---
 
