@@ -83,15 +83,15 @@ There are also certain variables that you can use in your text files:
 * <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
-* <code>&#37;meta.* &#37;</code> - Access any meta variable of the current page,
+* <code>&#37;meta.*&#37;</code> - Access any meta variable of the current page,
   e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
 
 ### Blogging
 
 Pico is not blogging software - but makes it very easy for you to use it as a
-blog. You can find many plugins out there implementing typical
-blogging features like authentication, tagging, pagination and social plugins.
-See the below Plugins section for details.
+blog. You can find many plugins out there implementing typical blogging
+features like authentication, tagging, pagination and social plugins. See the
+below Plugins section for details.
 
 If you want to use Pico as a blogging software, you probably want to do
 something like the following:

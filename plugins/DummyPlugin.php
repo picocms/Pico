@@ -28,7 +28,7 @@ class DummyPlugin extends AbstractPicoPlugin
     protected $dependsOn = array();
 
     /**
-     * Triggered after has Pico loaded all available plugins
+     * Triggered after Pico has loaded all available plugins
      *
      * This event is triggered nevertheless the plugin is enabled or not.
      * It is NOT guaranteed that plugin dependencies are fulfilled!
@@ -129,7 +129,7 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered when Pico reads its known meta/header fields
+     * Triggered when Pico reads its known meta header fields
      *
      * @see    Pico::getMetaHeaders()
      * @param  array<string> &$headers list of known meta header fields
