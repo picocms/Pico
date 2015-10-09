@@ -1,4 +1,7 @@
 ---
+toc:
+    install: Install
+    run: Run
 ---
 
 ## Install

@@ -13,11 +13,18 @@ nav: 2
         </p><br />
 
         <div class="one-fourth">
-            <!-- ToDo -->
+            <ul>
+                {% for doc in site.docs %}
+                    {% for item in doc.toc %}
+                        <li>
+                            <a href="#{{ item[0] }}">{{ item[1] }}</a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
         </div>
         <div class="three-fourth last">
             {% for doc in site.docs %}
-                <!-- path = {{ doc.path }} -->
                 {{ doc.output }}
             {% endfor %}
 
