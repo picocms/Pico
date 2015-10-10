@@ -4,6 +4,7 @@ toc:
         _title: Creating Content
         text-file-markup: Text File Markup
         blogging: Blogging
+nav: 2
 ---
 
 ## Creating Content

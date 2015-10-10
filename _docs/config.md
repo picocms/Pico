@@ -3,6 +3,7 @@ toc:
     config:
         _title: Config
         url-rewriting: URL Rewriting
+nav: 4
 ---
 
 ## Config

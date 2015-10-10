@@ -5,6 +5,7 @@ toc:
         using-a-pre-bundled-release: Using a pre-bundled released
         composer: Composer
     run: Run
+nav: 1
 ---
 
 ## Install

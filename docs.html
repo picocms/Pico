@@ -4,6 +4,7 @@ title: Docs
 nav: 2
 ---
 
+{% assign docs = site.docs|sort:"nav" %}
 <div class="light-wrapper">
     <div class="inner">
         <h1 class="aligncenter">Pico Documentation</h1>
@@ -14,7 +15,7 @@ nav: 2
 
         <div class="one-fourth">
             <ul>
-                {% for doc in site.docs %}
+                {% for doc in docs %}
                     {% for item in doc.toc %}
                         <li>
                             {% if item[1]._title %}
@@ -35,7 +36,7 @@ nav: 2
             </ul>
         </div>
         <div class="three-fourth last">
-            {% for doc in site.docs %}
+            {% for doc in docs %}
                 {{ doc.output }}
             {% endfor %}
 
