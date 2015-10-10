@@ -32,7 +32,7 @@ and their corresponing URLs:
     <tbody>
         <tr>
             <td>content-sample/index.md</td>
-            <td><a href="%base_url%">/</a></td>
+            <td>/</td>
         </tr>
         <tr>
             <td>content-sample/sub.md</td>
@@ -40,15 +40,15 @@ and their corresponing URLs:
         </tr>
         <tr>
             <td>content-sample/sub/index.md</td>
-            <td><a href="%base_url%?sub">?sub</a> (same as above)</td>
+            <td>?sub (same as above)</td>
         </tr>
         <tr>
             <td>content-sample/sub/page.md</td>
-            <td><a href="%base_url%?sub/page">?sub/page</a></td>
+            <td>?sub/page</td>
         </tr>
         <tr>
             <td>content-sample/a/very/long/url.md</td>
-            <td><a href="%base_url%?a/very/long/url">?a/very/long/url</a> (doesn't exist)</td>
+            <td>?a/very/long/url (doesn't exist)</td>
         </tr>
     </tbody>
 </table>
