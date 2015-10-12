@@ -1,0 +1,47 @@
+---
+layout: default
+title: Contribute
+nav: 3
+---
+
+{% assign docs = site.plugin-dev|sort:"nav" %}
+<div class="light-wrapper">
+    <div class="inner">
+        <h1 class="aligncenter">Contribute to Pico</h1>
+        <p class="description aligncenter">
+            Pico is highly customizable in two different ways: On the one hand you can change Picos apperance by using themes,
+            on the other hand you can add new functionality by using plugins.
+        </p><br />
+
+        <div class="one-fourth">
+            <ul>
+                {% for doc in plugin-dev %}
+                    {% for item in doc.toc %}
+                        <li>
+                            {% if item[1]._title %}
+                                <a href="#{{ item[0] }}">{{ item[1]._title }}</a>
+                                <ul>
+                                    {% for sub in item[1] %}
+                                        {% if sub[0] != "_title" %}
+                                            <li><a href="#{{ sub[0] }}">{{ sub[1] }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <a href="#{{ item[0] }}">{{ item[1] }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="three-fourth last">
+            {% for doc in docs %}
+                {{ doc.output }}
+            {% endfor %}
+
+            <hr>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

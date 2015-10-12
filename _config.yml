@@ -3,3 +3,4 @@ description: A stupidly simple, blazing fast, flat file CMS.
 base_url: http://phrozenbyte.github.io/Pico
 collections:
 - docs
+- plugin-dev
