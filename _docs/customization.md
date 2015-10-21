@@ -91,10 +91,6 @@ designers created in the past. As with plugins, you can find themes in
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://pico.dev7studios.com/plugins,
-but there are many awesome third-party plugins out there! A good start point
-for discovery is [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Plugins).
-
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
 Depending on the plugin you've installed, you may have to go through some more
