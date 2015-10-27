@@ -89,7 +89,7 @@ class Pico
      * List of loaded plugins
      *
      * @see Pico::loadPlugins()
-     * @var array<object>
+     * @var array<object>|null
      */
     protected $plugins;
 
@@ -97,23 +97,23 @@ class Pico
      * Current configuration of this Pico instance
      *
      * @see Pico::loadConfig()
-     * @var array
+     * @var array<string, mixed>|null
      */
     protected $config;
 
     /**
-     * URL with which the user requested the page
+     * Part of the URL describing the requested contents
      *
      * @see Pico::evaluateRequestUrl()
-     * @var string
+     * @var string|null
      */
     protected $requestUrl;
 
     /**
-     * Path to the content file being served
+     * Absolute path to the content file being served
      *
      * @see Pico::discoverRequestFile()
-     * @var string
+     * @var string|null
      */
     protected $requestFile;
 
@@ -121,7 +121,7 @@ class Pico
      * Raw, not yet parsed contents to serve
      *
      * @see Pico::loadFileContent()
-     * @var string
+     * @var string|null
      */
     protected $rawContent;
 
@@ -129,7 +129,7 @@ class Pico
      * Meta data of the page to serve
      *
      * @see Pico::parseFileMeta()
-     * @var array
+     * @var array<string, string>|null
      */
     protected $meta;
 
@@ -138,7 +138,7 @@ class Pico
      *
      * @see Pico::prepareFileContent()
      * @see Pico::parseFileContent()
-     * @var string
+     * @var string|null
      */
     protected $content;
 
@@ -146,7 +146,7 @@ class Pico
      * List of known pages
      *
      * @see Pico::readPages()
-     * @var array
+     * @var array<array>|null
      */
     protected $pages;
 
@@ -154,7 +154,7 @@ class Pico
      * Data of the page being served
      *
      * @see Pico::discoverCurrentPage()
-     * @var array
+     * @var array|null
      */
     protected $currentPage;
 
@@ -162,7 +162,7 @@ class Pico
      * Data of the previous page relative to the page being served
      *
      * @see Pico::discoverCurrentPage()
-     * @var array
+     * @var array|null
      */
     protected $previousPage;
 
@@ -170,7 +170,7 @@ class Pico
      * Data of the next page relative to the page being served
      *
      * @see Pico::discoverCurrentPage()
-     * @var array
+     * @var array|null
      */
     protected $nextPage;
 
@@ -178,14 +178,14 @@ class Pico
      * Twig instance used for template parsing
      *
      * @see Pico::registerTwig()
-     * @var Twig_Environment
+     * @var Twig_Environment|null
      */
     protected $twig;
 
     /**
      * Variables passed to the twig template
      *
-     * @var array
+     * @var array<string, mixed>|null
      */
     protected $twigVariables;
 
@@ -193,6 +193,11 @@ class Pico
      * Constructs a new Pico instance
      *
      * To carry out all the processing in Pico, call the run() method.
+     *
+     * @param string $rootDir    root directory of this Pico instance
+     * @param string $configDir  config directory of this Pico instance
+     * @param string $pluginsDir plugins directory of this Pico instance
+     * @param string $themesDir  themes directory of this Pico instance
      */
     public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
     {
@@ -398,7 +403,7 @@ class Pico
      * Returns all loaded plugins
      *
      * @see    Pico::loadPlugins()
-     * @return array<object>
+     * @return array<object>|null
      */
     public function getPlugins()
     {
@@ -458,10 +463,11 @@ class Pico
      * call and Pico::run(). Options set with this method cannot be overwritten
      * by {@path "config/config.php"}.
      *
-     * @param array $config     array with configuration variables, like
-     *     $config in {@path "config/config.php"}
+     * @param  array<string, mixed> $config array with configuration variables,
+     *     like $config in {@path "config/config.php"}
      * @return void
-     * @throws RuntimeException thrown if Pico already started processing
+     * @throws RuntimeException             thrown if Pico already started
+     *     processing
      */
     public function setConfig(array $config)
     {
@@ -534,7 +540,7 @@ class Pico
      * Returns the URL where a user requested the page
      *
      * @see    Pico::evaluateRequestUrl()
-     * @return string request URL
+     * @return string|null request URL
      */
     public function getRequestUrl()
     {
@@ -567,10 +573,10 @@ class Pico
     }
 
     /**
-     * Returns the path to the content file to serve
+     * Returns the absolute path to the content file to serve
      *
      * @see    Pico::discoverRequestFile()
-     * @return string file path
+     * @return string|null file path
      */
     public function getRequestFile()
     {
@@ -616,7 +622,7 @@ class Pico
      * Returns the cached raw contents, either of the requested or the 404 file
      *
      * @see    Pico::loadFileContent()
-     * @return string raw contents
+     * @return string|null raw contents
      */
     public function getRawContent()
     {
@@ -629,7 +635,9 @@ class Pico
      * Heads up! Calling this method triggers the `onMetaHeaders` event.
      * Keep this in mind to prevent a infinite loop!
      *
-     * @return array known meta headers
+     * @return array<string, string> known meta headers; the array value
+     *     specifies the YAML key to search for, the array key is later used
+     *     to access the found value
      */
     public function getMetaHeaders()
     {
@@ -657,9 +665,9 @@ class Pico
      * for users and pure (!) theme developers ONLY.
      *
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
-     * @param  string $rawContent the raw file contents
-     * @param  array  $headers    a array containing the known headers
-     * @return array              parsed meta data
+     * @param  string                $rawContent the raw file contents
+     * @param  array<string, string> $headers    known meta headers
+     * @return array                             parsed meta data
      */
     public function parseFileMeta($rawContent, array $headers)
     {
@@ -707,7 +715,7 @@ class Pico
      * Returns the parsed meta data of the requested page
      *
      * @see    Pico::parseFileMeta()
-     * @return array parsed meta data
+     * @return array|null parsed meta data
      */
     public function getFileMeta()
     {
@@ -772,7 +780,7 @@ class Pico
      * Returns the cached contents of the requested page
      *
      * @see    Pico::parseFileContent()
-     * @return string parsed contents
+     * @return string|null parsed contents
      */
     public function getFileContent()
     {
@@ -781,6 +789,22 @@ class Pico
 
     /**
      * Reads the data of all pages known to Pico
+     *
+     * The page data will be an array containing the following values:
+     * +----------------+------------------------------------------+
+     * | Array key      | Description                              |
+     * +----------------+------------------------------------------+
+     * | id             | relative path to the content file        |
+     * | url            | URL to the page                          |
+     * | title          | title of the page (YAML header)          |
+     * | description    | description of the page (YAML header)    |
+     * | author         | author of the page (YAML header)         |
+     * | time           | timestamp derived from the Date header   |
+     * | date           | date of the page (YAML header)           |
+     * | date_formatted | formatted date of the page               |
+     * | raw_content    | raw, not yet parsed contents of the page |
+     * | meta           | parsed meta data of the page)            |
+     * +----------------+------------------------------------------+
      *
      * @return void
      */
@@ -884,7 +908,7 @@ class Pico
      * Returns the list of known pages
      *
      * @see    Pico::readPages()
-     * @return array the data of all pages
+     * @return array|null the data of all pages
      */
     public function getPages()
     {
@@ -932,7 +956,7 @@ class Pico
      * Returns the data of the requested page
      *
      * @see    Pico::discoverCurrentPage()
-     * @return array page data
+     * @return array|null page data
      */
     public function getCurrentPage()
     {
@@ -943,7 +967,7 @@ class Pico
      * Returns the data of the previous page relative to the page being served
      *
      * @see    Pico::discoverCurrentPage()
-     * @return array page data
+     * @return array|null page data
      */
     public function getPreviousPage()
     {
@@ -954,7 +978,7 @@ class Pico
      * Returns the data of the next page relative to the page being served
      *
      * @see    Pico::discoverCurrentPage()
-     * @return array page data
+     * @return array|null page data
      */
     public function getNextPage()
     {
@@ -977,7 +1001,7 @@ class Pico
     /**
      * Returns the twig template engine
      *
-     * @return Twig_Environment twig template engine
+     * @return Twig_Environment|null twig template engine
      */
     public function getTwig()
     {
@@ -990,7 +1014,7 @@ class Pico
      * URLs and paths (namely base_dir, base_url, theme_dir and theme_url)
      * don't add a trailing slash for historic reasons.
      *
-     * @return array template variables
+     * @return array<string, mixed> template variables
      */
     protected function getTwigVariables()
     {

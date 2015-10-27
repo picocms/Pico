@@ -16,6 +16,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * This plugin is enabled by default?
      *
+     * @var boolean
      * @see AbstractPicoPlugin::$enabled
      */
     protected $enabled = false;
@@ -23,6 +24,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * This plugin depends on {@link ...}
      *
+     * @var array<string>
      * @see AbstractPicoPlugin::$dependsOn
      */
     protected $dependsOn = array();
@@ -47,7 +49,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has read its configuration
      *
      * @see    Pico::getConfig()
-     * @param  array &$config array of config variables
+     * @param  array<string, mixed> &$config array of config variables
      * @return void
      */
     public function onConfigLoaded(&$config)
@@ -60,7 +62,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::getBaseUrl()
      * @see    Pico::getRequestUrl()
-     * @param  string &$url request URL
+     * @param  string &$url part of the URL describing the requested contents
      * @return void
      */
     public function onRequestUrl(&$url)
@@ -72,7 +74,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has discovered the content file to serve
      *
      * @see    Pico::getRequestFile()
-     * @param  string &$file path to the content file to serve
+     * @param  string &$file absolute path to the content file to serve
      * @return void
      */
     public function onRequestFile(&$file)
@@ -132,7 +134,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered when Pico reads its known meta header fields
      *
      * @see    Pico::getMetaHeaders()
-     * @param  array<string> &$headers list of known meta header fields
+     * @param  array<string, string> &$headers list of known meta header
+     *     fields; the array value specifies the YAML key to search for, the
+     *     array key is later used to access the found value
      * @return void
      */
     public function onMetaHeaders(&$headers)
@@ -144,8 +148,8 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico parses the meta header
      *
      * @see    Pico::parseFileMeta()
-     * @param  string &$rawContent raw file contents
-     * @param  array  &$headers    known meta header fields
+     * @param  string                 &$rawContent raw file contents
+     * @param  array<string, string>  &$headers    known meta header fields
      * @return void
      */
     public function onMetaParsing(&$rawContent, &$headers)
@@ -157,7 +161,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has parsed the meta header
      *
      * @see    Pico::getFileMeta()
-     * @param  array &$meta parsed meta data
+     * @param  array<string, string> &$meta parsed meta data
      * @return void
      */
     public function onMetaParsed(&$meta)
@@ -204,7 +208,20 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico reads a single page from the list of all known pages
      *
-     * @param  array &$pageData data of the loaded page
+     * @param array &$pageData {
+     *     data of the loaded page
+     *
+     *     @var string $id             relative path to the content file
+     *     @var string $url            URL to the page
+     *     @var string $title          title of the page (YAML header)
+     *     @var string $description    description of the page (YAML header)
+     *     @var string $author         author of the page (YAML header)
+     *     @var string $time           timestamp derived from the Date header
+     *     @var string $date           date of the page (YAML header)
+     *     @var string $date_formatted formatted date of the page
+     *     @var string $raw_content    raw, not yet parsed contents of the page
+     *     @var string $meta           parsed meta data of the page
+     * }
      * @return void
      */
     public function onSinglePageLoaded(&$pageData)
@@ -214,6 +231,9 @@ class DummyPlugin extends AbstractPicoPlugin
 
     /**
      * Triggered after Pico has read all known pages
+     *
+     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * structure of the page data.
      *
      * @see    Pico::getPages()
      * @see    Pico::getCurrentPage()
@@ -244,9 +264,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico renders the page
      *
      * @see    Pico::getTwig()
-     * @param  Twig_Environment &$twig          twig template engine
-     * @param  array            &$twigVariables variables passed to the template
-     * @param  string           &$templateName  name of the template to render
+     * @param  Twig_Environment     &$twig          twig template engine
+     * @param  array<string, mixed> &$twigVariables template variables
+     * @param  string               &$templateName  file name of the template
      * @return void
      */
     public function onPageRendering(&$twig, &$twigVariables, &$templateName)

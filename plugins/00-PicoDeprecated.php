@@ -54,7 +54,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * The requested file
      *
-     * @var string
+     * @var string|null
      * @see PicoDeprecated::onRequestFile()
      */
     protected $requestFile;
@@ -139,7 +139,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Read {@path "config.php"} in Picos root dir
      *
-     * @param  array &$config array of config variables
+     * @param  array<string, mixed> &$config array of config variables
      * @return void
      */
     protected function loadRootDirConfig(&$config)
@@ -295,7 +295,8 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Triggers the deprecated event get_pages($pages, $currentPage, $previousPage, $nextPage)
+     * Triggers the deprecated event
+     * get_pages($pages, $currentPage, $previousPage, $nextPage)
      *
      * @see DummyPlugin::onPagesLoaded()
      */

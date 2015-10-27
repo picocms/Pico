@@ -50,7 +50,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * List of plugin which depend on this plugin
      *
-     * @var array<object>
+     * @var array<string, object>
      * @see PicoPluginInterface::getDependants()
      * @see AbstractPicoPlugin::checkDependants()
      */
