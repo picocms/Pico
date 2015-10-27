@@ -54,16 +54,16 @@ to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% en
 * `{% raw %}{{ content }}{% endraw %}` - The content of the current page
                     (after it has been processed through Markdown)
 * `{% raw %}{{ pages }}{% endraw %}` - A collection of all the content pages in your site
-    * `{% raw %}{{ page.id }}{% endraw %}`
-    * `{% raw %}{{ page.url }}{% endraw %}`
-    * `{% raw %}{{ page.title }}{% endraw %}`
-    * `{% raw %}{{ page.description }}{% endraw %}`
-    * `{% raw %}{{ page.author }}{% endraw %}`
-    * `{% raw %}{{ page.time }}{% endraw %}`
-    * `{% raw %}{{ page.date }}{% endraw %}`
-    * `{% raw %}{{ page.date_formatted }}{% endraw %}`
-    * `{% raw %}{{ page.raw_content }}{% endraw %}`
-    * `{% raw %}{{ page.meta }}{% endraw %}`
+    * `{% raw %}{{ page.id }}{% endraw %}` - The relative path to the content file
+    * `{% raw %}{{ page.url }}{% endraw %}` - The URL to the page
+    * `{% raw %}{{ page.title }}{% endraw %}` - The title of the page (YAML header)
+    * `{% raw %}{{ page.description }}{% endraw %}` - The description of the page (YAML header)
+    * `{% raw %}{{ page.author }}{% endraw %}` - The author of the page (YAML header)
+    * `{% raw %}{{ page.time }}{% endraw %}` - The timestamp derived from the `Date` header
+    * `{% raw %}{{ page.date }}{% endraw %}` - The date of the page (YAML header)
+    * `{% raw %}{{ page.date_formatted }}{% endraw %}` - The formatted date of the page
+    * `{% raw %}{{ page.raw_content }}{% endraw %}` - The raw, not yet parsed contents of the page
+    * `{% raw %}{{ page.meta }}{% endraw %}`- The meta values of the page
 * `{% raw %}{{ prev_page }}{% endraw %}` - The data of the previous page (relative to `current_page`)
 * `{% raw %}{{ current_page }}{% endraw %}` - The data of the current page
 * `{% raw %}{{ next_page }}{% endraw %}` - The data of the next page (relative to `current_page`)
