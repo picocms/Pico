@@ -139,7 +139,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Read {@path "config.php"} in Picos root dir
      *
-     * @param  array<string, mixed> &$config array of config variables
+     * @param  mixed[] &$config array of config variables
      * @return void
      */
     protected function loadRootDirConfig(&$config)

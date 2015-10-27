@@ -24,7 +24,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * This plugin depends on {@link ...}
      *
-     * @var array<string>
+     * @var string[]
      * @see AbstractPicoPlugin::$dependsOn
      */
     protected $dependsOn = array();
@@ -37,7 +37,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::getPlugin()
      * @see    Pico::getPlugins()
-     * @param  array<object> &$plugins loaded plugin instances
+     * @param  object[] &$plugins loaded plugin instances
      * @return void
      */
     public function onPluginsLoaded(&$plugins)
@@ -49,7 +49,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has read its configuration
      *
      * @see    Pico::getConfig()
-     * @param  array<string, mixed> &$config array of config variables
+     * @param  mixed[] &$config array of config variables
      * @return void
      */
     public function onConfigLoaded(&$config)
@@ -134,7 +134,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered when Pico reads its known meta header fields
      *
      * @see    Pico::getMetaHeaders()
-     * @param  array<string, string> &$headers list of known meta header
+     * @param  string[] &$headers list of known meta header
      *     fields; the array value specifies the YAML key to search for, the
      *     array key is later used to access the found value
      * @return void
@@ -148,8 +148,8 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico parses the meta header
      *
      * @see    Pico::parseFileMeta()
-     * @param  string                 &$rawContent raw file contents
-     * @param  array<string, string>  &$headers    known meta header fields
+     * @param  string   &$rawContent raw file contents
+     * @param  string[] &$headers    known meta header fields
      * @return void
      */
     public function onMetaParsing(&$rawContent, &$headers)
@@ -161,7 +161,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has parsed the meta header
      *
      * @see    Pico::getFileMeta()
-     * @param  array<string, string> &$meta parsed meta data
+     * @param  string[] &$meta parsed meta data
      * @return void
      */
     public function onMetaParsed(&$meta)
@@ -264,9 +264,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico renders the page
      *
      * @see    Pico::getTwig()
-     * @param  Twig_Environment     &$twig          twig template engine
-     * @param  array<string, mixed> &$twigVariables template variables
-     * @param  string               &$templateName  file name of the template
+     * @param  Twig_Environment &$twig          twig template engine
+     * @param  mixed[]          &$twigVariables template variables
+     * @param  string           &$templateName  file name of the template
      * @return void
      */
     public function onPageRendering(&$twig, &$twigVariables, &$templateName)

@@ -77,14 +77,14 @@ interface PicoPluginInterface
     /**
      * Returns a list of names of plugins required by this plugin
      *
-     * @return array<string> required plugins
+     * @return string[] required plugins
      */
     public function getDependencies();
 
     /**
      * Returns a list of plugins which depend on this plugin
      *
-     * @return array<object> dependant plugins
+     * @return object[] dependant plugins
      */
     public function getDependants();
 

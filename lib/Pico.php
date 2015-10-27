@@ -89,7 +89,7 @@ class Pico
      * List of loaded plugins
      *
      * @see Pico::loadPlugins()
-     * @var array<object>|null
+     * @var object[]|null
      */
     protected $plugins;
 
@@ -97,7 +97,7 @@ class Pico
      * Current configuration of this Pico instance
      *
      * @see Pico::loadConfig()
-     * @var array<string, mixed>|null
+     * @var mixed[]|null
      */
     protected $config;
 
@@ -129,7 +129,7 @@ class Pico
      * Meta data of the page to serve
      *
      * @see Pico::parseFileMeta()
-     * @var array<string, string>|null
+     * @var string[]|null
      */
     protected $meta;
 
@@ -146,7 +146,7 @@ class Pico
      * List of known pages
      *
      * @see Pico::readPages()
-     * @var array<array>|null
+     * @var array[]|null
      */
     protected $pages;
 
@@ -185,7 +185,7 @@ class Pico
     /**
      * Variables passed to the twig template
      *
-     * @var array<string, mixed>|null
+     * @var mixed[]|null
      */
     protected $twigVariables;
 
@@ -403,7 +403,7 @@ class Pico
      * Returns all loaded plugins
      *
      * @see    Pico::loadPlugins()
-     * @return array<object>|null
+     * @return object[]|null
      */
     public function getPlugins()
     {
@@ -463,11 +463,10 @@ class Pico
      * call and Pico::run(). Options set with this method cannot be overwritten
      * by {@path "config/config.php"}.
      *
-     * @param  array<string, mixed> $config array with configuration variables,
-     *     like $config in {@path "config/config.php"}
+     * @param  mixed[] $config  array with configuration variables, like
+     *     $config in {@path "config/config.php"}
      * @return void
-     * @throws RuntimeException             thrown if Pico already started
-     *     processing
+     * @throws RuntimeException thrown if Pico already started processing
      */
     public function setConfig(array $config)
     {
@@ -635,9 +634,9 @@ class Pico
      * Heads up! Calling this method triggers the `onMetaHeaders` event.
      * Keep this in mind to prevent a infinite loop!
      *
-     * @return array<string, string> known meta headers; the array value
-     *     specifies the YAML key to search for, the array key is later used
-     *     to access the found value
+     * @return string[] known meta headers; the array value specifies the
+     *     YAML key to search for, the array key is later used to access the
+     *     found value
      */
     public function getMetaHeaders()
     {
@@ -665,9 +664,9 @@ class Pico
      * for users and pure (!) theme developers ONLY.
      *
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
-     * @param  string                $rawContent the raw file contents
-     * @param  array<string, string> $headers    known meta headers
-     * @return array                             parsed meta data
+     * @param  string   $rawContent the raw file contents
+     * @param  string[] $headers    known meta headers
+     * @return array                parsed meta data
      */
     public function parseFileMeta($rawContent, array $headers)
     {
@@ -1014,7 +1013,7 @@ class Pico
      * URLs and paths (namely base_dir, base_url, theme_dir and theme_url)
      * don't add a trailing slash for historic reasons.
      *
-     * @return array<string, mixed> template variables
+     * @return mixed[] template variables
      */
     protected function getTwigVariables()
     {
