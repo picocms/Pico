@@ -175,16 +175,16 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 * `{{ content }}` - The content of the current page
                     (after it has been processed through Markdown)
 * `{{ pages }}` - A collection of all the content pages in your site
-    * `{{ page.id }}`
-    * `{{ page.url }}`
-    * `{{ page.title }}`
-    * `{{ page.description }}`
-    * `{{ page.author }}`
-    * `{{ page.time }}`
-    * `{{ page.date }}`
-    * `{{ page.date_formatted }}`
-    * `{{ page.raw_content }}`
-    * `{{ page.meta }}`
+    * `{{ page.id }}` - The relative path to the content file
+    * `{{ page.url }}` - The URL to the page
+    * `{{ page.title }}` - The title of the page (YAML header)
+    * `{{ page.description }}` - The description of the page (YAML header)
+    * `{{ page.author }}` - The author of the page (YAML header)
+    * `{{ page.time }}` - The timestamp derived from the `Date` header
+    * `{{ page.date }}` - The date of the page (YAML header)
+    * `{{ page.date_formatted }}` - The formatted date of the page
+    * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page
+    * `{{ page.meta }}`- The meta values of the page
 * `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
 * `{{ current_page }}` - The data of the current page
 * `{{ next_page }}` - The data of the next page (relative to `current_page`)
