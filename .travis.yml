@@ -25,3 +25,5 @@ deploy:
     tags: true
     php: 5.3
 
+sudo: false
+
