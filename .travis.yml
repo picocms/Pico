@@ -1,10 +1,19 @@
 language: php
 php:
+  - 5.3
   - 5.4
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+  - nightly
 
 script:
+  - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
+
+before_deploy:
   - composer install
-  - tar -czf pico.tar.gz .htaccess README.md changelog.txt composer.json composer.lock config content-sample index.php lib license.txt plugins themes vendor
+  - tar -czf pico.tar.gz .htaccess README.md changelog.txt composer.json composer.lock license.txt config content-sample lib plugins themes vendor index.php
 
 deploy:
   provider: releases
@@ -13,3 +22,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    php: 5.3
