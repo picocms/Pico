@@ -1,6 +1,6 @@
 ---
 toc:
-    core:
+    pico-core:
         _title: Core
 
 nav: 2

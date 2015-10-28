@@ -1,6 +1,6 @@
 ---
 toc:
-    wiki: Wiki
+    plugin-wiki: Wiki
 nav: 3
 ---
 

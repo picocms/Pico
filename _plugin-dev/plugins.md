@@ -2,8 +2,8 @@
 toc:
     plugins:
         _title: Plugins
-        migrating: Migrating 0.X -> 1.0
-        your_first: Your First Plugin
+        migrating-from-0x---10: Migrating 0.X -> 1.0
+        your-first-plugin: Your First Plugin
 nav: 3
 ---
 
@@ -14,7 +14,7 @@ You will find a full example template in `plugins/DummyPlugin.php` to get you
 started on building some great stuff. Otherwise, keep reading to learn how to
 create your first plugin!
 
-Officially tested plugins can be found at http://pico.dev7studios.com/plugins,
+Officially tested plugins can be found at [http://picocms.org/plugins](http://picocms.org/plugins),
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki](#plugin-wiki).
 
