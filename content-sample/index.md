@@ -234,7 +234,7 @@ You're a plugin developer? We love you guys! You can find tons of information
 about how to develop plugins at http://picocms.org/plugin-dev.html. If you'd
 developed a plugin for Pico 0.9 and older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
-[Upgrade section of the docs](http://picocms.org/plugin-dev.html#upgrade).
+[upgrade section of the docs][PluginUpgrade].
 
 ## Config
 
@@ -267,6 +267,44 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
         try_files $uri $uri/ /pico/?$uri&$args;
     }
 
+## Upgrading to Pico 1.0
+
+We worked hard to make the upgrade process to Pico 1.0 as easy as possible -
+and we think we made the grade. Usually you don't have to consider anything
+special, nevertheless you should create a backup of your Pico installation
+before upgrading.
+
+The first step is to delete all of Picos files except for your `content`
+directory, `config.php` (or `config/config.php`) and, if applicable, the
+directory of your custom theme. Provided that you're using plugins, also keep
+the `plugins` directory. You can then upload Pico 1.0 to your installation
+directory. Please refer to the websites of the plugins you're using to get
+updates for them.
+
+The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and
+older. The plugin is disabled by default, but gets automatically enabled as
+soon as a old plugin is loaded. We will maintain backward compatibility for
+a long time, however, we recommend you to take the following steps to confine
+the neccessity of `PicoDeprecated` to old plugins. If you don't use plugins or
+upgraded all plugins to be compatible to Pico 1.0, you must take these steps.
+
+If you're a plugin developer, please refer to the new development docs,
+particularly the [plugin upgrade section][PluginUpgrade].
+
+* Move your `config.php` to the new `config/` directory.
+* URL Rewriting became optional in Pico 1.0. If you don't use the `.htaccess`
+  file provided by Pico, you must update your rewriting rules to let the
+  webserver rewrite internal links (e.g. `index.php?sub/page`) correctly.
+  You musn't update your markdown files or custom Twig templates if you keep
+  URL rewriting enabled. Otherwise you have to rectify all internal links in
+  markdown files (e.g. <code>&#37;base_url&#37;?sub/page</code>) and your
+  custom Twig templates (e.g. (e.g. `{{ "sub/page"|link }}`)).
+* Pico 1.0 doesn't parse the contents of all pages anymore. This can be put
+  down to the massive performance impact, but leads to the removal of the
+  generation of auto-generated excerpts.
+  TODO: describe how to force enable/disable `PicoExcerpt` and `PicoParsePagesContent`
+* TODO: Removing various empty `index.html` files; check accessibility!
+
 ## Documentation
 
 For more help have a look at the Pico documentation at
@@ -274,3 +312,4 @@ For more help have a look at the Pico documentation at
 
 [Twig]: http://twig.sensiolabs.org/documentation
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+[PluginUpgrade]: http://picocms.org/plugin-dev.html#upgrade
