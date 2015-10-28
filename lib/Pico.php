@@ -575,6 +575,11 @@ class Pico
                 $requestFileParts[] = $requestUrlPart;
             }
 
+            if (empty($requestFileParts)) {
+                $this->requestFile = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
+                return;
+            }
+
             // discover the content file to serve
             // Note: $requestFileParts neither contains a trailing nor a leading slash
             $this->requestFile = $this->getConfig('content_dir') . implode('/', $requestFileParts);
