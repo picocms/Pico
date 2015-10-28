@@ -754,10 +754,13 @@ class Pico
         $content = str_replace('%theme_url%', $themeUrl, $content);
 
         // replace %meta.*%
-        $metaKeys = array_map(function ($metaKey) {
-            return '%meta.' . $metaKey . '%';
-        }, array_keys($this->meta));
-        $metaValues = array_values($this->meta);
+        $metaKeys = $metaValues = array();
+        foreach ($this->meta as $metaKey => $metaValue) {
+            if (is_scalar($metaValue) || ($metaValue === null)) {
+                $metaKeys[] = '%meta.' . $metaKey . '%';
+                $metaValues[] = strval($metaValue);
+            }
+        }
         $content = str_replace($metaKeys, $metaValues, $content);
 
         return $content;
