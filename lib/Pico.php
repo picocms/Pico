@@ -556,7 +556,28 @@ class Pico
         if (empty($this->requestUrl)) {
             $this->requestFile = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
         } else {
-            $this->requestFile = $this->getConfig('content_dir') . $this->requestUrl;
+            // prevent content_dir breakouts using malicious request URLs
+            // we don't use realpath() here because we neither want to check for file existance
+            // nor prohibit symlinks which intentionally point to somewhere outside the content_dir
+            // it is STRONGLY RECOMMENDED to use open_basedir - always, not just with Pico!
+            $requestUrl = str_replace('\\', '/', $this->requestUrl);
+            $requestUrlParts = explode('/', $requestUrl);
+
+            $requestFileParts = array();
+            foreach ($requestUrlParts as $requestUrlPart) {
+                if (($requestUrlPart === '') || ($requestUrlPart === '.')) {
+                    continue;
+                } elseif ($requestUrlPart === '..') {
+                    array_pop($requestFileParts);
+                    continue;
+                }
+
+                $requestFileParts[] = $requestUrlPart;
+            }
+
+            // discover the content file to serve
+            // Note: $requestFileParts neither contains a trailing nor a leading slash
+            $this->requestFile = $this->getConfig('content_dir') . implode('/', $requestFileParts);
             if (is_dir($this->requestFile)) {
                 // if no index file is found, try a accordingly named file in the previous dir
                 // if this file doesn't exist either, show the 404 page, but assume the index
