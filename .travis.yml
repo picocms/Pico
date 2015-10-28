@@ -1,0 +1,15 @@
+language: php
+php:
+  - 5.4
+
+script:
+  - composer install
+  - tar -czf pico.tar.gz .htaccess README.md changelog.txt composer.json composer.lock config content-sample index.php lib license.txt plugins themes vendor
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_OAUTH_TOKEN}
+  file: pico.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
