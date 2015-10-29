@@ -57,6 +57,8 @@ If a file cannot be found, the file `content-sample/404.md` will be shown. You
 can add `404.md` files to any directory, so if you want to use a special error
 page for your blog, simply create `content-sample/blog/404.md`.
 
+---
+
 ### Text File Markup
 
 Text files are marked up using [Markdown][]. They can also contain regular HTML.
@@ -84,6 +86,8 @@ There are also certain variables that you can use in your text files:
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
 * <code>&#37;meta.*&#37;</code> - Access any meta variable of the current page,
   e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+
+---
 
 ### Blogging
 
@@ -139,3 +143,5 @@ something like the following:
 </ol>
 
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+
+---

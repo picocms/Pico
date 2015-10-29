@@ -31,7 +31,9 @@ Download [composer][] and run it with the `install` option:
 <pre><code>$ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install</code></pre>
 
-Pico is available on [Packagist.org](http://packagist.org/) and may be included in other projects via `composer require picocms/pico`
+Pico is available on [Packagist.org](http://packagist.org/packages/picocms/pico) and may be included in other projects via `composer require picocms/pico`
+
+---
 
 ## Run
 
@@ -54,3 +56,5 @@ Access Pico from <http://localhost:8080>.
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
 [PHPServer]: http://php.net/manual/en/features.commandline.webserver.php
+
+---

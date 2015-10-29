@@ -2,12 +2,12 @@
 toc:
     plugins:
         _title: Plugins
-        migrating-from-0x---10: Migrating 0.X -> 1.0
+        migrating-from-0x-to-10: Migrating 0.X -> 1.0
         your-first-plugin: Your First Plugin
 nav: 3
 ---
 
-#Plugins
+# Plugins
 At the heart of customizing Pico is a plugin. You can 'hook-in' to the Pico
 engine at many different times during the rendering of your site and its content.
 You will find a full example template in `plugins/DummyPlugin.php` to get you
@@ -18,7 +18,9 @@ Officially tested plugins can be found at [http://picocms.org/plugins](http://pi
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki](#plugin-wiki).
 
-#Migrating from 0.X -> 1.0
+---
+
+# Migrating from 0.X to 1.0
 The new event system supports plugin dependencies as well as some new events.
 You will be able to set an enabled/disabled state by default as well. If you
 have previously cerated a plugin for Pico, it is *HIGHLY* recommended that you
@@ -47,7 +49,9 @@ to avoid activating the `PicoDeprecated` plugin.
     | onPageRendered      | after_render($output)                                     |
     |---------------------|-----------------------------------------------------------|
 
-#Your First Plugin
+---
+
+# Your First Plugin
 
 ## 1. To get started, navigate to your `plugins` directory
 ![Step1](style/images/docs/pico_plugins.jpg)

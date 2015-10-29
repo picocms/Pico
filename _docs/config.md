@@ -14,6 +14,8 @@ the available settings and their defaults see `config/config.php.template`. To
 override a setting, copy `config/config.php.template` to `config/config.php`,
 uncomment the setting and set your custom value.
 
+---
+
 ### URL Rewriting
 
 Picos default URLs (e.g. http://example.com/pico/?sub/page) already are very
@@ -35,3 +37,5 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
         index index.php;
         try_files $uri $uri/ /pico/?$uri&$args;
     }
+
+---
