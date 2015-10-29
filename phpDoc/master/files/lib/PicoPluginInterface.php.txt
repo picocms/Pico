@@ -14,11 +14,11 @@
  * plugins are loaded. Consequently the old events are never triggered when
  * your plugin is implementing this interface and no old plugins are present.
  *
- * If you're developing a new plugin, you MUST implement PicoPluginInterface. If
+ * If you're developing a new plugin, you MUST implement this interface. If
  * you're the developer of an old plugin, it is STRONGLY RECOMMENDED to use
  * the events introduced in Pico 1.0 when releasing a new version of your
  * plugin. If you want to use any of the new events, you MUST implement
- * PicoPluginInterface and update all other events you use.
+ * this interface and update all other events you use.
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
@@ -46,6 +46,8 @@ interface PicoPluginInterface
     /**
      * Enables or disables this plugin
      *
+     * @see    PicoPluginInterface::isEnabled()
+     * @see    PicoPluginInterface::isStatusChanged()
      * @param  boolean $enabled     enable (true) or disable (false) this plugin
      * @param  boolean $recursive   when true, enable or disable recursively
      *     In other words, if you enable a plugin, all required plugins are
@@ -63,6 +65,7 @@ interface PicoPluginInterface
     /**
      * Returns true if this plugin is enabled, false otherwise
      *
+     * @see    PicoPluginInterface::setEnabled()
      * @return boolean plugin is enabled (true) or disabled (false)
      */
     public function isEnabled();
@@ -70,6 +73,7 @@ interface PicoPluginInterface
     /**
      * Returns true if the plugin was ever enabled/disabled manually
      *
+     * @see    PicoPluginInterface::setEnabled()
      * @return boolean plugin is in its default state (true), false otherwise
      */
     public function isStatusChanged();
@@ -91,6 +95,7 @@ interface PicoPluginInterface
     /**
      * Returns the plugins instance of Pico
      *
+     * @see    Pico
      * @return Pico the plugins instance of Pico
      */
     public function getPico();

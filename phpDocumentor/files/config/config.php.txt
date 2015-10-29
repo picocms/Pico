@@ -1,6 +1,0 @@
-<?php
-return array(
-    'site_title' => 'config',
-    'PicoGAnalytics' => array('enabled' => true)
-);
-

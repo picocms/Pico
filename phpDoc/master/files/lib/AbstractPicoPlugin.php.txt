@@ -15,44 +15,43 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Current instance of Pico
      *
-     * @var Pico
-     * @see PicoPluginInterface::__construct()
      * @see PicoPluginInterface::getPico()
+     * @var Pico
      */
     private $pico;
 
     /**
      * Boolean indicating if this plugin is enabled (true) or disabled (false)
      *
-     * @var boolean
      * @see PicoPluginInterface::isEnabled()
      * @see PicoPluginInterface::setEnabled()
+     * @var boolean
      */
     protected $enabled = true;
 
     /**
      * Boolean indicating if this plugin was ever enabled/disabled manually
      *
-     * @var boolean
      * @see PicoPluginInterface::isStatusChanged()
+     * @var boolean
      */
     protected $statusChanged = false;
 
     /**
      * List of plugins which this plugin depends on
      *
-     * @var string[]
-     * @see PicoPluginInterface::getDependencies()
      * @see AbstractPicoPlugin::checkDependencies()
+     * @see PicoPluginInterface::getDependencies()
+     * @var string[]
      */
     protected $dependsOn = array();
 
     /**
      * List of plugin which depend on this plugin
      *
-     * @var object[]
-     * @see PicoPluginInterface::getDependants()
      * @see AbstractPicoPlugin::checkDependants()
+     * @see PicoPluginInterface::getDependants()
+     * @var object[]
      */
     private $dependants;
 
@@ -129,8 +128,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * Passes all not satisfiable method calls to {@link Pico}
+     * Passes all not satisfiable method calls to Pico
      *
+     * @see    Pico
      * @param  string $methodName name of the method to call
      * @param  array  $params     parameters to pass
      * @return mixed              return value of the called method
@@ -150,6 +150,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Enables all plugins which this plugin depends on
      *
+     * @see    PicoPluginInterface::getDependencies()
      * @param  boolean $recursive enable required plugins automatically
      * @return void
      * @throws RuntimeException   thrown when a dependency fails
@@ -198,6 +199,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Disables all plugins which depend on this plugin
      *
+     * @see    PicoPluginInterface::getDependants()
      * @param  boolean $recursive disabled dependant plugins automatically
      * @return void
      * @throws RuntimeException   thrown when a dependency fails
