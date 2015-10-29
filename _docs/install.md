@@ -31,6 +31,8 @@ Download [composer][] and run it with the `install` option:
 <pre><code>$ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install</code></pre>
 
+Pico is available on [Packagist.org](http://packagist.org/) and may be included in other projects via `composer require picocms/pico`
+
 ## Run
 
 You have nothing to consider specially, simply navigate to your Pico install using your favourite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
