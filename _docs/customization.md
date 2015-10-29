@@ -10,7 +10,7 @@ nav: 3
 ## Customization
 
 Pico is highly customizable in two different ways: On the one hand you can
-change Picos apperance by using themes, on the other hand you can add new
+change Picos appearance by using themes, on the other hand you can add new
 functionality by using plugins. Doing the former includes changing Picos HTML,
 CSS and JavaScript, the latter mostly consists of PHP programming.
 
@@ -24,7 +24,7 @@ details.
 ### Themes
 
 You can create themes for your Pico installation in the `themes` folder. Check
-out the default theme for an example. Pico uses [Twig][] for template
+out the default theme for an example. Pico uses [Twig](http://twig.sensiolabs.org/documentation) for template
 rendering. You can select your theme by setting the `$config['theme']` option
 in `config/config.php` to the name of your theme folder.
 
@@ -33,7 +33,7 @@ HTML structure of the theme. Below are the Twig variables that are available
 to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% endraw %}`) and URLs
 (e.g. `{% raw %}{{ base_url }}{% endraw %}`) don't have a trailing slash.
 
-* `{% raw %}{{ config }}{% endraw %}` - Conatins the values you set in `config/config.php`
+* `{% raw %}{{ config }}{% endraw %}` - Contains the values you set in `config/config.php`
                    (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
 * `{% raw %}{{ base_dir }}{% endraw %}` - The path to your Pico root directory
 * `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to
@@ -79,7 +79,7 @@ Pages can be used like the following:
     {% endfor %}
 &lt;/ul&gt;</code></pre>{% endraw %}
 
-You can use different templates for different content files by specifing the
+You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog-post` to a content file
 and Pico will use the `blog-post.twig` file in your theme folder to render
 the page.
@@ -95,18 +95,18 @@ designers created in the past. As with plugins, you can find themes in
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://pico.dev7studios.com/plugins,
+Officially tested plugins can be found at [http://picocms.com/plugins]({{ site.base_url }}/plugins.html),
 but there are many awesome third-party plugins out there! A good start point
 for discovery is [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Plugins).
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
 Depending on the plugin you've installed, you may have to go through some more
-steps (e.g. specifing config variables), the plugin docs or `README` file will
+steps (e.g. specifying config variables), the plugin docs or `README` file will
 explain what to do.
 
 Plugins which were written to work with Pico 1.0 can be enabled and disabled
-through your `config/config.php`. If you want to e.g. disable the `PicoExcerpt`
+through your `config/config.php`. If you want to e.g. disable the [PicoExcerpt](https://github.com/picocms/Pico/blob/master/plugins/02-PicoExcerpt.php)
 plugin, add the following line to your `config/config.php`:
 `$config['PicoExcerpt.enabled'] = false;`. To force the plugin to be enabled
 replace `false` with `true`.
@@ -114,11 +114,9 @@ replace `false` with `true`.
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/plugin-dev.html. If you'd
+about how to develop plugins at [http://picocms.org/plugin-dev.html]({{ site.base_url }}/plugin-dev.html). If you'd
 developed a plugin for Pico 0.9 and older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
-[Upgrade section of the docs](http://picocms.org/plugin-dev.html#upgrade).
-
-[Twig]: http://twig.sensiolabs.org/documentation
+[Upgrade section of the docs]({{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10).
 
 ---

@@ -20,7 +20,7 @@ and put an `index.md` inside it, you can access that folder at the URL
 simply create a text file with the corresponding name and you will be able to
 access it (e.g. `content-sample/sub/page.md` is accessible from the URL
 `http://yoursite.com/?sub/page`). Below we've shown some examples of locations
-and their corresponing URLs:
+and their corresponding URLs:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
@@ -61,7 +61,7 @@ page for your blog, simply create `content-sample/blog/404.md`.
 
 ### Text File Markup
 
-Text files are marked up using [Markdown][]. They can also contain regular HTML.
+Text files are marked up using [Markdown](https://daringfireball.net/projects/markdown/). They can also contain regular HTML.
 
 At the top of text files you can place a block comment and specify certain
 attributes of the page. For example:
@@ -141,7 +141,5 @@ something like the following:
         to the navigation loop.
     </li>
 </ol>
-
-[Markdown]: http://daringfireball.net/projects/markdown/syntax
 
 ---

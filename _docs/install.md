@@ -27,7 +27,7 @@ Open a shell and navigate to the desired install directory of Pico within the `h
 Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
 #### Step 2
-Download [composer][] and run it with the `install` option:
+Download [composer][composer] and run it with the `install` option:
 <pre><code>$ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install</code></pre>
 
@@ -37,7 +37,7 @@ Pico is available on [Packagist.org](http://packagist.org/packages/picocms/pico)
 
 ## Run
 
-You have nothing to consider specially, simply navigate to your Pico install using your favourite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
+You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
 ### You don't have a web server?
 
