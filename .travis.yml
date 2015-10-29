@@ -8,11 +8,6 @@ php:
   - hhvm
   - nightly
 
-branches:
-  only:
-    - master
-    - gh-pages
-
 script:
   - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
