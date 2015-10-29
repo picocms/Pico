@@ -7,8 +7,6 @@ As such we want to *encourage* but not obligate you, the contributor, to follow 
 
 Having said that: we really appreciate it when you apply the guidelines in part or wholly as that will save us time which, in turn, we can spend on bugfixes and new features.
 
-Once you decide you want to contribute to *Picos core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/plugin-dev.html) of our website.
-
 Issues
 ------
 
@@ -18,6 +16,8 @@ Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/n
 
 Contributing code
 -----------------
+
+Once you decide you want to contribute to *Picos core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/plugin-dev.html) of our website.
 
 Please do *not* develop your contribution on the `master` branch of your fork, but create a separate feature branch, that is based off the `master` branch, for each feature that you want to contribute.
 
