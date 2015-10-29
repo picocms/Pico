@@ -54,8 +54,8 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * The requested file
      *
+     * @see PicoDeprecated::getRequestFile()
      * @var string|null
-     * @see PicoDeprecated::onRequestFile()
      */
     protected $requestFile;
 
@@ -103,11 +103,12 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Defines deprecated constants
      *
-     * CONTENT_DIR is deprecated since v0.9, ROOT_DIR, LIB_DIR, PLUGINS_DIR,
-     * THEMES_DIR and CONTENT_EXT since v1.0, CONFIG_DIR existed just for a
-     * short time between v0.9 and v1.0 and CACHE_DIR was dropped with v1.0
-     * without a replacement.
+     * `CONTENT_DIR` is deprecated since v0.9, `ROOT_DIR`, `LIB_DIR`,
+     * `PLUGINS_DIR`, `THEMES_DIR` and `CONTENT_EXT` since v1.0, `CONFIG_DIR`
+     * existed just for a short time between v0.9 and v1.0 and `CACHE_DIR`
+     * was dropped with v1.0 without a replacement.
      *
+     * @see    PicoDeprecated::onConfigLoaded()
      * @return void
      */
     protected function defineConstants()
@@ -137,8 +138,10 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Read {@path "config.php"} in Picos root dir
+     * Read config.php in Picos root dir
      *
+     * @see    PicoDeprecated::onConfigLoaded()
+     * @see    Pico::loadConfig()
      * @param  mixed[] &$config array of config variables
      * @return void
      */
@@ -154,8 +157,10 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Enables the plugins {@link PicoParsePagesContent} and {@link PicoExcerpt}
+     * Enables the plugins PicoParsePagesContent and PicoExcerpt
      *
+     * @see    PicoParsePagesContent
+     * @see    PicoExcerpt
      * @return void
      */
     protected function enablePlugins()
@@ -190,9 +195,11 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Sets {@link PicoDeprecated::$requestFile} to trigger the deprecated
+     * Sets PicoDeprecated::$requestFile to trigger the deprecated
      * events after_load_content() and after_404_load_content()
      *
+     * @see PicoDeprecated::onContentLoaded()
+     * @see PicoDeprecated::on404ContentLoaded()
      * @see DummyPlugin::onRequestFile()
      */
     public function onRequestFile(&$file)
@@ -298,6 +305,11 @@ class PicoDeprecated extends AbstractPicoPlugin
      * Triggers the deprecated event
      * get_pages($pages, $currentPage, $previousPage, $nextPage)
      *
+     * Please note that the `get_pages()` event gets `$pages` passed without a
+     * array index. The index is rebuild later using either the `id` array key
+     * or is derived from the `url` array key. Duplicates are prevented by
+     * adding `~dup` when necessary.
+     *
      * @see DummyPlugin::onPagesLoaded()
      */
     public function onPagesLoaded(&$pages, &$currentPage, &$previousPage, &$nextPage)
@@ -342,6 +354,9 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Triggers the deprecated event before_render($twigVariables, $twig, $templateName)
      *
+     * Please note that the `before_render()` event gets `$templateName` passed
+     * without its file extension. The file extension is later added again.
+     *
      * @see DummyPlugin::onPageRendering()
      */
     public function onPageRendering(&$twig, &$twigVariables, &$templateName)
@@ -371,6 +386,10 @@ class PicoDeprecated extends AbstractPicoPlugin
 
     /**
      * Triggers a deprecated event on all plugins
+     *
+     * Deprecated events are also triggered on plugins which implement
+     * {@link PicoPluginInterface}. Please note that the methods are called
+     * directly and not through {@link PicoPluginInterface::handleEvent()}.
      *
      * @param  string $eventName event to trigger
      * @param  array  $params    parameters to pass

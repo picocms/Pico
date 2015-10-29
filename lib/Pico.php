@@ -53,6 +53,7 @@ class Pico
     /**
      * Root directory of this Pico instance
      *
+     * @see Pico::getRootDir()
      * @var string
      */
     protected $rootDir;
@@ -60,6 +61,7 @@ class Pico
     /**
      * Config directory of this Pico instance
      *
+     * @see Pico::getConfigDir()
      * @var string
      */
     protected $configDir;
@@ -67,6 +69,7 @@ class Pico
     /**
      * Plugins directory of this Pico instance
      *
+     * @see Pico::getPluginsDir()
      * @var string
      */
     protected $pluginsDir;
@@ -74,6 +77,7 @@ class Pico
     /**
      * Themes directory of this Pico instance
      *
+     * @see Pico::getThemesDir()
      * @var string
      */
     protected $themesDir;
@@ -88,7 +92,7 @@ class Pico
     /**
      * List of loaded plugins
      *
-     * @see Pico::loadPlugins()
+     * @see Pico::getPlugins()
      * @var object[]|null
      */
     protected $plugins;
@@ -96,7 +100,7 @@ class Pico
     /**
      * Current configuration of this Pico instance
      *
-     * @see Pico::loadConfig()
+     * @see Pico::getConfig()
      * @var mixed[]|null
      */
     protected $config;
@@ -104,7 +108,7 @@ class Pico
     /**
      * Part of the URL describing the requested contents
      *
-     * @see Pico::evaluateRequestUrl()
+     * @see Pico::getRequestUrl()
      * @var string|null
      */
     protected $requestUrl;
@@ -112,7 +116,7 @@ class Pico
     /**
      * Absolute path to the content file being served
      *
-     * @see Pico::discoverRequestFile()
+     * @see Pico::getRequestFile()
      * @var string|null
      */
     protected $requestFile;
@@ -120,7 +124,7 @@ class Pico
     /**
      * Raw, not yet parsed contents to serve
      *
-     * @see Pico::loadFileContent()
+     * @see Pico::getRawContent()
      * @var string|null
      */
     protected $rawContent;
@@ -128,7 +132,7 @@ class Pico
     /**
      * Meta data of the page to serve
      *
-     * @see Pico::parseFileMeta()
+     * @see Pico::getFileMeta()
      * @var string[]|null
      */
     protected $meta;
@@ -136,8 +140,7 @@ class Pico
     /**
      * Parsed content being served
      *
-     * @see Pico::prepareFileContent()
-     * @see Pico::parseFileContent()
+     * @see Pico::getFileContent()
      * @var string|null
      */
     protected $content;
@@ -145,7 +148,7 @@ class Pico
     /**
      * List of known pages
      *
-     * @see Pico::readPages()
+     * @see Pico::getPages()
      * @var array[]|null
      */
     protected $pages;
@@ -153,7 +156,7 @@ class Pico
     /**
      * Data of the page being served
      *
-     * @see Pico::discoverCurrentPage()
+     * @see Pico::getCurrentPage()
      * @var array|null
      */
     protected $currentPage;
@@ -161,7 +164,7 @@ class Pico
     /**
      * Data of the previous page relative to the page being served
      *
-     * @see Pico::discoverCurrentPage()
+     * @see Pico::getPreviousPage()
      * @var array|null
      */
     protected $previousPage;
@@ -169,7 +172,7 @@ class Pico
     /**
      * Data of the next page relative to the page being served
      *
-     * @see Pico::discoverCurrentPage()
+     * @see Pico::getNextPage()
      * @var array|null
      */
     protected $nextPage;
@@ -177,7 +180,7 @@ class Pico
     /**
      * Twig instance used for template parsing
      *
-     * @see Pico::registerTwig()
+     * @see Pico::getTwig()
      * @var Twig_Environment|null
      */
     protected $twig;
@@ -185,6 +188,7 @@ class Pico
     /**
      * Variables passed to the twig template
      *
+     * @see Pico::getTwigVariables
      * @var mixed[]|null
      */
     protected $twigVariables;
@@ -192,7 +196,7 @@ class Pico
     /**
      * Constructs a new Pico instance
      *
-     * To carry out all the processing in Pico, call the run() method.
+     * To carry out all the processing in Pico, call {@link Pico::run()}.
      *
      * @param string $rootDir    root directory of this Pico instance
      * @param string $configDir  config directory of this Pico instance
@@ -355,6 +359,8 @@ class Pico
      * to indicate their processing order. You MUST NOT use prefixes between
      * 00 and 19 (reserved for built-in plugins).
      *
+     * @see    Pico::getPlugin()
+     * @see    Pico::getPlugins()
      * @return void
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
@@ -386,6 +392,7 @@ class Pico
      * rely on it. For more information see {@link PicoPluginInterface}.
      *
      * @see    Pico::loadPlugins()
+     * @see    Pico::getPlugins()
      * @param  string           $pluginName name of the plugin
      * @return object                       instance of the plugin
      * @throws RuntimeException             thrown when the plugin wasn't found
@@ -403,6 +410,7 @@ class Pico
      * Returns all loaded plugins
      *
      * @see    Pico::loadPlugins()
+     * @see    Pico::getPlugin()
      * @return object[]|null
      */
     public function getPlugins()
@@ -413,6 +421,8 @@ class Pico
     /**
      * Loads the config.php from Pico::$configDir
      *
+     * @see    Pico::setConfig()
+     * @see    Pico::getConfig()
      * @return void
      */
     protected function loadConfig()
@@ -459,12 +469,15 @@ class Pico
      *
      * This method allows you to modify Picos config without creating a
      * {@path "config/config.php"} or changing some of its variables before
-     * Pico starts processing. It can only be called between the constructor
-     * call and Pico::run(). Options set with this method cannot be overwritten
-     * by {@path "config/config.php"}.
+     * Pico starts processing.
      *
-     * @param  mixed[] $config  array with configuration variables, like
-     *     $config in {@path "config/config.php"}
+     * You can call this method between {@link Pico::__construct()} and
+     * {@link Pico::run()} only. Options set with this method cannot be
+     * overwritten by {@path "config/config.php"}.
+     *
+     * @see    Pico::loadConfig()
+     * @see    Pico::getConfig()
+     * @param  mixed[] $config  array with config variables
      * @return void
      * @throws RuntimeException thrown if Pico already started processing
      */
@@ -481,6 +494,7 @@ class Pico
      * Returns either the value of the specified config variable or
      * the config array
      *
+     * @see    Pico::setConfig()
      * @see    Pico::loadConfig()
      * @param  string $configName optional name of a config variable
      * @return mixed              returns either the value of the named config
@@ -499,15 +513,15 @@ class Pico
     /**
      * Evaluates the requested URL
      *
-     * Pico 1.0 uses the QUERY_STRING routing method (e.g. /pico/?sub/page) to
-     * support SEO-like URLs out-of-the-box with any webserver. You can still
-     * setup URL rewriting (e.g. using mod_rewrite on Apache) to basically
-     * remove the `?` from URLs, but your rewritten URLs must follow the
-     * new QUERY_STRING principles. URL rewriting requires some special
+     * Pico 1.0 uses the `QUERY_STRING` routing method (e.g. `/pico/?sub/page`)
+     * to support SEO-like URLs out-of-the-box with any webserver. You can
+     * still setup URL rewriting (e.g. using `mod_rewrite` on Apache) to
+     * basically remove the `?` from URLs, but your rewritten URLs must follow
+     * the new `QUERY_STRING` principles. URL rewriting requires some special
      * configuration on your webserver, but this should be "basic work" for
      * any webmaster...
      *
-     * Pico 0.9 and older required Apache with mod_rewrite enabled, thus old
+     * Pico 0.9 and older required Apache with `mod_rewrite` enabled, thus old
      * plugins, templates and contents may require you to enable URL rewriting
      * to work. If you're upgrading from Pico 0.9, you will probably have to
      * update your rewriting rules.
@@ -518,6 +532,7 @@ class Pico
      * `%base_url%` variable; e.g. `%base_url%?sub/page` will be automatically
      * replaced accordingly.
      *
+     * @see    Pico::getRequestUrl()
      * @return void
      */
     protected function evaluateRequestUrl()
@@ -549,6 +564,7 @@ class Pico
     /**
      * Uses the request URL to discover the content file to serve
      *
+     * @see    Pico::getRequestFile()
      * @return void
      */
     protected function discoverRequestFile()
@@ -611,6 +627,7 @@ class Pico
     /**
      * Returns the raw contents of a file
      *
+     * @see    Pico::getRawContent()
      * @param  string $file file path
      * @return string       raw contents of the file
      */
@@ -623,6 +640,7 @@ class Pico
      * Returns the raw contents of the first found 404 file when traversing
      * up from the directory the requested file is in
      *
+     * @see    Pico::getRawContent()
      * @param  string $file     path to requested (but not existing) file
      * @return string           raw contents of the 404 file
      * @throws RuntimeException thrown when no suitable 404 file is found
@@ -644,9 +662,10 @@ class Pico
     }
 
     /**
-     * Returns the cached raw contents, either of the requested or the 404 file
+     * Returns the raw contents, either of the requested or the 404 file
      *
      * @see    Pico::loadFileContent()
+     * @see    Pico::load404Content()
      * @return string|null raw contents
      */
     public function getRawContent()
@@ -683,12 +702,13 @@ class Pico
      * Parses the file meta from raw file contents
      *
      * Meta data MUST start on the first line of the file, either opened and
-     * closed by --- or C-style block comments (deprecated). The headers are
+     * closed by `---` or C-style block comments (deprecated). The headers are
      * parsed by the YAML component of the Symfony project, keys are lowered.
      * If you're a plugin developer, you MUST register new headers during the
      * `onMetaHeaders` event first. The implicit availability of headers is
      * for users and pure (!) theme developers ONLY.
      *
+     * @see    Pico::getFileMeta()
      * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
      * @param  string   $rawContent the raw file contents
      * @param  string[] $headers    known meta headers
@@ -751,6 +771,8 @@ class Pico
      * Applies some static preparations to the raw contents of a page,
      * e.g. removing the meta header and replacing %base_url%
      *
+     * @see    Pico::parseFileContent()
+     * @see    Pico::getFileContent()
      * @param  string $rawContent raw contents of a page
      * @return string             contents prepared for parsing
      */
@@ -795,6 +817,8 @@ class Pico
     /**
      * Parses the contents of a page using ParsedownExtra
      *
+     * @see    Pico::prepareFileContent()
+     * @see    Pico::getFileContent()
      * @param  string $content raw contents of a page (Markdown)
      * @return string          parsed contents (HTML)
      */
@@ -807,6 +831,7 @@ class Pico
     /**
      * Returns the cached contents of the requested page
      *
+     * @see    Pico::prepareFileContent()
      * @see    Pico::parseFileContent()
      * @return string|null parsed contents
      */
@@ -834,6 +859,8 @@ class Pico
      * | meta           | parsed meta data of the page)            |
      * +----------------+------------------------------------------+
      *
+     * @see    Pico::sortPages()
+     * @see    Pico::getPages()
      * @return void
      */
     protected function readPages()
@@ -896,6 +923,8 @@ class Pico
     /**
      * Sorts all pages known to Pico
      *
+     * @see    Pico::readPages()
+     * @see    Pico::getPages()
      * @return void
      */
     protected function sortPages()
@@ -936,6 +965,7 @@ class Pico
      * Returns the list of known pages
      *
      * @see    Pico::readPages()
+     * @see    Pico::sortPages()
      * @return array|null the data of all pages
      */
     public function getPages()
@@ -947,6 +977,9 @@ class Pico
      * Walks through the list of known pages and discovers the requested page
      * as well as the previous and next page relative to it
      *
+     * @see    Pico::getCurrentPage()
+     * @see    Pico::getPreviousPage()
+     * @see    Pico::getNextPage()
      * @return void
      */
     protected function discoverCurrentPage()
@@ -1016,6 +1049,7 @@ class Pico
     /**
      * Registers the twig template engine
      *
+     * @see    Pico::getTwig()
      * @return void
      */
     protected function registerTwig()
@@ -1029,6 +1063,7 @@ class Pico
     /**
      * Returns the twig template engine
      *
+     * @see    Pico::registerTwig()
      * @return Twig_Environment|null twig template engine
      */
     public function getTwig()
@@ -1039,8 +1074,8 @@ class Pico
     /**
      * Returns the variables passed to the template
      *
-     * URLs and paths (namely base_dir, base_url, theme_dir and theme_url)
-     * don't add a trailing slash for historic reasons.
+     * URLs and paths (namely `base_dir`, `base_url`, `theme_dir` and
+     * `theme_url`) don't add a trailing slash for historic reasons.
      *
      * @return mixed[] template variables
      */
@@ -1179,11 +1214,14 @@ class Pico
     }
 
     /**
-     * Triggers events on plugins which implement {@link PicoPluginInterface}
+     * Triggers events on plugins which implement PicoPluginInterface
      *
      * Deprecated events (as used by plugins not implementing
      * {@link IPocPlugin}) are triggered by {@link PicoDeprecated}.
      *
+     * @see    PicoPluginInterface
+     * @see    AbstractPicoPlugin
+     * @see    DummyPlugin
      * @param  string $eventName name of the event to trigger
      * @param  array  $params    optional parameters to pass
      * @return void

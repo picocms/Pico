@@ -11,7 +11,7 @@
  * {@link PicoParsePagesContent}, what heavily impacts Picos performance. You
  * should either use the Description meta header field or write something own.
  * Best solution seems to be a filter for twig, see e.g.
- * <https://gist.github.com/james2doyle/6629712>.
+ * {@link https://gist.github.com/james2doyle/6629712}.
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
@@ -28,8 +28,9 @@ class PicoExcerpt extends AbstractPicoPlugin
     protected $enabled = false;
 
     /**
-     * This plugin depends on {@link PicoParsePagesContent}
+     * This plugin depends on PicoParsePagesContent
      *
+     * @see PicoParsePagesContent
      * @see AbstractPicoPlugin::$dependsOn
      */
     protected $dependsOn = array('PicoParsePagesContent');
@@ -49,6 +50,7 @@ class PicoExcerpt extends AbstractPicoPlugin
     /**
      * Creates a excerpt for the contents of each page
      *
+     * @see PicoExcerpt::createExcerpt()
      * @see DummyPlugin::onSinglePageLoaded()
      */
     public function onSinglePageLoaded(&$pageData)
