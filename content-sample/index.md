@@ -303,7 +303,9 @@ particularly the [plugin upgrade section][PluginUpgrade].
   down to the massive performance impact, but leads to the removal of the
   generation of auto-generated excerpts.
   TODO: describe how to force enable/disable `PicoExcerpt` and `PicoParsePagesContent`
+  TODO: describe how to replace `PicoExcerpt`
 * TODO: Removing various empty `index.html` files; check accessibility!
+* TODO: Describe new features that are important for users... e.g. `%meta.*%`
 
 ## Documentation
 

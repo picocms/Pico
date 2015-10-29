@@ -227,21 +227,26 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico reads a single page from the list of all known pages
      *
-     * @see    DummyPlugin::onPagesLoaded()
-     * @param array &$pageData {
-     *     data of the loaded page
+     * The $pageData variable consits of the following values:
+     * <pre>
+     * +-----------------+--------+------------------------------------------+
+     * | Array key       | Type   | Description                              |
+     * +-----------------+--------+------------------------------------------+
+     * | $id             | string | relative path to the content file        |
+     * | $url            | string | URL to the page                          |
+     * | $title          | string | title of the page (YAML header)          |
+     * | $description    | string | description of the page (YAML header)    |
+     * | $author         | string | author of the page (YAML header)         |
+     * | $time           | string | timestamp derived from the Date header   |
+     * | $date           | string | date of the page (YAML header)           |
+     * | $date_formatted | string | formatted date of the page               |
+     * | $raw_content    | string | raw, not yet parsed contents of the page |
+     * | $meta           | string | parsed meta data of the page             |
+     * +-----------------+--------+------------------------------------------+
+     * </pre>
      *
-     *     @var string $id             relative path to the content file
-     *     @var string $url            URL to the page
-     *     @var string $title          title of the page (YAML header)
-     *     @var string $description    description of the page (YAML header)
-     *     @var string $author         author of the page (YAML header)
-     *     @var string $time           timestamp derived from the Date header
-     *     @var string $date           date of the page (YAML header)
-     *     @var string $date_formatted formatted date of the page
-     *     @var string $raw_content    raw, not yet parsed contents of the page
-     *     @var string $meta           parsed meta data of the page
-     * }
+     * @see    DummyPlugin::onPagesLoaded()
+     * @param  array &$pageData data of the loaded page
      * @return void
      */
     public function onSinglePageLoaded(&$pageData)

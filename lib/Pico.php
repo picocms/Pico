@@ -844,6 +844,7 @@ class Pico
      * Reads the data of all pages known to Pico
      *
      * The page data will be an array containing the following values:
+     * <pre>
      * +----------------+------------------------------------------+
      * | Array key      | Description                              |
      * +----------------+------------------------------------------+
@@ -858,6 +859,7 @@ class Pico
      * | raw_content    | raw, not yet parsed contents of the page |
      * | meta           | parsed meta data of the page)            |
      * +----------------+------------------------------------------+
+     * </pre>
      *
      * @see    Pico::sortPages()
      * @see    Pico::getPages()

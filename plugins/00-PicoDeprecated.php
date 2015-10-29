@@ -11,6 +11,7 @@
  * can disable this plugin by calling {@link PicoDeprecated::setEnabled()}.
  *
  * The following deprecated events are triggered by this plugin:
+ * <pre>
  * +---------------------+-----------------------------------------------------------+
  * | Event               | ... triggers the deprecated event                         |
  * +---------------------+-----------------------------------------------------------+
@@ -32,6 +33,7 @@
  * | onPageRendering     | before_render($twigVariables, $twig, $templateName)       |
  * | onPageRendered      | after_render($output)                                     |
  * +---------------------+-----------------------------------------------------------+
+ * </pre>
  *
  * Since Pico 1.0 the config is stored in {@path "config/config.php"}. This
  * plugin tries to read {@path "config.php"} in Picos root dir and overwrites
