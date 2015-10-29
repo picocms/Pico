@@ -38,17 +38,17 @@ We worked hard to make the upgrade process to `Pico 1.0.0` as easy as possible -
 Usually you don't have to consider anything special, nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__.
 
 #### 1. The first step is to delete all of Picos files except for your __`content`__ directory, __`config.php`__ (or `config/config.php`) and, if applicable, the directory of your custom __`theme`__, and provided that you're using plugins, also keep the __`plugins`__ directory.
-![Step 1](/style/images/docs/pico_upgrade_delete_old.jpg)
-![Step 1a](/style/images/docs/pico_upgrade_old_deleted.jpg)
+![Step 1](style/images/docs/pico_upgrade_delete_old.jpg)
+![Step 1a](style/images/docs/pico_upgrade_old_deleted.jpg)
 
 #### 2. You can then upload `Pico 1.0.0` to your installation directory.
-![Step 2](/style/images/docs/pico_upgrade_select_1.0.jpg)
-![Step 2a](/style/images/docs/pico_upgrade_move_1.0.jpg)
+![Step 2](style/images/docs/pico_upgrade_select_1.0.jpg)
+![Step 2a](style/images/docs/pico_upgrade_move_1.0.jpg)
 
 >Please refer to the websites of the plugins you're using to get updates for them.
 
 #### 3. Move your `config.php` to the new `config/` directory.
-![Step 3](/style/images/docs/pico_upgrade_move_config.jpg)
+![Step 3](style/images/docs/pico_upgrade_move_config.jpg)
 
 #### 4. URL Rewriting became optional in `Pico 1.0.0` If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links (e.g. `index.php?sub/page`) correctly. You need not update your markdown files or custom Twig templates if you keep URL rewriting enabled. Otherwise you have to change all internal links in markdown files (e.g. `%base_url%?sub/page`) and your custom Twig templates (e.g. (e.g. `{{ "sub/page"|link }}`)).
 
