@@ -227,22 +227,22 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico reads a single page from the list of all known pages
      *
-     * The $pageData variable consits of the following values:
+     * The `$pageData` parameter consists of the following values:
      * <pre>
-     * +-----------------+--------+------------------------------------------+
-     * | Array key       | Type   | Description                              |
-     * +-----------------+--------+------------------------------------------+
-     * | $id             | string | relative path to the content file        |
-     * | $url            | string | URL to the page                          |
-     * | $title          | string | title of the page (YAML header)          |
-     * | $description    | string | description of the page (YAML header)    |
-     * | $author         | string | author of the page (YAML header)         |
-     * | $time           | string | timestamp derived from the Date header   |
-     * | $date           | string | date of the page (YAML header)           |
-     * | $date_formatted | string | formatted date of the page               |
-     * | $raw_content    | string | raw, not yet parsed contents of the page |
-     * | $meta           | string | parsed meta data of the page             |
-     * +-----------------+--------+------------------------------------------+
+     * +----------------+--------+------------------------------------------+
+     * | Array key      | Type   | Description                              |
+     * +----------------+--------+------------------------------------------+
+     * | id             | string | relative path to the content file        |
+     * | url            | string | URL to the page                          |
+     * | title          | string | title of the page (YAML header)          |
+     * | description    | string | description of the page (YAML header)    |
+     * | author         | string | author of the page (YAML header)         |
+     * | time           | string | timestamp derived from the Date header   |
+     * | date           | string | date of the page (YAML header)           |
+     * | date_formatted | string | formatted date of the page               |
+     * | raw_content    | string | raw, not yet parsed contents of the page |
+     * | meta           | string | parsed meta data of the page             |
+     * +----------------+--------+------------------------------------------+
      * </pre>
      *
      * @see    DummyPlugin::onPagesLoaded()

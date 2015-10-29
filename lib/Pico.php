@@ -845,20 +845,20 @@ class Pico
      *
      * The page data will be an array containing the following values:
      * <pre>
-     * +----------------+------------------------------------------+
-     * | Array key      | Description                              |
-     * +----------------+------------------------------------------+
-     * | id             | relative path to the content file        |
-     * | url            | URL to the page                          |
-     * | title          | title of the page (YAML header)          |
-     * | description    | description of the page (YAML header)    |
-     * | author         | author of the page (YAML header)         |
-     * | time           | timestamp derived from the Date header   |
-     * | date           | date of the page (YAML header)           |
-     * | date_formatted | formatted date of the page               |
-     * | raw_content    | raw, not yet parsed contents of the page |
-     * | meta           | parsed meta data of the page)            |
-     * +----------------+------------------------------------------+
+     * +----------------+--------+------------------------------------------+
+     * | Array key      | Type   | Description                              |
+     * +----------------+--------+------------------------------------------+
+     * | id             | string | relative path to the content file        |
+     * | url            | string | URL to the page                          |
+     * | title          | string | title of the page (YAML header)          |
+     * | description    | string | description of the page (YAML header)    |
+     * | author         | string | author of the page (YAML header)         |
+     * | time           | string | timestamp derived from the Date header   |
+     * | date           | string | date of the page (YAML header)           |
+     * | date_formatted | string | formatted date of the page               |
+     * | raw_content    | string | raw, not yet parsed contents of the page |
+     * | meta           | string | parsed meta data of the page             |
+     * +----------------+--------+------------------------------------------+
      * </pre>
      *
      * @see    Pico::sortPages()
