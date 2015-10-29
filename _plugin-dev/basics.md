@@ -3,6 +3,7 @@ toc:
     basics:
         _title: Basics
         versioning: Versioning
+        branches: Branches
         build--release: Build & Release
 nav: 1
 ---
@@ -22,6 +23,18 @@ Pico uses Semantic Versioning. Given a version number MAJOR.MINOR.PATCH, increme
 - PATCH version when you make backwards-compatible bug fixes.
 
 For more information see the [http://semver.org](http://semver.org) website.
+
+# Branches
+The `master` branch contains the current development version of Pico,
+*it is likely unstable and __not ready__ for production use*.
+
+When creating a new development branch, please follow this prefixing convention:
+
+- `feature/` for bigger features,
+- `enhancement/` for smaller improvements, and
+- `bugfix/` for bug fixes.
+
+As soon as development reaches a point where feedback is appreciated, a PR is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the PR is merged into `master` and the development branch can be deleted.
 
 # Build & Release
 Defined below is a specification to which the Build and Release process of Pico should follow. We use `travis-ci` to automate the process, and each commit to `master` should be releasable.
