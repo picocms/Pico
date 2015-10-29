@@ -28,7 +28,36 @@ A whole new plugin system has been implemented while maintaining full backward c
 
 It is important to note the performance issue with Pico 0.x releases is fixed only when the `PicoParsePagesContent` plugin isn't enabled. It's disabled by default, but gets automatically enabled with `PicoDeprecated` as soon as an old plugin is loaded. This is necessary to maintain backward compatibility. You can still disable it manually by executing` $pico->getPlugin('PicoParsePagesContent')->setEnabled(false);` or adding `$config['PicoParsePagesContent.enabled'] = false;` to your `config.php`.
 
+>Note: If you're a plugin developer, please refer to the new development docs, particularly the [plugin upgrade](/plugin-dev.html#migrating-from-0x---10) section.
 
 __That's all fine, but what do I need to do to upgrade?__
 
 ### Tutorial
+We worked hard to make the upgrade process to `Pico 1.0.0` as easy as possible - and we think we made the grade!
+
+Usually you don't have to consider anything special, nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__.
+
+#### 1. The first step is to delete all of Picos files except for your __`content`__ directory, __`config.php`__ (or `config/config.php`) and, if applicable, the directory of your custom __`theme`__, and provided that you're using plugins, also keep the __`plugins`__ directory.
+![Step 1](/style/images/docs/pico_upgrade_delete_old.jpg)
+![Step 1a](/style/images/docs/pico_upgrade_old_deleted.jpg)
+
+#### 2. You can then upload `Pico 1.0.0` to your installation directory.
+![Step 2](/style/images/docs/pico_upgrade_select_1.0.jpg)
+![Step 2a](/style/images/docs/pico_upgrade_move_1.0.jpg)
+
+>Please refer to the websites of the plugins you're using to get updates for them.
+
+#### 3. Move your `config.php` to the new `config/` directory.
+![Step 3](/style/images/docs/pico_upgrade_move_config.jpg)
+
+#### 4. URL Rewriting became optional in `Pico 1.0.0` If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links (e.g. `index.php?sub/page`) correctly. You need not update your markdown files or custom Twig templates if you keep URL rewriting enabled. Otherwise you have to change all internal links in markdown files (e.g. `%base_url%?sub/page`) and your custom Twig templates (e.g. (e.g. `{{ "sub/page"|link }}`)).
+
+Further reading:
+
+- MOD_REWRITE [http://httpd.apache.org/docs/current/mod/mod_rewrite.html](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
+- QUERY_STRING [https://en.wikipedia.org/wiki/Query_string](https://en.wikipedia.org/wiki/Query_string)
+
+#### 5. That's it! Enjoy your newly upgraded Pico installation!
+If you need more help, please review the documentation. If after reviewing the upgrade documentation, you are still having trouble: there is a __[Upgrading Pico 0.x to 1.0.0]()__ discussion on our Github issues page.
+
+TODO: describe how to force enable/disable PicoExcerpt and PicoParsePagesContent
