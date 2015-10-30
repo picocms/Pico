@@ -16,8 +16,6 @@
  * @version 0.9
  */
 
-$config = array();
-
 /*
  * BASIC
  */
@@ -58,6 +56,3 @@ $config = array();
  * CUSTOM
  */
 // $config['custom_setting'] = 'Hello';         // Can be accessed by {{ config.custom_setting }} in a theme
-
-// DO NOT REMOVE THIS LINE
-return $config;

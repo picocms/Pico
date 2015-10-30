@@ -144,16 +144,18 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see    PicoDeprecated::onConfigLoaded()
      * @see    Pico::loadConfig()
-     * @param  mixed[] &$config array of config variables
+     * @param  mixed[] &$realConfig array of config variables
      * @return void
      */
-    protected function loadRootDirConfig(&$config)
+    protected function loadRootDirConfig(&$realConfig)
     {
         if (file_exists($this->getRootDir() . 'config.php')) {
             // config.php in Pico::$rootDir is deprecated; use Pico::$configDir instead
-            $newConfig = require($this->getRootDir() . 'config.php');
-            if (is_array($newConfig)) {
-                $config = $newConfig + $config;
+            $config = null;
+            require($this->getRootDir() . 'config.php');
+
+            if (is_array($config)) {
+                $realConfig = $config + $realConfig;
             }
         }
     }

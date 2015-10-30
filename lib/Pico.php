@@ -427,6 +427,7 @@ class Pico
      */
     protected function loadConfig()
     {
+        $config = null;
         $defaultConfig = array(
             'site_title' => 'Pico',
             'base_url' => '',
@@ -442,7 +443,9 @@ class Pico
         );
 
         $configFile = $this->getConfigDir() . 'config.php';
-        $config = file_exists($configFile) ? require($configFile) : null;
+        if (file_exists($configFile)) {
+            require $configFile;
+        }
 
         $this->config = is_array($this->config) ? $this->config : array();
         $this->config += is_array($config) ? $config + $defaultConfig : $defaultConfig;
