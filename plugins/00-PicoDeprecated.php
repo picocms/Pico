@@ -88,27 +88,38 @@ class PicoDeprecated extends AbstractPicoPlugin
     /**
      * Triggers the deprecated event config_loaded($config)
      *
-     * @see PicoDeprecated::defineConstants()
-     * @see PicoDeprecated::loadRootDirConfig()
-     * @see PicoDeprecated::enablePlugins()
-     * @see DummyPlugin::onConfigLoaded()
+     * This method also defines deprecated constants, reads the `config.php`
+     * in Picos root dir, enables the plugins {@link PicoParsePagesContent}
+     * and {@link PicoExcerpt} and makes `$config` globally accessible (the
+     * latter was removed with Pico 0.9 and was added again as deprecated
+     * feature with Pico 1.0)
+     *
+     * @see    PicoDeprecated::defineConstants()
+     * @see    PicoDeprecated::loadRootDirConfig()
+     * @see    PicoDeprecated::enablePlugins()
+     * @see    DummyPlugin::onConfigLoaded()
+     * @param  mixed[] &$realConfig array of config variables
+     * @return void
      */
-    public function onConfigLoaded(&$config)
+    public function onConfigLoaded(&$realConfig)
     {
-        $this->defineConstants();
-        $this->loadRootDirConfig($config);
-        $this->enablePlugins();
+        global $config;
 
-        $this->triggerEvent('config_loaded', array(&$config));
+        $this->defineConstants();
+        $this->loadRootDirConfig($realConfig);
+        $this->enablePlugins();
+        $config = &$realConfig;
+
+        $this->triggerEvent('config_loaded', array(&$realConfig));
     }
 
     /**
      * Defines deprecated constants
      *
-     * `CONTENT_DIR` is deprecated since v0.9, `ROOT_DIR`, `LIB_DIR`,
-     * `PLUGINS_DIR`, `THEMES_DIR` and `CONTENT_EXT` since v1.0, `CONFIG_DIR`
-     * existed just for a short time between v0.9 and v1.0 and `CACHE_DIR`
-     * was dropped with v1.0 without a replacement.
+     * `ROOT_DIR`, `LIB_DIR`, `PLUGINS_DIR`, `THEMES_DIR` and `CONTENT_EXT`
+     * are deprecated since v1.0, `CONTENT_DIR` existed just in v0.9,
+     * `CONFIG_DIR` just for a short time between v0.9 and v1.0 and
+     * `CACHE_DIR` was dropped with v1.0 without a replacement.
      *
      * @see    PicoDeprecated::onConfigLoaded()
      * @return void

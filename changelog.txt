@@ -16,7 +16,7 @@
          and `AbstractPicoPlugin`); if you're plugin dev, you really should
          take a look at the UPGRADE section of the docs!
  * [New] Introducing the `PicoDeprecated` plugin to maintain full backward
-         compatibility with Pico 0.9 and older
+         compatibility with Pico 0.9 and Pico 0.8
  * [New] Support YAML-style meta header comments (`---`)
  * [New] Various new placeholders to use in content files (e.g. `%site_title%`)
  * [New] Provide access to all meta headers in content files (`%meta.*%`)
@@ -68,11 +68,15 @@
 2015.04.28 - version 0.9
  * [New] Default theme is now mobile-friendly
  * [New] Description meta now available in content areas
+ * [New] Add description to composer.json
  * [Changed] content folder is now content-sample
+ * [Changed] config.php moved to config.php.template
  * [Changed] Updated documentation & wiki
  * [Changed] Removed Composer, Twig files in /vendor, you must run composer install now
  * [Changed] Localized date format; strftime() instead of date()
  * [Changed] Added ignore for tmp file extensions in the get_files() method
+ * [Changed] michelf/php-markdown is replaced with erusev/parsedown-extra
+ * [Changed] $config is no global variable anymore
  * [Fixed] Pico now only removes the 1st comment block in .md files
  * [Fixed] Issue wherein the alphabetical sorting of pages did not happen
 
