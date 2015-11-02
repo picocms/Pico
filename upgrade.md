@@ -2,7 +2,6 @@
 layout: simple
 title: Upgrade
 headline: Upgrade Pico 0.8 and 0.9 to Pico 1.0
-description: Quick links: [What's new](#whats-new), [How to upgrade?](#how-to-upgrade)
 ---
 
 ## What's new?
@@ -48,7 +47,8 @@ Usually you don't have to consider anything special, nevertheless you should alw
 ### 3. Move your `config.php` to the new `config/` directory.
 ![Step 3]({{ site.base_url }}/style/images/docs/pico_upgrade_move_config.jpg)
 
-### 4. URL Rewriting became optional in `Pico 1.0.0` If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links (e.g. `index.php?sub/page`) correctly. You need not update your markdown files or custom Twig templates if you keep URL rewriting enabled. Otherwise you have to change all internal links in markdown files (e.g. `%base_url%?sub/page`) and your custom Twig templates (e.g. (e.g. `{{ "sub/page"|link }}`)).
+### 4. URL Rewriting became optional in `Pico 1.0.0`
+If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links (e.g. `index.php?sub/page`) correctly. You need not update your markdown files or custom Twig templates if you keep URL rewriting enabled. Otherwise you have to change all internal links in markdown files (e.g. `%base_url%?sub/page`) and your custom Twig templates (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`).
 
 Further reading:
 
