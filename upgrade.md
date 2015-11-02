@@ -2,7 +2,7 @@
 layout: simple
 title: Upgrade
 headline: Upgrade Pico 0.8 and 0.9 to Pico 1.0
-description: Quick links: [What's new](#whats-new) | [How to upgrade?](#how-to-upgrade)
+description: Quick links: [What's new](#whats-new), [How to upgrade?](#how-to-upgrade)
 ---
 
 ## What's new?
@@ -27,6 +27,8 @@ It is important to note the performance issue with Pico 0.x releases is fixed on
 >If you're a plugin developer, please refer to the new development docs, particularly the [plugin upgrade]({{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10) section.
 
 >Users, please refer to the websites of the plugins you're using to get updates for them.
+
+---
 
 ## How to upgrade?
 "That's all fine, but what do I need to do to upgrade?"
