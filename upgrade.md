@@ -1,7 +1,8 @@
 ---
 layout: simple
 title: Upgrade
-headline: Upgrade Pico 0.8/0.9 to Pico 1.0
+headline: Upgrade Pico 0.8 and 0.9 to Pico 1.0
+description: Quick links: [What's new](#whats-new) | [How to upgrade?](#how-to-upgrade)
 ---
 
 ## What's new?
