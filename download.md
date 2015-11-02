@@ -1,7 +1,7 @@
 ---
 layout: simple-content
 title: Download
-hadline: Download Pico
+headline: Download Pico
 description: Download the latest version of Pico or [clone on GitHub](https://github.com/picocms/Pico).
 nav: 5
 ---
