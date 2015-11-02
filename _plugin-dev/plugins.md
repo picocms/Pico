@@ -27,9 +27,9 @@ have previously cerated a plugin for Pico, it is *HIGHLY* recommended that you
 update your class to extend from [AbstractPicoPlugin]({{ site.base_url }}/phpDoc/master/classes/AbstractPicoPlugin.html) and use the new events
 to avoid activating the [PicoDeprecated](https://github.com/picocms/Pico/blob/master/plugins/00-PicoDeprecated.php) plugin.
 
-+---------------------+-----------------------------------------------------------+
+
 | Event               | ... triggers the deprecated event                         |
-+---------------------+-----------------------------------------------------------+
+| ------------------- | --------------------------------------------------------- |
 | onPluginsLoaded     | plugins_loaded()                                          |
 | onConfigLoaded      | config_loaded($config)                                    |
 | onRequestUrl        | request_url($url)                                         |
@@ -47,7 +47,6 @@ to avoid activating the [PicoDeprecated](https://github.com/picocms/Pico/blob/ma
 | onTwigRegistration  | before_twig_register()                                    |
 | onPageRendering     | before_render($twigVariables, $twig, $templateName)       |
 | onPageRendered      | after_render($output)                                     |
-+---------------------+-----------------------------------------------------------+
 
 ### Your First Plugin
 
