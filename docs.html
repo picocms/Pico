@@ -1,47 +1,10 @@
 ---
-layout: default
+layout: collection
 title: Docs
+headline: Pico Documentation
+description: |
+    Pico is a flat file CMS, this means there is no administration backend or database to deal with.
+    You simply create .md files in the "content" folder and that becomes a page.
+collection: docs
 nav: 2
 ---
-
-{% assign docs = site.docs|sort:"nav" %}
-<div class="light-wrapper">
-    <div class="inner">
-        <h1 class="aligncenter">Pico Documentation</h1>
-        <p class="description aligncenter">
-            Pico is a flat file CMS, this means there is no administration backend or database to deal with.<br />
-            You simply create .md files in the "content" folder and that becomes a page.
-        </p><br />
-
-        <div class="one-fourth">
-            <ul>
-                {% for doc in docs %}
-                    {% for item in doc.toc %}
-                        <li>
-                            {% if item[1]._title %}
-                                <a href="#{{ item[0] }}">{{ item[1]._title }}</a>
-                                <ul>
-                                    {% for sub in item[1] %}
-                                        {% if sub[0] != "_title" %}
-                                            <li><a href="#{{ sub[0] }}">{{ sub[1] }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <a href="#{{ item[0] }}">{{ item[1] }}</a>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="three-fourth last">
-            {% for doc in docs %}
-                {{ doc.output }}
-            {% endfor %}
-
-            <hr>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>

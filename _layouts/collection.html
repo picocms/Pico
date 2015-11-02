@@ -1,0 +1,74 @@
+{% include itemumentHeader.html %}
+<head>
+
+    {% include headInclude.html %}
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
+
+</head>
+<body class="full-layout">
+
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            {% include pageHeader.html %}
+        </div>
+
+        <div class="light-wrapper">
+            <div class="inner">
+                {% if page.headline or page.title %}
+                    <h1 class="aligncenter">
+                        {% if page.headline %}
+                            {{ page.headline | markdownify | remove: '<p>' | remove: '</p>' }}
+                        {% else %}
+                            {{ page.title }}
+                        {% endif %}
+                    </h1>
+                {% endif %}
+                {% if page.description %}
+                    <p class="description aligncenter">
+                        {{ page.description | markdownify | remove: '<p>' | remove: '</p>' }}
+                    </p><br />
+                {% endif %}
+
+                {{ content }}
+
+                {% if page.collection %}
+                    {% assign items = site[page.collection]|sort:"nav" %}
+                    <div class="one-fourth">
+                        <ul>
+                            {% for item in items %}
+                                {% for section in item.toc %}
+                                    <li>
+                                        {% if section[1]._title %}
+                                            <a href="#{{ section[0] }}">{{ section[1]._title }}</a>
+                                            <ul>
+                                                {% for subSection in section[1] %}
+                                                    {% if subSection[0] != "_title" %}
+                                                        <li><a href="#{{ subSection[0] }}">{{ subSection[1] }}</a></li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <a href="#{{ section[0] }}">{{ section[1] }}</a>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="three-fourth last">
+                        {% for item in items %}
+                            {{ item.output }}
+                        {% endfor %}
+
+                        <hr />
+                    </div>
+                    <div class="clear"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% include pageFooter.html %}
+    </div>
+
+</body>
+{% include itemumentFooter.html %}
