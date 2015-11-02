@@ -15,11 +15,17 @@
         <div class="light-wrapper">
             <div class="inner">
                 {% if page.headline or page.title %}
-                    <h1 class="aligncenter">{% if page.headline %}{{ page.headline | markdownify }}{% else %}{{ page.title }}{% endif %}</h1>
+                    <h1 class="aligncenter">
+                        {% if page.headline %}
+                            {{ page.headline | markdownify | remove: '<p>' | remove: '</p>' }}
+                        {% else %}
+                            {{ page.title }}
+                        {% endif %}
+                    </h1>
                 {% endif %}
                 {% if page.description %}
                     <p class="description aligncenter">
-                        {{ page.description | markdownify }}
+                        {{ page.description | markdownify | remove: '<p>' | remove: '</p>' }}
                     </p><br />
                 {% endif %}
 
