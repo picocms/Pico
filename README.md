@@ -14,7 +14,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ 
 Install
 -------
 
-You can install Pico either using a pre-bundled release or with composer. Pico requires PHP 5.3+
+You can install Pico either using a pre-bundled release or with composer. Pico is also available on [Packagist.org][] and may be included in other projects via `composer require picocms/pico`. Pico requires PHP 5.3+
 
 #### Using a pre-bundled release
 
@@ -55,7 +55,7 @@ Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated
 Run
 ---
 
-You have nothing to consider specially, simply navigate to your Pico install using your favourite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
+You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
 #### You don't have a web server?
 Starting with PHP 5.4 the easiest way to try Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
@@ -70,7 +70,7 @@ $ php -S 127.0.0.1:8080
 ```
 
 ###### Step 3
-Access Pico from <http://localhost:8080>.
+Access Pico from http://localhost:8080.
 
 Getting Help
 ------------
@@ -91,6 +91,7 @@ You want to contribute to Pico? We really appreciate that! You can help making P
 3. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][InlineUserDocs] or the more extensive [user docs on our website][WebsiteUserDocs]. You can also improve the [docs for plugin and theme developers][WebsiteDevDocs]. Simply fork Pico from https://github.com/picocms/Pico, change the Markdown files and open a [pull request][PullRequests].
 4. Picos Core: The supreme discipline is to work on Picos Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
 
+[Packagist.org]: (http://packagist.org/packages/picocms/pico)
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
 [SemVer]: http://semver.org
