@@ -437,7 +437,7 @@ class Pico
             'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
-            'content_dir' => $this->getRootDir() . 'content-sample/',
+            'content_dir' => null,
             'content_ext' => '.md',
             'timezone' => ''
         );
@@ -453,7 +453,14 @@ class Pico
         if (empty($this->config['base_url'])) {
             $this->config['base_url'] = $this->getBaseUrl();
         }
-        if (!empty($this->config['content_dir'])) {
+        if (empty($this->config['content_dir'])) {
+            // try to guess the content directory
+            if (is_dir($this->getRootDir() . 'content')) {
+                $this->config['content_dir'] = $this->getRootDir() . 'content/';
+            } else {
+                $this->config['content_dir'] = $this->getRootDir() . 'content-sample/';
+            }
+        } else {
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
         if (!empty($this->config['timezone'])) {
