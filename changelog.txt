@@ -45,6 +45,8 @@
  * [Changed] With alphabetical order, index files (e.g. `sub/index.md`) are
              now always placed before their sub pages (e.g. `sub/foo.md`)
  * [Changed] Pico requires PHP >= 5.3.6 (due to `erusev/parsedown-extra`)
+ * [Changed] Pico now implicitly uses a existing `content` directory without
+             the need to configure this in the `config/config.php` explicitly
  * [Changed] Composer: Require a v0.7 release of `erusev/parsedown-extra`
  * [Changed] #93, #158: Pico doesn't parse all content files anymore; moved to
              `PicoParsePagesContent` plugin, but still impacts performance;
