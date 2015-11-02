@@ -21,7 +21,7 @@ and put an `index.md` inside it, you can access that folder at the URL
 simply create a text file with the corresponding name and you will be able to
 access it (e.g. `content-sample/sub/page.md` is accessible from the URL
 `http://yoursite.com/?sub/page`). Below we've shown some examples of locations
-and their corresponing URLs:
+and their corresponding URLs:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
@@ -135,7 +135,7 @@ something like the following:
 ## Customization
 
 Pico is highly customizable in two different ways: On the one hand you can
-change Picos apperance by using themes, on the other hand you can add new
+change Picos appearance by using themes, on the other hand you can add new
 functionality by using plugins. Doing the former includes changing Picos HTML,
 CSS and JavaScript, the latter mostly consists of PHP programming.
 
@@ -210,20 +210,20 @@ the page.
 You don't have to create your own theme if Picos default theme isn't sufficient
 for you, you can use one of the great themes third-party developers and
 designers created in the past. As with plugins, you can find themes in
-[our Wiki](https://github.com/picocms/Pico/wiki/Pico-Themes).
+[our Wiki][WikiThemes].
 
 ### Plugins
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://pico.dev7studios.com/plugins,
-but there are many awesome third-party plugins out there! A good start point
-for discovery is [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Plugins).
+Officially tested plugins can be found at http://picocms.org/plugins.html, but
+there are many awesome third-party plugins out there! A good start point for
+discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
 Depending on the plugin you've installed, you may have to go through some more
-steps (e.g. specifing config variables), the plugin docs or `README` file will
+steps (e.g. specifying config variables), the plugin docs or `README` file will
 explain what to do.
 
 Plugins which were written to work with Pico 1.0 can be enabled and disabled
@@ -273,9 +273,10 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
 ## Documentation
 
-For more help have a look at the Pico documentation at
-[http://picocms.org/docs](http://picocms.org/docs)
+For more help have a look at the Pico documentation at http://picocms.org/docs.
 
-[Twig]: http://twig.sensiolabs.org/documentation
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+[Twig]: http://twig.sensiolabs.org/documentation
+[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
+[WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [PluginUpgrade]: http://picocms.org/plugin-dev.html#upgrade
