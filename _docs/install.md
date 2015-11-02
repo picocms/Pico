@@ -56,5 +56,3 @@ Access Pico from <http://localhost:8080>.
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
 [PHPServer]: http://php.net/manual/en/features.commandline.webserver.php
-
----

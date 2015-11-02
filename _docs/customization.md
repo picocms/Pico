@@ -19,8 +19,6 @@ techie talk - it's very easy to use one of the great themes or plugins others
 developed and released to the public. Please refer to the next sections for
 details.
 
----
-
 ### Themes
 
 You can create themes for your Pico installation in the `themes` folder. Check
@@ -89,8 +87,6 @@ for you, you can use one of the great themes third-party developers and
 designers created in the past. As with plugins, you can find themes in
 [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Themes).
 
----
-
 ### Plugins
 
 #### Plugins for users
@@ -118,5 +114,3 @@ about how to develop plugins at [http://picocms.org/plugin-dev.html]({{ site.bas
 developed a plugin for Pico 0.9 and older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
 [Upgrade section of the docs]({{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10).
-
----
