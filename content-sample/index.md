@@ -58,6 +58,10 @@ If a file cannot be found, the file `content-sample/404.md` will be shown. You
 can add `404.md` files to any directory, so if you want to use a special error
 page for your blog, simply create `content-sample/blog/404.md`.
 
+Instead of adding your own contents to the `content-sample` folder, you should
+create your own `content` directory in Picos root directory. You can then add
+and access your contents as described above.
+
 ### Text File Markup
 
 Text files are marked up using [Markdown][]. They can also contain regular HTML.
