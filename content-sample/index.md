@@ -17,11 +17,11 @@ and is shown as the main landing page.
 
 If you create a folder within the content folder (e.g. `content-sample/sub`)
 and put an `index.md` inside it, you can access that folder at the URL
-`http://yoursite.com/?sub`. If you want another page within the sub folder,
+`http://example.com/pico/?sub`. If you want another page within the sub folder,
 simply create a text file with the corresponding name and you will be able to
 access it (e.g. `content-sample/sub/page.md` is accessible from the URL
-`http://yoursite.com/?sub/page`). Below we've shown some examples of locations
-and their corresponding URLs:
+`http://example.com/pico/?sub/page`). Below we've shown some examples of
+locations and their corresponding URLs:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
@@ -202,7 +202,7 @@ Pages can be used like the following:
         {% endfor %}
     </ul>
 
-You can use different templates for different content files by specifing the
+You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog-post` to a content file
 and Pico will use the `blog-post.twig` file in your theme folder to render
 the page.
