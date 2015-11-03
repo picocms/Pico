@@ -50,7 +50,7 @@ Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MA
 - the `MINOR` version (e.g. `1.0` to `1.1`), we added functionality in a backwards-compatible manner, but anyway recommend you to "install" Pico newly. Backup all of your files, empty your installation directory and install Pico as elucidated above. You can then copy your `config/config.php` and `content` directory without any change. If applicable, you can also copy the folder of your custom theme within the `themes` directory. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory.
 - the `MAJOR` version (e.g. `1.0` to `2.0`), a appropriate upgrade tutorial will be provided.
 
-Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated` plugin ensures backwards compatibility, so you basically can follow the above upgrade instructions as if we updated the `MINOR` version. However, we recommend you to take some further steps to confine the neccessity of `PicoDeprecated` as far as possible. For more information about what has changed with Pico 1.0 and a step-by-step upgrade tutorial, please refer to the [upgrade page of our website][UpgradeNotes].
+Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated` plugin ensures backwards compatibility, so you basically can follow the above upgrade instructions as if we updated the `MINOR` version. However, we recommend you to take some further steps to confine the neccessity of `PicoDeprecated` as far as possible. For more information about what has changed with Pico 1.0 and a step-by-step upgrade tutorial, please refer to the [upgrade page of our website][HelpUpgrade].
 
 Run
 ---
@@ -75,35 +75,42 @@ Access Pico from http://localhost:8080.
 Getting Help
 ------------
 
-You can read the [Wiki][] if you are looking for examples and read the inline-docs for more development information.
+#### Getting Help as a user
+If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 0.8 or 0.9 to Pico 1.0. You can find officially supported plugins and themes on [our website][OfficialPlugins]. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes page][WikiThemes] respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
 
-If you find a bug please report it on the issues page, but remember to include as much detail as possible, and what someone can do to re-create the issue.
+#### Getting Help as a developer
+If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [dev docs on our website][HelpDevDocs].
 
-Issues with plugins should be reported on the offending plugins homepage, same goes for themes.
+#### You still need help or experience a problem with Pico?
+When the docs can't answer your question or when you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
+
+Before creating a new Issue, please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
 Contributing
 ------------
 
-You want to contribute to Pico? We really appreciate that! You can help making Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in four different areas:
+You want to contribute to Pico? We really appreciate that! You can help making Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
-1. Issues: You have a problem with Pico? Please don't hesitate to create a new [Issue][Issues] on GitHub! Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
-2. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/plugin-dev.html. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Maybe we will then promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
-3. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][InlineUserDocs] or the more extensive [user docs on our website][WebsiteUserDocs]. You can also improve the [docs for plugin and theme developers][WebsiteDevDocs]. Simply fork Pico from https://github.com/picocms/Pico, change the Markdown files and open a [pull request][PullRequests].
-4. Picos Core: The supreme discipline is to work on Picos Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
+1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/plugin-dev.html. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Maybe we will then promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
+2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork Pico from https://github.com/picocms/Pico, change the Markdown files and open a [pull request][PullRequests].
+3. Picos Core: The supreme discipline is to work on Picos Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
 
-[Packagist.org]: (http://packagist.org/packages/picocms/pico)
+[Packagist.org]: http://packagist.org/packages/picocms/pico
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
 [SemVer]: http://semver.org
-[UpgradeNotes]: http://picocms.org/upgrade.html
 [PHPServer]: http://php.net/manual/en/features.commandline.webserver.php
-[PullRequests]: https://github.com/picocms/Pico/pulls
-[Issues]: https://github.com/picocms/Pico/issues
-[ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
+[HelpUpgrade]: http://picocms.org/upgrade.html
+[HelpUserDocs]: http://picocms.org/docs.html
+[HelpDevDocs]: http://picocms.org/plugin-dev.html
+[OfficialPlugins]: http://picocms.org/plugins.html
 [Wiki]: https://github.com/picocms/Pico/wiki
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
-[OfficialPlugins]: http://picocms.org/plugins.html
-[InlineUserDocs]: https://github.com/picocms/Pico/blob/master/content-sample/index.md
-[WebsiteUserDocs]: https://github.com/picocms/Pico/tree/gh-pages/_docs
-[WebsiteDevDocs]: https://github.com/picocms/Pico/tree/gh-pages/_plugin-dev
+[Issues]: https://github.com/picocms/Pico/issues
+[IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
+[PullRequests]: https://github.com/picocms/Pico/pulls
+[ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
+[EditInlineDocs]: https://github.com/picocms/Pico/blob/master/content-sample/index.md
+[EditUserDocs]: https://github.com/picocms/Pico/tree/gh-pages/_docs
+[EditDevDocs]: https://github.com/picocms/Pico/tree/gh-pages/_plugin-dev
