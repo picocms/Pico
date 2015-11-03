@@ -812,14 +812,16 @@ class Pico
         $content = str_replace('%theme_url%', $themeUrl, $content);
 
         // replace %meta.*%
-        $metaKeys = $metaValues = array();
-        foreach ($this->meta as $metaKey => $metaValue) {
-            if (is_scalar($metaValue) || ($metaValue === null)) {
-                $metaKeys[] = '%meta.' . $metaKey . '%';
-                $metaValues[] = strval($metaValue);
+        if (!empty($this->meta)) {
+            $metaKeys = $metaValues = array();
+            foreach ($this->meta as $metaKey => $metaValue) {
+                if (is_scalar($metaValue) || ($metaValue === null)) {
+                    $metaKeys[] = '%meta.' . $metaKey . '%';
+                    $metaValues[] = strval($metaValue);
+                }
             }
+            $content = str_replace($metaKeys, $metaValues, $content);
         }
-        $content = str_replace($metaKeys, $metaValues, $content);
 
         return $content;
     }
@@ -1240,12 +1242,14 @@ class Pico
      */
     protected function triggerEvent($eventName, array $params = array())
     {
-        foreach ($this->plugins as $plugin) {
-            // only trigger events for plugins that implement PicoPluginInterface
-            // deprecated events (plugins for Pico 0.9 and older) will be
-            // triggered by the `PicoPluginDeprecated` plugin
-            if (is_a($plugin, 'PicoPluginInterface')) {
-                $plugin->handleEvent($eventName, $params);
+        if (!empty($this->plugins)) {
+            foreach ($this->plugins as $plugin) {
+                // only trigger events for plugins that implement PicoPluginInterface
+                // deprecated events (plugins for Pico 0.9 and older) will be
+                // triggered by the `PicoPluginDeprecated` plugin
+                if (is_a($plugin, 'PicoPluginInterface')) {
+                    $plugin->handleEvent($eventName, $params);
+                }
             }
         }
     }
