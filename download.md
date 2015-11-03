@@ -2,7 +2,7 @@
 layout: simple
 title: Download
 headline: Download Pico
-description: Download the latest version of Pico or [clone on GitHub]({{ site.gh_project_url }}).
+description: Download the latest version of Pico or [clone on GitHub](https://github.com/picocms/Pico).
 nav: 5
 ---
 
