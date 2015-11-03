@@ -428,7 +428,13 @@ blockquote p {
     padding: 60px 0;
 }
 header .logo {
-    float: left
+    float: left;
+}
+header .logo a,
+header .logo a:hover {
+    font-size: 250%;
+    font-weight: bold;
+    color: white;
 }
 header .menu {
     float: right
