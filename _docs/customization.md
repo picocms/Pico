@@ -4,40 +4,24 @@ toc:
         _title: Customization
         themes: Themes
         plugins: Plugins
-nav: 3
+nav: 5
 ---
 
 ## Customization
 
-Pico is highly customizable in two different ways: On the one hand you can
-change Picos appearance by using themes, on the other hand you can add new
-functionality by using plugins. Doing the former includes changing Picos HTML,
-CSS and JavaScript, the latter mostly consists of PHP programming.
+Pico is highly customizable in two different ways: On the one hand you can change Picos appearance by using themes, on the other hand you can add new functionality by using plugins. Doing the former includes changing Picos HTML, CSS and JavaScript, the latter mostly consists of PHP programming.
 
-This is all Greek to you? Don't worry, you don't have to spend time on these
-techie talk - it's very easy to use one of the great themes or plugins others
-developed and released to the public. Please refer to the next sections for
-details.
+This is all Greek to you? Don't worry, you don't have to spend time on these techie talk - it's very easy to use one of the great themes or plugins others developed and released to the public. Please refer to the next sections for details.
 
 ### Themes
 
-You can create themes for your Pico installation in the `themes` folder. Check
-out the default theme for an example. Pico uses [Twig](http://twig.sensiolabs.org/documentation) for template
-rendering. You can select your theme by setting the `$config['theme']` option
-in `config/config.php` to the name of your theme folder.
+You can create themes for your Pico installation in the `themes` folder. Check out the default theme for an example. Pico uses [Twig][] for template rendering. You can select your theme by setting the `$config['theme']` option in `config/config.php` to the name of your theme folder.
 
-All themes must include an `index.twig` (or `index.html`) file to define the
-HTML structure of the theme. Below are the Twig variables that are available
-to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% endraw %}`) and URLs
-(e.g. `{% raw %}{{ base_url }}{% endraw %}`) don't have a trailing slash.
+All themes must include an `index.twig` (or `index.html`) file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% endraw %}`) and URLs (e.g. `{% raw %}{{ base_url }}{% endraw %}`) don't have a trailing slash.
 
-* `{% raw %}{{ config }}{% endraw %}` - Contains the values you set in `config/config.php`
-                   (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
+* `{% raw %}{{ config }}{% endraw %}` - Contains the values you set in `config/config.php` (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
 * `{% raw %}{{ base_dir }}{% endraw %}` - The path to your Pico root directory
-* `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to
-                     specify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`),
-                     this guarantees that your link works whether URL rewriting
-                     is enabled or not
+* `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to pecify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`), this guarantees that your link works whether URL rewriting is enabled or not
 * `{% raw %}{{ theme_dir }}{% endraw %}` - The path to the currently active theme
 * `{% raw %}{{ theme_url }}{% endraw %}` - The URL to the currently active theme
 * `{% raw %}{{ rewrite_url }}{% endraw %}` - A boolean flag indicating enabled/disabled URL rewriting
@@ -51,8 +35,7 @@ to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% en
     * `{% raw %}{{ meta.time }}{% endraw %}`
     * `{% raw %}{{ meta.robots }}{% endraw %}`
     * ...
-* `{% raw %}{{ content }}{% endraw %}` - The content of the current page
-                    (after it has been processed through Markdown)
+* `{% raw %}{{ content }}{% endraw %}` - The content of the current page after it has been processed through Markdown)
 * `{% raw %}{{ pages }}{% endraw %}` - A collection of all the content pages in your site
     * `{% raw %}{{ page.id }}{% endraw %}` - The relative path to the content file
     * `{% raw %}{{ page.url }}{% endraw %}` - The URL to the page
@@ -77,40 +60,27 @@ Pages can be used like the following:
     {% endfor %}
 &lt;/ul&gt;</code></pre>{% endraw %}
 
-You can use different templates for different content files by specifying the
-`Template` meta header. Simply add e.g. `Template: blog-post` to a content file
-and Pico will use the `blog-post.twig` file in your theme folder to render
-the page.
+You can use different templates for different content files by specifying the `Template` meta header. Simply add e.g. `Template: blog-post` to a content file and Pico will use the `blog-post.twig` file in your theme folder to render the page.
 
-You don't have to create your own theme if Picos default theme isn't sufficient
-for you, you can use one of the great themes third-party developers and
-designers created in the past. As with plugins, you can find themes in
-[our Wiki](https://github.com/picocms/Pico/wiki/Pico-Themes).
+You don't have to create your own theme if Picos default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes].
 
 ### Plugins
 
 #### Plugins for users
 
-Officially tested plugins can be found at [http://picocms.com/plugins]({{ site.base_url }}/plugins.html),
-but there are many awesome third-party plugins out there! A good start point
-for discovery is [our Wiki](https://github.com/picocms/Pico/wiki/Pico-Plugins).
+Officially tested plugins can be found at [http://picocms.org/plugins.html][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
 
-Pico makes it very easy for you to add new features to your website. Simply
-upload the files of the plugin to the `plugins/` directory and you're done.
-Depending on the plugin you've installed, you may have to go through some more
-steps (e.g. specifying config variables), the plugin docs or `README` file will
-explain what to do.
+Pico makes it very easy for you to add new features to your website. Simply upload the files of the plugin to the `plugins/` directory and you're done. Depending on the plugin you've installed, you may have to go through some more steps (e.g. specifying config variables), the plugin docs or `README` file will explain what to do.
 
-Plugins which were written to work with Pico 1.0 can be enabled and disabled
-through your `config/config.php`. If you want to e.g. disable the [PicoExcerpt](https://github.com/picocms/Pico/blob/master/plugins/02-PicoExcerpt.php)
-plugin, add the following line to your `config/config.php`:
-`$config['PicoExcerpt.enabled'] = false;`. To force the plugin to be enabled
-replace `false` with `true`.
+Plugins which were written to work with Pico 1.0 can be enabled and disabled through your `config/config.php`. If you want to e.g. disable the `PicoExcerpt` plugin, add the following line to your `config/config.php`: `$config['PicoExcerpt.enabled'] = false;`. To force the plugin to be enabled replace `false` with `true`.
 
 #### Plugins for developers
 
-You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at [http://picocms.org/plugin-dev.html]({{ site.base_url }}/plugin-dev.html). If you'd
-developed a plugin for Pico 0.9 and older, you probably want to upgrade it
-to the brand new plugin system introduced with Pico 1.0. Please refer to the
-[Upgrade section of the docs]({{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10).
+You're a plugin developer? We love you guys! You can find tons of information about how to develop plugins at [http://picocms.org/plugin-dev.html][PluginDev]. If you'd developed a plugin for Pico 0.9 and older, you probably want to upgrade it to the brand new plugin system introduced with Pico 1.0. Please refer to the [upgrade section of the docs][PluginUpgrade].
+
+[Twig]: http://twig.sensiolabs.org/documentation
+[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
+[WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
+[OfficialPlugins]: {{ site.base_url }}/plugins.html
+[PluginDev]: {{ site.base_url }}/plugin-dev.html
+[PluginUpgrade]: {{ site.base_url }}/plugin-dev.html#upgrade
