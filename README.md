@@ -1,9 +1,9 @@
 Pico
 ====
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://scrutinizer-ci.com/g/theshka/Pico/build-status/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0-lightgrey.svg)](https://github.com/picocms/Pico/releases/latest)
-[![Build Status](https://scrutinizer-ci.com/g/theshka/Pico/badges/build.png?b=master)](https://scrutinizer-ci.com/g/theshka/Pico/build-status/master)
+[![Build Status](https://travis-ci.org/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/theshka/Pico/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
 
 Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
