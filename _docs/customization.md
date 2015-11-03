@@ -68,7 +68,7 @@ You don't have to create your own theme if Picos default theme isn't sufficient 
 
 #### Plugins for users
 
-Officially tested plugins can be found at [http://picocms.org/plugins.html][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at {{ site.base_url }}/plugins.html, but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply upload the files of the plugin to the `plugins/` directory and you're done. Depending on the plugin you've installed, you may have to go through some more steps (e.g. specifying config variables), the plugin docs or `README` file will explain what to do.
 
@@ -76,11 +76,9 @@ Plugins which were written to work with Pico 1.0 can be enabled and disabled thr
 
 #### Plugins for developers
 
-You're a plugin developer? We love you guys! You can find tons of information about how to develop plugins at [http://picocms.org/plugin-dev.html][PluginDev]. If you'd developed a plugin for Pico 0.9 and older, you probably want to upgrade it to the brand new plugin system introduced with Pico 1.0. Please refer to the [upgrade section of the docs][PluginUpgrade].
+You're a plugin developer? We love you guys! You can find tons of information about how to develop plugins at {{ site.base_url }}/plugin-dev.html. If you'd developed a plugin for Pico 0.9 and older, you probably want to upgrade it to the brand new plugin system introduced with Pico 1.0. Please refer to the [upgrade section of the docs][PluginUpgrade].
 
 [Twig]: http://twig.sensiolabs.org/documentation
-[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
-[WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[OfficialPlugins]: {{ site.base_url }}/plugins.html
-[PluginDev]: {{ site.base_url }}/plugin-dev.html
+[WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
+[WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [PluginUpgrade]: {{ site.base_url }}/plugin-dev.html#upgrade

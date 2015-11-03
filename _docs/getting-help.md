@@ -21,13 +21,13 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 Before creating a new Issue, please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
-[HelpUpgrade]: http://picocms.org/upgrade.html
-[HelpUserDocs]: http://picocms.org/docs.html
-[HelpDevDocs]: http://picocms.org/plugin-dev.html
-[OfficialPlugins]: http://picocms.org/plugins.html
-[Wiki]: https://github.com/picocms/Pico/wiki
-[WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
-[Issues]: https://github.com/picocms/Pico/issues
-[IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
-[ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
+[HelpUpgrade]: {{ site.base_url }}/upgrade.html
+[HelpUserDocs]: {{ site.base_url }}/docs.html
+[HelpDevDocs]: {{ site.base_url }}/plugin-dev.html
+[OfficialPlugins]: {{ site.base_url }}/plugins.html
+[Wiki]: {{ site.gh_project_url }}/wiki
+[WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
+[WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
+[Issues]: {{ site.gh_project_url }}/issues
+[IssuesSearch]: {{ site.gh_project_url }}/search?type=Issues
+[ContributionGuidelines]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CONTRIBUTING.md

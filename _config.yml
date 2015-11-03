@@ -1,6 +1,10 @@
 title: Pico
 description: A stupidly simple, blazing fast, flat file CMS.
 base_url: http://phrozenbyte.github.io/Pico
+gh_project_url: https://github.com/PhrozenByte/Pico
+gh_project_branch: pico1.0
+gh_pages_url: https://github.com/PhrozenByte/Pico
+gh_pages_branch: gh-pages
 collections:
 - docs
 - plugin-dev

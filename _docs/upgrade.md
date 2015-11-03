@@ -17,5 +17,5 @@ Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MA
 Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated` plugin ensures backwards compatibility, so you basically can follow the above upgrade instructions as if we updated the `MINOR` version. However, we recommend you to take some further steps to confine the neccessity of `PicoDeprecated` as far as possible. For more information about what has changed with Pico 1.0 and a step-by-step upgrade tutorial, please refer to the [upgrade page of our website][HelpUpgrade].
 
 [SemVer]: http://semver.org
-[LatestRelease]: https://github.com/picocms/Pico/releases/latest
+[LatestRelease]: {{ site.gh_project_url }}/releases/latest
 [HelpUpgrade]: {{ site.base_url }}/upgrade.html

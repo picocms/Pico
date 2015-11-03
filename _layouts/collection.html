@@ -54,6 +54,14 @@
                                 {% endfor %}
                             {% endfor %}
                         </ul>
+
+                        <p>
+                            {% capture editCollectionUrl %}{{ site.gh_pages_url }}/tree/{{ site.gh_pages_branch }}/_{{ page.collection }}{% endcapture %}
+                            <a href="{{ editCollectionUrl }}" title="Open this documentation on GitHub">
+                                <img src="{{ site.base_url }}/style/images/GitHub-Mark-32px.png" alt="Open this documentation on GitHub" class="alignleft" style="margin: 8px 0.5em 0.5em 0;" />
+                            </a>
+                            Found a typo? Something is wrong in this documentation? Just <a href="{{ editCollectionUrl }}">fork and edit</a> it!
+                        </p>
                     </div>
                     <div class="three-fourth last">
                         {% for item in items %}

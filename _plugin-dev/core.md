@@ -11,4 +11,4 @@ nav: 2
 It's generally not a good idea to make modifications to the core of Pico. If you
 are looking to add or change functionality, can it be accomplished with a plugin?
 
-If not, and you want to contribute to Picos core please refer to our [CONTRIBUTING.md](https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md) on GitHub.
+If not, and you want to contribute to Picos core please refer to our [CONTRIBUTING.md]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CONTRIBUTING.md) on GitHub.

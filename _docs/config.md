@@ -23,4 +23,4 @@ If you're using Nginx, you can use the following configuration to enable URL rew
         try_files $uri $uri/ /pico/?$uri&$args;
     }
 
-[ConfigTemplate]: https://github.com/picocms/Pico/blob/master/config/config.php.template
+[ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template

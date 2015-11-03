@@ -15,7 +15,7 @@ You will find a full example template in [plugins/DummyPlugin.php]({{ site.base_
 started on building some great stuff. Otherwise, keep reading to learn how to
 create your first plugin!
 
-Officially tested plugins can be found at [http://picocms.org/plugins]({{ site.base_url }}/plugins.html),
+Officially tested plugins can be found at {{ site.base_url }}/plugins.html,
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki](#plugin-wiki).
 
@@ -25,7 +25,7 @@ The new event system supports plugin dependencies as well as some new events.
 You will be able to set an enabled/disabled state by default as well. If you
 have previously cerated a plugin for Pico, it is *HIGHLY* recommended that you
 update your class to extend from [AbstractPicoPlugin]({{ site.base_url }}/phpDoc/master/classes/AbstractPicoPlugin.html) and use the new events
-to avoid activating the [PicoDeprecated](https://github.com/picocms/Pico/blob/master/plugins/00-PicoDeprecated.php) plugin.
+to avoid activating the [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin.
 
 
 | Event               | ... triggers the deprecated event                         |
