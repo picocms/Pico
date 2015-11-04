@@ -2,24 +2,18 @@
 layout: docs
 title: Upgrade
 headline: Upgrade Pico 0.8 or 0.9 to Pico 1.0
+description: We worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
 toc:
     how-to-upgrade:
         _title: How to upgrade?
-        required-steps: Required Steps
-        optional-steps:
-            _title: Optional Steps
-            routing-system: Routing system
-            drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
-            drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
-            ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
+        routing-system: Routing system
+        drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
+        drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
+        ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
 gh_release: v1.0.0-beta.1
 ---
 
 ## How to upgrade?
-
-We worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
-
-### Required Steps
 
 Usually you don't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0. You basically can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.
 
@@ -34,9 +28,7 @@ Pico 1.0 introduces a brand new routing system that is now compatible to any web
 
 A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"](#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin) and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`" sections](#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin) below.
 
-### Optional Steps
-
-#### Routing system
+### Routing system
 
 You're not required to update your internal links to meet the new routing system, as long as you keep URL rewriting enabled. Anyway, if you want to keep the option open to disable URL rewriting later, you should do it.
 
@@ -44,15 +36,15 @@ In Markdown files (i.e. your `content` directory), replace all occurences of e.g
 
 The required changes to your theme (i.e. a custom theme folder in Pico's `themes` directory) are quite similar. Instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter. Therefore replace e.g. `{% raw %}{{ base_url }}/sub/page{% endraw %}` with `{% raw %}{{ "sub/page"|link }}{% endraw %}`. Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter does nothing but call the [`Pico::getPageUrl()` method][PicoGetPageUrl].
 
-#### Drop of `{% raw %}{{ page.content }}{% endraw %}` and the new `PicoParsePagesContent` plugin
+### Drop of `{% raw %}{{ page.content }}{% endraw %}` and the new `PicoParsePagesContent` plugin
 
 WORK IN PROGRESS
 
-#### Drop of `{% raw %}{{ page.excerpt }}{% endraw %}` and the new `PicoExcerpt` plugin
+### Drop of `{% raw %}{{ page.excerpt }}{% endraw %}` and the new `PicoExcerpt` plugin
 
 WORK IN PROGRESS
 
-#### Ensure restricted access to `content` directory
+### Ensure restricted access to `content` directory
 
 WORK IN PROGRESS
 
