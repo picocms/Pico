@@ -4,7 +4,7 @@
  * Pico
  *
  * Pico is a stupidly simple, blazing fast, flat file CMS.
- * - Stupidly Simple: Picos makes creating and maintaining a
+ * - Stupidly Simple: Pico makes creating and maintaining a
  *   website as simple as editing text files.
  * - Blazing Fast: Pico is seriously lightweight and doesn't
  *   use a database, making it super fast.
@@ -83,7 +83,7 @@ class Pico
     protected $themesDir;
 
     /**
-     * Boolean indicating whether Picos processing started yet
+     * Boolean indicating whether Pico started processing yet
      *
      * @var boolean
      */
@@ -477,9 +477,9 @@ class Pico
     }
 
     /**
-     * Sets Picos config before calling Pico::run()
+     * Sets Pico's config before calling Pico::run()
      *
-     * This method allows you to modify Picos config without creating a
+     * This method allows you to modify Pico's config without creating a
      * {@path "config/config.php"} or changing some of its variables before
      * Pico starts processing.
      *
@@ -496,7 +496,7 @@ class Pico
     public function setConfig(array $config)
     {
         if ($this->locked) {
-            throw new RuntimeException('You cannot modify Picos config after processing has started');
+            throw new RuntimeException("You cannot modify Pico's config after processing has started");
         }
 
         $this->config = $config;
@@ -1214,7 +1214,7 @@ class Pico
     }
 
     /**
-     * Makes a relative path absolute to Picos root dir
+     * Makes a relative path absolute to Pico's root dir
      *
      * This method also guarantees a trailing slash.
      *

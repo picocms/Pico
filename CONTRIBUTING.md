@@ -10,14 +10,14 @@ Having said that: we really appreciate it when you apply the guidelines in part 
 Issues
 ------
 
-If you want to report an *issue* with Picos core, please create a new [Issue](https://github.com/picocms/Pico/issues) on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
+If you want to report an *issue* with Pico's core, please create a new [Issue](https://github.com/picocms/Pico/issues) on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
 Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues). Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
 Contributing code
 -----------------
 
-Once you decide you want to contribute to *Picos core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/plugin-dev.html) of our website.
+Once you decide you want to contribute to *Pico's core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/plugin-dev.html) of our website.
 
 ### Prevent `merge-hell`
 
@@ -45,9 +45,9 @@ With this command you can specify a file or folder to limit which files it will 
 
 ### Keep documentation in sync
 
-Pico accepts the problems of having redundant documentation on different places (concretely Picos inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure the keep them in sync.
+Pico accepts the problems of having redundant documentation on different places (concretely Pico's inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure the keep them in sync.
 
-If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/Pico/tree/gh-pages/_docs/) folder of the `gh-pages` branch (i.e. [Picos website](http://picocms.org/docs.html)) and vice verca. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Picos [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Redcarpet](https://github.com/vmg/redcarpet) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
+If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/Pico/tree/gh-pages/_docs/) folder of the `gh-pages` branch (i.e. [Pico's website](http://picocms.org/docs.html)) and vice verca. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Redcarpet](https://github.com/vmg/redcarpet) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
 
 Versioning
 ----------
@@ -65,7 +65,7 @@ Branching
 
 The `master` branch contains the current development version of Pico. It is likely *unstable* and *not ready for production use*. However, the `master` branch always consists of a deployable version of Pico.
 
-Picos actual development happens in separate development branches. Development branches are prefixed by:
+Pico's actual development happens in separate development branches. Development branches are prefixed by:
 
 - `feature/` for bigger features,
 - `enhancement/` for smaller improvements, and

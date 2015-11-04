@@ -8,7 +8,7 @@
  * can avoid this by calling {@link PicoExcerpt::setEnabled()}.
  *
  * This plugin doesn't do its job very well and depends on
- * {@link PicoParsePagesContent}, what heavily impacts Picos performance. You
+ * {@link PicoParsePagesContent}, what heavily impacts Pico's performance. You
  * should either use the Description meta header field or write something own.
  * Best solution seems to be a filter for twig, see e.g.
  * {@link https://gist.github.com/james2doyle/6629712}.

@@ -7,7 +7,7 @@
  * It gets automatically enabled when a plugin which doesn't implement
  * {@link PicoPluginInterface} is loaded. This plugin triggers deprecated
  * events and automatically enables {@link PicoParsePagesContent} and
- * {@link PicoExcerpt}. These plugins heavily impact Picos performance! You
+ * {@link PicoExcerpt}. These plugins heavily impact Pico's performance! You
  * can disable this plugin by calling {@link PicoDeprecated::setEnabled()}.
  *
  * The following deprecated events are triggered by this plugin:
@@ -36,7 +36,7 @@
  * </pre>
  *
  * Since Pico 1.0 the config is stored in {@path "config/config.php"}. This
- * plugin tries to read {@path "config.php"} in Picos root dir and overwrites
+ * plugin tries to read {@path "config.php"} in Pico's root dir and overwrites
  * all settings previously specified in {@path "config/config.php"}.
  *
  * @author  Daniel Rudolf
@@ -98,7 +98,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      * Triggers the deprecated event config_loaded($config)
      *
      * This method also defines deprecated constants, reads the `config.php`
-     * in Picos root dir, enables the plugins {@link PicoParsePagesContent}
+     * in Pico's root dir, enables the plugins {@link PicoParsePagesContent}
      * and {@link PicoExcerpt} and makes `$config` globally accessible (the
      * latter was removed with Pico 0.9 and was added again as deprecated
      * feature with Pico 1.0)
@@ -160,7 +160,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Read config.php in Picos root dir
+     * Read config.php in Pico's root dir
      *
      * @see    PicoDeprecated::onConfigLoaded()
      * @see    Pico::loadConfig()

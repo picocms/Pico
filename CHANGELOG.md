@@ -37,8 +37,8 @@ Released: 2015-11-06
 * [Changed] Complete code refactoring
 * [Changed] Source code now follows PSR code styling
 * [Changed] Replacing constants (e.g. `ROOT_DIR`) with constructor parameters
-* [Changed] Paths (e.g. `content_dir`) are now relative to Picos root dir
-* [Changed] Adding `Pico::run()` method that performs Picos processing and
+* [Changed] Paths (e.g. `content_dir`) are now relative to Pico's root dir
+* [Changed] Adding `Pico::run()` method that performs Pico's processing and
             returns the rendered contents
 * [Changed] Renaming all plugin events; adding some new events
 * [Changed] `Pico_Plugin` is now the fully documented `DummyPlugin`
@@ -70,7 +70,7 @@ Released: 2015-11-06
 * [Fixed] A vast number of small bugs...
 * [Removed] Removing the default Twig cache dir
 * [Removed] Removing various empty `index.html` files
-* [Removed] Moving Picos excerpt feature to `PicoExcerpt` plugin
+* [Removed] Moving Pico's excerpt feature to `PicoExcerpt` plugin
 ```
 
 ### Version 0.9

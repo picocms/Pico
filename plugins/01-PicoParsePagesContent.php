@@ -7,7 +7,7 @@
  * It gets automatically enabled when {@link PicoDeprecated} is enabled. You
  * can avoid this by calling {@link PicoParsePagesContent::setEnabled()}.
  *
- * This plugin heavily impacts Picos performance, you should avoid to enable
+ * This plugin heavily impacts Pico's performance, you should avoid to enable
  * it whenever possible! If you must parse the contents of a page, do this
  * selectively and only for pages you really need to.
  *
