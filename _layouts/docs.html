@@ -30,7 +30,9 @@
                         <ul>
                             {% if page.collection %}
                                 {% for item in items %}
-                                    {% include tocItem.html toc=item.toc %}
+                                    {% if item.toc and item.nav > 0 %}
+                                        {% include tocItem.html toc=item.toc %}
+                                    {% endif %}
                                 {% endfor %}
                             {% else %}
                                 {% include tocItem.html toc=page.toc%}
