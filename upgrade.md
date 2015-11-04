@@ -1,7 +1,17 @@
 ---
 layout: docs
 title: Upgrade
-headline: Upgrade Pico 0.8 and 0.9 to Pico 1.0
+headline: Upgrade Pico 0.8 or 0.9 to Pico 1.0
+toc:
+    how-to-upgrade:
+        _title: How to upgrade?
+        required-steps: Required Steps
+        optional-steps:
+            _title: Optional Steps
+            routing-system: Routing system
+            drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
+            drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
+            ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
 gh_release: v1.0.0-beta.1
 ---
 
@@ -22,7 +32,7 @@ Usually you don't have to consider anything special when upgrading a existing Pi
 
 Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting became optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
 
-A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"](#drop-of-page.content-and-the-new-picoparsepagescontent-plugin) and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`" sections](#drop-of-page.excerpt-and-the-new-picoexcerpt-plugin) below.
+A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"](#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin) and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`" sections](#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin) below.
 
 ### Optional Steps
 
