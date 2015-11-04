@@ -69,14 +69,23 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onPluginsLoaded(&$plugins)
     {
-        foreach ($plugins as $plugin) {
-            if (!is_a($plugin, 'PicoPluginInterface')) {
-                // the plugin doesn't implement PicoPluginInterface; it uses deprecated events
-                // enable PicoDeprecated if it hasn't be explicitly enabled/disabled yet
-                if (!$this->isStatusChanged()) {
-                    $this->setEnabled(true, true, true);
+        if (!empty($plugins)) {
+            foreach ($plugins as $plugin) {
+                if (!is_a($plugin, 'PicoPluginInterface')) {
+                    // the plugin doesn't implement PicoPluginInterface; it uses deprecated events
+                    // enable PicoDeprecated if it hasn't be explicitly enabled/disabled yet
+                    if (!$this->isStatusChanged()) {
+                        $this->setEnabled(true, true, true);
+                    }
+                    break;
                 }
-                break;
+            }
+        } else {
+            // no plugins were found, so it actually isn't necessary to call deprecated events
+            // anyway, this plugin also ensures compatibility apart from events used by old plugins,
+            // so enable PicoDeprecated if it hasn't be explicitly enabled/disabled yet
+            if (!$this->isStatusChanged()) {
+                $this->setEnabled(true, true, true);
             }
         }
 
