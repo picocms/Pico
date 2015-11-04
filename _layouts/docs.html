@@ -31,11 +31,13 @@
                             {% if page.collection %}
                                 {% for item in items %}
                                     {% if item.toc and item.nav > 0 %}
-                                        {% include tocItem.html toc=item.toc %}
+                                        {% assign toc = item.toc %}
+                                        {% include tocItem.html %}
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
-                                {% include tocItem.html toc=page.toc %}
+                                {% assign toc = page.toc %}
+                                {% include tocItem.html %}
                             {% endif %}
                         </ul>
 

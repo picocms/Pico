@@ -4,7 +4,8 @@
             {% if subItem[1]._title %}
                 <a href="#{{ subItem[0] }}">{{ subItem[1]._title }}</a>
                 <ul>
-                    {% include tocSubItems.html subItems=subItem[1] %}
+                    {% assign subItems = subItem[1] %}
+                    {% include tocSubItems.html %}
                 </ul>
             {% else %}
                 <a href="#{{ subItem[0] }}">{{ subItem[1] }}</a>
