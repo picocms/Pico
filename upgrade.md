@@ -10,6 +10,7 @@ toc:
         drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
         drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
         ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
+    whats-new: What's new?
 gh_release: v1.0.0-beta.1
 ---
 
@@ -45,6 +46,10 @@ WORK IN PROGRESS
 WORK IN PROGRESS
 
 ### Ensure restricted access to `content` directory
+
+WORK IN PROGRESS
+
+## What's new?
 
 WORK IN PROGRESS
 
