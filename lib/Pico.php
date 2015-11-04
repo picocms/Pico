@@ -452,7 +452,10 @@ class Pico
 
         if (empty($this->config['base_url'])) {
             $this->config['base_url'] = $this->getBaseUrl();
+        } else {
+            $this->config['base_url'] = rtrim($this->config['base_url'], '/') . '/';
         }
+
         if (empty($this->config['content_dir'])) {
             // try to guess the content directory
             if (is_dir($this->getRootDir() . 'content')) {
@@ -463,15 +466,14 @@ class Pico
         } else {
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
-        if (!empty($this->config['timezone'])) {
-            date_default_timezone_set($this->config['timezone']);
-        } else {
+
+        if (empty($this->config['timezone'])) {
             // explicitly set a default timezone to prevent a E_NOTICE
             // when no timezone is set; the `date_default_timezone_get()`
             // function always returns a timezone, at least UTC
-            $defaultTimezone = date_default_timezone_get();
-            date_default_timezone_set($defaultTimezone);
+            $this->config['timezone'] = date_default_timezone_get();
         }
+        date_default_timezone_set($this->config['timezone']);
     }
 
     /**
