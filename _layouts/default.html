@@ -12,7 +12,13 @@
             {% include pageHeader.html %}
         </div>
 
-        {{ content }}
+        <div class="light-wrapper">
+            <div class="inner">
+                {% include pageHeadline.html %}
+
+                {{ content }}
+            </div>
+        </div>
 
         {% include pageFooter.html %}
     </div>

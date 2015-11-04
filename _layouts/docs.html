@@ -1,0 +1,67 @@
+{% include documentHeader.html %}
+<head>
+
+    {% include headInclude.html %}
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
+
+</head>
+<body class="full-layout">
+
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            {% include pageHeader.html %}
+        </div>
+
+        <div class="light-wrapper">
+            <div class="inner">
+                {% include pageHeadline.html %}
+
+                {% if page.collection or page.toc %}
+                    {% if page.collection %}
+                        {{ content }}
+
+                        {% assign items = site[page.collection]|sort:"nav" %}
+                        {% capture editPageUrl %}{{ site.gh_pages_url }}/tree/{{ site.gh_pages_branch }}/_{{ page.collection }}{% endcapture %}
+                    {% else %}
+                        {% capture editPageUrl %}{{ site.gh_pages_url }}/edit/{{ site.gh_pages_branch }}/{{ page.path }}{% endcapture %}
+                    {% endif %}
+
+                    <div class="one-fourth">
+                        <ul>
+                            {% if page.collection %}
+                                {% for item in items %}
+                                    {% include tocItem.html page=item %}
+                                {% endfor %}
+                            {% else %}
+                                {% include tocItem.html %}
+                            {% endif %}
+                        </ul>
+
+                        <p>
+                            <a href="{{ editPageUrl }}" title="Open this documentation on GitHub">
+                                <img src="{{ site.base_url }}/style/images/GitHub-Mark-32px.png" alt="Open this documentation on GitHub" class="alignleft" style="margin: 8px 0.5em 0.5em 0;" />
+                            </a>
+                            Found a typo? Something is wrong in this documentation? Just <a href="{{ editPageUrl }}">fork and edit</a> it!
+                        </p>
+                    </div>
+                    <div class="three-fourth last">
+                        {% if page.collection %}
+                            {% for item in items %}
+                                {{ item.output }}
+
+                                <hr />
+                            {% endfor %}
+                        {% else %}
+                            {{ content }}
+                        {% endif %}
+                    </div>
+                    <div class="clear"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% include pageFooter.html %}
+    </div>
+
+</body>
+{% include documentFooter.html %}

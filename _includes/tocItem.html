@@ -1,0 +1,12 @@
+{% for item in page.toc %}
+    <li>
+        {% if item[1]._title %}
+            <a href="#{{ item[0] }}">{{ item[1]._title }}</a>
+            <ul>
+                {% include tocSubItems.html subItems=item[1] %}
+            </ul>
+        {% else %}
+            <a href="#{{ item[0] }}">{{ item[1] }}</a>
+        {% endif %}
+    </li>
+{% endfor %}

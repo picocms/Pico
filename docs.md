@@ -1,5 +1,5 @@
 ---
-layout: collection
+layout: docs
 title: Docs
 headline: Pico Documentation
 description: |

@@ -30,5 +30,6 @@ Download [composer][] and run it with the `install` option:
 <pre><code>$ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install</code></pre>
 
+[Packagist.org]: http://packagist.org/packages/picocms/pico
 [LatestRelease]: {{ site.gh_project_url }}/releases/latest
 [composer]: https://getcomposer.org/

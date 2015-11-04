@@ -1,8 +1,74 @@
 ---
-layout: simple
+layout: docs
 title: Upgrade
 headline: Upgrade Pico 0.8 and 0.9 to Pico 1.0
+gh_release: v1.0.0-beta.1
 ---
+
+## How to upgrade?
+
+We worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
+
+### Required Steps
+
+Usually you don't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0. You basically can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.
+
+1. Create a backup of your Pico installation. You will need the files later!
+2. Empty your installation directory and [install Pico just ordinary][InstallInstructions].
+3. Copy the `config.php` from your backup to `config/config.php`. You don't have to change anything in this file.
+4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible to Pico's new routing system. You'll find detailed instructions on how to do this in the ["Routing system" section](#routing-system) below.
+5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible to Pico's new routing system.
+6. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory. Don't copy the `plugins/pico_plugin.php` - this is no real plugin, but Pico's old dummy plugin.
+
+Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting became optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
+
+A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"](#drop-of-page.content-and-the-new-picoparsepagescontent-plugin) and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`" sections](#drop-of-page.excerpt-and-the-new-picoexcerpt-plugin) below.
+
+### Optional Steps
+
+#### Routing system
+
+You're not required to update your internal links to meet the new routing system, as long as you keep URL rewriting enabled. Anyway, if you want to keep the option open to disable URL rewriting later, you should do it.
+
+In Markdown files (i.e. your `content` directory), replace all occurences of e.g. `%base_url%/sub/page` with `%base_url%?sub/page`. If you're linking to the main page (i.e. just `%base_url%`), you either shouldn't change anything or replace it with `%base_url%?index` - even this actually isn't absolutely necessary. Pico replaces the `%base_url%` variable as ever, but also removes the `?` when URL rewriting is enabled.
+
+The required changes to your theme (i.e. a custom theme folder in Pico's `themes` directory) are quite similar. Instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter. Therefore replace e.g. `{% raw %}{{ base_url }}/sub/page{% endraw %}` with `{% raw %}{{ "sub/page"|link }}{% endraw %}`. Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter does nothing but call the [`Pico::getPageUrl()` method][PicoGetPageUrl].
+
+#### Drop of `{% raw %}{{ page.content }}{% endraw %}` and the new `PicoParsePagesContent` plugin
+
+WORK IN PROGRESS
+
+#### Drop of `{% raw %}{{ page.excerpt }}{% endraw %}` and the new `PicoExcerpt` plugin
+
+WORK IN PROGRESS
+
+#### Ensure restricted access to `content` directory
+
+WORK IN PROGRESS
+
+[UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
+[InstallInstructions]: {{ site.base_url }}/docs.html#install
+[RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
+[RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
+[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
+
+
+
+<!--
+
+The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and older. The plugin is disabled by default, but gets automatically enabled as soon as a old plugin is loaded. We will maintain backward compatibility for a long time, however, we recommend you to take the following steps to confine the neccessity of `PicoDeprecated` to old plugins. If you don't use plugins or upgraded all plugins to be compatible to Pico 1.0, you must take these steps.
+
+If you're a plugin developer, please refer to the new development docs, particularly the [plugin upgrade section][PluginUpgrade].
+
+* Pico 1.0 doesn't parse the contents of all pages anymore. This can be put
+  down to the massive performance impact, but leads to the removal of the
+  generation of auto-generated excerpts.
+  TODO: describe how to force enable/disable `PicoExcerpt` and `PicoParsePagesContent`
+  TODO: describe how to replace `PicoExcerpt`
+* TODO: Removing various empty `index.html` files; check accessibility!
+* TODO: Describe new features that are important for users... e.g. `%meta.*%`
+
+
 
 ## What's new?
 
@@ -57,3 +123,5 @@ Further reading:
 
 ### 5. That's it! Enjoy your newly upgraded Pico installation!
 If you need more help, please review the documentation. If after reviewing the upgrade documentation, you are still having trouble: there is a __[Upgrading Pico 0.x to 1.0.0]({{ site.gh_project_url }}/issues/)__ discussion on our Github issues page.
+
+-->

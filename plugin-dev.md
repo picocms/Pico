@@ -1,5 +1,5 @@
 ---
-layout: collection
+layout: docs
 title: Development
 headline: Create your own plugins & themes
 description: Below is our developer documentation, you may also refer to Picos [class documentation](phpDoc/master/).
