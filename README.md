@@ -23,10 +23,10 @@ Just [download the latest Pico release][LatestRelease] and upload all files to t
 #### Composer
 
 ###### Step 1 - for users
-[Download the *source code* of Picos latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
+[Download the *source code* of Pico's latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
 
 ###### Step 1 - for developers
-Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Picos Git repository as follows:
+Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository as follows:
 ```shell
 $ git clone https://github.com/picocms/Pico.git .
 ```
@@ -42,11 +42,11 @@ $ php composer.phar install
 Upgrade
 -------
 
-Upgrading Pico is very easy: You just have to replace all of Picos files - that's it! Nevertheless you should *always* create a backup of your Pico installation before upgrading.
+Upgrading Pico is very easy: You just have to replace all of Pico's files - that's it! Nevertheless you should *always* create a backup of your Pico installation before upgrading.
 
 Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. When we update...
 
-- the `PATCH` version (e.g. `1.0.0` to `1.0.1`), we made backwards-compatible bug fixes. It's then sufficient to extract [Picos latest release][LatestRelease] to your existing installation directory and overwriting all files.
+- the `PATCH` version (e.g. `1.0.0` to `1.0.1`), we made backwards-compatible bug fixes. It's then sufficient to extract [Pico's latest release][LatestRelease] to your existing installation directory and overwriting all files.
 - the `MINOR` version (e.g. `1.0` to `1.1`), we added functionality in a backwards-compatible manner, but anyway recommend you to "install" Pico newly. Backup all of your files, empty your installation directory and install Pico as elucidated above. You can then copy your `config/config.php` and `content` directory without any change. If applicable, you can also copy the folder of your custom theme within the `themes` directory. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory.
 - the `MAJOR` version (e.g. `1.0` to `2.0`), a appropriate upgrade tutorial will be provided.
 
@@ -55,13 +55,13 @@ Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated
 Run
 ---
 
-You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Picos default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
+You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Pico's default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
 #### You don't have a web server?
 Starting with PHP 5.4 the easiest way to try Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
 
 ###### Step 1
-Navigate to Picos installation directory using a shell.
+Navigate to Pico's installation directory using a shell.
 
 ###### Step 2
 Start PHPs built-in web server:
@@ -76,7 +76,7 @@ Getting Help
 ------------
 
 #### Getting Help as a user
-If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 0.8 or 0.9 to Pico 1.0. You can find officially supported plugins and themes on [our website][OfficialPlugins]. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes page][WikiThemes] respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
+If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 0.8 or 0.9 to Pico 1.0. You can find officially supported plugins and themes on [our website][OfficialPlugins]. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes][WikiThemes] pages respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
 
 #### Getting Help as a developer
 If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [dev docs on our website][HelpDevDocs].
@@ -84,16 +84,18 @@ If you're a developer, please refer to the "Contributing" section below and our 
 #### You still need help or experience a problem with Pico?
 When the docs can't answer your question or when you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
-Before creating a new Issue, please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
+**Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
 Contributing
 ------------
 
-You want to contribute to Pico? We really appreciate that! You can help making Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
+You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
-1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/plugin-dev.html. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Maybe we will then promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
+1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/plugin-dev.html. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Doing so, we may select and promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
+
 2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork Pico from https://github.com/picocms/Pico, change the Markdown files and open a [pull request][PullRequests].
-3. Picos Core: The supreme discipline is to work on Picos Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
+
+3. Pico's Core: The supreme discipline is to work on Pico's Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
 
 [Packagist.org]: http://packagist.org/packages/picocms/pico
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest

@@ -58,8 +58,8 @@ If a file cannot be found, the file `content-sample/404.md` will be shown. You
 can add `404.md` files to any directory, so if you want to use a special error
 page for your blog, simply create `content-sample/blog/404.md`.
 
-Instead of adding your own contents to the `content-sample` folder, you should
-create your own `content` directory in Picos root directory. You can then add
+Instead of adding your own content to the `content-sample` folder, you should
+create your own `content` directory in Pico's root directory. You can then add
 and access your contents as described above.
 
 ### Text File Markup
@@ -135,8 +135,8 @@ something like the following:
 ## Customization
 
 Pico is highly customizable in two different ways: On the one hand you can
-change Picos appearance by using themes, on the other hand you can add new
-functionality by using plugins. Doing the former includes changing Picos HTML,
+change Pico's appearance by using themes, on the other hand you can add new
+functionality by using plugins. Doing the former includes changing Pico's HTML,
 CSS and JavaScript, the latter mostly consists of PHP programming.
 
 This is all Greek to you? Don't worry, you don't have to spend time on these
@@ -207,9 +207,9 @@ You can use different templates for different content files by specifying the
 and Pico will use the `blog-post.twig` file in your theme folder to render
 the page.
 
-You don't have to create your own theme if Picos default theme isn't sufficient
-for you, you can use one of the great themes third-party developers and
-designers created in the past. As with plugins, you can find themes in
+You don't have to create your own theme if Pico's default theme isn't
+sufficient for you, you can use one of the great themes third-party developers
+and designers created in the past. As with plugins, you can find themes in
 [our Wiki][WikiThemes].
 
 ### Plugins
@@ -235,8 +235,8 @@ replace `false` with `true`.
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/plugin-dev.html. If you'd
-developed a plugin for Pico 0.9 and older, you probably want to upgrade it
+about how to develop plugins at http://picocms.org/plugin-dev.html. If you've
+developed a plugin for Pico 0.9 or older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
 [upgrade section of the docs][PluginUpgrade].
 
@@ -250,16 +250,16 @@ uncomment the setting and set your custom value.
 
 ### URL Rewriting
 
-Picos default URLs (e.g. %base_url%/?sub/page) already are very user friendly.
-Pico anyway offers you an URL rewrite feature to make URLs even more user
-friendly (e.g. %base_url%/sub/page).
+Pico's default URLs (e.g. %base_url%/?sub/page) already are very user-friendly.
+Pico anyway offers you an URL rewrite feature to make URLs even more
+user-friendly (e.g. %base_url%/sub/page).
 
 If you're using the Apache web server, URL rewriting probably already is
 enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
 you get an error message from your web server, please make sure to enable the
-`mod_rewrite` module. Assumed the second URL works, but Pico still shows no
-rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;`
-in your `config/config.php`.
+[`mod_rewrite` module][ModRewrite]. Assumed the second URL works, but Pico
+still shows no rewritten URLs, force URL rewriting by setting
+`$config['rewrite_url'] = true;` in your `config/config.php`.
 
 If you're using Nginx, you can use the following configuration to enable
 URL rewriting. Don't forget to adjust the path (`/pico/`; line `1` and `4`)
@@ -280,3 +280,4 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [PluginUpgrade]: http://picocms.org/plugin-dev.html#upgrade
+[ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
