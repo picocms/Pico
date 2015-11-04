@@ -300,20 +300,35 @@ img.alignright {
     margin-left: 25px
 }
 ul {
-    padding-bottom: 20px
+    padding: 0 0 20px 1em;
 }
-ul li ul { padding: 0 0 0 30px; }
+ol {
+    list-style: decimal;
+    list-style-position: outside;
+    padding: 0 0 20px 2em;
+}
+ol li {
+    padding: 0 0 0 1em;
+    margin: 0 0 0 -1em;
+}
+ul li {
+    text-indent: -1em;
+}
 ul li:before {
-    font-family: 'fontello';
+    display: inline-block;
+    width: 1em;
     content: "\e78b";
+    font-family: 'fontello';
+    font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    speak: none;
-    display: inline-block;
     text-decoration: inherit;
-    font-size: 13px;
-    padding-right: 8px;
+    text-indent: 0;
     color: #ff6760;
+    speak: none;
+}
+ul li ul {
+    padding: 0 0 0 1.5em;
 }
 .menu ul li:before,
 .contact-info li:before,
@@ -332,15 +347,6 @@ ul li:before {
 .post-list li:before,
 #twitter ul li:before {
     display: none
-}
-ol {
-    list-style: decimal;
-    list-style-position: outside;
-    padding: 0 0 20px 2em;
-}
-ol li {
-    padding: 0 0 0 1em;
-    margin: 0 0 0 -1em;
 }
 .dropcap {
     font-weight: 900;
@@ -484,6 +490,7 @@ p.description {
     display: inline-block;
     padding: 0;
     margin-left: 60px;
+    text-indent: 0;
 }
 .menu ul li a {
     display: block;
