@@ -336,7 +336,7 @@ ul li:before {
 ol {
     list-style: decimal;
     list-style-position: outside;
-    padding-bottom: 20px;
+    padding: 0 0 20px 2em;
 }
 ol li {
     padding: 0 0 0 1em;
