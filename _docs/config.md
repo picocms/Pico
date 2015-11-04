@@ -12,7 +12,7 @@ You can override the default Pico settings (and add your own custom settings) by
 
 ### URL Rewriting
 
-Picos default URLs (e.g. http://example.com/pico/?sub/page) already are very user friendly. Pico anyway offers you an URL rewrite feature to make URLs even more user friendly (e.g. http://example.com/pico/sub/page).
+Pico's default URLs (e.g. http://example.com/pico/?sub/page) already are very user-friendly. Pico anyway offers you an URL rewrite feature to make URLs even more user-friendly (e.g. http://example.com/pico/sub/page).
 
 If you're using the Apache web server, URL rewriting should be enabled automatically. If you get an error message from your web server, please make sure to enable the `mod_rewrite` module. Assumed rewritten URLs work, but Pico still shows no rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
