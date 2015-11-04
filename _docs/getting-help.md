@@ -19,7 +19,7 @@ If you're a developer, please refer to the ["Contribute" section](#contribute) b
 ### You still need help or experience a problem with Pico?
 When the docs can't answer your question or when you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
-__Before creating a new Issue__, please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
+**Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
 [HelpUpgrade]: {{ site.base_url }}/upgrade.html
 [HelpUserDocs]: {{ site.base_url }}/docs.html
