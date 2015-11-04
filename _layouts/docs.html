@@ -30,10 +30,10 @@
                         <ul>
                             {% if page.collection %}
                                 {% for item in items %}
-                                    {% include tocItem.html page=item %}
+                                    {% include tocItem.html toc=item.toc %}
                                 {% endfor %}
                             {% else %}
-                                {% include tocItem.html %}
+                                {% include tocItem.html toc=page.toc%}
                             {% endif %}
                         </ul>
 
