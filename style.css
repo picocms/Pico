@@ -307,23 +307,22 @@ ol {
     list-style-position: outside;
     padding: 0 0 20px 2em;
 }
+ul li,
 ol li {
     padding: 0 0 0 1em;
     margin: 0 0 0 -1em;
 }
-ul li {
-    text-indent: -1em;
-}
 ul li:before {
-    display: inline-block;
+    position: absolute;
+    display: block;
     width: 1em;
+    margin-left: -1em;
     content: "\e78b";
     font-family: 'fontello';
     font-size: 13px;
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    text-indent: 0;
     color: #ff6760;
     speak: none;
 }
@@ -490,7 +489,6 @@ p.description {
     display: inline-block;
     padding: 0;
     margin-left: 60px;
-    text-indent: 0;
 }
 .menu ul li a {
     display: block;
