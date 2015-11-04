@@ -420,15 +420,20 @@ blockquote p {
 /*-----------------------------------------------------------------------------------*/
 .body-wrapper {
     display: flex;
-    min-height: 100vh;
     flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+}
+.body-wrapper > * {
+    flex: none;
+    width: 100%;
 }
 .top-wrapper {
     background: #2a2a2a
 }
 .light-wrapper,
 .dark-wrapper {
-    flex: 1;
+    flex: 1 0 auto;
 }
 .light-wrapper {
     background: #FFF
