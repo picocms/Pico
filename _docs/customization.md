@@ -9,7 +9,7 @@ nav: 5
 
 ## Customization
 
-Pico is highly customizable in two different ways: On the one hand you can change Picos appearance by using themes, on the other hand you can add new functionality by using plugins. Doing the former includes changing Picos HTML, CSS and JavaScript, the latter mostly consists of PHP programming.
+Pico is highly customizable in two different ways: On the one hand you can change Pico's appearance by using themes, on the other hand you can add new functionality by using plugins. Doing the former includes changing Pico's HTML, CSS and JavaScript, the latter mostly consists of PHP programming.
 
 This is all Greek to you? Don't worry, you don't have to spend time on these techie talk - it's very easy to use one of the great themes or plugins others developed and released to the public. Please refer to the next sections for details.
 
@@ -62,7 +62,7 @@ Pages can be used like the following:
 
 You can use different templates for different content files by specifying the `Template` meta header. Simply add e.g. `Template: blog-post` to a content file and Pico will use the `blog-post.twig` file in your theme folder to render the page.
 
-You don't have to create your own theme if Picos default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes].
+You don't have to create your own theme if Pico's default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes].
 
 ### Plugins
 
@@ -76,7 +76,7 @@ Plugins which were written to work with Pico 1.0 can be enabled and disabled thr
 
 #### Plugins for developers
 
-You're a plugin developer? We love you guys! You can find tons of information about how to develop plugins at {{ site.base_url }}/plugin-dev.html. If you'd developed a plugin for Pico 0.9 and older, you probably want to upgrade it to the brand new plugin system introduced with Pico 1.0. Please refer to the [upgrade section of the docs][PluginUpgrade].
+You're a plugin developer? We love you guys! You can find tons of information about how to develop plugins at {{ site.base_url }}/plugin-dev.html. If you've developed a plugin for Pico 0.9 or older, you probably want to upgrade it to the brand new plugin system introduced with Pico 1.0. Please refer to the [upgrade section of the docs][PluginUpgrade].
 
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes

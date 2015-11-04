@@ -19,11 +19,13 @@ Officially tested plugins can be found at {{ site.base_url }}/plugins.html,
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki](#plugin-wiki).
 
+---
+
 ### Migrating from 0.X to 1.0
 
 The new event system supports plugin dependencies as well as some new events.
 You will be able to set an enabled/disabled state by default as well. If you
-have previously cerated a plugin for Pico, it is *HIGHLY* recommended that you
+have previously created a plugin for Pico, it is *HIGHLY* recommended that you
 update your class to extend from [AbstractPicoPlugin]({{ site.base_url }}/phpDoc/master/classes/AbstractPicoPlugin.html) and use the new events
 to avoid activating the [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin.
 
@@ -47,6 +49,8 @@ to avoid activating the [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.
 | onTwigRegistration  | before_twig_register()                                    |
 | onPageRendering     | before_render($twigVariables, $twig, $templateName)       |
 | onPageRendered      | after_render($output)                                     |
+
+---
 
 ### Your First Plugin
 

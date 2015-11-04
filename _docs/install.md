@@ -18,10 +18,10 @@ Just [download the latest Pico release][LatestRelease] and upload all files to t
 ### Composer
 
 #### Step 1 - for users
-[Download the *source code* of Picos latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
+[Download the *source code* of Pico's latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
 
 #### Step 1 - for developers
-Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Picos Git repository as follows:
+Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository as follows:
 <pre><code>$ git clone {{ site.gh_project_url }}.git .</code></pre>
 Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
