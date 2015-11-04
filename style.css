@@ -335,12 +335,12 @@ ul li:before {
 }
 ol {
     list-style: decimal;
-    list-style-position: inside;
+    list-style-position: outside;
     padding-bottom: 20px;
 }
 ol li {
-    padding: 0;
-    margin: 0;
+    padding: 0 0 0 1em;
+    margin: 0 0 0 -1em;
 }
 .dropcap {
     font-weight: 900;
