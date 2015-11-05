@@ -8,3 +8,4 @@ gh_pages_branch: gh-pages
 collections:
 - docs
 - plugin-dev
+- download
