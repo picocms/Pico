@@ -53,16 +53,32 @@
                     {% capture pageContent %}
                         {% if page.collection %}
                             {% for item in items %}
-                                {{ item.output }}
+                                {% if item.ref-collection and item.ref-page %}
+                                    {% capture refRelativePath %}_{{ item.ref-collection }}/{{ item.ref-page }}{% endcapture %}
+
+                                    <!-- {{ item.relative_path }} references {{ refRelativePath }} -->
+                                    {% for refPage in site[item.ref-collection] %}
+                                        {% if refPage.relative_path == refRelativePath %}
+                                            <!-- contents of {{ refPage.relative_path }} -->
+                                            {{ refPage.content }}
+                                            {% break %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <!-- contents of {{ item.relative_path }} -->
+                                    {{ item.output }}
+                                {% endif %}
 
                                 {% if forloop.last == false %}<hr />{% endif %}
                             {% endfor %}
                         {% else %}
+                            <!-- contents of {{ page.path }} -->
                             {{ content }}
                         {% endif %}
                     {% endcapture %}
 
                     {% if page.collection %}
+                        <!-- contents of {{ page.path }} -->
                         {{ content }}
                     {% endif %}
 
@@ -88,6 +104,7 @@
                         </p>
                     {% endif %}
                 {% else %}
+                    <!-- contents of {{ page.path }} -->
                     {{ content }}
 
                     <p class="github-edit">
