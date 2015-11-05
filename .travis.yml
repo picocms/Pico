@@ -13,12 +13,12 @@ script:
 
 before_deploy:
   - composer install
-  - tar -czf "pico-$TRAVIS_TAG.tar.gz" .htaccess README.md changelog.txt composer.json composer.lock license.txt config content-sample lib plugins themes vendor index.php
+  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md changelog.txt composer.json composer.lock license.txt config content-sample lib plugins themes vendor index.php
 
 deploy:
   provider: releases
   api_key: ${GITHUB_OAUTH_TOKEN}
-  file: pico-$TRAVIS_TAG.tar.gz
+  file: pico-release-$TRAVIS_TAG.tar.gz
   skip_cleanup: true
   on:
     repo: picocms/Pico
