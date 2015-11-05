@@ -2816,7 +2816,11 @@ media_tag_5 {media_subcode:5}
     font-size: 30px;
     font-weight: bold;
 }
-.github-docs-edit {
+.github-edit {
+    margin: 0 auto;
+    max-width: 25em;
+}
+.github-edit-icon {
     float: left;
     margin: 8px 0.5em 0.5em 0;
 }

@@ -1,5 +1,6 @@
 {% for item in toc %}
     <li>
+        {% assign tocItemCount = tocItemCount | plus: 1 %}
         {% if item[1]._title %}
             <a href="#{{ item[0] }}">{{ item[1]._title | markdownify | remove: '<p>' | remove: '</p>' }}</a>
             <ul>

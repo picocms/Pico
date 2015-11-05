@@ -1,6 +1,7 @@
 {% for subItem in subItems %}
     {% if subItem[0] != "_title" %}
         <li>
+            {% assign tocItemCount = tocItemCount | plus: 1 %}
             {% if subItem[1]._title %}
                 <a href="#{{ subItem[0] }}">{{ subItem[1]._title | markdownify | remove: '<p>' | remove: '</p>' }}</a>
                 <ul>
