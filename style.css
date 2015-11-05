@@ -39,10 +39,6 @@ ins {
 del {
 	text-decoration:line-through
 }
-table {
-	border-collapse:collapse;
-	border-spacing:0
-}
 .clear {
 	clear:both;
 	display:block;
@@ -51,16 +47,14 @@ table {
 	width:0;
 	height:0
 }
+table {
+    border-collapse:collapse;
+    border-spacing:0
+    margin-bottom: 20px;
+}
 th, td {
 	margin:0;
 	padding:0
-}
-table {
-	border-collapse:collapse;
-	border-spacing:0
-}
-.clear {
-	clear: both;
 }
 br {
 	line-height: 10px;
@@ -405,6 +399,7 @@ pre {
     clear: both;
     background: #f7f7f7;
     border: 1px solid #e7e7e7;
+    overflow: auto;
 }
 blockquote p {
     font-size: 19px;
@@ -2820,4 +2815,8 @@ media_tag_5 {media_subcode:5}
 .hosted-price span {
     font-size: 30px;
     font-weight: bold;
+}
+.github-docs-edit {
+    float: left;
+    margin: 8px 0.5em 0.5em 0;
 }
