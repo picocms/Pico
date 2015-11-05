@@ -53,7 +53,7 @@
                             {% for item in items %}
                                 {{ item.output }}
 
-                                <hr />
+                                {% if forloop.last == false %}<hr />{% endif %}
                             {% endfor %}
                         {% else %}
                             {{ content }}
