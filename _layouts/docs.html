@@ -37,16 +37,16 @@
 
                     {% capture tocContent %}
                         {% assign tocItemCount = 0 %}
-                        {% if page.collection %}
+                        {% if page.toc %}
+                            {% assign toc = page.toc %}
+                            {% include tocItem.html %}
+                        {% else %}
                             {% for item in items %}
                                 {% if item.toc and item.nav > 0 %}
                                     {% assign toc = item.toc %}
                                     {% include tocItem.html %}
                                 {% endif %}
                             {% endfor %}
-                        {% else %}
-                            {% assign toc = page.toc %}
-                            {% include tocItem.html %}
                         {% endif %}
                     {% endcapture %}
 
@@ -73,7 +73,7 @@
                             </ul>
 
                             <p>
-                                {{ editPageUrl }}
+                                {{ editPageContent }}
                             </p>
                         </div>
                         <div class="three-fourth last">
@@ -84,14 +84,14 @@
                         {{ pageContent }}
 
                         <p class="github-edit">
-                            {{ editPageUrl }}
+                            {{ editPageContent }}
                         </p>
                     {% endif %}
                 {% else %}
                     {{ content }}
 
                     <p class="github-edit">
-                        {{ editPageUrl }}
+                        {{ editPageContent }}
                     </p>
                 {% endif %}
             </div>
