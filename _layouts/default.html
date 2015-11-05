@@ -3,6 +3,7 @@
 
     {% include headInclude.html %}
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
+    <link href="{{ site.base_url }}{{ page.url }}" rel="canonical" />
 
 </head>
 <body class="full-layout">
