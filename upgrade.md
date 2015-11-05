@@ -11,6 +11,7 @@ toc:
         drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
         ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
     whats-new: What's new?
+nav-url: /docs.html
 gh_release: v1.0.0-beta.1
 ---
 
