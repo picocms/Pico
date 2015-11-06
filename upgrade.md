@@ -60,7 +60,9 @@ We highly recommend you to force the `PicoExcerpt` plugin to be disabled - just 
 
 ### Ensure restricted access to `content` directory
 
-WORK IN PROGRESS
+With Pico 1.0 we removed some empty `index.html` files, whose object was to prevent directory listing. However, directory listing doesn't address the security concerns in whole. Our `.htaccess` file already tries to achieve this automatically, nevertheless you should ensure that your webserver (especially when you're not using Apache) is configured as recommended.
+
+Please make sure directory listing is disabled and users cannot browse to the `config`, `content`, `content-sample`, `lib` and `vendor` directories. Try it yourself by browsing to both your `lib` directory (e.g. `http://example.com/pico/lib/`) and `lib/Pico.php` file (e.g. `http://example.com/pico/lib/Pico.php`) - your webserver should either report `404 Not Found` or `403 Forbidden`.
 
 ---
 
@@ -82,7 +84,7 @@ If you have a question about one of the new features of Pico 1.0, please comment
 
 
 
-<!--
+{% comment %}
 
 The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and older. The plugin is disabled by default, but gets automatically enabled as soon as a old plugin is loaded. We will maintain backward compatibility for a long time, however, we recommend you to take the following steps to confine the neccessity of `PicoDeprecated` to old plugins. If you don't use plugins or upgraded all plugins to be compatible to Pico 1.0, you must take these steps.
 
@@ -144,4 +146,4 @@ Further reading:
 ### 5. That's it! Enjoy your newly upgraded Pico installation!
 If you need more help, please review the documentation. If after reviewing the upgrade documentation, you are still having trouble: there is a __[Upgrading Pico 0.x to 1.0.0]({{ site.gh_project_url }}/issues/)__ discussion on our Github issues page.
 
--->
+{% endcomment %}
