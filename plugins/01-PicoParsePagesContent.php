@@ -33,7 +33,7 @@ class PicoParsePagesContent extends AbstractPicoPlugin
     public function onSinglePageLoaded(&$pageData)
     {
         if (!isset($pageData['content'])) {
-            $pageData['content'] = $this->prepareFileContent($pageData['raw_content']);
+            $pageData['content'] = $this->prepareFileContent($pageData['raw_content'], $pageData['meta']);
             $pageData['content'] = $this->parseFileContent($pageData['content']);
         }
     }

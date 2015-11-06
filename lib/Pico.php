@@ -307,7 +307,7 @@ class Pico
         // parse file content
         $this->triggerEvent('onContentParsing', array(&$this->rawContent));
 
-        $this->content = $this->prepareFileContent($this->rawContent);
+        $this->content = $this->prepareFileContent($this->rawContent, $this->meta);
         $this->triggerEvent('onContentPrepared', array(&$this->content));
 
         $this->content = $this->parseFileContent($this->content);
@@ -786,9 +786,10 @@ class Pico
      * @see    Pico::parseFileContent()
      * @see    Pico::getFileContent()
      * @param  string $rawContent raw contents of a page
+     * @param  array  $meta       meta data to use for %meta.*% replacement
      * @return string             contents prepared for parsing
      */
-    public function prepareFileContent($rawContent)
+    public function prepareFileContent($rawContent, array $meta)
     {
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -814,9 +815,9 @@ class Pico
         $content = str_replace('%theme_url%', $themeUrl, $content);
 
         // replace %meta.*%
-        if (!empty($this->meta)) {
+        if (!empty($meta)) {
             $metaKeys = $metaValues = array();
-            foreach ($this->meta as $metaKey => $metaValue) {
+            foreach ($meta as $metaKey => $metaValue) {
                 if (is_scalar($metaValue) || ($metaValue === null)) {
                     $metaKeys[] = '%meta.' . $metaKey . '%';
                     $metaValues[] = strval($metaValue);
@@ -1073,7 +1074,24 @@ class Pico
         $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
+
+        // register link filter
         $this->twig->addFilter(new Twig_SimpleFilter('link', array($this, 'getPageUrl')));
+
+        // register content filter
+        $pico = $this;
+        $pages = &$this->pages;
+        $this->twig->addFilter(new Twig_SimpleFilter('content', function ($pageId) use ($pico, &$pages) {
+            if (isset($pages[$pageId])) {
+                $pageData = &$pages[$pageId];
+                if (!isset($pageData['content'])) {
+                    $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                    $pageData['content'] = $pico->parseFileContent($pageData['content']);
+                }
+                return $pageData['content'];
+            }
+            return '';
+        }));
     }
 
     /**

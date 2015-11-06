@@ -194,7 +194,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  string &$content prepared file contents for parsing
      * @return void
      */
-    public function prepareFileContent(&$content)
+    public function onContentPrepared(&$content)
     {
         // your code
     }

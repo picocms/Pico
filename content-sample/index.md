@@ -179,7 +179,7 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 * `{{ content }}` - The content of the current page
                     (after it has been processed through Markdown)
 * `{{ pages }}` - A collection of all the content pages in your site
-    * `{{ page.id }}` - The relative path to the content file
+    * `{{ page.id }}` - The relative path to the content file (unique ID)
     * `{{ page.url }}` - The URL to the page
     * `{{ page.title }}` - The title of the page (YAML header)
     * `{{ page.description }}` - The description of the page (YAML header)
@@ -187,7 +187,10 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
     * `{{ page.time }}` - The timestamp derived from the `Date` header
     * `{{ page.date }}` - The date of the page (YAML header)
     * `{{ page.date_formatted }}` - The formatted date of the page
-    * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page
+    * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page;
+                                 use Twigs `content` filter to get the parsed
+                                 contents of a page by passing its unique ID
+                                 (e.g. `{{ "sub/page"|content }}`)
     * `{{ page.meta }}`- The meta values of the page
 * `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
 * `{{ current_page }}` - The data of the current page
