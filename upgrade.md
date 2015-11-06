@@ -40,11 +40,23 @@ The required changes to your theme (i.e. a custom theme folder in Pico's `themes
 
 ### Drop of `{% raw %}{{ page.content }}{% endraw %}` and the new `PicoParsePagesContent` plugin
 
-WORK IN PROGRESS
+With Version 0.6.1 Pico started parsing the Markdown contents of all pages. While making some things easier (like generating excerpts), this heavily impacted performance with a larger number of pages (e.g. blog posts). By popular request we removed this feature with Pico 1.0 and therefore significantly improved performance.
+
+If you're using the `{% raw %}{{ page.content }}{% endraw %}` variable in your custom theme, you should at least replace it with `{% raw %}{{ page.id|content }}{% endraw %}`. We highly recommend you to overthink the necessity of using the parsed page contents, probably the raw page contents (`{% raw %}{{ page.raw_content }}{% endraw %}`) fulfill your needs.
+
+With Pico 1.0 we also introduced the `PicoParsePagesContent` plugin, whose object is to parse the contents of all pages as it was since Pico 0.6.1. The plugin is disabled by default, but gets automatically enabled with `PicoDeprecated` when a plugin, that wasn't updated to Pico 1.0 yet, is loaded. Please note that we'll remove this automatic activation with Pico 1.1, so you will need to enable it manually.
+
+We highly recommend you to force the `PicoParsePagesContent` plugin to be disabled by adding `$config['PicoParsePagesContent.enabled'] = false;` to your `config/config.php`.
 
 ### Drop of `{% raw %}{{ page.excerpt }}{% endraw %}` and the new `PicoExcerpt` plugin
 
-WORK IN PROGRESS
+The main reason why Pico started parsing the Markdown contents of all pages (see above), was the desire for automatically generated excerpts. By then we came to the convincement, that this is the wrong approach and we started searching for alternatives - and we think we found a good solution.
+
+Given that you're using the `{% raw %}{{ page.excerpt }}{% endraw %}` variable in your custom theme, we recommend you to part from the concept of automatically generated excerpts. Instead, you should use the `Description` meta header to write excerpts on your own. Starting with Pico 1.0 you can use `%meta.*%` placeholders in your Markdown files, so you don't have to repeat yourself - simply add `%meta.description%` to the page content and Pico will replace it by your excerpt.
+
+As with `{% raw %}{{ page.content }}{% endraw %}` and the `PicoParsePagesContent` plugin, we also introduced the `PicoExcerpt` plugin, what continues the provision of the `{% raw %}{{ page.excerpt }}{% endraw %}` variable. This plugin depends on the `PicoParsePagesContent` and therefore heavily impacts performance. Likewise it gets automatically enabled with `PicoDeprecated`, something we'll drop with Pico 1.1.
+
+We highly recommend you to force the `PicoExcerpt` plugin to be disabled - just add `$config['PicoExcerpt.enabled'] = false;` to your `config/config.php`.
 
 ### Ensure restricted access to `content` directory
 
@@ -52,13 +64,14 @@ WORK IN PROGRESS
 
 ## What's new?
 
-WORK IN PROGRESS
+Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252].
 
 [UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
 [InstallInstructions]: {{ site.base_url }}/docs.html#install
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
 [RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
 [PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
+[PullRequest252]: https://github.com/picocms/Pico/pull/252#issue-103755569
 
 
 
@@ -67,14 +80,6 @@ WORK IN PROGRESS
 The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and older. The plugin is disabled by default, but gets automatically enabled as soon as a old plugin is loaded. We will maintain backward compatibility for a long time, however, we recommend you to take the following steps to confine the neccessity of `PicoDeprecated` to old plugins. If you don't use plugins or upgraded all plugins to be compatible to Pico 1.0, you must take these steps.
 
 If you're a plugin developer, please refer to the new development docs, particularly the [plugin upgrade section][PluginUpgrade].
-
-* Pico 1.0 doesn't parse the contents of all pages anymore. This can be put
-  down to the massive performance impact, but leads to the removal of the
-  generation of auto-generated excerpts.
-  TODO: describe how to force enable/disable `PicoExcerpt` and `PicoParsePagesContent`
-  TODO: describe how to replace `PicoExcerpt`
-* TODO: Removing various empty `index.html` files; check accessibility!
-* TODO: Describe new features that are important for users... e.g. `%meta.*%`
 
 
 
