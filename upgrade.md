@@ -66,7 +66,7 @@ WORK IN PROGRESS
 
 Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252Message].
 
-If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you are experiencing a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
+If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you experience a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
 
 [UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
 [InstallInstructions]: {{ site.base_url }}/docs.html#install
