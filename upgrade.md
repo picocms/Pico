@@ -62,6 +62,8 @@ We highly recommend you to force the `PicoExcerpt` plugin to be disabled - just 
 
 WORK IN PROGRESS
 
+---
+
 ## What's new?
 
 Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252Message].
