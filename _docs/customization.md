@@ -21,7 +21,7 @@ All themes must include an `index.twig` (or `index.html`) file to define the HTM
 
 * `{% raw %}{{ config }}{% endraw %}` - Contains the values you set in `config/config.php` (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
 * `{% raw %}{{ base_dir }}{% endraw %}` - The path to your Pico root directory
-* `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to pecify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`), this guarantees that your link works whether URL rewriting is enabled or not
+* `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to specify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`), this guarantees that your link works whether URL rewriting is enabled or not
 * `{% raw %}{{ theme_dir }}{% endraw %}` - The path to the currently active theme
 * `{% raw %}{{ theme_url }}{% endraw %}` - The URL to the currently active theme
 * `{% raw %}{{ rewrite_url }}{% endraw %}` - A boolean flag indicating enabled/disabled URL rewriting
