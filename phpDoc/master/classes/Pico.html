@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>Pico 1.0 API Documentation</title>
+    <title>Pico 1.0 API Documentation (latest)</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">Pico 1.0 API Documentation</a>
+            <a class="brand" href="../index.html">Pico 1.0 API Documentation (latest)</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-607300614"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1903876546"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-607300614" class="accordion-body collapse in">
+            <div id="namespace-1903876546" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -169,7 +169,7 @@
                     <p><em>Pico</em></p>
                     <p>Pico is a stupidly simple, blazing fast, flat file CMS.</p>
 <ul>
-<li>Stupidly Simple: Picos makes creating and maintaining a
+<li>Stupidly Simple: Pico makes creating and maintaining a
 website as simple as editing text files.</li>
 <li>Blazing Fast: Pico is seriously lightweight and doesn't
 use a database, making it super fast.</li>
@@ -538,7 +538,7 @@ See <a href="http://picocms.org/">http://picocms.org/</a> for more info.</li>
             <article class="property">
                 <h3 class="protected ">$locked</h3>
                 <pre class="signature">$locked : boolean</pre>
-                <p><em>Boolean indicating whether Picos processing started yet</em></p>
+                <p><em>Boolean indicating whether Pico started processing yet</em></p>
                 
 
                                 <h4>Type</h4>
@@ -1181,8 +1181,8 @@ rely on it. For more information see <a href="/classes/PicoPluginInterface.html"
                 <h3 class="public ">setConfig()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">setConfig(array&lt;mixed,mixed&gt;  <span class="argument">$config</span>) : void</pre>
-                <p><em>Sets Picos config before calling Pico::run()</em></p>
-                <p>This method allows you to modify Picos config without creating a
+                <p><em>Sets Pico&#039;s config before calling Pico::run()</em></p>
+                <p>This method allows you to modify Pico's config without creating a
 {@path &quot;config/config.php&quot;} or changing some of its variables before
 Pico starts processing.</p>
 <p>You can call this method between <a href="/classes/Pico.html#method___construct">Pico::__construct()</a> and
@@ -1561,7 +1561,7 @@ for users and pure (!) theme developers ONLY.</p>
             <article class="method">
                 <h3 class="public ">prepareFileContent()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">prepareFileContent(string  <span class="argument">$rawContent</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">prepareFileContent(string  <span class="argument">$rawContent</span>, array  <span class="argument">$meta</span>) : string</pre>
                 <p><em>Applies some static preparations to the raw contents of a page,
 e.g. removing the meta header and replacing %base_url%</em></p>
                 
@@ -1572,6 +1572,11 @@ e.g. removing the meta header and replacing %base_url%</em></p>
                                 <td>string</td>
                                 <td>$rawContent </td>
                                 <td><p>raw contents of a page</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$meta </td>
+                                <td><p>meta data to use for %meta.*% replacement</p></td>
                             </tr>
                                             </table>
                 
@@ -2277,7 +2282,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <h3 class="protected ">getAbsolutePath()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getAbsolutePath(string  <span class="argument">$path</span>) : string</pre>
-                <p><em>Makes a relative path absolute to Picos root dir</em></p>
+                <p><em>Makes a relative path absolute to Pico&#039;s root dir</em></p>
                 <p>This method also guarantees a trailing slash.</p>
 
                                     <h4>Parameters</h4>
@@ -2400,7 +2405,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 3rd, 2015 at 16:38.
+                    on November 6th, 2015 at 18:59.
                 </section>
             </section>
         </section>
