@@ -12,6 +12,8 @@ If you're searching for information about how to upgrade your plugin to Pico 1.0
 
 If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you have a problem with upgrading your plugin, please do the same. If you experience a problem with Pico in general, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
 
+---
+
 [PullRequest252]: https://github.com/picocms/Pico/pull/252
 [PullRequest252UpgradeNotes]: https://github.com/picocms/Pico/pull/252#issuecomment-138078795
 [GettingHelp]: {{ site.base_url }}/docs.html#getting-help
