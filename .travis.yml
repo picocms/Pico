@@ -1,0 +1,29 @@
+language: php
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+  - nightly
+
+script:
+  - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
+
+before_deploy:
+  - composer install
+  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md changelog.txt composer.json composer.lock license.txt config content-sample lib plugins themes vendor index.php
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_OAUTH_TOKEN}
+  file: pico-release-$TRAVIS_TAG.tar.gz
+  skip_cleanup: true
+  on:
+    repo: picocms/Pico
+    tags: true
+    php: 5.3
+
+sudo: false
+

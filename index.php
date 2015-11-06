@@ -1,15 +1,17 @@
 <?php
+// load dependencies
+require_once(__DIR__ . '/vendor/autoload.php');
 
-define('ROOT_DIR', realpath(dirname(__FILE__)) . '/');
-define('LIB_DIR', ROOT_DIR . 'lib/');
-define('VENDOR_DIR', ROOT_DIR . 'vendor/');
-define('PLUGINS_DIR', ROOT_DIR . 'plugins/');
-define('THEMES_DIR', ROOT_DIR . 'themes/');
-define('CONFIG_DIR', ROOT_DIR . 'config/');
-define('CACHE_DIR', LIB_DIR . 'cache/');
+// instance Pico
+$pico = new Pico(
+    __DIR__,    // root dir
+    'config/',  // config dir
+    'plugins/', // plugins dir
+    'themes/'   // themes dir
+);
 
-define('CONTENT_EXT', '.md');
+// override configuration?
+// $pico->setConfig(array());
 
-require_once(VENDOR_DIR . 'autoload.php');
-require_once(LIB_DIR . 'pico.php');
-$pico = new Pico();
+// run application
+echo $pico->run();
