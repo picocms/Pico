@@ -1,0 +1,121 @@
+{% include documentHeader.html %}
+<head>
+
+    {% include headInclude.html %}
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
+    <link href="{{ site.base_url }}{{ page.url }}" rel="canonical" />
+
+</head>
+<body class="full-layout">
+
+    <div class="body-wrapper">
+        <div class="top-wrapper">
+            {% include pageHeader.html %}
+        </div>
+
+        <div class="light-wrapper">
+            <div class="inner">
+                {% include pageHeadline.html %}
+
+                {% capture editPageContent %}
+                    {% if page.collection %}
+                        {% capture editPageUrl %}{{ site.gh_pages_url }}/tree/{{ site.gh_pages_branch }}/_{{ page.collection }}{% endcapture %}
+                    {% else %}
+                        {% capture editPageUrl %}{{ site.gh_pages_url }}/edit/{{ site.gh_pages_branch }}/{{ page.path }}{% endcapture %}
+                    {% endif %}
+
+                    <a href="{{ editPageUrl }}" title="Open this documentation on GitHub">
+                        <img src="{{ site.base_url }}/style/images/GitHub-Mark-32px.png" alt="Open this documentation on GitHub" class="github-edit-icon" />
+                    </a>
+                    Found a typo? Something is wrong in this documentation? Just <a href="{{ editPageUrl }}">fork and edit</a> it!
+                {% endcapture %}
+
+                {% if page.collection or page.toc %}
+                    {% if page.collection %}
+                        {% assign items = site[page.collection]|sort:"nav" %}
+                    {% endif %}
+
+                    {% capture tocContent %}
+                        {% assign tocItemCount = 0 %}
+                        {% if page.toc %}
+                            {% assign toc = page.toc %}
+                            {% include tocItem.html %}
+                        {% else %}
+                            {% for item in items %}
+                                {% if item.toc and item.nav > 0 %}
+                                    {% assign toc = item.toc %}
+                                    {% include tocItem.html %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endcapture %}
+
+                    {% capture pageContent %}
+                        {% if page.collection %}
+                            {% for item in items %}
+                                {% if item.ref-collection and item.ref-page %}
+                                    {% capture refRelativePath %}_{{ item.ref-collection }}/{{ item.ref-page }}{% endcapture %}
+
+                                    <!-- {{ item.relative_path }} references {{ refRelativePath }} -->
+                                    {% for refPage in site[item.ref-collection] %}
+                                        {% if refPage.relative_path == refRelativePath %}
+                                            <!-- contents of {{ refPage.relative_path }} -->
+                                            {{ refPage.content }}
+                                            {% break %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <!-- contents of {{ item.relative_path }} -->
+                                    {{ item.output }}
+                                {% endif %}
+
+                                {% if forloop.last == false %}<hr />{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <!-- contents of {{ page.path }} -->
+                            {{ content }}
+                        {% endif %}
+                    {% endcapture %}
+
+                    {% if page.collection %}
+                        <!-- contents of {{ page.path }} -->
+                        {{ content }}
+                    {% endif %}
+
+                    {% if tocItemCount > 0 %}
+                        <div class="one-fourth">
+                            <ul data-items="{{ tocItemCount }}">
+                                {{ tocContent }}
+                            </ul>
+
+                            <p>
+                                {{ editPageContent }}
+                            </p>
+                        </div>
+                        <div class="three-fourth last">
+                            {{ pageContent }}
+                        </div>
+                        <div class="clear"></div>
+                    {% else %}
+                        {{ pageContent }}
+
+                        <p class="github-edit">
+                            {{ editPageContent }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <!-- contents of {{ page.path }} -->
+                    {{ content }}
+
+                    <p class="github-edit">
+                        {{ editPageContent }}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% include pageFooter.html %}
+    </div>
+
+</body>
+{% include documentFooter.html %}

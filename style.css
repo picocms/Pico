@@ -39,10 +39,6 @@ ins {
 del {
 	text-decoration:line-through
 }
-table {
-	border-collapse:collapse;
-	border-spacing:0
-}
 .clear {
 	clear:both;
 	display:block;
@@ -51,16 +47,14 @@ table {
 	width:0;
 	height:0
 }
+table {
+    border-collapse:collapse;
+    border-spacing:0
+    margin-bottom: 20px;
+}
 th, td {
 	margin:0;
 	padding:0
-}
-table {
-	border-collapse:collapse;
-	border-spacing:0
-}
-.clear {
-	clear: both;
 }
 br {
 	line-height: 10px;
@@ -300,20 +294,34 @@ img.alignright {
     margin-left: 25px
 }
 ul {
-    padding-bottom: 20px
+    padding: 0 0 20px 1em;
 }
-ul li ul { padding: 0 0 0 30px; }
+ol {
+    list-style: decimal;
+    list-style-position: outside;
+    padding: 0 0 20px 2em;
+}
+ul li,
+ol li {
+    padding: 0 0 0 1em;
+    margin: 0 0 0 -1em;
+}
 ul li:before {
-    font-family: 'fontello';
+    position: absolute;
+    display: block;
+    width: 1em;
+    margin-left: -1em;
     content: "\e78b";
+    font-family: 'fontello';
+    font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    speak: none;
-    display: inline-block;
     text-decoration: inherit;
-    font-size: 13px;
-    padding-right: 8px;
     color: #ff6760;
+    speak: none;
+}
+ul li ul {
+    padding: 0 0 0 1.5em;
 }
 .menu ul li:before,
 .contact-info li:before,
@@ -332,15 +340,6 @@ ul li:before {
 .post-list li:before,
 #twitter ul li:before {
     display: none
-}
-ol {
-    list-style: decimal;
-    list-style-position: inside;
-    padding-bottom: 20px;
-}
-ol li {
-    padding: 0;
-    margin: 0;
 }
 .dropcap {
     font-weight: 900;
@@ -400,6 +399,7 @@ pre {
     clear: both;
     background: #f7f7f7;
     border: 1px solid #e7e7e7;
+    overflow: auto;
 }
 blockquote p {
     font-size: 19px;
@@ -413,8 +413,22 @@ blockquote p {
 /*-----------------------------------------------------------------------------------*/
 /*	STUCTURE
 /*-----------------------------------------------------------------------------------*/
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+}
+.body-wrapper > * {
+    flex: none;
+    width: 100%;
+}
 .top-wrapper {
     background: #2a2a2a
+}
+.light-wrapper,
+.dark-wrapper {
+    flex: 1 0 auto;
 }
 .light-wrapper {
     background: #FFF
@@ -428,7 +442,13 @@ blockquote p {
     padding: 60px 0;
 }
 header .logo {
-    float: left
+    float: left;
+}
+header .logo a,
+header .logo a:hover {
+    font-size: 250%;
+    font-weight: bold;
+    color: white;
 }
 header .menu {
     float: right
@@ -778,6 +798,7 @@ footer {
     background: #2a2a2a;
     color: #bebebe;
     display: block;
+    width: 100%;
 }
 footer a {
     color: #ff6760;
@@ -801,6 +822,7 @@ footer h6 {
     background: #262626;
     color: #bebebe;
     text-align: center;
+    width: 100%;
 }
 .subfooter-wrapper a {
     color: #bebebe;
@@ -2793,4 +2815,12 @@ media_tag_5 {media_subcode:5}
 .hosted-price span {
     font-size: 30px;
     font-weight: bold;
+}
+.github-edit {
+    margin: 0 auto;
+    max-width: 25em;
+}
+.github-edit-icon {
+    float: left;
+    margin: 8px 0.5em 0.5em 0;
 }

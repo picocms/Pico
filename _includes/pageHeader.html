@@ -1,0 +1,19 @@
+<header>
+    <div class="inner">
+        <div class="logo"><a href="{{ site.base_url }}">PICO</a></div>
+
+        <nav id="menu" class="menu">
+            <ul id="tiny">
+                {% assign pages = site.pages|sort:"nav" %}
+                {% for nav in pages %}
+                    {% if nav.title and nav.nav > 0 %}
+                        <li {% if page.url == nav.url or (page.nav-url and page.nav-url == nav.url) %}class="active"{% endif %}>
+                            <a href="{{ site.base_url }}{{ nav.url }}">{{ nav.title }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+        <div class="clear"></div>
+    </div>
+</header>
