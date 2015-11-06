@@ -2,7 +2,7 @@
 layout: docs
 title: Upgrade
 headline: Upgrade Pico 0.8 or 0.9 to Pico 1.0
-description: We worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
+description: We have worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
 toc:
     how-to-upgrade:
         _title: How to upgrade?
@@ -20,11 +20,11 @@ gh_release: v1.0.0-beta.1
 Usually you don't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0. You basically can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.
 
 1. Create a backup of your Pico installation. You will need the files later!
-2. Empty your installation directory and [install Pico just ordinary][InstallInstructions].
+2. Empty your installation directory and [install Pico ordinarily][InstallInstructions].
 3. Copy the `config.php` from your backup to `config/config.php`. You don't have to change anything in this file.
-4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible to Pico's new routing system. You'll find detailed instructions on how to do this in the ["Routing system" section](#routing-system) below.
-5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible to Pico's new routing system.
-6. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory. Don't copy the `plugins/pico_plugin.php` - this is no real plugin, but Pico's old dummy plugin.
+4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible with Pico's new routing system. You'll find detailed instructions on how to do this in the ["Routing system" section](#routing-system) below.
+5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible with Pico's new routing system.
+6. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory. Don't copy the `plugins/pico_plugin.php` - this is not a real plugin, but Pico's old dummy plugin.
 
 Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting became optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
 
@@ -32,31 +32,31 @@ A potential source of problems for users with custom themes is the removal of `{
 
 ### Routing system
 
-You're not required to update your internal links to meet the new routing system, as long as you keep URL rewriting enabled. Anyway, if you want to keep the option open to disable URL rewriting later, you should do it.
+You are not required to update your internal links to meet the new routing system requirements, as long as you keep URL rewriting enabled. Anyway, if you want to keep the option open to disable URL rewriting later, you should do it.
 
-In Markdown files (i.e. your `content` directory), replace all occurences of e.g. `%base_url%/sub/page` with `%base_url%?sub/page`. If you're linking to the main page (i.e. just `%base_url%`), you either shouldn't change anything or replace it with `%base_url%?index` - even this actually isn't absolutely necessary. Pico replaces the `%base_url%` variable as ever, but also removes the `?` when URL rewriting is enabled.
+In Markdown files (i.e. your `content` directory), replace all occurrences of e.g. `%base_url%/sub/page` with `%base_url%?sub/page`. If you're linking to the main page (i.e. just `%base_url%`), you either shouldn't change anything or replace it with `%base_url%?index` - even this isn't absolutely necessary. Pico replaces the `%base_url%` variable the same as always, but also removes the `?` when URL rewriting is enabled.
 
-The required changes to your theme (i.e. a custom theme folder in Pico's `themes` directory) are quite similar. Instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter. Therefore replace e.g. `{% raw %}{{ base_url }}/sub/page{% endraw %}` with `{% raw %}{{ "sub/page"|link }}{% endraw %}`. Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter does nothing but call the [`Pico::getPageUrl()` method][PicoGetPageUrl].
+In Theme files (i.e. a custom theme folder in Pico's `themes` directory), required changes are quite similar. instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter. Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter simply calls the [`Pico::getPageUrl()` method][PicoGetPageUrl].
 
 ### Drop of `{% raw %}{{ page.content }}{% endraw %}` and the new `PicoParsePagesContent` plugin
 
 With Version 0.6.1 Pico started parsing the Markdown contents of all pages. While making some things easier (like generating excerpts), this heavily impacted performance with a larger number of pages (e.g. blog posts). By popular request we removed this feature with Pico 1.0 and therefore significantly improved performance.
 
-If you're using the `{% raw %}{{ page.content }}{% endraw %}` variable in your custom theme, you should at least replace it with `{% raw %}{{ page.id|content }}{% endraw %}`. We highly recommend you to overthink the necessity of using the parsed page contents, probably the raw page contents (`{% raw %}{{ page.raw_content }}{% endraw %}`) fulfill your needs.
+If you're using the `{% raw %}{{ page.content }}{% endraw %}` variable in your custom theme, you should at least replace it with `{% raw %}{{ page.id|content }}{% endraw %}`. We highly recommend you to over think the need to use the parsed page contents, it's likely that the raw page contents (`{% raw %}{{ page.raw_content }}{% endraw %}`) will fulfill your needs.
 
-With Pico 1.0 we also introduced the `PicoParsePagesContent` plugin, whose object is to parse the contents of all pages as it was since Pico 0.6.1. The plugin is disabled by default, but gets automatically enabled with `PicoDeprecated` when a plugin, that wasn't updated to Pico 1.0 yet, is loaded. Please note that we'll remove this automatic activation with Pico 1.1, so you will need to enable it manually.
+With Pico 1.0 we also introduced the `PicoParsePagesContent` plugin, whose objective is to parse the contents of all pages as it has since Pico 0.6.1. The plugin is disabled by default, but gets automatically enabled with `PicoDeprecated` when a plugin, that wasn't updated to Pico 1.0 yet, is loaded. Please note that we'll remove this automatic activation with Pico 1.1, so you will need to enable it manually.
 
-We highly recommend you to force the `PicoParsePagesContent` plugin to be disabled by adding `$config['PicoParsePagesContent.enabled'] = false;` to your `config/config.php`.
+We highly recommend you force the `PicoParsePagesContent` plugin to be disabled by adding `$config['PicoParsePagesContent.enabled'] = false;` to your `config/config.php`.
 
 ### Drop of `{% raw %}{{ page.excerpt }}{% endraw %}` and the new `PicoExcerpt` plugin
 
-The main reason why Pico started parsing the Markdown contents of all pages (see above), was the desire for automatically generated excerpts. By then we came to the convincement, that this is the wrong approach and we started searching for alternatives - and we think we found a good solution.
+The main reason Pico started parsing the Markdown contents of all pages (see above), was the desire for automatically generated page excerpts. We later realized that this is the wrong approach, then started searching for alternatives -  and we think we found a good solution!
 
-Given that you're using the `{% raw %}{{ page.excerpt }}{% endraw %}` variable in your custom theme, we recommend you to part from the concept of automatically generated excerpts. Instead, you should use the `Description` meta header to write excerpts on your own. Starting with Pico 1.0 you can use `%meta.*%` placeholders in your Markdown files, so you don't have to repeat yourself - simply add `%meta.description%` to the page content and Pico will replace it by your excerpt.
+Given that you're using the `{% raw %}{{ page.excerpt }}{% endraw %}` variable in your custom theme, we recommend you part from the concept of automatically generated excerpts. Instead, you should use the `Description` meta header to write excerpts on your own. Starting with Pico 1.0 you can use `%meta.*%` placeholders in your Markdown files, so you don't have to repeat yourself - simply add `%meta.description%` to the page content and Pico will replace it with your excerpt.
 
-As with `{% raw %}{{ page.content }}{% endraw %}` and the `PicoParsePagesContent` plugin, we also introduced the `PicoExcerpt` plugin, what continues the provision of the `{% raw %}{{ page.excerpt }}{% endraw %}` variable. This plugin depends on the `PicoParsePagesContent` and therefore heavily impacts performance. Likewise it gets automatically enabled with `PicoDeprecated`, something we'll drop with Pico 1.1.
+As with `{% raw %}{{ page.content }}{% endraw %}` and the `PicoParsePagesContent` plugin, we also introduced the `PicoExcerpt` plugin, which continues to provide the `{% raw %}{{ page.excerpt }}{% endraw %}` variable. This plugin depends on the `PicoParsePagesContent` plugin and therefore heavily impacts performance. Likewise it gets automatically enabled with `PicoDeprecated`, something we'll drop with Pico 1.1.
 
-We highly recommend you to force the `PicoExcerpt` plugin to be disabled - just add `$config['PicoExcerpt.enabled'] = false;` to your `config/config.php`.
+We highly recommend you force the `PicoExcerpt` plugin to be disabled - just add `$config['PicoExcerpt.enabled'] = false;` to your `config/config.php`.
 
 ### Ensure restricted access to `content` directory
 
