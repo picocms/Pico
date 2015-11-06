@@ -254,13 +254,13 @@ uncomment the setting and set your custom value.
 ### URL Rewriting
 
 Pico's default URLs (e.g. %base_url%/?sub/page) already are very user-friendly.
-Pico anyway offers you an URL rewrite feature to make URLs even more
+Additionally, Pico offers you a URL rewrite feature to make URLs even more
 user-friendly (e.g. %base_url%/sub/page).
 
 If you're using the Apache web server, URL rewriting probably already is
 enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
 you get an error message from your web server, please make sure to enable the
-[`mod_rewrite` module][ModRewrite]. Assumed the second URL works, but Pico
+[`mod_rewrite` module][ModRewrite]. Assuming the second URL works, but Pico
 still shows no rewritten URLs, force URL rewriting by setting
 `$config['rewrite_url'] = true;` in your `config/config.php`.
 
