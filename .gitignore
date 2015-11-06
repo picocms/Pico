@@ -1,19 +1,32 @@
+# Linux
+*~
+*.swp
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Mac OS X
+.DS_Store
+._*
+
 # Composer
 composer.lock
 composer.phar
-vendor
+vendor/*
 
-# OS Generated
-.DS_Store*
-ehthumbs.db
-Icon?
-Thumbs.db
-*.swp
+# User config
+config/config.php
 
 # User themes
 themes/*
-!themes/index.html
 !themes/default/*
 
-# User config
-config.php
+# User plugins
+plugins/*
+!plugins/0?-*
+!plugins/1?-*
+!plugins/DummyPlugin.php
+
+# User content
+content/*
