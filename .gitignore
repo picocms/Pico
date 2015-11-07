@@ -20,7 +20,8 @@ config/config.php
 
 # User themes
 themes/*
-!themes/default/*
+!themes/default/index.twig
+!themes/default/bootstrap.theme.css
 
 # User plugins
 plugins/*
