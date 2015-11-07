@@ -15,7 +15,8 @@
         "php": ">=5.3.6",
         "twig/twig": "1.18.*",
         "erusev/parsedown-extra": "0.7.*",
-        "symfony/yaml" : "2.3"
+        "symfony/yaml" : "2.3",
+        "twbs/bootstrap" : "4.0.0-alpha"
     },
     "autoload": {
         "psr-0": {

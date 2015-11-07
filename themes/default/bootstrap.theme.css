@@ -1,0 +1,191 @@
+/**
+ * Pico's Default Theme - Twitter Bootstrap 4
+ *
+ * @author  Gilbert Pellegrom
+ * @author  Tyler Heshka
+ * @link    http://picocms.org
+ * @license http://opensource.org/licenses/MIT
+ * @version 1.0
+ */
+
+/* Main Styles
+/*---------------------------------------------*/
+body {
+    font: 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
+    color: #444;
+    background: #FFF;
+    -webkit-font-smoothing: antialiased;
+}
+
+a, a:visited {
+    color: #2EAE9B;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #000;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.4em;
+    margin-bottom: 0.6em;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #ffffff;
+}
+
+blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eeeeee;
+}
+
+code,
+pre {
+    padding: 0 3px 2px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 12px;
+    color: #333333;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+code {
+    padding: 2px 4px;
+    color: #333;
+    white-space: nowrap;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 20px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: pre-wrap;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+pre code {
+    padding: 0;
+    color: inherit;
+    white-space: pre;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border: 0;
+}
+
+/* Nav Styles
+/*---------------------------------------------*/
+.navbar {
+    background: #2EAE9B !important;
+    color: #AFE1DA !important;
+    padding: 10px 0;
+    margin-bottom: 0px;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+.navbar-brand {
+    color: #FFF !important;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.nav-item a {
+    color: #AFE1DA !important;
+}
+
+.nav-item a:hover {
+    color: #FFF !important;
+}
+
+/* Footer Styles
+/*---------------------------------------------*/
+.footer {
+    background: #707070;
+    padding: 10px 0;
+    margin-top: 100px;
+    color: #C0C0C0;
+}
+
+.footer a {
+    color: #DDD;
+}
+
+.footer a:hover {
+    color: #FFF;
+}
+
+/* Media Queries
+/*---------------------------------------------*/
+
+/* Small devices (landscape phones, 34em and up) */
+@media (min-width: 34em) {
+    .navbar {
+        padding: 20px 0;
+        margin-bottom: 5px;
+    }
+
+    .footer {
+        padding: 20px 0;
+        margin-top: 90px;
+    }
+}
+/* Medium devices (tablets, 48em and up) */
+@media (min-width: 48em) {
+    .navbar {
+        padding: 30px 0;
+        margin-bottom: 10px;
+    }
+
+    .footer {
+        padding: 30px 0;
+        margin-top: 100px;
+    }
+}
+/* Large devices (desktops, 62em and up) */
+@media (min-width: 62em) {
+    .navbar {
+        padding: 40px 0;
+        margin-bottom: 15px;
+    }
+
+    .footer {
+        padding: 40px 0;
+        margin-top: 110px;
+    }
+}
+/* Extra large devices (large desktops, 75em and up) */
+@media (min-width: 75em) {
+    .navbar {
+        padding: 50px 0;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        padding: 50px 0;
+        margin-top: 120px;
+    }
+}

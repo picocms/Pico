@@ -1,49 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-
-    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    <!-- Page Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% if meta.description %}
-        <meta name="description" content="{{ meta.description|striptags }}">
+    <meta name="description" content="{{ meta.description|striptags }}">
     {% endif %}{% if meta.robots %}
-        <meta name="robots" content="{{ meta.robots }}">
+    <meta name="robots" content="{{ meta.robots }}">
     {% endif %}
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
-    <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
+    <!-- Page Title -->
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
 
-    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ base_url }}/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/bootstrap.theme.css" type="text/css" />
+
 </head>
 <body>
-
-    <header id="header">
-        <div class="inner clearfix">
-            <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
-            <nav>
-                <a href="#" class="menu-icon"></a>
-                <ul>
+    <!-- Navigation -->
+    <nav class="navbar navbar-light">
+        <button class="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar">
+            &#9776;
+        </button>
+        <div class="container">
+            <a class="navbar-brand" href="{{ 'index'|link }}">{{ site_title }}</a>
+            <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
+                <ul class="nav navbar-nav pull-right">
                     {% for page in pages %}
-                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ page.url }}">{{ page.title }}</a>
+                    </li>
                     {% endfor %}
                 </ul>
-            </nav>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <section id="content">
-        <div class="inner">
-            {{ content }}
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{ content }}
+            </div>
         </div>
-    </section>
+    </div>
 
-    <footer id="footer">
-        <div class="inner">
-            <a href="http://picocms.org/">Pico</a>
-            was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
-            from <a href="http://dev7studios.com">Dev7studios</a>.
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center">
+                <a href="http://picocms.org/">Pico</a>
+                was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
+                and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
+                Released under the MIT License.
+            </p>
         </div>
     </footer>
 
+    <!-- Javascript -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{{ base_url }}/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
