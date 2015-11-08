@@ -4,7 +4,7 @@ description: How to generate TOCs very easy?
 ---
 
 <div class="one-half">
-```yaml
+{% highlight yaml %}
 ---
 toc:
     item-on-level-1:
@@ -13,10 +13,10 @@ toc:
         item-on-level-2b: Item on Level 2 (b)
     another-level-1-item: Another Item on Level 1
 ---
-```
+{% endhighlight %}
 </div>
 <div class="one-half last">
-```twig
+{% highlight twig %}
 {% raw %}
 <ul>
     {% for sectionKey, section in meta.toc %}
@@ -35,6 +35,6 @@ toc:
     {% endfor %}
 </ul>
 {% endraw %}
-```
+{% endhighlight %}
 </div>
 <div class="clear"></div>
