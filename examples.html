@@ -1,0 +1,20 @@
+---
+layout: default
+title: Examples
+headline: Pico Examples
+---
+
+{% for item in site.examples|sort:"nav" %}
+    <div class="toggle">
+        <h4 class="title">{{ item.title }}</h4>
+        <div class="togglebox">
+            <div>
+                {% if item.description %}
+                    <p>{{ item.description }}</p>
+                {% endif %}
+
+                {{ item.output }}
+            </div>
+        </div>
+    </div>
+{% endfor %}
