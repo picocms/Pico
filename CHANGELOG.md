@@ -1,6 +1,15 @@
 Pico Changelog
 ==============
 
+### Version 1.0.0
+Released: -
+
+```
+* [Fixed] Replace `urldecode()` (deprecated RFC 1738) with `rawurldecode()`
+          (RFC 3986) in `Page::evaluateRequestUrl()`
+* [Fixed] #272: Encode URLs using `rawurlencode()` in `Pico::getPageUrl()`
+```
+
 ### Version 1.0.0-beta.1
 Released: 2015-11-06
 
