@@ -559,7 +559,7 @@ class Pico
         if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
             $pathComponent = substr($pathComponent, 0, $pathComponentLength);
         }
-        $this->requestUrl = (strpos($pathComponent, '=') === false) ? urldecode($pathComponent) : '';
+        $this->requestUrl = (strpos($pathComponent, '=') === false) ? rawurldecode($pathComponent) : '';
     }
 
     /**
@@ -1187,7 +1187,7 @@ class Pico
      */
     public function getPageUrl($page)
     {
-        return $this->getBaseUrl() . ((!$this->isUrlRewritingEnabled() && !empty($page)) ? '?' : '') . $page;
+        return $this->getBaseUrl() . ((!$this->isUrlRewritingEnabled() && !empty($page)) ? '?' : '') . rawurlencode($page);
     }
 
     /**
