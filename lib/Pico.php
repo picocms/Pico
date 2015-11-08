@@ -1187,7 +1187,13 @@ class Pico
      */
     public function getPageUrl($page)
     {
-        return $this->getBaseUrl() . ((!$this->isUrlRewritingEnabled() && !empty($page)) ? '?' : '') . rawurlencode($page);
+        if (empty($page)) {
+            return $this->getBaseUrl();
+        } elseif (!$this->isUrlRewritingEnabled()) {
+            return $this->getBaseUrl() . '?' . rawurlencode($page);
+        } else {
+            return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page)));
+        }
     }
 
     /**
