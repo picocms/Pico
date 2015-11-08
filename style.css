@@ -1778,7 +1778,7 @@ ul.retina-icons li span {
     border: 1px solid #e7e7e7;
     border-top: none;
 }
-.togglebox div {
+.togglebox > div {
     padding: 15px 15px 0 15px
 }
 /*-----------------------------------------------------------------------------------*/
