@@ -4,7 +4,7 @@ description: How to generate TOCs very easy?
 ---
 
 <div class="one-half">
-    ##### YAML header
+    <h5>YAML header</h5>
 
     {% highlight yaml %}
 ---
@@ -19,7 +19,7 @@ toc:
 </div>
 
 <div class="one-half last">
-    ##### Template snippet#
+    <h5>Template snippet</h5>
 
     {% highlight html %}{% raw %}
 <ul>
