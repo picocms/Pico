@@ -60,7 +60,7 @@
                                     {% for refPage in site[item.ref-collection] %}
                                         {% if refPage.relative_path == refRelativePath %}
                                             <!-- contents of {{ refPage.relative_path }} -->
-                                            {{ refPage.content }}
+                                            {{ refPage.output }}
                                             {% break %}
                                         {% endif %}
                                     {% endfor %}
