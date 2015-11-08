@@ -16,7 +16,7 @@ toc:
 {% endhighlight %}
 </div>
 <div class="one-half last">
-{% highlight twig %}
+{% highlight html %}
 {% raw %}
 <ul>
     {% for sectionKey, section in meta.toc %}
