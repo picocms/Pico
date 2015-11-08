@@ -63,15 +63,17 @@ For more information please refer to the http://semver.org website.
 Branching
 ---------
 
-The `master` branch contains the current development version of Pico. It is likely *unstable* and *not ready for production use*. However, the `master` branch always consists of a deployable version of Pico.
+The `master` branch contains the current development version of Pico. It is likely *unstable* and *not ready for production use*.
+
+However, the `master` branch always consists of a deployable (but not necessarily deployed) version of Pico. As soon as development of a new `MAJOR` or `MINOR` release starts, a separate branch (e.g. `pico-1.1`) is created and a [pull request](https://github.com/picocms/Pico/pulls) is opened to receive the desired feedback.
 
 Pico's actual development happens in separate development branches. Development branches are prefixed by:
 
 - `feature/` for bigger features,
 - `enhancement/` for smaller improvements, and
-- `bugfix/` for bug fixes.
+- `bugfix/` for non-trivial bug fixes.
 
-As soon as development reaches a point where feedback is appreciated, a [pull request](https://github.com/picocms/Pico/pulls) is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged into `master` and the development branch will be deleted.
+As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes which will be part of the next `PATCH` version will be merged directly into `master`.
 
 Build & Release process
 -----------------------
