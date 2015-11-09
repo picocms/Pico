@@ -10,7 +10,7 @@ description: How can I easily pluralize a string?
 {% macro pluralize(number, singular, plural) %}
     {{ number }} {% if number == 1 %}{{ singular }}{% else %}{{ plural }}{% endif %}
 {% endmacro %}
-    {% endhighlight %}
+    {% endraw %}{% endhighlight %}
 </div>
 
 <div class="one-half last">
