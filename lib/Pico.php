@@ -138,6 +138,14 @@ class Pico
     protected $meta;
 
     /**
+     * Parsedown Extra instance used for markdown parsing
+     *
+     * @see Pico::getParsedown()
+     * @var ParsedownExtra|null
+     */
+    protected $parsedown;
+
+    /**
      * Parsed content being served
      *
      * @see Pico::getFileContent()
@@ -304,6 +312,10 @@ class Pico
         $this->meta = $this->parseFileMeta($this->rawContent, $headers);
         $this->triggerEvent('onMetaParsed', array(&$this->meta));
 
+        // register parsedown
+        $this->triggerEvent('onParsedownRegistration');
+        $this->registerParsedown();
+
         // parse file content
         $this->triggerEvent('onContentParsing', array(&$this->rawContent));
 
@@ -355,9 +367,15 @@ class Pico
     /**
      * Loads plugins from Pico::$pluginsDir in alphabetical order
      *
-     * Plugin files may be prefixed by a number (e.g. 00-PicoDeprecated.php)
-     * to indicate their processing order. You MUST NOT use prefixes between
-     * 00 and 19 (reserved for built-in plugins).
+     * Plugin files MAY be prefixed by a number (e.g. 00-PicoDeprecated.php)
+     * to indicate their processing order. Plugins without a prefix will be
+     * loaded last. If you want to use a prefix, you MUST consider the
+     * following directives:
+     * - 00 to 19: Reserved
+     * - 20 to 39: Low level code helper plugins
+     * - 40 to 59: Plugins manipulating routing or the pages array
+     * - 60 to 79: Plugins hooking into template or markdown parsing
+     * - 80 to 99: Plugins using the `onPageRendered` event
      *
      * @see    Pico::getPlugin()
      * @see    Pico::getPlugins()
@@ -780,6 +798,28 @@ class Pico
     }
 
     /**
+     * Registers the Parsedown Extra markdown parser
+     *
+     * @see    Pico::getParsedown()
+     * @return void
+     */
+    protected function registerParsedown()
+    {
+        $this->parsedown = new ParsedownExtra();
+    }
+
+    /**
+     * Returns the Parsedown Extra markdown parser
+     *
+     * @see    Pico::registerParsedown()
+     * @return ParsedownExtra|null Parsedown Extra markdown parser
+     */
+    public function getParsedown()
+    {
+        return $this->parsedown;
+    }
+
+    /**
      * Applies some static preparations to the raw contents of a page,
      * e.g. removing the meta header and replacing %base_url%
      *
@@ -839,8 +879,11 @@ class Pico
      */
     public function parseFileContent($content)
     {
-        $parsedown = new ParsedownExtra();
-        return $parsedown->text($content);
+        if ($this->parsedown === null) {
+            throw new LogicException("Unable to parse file contents: Parsedown instance wasn't registered yet");
+        }
+
+        return $this->parsedown->text($content);
     }
 
     /**
@@ -1075,22 +1118,42 @@ class Pico
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
 
-        // register link filter
+        $this->registerTwigFilter();
+    }
+
+    /**
+     * Registers Picos additional Twig filters
+     *
+     * @return void
+     */
+    protected function registerTwigFilter()
+    {
+        $pico = $this;
+
+        // link filter
         $this->twig->addFilter(new Twig_SimpleFilter('link', array($this, 'getPageUrl')));
 
-        // register content filter
-        $pico = $this;
+        // content filter
         $pages = &$this->pages;
-        $this->twig->addFilter(new Twig_SimpleFilter('content', function ($pageId) use ($pico, &$pages) {
-            if (isset($pages[$pageId])) {
-                $pageData = &$pages[$pageId];
+        $this->twig->addFilter(new Twig_SimpleFilter('content', function ($page) use ($pico, &$pages) {
+            if (isset($pages[$page])) {
+                $pageData = &$pages[$page];
                 if (!isset($pageData['content'])) {
                     $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
                     $pageData['content'] = $pico->parseFileContent($pageData['content']);
                 }
                 return $pageData['content'];
             }
-            return '';
+            return null;
+        }));
+
+        // markdown filter
+        $this->twig->addFilter(new Twig_SimpleFilter('markdown', function ($markdown) use ($pico) {
+            if ($pico->getParsedown() === null) {
+                throw new LogicException("Unable to parse file contents: Parsedown instance wasn't registered yet");
+            }
+
+            return $pico->getParsedown()->text($markdown);
         }));
     }
 
@@ -1098,7 +1161,7 @@ class Pico
      * Returns the twig template engine
      *
      * @see    Pico::registerTwig()
-     * @return Twig_Environment|null twig template engine
+     * @return Twig_Environment|null Twig template engine
      */
     public function getTwig()
     {
