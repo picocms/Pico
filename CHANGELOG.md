@@ -5,6 +5,11 @@ Pico Changelog
 Released: -
 
 ```
+* [New] This is Picos first stable release! The Pico Community wants to thank
+        all contributors and users which made this possible!
+* [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
+        want to parse the contents of a page, use the `content` filter instead
+* [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
 * [Fixed] Replace `urldecode()` (deprecated RFC 1738) with `rawurldecode()`
           (RFC 3986) in `Page::evaluateRequestUrl()`
 * [Fixed] #272: Encode URLs using `rawurlencode()` in `Pico::getPageUrl()`
@@ -62,10 +67,8 @@ Released: 2015-11-06
 * [Changed] Pico now implicitly uses a existing `content` directory without
             the need to configure this in the `config/config.php` explicitly
 * [Changed] Composer: Require a v0.7 release of `erusev/parsedown-extra`
-* [Changed] #93, #158: Pico doesn't parse all content files anymore; moved to
-            `PicoParsePagesContent` plugin, but still impacts performance;
-            Note: This means `$page['content']` isn't available anymore, but
-            usually the new `$page['raw_content']` is suitable as replacement.
+* [Changed] Moving `license.txt` to `LICENSE`
+* [Changed] Moving and reformatting `changelog.txt` to `CHANGELOG.md`
 * [Changed] #116: Parse meta headers using the Symfony YAML component
 * [Changed] #244: Replace opendir() with scandir()
 * [Changed] #246: Move `config.php` to `config/` directory
@@ -79,7 +82,11 @@ Released: 2015-11-06
 * [Fixed] A vast number of small bugs...
 * [Removed] Removing the default Twig cache dir
 * [Removed] Removing various empty `index.html` files
-* [Removed] Moving Pico's excerpt feature to `PicoExcerpt` plugin
+* [Removed] Removing `$pageData['excerpt']`; recoverable with `PicoExcerpt`
+* [Removed] #93, #158: Pico doesn't parse all content files anymore; moved to
+            `PicoParsePagesContent`; i.e. `$pageData['content']` doesn't exist
+            anymore, use `$pageData['raw_content']` when possible; otherwise
+            use Twigs new `content` filter (e.g. `{{ "sub/page"|content }}`)
 ```
 
 ### Version 0.9
