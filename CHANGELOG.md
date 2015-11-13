@@ -9,6 +9,8 @@ Released: -
         all contributors and users which made this possible!
 * [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
         want to parse the contents of a page, use the `content` filter instead
+* [Changed] Improve documentation
+* [Changed] Improve table styling in default theme
 * [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
 * [Fixed] `PicoDeprecated`: Sanitize `content_dir` and `base_url` options when
           reading `config.php` in Picos root dir
