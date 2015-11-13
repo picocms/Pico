@@ -1117,6 +1117,7 @@ class Pico
         $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
+        $this->twig->addExtension(new PicoTwigExtension($this));
 
         $this->registerTwigFilter();
     }
