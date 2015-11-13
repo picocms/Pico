@@ -205,6 +205,17 @@ Pages can be used like the following:
         {% endfor %}
     </ul>
 
+Additional to Twigs extensive list of filters, functions and tags, Pico also
+provides some useful additional filters to make theming easier. You can parse
+any Markdown string to HTML using the `markdown` filter. Arrays can be sorted
+by one of its keys or a arbitrary deep sub-key using the `sort_by` filter
+(e.g. `{% for page in pages|sort_by("meta:nav"|split(":")) %}...{% endfor %}`
+iterates through all pages, ordered by the `nav` meta header; please note the
+`"meta:nav"|split(":")` part of the example, which passes `['meta', 'nav']` to
+the filter describing a key path). You can return all values of a given key or
+key path of an array using the `map` filter (e.g. `{{ pages|map("title") }}`
+returns all page titles).
+
 You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog-post` to a content file
 and Pico will use the `blog-post.twig` file in your theme folder to render
