@@ -10,6 +10,8 @@ Released: -
 * [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
         want to parse the contents of a page, use the `content` filter instead
 * [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
+* [Fixed] `PicoDeprecated`: Sanitize `content_dir` and `base_url` options when
+          reading `config.php` in Picos root dir
 * [Fixed] Replace `urldecode()` (deprecated RFC 1738) with `rawurldecode()`
           (RFC 3986) in `Page::evaluateRequestUrl()`
 * [Fixed] #272: Encode URLs using `rawurlencode()` in `Pico::getPageUrl()`

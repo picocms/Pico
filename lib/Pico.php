@@ -446,6 +446,10 @@ class Pico
     protected function loadConfig()
     {
         $config = null;
+        if (file_exists($this->getConfigDir() . 'config.php')) {
+            require($this->getConfigDir() . 'config.php');
+        }
+
         $defaultConfig = array(
             'site_title' => 'Pico',
             'base_url' => '',
@@ -459,11 +463,6 @@ class Pico
             'content_ext' => '.md',
             'timezone' => ''
         );
-
-        $configFile = $this->getConfigDir() . 'config.php';
-        if (file_exists($configFile)) {
-            require $configFile;
-        }
 
         $this->config = is_array($this->config) ? $this->config : array();
         $this->config += is_array($config) ? $config + $defaultConfig : $defaultConfig;
@@ -1308,7 +1307,7 @@ class Pico
      * @param  string $path relative or absolute path
      * @return string       absolute path
      */
-    protected function getAbsolutePath($path)
+    public function getAbsolutePath($path)
     {
         if (substr($path, 0, 1) !== '/') {
             $path = $this->getRootDir() . $path;

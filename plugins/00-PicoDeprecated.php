@@ -170,11 +170,27 @@ class PicoDeprecated extends AbstractPicoPlugin
     protected function loadRootDirConfig(&$realConfig)
     {
         if (file_exists($this->getRootDir() . 'config.php')) {
-            // config.php in Pico::$rootDir is deprecated; use Pico::$configDir instead
+            // config.php in Pico::$rootDir is deprecated
+            // use config.php in Pico::$configDir instead
             $config = null;
             require($this->getRootDir() . 'config.php');
 
             if (is_array($config)) {
+                if (array_key_exists('base_url', $config)) {
+                    if (!empty($config['base_url'])) {
+                        $config['base_url'] = rtrim($config['base_url'], '/') . '/';
+                    } else {
+                        unset($config['base_url']);
+                    }
+                }
+                if (array_key_exists('content_dir', $config)) {
+                    if (!empty($config['content_dir'])) {
+                        $config['content_dir'] = $this->getAbsolutePath($config['content_dir']);
+                    } else {
+                        unset($config['content_dir']);
+                    }
+                }
+
                 $realConfig = $config + $realConfig;
             }
         }
