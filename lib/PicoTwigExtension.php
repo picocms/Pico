@@ -59,9 +59,33 @@ class PicoTwigExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
+            'markdown' => new Twig_SimpleFilter('markdown', array($this, 'markdownFilter')),
             'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
             'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
         );
+    }
+
+    /**
+     * Parses a markdown string to HTML
+     *
+     * This method is registered as the Twig `markdown` filter. You can use it
+     * to e.g. parse a meta variable (`{{ meta.description|markdown }}`).
+     * Don't use it to parse the contents of a page, use the `content` filter
+     * instead, what ensures the proper preparation of the contents.
+     *
+     * @param  string $markdown markdown to parse
+     * @return string           parsed HTML
+     */
+    public function markdownFilter($markdown)
+    {
+        if ($this->getPico()->getParsedown() === null) {
+            throw new LogicException(
+                'Unable to apply Twig "markdown" filter: '
+                . 'Parsedown instance wasn\'t registered yet'
+            );
+        }
+
+        return $this->getPico()->getParsedown()->text($markdown);
     }
 
     /**
