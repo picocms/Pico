@@ -1220,7 +1220,7 @@ class Pico
 
         $this->config['base_url'] =
             $protocol . "://" . $_SERVER['HTTP_HOST']
-            . dirname($_SERVER['SCRIPT_NAME']) . '/';
+            . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 
         return $this->getConfig('base_url');
     }
