@@ -32,7 +32,7 @@ body {
 }
 
 table {
-	border-collapse: separate;
+	border-collapse: collapse;
 	border-spacing: 0;
 }
 
@@ -137,7 +137,7 @@ h3 {
 	margin-top: 2em;
 }
 
-p {
+p, table {
 	margin-bottom: 1em;
 }
 
@@ -165,6 +165,17 @@ abbr, acronym {
 
 td, td img {
 	vertical-align: top;
+}
+
+td, th {
+	border: solid 1px #999;
+	padding: 0.25em 0.5em;
+}
+
+th {
+	font-weight: bold;
+	text-align: center;
+	background: #eee;
 }
 
 sub {
