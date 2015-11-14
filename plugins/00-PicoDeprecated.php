@@ -176,19 +176,11 @@ class PicoDeprecated extends AbstractPicoPlugin
             require($this->getRootDir() . 'config.php');
 
             if (is_array($config)) {
-                if (array_key_exists('base_url', $config)) {
-                    if (!empty($config['base_url'])) {
-                        $config['base_url'] = rtrim($config['base_url'], '/') . '/';
-                    } else {
-                        unset($config['base_url']);
-                    }
+                if (isset($config['base_url'])) {
+                    $config['base_url'] = rtrim($config['base_url'], '/') . '/';
                 }
-                if (array_key_exists('content_dir', $config)) {
-                    if (!empty($config['content_dir'])) {
-                        $config['content_dir'] = $this->getAbsolutePath($config['content_dir']);
-                    } else {
-                        unset($config['content_dir']);
-                    }
+                if (isset($config['content_dir'])) {
+                    $config['content_dir'] = rtrim($config['content_dir'], '/') . '/';
                 }
 
                 $realConfig = $config + $realConfig;
