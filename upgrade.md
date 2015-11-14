@@ -43,7 +43,7 @@ You are not required to update your internal links to meet the new routing syste
 
 In Markdown files (i.e. your `content` directory), replace all occurrences of e.g. `%base_url%/sub/page` with `%base_url%?sub/page`. If you're linking to the main page (i.e. just `%base_url%`), you either shouldn't change anything or replace it with `%base_url%?index` - even this isn't absolutely necessary. Pico replaces the `%base_url%` variable the same as always, but also removes the `?` when URL rewriting is enabled.
 
-In Theme files (i.e. a custom theme folder in Pico's `themes` directory), required changes are quite similar. instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter. Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter simply calls the [`Pico::getPageUrl()` method][PicoGetPageUrl].
+In Theme files (i.e. a custom theme folder in Pico's `themes` directory), the required changes are quite similar. Instead of using `{% raw %}{{ base_url }}{% endraw %}` directly, use the newly introduced `link` filter (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`). Again, you can (but aren't required to) either don't change links to the main page (i.e. just `{% raw %}{{ base_url }}{% endraw %}`) or replace them with `{% raw %}{{ "index"|link }}{% endraw %}`. The `link` filter simply calls the [`Pico::getPageUrl()` method][PicoGetPageUrl].
 
 Please note that plugins or themes, which haven't been updated to Pico 1.0 yet, could force you to keep URL rewriting enabled.
 
@@ -87,7 +87,7 @@ If you have a question about one of the new features of Pico 1.0, please comment
 [RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
 [Symfony]: http://symfony.com/
 [SymfonyYAML]: http://symfony.com/doc/current/components/yaml/introduction.html
-[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
+[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1166-L1180
 [PullRequest252]: https://github.com/picocms/Pico/pull/252
 [PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
 [GettingHelp]: {{ site.base_url }}/docs.html#getting-help
