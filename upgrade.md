@@ -158,15 +158,5 @@ If you have a question about one of the new features of Pico 1.0, please comment
 [GettingHelp]: {{ site.base_url }}/docs.html#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
 
-
-
-
-
-
-
-
----
-
-
-
 {% endcomment %}
+---
