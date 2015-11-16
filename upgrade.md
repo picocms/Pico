@@ -10,11 +10,11 @@ toc:
         drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
         drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
         ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
-        plugins---backward-compatibility: Plugins / Backward Compatibility
+        plugins--backward-compatibility: Plugins / Backward Compatibility
     whats-new:
         _title: What's New
         initialization: Initialization
-        rounting-system2: Rounting System
+        rounting-system-1: Rounting System
         plugin-system: Plugin System
         further-reading: Further Reading
 nav-url: /docs.html
