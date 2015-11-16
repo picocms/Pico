@@ -6,19 +6,19 @@ description: We have worked hard to make the upgrade process to Pico 1.0 as easy
 toc:
     how-to-upgrade:
         _title: How to Upgrade
-        new-for-users:
-            _title: What's New - Changes for Users
             routing-system: Routing System
             drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin: Drop of `{{ page.content }}`
             drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
             ensure-restricted-access-to-content-directory: Ensure restricted access to `content` directory
-        new-under-hood:
-            _title: What's New - Changes under the Hood
-            initialization: Initialization
-            rounting-system2: Rounting System
-            plugin-system: Plugin System
+			plugins---backward-compatibility: Plugins / Backward Compatibility
+	what's-new:
+		_title: What's New
+		initialization: Initialization
+		rounting-system2: Rounting System
+		plugin-system: Plugin System
+		further-reading: Further Reading
 nav-url: /docs.html
-gh_release: v1.0.0-beta.1
+gh_release: v1.0.0
 ---
 
 We worked hard to make the upgrade process to `Pico 1.0` as easy as possible.  As a user, you shouldn't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0.  Nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__. You can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.  The instructions on this page are additional steps, mostly intended for power-users and theme developers.
