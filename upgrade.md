@@ -107,17 +107,17 @@ Users, please refer to the websites of the plugins you're using to get updates f
 
 If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you experience a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
 
-[UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
-[InstallInstructions]: {{ site.base_url }}/docs.html#install
-[RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
-[RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
-[Symfony]: http://symfony.com/
-[SymfonyYAML]: http://symfony.com/doc/current/components/yaml/introduction.html
-[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
-[PullRequest252]: https://github.com/picocms/Pico/pull/252
-[PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
-[GettingHelp]: {{ site.base_url }}/docs.html#getting-help
-[Issues]: {{ site.gh_project_url }}/issues
+[UpgradeInstructions]({{ site.base_url }}/docs.html#upgrade)
+[InstallInstructions]({{ site.base_url }}/docs.html#install)
+[RewriteFile]({{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7)
+[RewriteDocs]({{ site.base_url }}/docs.html#url-rewriting)
+[Symfony](http://symfony.com/)
+[SymfonyYAML](http://symfony.com/doc/current/components/yaml/introduction.html)
+[PicoGetPageUrl]({{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171)
+[PullRequest252](https://github.com/picocms/Pico/pull/252)
+[PullRequest252Message](https://github.com/picocms/Pico/pull/252#issue-103755569)
+[GettingHelp]({{ site.base_url }}/docs.html#getting-help)
+[Issues]({{ site.gh_project_url }}/issues)
 
 
 {% comment %}
