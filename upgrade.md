@@ -14,7 +14,7 @@ toc:
     whats-new:
         _title: What's New
         initialization: Initialization
-        rounting-system-1: Rounting System
+        routing-system-1: Rounting System
         plugin-system: Plugin System
         further-reading: Further Reading
 nav-url: /docs.html
