@@ -14,9 +14,8 @@ toc:
     whats-new:
         _title: What's New
         initialization: Initialization
-        routing-system-1: Rounting System
+        routing-system-1: Routing System
         plugin-system: Plugin System
-        further-reading: Further Reading
 nav-url: /docs.html
 gh_release: v1.0.0
 ---
@@ -103,23 +102,6 @@ If you're a plugin developer, please refer to the new development docs, particul
 
 Users, please refer to the websites of the plugins you're using to get updates for them.
 
-### Further Reading
-
-If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you experience a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
-
-* [UpgradeInstructions]({{ site.base_url }}/docs.html#upgrade)
-* [InstallInstructions]({{ site.base_url }}/docs.html#install)
-* [RewriteFile]({{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7)
-* [RewriteDocs]({{ site.base_url }}/docs.html#url-rewriting)
-* [Symfony](http://symfony.com/)
-* [SymfonyYAML](http://symfony.com/doc/current/components/yaml/introduction.html)
-* [PicoGetPageUrl]({{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171)
-* [PullRequest252](https://github.com/picocms/Pico/pull/252)
-* [PullRequest252Message](https://github.com/picocms/Pico/pull/252#issue-103755569)
-* [GettingHelp]({{ site.base_url }}/docs.html#getting-help)
-* [Issues]({{ site.gh_project_url }}/issues)
-
-
 {% comment %}
 
 ---
@@ -128,6 +110,19 @@ If you have a question about one of the new features of Pico 1.0, please comment
 
 Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252Message].
 
+If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you experience a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
+
+[UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
+[InstallInstructions]: {{ site.base_url }}/docs.html#install
+[RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
+[RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
+[Symfony]: http://symfony.com/
+[SymfonyYAML]: http://symfony.com/doc/current/components/yaml/introduction.html
+[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
+[PullRequest252]: https://github.com/picocms/Pico/pull/252
+[PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
+[GettingHelp]: {{ site.base_url }}/docs.html#getting-help
+[Issues]: {{ site.gh_project_url }}/issues
 
 ---
 
