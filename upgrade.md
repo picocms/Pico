@@ -21,44 +21,11 @@ nav-url: /docs.html
 gh_release: v1.0.0-beta.1
 ---
 
+We worked hard to make the upgrade process to `Pico 1.0` as easy as possible.  As a user, you shouldn't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0.  Nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__. You can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.  The instructions on this page are additional steps, mostly intended for power-users and theme developers.
+
 ## How to Upgrade
-We worked hard to make the upgrade process to `Pico 1.0.0` as easy as possible.  Usually you don't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0.  Nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__. You basically can follow the regular [upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version:
 
-### 1. Create a backup.
-Seriously.  We all make mistakes, and a quick backup is well worth its minimal effort.  Just copy and paste your entire Pico folder to another location and it'll be ready and waiting should something go wrong.
-
-### 2. Remove Pico's old files
-The first step of the upgrade is to delete all of Pico's old files except for your __`content`__ directory, __`config.php`__ (or `config/config.php`) and a few other items.  If applicable, you can save the directory of any custom __`themes`__.  If you're using plugins, you can also keep any plugins you've added to the __`plugins`__ directory, but you should remove `pico_plugin.php`, as this was an example plugin for 0.9 and earlier.
-
-Remember, your themes and plugins should be upgaded for 1.0.0, but you can run them in compatibility mode until they are updated!
-
-![Step 1]({{ site.base_url }}/style/images/docs/pico_upgrade_delete_old.jpg)
-![Step 1a]({{ site.base_url }}/style/images/docs/pico_upgrade_old_deleted.jpg)
-
-### 3. Extract `Pico 1.0.0` to your installation directory.
-![Step 2]({{ site.base_url }}/style/images/docs/pico_upgrade_select_1.0.jpg)
-![Step 2a]({{ site.base_url }}/style/images/docs/pico_upgrade_move_1.0.jpg)
-
-### 3. Move your `config.php` to the new `config/` directory.
-Also, two new config options have been added, `content_ext` (content extension) and `timezone`.
-
-![Step 3]({{ site.base_url }}/style/images/docs/pico_upgrade_move_config.jpg)
-
-### 4. URL Rewriting is now optional in `Pico 1.0.0`
-If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links (e.g. `index.php?sub/page`) correctly. You need not update your markdown files or custom Twig templates if you keep URL rewriting enabled. See [Routing system](#routing-system) below for more details.
-
-Further reading:
-- [MOD_REWRITE](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)
-- [QUERY_STRING](https://en.wikipedia.org/wiki/Query_string)
-
-### 5. That's it! Enjoy your newly upgraded Pico installation!
-If you have any trouble, don't forget to review the [Documentation]({{ site.base_url }}/docs.html) and see our [Getting Help]({{ site.base_url }}/docs.html#getting-help) Section.  If you've already checked the Documentation and still need some additional help, don't be afraid to create a [New Issue]({{ site.gh_project_url }}/issues/new) on GitHub and we'll see if we can't walk you through any difficulties.
-
----
-
-##What's New - Changes for Users
-
-Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting became optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
+Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting has become optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
 
 A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"](#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin) and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`" sections](#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin) below.
 
@@ -105,7 +72,7 @@ With Pico 1.0 we removed some empty `index.html` files, whose object was to prev
 
 Please make sure directory listing is disabled and users cannot browse to the `config`, `content`, `content-sample`, `lib` and `vendor` directories. Try it yourself by browsing to both your `lib` directory (e.g. `http://example.com/pico/lib/`) and `lib/Pico.php` file (e.g. `http://example.com/pico/lib/Pico.php`) - your webserver should either report `404 Not Found` or `403 Forbidden`.
 
-### Plugin / Backward Compatibility (Needs a new home...)
+### Plugins / Backward Compatibility
 
 The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and older. The plugin is disabled by default, but gets automatically enabled as soon as a old plugin is loaded. We will maintain backward compatibility for a long time, however, we recommend you to take the following steps to confine the neccessity of `PicoDeprecated` to old plugins. If you don't use plugins or upgraded all plugins to be compatible to Pico 1.0, you must take these steps.
 
@@ -113,11 +80,11 @@ If you're a plugin developer, please refer to the new development docs, particul
 
 ---
 
-## What's New -  Changes Under the Hood
+## What's New
 
-`Pico 1.0.0` brings with it a complete code refactoring and overhaul of the plugin system, countless bug fixes, compatibility with all web servers, and enhanced documentation. Making Pico extremely simple, faster, and more flexible than ever. <sup> * </sup>Best of all, it's completely backwards compatible! Click for a full [changelog]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/changelog.txt).
+`Pico 1.0` brings with it a complete code refactoring and overhaul of the plugin system, countless bug fixes, compatibility with all web servers, and enhanced documentation. Making Pico extremely simple, faster, and more flexible than ever. <sup> * </sup>Best of all, it's completely backwards compatible! Click for a full [changelog]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/changelog.txt).
 
-Detailed below is some of the most important changes to note when upgrading Pico from a `0.x` release to the new `Pico 1.0.0`
+Detailed below is some of the most important changes to note when upgrading Pico from a `0.x` release to the new `Pico 1.0`
 
 ### Initialization
 Initialization of Pico now works completely different: rather than defining constants (which are probably conflicting with other applications...), Pico now expects its paths to be passed as parameters to the [constructor]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method___construct). The constructor doesn't start Picos processing anymore, you now have to call the [Pico::run()]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method_run) method, which returns the parsed page contents instead of directly echoing them. The [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin defines the now deprecated constants `ROOT_DIR`, `LIB_DIR` etc., so old plugins can still use them. Those constants are defined before reading `config.php` in Picos root folder, so upgrading users usually aren't bothered with e.g. a `PHP Notice: Use of undefined constant ROOT_DIR - assumed 'ROOT_DIR'` error when using `ROOT_DIR` in their `config.php` (so: no BC break). This change is reflected in the new [index.php]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/index.php) file.
@@ -136,13 +103,7 @@ If you're a plugin developer, please refer to the new development docs, particul
 
 Users, please refer to the websites of the plugins you're using to get updates for them.
 
----
-
-{% comment %}
-
-## What's new? (Old)
-
-Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252Message].
+### Further Reading
 
 If you have a question about one of the new features of Pico 1.0, please comment on [#252][PullRequest252] (although the Pull Request is closed!). If you experience a problem with Pico, please notice the ["Getting help" section][GettingHelp] of the docs and open a new [Issue][Issues] on GitHub.
 
@@ -158,5 +119,16 @@ If you have a question about one of the new features of Pico 1.0, please comment
 [GettingHelp]: {{ site.base_url }}/docs.html#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
 
-{% endcomment %}
+
+{% comment %}
+
 ---
+
+## What's new? (Old)
+
+Unfortunately we didn't have the time to finish this section. The above ["How to upgrade" section](#how-to-upgrade) should give you a clue what has changed for users, the changes for developers are even more wide-ranging. We'll finish this section by the release of the final Pico 1.0.0, so please stay in touch. If you really want to get more information, please refer to the considerable Pull Request message of [#252][PullRequest252Message].
+
+
+---
+
+{% endcomment %}
