@@ -22,7 +22,7 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
 [OfficialPlugins]: {{ site.base_url }}/plugins.html
-[EditInlineDocs]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/content-sample/index.md
+[EditInlineDocs]: {{ site.gh_project_url }}/edit/{{ site.gh_project_branch }}/content-sample/index.md
 [EditUserDocs]: {{ site.gh_pages_url }}/tree/{{ site.gh_pages_branch }}/_docs
 [EditDevDocs]: {{ site.gh_pages_url }}/tree/{{ site.gh_pages_branch }}/_plugin-dev
 [GitHub]: {{ site.gh_project_url }}
