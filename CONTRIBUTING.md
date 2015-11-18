@@ -78,44 +78,63 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 Build & Release process
 -----------------------
 
-This is work in progress. Please refer to [#268](https://github.com/picocms/Pico/issues/268) for details.
+> This is work in progress. Please refer to [#268](https://github.com/picocms/Pico/issues/268) for details.
 
-<!--
-
-Defined below is a specification to which the Build and Release process of Pico should follow. We use `travis-ci` to automate the process, and each commit to `master` should be releasable.
+Defined below is a specification to which the Build and Release process of Pico should follow. We use [travis-ci](https://travis-ci.com) to automate the process, and each commit to `master` should be deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary move through these phases to generate a Pico release.
 
 #### Commit phase
-- Commit changes
-- Create & Push Git tag
-- Trigger automatic build process...
 
-Example commit message:
+- Make/Commit/Merge changes
+- Use a formatted commit message
 
-    Pico 1.0.1
+    Example:
+    ```
+    Pico Version 1.0.1
     * [New] ...
     * [Changed] ...
+    * [Removed] ...
+    * [Security] ...
+    ```
 
-*Please submit pull-requests with a properly
-formatted commit message/SemVer increase to avoid the need for manual amendments.*
+- Tagging a commit on the `master` branch will trigger an automatic build..
+
+- __Please submit pull-requests with a properly formatted commit message and
+[SemVer](http://semver.org) increase to avoid the need for manual amendments.__
+
 
 #### Analysis phase
-- Run through `scrutinizer-ci`?
+
+Does the commit pass all `travis-ci` checks?
+
+- We test PHP 5.3, 5.4, 5.5, 5.6, 7, the nighlty build, and HHVM
+
+If not, all errors will need to be corrected before the build can complete.
 
 #### Packaging phase
-- Run composer locally
-- Create a ZIP archive (so vendor/ is included)
-- Build documentation, output goes to a new folder in the `gh-pages` branch
+`travis-ci`
+- will run [composer](http://getcomposer.org) locally.
+- will create a ZIP archive (so vendor/ is included)
+
+`manually`
+
+- build current documentation using [PhpDocumentor](http://phpdoc.org),
 
 #### Release phase
-- Create new Git release at tag
-- Upload ZIP archive
-- Upload documentation to the `gh-pages` branch
-- Set Symlink for latest documentation (http://picocms.org/docs/latest)
-- Update release information on GitHub with:
+`travis-ci`
+- will create new Git release at tag
+- will include the properly formatted commit message  including the changelog of items since the last release.
+- will include ZIP archive in release
+
+`manually`
+- rename `docs/master` folder in `gh-pages` branch to the name of the previous Pico release. (e.g. `docs/pico-1.0.0`)
+-  upload current documentation to the `gh-pages` branch `/docs/master`
+
+- update release information on GitHub with:
     - Release title (taken from changelog)
     - Changelog
 
+`automatically`
+- Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
+
 #### Announcements
 - Where to announce new Pico release?
-
--->
