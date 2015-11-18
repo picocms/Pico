@@ -82,10 +82,10 @@ Build & Release process
 
 Defined below is a specification to which the Build and Release process of Pico should follow. We use [travis-ci](https://travis-ci.com) to automate the process, and each commit to `master` should be deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary move through these phases to generate a Pico release.
 
-#### Commit phase
+### Commit phase
 
 - Make/Commit/Merge changes
-- Use a formatted commit message
+- Use a formatted commit message with contents of changelog
 
     Example:
     ```
@@ -102,7 +102,7 @@ Defined below is a specification to which the Build and Release process of Pico 
 [SemVer](http://semver.org) increase to avoid the need for manual amendments.__
 
 
-#### Analysis phase
+### Analysis phase
 
 Does the commit pass all `travis-ci` checks?
 
@@ -110,31 +110,32 @@ Does the commit pass all `travis-ci` checks?
 
 If not, all errors will need to be corrected before the build can complete.
 
-#### Packaging phase
-`travis-ci`
+### Packaging phase
+
+###### travis-ci
 - will run [composer](http://getcomposer.org) locally.
 - will create a ZIP archive (so vendor/ is included)
 
-`manually`
+###### manually
 
 - build current documentation using [PhpDocumentor](http://phpdoc.org),
 
-#### Release phase
-`travis-ci`
+### Release phase
+
+###### travis-ci
 - will create new Git release at tag
 - will include the properly formatted commit message  including the changelog of items since the last release.
 - will include ZIP archive in release
 
-`manually`
+###### manually
 - rename `docs/master` folder in `gh-pages` branch to the name of the previous Pico release. (e.g. `docs/pico-1.0.0`)
 -  upload current documentation to the `gh-pages` branch `/docs/master`
-
 - update release information on GitHub with:
     - Release title (taken from changelog)
     - Changelog
 
-`automatically`
+###### automatically
 - Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
 
-#### Announcements
-- Where to announce new Pico release?
+### Announcements
+- Releases will be available at https://github.com/picocms/Pico/releases
