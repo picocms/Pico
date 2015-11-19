@@ -266,7 +266,8 @@ class Pico
      * meta headers, processes Markdown, does Twig processing and returns
      * the rendered contents.
      *
-     * @return string rendered Pico contents
+     * @return string           rendered Pico contents
+     * @throws RuntimeException thrown when a not recoverable error occurs
      */
     public function run()
     {
@@ -280,6 +281,11 @@ class Pico
         // load config
         $this->loadConfig();
         $this->triggerEvent('onConfigLoaded', array(&$this->config));
+
+        // check content dir
+        if (!is_dir($this->getConfig('content_dir'))) {
+            throw new RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
+        }
 
         // evaluate request url
         $this->evaluateRequestUrl();
