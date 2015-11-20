@@ -133,7 +133,7 @@ Users, please refer to the websites of the plugins you're using to get updates f
 
 ### Changelog
 
- We've changed a lot in this new release of Pico.  For additional details please check the `1.0.0` section of the project [changelog]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/changelog.txt).
+ We've changed a lot in this new release of Pico.  For additional details please check the `1.0.0` section of the project [changelog][Changelog].
 
 [UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
 [InstallInstructions]: {{ site.base_url }}/docs.html#install
@@ -146,6 +146,7 @@ Users, please refer to the websites of the plugins you're using to get updates f
 [PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
 [GettingHelp]: {{ site.base_url }}/docs.html#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
+[Changelog]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CHANGELOG.md
 
 {% comment %}
 
