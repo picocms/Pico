@@ -12,7 +12,17 @@ script:
   - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
 before_deploy:
+  #update composer
+  - composer self-update
+  # install dependencies + req-dev
   - composer install
+  # Generate API documentation
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.6' ]; then php vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG ; fi"
+  # Send documentation to Github Pages
+  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.6' ]; then cd build/docs; bash ../gh-pages.sh; fi"
+  # remove req-dev depenedencies
+  - composer update --no-dev
+  # package Pico
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md CHANGELOG.md CONTRIBUTING.md composer.json composer.lock LICENSE config content-sample lib plugins themes vendor index.php
 
 deploy:
@@ -26,4 +36,3 @@ deploy:
     php: 5.3
 
 sudo: false
-
