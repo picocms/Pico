@@ -113,12 +113,12 @@ Build & Release process
 
 > This is work in progress. Please refer to [#268](https://github.com/picocms/Pico/issues/268) for details.
 
-Defined below is a specification to which the Build and Release process of Pico should follow. We use [travis-ci](https://travis-ci.com) to automate the process, and each commit to `master` should be deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary move through these phases to generate a Pico release.
+Defined below is a specification to which the Build and Release process of Pico should follow. We use [travis-ci](https://travis-ci.com) to automate the process, and each commit to `master` should be deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary, move through these phases to generate a Pico release.
 
 ### Commit phase
 
 - Make/Commit/Merge changes
-- Use a formatted commit message with contents of changelog
+- Use a formatted commit message with contents of `CHANGELOG.md` since last release.
 
     Example:
     ```
@@ -141,6 +141,10 @@ Does the commit pass all `travis-ci` checks?
 
 - We test PHP 5.3, 5.4, 5.5, 5.6, 7, the nighlty build, and HHVM
 
+- should we `allow_failures:` in `.tavis.yml?`
+    - php: hhvm
+    - php: 7
+
 If not, all errors will need to be corrected before the build can complete.
 
 ### Packaging phase
@@ -151,7 +155,24 @@ If not, all errors will need to be corrected before the build can complete.
 
 ###### manually
 
-- build current documentation using [PhpDocumentor](http://phpdoc.org),
+- build current documentation using [PhpDocumentor](http://phpdoc.org)
+
+    `phpdoc -d path/to/Pico/ -t path/to/Pico/build/docs/master`
+
+    When running `phpDocumentor` there are three command-line options that are essential:
+    - `-d`, specifies the directory, or directories, of your project that you want to document.
+    - `-f`, specifies a specific file, or files, in your project that you want to document.
+    - `-t`, specifies the location where your documentation will be written (also called ‘target folder’).
+
+TO-DO: in the future, this should be automatic.
+- can `phpDocumentor` be included in Pico's `composer.json`?
+- can `travis-ci` run `phpDocumentor`? `php vendor/bin/phpdoc ...`
+- can `travis-ci` run a shell script to:
+    - `git clone`, `git add`, `git commit`, `git push` to `gh-pages`?
+      e.g. `git clone -b gh-pages "https://github.com/picocms/Pico.git"`
+    - (below) rename `docs/master` ...
+    - `git push`
+- organize in `build` folder?
 
 ### Release phase
 
@@ -161,11 +182,12 @@ If not, all errors will need to be corrected before the build can complete.
 - will include ZIP archive in release
 
 ###### manually
+TO-DO: in the future, this should be automatic. (See above)
 - rename `docs/master` folder in `gh-pages` branch to the name of the previous Pico release. (e.g. `docs/pico-1.0.0`)
--  upload current documentation to the `gh-pages` branch `/docs/master`
+- upload current documentation to the `gh-pages` branch `/docs/master`
 - update release information on GitHub with:
-    - Release title (taken from changelog)
-    - Changelog
+    - release title (taken from changelog)
+    - changelog
 
 ###### automatically
 - Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
