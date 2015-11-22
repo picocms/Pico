@@ -1339,8 +1339,7 @@ class Pico
         if (!empty($this->plugins)) {
             foreach ($this->plugins as $plugin) {
                 // only trigger events for plugins that implement PicoPluginInterface
-                // deprecated events (plugins for Pico 0.9 and older) will be
-                // triggered by the `PicoPluginDeprecated` plugin
+                // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
                 if (is_a($plugin, 'PicoPluginInterface')) {
                     $plugin->handleEvent($eventName, $params);
                 }
