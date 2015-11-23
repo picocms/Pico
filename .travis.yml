@@ -12,14 +12,11 @@ script:
   - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
 before_deploy:
-  # Generate API documentation
-  - sh -c "php $TRAVIS_BUILD_DIR/vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG --ignore '*/vendor/*'"
-  # Send documentation to Github Pages
-  - sh -c "bash $TRAVIS_BUILD_DIR/build/deploy-phpdoc.sh;"
-  # remove req-dev depenedencies
-  - composer update --no-dev
-  # package Pico
-  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md CHANGELOG.md CONTRIBUTING.md composer.json composer.lock LICENSE config content-sample lib plugins themes vendor index.php
+  - composer install
+  - ./vendor/bin/phpdoc -d . -i 'vendor/*' -i 'plugins/*' -f 'plugins/DummyPlugin.php' -t "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" --title "Pico 1.0 API Documentation ($TRAVIS_TAG)"
+  - ./build/deploy-phpdoc.sh "picocms/Pico" "gh-pages" "$GITHUB_OAUTH_TOKEN" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG"
+  - composer install --no-dev
+  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
 
 deploy:
   provider: releases

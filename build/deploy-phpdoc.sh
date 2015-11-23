@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
-# Modified from: https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
-
-# Exit with nonzero exit code if anything fails
 set -e
 
-# Clone Pico, then create & checkout gh-pages branch
-git clone -b gh-pages "https://github.com/picocms/Pico.git $TRAVIS_BUILD_DIR/build/Pico"
+# parameters
+GITHUB_PROJECT="$1"         # GitHub repo (e.g. picocms/Pico)
+GITHUB_BRANCH="$2"          # branch to use (e.g. gh-pages)
+GITHUB_OAUTH_TOKEN="$3"     # see https://github.com/settings/tokens
+SOURCE_DIR="$4"             # absolute path to phpDocs target directory
+TARGET_DIR="$5"             # relative path within the specified GitHub repo
 
-# Inside this git repo we'll pretend to be a new user
+# clone repo
+GIT_DIR="$(dirname "$0")/$(basename "$SOURCE_DIR").git"
+git clone -b "$GITHUB_BRANCH" "https://github.com/$GITHUB_PROJECT.git" "$GIT_DIR"
+
+# setup git
+cd "$GIT_DIR"
 git config user.name "Travis CI"
 git config user.email "travis-ci@picocms.org"
 
-#copy new files to release number
-cp -a $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG $TRAVIS_BUILD_DIR/build/Pico/phpDoc/$TRAVIS_TAG
-#move old master files to old-stable
-mv -f $TRAVIS_BUILD_DIR/build/Pico/phpDoc/master $TRAVIS_BUILD_DIR/build/Pico/phpDoc/old-stable
-#copy new files to master
-cp -a $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG $TRAVIS_BUILD_DIR/build/Pico/phpDoc/master
+# copy phpdoc
+[ -e "$TARGET_DIR" ] && echo "FATAL: $(basename "$0") target directory exists" && exit 1
+cp -R "$SOURCE_DIR" "$TARGET_DIR"
 
-# Add the files to our commit
-git add $TRAVIS_BUILD_DIR/build/Pico/phpDoc/*
+# commit changes
+git add "$TARGET_DIR"
+git commit -m "Add phpDocumentor class docs for Pico $TRAVIS_TAG"
 
-# Commit the files with our commit message
-git commit -m "Update Documentation for Pico $TRAVIS_TAG"
-
-# Force push from the current repo's gh-pages branch to the remote repo's gh-pages branch.
-# We redirect output to /dev/null to hide any sensitive data that might otherwise be exposed.
-git push --force --quiet "https://${GITHUB_OAUTH_TOKEN}@github.com/picocms/Pico.git" master:gh-pages > /dev/null 2>&1
+# push changes
+git push --force --quiet "https://${GITHUB_OAUTH_TOKEN}@github.com/$GITHUB_PROJECT.git" "$GITHUB_BRANCH:$GITHUB_BRANCH" > /dev/null 2>&1
