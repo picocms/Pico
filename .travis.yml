@@ -12,14 +12,10 @@ script:
   - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
 before_deploy:
-  #update composer
-  - composer self-update
-  # install dependencies + req-dev
-  - composer install
   # Generate API documentation
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.6' ]; then php vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG ; fi"
+  - sh -c "php $TRAVIS_BUILD_DIR/vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/pico-$TRAVIS_TAG"
   # Send documentation to Github Pages
-  - sh -c "if [ '$TRAVIS_PHP_VERSION' = '5.6' ]; then cd build/docs; bash ../gh-pages.sh; fi"
+  - sh -c "bash $TRAVIS_BUILD_DIR/build/deploy-phpdoc.sh;"
   # remove req-dev depenedencies
   - composer update --no-dev
   # package Pico
