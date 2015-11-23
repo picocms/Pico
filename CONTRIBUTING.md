@@ -141,56 +141,30 @@ Does the commit pass all `travis-ci` checks?
 
 - We test PHP 5.3, 5.4, 5.5, 5.6, 7, the nighlty build, and HHVM
 
-- should we `allow_failures:` in `.tavis.yml?`
-    - php: hhvm
-    - php: 7
-
 If not, all errors will need to be corrected before the build can complete.
 
 ### Packaging phase
 
 ###### travis-ci
-- will run [composer](http://getcomposer.org) locally.
+- will run [composer](http://getcomposer.org) locally with `req-dev` dependencies.
+- will generate [PhpDocumentor](http://phpdoc.org) class docs automatically
+- will run our `deploy-phpdoc.sh` script
 - will create a ZIP archive (so vendor/ is included)
-
-###### manually
-
-- build current documentation using [PhpDocumentor](http://phpdoc.org)
-
-    `phpdoc -d path/to/Pico/ -t path/to/Pico/build/docs/master`
-
-    When running `phpDocumentor` there are three command-line options that are essential:
-    - `-d`, specifies the directory, or directories, of your project that you want to document.
-    - `-f`, specifies a specific file, or files, in your project that you want to document.
-    - `-t`, specifies the location where your documentation will be written (also called ‘target folder’).
-
-TO-DO: in the future, this should be automatic.
-- can `phpDocumentor` be included in Pico's `composer.json`?
-- can `travis-ci` run `phpDocumentor`? `php vendor/bin/phpdoc ...`
-- can `travis-ci` run a shell script to:
-    - `git clone`, `git add`, `git commit`, `git push` to `gh-pages`?
-      e.g. `git clone -b gh-pages "https://github.com/picocms/Pico.git"`
-    - (below) rename `docs/master` ...
-    - `git push`
-- organize in `build` folder?
 
 ### Release phase
 
 ###### travis-ci
+- will remove phpDocumentor from dependencies
 - will create new Git release at tag
-- will include the properly formatted commit message  including the changelog of items since the last release.
+- will include the properly formatted commit message including the changelog of items since the last release.
 - will include ZIP archive in release
 
-###### manually
-TO-DO: in the future, this should be automatic. (See above)
-- rename `docs/master` folder in `gh-pages` branch to the name of the previous Pico release. (e.g. `docs/pico-1.0.0`)
-- upload current documentation to the `gh-pages` branch `/docs/master`
-- update release information on GitHub with:
-    - release title (taken from changelog)
-    - changelog
-
-###### automatically
-- Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
+###### Note:
+If a properly formatted commit message was not provided, you may have to update release information on GitHub with:
+- release title (taken from changelog)
+- changelog
 
 ### Announcements
-- Releases will be available at https://github.com/picocms/Pico/releases
+- Releases will be available at: [https://github.com/picocms/Pico/releases](https://github.com/picocms/Pico/releases)
+
+- Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
