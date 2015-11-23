@@ -13,7 +13,7 @@ script:
 
 before_deploy:
   # Generate API documentation
-  - sh -c "php $TRAVIS_BUILD_DIR/vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/pico-$TRAVIS_TAG"
+  - sh -c "php $TRAVIS_BUILD_DIR/vendor/bin/phpdoc -d $TRAVIS_BUILD_DIR -t $TRAVIS_BUILD_DIR/build/docs/$TRAVIS_TAG --ignore '*/vendor/*'"
   # Send documentation to Github Pages
   - sh -c "bash $TRAVIS_BUILD_DIR/build/deploy-phpdoc.sh;"
   # remove req-dev depenedencies
