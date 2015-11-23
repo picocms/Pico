@@ -18,7 +18,7 @@
         "symfony/yaml" : "2.3"
     },
     "require-dev" : {
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpdocumentor/phpdocumentor": "^2.8"
     },
     "autoload": {
         "psr-0": {
