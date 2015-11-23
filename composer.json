@@ -17,6 +17,9 @@
         "erusev/parsedown-extra": "0.7.*",
         "symfony/yaml" : "2.3"
     },
+    "require-dev" : {
+        "phpdocumentor/phpdocumentor": "^2.8"
+    },
     "autoload": {
         "psr-0": {
             "Pico": "lib/",
