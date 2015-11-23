@@ -1,6 +1,14 @@
 <?php
+
+$parent = '..' . DIRECTORY_SEPARATOR;
+set_include_path(
+    get_include_path() . PATH_SEPARATOR .
+    $parent . $parent . $parent . PATH_SEPARATOR .
+    '.'
+);
+
 // load dependencies
-require_once(__DIR__ . '/vendor/autoload.php');
+require_once('vendor/autoload.php');
 
 // instance Pico
 $pico = new Pico(
