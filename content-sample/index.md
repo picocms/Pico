@@ -62,6 +62,12 @@ Instead of adding your own content to the `content-sample` folder, you should
 create your own `content` directory in Pico's root directory. You can then add
 and access your contents as described above.
 
+As a common practice, we recommend you to separate your contents and assets
+(like images, downloads etc.). We even deny access to your `content` directory
+by default. So if you want to use a asset (e.g. a image) in one of your content
+files, upload it to the (to be created) directory `assets` and use it as
+follows: <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
+
 ### Text File Markup
 
 Text files are marked up using [Markdown][]. They can also contain regular HTML.

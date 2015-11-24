@@ -11,23 +11,22 @@ desktop.ini
 ._*
 
 # Composer
-composer.lock
-composer.phar
-vendor/*
+/composer.lock
+/composer.phar
+/vendor
 
 # User config
-config/config.php
+/config/config.php
 
 # User themes
-themes/*
-!themes/default/index.twig
-!themes/default/bootstrap.theme.css
+/themes
+!/themes/default
 
 # User plugins
-plugins/*
-!plugins/0?-*
-!plugins/1?-*
-!plugins/DummyPlugin.php
+/plugins
+!/plugins/0?-*
+!/plugins/1?-*
+!/plugins/DummyPlugin.php
 
 # User content
-content/*
+/content
