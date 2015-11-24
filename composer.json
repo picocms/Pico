@@ -34,11 +34,5 @@
             "PicoPluginInterface": "lib/",
             "AbstractPicoPlugin": "lib/"
         }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "cp vendor/twbs/bootstrap/dist/css/bootstrap.min.css themes/default/bootstrap.min.css",
-            "cp vendor/twbs/bootstrap/dist/js/bootstrap.js themes/default/bootstrap.js"
-        ]
     }
 }
