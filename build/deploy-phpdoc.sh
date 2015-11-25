@@ -20,6 +20,7 @@ printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
 printf 'SOURCE_REF="%s"\n' "$SOURCE_REF"
 printf 'TARGET_DIR="%s"\n' "$TARGET_DIR"
 printf 'TARGET_BRANCH="%s"\n' "$TARGET_BRANCH"
+echo
 
 # evaluate target reference
 if git check-ref-format "tags/$SOURCE_REF"; then
@@ -43,9 +44,9 @@ else
 fi
 
 # clone repo
-printf '\nCloning repo...\n'
+printf 'Cloning repo...\n'
 GIT_DIR="$SOURCE_DIR.git"
-git clone -b "$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_DIR"
+git clone --branch="$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_DIR"
 
 # setup git
 cd "$GIT_DIR"
@@ -61,7 +62,7 @@ cp -R "$SOURCE_DIR" "$TARGET_DIR"
 
 # commit changes
 printf '\nCommiting changes...\n'
-git add "$TARGET_DIR"
+git add --all "$TARGET_DIR"
 git commit -m "Add phpDocumentor class docs for $SOURCE_REF"
 
 # very simple race condition protection for concurrent Travis builds

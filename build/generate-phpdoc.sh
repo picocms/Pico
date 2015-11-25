@@ -11,6 +11,7 @@ echo "Generating phpDocs..."
 printf 'PHPDOC_SOURCE_DIR="%s"\n' "$PHPDOC_SOURCE_DIR"
 printf 'PHPDOC_TARGET_DIR="%s"\n' "$PHPDOC_TARGET_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
+echo
 
 # generate phpdoc
 phpdoc -d "$PHPDOC_SOURCE_DIR" \
