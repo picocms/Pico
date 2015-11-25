@@ -8,8 +8,13 @@ php:
   - hhvm
   - nightly
 
+matrix:
+  allow_failures:
+    - php: nightly
+  fast-finish: true
+
 script:
-  - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
+  - find . -not \( -path './vendor' -prune \) -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
 before_deploy:
   - composer install
@@ -25,7 +30,6 @@ deploy:
   file: pico-release-$TRAVIS_TAG.tar.gz
   skip_cleanup: true
   on:
-    repo: picocms/Pico
     tags: true
     php: 5.3
 
