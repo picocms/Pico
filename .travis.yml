@@ -13,15 +13,31 @@ matrix:
     - php: nightly
   fast-finish: true
 
+install:
+  - composer install
+
+before_script:
+  - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
+
 script:
   - find . -not \( -path './vendor' -prune \) -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
+after_success:
+  - |
+    [ "$DEPLOY_PHPDOC" == "yes" ] && (
+      [ "$TRAVIS_BRANCH" == "master" ] && [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && (
+        ./build/generate-phpdoc.sh . "$TRAVIS_BUILD_DIR/build/phpdoc-master" "Pico 1.0 API Documentation (master@$TRAVIS_COMMIT)"
+        ./build/deploy-phpdoc.sh "$TRAVIS_BUILD_DIR/build/phpdoc-master" "$TRAVIS_REPO_SLUG" "gh-pages" "master@$TRAVIS_COMMIT"
+      )
+    )
+
 before_deploy:
-  - composer install
-  - ./vendor/bin/phpdoc -d . -i 'vendor/*' -i 'plugins/*' -f 'plugins/DummyPlugin.php' -t "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" --title "Pico 1.0 API Documentation ($TRAVIS_TAG)"
-  - ./build/deploy-phpdoc.sh "picocms/Pico" "gh-pages" "$GITHUB_OAUTH_TOKEN" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG"
-  - composer install --no-dev
-  - composer dump-autoload --optimize
+  - |
+    [ "$DEPLOY_PHPDOC" == "yes" ] && (
+      ./build/generate-phpdoc.sh . "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "Pico 1.0 API Documentation ($TRAVIS_TAG)"
+      ./build/deploy-phpdoc.sh "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "$TRAVIS_REPO_SLUG" "gh-pages" "$TRAVIS_TAG"
+    )
+  - composer install --no-dev --optimize-autoloader
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
 
 deploy:
