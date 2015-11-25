@@ -7,38 +7,39 @@ set -e
 # GITHUB_OAUTH_TOKEN    GitHub authentication token, see https://github.com/settings/tokens
 
 # parameters
-SOURCE_DIR="$1"             # absolute local source path
-TARGET_REPO_SLUG="$2"       # target repo (e.g. picocms/Pico)
-TARGET_BRANCH="$3"          # target branch (e.g. gh-pages)
-TARGET_REF="$4"             # target reference (either [branch]@[commit], [branch] or [tag])
+GITHUB_SLUG="$1"            # GitHub repo (e.g. picocms/Pico)
+SOURCE_DIR="$2"             # absolute source path
+SOURCE_REF="$3"             # source reference (either [branch]@[commit], [branch] or [tag])
+TARGET_DIR="$4"             # relative target path
+TARGET_BRANCH="$5"          # target branch (e.g. gh-pages)
+
+printf 'Deploying phpDocs (%s (%s) --> %s:%s/%s)...\n' "$SOURCE_DIR" "$SOURCE_REF" "$GITHUB_SLUG" "$TARGET_BRANCH" "$TARGET_DIR"
 
 # evaluate target reference
-if git check-ref-format "tags/$TARGET_REF"; then
-    TARGET_REF_TYPE="tag"
-    TARGET_REF_TAG="$TARGET_REF"
-    TARGET_DIR="$TARGET_REF_TAG"
-elif [[ "$TARGET_REF" == *@* ]]; then
-    TARGET_REF_TYPE="commit"
-    TARGET_REF_BRANCH="${TARGET_REF%@*}"
-    TARGET_REF_COMMIT="${TARGET_REF##*@}"
-    TARGET_DIR="$TARGET_REF_BRANCH"
+if git check-ref-format "tags/$SOURCE_REF"; then
+    SOURCE_REF_TYPE="tag"
+    SOURCE_REF_TAG="$SOURCE_REF"
+elif [[ "$SOURCE_REF" == *@* ]]; then
+    SOURCE_REF_TYPE="commit"
+    SOURCE_REF_BRANCH="${SOURCE_REF%@*}"
+    SOURCE_REF_COMMIT="${SOURCE_REF##*@}"
 
-    if ! git check-ref-format "heads/$TARGET_REF_BRANCH"; then
-        echo "FATAL: $APP_NAME target reference '$TARGET_REF' is invalid" >&2
+    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH"; then
+        echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
         exit 1
     fi
-elif git check-ref-format "heads/$TARGET_REF"; then
-    TARGET_REF_TYPE="branch"
-    TARGET_REF_BRANCH="$TARGET_REF"
-    TARGET_DIR="$TARGET_REF_BRANCH"
+elif git check-ref-format "heads/$SOURCE_REF"; then
+    SOURCE_REF_TYPE="branch"
+    SOURCE_REF_BRANCH="$SOURCE_REF"
 else
-    echo "FATAL: $APP_NAME target reference '$TARGET_REF' is invalid" >&2
+    echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
     exit 1
 fi
 
 # clone repo
+printf '\nCloning %s branch of %s...\n' "$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git"
 GIT_DIR="$SOURCE_DIR.git"
-git clone -b "$TARGET_BRANCH" "https://github.com/$TARGET_REPO_SLUG.git" "$GIT_DIR"
+git clone -b "$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_DIR"
 
 # setup git
 cd "$GIT_DIR"
@@ -47,23 +48,26 @@ git config user.email "travis-ci@picocms.org"
 [ -n "$GITHUB_OAUTH_TOKEN" ] && git config credential.https://github.com.username "$GITHUB_OAUTH_TOKEN"
 
 # copy phpdoc
-[ -e "$TARGET_DIR" ] && echo "FATAL: $(basename "$0") target directory '$TARGET_DIR' exists" >&2 && exit 1
+[ ! -d "$TARGET_DIR" ] || rm -rf "$TARGET_DIR"
 [ "${SOURCE_DIR:0:1}" == "/" ] || SOURCE_DIR="$BASE_PWD/$SOURCE_DIR"
-cp -R "$SOURCE_DIR" "phpDoc/$TARGET_DIR"
+printf '\nCopying phpDoc (%s --> %s)...\n' "$SOURCE_DIR" "$GIT_DIR/$TARGET_DIR"
+cp -R "$SOURCE_DIR" "$TARGET_DIR"
 
 # commit changes
+printf '\nCommiting changes...\n'
 git add "$TARGET_DIR"
-git commit -m "Add phpDocumentor class docs for $TARGET_REF"
+git commit -m "Add phpDocumentor class docs for $SOURCE_REF"
 
 # very simple race condition protection for concurrent Travis builds
 # this is no definite protection (race conditions are still possible during `git push`),
 # but it should give a basic protection without disabling concurrent builds completely
-if [ "$TARGET_REF_TYPE" == "commit" ]; then
+if [ "$SOURCE_REF_TYPE" == "commit" ]; then
     # get latest commit
-    LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$TARGET_REPO_SLUG/git/refs/heads/$TARGET_REF_BRANCH" 2> /dev/null | php -r "
+    printf '\nRetrieving latest commit of %s:%s' "$GITHUB_SLUG" "$SOURCE_REF_BRANCH"
+    LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$GITHUB_SLUG/git/refs/heads/$SOURCE_REF_BRANCH" 2> /dev/null | php -r "
         \$json = json_decode(stream_get_contents(STDIN), true);
         if (\$json !== null) {
-            if (isset(\$json['ref']) && (\$json['ref'] === 'refs/heads/$TARGET_REF_BRANCH')) {
+            if (isset(\$json['ref']) && (\$json['ref'] === 'refs/heads/$SOURCE_REF_BRANCH')) {
                 if (isset(\$json['object']) && isset(\$json['object']['sha'])) {
                     echo \$json['object']['sha'];
                 }
@@ -72,11 +76,12 @@ if [ "$TARGET_REF_TYPE" == "commit" ]; then
     ")"
 
     # compare target reference against the latest commit
-    if [ "$LATEST_COMMIT" != "$TARGET_REF_COMMIT" ]; then
-        echo "WARNING: $APP_NAME target reference '$TARGET_REF' doesn't match the latest commit '$LATEST_COMMIT'" >&2
+    if [ "$LATEST_COMMIT" != "$SOURCE_REF_COMMIT" ]; then
+        echo "WARNING: $APP_NAME target reference '$SOURCE_REF' doesn't match the latest commit '$LATEST_COMMIT'" >&2
         exit 0
     fi
 fi
 
 # push changes
-git push "https://github.com/$TARGET_REPO_SLUG.git" "$TARGET_BRANCH:$TARGET_BRANCH"
+printf '\nPushing changes...\n'
+git push "https://github.com/$GITHUB_SLUG.git" "$TARGET_BRANCH:$TARGET_BRANCH"
