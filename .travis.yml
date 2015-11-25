@@ -19,6 +19,7 @@ script:
 before_deploy:
   - composer install
   - composer dump-autoload --optimize
+  - find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md CHANGELOG.md CONTRIBUTING.md composer.json composer.lock LICENSE config content-sample lib plugins themes vendor index.php
 
 deploy:
