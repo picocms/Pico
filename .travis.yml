@@ -24,8 +24,8 @@ script:
 
 after_success:
   - |
-    [ "$DEPLOY_PHPDOC" == "yes" ] && (
-      [ "$TRAVIS_BRANCH" == "master" ] && [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && (
+    [[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] && [ "$TRAVIS_PHP_VERSION" == "5.3" ] (
+      [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ -z "$TRAVIS_TAG" ] (
         ./build/generate-phpdoc.sh . "$TRAVIS_BUILD_DIR/build/phpdoc-master" "Pico 1.0 API Documentation (master@$TRAVIS_COMMIT)"
         ./build/deploy-phpdoc.sh "$TRAVIS_BUILD_DIR/build/phpdoc-master" "$TRAVIS_REPO_SLUG" "gh-pages" "master@$TRAVIS_COMMIT"
       )
@@ -33,7 +33,7 @@ after_success:
 
 before_deploy:
   - |
-    [ "$DEPLOY_PHPDOC" == "yes" ] && (
+    [ "$DEPLOY_PHPDOC_TAGS" == "true" ] && (
       ./build/generate-phpdoc.sh . "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "Pico 1.0 API Documentation ($TRAVIS_TAG)"
       ./build/deploy-phpdoc.sh "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "$TRAVIS_REPO_SLUG" "gh-pages" "$TRAVIS_TAG"
     )
