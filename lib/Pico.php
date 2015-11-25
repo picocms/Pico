@@ -266,7 +266,8 @@ class Pico
      * meta headers, processes Markdown, does Twig processing and returns
      * the rendered contents.
      *
-     * @return string rendered Pico contents
+     * @return string           rendered Pico contents
+     * @throws RuntimeException thrown when a not recoverable error occurs
      */
     public function run()
     {
@@ -280,6 +281,11 @@ class Pico
         // load config
         $this->loadConfig();
         $this->triggerEvent('onConfigLoaded', array(&$this->config));
+
+        // check content dir
+        if (!is_dir($this->getConfig('content_dir'))) {
+            throw new RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
+        }
 
         // evaluate request url
         $this->evaluateRequestUrl();
@@ -1025,7 +1031,7 @@ class Pico
      *
      * @see    Pico::readPages()
      * @see    Pico::sortPages()
-     * @return array|null the data of all pages
+     * @return array[]|null the data of all pages
      */
     public function getPages()
     {
@@ -1333,8 +1339,7 @@ class Pico
         if (!empty($this->plugins)) {
             foreach ($this->plugins as $plugin) {
                 // only trigger events for plugins that implement PicoPluginInterface
-                // deprecated events (plugins for Pico 0.9 and older) will be
-                // triggered by the `PicoPluginDeprecated` plugin
+                // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
                 if (is_a($plugin, 'PicoPluginInterface')) {
                     $plugin->handleEvent($eventName, $params);
                 }

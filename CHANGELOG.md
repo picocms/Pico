@@ -11,6 +11,7 @@ Released: -
         want to parse the contents of a page, use the `content` filter instead
 * [Changed] Improve documentation
 * [Changed] Improve table styling in default theme
+* [Changed] Throw a RuntimeException when the `content` dir isn't accessible
 * [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
 * [Fixed] `PicoDeprecated`: Sanitize `content_dir` and `base_url` options when
           reading `config.php` in Picos root dir

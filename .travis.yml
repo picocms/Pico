@@ -16,6 +16,7 @@ before_deploy:
   - ./vendor/bin/phpdoc -d . -i 'vendor/*' -i 'plugins/*' -f 'plugins/DummyPlugin.php' -t "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" --title "Pico 1.0 API Documentation ($TRAVIS_TAG)"
   - ./build/deploy-phpdoc.sh "picocms/Pico" "gh-pages" "$GITHUB_OAUTH_TOKEN" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG"
   - composer install --no-dev
+  - composer dump-autoload --optimize
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
 
 deploy:
