@@ -27,14 +27,16 @@ after_success:
     [ "$TRAVIS_PHP_VERSION" != "5.3" ] && echo "Skipping phpDoc deployment because this is not on the required runtime" && exit
     [[ ",$DEPLOY_PHPDOC_BRANCHES," != *,"$TRAVIS_BRANCH",* ]] && echo "Skipping phpDoc deployment because this branch is not permitted to deploy" && exit
     [ "$TRAVIS_SECURE_ENV_VARS" != "true" ] && echo "Skipping phpDoc deployment because this is no environment with write access to the repository" && exit
-    ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_BRANCH" "Pico 1.0 API Documentation ($TRAVIS_BRANCH)" || exit 1
-    ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_BRANCH" "$TRAVIS_BRANCH @ $TRAVIS_COMMIT" "phpDoc/$TRAVIS_BRANCH" "gh-pages" || exit 1
+    PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
+    ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" "Pico 1.0 API Documentation ($TRAVIS_BRANCH)" || exit 1
+    ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" "$TRAVIS_BRANCH @ $TRAVIS_COMMIT" "phpDoc/$PHPDOC_ID" "gh-pages" || exit 1
 
 before_deploy:
   - |
     [ "$DEPLOY_PHPDOC_TAGS" == "true" ] && (
-      ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "Pico 1.0 API Documentation ($TRAVIS_TAG)" || exit 1
-      ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG" "gh-pages" || exit 1
+      PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
+      ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" "Pico 1.0 API Documentation ($TRAVIS_TAG)" || exit 1
+      ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" "$TRAVIS_TAG" "phpDoc/$PHPDOC_ID" "gh-pages" || exit 1
     )
   - composer install --no-dev --optimize-autoloader
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
