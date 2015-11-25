@@ -31,7 +31,7 @@ elif [[ "$SOURCE_REF" == *" @ "* ]]; then
     SOURCE_REF_BRANCH="${SOURCE_REF% @ *}"
     SOURCE_REF_COMMIT="${SOURCE_REF##* @ }"
 
-    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH" || ! git rev-parse --verify "$SOURCE_REF_COMMIT"; then
+    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH" || ! git rev-parse --verify "$SOURCE_REF_COMMIT" > /dev/null; then
         echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
         exit 1
     fi
@@ -74,7 +74,7 @@ git commit -m "Update phpDocumentor class docs for $SOURCE_REF"
 # but it should give a basic protection without disabling concurrent builds completely
 if [ "$SOURCE_REF_TYPE" == "commit" ]; then
     # get latest commit
-    printf '\nRetrieving latest commit of %s:%s' "$GITHUB_SLUG" "$SOURCE_REF_BRANCH"
+    printf '\nRetrieving latest commit...\n'
     LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$GITHUB_SLUG/git/refs/heads/$SOURCE_REF_BRANCH" 2> /dev/null | php -r "
         \$json = json_decode(stream_get_contents(STDIN), true);
         if (\$json !== null) {
@@ -88,7 +88,7 @@ if [ "$SOURCE_REF_TYPE" == "commit" ]; then
 
     # compare target reference against the latest commit
     if [ "$LATEST_COMMIT" != "$SOURCE_REF_COMMIT" ]; then
-        echo "WARNING: $APP_NAME target reference '$SOURCE_REF' doesn't match the latest commit '$LATEST_COMMIT'" >&2
+        echo "WARNING: $APP_NAME source reference '$SOURCE_REF' doesn't match the latest commit '$LATEST_COMMIT'" >&2
         exit 0
     fi
 fi
