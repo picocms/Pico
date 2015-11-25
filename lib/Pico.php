@@ -1031,7 +1031,7 @@ class Pico
      *
      * @see    Pico::readPages()
      * @see    Pico::sortPages()
-     * @return array|null the data of all pages
+     * @return array[]|null the data of all pages
      */
     public function getPages()
     {
