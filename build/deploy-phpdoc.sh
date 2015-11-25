@@ -26,10 +26,10 @@ echo
 if git check-ref-format "tags/$SOURCE_REF"; then
     SOURCE_REF_TYPE="tag"
     SOURCE_REF_TAG="$SOURCE_REF"
-elif [[ "$SOURCE_REF" == *@* ]]; then
+elif [[ "$SOURCE_REF" == *" @ "* ]]; then
     SOURCE_REF_TYPE="commit"
-    SOURCE_REF_BRANCH="${SOURCE_REF%@*}"
-    SOURCE_REF_COMMIT="${SOURCE_REF##*@}"
+    SOURCE_REF_BRANCH="${SOURCE_REF% @ *}"
+    SOURCE_REF_COMMIT="${SOURCE_REF##* @ }"
 
     if ! git check-ref-format "heads/$SOURCE_REF_BRANCH" || ! git rev-parse --verify "$SOURCE_REF_COMMIT"; then
         echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
@@ -67,7 +67,7 @@ cp -R "$SOURCE_DIR" "$TARGET_DIR"
 # commit changes
 printf '\nCommiting changes...\n'
 git add --all "$TARGET_DIR"
-git commit -m "Add phpDocumentor class docs for $SOURCE_REF"
+git commit -m "Update phpDocumentor class docs for $SOURCE_REF"
 
 # very simple race condition protection for concurrent Travis builds
 # this is no definite protection (race conditions are still possible during `git push`),

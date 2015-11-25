@@ -24,18 +24,17 @@ script:
 
 after_success:
   - |
-    [[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] && [ "$TRAVIS_PHP_VERSION" == "5.3" ] && (
-      [ "$TRAVIS_SECURE_ENV_VARS" == "true" ] && [ -z "$TRAVIS_TAG" ] && (
-        ./build/generate-phpdoc.sh . "build/phpdoc-master" "Pico 1.0 API Documentation (master)"
-        ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "build/phpdoc-master" "master@$TRAVIS_COMMIT" "phpDoc/master" "gh-pages"
-      )
-    )
+    [ "$TRAVIS_PHP_VERSION" != "5.3" ] && echo "Skipping phpDoc deployment because this is not on the required runtime" && exit
+    [[ ",$DEPLOY_PHPDOC_BRANCHES," != *,"$TRAVIS_BRANCH",* ]] && echo "Skipping phpDoc deployment because this branch is not permitted to deploy" && exit
+    [ "$TRAVIS_SECURE_ENV_VARS" != "true" ] && echo "Skipping phpDoc deployment because this is no environment with write access to the repository" && exit
+    ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-master" "Pico 1.0 API Documentation (master)"
+    ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-master" "master @ $TRAVIS_COMMIT" "phpDoc/master" "gh-pages"
 
 before_deploy:
   - |
     [ "$DEPLOY_PHPDOC_TAGS" == "true" ] && (
-      ./build/generate-phpdoc.sh . "build/phpdoc-$TRAVIS_TAG" "Pico 1.0 API Documentation ($TRAVIS_TAG)"
-      ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "build/phpdoc-$TRAVIS_TAG" "$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG" "gh-pages"
+      ./build/generate-phpdoc.sh "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "Pico 1.0 API Documentation ($TRAVIS_TAG)"
+      ./build/deploy-phpdoc.sh "$TRAVIS_REPO_SLUG" "$TRAVIS_BUILD_DIR/build/phpdoc-$TRAVIS_TAG" "$TRAVIS_TAG" "phpDoc/$TRAVIS_TAG" "gh-pages"
     )
   - composer install --no-dev --optimize-autoloader
   - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
