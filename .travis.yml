@@ -27,7 +27,6 @@ deploy:
   file: pico-release-$TRAVIS_TAG.tar.gz
   skip_cleanup: true
   on:
-    repo: picocms/Pico
     tags: true
     php: 5.3
 
