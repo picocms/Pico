@@ -8,6 +8,11 @@ php:
   - hhvm
   - nightly
 
+matrix:
+  allow_failures:
+    - php: nightly
+  fast-finish: true
+
 script:
   - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
 
