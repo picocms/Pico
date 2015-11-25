@@ -11,7 +11,7 @@
  * @license http://opensource.org/licenses/MIT
  * @version 1.0
  */
-class DummyPlugin extends AbstractPicoPlugin
+final class DummyPlugin extends AbstractPicoPlugin
 {
     /**
      * This plugin is enabled by default?
