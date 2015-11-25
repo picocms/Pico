@@ -19,11 +19,11 @@ desktop.ini
 /config/config.php
 
 # User themes
-/themes
+/themes/*
 !/themes/default
 
 # User plugins
-/plugins
+/plugins/*
 !/plugins/0?-*
 !/plugins/1?-*
 !/plugins/DummyPlugin.php
