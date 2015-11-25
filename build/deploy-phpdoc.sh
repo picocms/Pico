@@ -52,7 +52,11 @@ git clone --branch="$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_
 cd "$GIT_DIR"
 git config user.name "Travis CI"
 git config user.email "travis-ci@picocms.org"
-[ -n "$GITHUB_OAUTH_TOKEN" ] && git config credential.https://github.com.username "$GITHUB_OAUTH_TOKEN"
+
+if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
+    git config credential.helper 'store --file=.git/credentials'
+    (umask 077 && echo "https://GitHub:$GITHUB_OAUTH_TOKEN@github.com" > .git/credentials)
+fi
 
 # copy phpdoc
 printf '\nCopying phpDocs...\n'
