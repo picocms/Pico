@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
+set -e
+
+# base variables
 APP_NAME="$(basename "$0")"
 BASE_PWD="$PWD"
-set -e
 
 # environment variables
 # GITHUB_OAUTH_TOKEN    GitHub authentication token, see https://github.com/settings/tokens
 
 # parameters
-GITHUB_SLUG="$1"            # GitHub repo (e.g. picocms/Pico)
-SOURCE_DIR="$2"             # absolute source path
-SOURCE_REF="$3"             # source reference (either [branch]@[commit], [branch] or [tag])
-TARGET_DIR="$4"             # relative target path
+SOURCE_REPO_SLUG="$1"       # source GitHub repo (e.g. picocms/Pico)
+SOURCE_REF="$2"             # source reference (either [branch]@[commit], [branch] or [tag])
+SOURCE_DIR="$3"             # absolute source path
+TARGET_REPO_SLUG="$4"       # target GitHub repo (e.g. picocms/Pico)
 TARGET_BRANCH="$5"          # target branch (e.g. gh-pages)
+TARGET_DIR="$6"             # relative target path
 
 # print parameters
 echo "Deploying phpDocs..."
-printf 'GITHUB_SLUG="%s"\n' "$GITHUB_SLUG"
-printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
+printf 'SOURCE_REPO_SLUG="%s"\n' "$SOURCE_REPO_SLUG"
 printf 'SOURCE_REF="%s"\n' "$SOURCE_REF"
-printf 'TARGET_DIR="%s"\n' "$TARGET_DIR"
+printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
+printf 'TARGET_REPO_SLUG="%s"\n' "$TARGET_REPO_SLUG"
 printf 'TARGET_BRANCH="%s"\n' "$TARGET_BRANCH"
+printf 'TARGET_DIR="%s"\n' "$TARGET_DIR"
 echo
 
 # evaluate target reference
@@ -46,7 +50,7 @@ fi
 # clone repo
 printf 'Cloning repo...\n'
 GIT_DIR="$SOURCE_DIR.git"
-git clone --branch="$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_DIR"
+git clone --branch="$TARGET_BRANCH" "https://github.com/$TARGET_REPO_SLUG.git" "$GIT_DIR"
 
 # setup git
 cd "$GIT_DIR"
@@ -67,7 +71,7 @@ cp -R "$SOURCE_DIR" "$TARGET_DIR"
 # commit changes
 printf '\nCommiting changes...\n'
 git add --all "$TARGET_DIR"
-git commit -m "Update phpDocumentor class docs for $SOURCE_REF"
+git commit --message="Update phpDocumentor class docs for $SOURCE_REF"
 
 # very simple race condition protection for concurrent Travis builds
 # this is no definite protection (race conditions are still possible during `git push`),
@@ -75,7 +79,7 @@ git commit -m "Update phpDocumentor class docs for $SOURCE_REF"
 if [ "$SOURCE_REF_TYPE" == "commit" ]; then
     # get latest commit
     printf '\nRetrieving latest commit...\n'
-    LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$GITHUB_SLUG/git/refs/heads/$SOURCE_REF_BRANCH" 2> /dev/null | php -r "
+    LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$SOURCE_REPO_SLUG/git/refs/heads/$SOURCE_REF_BRANCH" 2> /dev/null | php -r "
         \$json = json_decode(stream_get_contents(STDIN), true);
         if (\$json !== null) {
             if (isset(\$json['ref']) && (\$json['ref'] === 'refs/heads/$SOURCE_REF_BRANCH')) {
@@ -95,6 +99,6 @@ fi
 
 # push changes
 printf '\nPushing changes...\n'
-git push "https://github.com/$GITHUB_SLUG.git" "$TARGET_BRANCH:$TARGET_BRANCH"
+git push "https://github.com/$TARGET_REPO_SLUG.git" "$TARGET_BRANCH:$TARGET_BRANCH"
 
 echo
