@@ -13,7 +13,13 @@ SOURCE_REF="$3"             # source reference (either [branch]@[commit], [branc
 TARGET_DIR="$4"             # relative target path
 TARGET_BRANCH="$5"          # target branch (e.g. gh-pages)
 
-printf 'Deploying phpDocs (%s (%s) --> %s:%s/%s)...\n' "$SOURCE_DIR" "$SOURCE_REF" "$GITHUB_SLUG" "$TARGET_BRANCH" "$TARGET_DIR"
+# print parameters
+echo "Deploying phpDocs..."
+printf 'GITHUB_SLUG="%s"\n' "$GITHUB_SLUG"
+printf 'SOURCE_DIR="%s"\n' "$SOURCE_DIR"
+printf 'SOURCE_REF="%s"\n' "$SOURCE_REF"
+printf 'TARGET_DIR="%s"\n' "$TARGET_DIR"
+printf 'TARGET_BRANCH="%s"\n' "$TARGET_BRANCH"
 
 # evaluate target reference
 if git check-ref-format "tags/$SOURCE_REF"; then
@@ -24,7 +30,7 @@ elif [[ "$SOURCE_REF" == *@* ]]; then
     SOURCE_REF_BRANCH="${SOURCE_REF%@*}"
     SOURCE_REF_COMMIT="${SOURCE_REF##*@}"
 
-    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH"; then
+    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH" || ! git rev-parse --verify "$SOURCE_REF_COMMIT"; then
         echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
         exit 1
     fi
@@ -37,7 +43,7 @@ else
 fi
 
 # clone repo
-printf '\nCloning %s branch of %s...\n' "$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git"
+printf '\nCloning repo...\n'
 GIT_DIR="$SOURCE_DIR.git"
 git clone -b "$TARGET_BRANCH" "https://github.com/$GITHUB_SLUG.git" "$GIT_DIR"
 
@@ -48,9 +54,9 @@ git config user.email "travis-ci@picocms.org"
 [ -n "$GITHUB_OAUTH_TOKEN" ] && git config credential.https://github.com.username "$GITHUB_OAUTH_TOKEN"
 
 # copy phpdoc
+printf '\nCopying phpDocs...\n'
 [ ! -d "$TARGET_DIR" ] || rm -rf "$TARGET_DIR"
 [ "${SOURCE_DIR:0:1}" == "/" ] || SOURCE_DIR="$BASE_PWD/$SOURCE_DIR"
-printf '\nCopying phpDoc (%s --> %s)...\n' "$SOURCE_DIR" "$GIT_DIR/$TARGET_DIR"
 cp -R "$SOURCE_DIR" "$TARGET_DIR"
 
 # commit changes
@@ -85,3 +91,5 @@ fi
 # push changes
 printf '\nPushing changes...\n'
 git push "https://github.com/$GITHUB_SLUG.git" "$TARGET_BRANCH:$TARGET_BRANCH"
+
+echo
