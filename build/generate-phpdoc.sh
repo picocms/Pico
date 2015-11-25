@@ -15,9 +15,9 @@ echo
 
 # generate phpdoc
 phpdoc -d "$PHPDOC_SOURCE_DIR" \
-    -i 'build/*' \
-    -i 'vendor/*' \
-    -i 'plugins/*' -f 'plugins/DummyPlugin.php' \
+    -i "$PHPDOC_SOURCE_DIR/build/" \
+    -i "$PHPDOC_SOURCE_DIR/vendor/" \
+    -i "$PHPDOC_SOURCE_DIR/plugins/" -f "$PHPDOC_SOURCE_DIR/plugins/DummyPlugin.php" \
     -t "$PHPDOC_TARGET_DIR" \
     --title "$PHPDOC_TITLE"
 
