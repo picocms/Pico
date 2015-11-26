@@ -697,7 +697,6 @@ p.description {
     padding-top: 0;
     padding-bottom: 0;
     text-align: center;
-    cursor: pointer;
     overflow: hidden;
     position: relative;
     -webkit-transition: all 300ms linear;
@@ -711,6 +710,7 @@ p.description {
     padding-bottom: 0
 }
 .box-wrapper .box i.special {
+    cursor: default;
     font-size: 60px;
     display: inline-block;
     line-height: 1;
