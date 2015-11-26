@@ -10,7 +10,8 @@ BASE_PWD="$PWD"
 
 # parameters
 SOURCE_REPO_SLUG="$1"       # source GitHub repo (e.g. picocms/Pico)
-SOURCE_REF="$2"             # source reference (either [branch]@[commit], [branch] or [tag])
+SOURCE_REF="$2"             # source reference (either "[ref] @ [commit]" or "[ref]",
+                            #                   [ref] can be e.g. heads/master or tags/v1.0.0)
 SOURCE_DIR="$3"             # absolute source path
 TARGET_REPO_SLUG="$4"       # target GitHub repo (e.g. picocms/Pico)
 TARGET_BRANCH="$5"          # target branch (e.g. gh-pages)
@@ -26,24 +27,20 @@ printf 'TARGET_BRANCH="%s"\n' "$TARGET_BRANCH"
 printf 'TARGET_DIR="%s"\n' "$TARGET_DIR"
 echo
 
-# evaluate target reference
-if git check-ref-format "tags/$SOURCE_REF"; then
-    SOURCE_REF_TYPE="tag"
-    SOURCE_REF_TAG="$SOURCE_REF"
-elif [[ "$SOURCE_REF" == *" @ "* ]]; then
+# evaluate source reference
+if [[ "$SOURCE_REF" == *" @ "* ]]; then
     SOURCE_REF_TYPE="commit"
-    SOURCE_REF_BRANCH="${SOURCE_REF% @ *}"
+    SOURCE_REF_HEAD="${SOURCE_REF% @ *}"
     SOURCE_REF_COMMIT="${SOURCE_REF##* @ }"
 
-    if ! git check-ref-format "heads/$SOURCE_REF_BRANCH" || ! git rev-parse --verify "$SOURCE_REF_COMMIT" > /dev/null; then
-        echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
+    if ! git check-ref-format "$SOURCE_REF_HEAD" || ! git rev-parse --verify "$SOURCE_REF_COMMIT" > /dev/null; then
+        echo "FATAL: $APP_NAME source reference '$SOURCE_REF' is invalid" >&2
         exit 1
     fi
-elif git check-ref-format "heads/$SOURCE_REF"; then
-    SOURCE_REF_TYPE="branch"
-    SOURCE_REF_BRANCH="$SOURCE_REF"
+elif git check-ref-format "$SOURCE_REF"; then
+    SOURCE_REF_TYPE="ref"
 else
-    echo "FATAL: $APP_NAME target reference '$SOURCE_REF' is invalid" >&2
+    echo "FATAL: $APP_NAME source reference '$SOURCE_REF' is invalid" >&2
     exit 1
 fi
 
@@ -79,7 +76,7 @@ git commit --message="Update phpDocumentor class docs for $SOURCE_REF"
 if [ "$SOURCE_REF_TYPE" == "commit" ]; then
     # load branch data via GitHub APIv3
     printf '\nRetrieving latest commit...\n'
-    LATEST_COMMIT_URL="https://api.github.com/repos/$SOURCE_REPO_SLUG/git/refs/heads/$SOURCE_REF_BRANCH"
+    LATEST_COMMIT_URL="https://api.github.com/repos/$SOURCE_REPO_SLUG/git/refs/$SOURCE_REF_HEAD"
     if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
         LATEST_COMMIT_RESPONSE="$(wget -O- --header="Authorization: token $GITHUB_OAUTH_TOKEN" "$LATEST_COMMIT_URL" 2> /dev/null)"
     else
@@ -90,7 +87,7 @@ if [ "$SOURCE_REF_TYPE" == "commit" ]; then
     LATEST_COMMIT="$(echo "$LATEST_COMMIT_RESPONSE" | php -r "
         \$json = json_decode(stream_get_contents(STDIN), true);
         if (\$json !== null) {
-            if (isset(\$json['ref']) && (\$json['ref'] === 'refs/heads/$SOURCE_REF_BRANCH')) {
+            if (isset(\$json['ref']) && (\$json['ref'] === 'refs/$SOURCE_REF_HEAD')) {
                 if (isset(\$json['object']) && isset(\$json['object']['sha'])) {
                     echo \$json['object']['sha'];
                 }
@@ -98,7 +95,7 @@ if [ "$SOURCE_REF_TYPE" == "commit" ]; then
         }
     ")"
 
-    # compare target reference against the latest commit
+    # compare source reference against the latest commit
     if [ "$LATEST_COMMIT" != "$SOURCE_REF_COMMIT" ]; then
         echo "WARNING: $APP_NAME source reference '$SOURCE_REF' doesn't match the latest commit '$LATEST_COMMIT'" >&2
         exit 0
