@@ -697,6 +697,7 @@ p.description {
     padding-top: 0;
     padding-bottom: 0;
     text-align: center;
+    cursor: pointer;
     overflow: hidden;
     position: relative;
     -webkit-transition: all 300ms linear;
@@ -716,6 +717,7 @@ p.description {
     margin-bottom: 20px;
 }
 .box-wrapper .box h3,
+.box-wrapper .box p,
 .box-wrapper .box i.special {
     -webkit-transition: all 300ms linear;
     -moz-transition: all 300ms linear;
@@ -726,10 +728,20 @@ p.description {
 .box-wrapper .box h3 {
     margin-bottom: 10px
 }
-.box-wrapper .box:hover h3,
 .box-wrapper .box:hover i.special {
     opacity: 1;
     color: #ff6760;
+    -webkit-animation: moveFromTop 300ms ease-in-out;
+    -moz-animation: moveFromTop 300ms ease-in-out;
+    -ms-animation: moveFromTop 300ms ease-in-out;
+}
+.box-wrapper .box:hover p,
+.box-wrapper .box:hover h3 {
+    opacity: 1;
+    color: #ff6760;
+    -webkit-animation: moveFromBottom 300ms ease-in-out;
+    -moz-animation: moveFromBottom 300ms ease-in-out;
+    -ms-animation: moveFromBottom 300ms ease-in-out;
 }
 @-webkit-keyframes moveFromBottom {
 	from {
