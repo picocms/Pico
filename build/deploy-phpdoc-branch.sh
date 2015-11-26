@@ -15,6 +15,11 @@ if [ "$TRAVIS_SECURE_ENV_VARS" != "true" ]; then
     exit
 fi
 
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
+    echo "Skipping phpDoc deployment because this pull request (#$TRAVIS_PULL_REQUEST) is not permitted to deploy"
+    exit
+fi
+
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
 
 generate-phpdoc.sh \
