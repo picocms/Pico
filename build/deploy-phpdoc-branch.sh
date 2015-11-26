@@ -6,7 +6,7 @@ if [ "$TRAVIS_PHP_VERSION" != "5.3" ]; then
 fi
 
 if [[ ",$DEPLOY_PHPDOC_BRANCHES," != *,"$TRAVIS_BRANCH",* ]]; then
-    echo "Skipping phpDoc deployment because this branch is not permitted to deploy"
+    echo "Skipping phpDoc deployment because this branch ($TRAVIS_BRANCH) is not permitted to deploy"
     exit
 fi
 
@@ -16,7 +16,7 @@ if [ "$TRAVIS_SECURE_ENV_VARS" != "true" ]; then
 fi
 
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
-PHPDOC_REF="heads/$TRAVIS_BRANCH"
+PHPDOC_REF="heads/$TRAVIS_BRANCH @ $TRAVIS_COMMIT"
 PHPDOC_REF_TEXT="$TRAVIS_BRANCH branch"
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
@@ -36,6 +36,6 @@ generate-phpdoc.sh \
 [ $? -eq 0 ] || exit 1
 
 deploy-phpdoc.sh \
-    "$TRAVIS_REPO_SLUG" "$PHPDOC_REF @ $TRAVIS_COMMIT" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" \
+    "$TRAVIS_REPO_SLUG" "$PHPDOC_REF" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" \
     "$TRAVIS_REPO_SLUG" "gh-pages" "phpDoc/$PHPDOC_ID"
 [ $? -eq 0 ] || exit 1
