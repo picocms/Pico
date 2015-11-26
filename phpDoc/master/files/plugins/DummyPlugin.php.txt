@@ -11,7 +11,7 @@
  * @license http://opensource.org/licenses/MIT
  * @version 1.0
  */
-class DummyPlugin extends AbstractPicoPlugin
+final class DummyPlugin extends AbstractPicoPlugin
 {
     /**
      * This plugin is enabled by default?
@@ -40,7 +40,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  object[] &$plugins loaded plugin instances
      * @return void
      */
-    public function onPluginsLoaded(&$plugins)
+    public function onPluginsLoaded(array &$plugins)
     {
         // your code
     }
@@ -52,7 +52,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  mixed[] &$config array of config variables
      * @return void
      */
-    public function onConfigLoaded(&$config)
+    public function onConfigLoaded(array &$config)
     {
         // your code
     }
@@ -141,7 +141,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *     array key is later used to access the found value
      * @return void
      */
-    public function onMetaHeaders(&$headers)
+    public function onMetaHeaders(array &$headers)
     {
         // your code
     }
@@ -155,7 +155,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  string[] &$headers    known meta header fields
      * @return void
      */
-    public function onMetaParsing(&$rawContent, &$headers)
+    public function onMetaParsing(&$rawContent, array &$headers)
     {
         // your code
     }
@@ -167,7 +167,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  string[] &$meta parsed meta data
      * @return void
      */
-    public function onMetaParsed(&$meta)
+    public function onMetaParsed(array &$meta)
     {
         // your code
     }
@@ -249,7 +249,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  array &$pageData data of the loaded page
      * @return void
      */
-    public function onSinglePageLoaded(&$pageData)
+    public function onSinglePageLoaded(array &$pageData)
     {
         // your code
     }
@@ -264,13 +264,13 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see    Pico::getCurrentPage()
      * @see    Pico::getPreviousPage()
      * @see    Pico::getNextPage()
-     * @param  array &$pages        data of all known pages
-     * @param  array &$currentPage  data of the page being served
-     * @param  array &$previousPage data of the previous page
-     * @param  array &$nextPage     data of the next page
+     * @param  array[]    &$pages        data of all known pages
+     * @param  array|null &$currentPage  data of the page being served
+     * @param  array|null &$previousPage data of the previous page
+     * @param  array|null &$nextPage     data of the next page
      * @return void
      */
-    public function onPagesLoaded(&$pages, &$currentPage, &$previousPage, &$nextPage)
+    public function onPagesLoaded(array &$pages, array &$currentPage = null, array &$previousPage = null, array &$nextPage = null)
     {
         // your code
     }
@@ -295,7 +295,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param  string           &$templateName  file name of the template
      * @return void
      */
-    public function onPageRendering(&$twig, &$twigVariables, &$templateName)
+    public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
     {
         // your code
     }
