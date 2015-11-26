@@ -77,9 +77,17 @@ git commit --message="Update phpDocumentor class docs for $SOURCE_REF"
 # this is no definite protection (race conditions are still possible during `git push`),
 # but it should give a basic protection without disabling concurrent builds completely
 if [ "$SOURCE_REF_TYPE" == "commit" ]; then
-    # get latest commit
+    # load branch data via GitHub APIv3
     printf '\nRetrieving latest commit...\n'
-    LATEST_COMMIT="$(wget -O- "https://api.github.com/repos/$SOURCE_REPO_SLUG/git/refs/heads/$SOURCE_REF_BRANCH" 2> /dev/null | php -r "
+    LATEST_COMMIT_URL="https://api.github.com/repos/$SOURCE_REPO_SLUG/git/refs/heads/$SOURCE_REF_BRANCH"
+    if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
+        LATEST_COMMIT_RESPONSE="$(wget -O- --header="Authorization: token $GITHUB_OAUTH_TOKEN" "$LATEST_COMMIT_URL" 2> /dev/null)"
+    else
+        LATEST_COMMIT_RESPONSE="$(wget -O- "$LATEST_COMMIT_URL" 2> /dev/null)"
+    fi
+
+    # evaluate JSON response
+    LATEST_COMMIT="$(echo "$LATEST_COMMIT_RESPONSE" | php -r "
         \$json = json_decode(stream_get_contents(STDIN), true);
         if (\$json !== null) {
             if (isset(\$json['ref']) && (\$json['ref'] === 'refs/heads/$SOURCE_REF_BRANCH')) {
