@@ -271,6 +271,11 @@ class Pico
      */
     public function run()
     {
+        // check PHP version
+        if (version_compare(PHP_VERSION, '5.3.6', '<')) {
+            die('Sorry, Pico requires PHP 5.3.6 or above to run!');
+        }
+
         // lock Pico
         $this->locked = true;
 
