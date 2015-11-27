@@ -1,14 +1,16 @@
 <?php
 
-$parent = '..' . DIRECTORY_SEPARATOR;
-set_include_path(
-    get_include_path() . PATH_SEPARATOR .
-    $parent . $parent . $parent . PATH_SEPARATOR .
-    '.'
-);
-
 // load dependencies
-require_once('vendor/autoload.php');
+if(is_file($f = __DIR__ . '/vendor/autoload.php')) {
+    // local composer install
+    require_once($f);
+} elseif(is_file($f = __DIR__ . '/../../../vendor/autoload.php')) {
+    // root composer install
+    require_once($f);
+} else {
+    // composer needs install...
+    die('Cannot find composer `/vendor/autoload.php` -- try `composer install`');
+}
 
 // instance Pico
 $pico = new Pico(
