@@ -1214,14 +1214,13 @@ class Pico
             return $baseUrl;
         }
 
-        if (
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')
-            || ($_SERVER['SERVER_PORT'] == 443)
-            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-        ) {
+        $protocol = 'http';
+        if (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
-        } else {
-            $protocol = 'http';
+        } elseif ($_SERVER['SERVER_PORT'] == 443) {
+            $protocol = 'https';
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+            $protocol = 'https';
         }
 
         $this->config['base_url'] =
