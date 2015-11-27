@@ -567,9 +567,9 @@ class Pico
      *
      * We recommend you to use the `link` filter in templates to create
      * internal links, e.g. `{{ "sub/page"|link }}` is equivalent to
-     * `{{ base_url }}sub/page`. In content files you can still use the
-     * `%base_url%` variable; e.g. `%base_url%?sub/page` will be automatically
-     * replaced accordingly.
+     * `{{ base_url }}/sub/page` and `{{ base_url }}?sub/page`, depending on
+     * enabled URL rewriting. In content files you can use the `%base_url%`
+     * variable; e.g. `%base_url%?sub/page` will be replaced accordingly.
      *
      * @see    Pico::getRequestUrl()
      * @return void
@@ -587,6 +587,7 @@ class Pico
             $pathComponent = substr($pathComponent, 0, $pathComponentLength);
         }
         $this->requestUrl = (strpos($pathComponent, '=') === false) ? rawurldecode($pathComponent) : '';
+        $this->requestUrl = trim($this->requestUrl, '/');
     }
 
     /**
