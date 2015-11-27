@@ -14,38 +14,15 @@ If you want to report an *issue* with Pico's core, please create a new [Issue](h
 
 Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues). Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
-This is an example of what information to include with your issue.
+This is an example of what type of information to include with your issue.
 
-    Version
-    - Operating System and version
-    - Pico Version
-    - other installed software, plugins, if applicable
-    - hardware information, if applicable
-
-    Bug Description
-    - A concise description of what the problem is.  Pure description, no narrative or conversational language.
-
-    Severity
-    - Trivial, Minor, Major, or Catastrophic
-
-    Steps to Reproduce
-    - Step by step instructions on how to reproduce this bug.
-    - Do not assume anything, the more detailed your list of instructions, the easier it is for the developer to track down the problem!
-
-    Actual Behavior
-    - Type what happens when you follow the instructions.  This is the manifestation of the bug.
-
-    Expected Behavior
-    - Type what you expected to happen when you followed the instructions.  
-    - This is important, because you may have misunderstood something or missed a step,
-      and knowing what you expected to see will help the developer recognize that.
-
-    Troubleshooting/Testing Steps Attempted
-    - Describe anything you did to try to fix it on your own.
-
-    Workaround
-    - If you found a way to make the program work in spite of the bug, describe how you did it here.
-
+- Pico Version
+- Installed plugins, if applicable
+- Bug Description
+- Steps to Reproduce
+- Actual/Expected Behavior
+- Troubleshooting/Testing Steps Attempted
+- Workarounds?
 
 Contributing code
 -----------------
@@ -113,12 +90,9 @@ Build & Release process
 
 > This is work in progress. Please refer to [#268](https://github.com/picocms/Pico/issues/268) for details.
 
-Defined below is a specification to which the Build and Release process of Pico should follow. We use [travis-ci](https://travis-ci.com) to automate the process, and each commit to `master` should be deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary, move through these phases to generate a Pico release.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages and uploading them to GitHub.
 
-### Commit phase
-
-- Make/Commit/Merge changes
-- Use a formatted commit message with contents of `CHANGELOG.md` since last release.
+It is important that each commit to `master` is deployable. Once a `feature/branch` or the `master` branch have reached a point where the need for a version increase is necessary, you can trigger this process by pushing a new Git Tag. The tag references a (usually empty) commit which message follows the following template:
 
     Example:
     ```
@@ -129,42 +103,12 @@ Defined below is a specification to which the Build and Release process of Pico 
     * [Security] ...
     ```
 
-- Tagging a commit on the `master` branch will trigger an automatic build..
+<!-- __Please submit pull-requests with a properly formatted commit message and
+[SemVer](http://semver.org) increase to avoid the need for manual amendments.__ -->
 
-- __Please submit pull-requests with a properly formatted commit message and
-[SemVer](http://semver.org) increase to avoid the need for manual amendments.__
+After deploying a new release, you will need to amend the release information on GitHub with the release title (taken from changelog), and changelog itself.
 
-
-### Analysis phase
-
-Does the commit pass all `travis-ci` checks?
-
-- We test PHP 5.3, 5.4, 5.5, 5.6, 7, the nighlty build, and HHVM
-
-If not, all errors will need to be corrected before the build can complete.
-
-### Packaging phase
-
-###### travis-ci
-- will run [composer](http://getcomposer.org) locally with `req-dev` dependencies.
-- will generate [PhpDocumentor](http://phpdoc.org) class docs automatically
-- will run our `deploy-phpdoc.sh` script
-- will create a ZIP archive (so vendor/ is included)
-
-### Release phase
-
-###### travis-ci
-- will remove phpDocumentor from dependencies
-- will create new Git release at tag
-- will include the properly formatted commit message including the changelog of items since the last release.
-- will include ZIP archive in release
-
-###### Note:
-If a properly formatted commit message was not provided, you may have to update release information on GitHub with:
-- release title (taken from changelog)
-- changelog
-
-### Announcements
+__Note__
 - Releases will be available at: [https://github.com/picocms/Pico/releases](https://github.com/picocms/Pico/releases)
 
 - Pico will be automatically updated on [Packagist](http://packagist.org/packages/picocms/pico)
