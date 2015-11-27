@@ -6,15 +6,14 @@ if (version_compare(PHP_VERSION, '5.3.6', '<')) {
 }
 
 // load dependencies
-if(is_file($f = __DIR__ . '/vendor/autoload.php')) {
-    // local composer install
-    require_once($f);
-} elseif(is_file($f = __DIR__ . '/../../../vendor/autoload.php')) {
-    // root composer install
-    require_once($f);
+if(is_file(__DIR__ . '/vendor/autoload.php')) {
+    // composer root package
+    require_once(__DIR__ . '/vendor/autoload.php');
+} elseif(is_file(__DIR__ . '/../../../vendor/autoload.php')) {
+    // composer dependency package
+    require_once(__DIR__ . '/../../../vendor/autoload.php');
 } else {
-    // composer needs install...
-    die('Cannot find composer `/vendor/autoload.php` -- try `composer install`');
+    die("Cannot find `vendor/autoload.php`. Run `composer install`.");
 }
 
 // instance Pico
