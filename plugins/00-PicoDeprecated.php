@@ -342,8 +342,12 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPagesLoaded()
      */
-    public function onPagesLoaded(array &$pages, array &$currentPage = null, array &$previousPage = null, array &$nextPage = null)
-    {
+    public function onPagesLoaded(
+        array &$pages,
+        array &$currentPage = null,
+        array &$previousPage = null,
+        array &$nextPage = null
+    ) {
         // remove keys of pages array
         $plainPages = array();
         foreach ($pages as &$pageData) {
