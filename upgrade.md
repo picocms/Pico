@@ -42,7 +42,7 @@ If you have a question about one of the new features of Pico 1.0, or about Pico 
 2. Empty your installation directory and [install Pico ordinarily][InstallInstructions].
 3. Copy the `config.php` from your backup to `config/config.php`. You don't have to change anything in this file.
 4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible with Pico's new routing system. You'll find detailed instructions on how to do this in the ["Routing system" section](#routing-system) below.
-5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible with Pico's new routing system.  (Include instructions for making old themes work?)
+5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible with Pico's new routing system.  Some themes may need to be modified for `Pico 1.0`, see the section [For Theme Designers](#for-theme-designers) below if you experience issues.
 6. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory. Don't copy the `plugins/pico_plugin.php` - this is not a real plugin, but Pico's old dummy plugin.
 
 #### Additional Information
