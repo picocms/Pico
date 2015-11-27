@@ -1,4 +1,6 @@
 <?php
+// @codingStandardsIgnoreFile
+
 // load dependencies
 require_once(__DIR__ . '/vendor/autoload.php');
 
@@ -11,7 +13,7 @@ $pico = new Pico(
 );
 
 // override configuration?
-// $pico->setConfig(array());
+//$pico->setConfig(array());
 
 // run application
 echo $pico->run();

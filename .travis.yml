@@ -20,7 +20,7 @@ before_script:
   - export PATH="$TRAVIS_BUILD_DIR/build:$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
 
 script:
-  - find . -not \( -path './vendor' -prune \) -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
+  - phpcs --standard=phpcs.xml "$TRAVIS_BUILD_DIR"
 
 after_success:
   - deploy-phpdoc-branch.sh
