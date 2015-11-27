@@ -107,19 +107,17 @@ class PicoDeprecated extends AbstractPicoPlugin
      * @see    PicoDeprecated::loadRootDirConfig()
      * @see    PicoDeprecated::enablePlugins()
      * @see    DummyPlugin::onConfigLoaded()
-     * @param  mixed[] &$realConfig array of config variables
+     * @param  mixed[] &$config array of config variables
      * @return void
      */
-    public function onConfigLoaded(array &$realConfig)
+    public function onConfigLoaded(array &$config)
     {
-        global $config;
-
         $this->defineConstants();
-        $this->loadRootDirConfig($realConfig);
+        $this->loadRootDirConfig($config);
         $this->enablePlugins();
-        $config = &$realConfig;
+        $GLOBALS['config'] = &$config;
 
-        $this->triggerEvent('config_loaded', array(&$realConfig));
+        $this->triggerEvent('config_loaded', array(&$config));
     }
 
     /**
@@ -344,8 +342,12 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPagesLoaded()
      */
-    public function onPagesLoaded(array &$pages, array &$currentPage = null, array &$previousPage = null, array &$nextPage = null)
-    {
+    public function onPagesLoaded(
+        array &$pages,
+        array &$currentPage = null,
+        array &$previousPage = null,
+        array &$nextPage = null
+    ) {
         // remove keys of pages array
         $plainPages = array();
         foreach ($pages as &$pageData) {
