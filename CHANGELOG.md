@@ -9,10 +9,16 @@ Released: -
         all contributors and users which made this possible!
 * [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
         want to parse the contents of a page, use the `content` filter instead
+* [New] New PHP version check in `index.php`
 * [Changed] Improve documentation
 * [Changed] Improve table styling in default theme
+* [Changed] Update composer version constraints; almost all dependencies will
+            have pending updates, run `composer update`
 * [Changed] Throw a RuntimeException when the `content` dir isn't accessible
 * [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
+* [Changed] `$config['rewrite_url']` is now always available
+* [Changed] `DummyPlugin` class is now final
+* [Changed] Various small improvements and changes...
 * [Fixed] `PicoDeprecated`: Sanitize `content_dir` and `base_url` options when
           reading `config.php` in Picos root dir
 * [Fixed] Replace `urldecode()` (deprecated RFC 1738) with `rawurldecode()`
