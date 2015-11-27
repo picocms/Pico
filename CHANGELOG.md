@@ -19,6 +19,7 @@ Released: -
           (RFC 3986) in `Page::evaluateRequestUrl()`
 * [Fixed] #272: Encode URLs using `rawurlencode()` in `Pico::getPageUrl()`
 * [Fixed] #274: Prevent double slashes in `base_url`
+* [Fixed] #285: Make `index.php` work when installed as a composer dependency
 ```
 
 ### Version 1.0.0-beta.1
