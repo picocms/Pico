@@ -479,6 +479,10 @@ class Pico
             $this->config['base_url'] = rtrim($this->config['base_url'], '/') . '/';
         }
 
+        if ($this->config['rewrite_url'] === null) {
+            $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
         if (empty($this->config['content_dir'])) {
             // try to guess the content directory
             if (is_dir($this->getRootDir() . 'content')) {
@@ -1237,13 +1241,13 @@ class Pico
      */
     public function isUrlRewritingEnabled()
     {
-        if (($this->getConfig('rewrite_url') === null) && isset($_SERVER['PICO_URL_REWRITING'])) {
-            return (bool) $_SERVER['PICO_URL_REWRITING'];
-        } elseif ($this->getConfig('rewrite_url')) {
-            return true;
+        $urlRewritingEnabled = $this->getConfig('rewrite_url');
+        if ($urlRewritingEnabled !== null) {
+            return $urlRewritingEnabled;
         }
 
-        return false;
+        $this->config['rewrite_url'] = (isset($_SERVER['PICO_URL_REWRITING']) && $_SERVER['PICO_URL_REWRITING']);
+        return $this->getConfig('rewrite_url');
     }
 
     /**
