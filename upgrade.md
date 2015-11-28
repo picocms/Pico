@@ -150,4 +150,4 @@ Users, please refer to the websites of the plugins you're using to get updates f
 [Issues]: {{ site.gh_project_url }}/issues
 [Changelog]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CHANGELOG.md
 [PluginDev]: {{ site.base_url }}/plugin-dev.html
-[PluginUpgrade]: {{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10)
+[PluginUpgrade]: {{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10
