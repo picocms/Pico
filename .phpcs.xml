@@ -6,6 +6,11 @@
     </description>
 
     <!--
+        Run on current working directory by default
+    -->
+    <file>.</file>
+
+    <!--
         Exclude _build/ and vendor/ dirs as well as minified JavaScript files
     -->
     <exclude-pattern type="relative">^_build/</exclude-pattern>
