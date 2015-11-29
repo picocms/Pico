@@ -39,11 +39,11 @@ Pico uses the [PSR-2 Coding Standard](http://www.php-fig.org/psr/psr-2/) as defi
 
 For historical reasons we don't use formal namespaces. Markdown files in the `content-sample` folder (the inline documentation) must follow a hard limit of 80 characters line length.
 
-It is recommended to check your code using [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) using the `PSR2` standard using the following command:
+It is recommended to check your code using [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) using Pico's `.phpcs.xml` standard. Use the following command:
 
-    $ ./bin/phpcs --standard=PSR2 [file(s)]
+    $ ./vendor/bin/phpcs --standard=.phpcs.xml [file]...
 
-With this command you can specify a file or folder to limit which files it will check or omit that argument altogether, in which case the current directory is checked.
+With this command you can specify a file or folder to limit which files it will check or omit that argument altogether, in which case the current working directory is checked.
 
 ### Keep documentation in sync
 
