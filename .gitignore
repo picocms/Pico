@@ -11,8 +11,8 @@ desktop.ini
 ._*
 
 # Travis
-/build/phpdoc-*/
-/build/phpdoc-*.git/
+/_build/phpdoc-*/
+/_build/phpdoc-*.git/
 
 # Composer
 /composer.lock
