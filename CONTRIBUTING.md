@@ -14,7 +14,7 @@ If you want to report an *issue* with Pico's core, please create a new [Issue](h
 
 Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues).
 
-Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them. We need information about the *actual and expected behavior* and *steps to reproduce* the problem. What steps have you taken to resolve the problem by yourself (i.e. *your own troubleshooting*)?
+Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps have you taken to resolve the problem by yourself (i.e. *your own troubleshooting*)?
 
 Contributing code
 -----------------
@@ -82,7 +82,7 @@ Build & Release process
 
 We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages and uploading them to GitHub. Please refer to [our `.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) for details.
 
-As elucidated above, it's important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should follow the following template:
+As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
 ```
 Version 1.0.0
