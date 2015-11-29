@@ -939,7 +939,7 @@ class Pico
         $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), Pico::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
-            if (basename($file) == '404' . $this->getConfig('content_ext')) {
+            if (basename($file) === '404' . $this->getConfig('content_ext')) {
                 unset($files[$i]);
                 continue;
             }
@@ -977,7 +977,7 @@ class Pico
                 'meta' => &$meta
             );
 
-            if ($file == $this->requestFile) {
+            if ($file === $this->requestFile) {
                 $page['content'] = &$this->content;
             }
 
@@ -1006,10 +1006,10 @@ class Pico
             $bSortKey = (basename($b['id']) === 'index') ? dirname($b['id']) : $b['id'];
 
             $cmp = strcmp($aSortKey, $bSortKey);
-            return $cmp * (($order == 'desc') ? -1 : 1);
+            return $cmp * (($order === 'desc') ? -1 : 1);
         };
 
-        if ($this->getConfig('pages_order_by') == 'date') {
+        if ($this->getConfig('pages_order_by') === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
                 if (empty($a['time']) || empty($b['time'])) {
@@ -1023,7 +1023,7 @@ class Pico
                     return $alphaSortClosure($a, $b);
                 }
 
-                return $cmp * (($order == 'desc') ? 1 : -1);
+                return $cmp * (($order === 'desc') ? 1 : -1);
             });
         } else {
             // sort alphabetically
@@ -1063,7 +1063,7 @@ class Pico
         if ($currentPageIndex !== false) {
             $this->currentPage = &$this->pages[$currentPageId];
 
-            if (($this->getConfig('order_by') == 'date') && ($this->getConfig('order') == 'desc')) {
+            if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
                 $previousPageOffset = 1;
                 $nextPageOffset = -1;
             } else {
@@ -1203,7 +1203,7 @@ class Pico
             'prev_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'is_front_page' => ($this->requestFile == $frontPage),
+            'is_front_page' => ($this->requestFile === $frontPage),
         );
     }
 
