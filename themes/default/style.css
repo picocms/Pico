@@ -119,7 +119,6 @@ a:hover, a:active {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #000;
     line-height: 1.2em;
     margin-bottom: 0.6em;
 }
@@ -278,6 +277,19 @@ blockquote {
 }
 .clearfix {
     *zoom: 1;
+}
+.error {
+    margin: -80px 0 80px 0;
+    padding: 1em 0;
+    background-color: #F0DDDD;
+    color: #AA4444;
+}
+.error h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.error p:last-child {
+    margin-bottom: 0;
 }
 
 /* Media Queries
