@@ -27,6 +27,15 @@
  * THEME
  */
 // $config['theme'] = 'default';                // Set the theme (defaults to "default")
+// $config['theme_config'] = array(
+//    'about_us' => '',
+//    'social_media' => array(
+//        'github' => '',
+//        'facebook' => '',
+//        'twitter' => ''
+//    ),
+//    'copyright' => ''
+// );
 // $config['twig_config'] = array(              // Twig settings
 //     'cache' => false,                        // To enable Twig caching change this to a path to a writable directory
 //     'autoescape' => false,                   // Auto-escape Twig vars
