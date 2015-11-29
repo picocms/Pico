@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
+    <title><![CDATA[Pico 1.0 API Documentation]]></title>
+    <parser>
+        <target>_build/phpdoc.cache</target>
+    </parser>
+    <transformer>
+        <target>_build/phpdoc</target>
+    </transformer>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
     <files>
-        <directory>lib/*</directory>
-        <file>plugins/DummyPlugin.php</file>
+        <directory>.</directory>
+        <file>index.php</file>
+        <file>index.php.dist</file>
+
+        <!-- exclude build environment -->
         <ignore>_build/*</ignore>
+
+        <!-- exclude user config -->
         <ignore>config/*</ignore>
-        <ignore>content-sample/*</ignore>
-        <ignore>themes/*</ignore>
+        <file>config/config.php.template</file>
+
+        <!-- exclude all plugins -->
         <ignore>plugins/*</ignore>
+        <file>plugins/DummyPlugin.php</file>
+
+        <!-- exclude vendor dir -->
         <ignore>vendor/*</ignore>
-        <ignore>.htaccess</ignore>
-        <ignore>*.git</ignore>
-        <ignore>.gitignore</ignore>
-        <ignore>*.xml</ignore>
-        <ignore>*.yml</ignore>
-        <ignore>*.json</ignore>
-        <ignore>*.lock</ignore>
-        <ignore>*.phar</ignore>
-        <ignore>*.md</ignore>
-        <ignore>*LICENSE</ignore>
-        <ignore>index.php</file>
-        <ignore>index.php.dist</ignore>
     </files>
 </phpdoc>
