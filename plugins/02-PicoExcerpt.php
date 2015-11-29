@@ -40,7 +40,7 @@ class PicoExcerpt extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onConfigLoaded()
      */
-    public function onConfigLoaded(&$config)
+    public function onConfigLoaded(array &$config)
     {
         if (!isset($config['excerpt_length'])) {
             $config['excerpt_length'] = 50;
@@ -53,7 +53,7 @@ class PicoExcerpt extends AbstractPicoPlugin
      * @see PicoExcerpt::createExcerpt()
      * @see DummyPlugin::onSinglePageLoaded()
      */
-    public function onSinglePageLoaded(&$pageData)
+    public function onSinglePageLoaded(array &$pageData)
     {
         if (!isset($pageData['excerpt'])) {
             $pageData['excerpt'] = $this->createExcerpt(

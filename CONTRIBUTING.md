@@ -12,7 +12,9 @@ Issues
 
 If you want to report an *issue* with Pico's core, please create a new [Issue](https://github.com/picocms/Pico/issues) on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
-Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues). Please describe your issue as clear as possible and always include steps to reproduce the problem.
+Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues).
+
+Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps have you taken to resolve the problem by yourself (i.e. *your own troubleshooting*)?
 
 Contributing code
 -----------------
@@ -45,7 +47,7 @@ With this command you can specify a file or folder to limit which files it will 
 
 ### Keep documentation in sync
 
-Pico accepts the problems of having redundant documentation on different places (concretely Pico's inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure the keep them in sync.
+Pico accepts the problems of having redundant documentation on different places (concretely Pico's inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure to keep them in sync.
 
 If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/Pico/tree/gh-pages/_docs/) folder of the `gh-pages` branch (i.e. [Pico's website](http://picocms.org/docs.html)) and vice versa. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Redcarpet](https://github.com/vmg/redcarpet) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
 
@@ -78,44 +80,18 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 Build & Release process
 -----------------------
 
-This is work in progress. Please refer to [#268](https://github.com/picocms/Pico/issues/268) for details.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages and uploading them to GitHub. Please refer to [our `.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) for details.
 
-<!--
+As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
-Defined below is a specification to which the Build and Release process of Pico should follow. We use `travis-ci` to automate the process, and each commit to `master` should be releasable.
+```
+Version 1.0.0
 
-#### Commit phase
-- Commit changes
-- Create & Push Git tag
-- Trigger automatic build process...
+* [Security] ...
+* [New] ...
+* [Changed] ...
+* [Fixed] ...
+* [Removed] ...
+```
 
-Example commit message:
-
-    Pico 1.0.1
-    * [New] ...
-    * [Changed] ...
-
-*Please submit pull-requests with a properly
-formatted commit message/SemVer increase to avoid the need for manual amendments.*
-
-#### Analysis phase
-- Run through `scrutinizer-ci`?
-
-#### Packaging phase
-- Run composer locally
-- Create a ZIP archive (so vendor/ is included)
-- Build documentation, output goes to a new folder in the `gh-pages` branch
-
-#### Release phase
-- Create new Git release at tag
-- Upload ZIP archive
-- Upload documentation to the `gh-pages` branch
-- Set Symlink for latest documentation (http://picocms.org/docs/latest)
-- Update release information on GitHub with:
-    - Release title (taken from changelog)
-    - Changelog
-
-#### Announcements
-- Where to announce new Pico release?
-
--->
+Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](http://packagist.org/packages/picocms/pico) will be updated automatically.

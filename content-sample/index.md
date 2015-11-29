@@ -62,12 +62,18 @@ Instead of adding your own content to the `content-sample` folder, you should
 create your own `content` directory in Pico's root directory. You can then add
 and access your contents as described above.
 
+As a common practice, we recommend you to separate your contents and assets
+(like images, downloads etc.). We even deny access to your `content` directory
+by default. So if you want to use a asset (e.g. a image) in one of your content
+files, upload it to the (to be created) directory `assets` and use it as
+follows: <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
+
 ### Text File Markup
 
 Text files are marked up using [Markdown][]. They can also contain regular HTML.
 
-At the top of text files you can place a block comment and specify certain
-attributes of the page. For example:
+At the top of text files you can place a block comment and specify certain meta
+attributes of the page using [YAML][] (the "YAML header"). For example:
 
     ---
     Title: Welcome
@@ -290,6 +296,7 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 For more help have a look at the Pico documentation at http://picocms.org/docs.
 
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+[YAML]: https://en.wikipedia.org/wiki/YAML
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins

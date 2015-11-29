@@ -2,20 +2,35 @@
     "name": "picocms/pico",
     "type": "library",
     "description": "Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create .md files in the \"content\" folder and that becomes a page.",
-    "keywords": ["cms"],
+    "keywords": ["flat-file","cms","php","twig","markdown"],
     "homepage": "http://picocms.org/",
     "license": "MIT",
     "authors": [
         {
             "name": "Gilbert Pellegrom",
-            "email": "gilbert@pellegrom.me"
+            "email": "gilbert@pellegrom.me",
+            "role": "Project Founder"
+        },
+        {
+            "name": "The Pico Community",
+            "homepage": "https://github.com/picocms/Pico/graphs/contributors",
+            "role": "Contributors"
         }
     ],
+    "support": {
+        "docs": "http://picocms.org/docs",
+        "issues": "https://github.com/picocms/Pico/issues",
+        "source": "https://github.com/picocms/Pico"
+    },
     "require": {
         "php": ">=5.3.6",
-        "twig/twig": "1.18.*",
-        "erusev/parsedown-extra": "0.7.*",
-        "symfony/yaml" : "2.3"
+        "twig/twig": "^1.18",
+        "erusev/parsedown-extra": "^0.7",
+        "symfony/yaml" : "^2.3"
+    },
+    "require-dev" : {
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "squizlabs/php_codesniffer": "^2.4"
     },
     "autoload": {
         "psr-0": {

@@ -8,12 +8,29 @@ php:
   - hhvm
   - nightly
 
+matrix:
+  allow_failures:
+    - php: nightly
+  fast-finish: true
+
+install:
+  - composer install
+
+before_script:
+  - export PATH="$TRAVIS_BUILD_DIR/build:$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
+
 script:
-  - find . -type f -name '*.php' -print0 | xargs -0 -I file php -l file > /dev/null
+  - phpcs --standard=phpcs.xml "$TRAVIS_BUILD_DIR"
+
+after_success:
+  - deploy-phpdoc-branch.sh
 
 before_deploy:
-  - composer install
-  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" .htaccess README.md CHANGELOG.md CONTRIBUTING.md composer.json composer.lock LICENSE config content-sample lib plugins themes vendor index.php
+  - deploy-phpdoc-release.sh
+  - composer install --no-dev --optimize-autoloader
+  - find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
+  - mv index.php.dist index.php
+  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
 
 deploy:
   provider: releases
@@ -21,9 +38,7 @@ deploy:
   file: pico-release-$TRAVIS_TAG.tar.gz
   skip_cleanup: true
   on:
-    repo: picocms/Pico
     tags: true
     php: 5.3
 
 sudo: false
-
