@@ -9,17 +9,17 @@
         <ignore>themes/*</ignore>
         <ignore>plugins/*</ignore>
         <ignore>vendor/*</ignore>
+        <ignore>index.php</ignore>
+        <ignore>index.php.dist</ignore>
         <ignore>.htaccess</ignore>
-        <ignore>*.git</ignore>
         <ignore>.gitignore</ignore>
+        <ignore>*.git</ignore>
         <ignore>*.xml</ignore>
         <ignore>*.yml</ignore>
         <ignore>*.json</ignore>
         <ignore>*.lock</ignore>
         <ignore>*.phar</ignore>
         <ignore>*.md</ignore>
-        <ignore>*LICENSE</ignore>
-        <ignore>index.php</file>
-        <ignore>index.php.dist</ignore>
+        <ignore>LICENSE</ignore>
     </files>
 </phpdoc>
