@@ -1,0 +1,45 @@
+<!-- Sidebar -->
+<div class="sidebar-module">
+    <h4>Connect with {{ site_title }}</h4>
+    <ol class="list-unstyled">
+        {% if config.theme_config.social_media.github %}
+            <li>
+                <a href="https://github.com/{{config.theme_config.social_media.github}}">
+                    <i class="fa fa-github fa-fw fa-2x"></i><span class="lead"> GitHub</span>
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a href="https://github.com/picocms/Pico.git">
+                    <i class="fa fa-github fa-fw fa-2x"></i><span class="lead"> GitHub</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if config.theme_config.social_media.facebook %}
+            <li>
+                <a href="https://facebook.com/{{config.theme_config.social_media.facebook}}">
+                    <i class="fa fa-facebook fa-fw fa-2x"></i><span class="lead"> Facebook</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if config.theme_config.social_media.twitter %}
+            <li>
+                <a href="https://twitter.com/{{config.theme_config.social_media.twitter}}">
+                    <i class="fa fa-twitter fa-fw fa-2x"></i><span class="lead"> Twitter</span>
+                </a>
+            </li>
+        {% endif %}
+    </ol>
+</div>
+
+<div class="sidebar-module sidebar-module-inset">
+    <h4>About {{ site_title }}</h4>
+    {% if config.theme_config.about_us %}
+        <p>{{ config.theme_config.about_us }}</p>
+    {% else %}
+        <p>Pico is a stupidly simple, blazing fast, flat file CMS,
+        this means there is no administration backend or database
+        to deal with. You simply create `.md` files in the `content-sample`
+        folder and that becomes a page.</p>
+    {% endif %}
+</div>
