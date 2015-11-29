@@ -12,17 +12,9 @@ Issues
 
 If you want to report an *issue* with Pico's core, please create a new [Issue](https://github.com/picocms/Pico/issues) on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
-Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues). Please describe your issue as clear as possible and always include steps to reproduce the problem.
+Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/new), please make sure the problem wasn't reported yet using [GitHubs search engine](https://github.com/picocms/Pico/search?type=Issues).
 
-This is an example of what type of information to include with your issue.
-
-- Pico Version
-- Installed plugins, if applicable
-- Bug Description
-- Steps to Reproduce
-- Actual/Expected Behavior
-- Troubleshooting/Testing Steps Attempted
-- Workarounds?
+Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them. We need information about the *actual and expected behavior* and *steps to reproduce* the problem. What steps have you taken to resolve the problem by yourself (i.e. *your own troubleshooting*)?
 
 Contributing code
 -----------------
