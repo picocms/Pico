@@ -461,6 +461,8 @@ class Pico
             'base_url' => '',
             'rewrite_url' => null,
             'theme' => 'default',
+            'theme_config' => array('about_us' => '','social_media' => array(
+            'github' => '', 'facebook' => '', 'twitter' => ''),'copyright' => ''),
             'date_format' => '%D %T',
             'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
