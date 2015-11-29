@@ -103,21 +103,16 @@ class PicoTwigExtension extends Twig_Extension
     public function mapFilter($var, $mapKeyPath)
     {
         if (!is_array($var) && (!is_object($var) || !is_a($var, 'Traversable'))) {
-            throw new InvalidArgumentException(
-                'Unable to apply Twig "map" filter: '
-                . 'You must pass a traversable variable'
-            );
-        }
-        if (empty($mapKeyPath)) {
-            throw new InvalidArgumentException(
-                'Unable to apply Twig "map" filter: '
-                . 'You must specify the $mapKeyPath parameter'
-            );
+            throw new Twig_Error_Runtime(sprintf(
+                'The map filter only works with arrays or "Traversable", got "%s"',
+                is_object($var) ? get_class($var) : gettype($var)
+            ));
         }
 
         $result = array();
         foreach ($var as $key => $value) {
-            $result[$key] = $this->getKeyOfVar($value, $mapKeyPath);
+            $mapValue = $this->getKeyOfVar($value, $mapKeyPath);
+            $result[$key] = ($mapValue !== null) ? $mapValue : $value;
         }
         return $result;
     }
@@ -149,22 +144,13 @@ class PicoTwigExtension extends Twig_Extension
         if (is_object($var) && is_a($var, 'Traversable')) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
-            throw new InvalidArgumentException(
-                'Unable to apply Twig "sort_by" filter: '
-                . 'You must pass a traversable variable'
-            );
-        }
-        if (empty($sortKeyPath)) {
-            throw new InvalidArgumentException(
-                'Unable to apply Twig "sort_by" filter: '
-                . 'You must specify the $sortKeyPath parameter'
-            );
+            throw new Twig_Error_Runtime(sprintf(
+                'The sort_by filter only works with arrays or "Traversable", got "%s"',
+                is_object($var) ? get_class($var) : gettype($var)
+            ));
         }
         if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep')) {
-            throw new InvalidArgumentException(
-                'Unable to apply Twig "sort_by" filter: '
-                . 'Invalid $fallback parameter: ' . $fallback
-            );
+            throw new Twig_Error_Runtime('The sort_by filter only supports the "top", "bottom" and "keep" fallbacks');
         }
 
         $twigExtension = $this;
@@ -206,7 +192,7 @@ class PicoTwigExtension extends Twig_Extension
      *     array interpreted as key path (when passing e.g. ['foo', 'bar'],
      *     the method will return $var['foo']['bar']) specifying the value
      * @return mixed                                         the requested
-     *     value or NULL when the the given key or key path didn't match
+     *     value or NULL when the given key or key path didn't match
      */
     public static function getKeyOfVar($var, $keyPath)
     {
@@ -218,15 +204,21 @@ class PicoTwigExtension extends Twig_Extension
 
         foreach ($keyPath as $key) {
             if (is_object($var)) {
-                if (is_a($var, 'Traversable')) {
+                if (is_a($var, 'ArrayAccess')) {
+                    // use ArrayAccess, see below
+                } elseif (is_a($var, 'Traversable')) {
                     $var = iterator_to_array($var);
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
                     continue;
                 } elseif (is_callable(array($var, 'get' . ucfirst($key)))) {
-                    $var = call_user_func(array($var, 'get' . ucfirst($key)));
-                    continue;
-                } elseif (!is_a($var, 'ArrayAccess')) {
+                    try {
+                        $var = call_user_func(array($var, 'get' . ucfirst($key)));
+                        continue;
+                    } catch (BadMethodCallException $e) {
+                        return null;
+                    }
+                } else {
                     return null;
                 }
             } elseif (!is_array($var)) {
