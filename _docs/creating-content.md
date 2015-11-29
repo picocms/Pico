@@ -54,7 +54,7 @@ As a common practice, we recommend you to separate your contents and assets (lik
 
 Text files are marked up using [Markdown][]. They can also contain regular HTML.
 
-At the top of text files you can place a block comment and specify certain attributes of the page. For example:
+At the top of text files you can place a block comment and specify certain meta attributes of the page using [YAML][] (the "YAML header"). For example:
 
 <pre><code>---
 Title: Welcome
@@ -108,3 +108,4 @@ If you want to use Pico as a blogging software, you probably want to do somethin
 </ol>
 
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+[YAML]: https://en.wikipedia.org/wiki/YAML
