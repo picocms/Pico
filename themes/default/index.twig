@@ -1,47 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Page Meta -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    {% if meta.description %}
-    <meta name="description" content="{{ meta.description|striptags }}">
-    {% endif %}{% if meta.robots %}
-    <meta name="robots" content="{{ meta.robots }}">
-    {% endif %}
-
-    <!-- Page Title -->
-    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
-
-    <!-- Fonts -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="{{ theme_url }}/bootstrap.theme.css" type="text/css" />
-
-</head>
+{% include 'includes/htmlHead.twig' %}
+{% include 'includes/head.twig' %}
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-light">
-        <button class="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar">
-            &#9776;
-        </button>
-        <div class="container">
-            <a class="navbar-brand" href="{{ 'index'|link }}">{{ site_title }}</a>
-            <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
-                <ul class="nav navbar-nav pull-right">
-                    {% for page in pages %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ page.url }}">{{ page.title }}</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    {% include 'includes/nav.twig' %}
     <!-- Main Content -->
     <div class="container">
         <div class="row">
@@ -50,21 +10,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="text-center">
-                <a href="http://picocms.org/">Pico</a>
-                was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
-                and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
-                Released under the MIT License.
-            </p>
-        </div>
-    </footer>
-
-    <!-- Javascript -->
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+    {% include 'includes/foot.twig' %}
 </body>
-</html>
+{% include 'includes/htmlFoot.twig' %}

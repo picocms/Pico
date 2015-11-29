@@ -1,0 +1,19 @@
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="text-center">
+        {% if config.theme_config.copyright %}
+            {{ config.theme_config.copyright }}
+        {% else %}
+            <a href="http://picocms.org/">Pico</a>
+            was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
+            and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
+            Released under the MIT License.
+        {% endif %}
+        </p>
+    </div>
+</footer>
+
+<!-- Javascript -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>

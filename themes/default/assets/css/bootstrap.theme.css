@@ -121,6 +121,44 @@ pre code {
     color: #FFF !important;
 }
 
+.breadcrumb {
+    margin-left: -1em;
+    margin-right: -1em;
+}
+
+/* Main column and sidebar layout
+/*---------------------------------------------*/
+
+/* Sidebar modules for boxing content */
+.sidebar-module {
+  padding: 1rem;
+}
+.sidebar-module-inset {
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: .25rem;
+}
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+  margin-bottom: 0;
+}
+
+/* Blog posts
+/*---------------------------------------------*/
+
+.blog-post {
+  margin-bottom: 4rem;
+}
+.blog-post-title {
+  margin-bottom: .25rem;
+  font-size: 2.5rem;
+}
+.blog-post-meta {
+  margin-bottom: 1.25rem;
+  color: #999;
+}
+
 /* Footer Styles
 /*---------------------------------------------*/
 .footer {
