@@ -479,6 +479,10 @@ class Pico
             $this->config['base_url'] = rtrim($this->config['base_url'], '/') . '/';
         }
 
+        if ($this->config['rewrite_url'] === null) {
+            $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
         if (empty($this->config['content_dir'])) {
             // try to guess the content directory
             if (is_dir($this->getRootDir() . 'content')) {
@@ -563,9 +567,9 @@ class Pico
      *
      * We recommend you to use the `link` filter in templates to create
      * internal links, e.g. `{{ "sub/page"|link }}` is equivalent to
-     * `{{ base_url }}sub/page`. In content files you can still use the
-     * `%base_url%` variable; e.g. `%base_url%?sub/page` will be automatically
-     * replaced accordingly.
+     * `{{ base_url }}/sub/page` and `{{ base_url }}?sub/page`, depending on
+     * enabled URL rewriting. In content files you can use the `%base_url%`
+     * variable; e.g. `%base_url%?sub/page` will be replaced accordingly.
      *
      * @see    Pico::getRequestUrl()
      * @return void
@@ -583,6 +587,7 @@ class Pico
             $pathComponent = substr($pathComponent, 0, $pathComponentLength);
         }
         $this->requestUrl = (strpos($pathComponent, '=') === false) ? rawurldecode($pathComponent) : '';
+        $this->requestUrl = trim($this->requestUrl, '/');
     }
 
     /**
@@ -934,7 +939,7 @@ class Pico
         $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), Pico::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
-            if (basename($file) == '404' . $this->getConfig('content_ext')) {
+            if (basename($file) === '404' . $this->getConfig('content_ext')) {
                 unset($files[$i]);
                 continue;
             }
@@ -972,7 +977,7 @@ class Pico
                 'meta' => &$meta
             );
 
-            if ($file == $this->requestFile) {
+            if ($file === $this->requestFile) {
                 $page['content'] = &$this->content;
             }
 
@@ -1001,10 +1006,10 @@ class Pico
             $bSortKey = (basename($b['id']) === 'index') ? dirname($b['id']) : $b['id'];
 
             $cmp = strcmp($aSortKey, $bSortKey);
-            return $cmp * (($order == 'desc') ? -1 : 1);
+            return $cmp * (($order === 'desc') ? -1 : 1);
         };
 
-        if ($this->getConfig('pages_order_by') == 'date') {
+        if ($this->getConfig('pages_order_by') === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
                 if (empty($a['time']) || empty($b['time'])) {
@@ -1018,7 +1023,7 @@ class Pico
                     return $alphaSortClosure($a, $b);
                 }
 
-                return $cmp * (($order == 'desc') ? 1 : -1);
+                return $cmp * (($order === 'desc') ? 1 : -1);
             });
         } else {
             // sort alphabetically
@@ -1031,7 +1036,7 @@ class Pico
      *
      * @see    Pico::readPages()
      * @see    Pico::sortPages()
-     * @return array|null the data of all pages
+     * @return array[]|null the data of all pages
      */
     public function getPages()
     {
@@ -1058,7 +1063,7 @@ class Pico
         if ($currentPageIndex !== false) {
             $this->currentPage = &$this->pages[$currentPageId];
 
-            if (($this->getConfig('order_by') == 'date') && ($this->getConfig('order') == 'desc')) {
+            if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
                 $previousPageOffset = 1;
                 $nextPageOffset = -1;
             } else {
@@ -1198,7 +1203,7 @@ class Pico
             'prev_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'is_front_page' => ($this->requestFile == $frontPage),
+            'is_front_page' => ($this->requestFile === $frontPage),
         );
     }
 
@@ -1214,14 +1219,13 @@ class Pico
             return $baseUrl;
         }
 
-        if (
-            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')
-            || ($_SERVER['SERVER_PORT'] == 443)
-            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-        ) {
+        $protocol = 'http';
+        if (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
-        } else {
-            $protocol = 'http';
+        } elseif ($_SERVER['SERVER_PORT'] == 443) {
+            $protocol = 'https';
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+            $protocol = 'https';
         }
 
         $this->config['base_url'] =
@@ -1238,13 +1242,13 @@ class Pico
      */
     public function isUrlRewritingEnabled()
     {
-        if (($this->getConfig('rewrite_url') === null) && isset($_SERVER['PICO_URL_REWRITING'])) {
-            return (bool) $_SERVER['PICO_URL_REWRITING'];
-        } elseif ($this->getConfig('rewrite_url')) {
-            return true;
+        $urlRewritingEnabled = $this->getConfig('rewrite_url');
+        if ($urlRewritingEnabled !== null) {
+            return $urlRewritingEnabled;
         }
 
-        return false;
+        $this->config['rewrite_url'] = (isset($_SERVER['PICO_URL_REWRITING']) && $_SERVER['PICO_URL_REWRITING']);
+        return $this->getConfig('rewrite_url');
     }
 
     /**

@@ -67,7 +67,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPluginsLoaded()
      */
-    public function onPluginsLoaded(&$plugins)
+    public function onPluginsLoaded(array &$plugins)
     {
         if (!empty($plugins)) {
             foreach ($plugins as $plugin) {
@@ -107,19 +107,17 @@ class PicoDeprecated extends AbstractPicoPlugin
      * @see    PicoDeprecated::loadRootDirConfig()
      * @see    PicoDeprecated::enablePlugins()
      * @see    DummyPlugin::onConfigLoaded()
-     * @param  mixed[] &$realConfig array of config variables
+     * @param  mixed[] &$config array of config variables
      * @return void
      */
-    public function onConfigLoaded(&$realConfig)
+    public function onConfigLoaded(array &$config)
     {
-        global $config;
-
         $this->defineConstants();
-        $this->loadRootDirConfig($realConfig);
+        $this->loadRootDirConfig($config);
         $this->enablePlugins();
-        $config = &$realConfig;
+        $GLOBALS['config'] = &$config;
 
-        $this->triggerEvent('config_loaded', array(&$realConfig));
+        $this->triggerEvent('config_loaded', array(&$config));
     }
 
     /**
@@ -167,7 +165,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      * @param  mixed[] &$realConfig array of config variables
      * @return void
      */
-    protected function loadRootDirConfig(&$realConfig)
+    protected function loadRootDirConfig(array &$realConfig)
     {
         if (file_exists($this->getRootDir() . 'config.php')) {
             // config.php in Pico::$rootDir is deprecated
@@ -284,7 +282,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onMetaHeaders()
      */
-    public function onMetaHeaders(&$headers)
+    public function onMetaHeaders(array &$headers)
     {
         $this->triggerEvent('before_read_file_meta', array(&$headers));
     }
@@ -294,7 +292,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onMetaParsed()
      */
-    public function onMetaParsed(&$meta)
+    public function onMetaParsed(array &$meta)
     {
         $this->triggerEvent('file_meta', array(&$meta));
     }
@@ -328,7 +326,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onSinglePageLoaded()
      */
-    public function onSinglePageLoaded(&$pageData)
+    public function onSinglePageLoaded(array &$pageData)
     {
         $this->triggerEvent('get_page_data', array(&$pageData, $pageData['meta']));
     }
@@ -344,8 +342,12 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPagesLoaded()
      */
-    public function onPagesLoaded(&$pages, &$currentPage, &$previousPage, &$nextPage)
-    {
+    public function onPagesLoaded(
+        array &$pages,
+        array &$currentPage = null,
+        array &$previousPage = null,
+        array &$nextPage = null
+    ) {
         // remove keys of pages array
         $plainPages = array();
         foreach ($pages as &$pageData) {
@@ -391,7 +393,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPageRendering()
      */
-    public function onPageRendering(&$twig, &$twigVariables, &$templateName)
+    public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
     {
         // template name contains file extension since Pico 1.0
         $fileExtension = '';

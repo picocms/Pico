@@ -10,6 +10,10 @@ desktop.ini
 .DS_Store
 ._*
 
+# Travis
+/build/phpdoc-*/
+/build/phpdoc-*.git/
+
 # Composer
 /composer.lock
 /composer.phar
@@ -19,11 +23,11 @@ desktop.ini
 /config/config.php
 
 # User themes
-/themes
+/themes/*
 !/themes/default
 
 # User plugins
-/plugins
+/plugins/*
 !/plugins/0?-*
 !/plugins/1?-*
 !/plugins/DummyPlugin.php
