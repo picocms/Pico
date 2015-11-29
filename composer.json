@@ -28,6 +28,10 @@
         "erusev/parsedown-extra": "^0.7",
         "symfony/yaml" : "^2.3"
     },
+    "require-dev" : {
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "squizlabs/php_codesniffer": "^2.4"
+    },
     "autoload": {
         "psr-0": {
             "Pico": "lib/",

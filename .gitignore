@@ -10,6 +10,10 @@ desktop.ini
 .DS_Store
 ._*
 
+# Travis
+/build/phpdoc-*/
+/build/phpdoc-*.git/
+
 # Composer
 /composer.lock
 /composer.phar

@@ -1,9 +1,4 @@
-<?php
-
-// check PHP version
-if (version_compare(PHP_VERSION, '5.3.6', '<')) {
-    die('Sorry, Pico requires PHP 5.3.6 or above to run!');
-}
+<?php // @codingStandardsIgnoreFile
 
 // load dependencies
 if(is_file(__DIR__ . '/vendor/autoload.php')) {
@@ -25,7 +20,7 @@ $pico = new Pico(
 );
 
 // override configuration?
-// $pico->setConfig(array());
+//$pico->setConfig(array());
 
 // run application
 echo $pico->run();
