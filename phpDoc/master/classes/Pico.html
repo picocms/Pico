@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-451994572"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1033977795"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-451994572" class="accordion-body collapse in">
+            <div id="namespace-1033977795" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -2121,9 +2121,9 @@ to work. If you're upgrading from Pico 0.9, you will probably have to
 update your rewriting rules.</p>
 <p>We recommend you to use the <code>link</code> filter in templates to create
 internal links, e.g. <code>{{ "sub/page"|link }}</code> is equivalent to
-<code>{{ base_url }}sub/page</code>. In content files you can still use the
-<code>%base_url%</code> variable; e.g. <code>%base_url%?sub/page</code> will be automatically
-replaced accordingly.</p>
+<code>{{ base_url }}/sub/page</code> and <code>{{ base_url }}?sub/page</code>, depending on
+enabled URL rewriting. In content files you can use the <code>%base_url%</code>
+variable; e.g. <code>%base_url%?sub/page</code> will be replaced accordingly.</p>
 
                 
                 
@@ -2533,7 +2533,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 26th, 2015 at 03:16.
+                    on November 29th, 2015 at 17:23.
                 </section>
             </section>
         </section>

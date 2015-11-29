@@ -270,8 +270,12 @@ final class DummyPlugin extends AbstractPicoPlugin
      * @param  array|null &$nextPage     data of the next page
      * @return void
      */
-    public function onPagesLoaded(array &$pages, array &$currentPage = null, array &$previousPage = null, array &$nextPage = null)
-    {
+    public function onPagesLoaded(
+        array &$pages,
+        array &$currentPage = null,
+        array &$previousPage = null,
+        array &$nextPage = null
+    ) {
         // your code
     }
 
