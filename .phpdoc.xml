@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <files>
+        <directory>lib/*</directory>
+        <file>plugins/DummyPlugin.php</file>
+        <ignore>_build/*</ignore>
+        <ignore>config/*</ignore>
+        <ignore>content-sample/*</ignore>
+        <ignore>themes/*</ignore>
+        <ignore>plugins/*</ignore>
+        <ignore>vendor/*</ignore>
+        <ignore>.htaccess</ignore>
+        <ignore>*.git</ignore>
+        <ignore>.gitignore</ignore>
+        <ignore>*.xml</ignore>
+        <ignore>*.yml</ignore>
+        <ignore>*.json</ignore>
+        <ignore>*.lock</ignore>
+        <ignore>*.phar</ignore>
+        <ignore>*.md</ignore>
+        <ignore>*LICENSE</ignore>
+        <ignore>index.php</file>
+        <ignore>index.php.dist</ignore>
+    </files>
+</phpdoc>
