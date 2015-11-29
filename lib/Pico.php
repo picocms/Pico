@@ -772,7 +772,7 @@ class Pico
                         $meta[$fieldId] = $meta[$fieldName];
                         unset($meta[$fieldName]);
                     }
-                } else {
+                } elseif (!isset($meta[$fieldId])) {
                     // guarantee array key existance
                     $meta[$fieldId] = '';
                 }
@@ -786,10 +786,7 @@ class Pico
             }
         } else {
             // guarantee array key existance
-            foreach ($headers as $id => $field) {
-                $meta[$id] = '';
-            }
-
+            $meta = array_fill_keys(array_keys($headers), '');
             $meta['time'] = $meta['date_formatted'] = '';
         }
 
