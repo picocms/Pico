@@ -21,7 +21,7 @@ echo
 
 # check for changes
 if [ -z "$(git status --porcelain)" ]; then
-    echo "Nothing to deploy; skipping..."
+    printf 'Nothing to deploy; skipping...\n\n'
     exit 0
 fi
 

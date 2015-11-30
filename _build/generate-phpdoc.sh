@@ -23,14 +23,14 @@ phpdoc project:parse --config "$PHPDOC_CONFIG" \
 # check for changes
 printf '\nCheck for phpDoc cache changes...\n'
 if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
-    echo "No changes detected, don't rewrite phpDoc API docs..."
+    printf 'No changes detected; skipping phpDocs renewal...\n\n'
     exit 0
 fi
 
 # transform phpDoc files (i.e. rewrite API docs)
 # NOTE: actually this should be `phpdoc project:transform`,
 #       but the command seems to be broken...
-printf '\nRewrite phpDoc API docs...\n'
+printf '\nRewrite phpDocs...\n'
 rm -rf "$PHPDOC_TARGET_DIR"
 phpdoc project:run --config "$PHPDOC_CONFIG" \
     --cache-folder "$PHPDOC_CACHE_DIR" \
