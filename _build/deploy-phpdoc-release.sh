@@ -5,7 +5,7 @@
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
 PHPDOC_GIT_DIR="$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID.git"
 PHPDOC_CACHE_DIR="$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID.cache"
-PHPDOC_TARGET_DIR="$PHPDOC_GIT_DIR/phpdoc/$PHPDOC_ID"
+PHPDOC_TARGET_DIR="$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 
 # clone repo
 echo "Cloning repo..."
