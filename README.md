@@ -1,8 +1,8 @@
 Pico
 ====
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0 beta.2-red.svg)](https://github.com/picocms/Pico/releases/latest)
+[![License](https://img.shields.io/github/license/picocms/Pico.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
+[![Version](https://img.shields.io/github/release/picocms/Pico.svg)](https://github.com/picocms/Pico/releases/latest)
 [![Build Status](https://img.shields.io/travis/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/theshka/pico.svg)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
 [![Tweet Button](https://cloud.githubusercontent.com/assets/640217/11483728/b0842918-976f-11e5-9185-d53261b3125b.png)](https://twitter.com/intent/tweet?text=Pico+is+a+stupidly+simple%2C+blazing+fast%2C+flat+file+CMS.+Visit+http%3A%2F%2Fpicocms.org+and+downlaod+%23picocms+today%21+via+%40gitpicocms&amp;related=gitpicocms)
