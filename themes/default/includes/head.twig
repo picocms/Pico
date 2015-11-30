@@ -1,0 +1,30 @@
+<head>
+    <!-- Page Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="generator" content="Pico 1.0">
+
+    <!-- Post Meta -->
+    {% if meta.description %}
+    <meta name="description" content="{{ meta.description|striptags }}">
+    {% endif %}{% if meta.robots %}
+    <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}{% if meta.author %}
+    <meta name="author" content="{{ meta.author }}">
+    {% endif %}
+
+    <!-- Page Title -->
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/assets/css/bootstrap.theme.css" type="text/css" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+</head>

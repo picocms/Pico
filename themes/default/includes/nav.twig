@@ -1,0 +1,20 @@
+<!-- Navigation -->
+<nav class="navbar navbar-light">
+    <button class="navbar-toggler hidden-sm-up pull-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar">
+        &#9776;
+    </button>
+    <div class="container">
+        <a class="navbar-brand" href="{{ 'index'|link }}">{{ site_title }}</a>
+        <div class="collapse navbar-toggleable-xs" id="CollapsingNavbar">
+            <ul class="nav navbar-nav pull-right">
+                {% for page in pages %}
+                    {% if page.id starts with "blog/" %}{% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ page.url }}">{{ page.title }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</nav>
