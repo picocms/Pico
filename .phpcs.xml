@@ -6,9 +6,14 @@
     </description>
 
     <!--
-        Exclude build/ and vendor/ dirs as well as minified JavaScript files
+        Run on current working directory by default
     -->
-    <exclude-pattern type="relative">^build/</exclude-pattern>
+    <file>.</file>
+
+    <!--
+        Exclude _build/ and vendor/ dirs as well as minified JavaScript files
+    -->
+    <exclude-pattern type="relative">^_build/</exclude-pattern>
     <exclude-pattern type="relative">^vendor/</exclude-pattern>
     <exclude-pattern>*.min.js</exclude-pattern>
 

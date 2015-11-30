@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title><![CDATA[Pico 1.0 API Documentation]]></title>
+    <parser>
+        <target>_build/phpdoc.cache</target>
+    </parser>
+    <transformer>
+        <target>_build/phpdoc</target>
+    </transformer>
+    <transformations>
+        <template name="clean"/>
+    </transformations>
+    <files>
+        <directory>.</directory>
+        <file>index.php</file>
+        <file>index.php.dist</file>
+
+        <!-- exclude build environment -->
+        <ignore>_build/*</ignore>
+
+        <!-- exclude user config -->
+        <ignore>config/*</ignore>
+        <file>config/config.php.template</file>
+
+        <!-- exclude all plugins -->
+        <ignore>plugins/*</ignore>
+        <file>plugins/DummyPlugin.php</file>
+
+        <!-- exclude vendor dir -->
+        <ignore>vendor/*</ignore>
+    </files>
+</phpdoc>
