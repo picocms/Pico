@@ -1,6 +1,14 @@
 Pico Changelog
 ==============
 
+### Version 1.0.0
+Released: -
+
+```
+* [New] This is Picos first stable release! The Pico Community wants to thank
+        all contributors and users which made this possible!
+```
+
 ### Version 1.0.0-beta.2
 Released: 2015-11-30
 
