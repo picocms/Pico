@@ -1,10 +1,10 @@
-Pico
+Pico [![Tweet Button](https://cloud.githubusercontent.com/assets/640217/11483728/b0842918-976f-11e5-9185-d53261b3125b.png)](https://twitter.com/intent/tweet?text=Visit+http%3A%2F%2Fpicocms.org%2Fdownload+to+try+%23picocms+today%21+via+%40gitpicocms&amp;related=gitpicocms)
 ====
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0-lightgrey.svg)](https://github.com/picocms/Pico/releases/latest)
-[![Build Status](https://travis-ci.org/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/theshka/Pico/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
+[![Version](https://img.shields.io/badge/version-1.0-red.svg)](https://github.com/picocms/Pico/releases/latest)
+[![Build Status](https://img.shields.io/travis/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/theshka/pico.svg)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
 
 Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
 
