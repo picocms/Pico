@@ -31,13 +31,14 @@ if [ "$PHPDOC_CACHE_DIR" != "-" ]; then
 
     # NOTE: actually the following command should be `phpdoc project:transform`
     #       instead of `phpdoc project:run`, but the command seems to be broken...
+    echo
 else
     # create temporary cache files in PHPDOC_TARGET_DIR
     PHPDOC_CACHE_DIR="$PHPDOC_TARGET_DIR"
 fi
 
 # transform phpDoc files (i.e. rewrite API docs)
-printf '\nRewrite phpDocs...\n'
+printf 'Rewrite phpDocs...\n'
 rm -rf "$PHPDOC_TARGET_DIR"
 phpdoc project:run --config "$PHPDOC_CONFIG" \
     --cache-folder "$PHPDOC_CACHE_DIR" \
