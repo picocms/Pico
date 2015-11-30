@@ -27,6 +27,7 @@ fi
 
 # setup git
 printf 'Preparing repo...\n'
+git config push.default simple
 git config user.name "Travis CI"
 git config user.email "travis-ci@picocms.org"
 
