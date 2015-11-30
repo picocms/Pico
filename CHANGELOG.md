@@ -7,8 +7,11 @@ Released: -
 ```
 * [New] This is Picos first stable release! The Pico Community wants to thank
         all contributors and users which made this possible!
+* [New] Introducing the `PicoTwigExtension` Twig extension
 * [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
         want to parse the contents of a page, use the `content` filter instead
+* [New] New `sort_by` filter to sort a array by a specified key or key path
+* [New] New `map` filter to get the values of the given key or key path
 * [New] New PHP version check in `index.php`
 * [Changed] Improve documentation
 * [Changed] Improve table styling in default theme

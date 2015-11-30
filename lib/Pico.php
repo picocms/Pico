@@ -1116,6 +1116,9 @@ class Pico
     /**
      * Registers the twig template engine
      *
+     * This method also registers Picos core Twig filters `link` and `content`
+     * as well as Picos {@link PicoTwigExtension} Twig extension.
+     *
      * @see    Pico::getTwig()
      * @return void
      */
@@ -1124,23 +1127,15 @@ class Pico
         $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
+        $this->twig->addExtension(new PicoTwigExtension($this));
 
-        $this->registerTwigFilter();
-    }
-
-    /**
-     * Registers Picos additional Twig filters
-     *
-     * @return void
-     */
-    protected function registerTwigFilter()
-    {
-        $pico = $this;
-
-        // link filter
+        // register link filter
         $this->twig->addFilter(new Twig_SimpleFilter('link', array($this, 'getPageUrl')));
 
-        // content filter
+        // register content filter
+        // we pass the $pages array by reference to prevent multiple parser runs for the same page
+        // this is the reason why we can't register this filter as part of PicoTwigExtension
+        $pico = $this;
         $pages = &$this->pages;
         $this->twig->addFilter(new Twig_SimpleFilter('content', function ($page) use ($pico, &$pages) {
             if (isset($pages[$page])) {
@@ -1152,15 +1147,6 @@ class Pico
                 return $pageData['content'];
             }
             return null;
-        }));
-
-        // markdown filter
-        $this->twig->addFilter(new Twig_SimpleFilter('markdown', function ($markdown) use ($pico) {
-            if ($pico->getParsedown() === null) {
-                throw new LogicException("Unable to parse file contents: Parsedown instance wasn't registered yet");
-            }
-
-            return $pico->getParsedown()->text($markdown);
         }));
     }
 
