@@ -3,13 +3,14 @@ set -e
 
 # parameters
 PHPDOC_CONFIG="$1"
-PHPDOC_CACHE_DIR="$3"
-PHPDOC_TARGET_DIR="$4"
-PHPDOC_TITLE="$5"
+PHPDOC_CACHE_DIR="$2"
+PHPDOC_TARGET_DIR="$3"
+PHPDOC_TITLE="$4"
 
 # print parameters
 echo "Generating phpDocs..."
-printf 'PHPDOC_SOURCE_DIR="%s"\n' "$PHPDOC_SOURCE_DIR"
+printf 'PHPDOC_CONFIG="%s"\n' "$PHPDOC_CONFIG"
+printf 'PHPDOC_CACHE_DIR="%s"\n' "$PHPDOC_CACHE_DIR"
 printf 'PHPDOC_TARGET_DIR="%s"\n' "$PHPDOC_TARGET_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
