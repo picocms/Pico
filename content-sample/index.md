@@ -117,7 +117,7 @@ something like the following:
    This template will show a list of your articles, so you probably want to
    do something like this:
    ```
-    {% for page in pages %}
+    {% for page in pages|sort_by("time")|reverse %}
         {% if page.id starts with "blog/" %}
             <div class="post">
                 <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
@@ -127,16 +127,10 @@ something like the following:
         {% endif %}
     {% endfor %}
    ```
-4. Let Pico sort pages by date by setting `$config['pages_order_by'] = 'date';`
-   in your `config/config.php`. To use a descending order (newest articles
-   first), also add `$config['pages_order'] = 'desc';`. The former won't affect
-   pages without a `Date` meta header, but the latter does. To use ascending
-   order for your page navigation again, add Twigs `reverse` filter to the
-   navigation loop (`{% for page in pages|reverse %}...{% endfor %}`) in your
-   themes `index.twig`.
-5. Make sure to exclude the blog articles from your page navigation. You can
+4. Make sure to exclude the blog articles from your page navigation. You can
    achieve this by adding `{% if not page starts with "blog/" %}...{% endif %}`
-   to the navigation loop.
+   to the navigation loop (`{% for page in pages|reverse %}...{% endfor %}`)
+   in your themes `index.twig`.
 
 ## Customization
 
@@ -210,6 +204,17 @@ Pages can be used like the following:
             <li><a href="{{ page.url }}">{{ page.title }}</a></li>
         {% endfor %}
     </ul>
+
+Additional to Twigs extensive list of filters, functions and tags, Pico also
+provides some useful additional filters to make theming easier. You can parse
+any Markdown string to HTML using the `markdown` filter. Arrays can be sorted
+by one of its keys or a arbitrary deep sub-key using the `sort_by` filter
+(e.g. `{% for page in pages|sort_by("meta:nav"|split(":")) %}...{% endfor %}`
+iterates through all pages, ordered by the `nav` meta header; please note the
+`"meta:nav"|split(":")` part of the example, which passes `['meta', 'nav']` to
+the filter describing a key path). You can return all values of a given key or
+key path of an array using the `map` filter (e.g. `{{ pages|map("title") }}`
+returns all page titles).
 
 You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog-post` to a content file
