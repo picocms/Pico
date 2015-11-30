@@ -1,15 +1,17 @@
-Pico [![Tweet Button](https://cloud.githubusercontent.com/assets/640217/11483728/b0842918-976f-11e5-9185-d53261b3125b.png)](https://twitter.com/intent/tweet?text=Visit+http%3A%2F%2Fpicocms.org%2Fdownload+to+try+%23picocms+today%21+via+%40gitpicocms&amp;related=gitpicocms)
+Pico
 ====
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0-red.svg)](https://github.com/picocms/Pico/releases/latest)
+[![Version](https://img.shields.io/badge/version-1.0.0 beta.2-red.svg)](https://github.com/picocms/Pico/releases/latest)
 [![Build Status](https://img.shields.io/travis/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/theshka/pico.svg)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
+[![Tweet Button](https://cloud.githubusercontent.com/assets/640217/11483728/b0842918-976f-11e5-9185-d53261b3125b.png)](https://twitter.com/intent/tweet?text=Pico+is+a+stupidly+simple%2C+blazing+fast%2C+flat+file+CMS.+Visit+http%3A%2F%2Fpicocms.org+and+downlaod+%23picocms+today%21+via+%40gitpicocms&amp;related=gitpicocms)
 
 Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
 
-<!--flippa verify-->
-[![I Love Open Source](http://www.iloveopensource.io/images/logo-lightbg.png)](http://www.iloveopensource.io/projects/524c55dcca7964c617000756)
+Screenshot
+-------
+![Pico Sreenshot](https://cloud.githubusercontent.com/assets/640217/11484858/07f1e43c-9776-11e5-809d-712fa87c5aad.png)
 
 Install
 -------
@@ -90,6 +92,9 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 Contributing
 ------------
+
+<!--flippa verify-->
+[![I Love Open Source](http://www.iloveopensource.io/images/logo-lightbg.png)](http://www.iloveopensource.io/projects/524c55dcca7964c617000756)
 
 You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
