@@ -2,9 +2,10 @@
 set -e
 
 # parameters
-PHPDOC_SOURCE_DIR="$1"
-PHPDOC_TARGET_DIR="$2"
-PHPDOC_TITLE="$3"
+PHPDOC_CONFIG="$1"
+PHPDOC_CACHE_DIR="$3"
+PHPDOC_TARGET_DIR="$4"
+PHPDOC_TITLE="$5"
 
 # print parameters
 echo "Generating phpDocs..."
@@ -14,11 +15,9 @@ printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
 
 # generate phpdoc
-phpdoc -d "$PHPDOC_SOURCE_DIR" \
-    -i "$PHPDOC_SOURCE_DIR/build/" \
-    -i "$PHPDOC_SOURCE_DIR/vendor/" \
-    -i "$PHPDOC_SOURCE_DIR/plugins/" -f "$PHPDOC_SOURCE_DIR/plugins/DummyPlugin.php" \
-    -t "$PHPDOC_TARGET_DIR" \
+phpdoc --config "$PHPDOC_CONFIG" \
+    --cache-folder "$PHPDOC_CACHE_DIR" \
+    --target "$PHPDOC_TARGET_DIR" \
     --title "$PHPDOC_TITLE"
 
 echo

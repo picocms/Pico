@@ -18,11 +18,13 @@ fi
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
 
 generate-phpdoc.sh \
-    "$TRAVIS_BUILD_DIR" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" \
+    "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
+    "$TRAVIS_BUILD_DIR/_build/phpdoc.cache" \
+    "$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID" \
     "Pico 1.0 API Documentation ($TRAVIS_BRANCH branch)"
 [ $? -eq 0 ] || exit 1
 
 deploy-phpdoc.sh \
-    "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH @ $TRAVIS_COMMIT" "$TRAVIS_BUILD_DIR/build/phpdoc-$PHPDOC_ID" \
+    "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH @ $TRAVIS_COMMIT" "$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID" \
     "$TRAVIS_REPO_SLUG" "gh-pages" "phpDoc/$PHPDOC_ID"
 [ $? -eq 0 ] || exit 1
