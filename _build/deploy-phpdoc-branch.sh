@@ -17,8 +17,6 @@ fi
 
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
 PHPDOC_GIT_DIR="$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID.git"
-PHPDOC_CACHE_DIR="$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache"
-PHPDOC_TARGET_DIR="$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 
 # clone repo
 echo "Cloning repo..."
@@ -31,7 +29,7 @@ echo
 # generate phpDocs
 generate-phpdoc.sh \
     "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
-    "$PHPDOC_CACHE_DIR" "$PHPDOC_TARGET_DIR" \
+    "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache" "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID" \
     "Pico 1.0 API Documentation ($TRAVIS_BRANCH branch)"
 [ $? -eq 0 ] || exit 1
 

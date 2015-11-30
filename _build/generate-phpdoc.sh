@@ -15,21 +15,28 @@ printf 'PHPDOC_TARGET_DIR="%s"\n' "$PHPDOC_TARGET_DIR"
 printf 'PHPDOC_TITLE="%s"\n' "$PHPDOC_TITLE"
 echo
 
-# parse phpDoc files (i.e. update cache)
-printf "\nUpdate phpDoc cache...\n"
-phpdoc project:parse --config "$PHPDOC_CONFIG" \
-    --target "$PHPDOC_CACHE_DIR"
+# update a separate phpDoc cache
+if [ "$PHPDOC_CACHE_DIR" != "-" ]; then
+    # parse phpDoc files (i.e. update cache)
+    printf "\nUpdate phpDoc cache...\n"
+    phpdoc project:parse --config "$PHPDOC_CONFIG" \
+        --target "$PHPDOC_CACHE_DIR"
 
-# check for changes
-printf '\nCheck for phpDoc cache changes...\n'
-if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
-    printf 'No changes detected; skipping phpDocs renewal...\n\n'
-    exit 0
+    # check for changes
+    printf '\nCheck for phpDoc cache changes...\n'
+    if [ -z "$(git status --porcelain "$PHPDOC_CACHE_DIR")" ]; then
+        printf 'No changes detected; skipping phpDocs renewal...\n\n'
+        exit 0
+    fi
+
+    # NOTE: actually the following command should be `phpdoc project:transform`
+    #       instead of `phpdoc project:run`, but the command seems to be broken...
+else
+    # create temporary cache files in PHPDOC_TARGET_DIR
+    PHPDOC_CACHE_DIR="$PHPDOC_TARGET_DIR"
 fi
 
 # transform phpDoc files (i.e. rewrite API docs)
-# NOTE: actually this should be `phpdoc project:transform`,
-#       but the command seems to be broken...
 printf '\nRewrite phpDocs...\n'
 rm -rf "$PHPDOC_TARGET_DIR"
 phpdoc project:run --config "$PHPDOC_CONFIG" \
