@@ -106,12 +106,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">28</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">29</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-620699441"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1893129728"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-620699441" class="accordion-body collapse in">
+            <div id="namespace-1893129728" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -148,6 +148,7 @@
                                                                                                     <li class="class"><a href="../classes/AbstractPicoPlugin.html">AbstractPicoPlugin</a></li>
                                                     <li class="class"><a href="../classes/DummyPlugin.html">DummyPlugin</a></li>
                                                     <li class="class"><a href="../classes/Pico.html">Pico</a></li>
+                                                    <li class="class"><a href="../classes/PicoTwigExtension.html">PicoTwigExtension</a></li>
                                             </ul>
                 </div>
             </div>
@@ -252,7 +253,6 @@ See <a href="http://picocms.org/">http://picocms.org/</a> for more info.</li>
                                                                     <a href="../classes/Pico.html#method_sortPages" class="">sortPages()</a><br />
                                                                     <a href="../classes/Pico.html#method_discoverCurrentPage" class="">discoverCurrentPage()</a><br />
                                                                     <a href="../classes/Pico.html#method_registerTwig" class="">registerTwig()</a><br />
-                                                                    <a href="../classes/Pico.html#method_registerTwigFilter" class="">registerTwigFilter()</a><br />
                                                                     <a href="../classes/Pico.html#method_getTwigVariables" class="">getTwigVariables()</a><br />
                                                                     <a href="../classes/Pico.html#method_getFiles" class="">getFiles()</a><br />
                                                                     <a href="../classes/Pico.html#method_triggerEvent" class="">triggerEvent()</a><br />
@@ -2312,7 +2312,8 @@ as well as the previous and next page relative to it</em></p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">registerTwig() : void</pre>
                 <p><em>Registers the twig template engine</em></p>
-                
+                <p>This method also registers Picos core Twig filters <code>link</code> and <code>content</code>
+as well as Picos <a href="/classes/PicoTwigExtension.html">PicoTwigExtension</a> Twig extension.</p>
 
                 
                 
@@ -2325,32 +2326,6 @@ as well as the previous and next page relative to it</em></p>
                                                                                             <dt>See also</dt>
                                                                 <dd><a href="../classes/Pico.html#method_getTwig"><span class="namespace-wrapper"></span></a></dd>
                                                                 </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_registerTwigFilter" name="method_registerTwigFilter" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">registerTwigFilter()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">registerTwigFilter() : void</pre>
-                <p><em>Registers Picos additional Twig filters</em></p>
-                
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2533,7 +2508,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 30th, 2015 at 01:04.
+                    on November 30th, 2015 at 02:13.
                 </section>
             </section>
         </section>
