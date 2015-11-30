@@ -89,7 +89,7 @@ If you want to use Pico as a blogging software, you probably want to do somethin
     <li>
         Create a <code>blog.md</code> in your <code>content</code> folder and set its <code>Template</code> meta header to e.g. <code>blog</code>. Also create a <code>blog.twig</code> in your theme directory. This template will show a list of your articles, so you probably want to do something like this:
 
-        {% raw %}<pre><code>{% for page in pages %}
+        {% raw %}<pre><code>{% for page in pages|sort_by("time")|reverse %}
     {% if page.id starts with &quot;blog/&quot; %}
         &lt;div class=&quot;post&quot;&gt;
             &lt;h3&gt;&lt;a href=&quot;{{ page.url }}&quot;&gt;{{ page.title }}&lt;/a&gt;&lt;/h3&gt;
@@ -100,10 +100,7 @@ If you want to use Pico as a blogging software, you probably want to do somethin
 {% endfor %}</code></pre>{% endraw %}
     </li>
     <li>
-        Let Pico sort pages by date by setting <code>$config['pages_order_by'] = 'date';</code> in your <code>config/config.php</code>. To use a descending order (newest articles first), also add <code>$config['pages_order'] = 'desc';</code>. The former won't affect pages without a <code>Date</code> meta header, but the latter does. To use ascending order for your page navigation again, add Twigs <code>reverse</code> filter to the navigation loop (<code>{&#37; for page in pages|reverse &#37;}...{&#37; endfor &#37;}}</code>) in your themes <code>index.twig</code>.
-    </li>
-    <li>
-        Make sure to exclude the blog articles from your page navigation. You can achieve this by adding <code>{&#37; if not page starts with "blog/" &#37;}...{&#37; endif &#37;}</code> to the navigation loop.
+        Make sure to exclude the blog articles from your page navigation. You can achieve this by adding <code>{&#37; if not page starts with "blog/" &#37;}...{&#37; endif &#37;}</code> to the navigation loop (<code>{&#37; for page in pages &#37;}...{&#37; endfor &#37;}}</code>) in your themes <code>index.twig</code>.
     </li>
 </ol>
 
