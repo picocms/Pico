@@ -156,7 +156,7 @@ HTML structure of the theme. Below are the Twig variables that are available
 to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 (e.g. `{{ base_url }}`) don't have a trailing slash.
 
-* `{{ config }}` - Conatins the values you set in `config/config.php`
+* `{{ config }}` - Contains the values you set in `config/config.php`
                    (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
 * `{{ base_url }}` - The URL to your Pico site; use Twigs `link` filter to
