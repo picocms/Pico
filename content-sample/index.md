@@ -129,8 +129,8 @@ something like the following:
    ```
 4. Make sure to exclude the blog articles from your page navigation. You can
    achieve this by adding `{% if not page starts with "blog/" %}...{% endif %}`
-   to the navigation loop (`{% for page in pages|reverse %}...{% endfor %}`)
-   in your themes `index.twig`.
+   to the navigation loop (`{% for page in pages %}...{% endfor %}`) in your
+   themes `index.twig`.
 
 ## Customization
 

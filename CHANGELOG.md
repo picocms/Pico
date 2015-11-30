@@ -7,12 +7,20 @@ Released: -
 ```
 * [New] This is Picos first stable release! The Pico Community wants to thank
         all contributors and users which made this possible!
+```
+
+### Version 1.0.0-beta.2
+Released: 2015-11-30
+
+```
 * [New] Introducing the `PicoTwigExtension` Twig extension
 * [New] New `markdown` filter for Twig to parse markdown strings; Note: If you
         want to parse the contents of a page, use the `content` filter instead
-* [New] New `sort_by` filter to sort a array by a specified key or key path
+* [New] New `sort_by` filter to sort an array by a specified key or key path
 * [New] New `map` filter to get the values of the given key or key path
-* [New] New PHP version check in `index.php`
+* [New] Introducing `index.php.dist` (used for pre-bundled releases)
+* [New] Use PHP_CodeSniffer to auto-check source code (see `.phpcs.xml`)
+* [New] Use Travis CI to generate phpDocs class docs automatically
 * [Changed] Improve documentation
 * [Changed] Improve table styling in default theme
 * [Changed] Update composer version constraints; almost all dependencies will
@@ -21,6 +29,7 @@ Released: -
 * [Changed] Reuse `ParsedownExtra` object; new `onParsedownRegistration` event
 * [Changed] `$config['rewrite_url']` is now always available
 * [Changed] `DummyPlugin` class is now final
+* [Changed] Remove `.git` dirs from `vendor/` when deploying
 * [Changed] Various small improvements and changes...
 * [Fixed] `PicoDeprecated`: Sanitize `content_dir` and `base_url` options when
           reading `config.php` in Picos root dir

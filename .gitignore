@@ -19,7 +19,6 @@ desktop.ini
 /_build/phpdoc/
 /_build/phpdoc.cache/
 /_build/phpdoc-*/
-/_build/phpdoc-*.git/
 
 # User config
 /config/config.php
