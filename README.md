@@ -11,6 +11,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ 
 
 Screenshot
 -------
+
 ![Pico Screenshot](https://cloud.githubusercontent.com/assets/640217/11488304/1b17b388-978b-11e5-9827-532d14a79f2e.gif)
 
 Install
@@ -18,28 +19,25 @@ Install
 
 You can install Pico either using a pre-bundled release or with composer. Pico is also available on [Packagist.org][] and may be included in other projects via `composer require picocms/pico`. Pico requires PHP 5.3+
 
-#### Using a pre-bundled release
+### Using a pre-bundled release - for users
 
-Just [download the latest Pico release][LatestRelease] and upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server.
+1. [Download the latest Pico release][LatestRelease]
 
-#### Composer
+2. Upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server.
 
-###### Step 1 - for users
-[Download the *source code* of Pico's latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
+### Using Composer - for developers
 
-###### Step 1 - for developers
-Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository as follows:
-```shell
-$ git clone https://github.com/picocms/Pico.git .
-```
-Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
+1. Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository as follows:
+    ```shell
+    $ git clone https://github.com/picocms/Pico.git .
+    ```
+    > Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
-###### Step 2
-Download [composer][] and run it with the `install` option:
-```shell
-$ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar install
-```
+2. Download [composer][] and run it with the `install` option:
+    ```shell
+    $ curl -sS https://getcomposer.org/installer | php
+    $ php composer.phar install
+    ```
 
 Upgrade
 -------
@@ -61,34 +59,32 @@ Run
 
 You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Pico's default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
-#### You don't have a web server?
-Starting with PHP 5.4 the easiest way to try Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
+### You don't have a web server?
+No worries! Starting with PHP 5.4 the easiest way to get started using Pico is with [PHP's built-in web server][PHPServer].
 
-###### Step 1
-Navigate to Pico's installation directory using a shell.
+1. Navigate to Pico's installation directory using a shell.
 
-###### Step 2
-Start PHPs built-in web server:
-```shell
-$ php -S 127.0.0.1:8080
-```
+2. Start PHPs built-in web server:
+    ```shell
+    $ php -S 127.0.0.1:8080
+    ```
+3. Access Pico from http://localhost:8080.
 
-###### Step 3
-Access Pico from http://localhost:8080.
+    > Please note that PHPs built-in web server is for *development* and *testing* purposes *only!*
 
 Getting Help
 ------------
 
-#### Getting Help as a user
+### ... as a user
 If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 0.8 or 0.9 to Pico 1.0. You can find officially supported plugins and themes on [our website][OfficialPlugins]. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes][WikiThemes] pages respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
 
-#### Getting Help as a developer
+### ... as a developer
 If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [dev docs on our website][HelpDevDocs].
 
-#### You still need help or experience a problem with Pico?
+### .. still need help with Pico?
 When the docs can't answer your question or when you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
-**Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
+> **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
 Contributing
 ------------
