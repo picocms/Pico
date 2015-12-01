@@ -1,7 +1,7 @@
 Pico
 ====
 
-[![License](https://img.shields.io/github/license/picocms/Pico.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/picocms/Pico.svg)](https://github.com/picocms/Pico/blob/master/LICENSE.md)
 [![Version](https://img.shields.io/github/release/picocms/Pico.svg)](https://github.com/picocms/Pico/releases/latest)
 [![Build Status](https://img.shields.io/travis/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/theshka/pico.svg)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
