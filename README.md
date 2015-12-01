@@ -14,6 +14,19 @@ Screenshot
 
 ![Pico Screenshot](https://cloud.githubusercontent.com/assets/640217/11488304/1b17b388-978b-11e5-9827-532d14a79f2e.gif)
 
+Table of Contents
+-------
+* [Install](#install)
+    * [Pre-Bundled Release](#using-a-pre-bundled-release---for-users)
+    * [Using Composer](#using-composer---for-developers)
+* [Upgrade](#upgrade)
+* [Run](#run)
+* [Getting Help](#getting-help)
+    * [...as a user](#-as-a-user)
+    * [...as a developer](#-as-a-developer)
+    * [... still need help?](#-still-need-help-with-pico)
+* [Contributing](#contributing)
+
 Install
 -------
 
@@ -81,7 +94,7 @@ If you want to get started using Pico, please refer to our [user docs][HelpUserD
 ### ... as a developer
 If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [dev docs on our website][HelpDevDocs].
 
-### .. still need help with Pico?
+### ... still need help with Pico?
 When the docs can't answer your question or when you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
 > **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
