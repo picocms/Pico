@@ -21,6 +21,7 @@ Table of Contents
     * [Using Composer](#using-composer---for-developers)
 * [Upgrade](#upgrade)
 * [Run](#run)
+* [Config](#config)
 * [Getting Help](#getting-help)
     * [...as a user](#-as-a-user)
     * [...as a developer](#-as-a-developer)
@@ -84,6 +85,10 @@ No worries! Starting with PHP 5.4 the easiest way to get started using Pico is w
 3. Access Pico from http://localhost:8080.
 
     > Please note that PHPs built-in web server is for *development* and *testing* purposes *only!*
+
+Config
+---
+Once Pico is installed, you will need to copy your sites config file from `config/config.php.template` to `config/config.php`. The most important config items to set are `$config['timezone']`, `$config['base_url']`, and `$config['site_title']`
 
 Getting Help
 ------------
