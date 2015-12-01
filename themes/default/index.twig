@@ -32,6 +32,15 @@
     </header>
 
     <section id="content">
+        {% if meta.YAML_ParseError %}
+            <div class="error">
+                <div class="inner">
+                    <h2>Invalid YAML Front Matter</h2>
+                    <p>{{ meta.YAML_ParseError }}</p>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="inner">
             {{ content }}
         </div>

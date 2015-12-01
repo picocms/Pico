@@ -266,8 +266,8 @@ class Pico
      * meta headers, processes Markdown, does Twig processing and returns
      * the rendered contents.
      *
-     * @return string           rendered Pico contents
-     * @throws RuntimeException thrown when a not recoverable error occurs
+     * @return string    rendered Pico contents
+     * @throws Exception thrown when a not recoverable error occurs
      */
     public function run()
     {
@@ -760,9 +760,13 @@ class Pico
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches)) {
-            $yamlParser = new \Symfony\Component\Yaml\Parser();
-            $meta = $yamlParser->parse($rawMetaMatches[3]);
-            $meta = array_change_key_case($meta, CASE_LOWER);
+            try {
+                $yamlParser = new \Symfony\Component\Yaml\Parser();
+                $meta = $yamlParser->parse($rawMetaMatches[3]);
+                $meta = array_change_key_case($meta, CASE_LOWER);
+            } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+                $meta['YAML_ParseError'] = $e->getMessage();
+            }
 
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
@@ -957,6 +961,9 @@ class Pico
                 $rawContent = &$this->rawContent;
                 $meta = &$this->meta;
             }
+
+            // fallback to page id if page title is empty
+            $meta['title'] = (!empty($meta['title'])) ? $meta['title'] : $id;
 
             // build page data
             // title, description, author and date are assumed to be pretty basic data
