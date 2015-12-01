@@ -1,0 +1,34 @@
+{% include 'includes/htmlHead.twig' %}
+{% include 'includes/head.twig' %}
+<body>
+    {% include 'includes/nav.twig' %}
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% include 'includes/breadcrumb.twig' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="blog-post">
+                    <h2 class="blog-post-title">{{ meta.title }}</h2>
+                    <p class="blog-post-meta">
+                        <i class="fa fa-calendar"></i> {{ meta.date }}
+                        by <a href="{{ meta.author|link}}">{{ meta.author }}</a>
+                    </p>
+                    <hr>
+                    {% if meta.image %}
+                        <img src="{{ meta.image }}" class="img-responsive" alt="{{ meta.image }}" /><br>
+                    {% endif %}
+                    {{content}}
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-offset-1">
+                {% include 'includes/sidebar.twig' %}
+            </div>
+        </div>
+    </div>
+    {% include 'includes/foot.twig' %}
+</body>
+{% include 'includes/htmlFoot.twig' %}
