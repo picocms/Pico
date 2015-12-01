@@ -1,0 +1,12 @@
+<div class="blog-post">
+    <h2 class="blog-post-title">{{ meta.title }}</h2>
+    <p class="blog-post-meta">
+        <i class="fa fa-calendar"></i> {{ meta.date }}
+        by <strong>{{ meta.author }}</strong>
+    </p>
+    <hr>
+    {% if meta.image %}
+        <img src="{{ meta.image }}" class="img-responsive" alt="{{ meta.image }}" /><br>
+    {% endif %}
+    {{content}}
+</div>

@@ -1,0 +1,13 @@
+{% for page in pages|sort_by("time")|reverse %}
+    {% if page.id starts with "blog/" %}
+        <div class="blog-post">
+            <h2 class="blog-post-title"><a href="{{ page.url }}">{{ page.title }}</a></h2>
+            <p class="blog-post-meta">
+                <i class="fa fa-calendar"></i> {{ page.date }}
+                by <strong>{{ page.author }}</strong>
+            </p>
+            {{ page.description|slice(0, 500) }}
+        </div>
+        <hr>
+    {% endif %}
+{% endfor %}
