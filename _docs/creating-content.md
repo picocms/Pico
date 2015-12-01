@@ -7,7 +7,8 @@ toc:
 nav: 4
 ---
 
-## Creating Content
+Creating Content
+-------
 
 Pico is a flat file CMS, this means there is no administration backend or database to deal with. You simply create `.md` files in the `content-sample` folder and that becomes a page. For example, this file is called `index.md` and is shown as the main landing page.
 
@@ -76,7 +77,7 @@ There are also certain variables that you can use in your text files:
 
 ### Blogging
 
-Pico is not blogging software - but makes it very easy for you to use it as a blog. You can find many plugins out there implementing typical blogging features like authentication, tagging, pagination and social plugins. See the below Plugins section for details.
+Pico is not blogging software - but makes it very easy for you to use it as a blog. We even include a simple blog layout in our default template! However, you can find many plugins out there implementing typical blogging features like authentication, tagging, pagination and social plugins. See the below Plugins section for details.
 
 If you want to use Pico as a blogging software, you probably want to do something like the following:
 <ol>

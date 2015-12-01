@@ -6,7 +6,8 @@ toc:
 nav: 6
 ---
 
-## Config
+Config
+-------
 
 You can override the default Pico settings (and add your own custom settings) by editing `config/config.php` in the Pico directory. For a brief overview of the available settings and their defaults see [`config/config.php.template`][ConfigTemplate]. To override a setting, copy `config/config.php.template` to `config/config.php`, uncomment the setting and set your custom value.
 
