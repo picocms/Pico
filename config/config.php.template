@@ -27,7 +27,7 @@
  * THEME
  */
 // $config['theme'] = 'default';                // Set the theme (defaults to "default")
-// $config['theme_config'] = array(
+// $config['theme_config'] = array(             // Configure the default theme
 //    'about_us' => '',
 //    'social_media' => array(
 //        'github' => '',
