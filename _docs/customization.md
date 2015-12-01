@@ -7,7 +7,8 @@ toc:
 nav: 5
 ---
 
-## Customization
+Customization
+-------
 
 Pico is highly customizable in two different ways: On the one hand you can change Pico's appearance by using themes, on the other hand you can add new functionality by using plugins. Doing the former includes changing Pico's HTML, CSS and JavaScript, the latter mostly consists of PHP programming.
 
