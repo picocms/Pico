@@ -16,6 +16,7 @@ Screenshot
 
 Table of Contents
 -------
+* [Pico](#pico)
 * [Install](#install)
     * [Pre-Bundled Release](#using-a-pre-bundled-release---for-users)
     * [Using Composer](#using-composer---for-developers)
@@ -53,6 +54,8 @@ You can install Pico either using a pre-bundled release or with composer. Pico i
     $ php composer.phar install
     ```
 
+[^ toc][]
+
 Upgrade
 -------
 
@@ -67,6 +70,8 @@ Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MA
 - the `MAJOR` version (e.g. `1.0` to `2.0`), we made incompatible API changes. We will then provide a appropriate upgrade tutorial.
 
 Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated` plugin ensures backwards compatibility, so you basically can follow the above upgrade instructions as if we updated the `MINOR` version. However, we recommend you to take some further steps to confine the necessity of `PicoDeprecated` as far as possible. For more information about what has changed with Pico 1.0 and a step-by-step upgrade tutorial, please refer to the [upgrade page of our website][HelpUpgrade].
+
+[^ toc][]
 
 Run
 ---
@@ -86,9 +91,13 @@ No worries! Starting with PHP 5.4 the easiest way to get started using Pico is w
 
     > Please note that PHPs built-in web server is for *development* and *testing* purposes *only!*
 
+[^ toc][]
+
 Config
 ---
 Once Pico is installed, you will need to copy your sites config file from `config/config.php.template` to `config/config.php`. The most important config items to set are `$config['timezone']`, `$config['base_url']`, and `$config['site_title']`
+
+[^ toc][]
 
 Getting Help
 ------------
@@ -104,6 +113,8 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 > **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
+[^ toc][]
+
 Contributing
 ------------
 
@@ -118,6 +129,9 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 
 3. Pico's Core: The supreme discipline is to work on Pico's Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
 
+[^ toc][]
+
+[^ toc]: #table-of-contents
 [Packagist.org]: http://packagist.org/packages/picocms/pico
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
