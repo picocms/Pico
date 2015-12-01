@@ -77,6 +77,9 @@ a.button.red {
     background: url('../../images/spinner.gif') no-repeat !important;
     background-color: #707070;
 }
+.top-wrapper header .inner {
+    padding: 56px 0 50px;
+}
 header {
     background-color: #2EAE9B;
 }
