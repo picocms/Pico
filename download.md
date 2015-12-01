@@ -10,3 +10,5 @@ nav: 5
 <p class="aligncenter">
     <a href="{{ site.gh_project_url }}/releases/latest" class="button red">Download Pico</a>
 </p>
+
+---

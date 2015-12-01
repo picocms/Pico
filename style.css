@@ -49,7 +49,7 @@ del {
 }
 table {
     border-collapse:collapse;
-    border-spacing:0
+    border-spacing:0;
     margin-bottom: 20px;
 }
 th, td {
@@ -317,7 +317,6 @@ ul li:before {
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
-    color: #ff6760;
     speak: none;
 }
 ul li ul {

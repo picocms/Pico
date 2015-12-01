@@ -1,0 +1,211 @@
+blockquote {
+    padding: 0 0 0 15px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eeeeee;
+}
+
+code,
+pre {
+    padding: 0 3px 2px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 12px;
+    color: #333333;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+code {
+    padding: 2px 4px;
+    color: #333;
+    white-space: nowrap;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+}
+
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 20px;
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre;
+    white-space: pre-wrap;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+pre code {
+    padding: 0;
+    color: inherit;
+    white-space: pre;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border: 0;
+}
+
+a {
+    color: #2EAE9B;
+}
+h2.post-title a:hover {
+    color: #2EAE9B
+}
+a.button,
+.forms fieldset .btn-submit,
+.comment-form .btn-submit,
+.filter li a,
+.page-navi ul li a {
+    background-color: #2EAE9B;
+}
+a.button.red {
+    background-color: #2EAE9B;
+}
+.lite1 {
+    color: #2EAE9B;
+    border-bottom: 1px dotted #2EAE9B;
+}
+.banner {
+    background: #707070;
+}
+.tp-loader {
+    background: url('../../images/spinner.gif') no-repeat !important;
+    background-color: #707070;
+}
+header {
+    background-color: #2EAE9B;
+}
+.menu ul li a {
+    color: #afe1da;
+}
+.menu ul li.active a,
+.menu ul li a:hover,
+.menu ul li a.selected {
+    color: #fff
+}
+.menu ul li a:before{
+    background-color: #fff;
+}
+.menu ul li ul:before {
+    border-bottom: 5px solid #2EAE9B;
+}
+.menu ul li ul li:first-child {
+    border-top: 2px solid #2EAE9B
+}
+.menu ul li ul li a:hover {
+    background-color: #2EAE9B;
+}
+.box-wrapper .box:hover i.special {
+    color: #2EAE9B;
+}
+.box-wrapper .box:hover p,
+.box-wrapper .box:hover h3 {
+    color: #2EAE9B;
+}
+footer {
+    background-color: #c0c0c0;
+}
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+    color: #616161;
+}
+footer p.description {
+    color: #262626;
+}
+footer p.description a {
+    color: #fff;
+}
+footer p.description a:hover {
+    color: #2EAE9B !important;
+}
+.subfooter-wrapper {
+    background-color: #707070;
+}
+.subfooter-wrapper a {
+    color: #fff;
+}
+.subfooter-wrapper a:hover {
+    color: #2EAE9B
+}
+ul.contact-info li i {
+    color: #2EAE9B;
+}
+.post .info .date {
+    background: #2EAE9B;
+}
+.post-list h6 a:hover {
+    color: #2EAE9B
+}
+.related-wrapper h2 a:hover {
+    color: #2EAE9B
+}
+#comments .info h2 a:hover {
+    color: #2EAE9B
+}
+#comments a.reply-link:hover {
+    color: #2EAE9B
+}
+.tab a.active,
+.tab a:hover {
+    color: #2EAE9B
+}
+#testimonials .author {
+    color: #2EAE9B;
+}
+#testimonials .tab a.active,
+#testimonials .tab a:hover {
+    background: #2EAE9B;
+}
+.toggle h4.title:hover,
+.toggle h4.title.active {
+    color: #2EAE9B
+}
+.tp-caption .colored {
+    color: #2EAE9B
+}
+.tp-bullets.simplebullets.round .bullet.selected,
+.tp-bullets.simplebullets.round .bullet:hover {
+    background-color: #2EAE9B
+}
+.tparrows:hover {
+    background-color: #2EAE9B;
+}
+.touchcarousel .touchcarousel-item .link:hover {
+    background-color: #2EAE9B;
+}
+.touchcarousel .touchcarousel-item .caption a:hover {
+	color: #2EAE9B;
+}
+.touch-carousel .scrollbar {
+    background-color: #2EAE9B !important;
+}
+.fancybox-close:hover,
+.fancybox-prev span:hover,
+.fancybox-next span:hover {
+    background: #2EAE9B !important;
+}
+.meter > span {
+    background-color: #2EAE9B;
+}
+.pricing .plan h4 span {
+    color: #2EAE9B;
+}
+.portfolio-detail-view .closebutton:hover,
+.portfolio-detail-view-remove .closebutton:hover {
+    background: #2EAE9B;
+}
+.carousel .item .link:hover,
+.portfolio-detail-view .single .link:hover {
+    background-color: #2EAE9B;
+}
+.carousel-control:hover {
+    background-color: #2EAE9B;
+}
+.items li a .overlay,
+.overlay a .more {
+    background-color: rgba(255,103,96, 0.92);
+}
