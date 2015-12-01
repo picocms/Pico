@@ -99,7 +99,8 @@ There are also certain variables that you can use in your text files:
 ### Blogging
 
 Pico is not blogging software - but makes it very easy for you to use it as a
-blog. You can find many plugins out there implementing typical blogging
+blog. We even include a simple blog layout in our default template! However,
+you can find many plugins out there implementing typical blogging
 features like authentication, tagging, pagination and social plugins. See the
 below Plugins section for details.
 
