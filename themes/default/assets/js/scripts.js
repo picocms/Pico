@@ -14,10 +14,12 @@ if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
 // BS4 - Android stock browser fix
 // Copyright 2014-2015 Twitter, Inc.
 // Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-$(function() {
-    var nua = navigator.userAgent
-    var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
-    if (isAndroid) {
-        $('select.form-control').removeClass('form-control').css('width', '100%')
+$(
+    function() {
+        var nua = navigator.userAgent
+        var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
+        if (isAndroid) {
+            $('select.form-control').removeClass('form-control').css('width', '100%')
+        }
     }
-})
+)
