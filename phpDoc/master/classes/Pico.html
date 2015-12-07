@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1829854533"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1261654229"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1829854533" class="accordion-body collapse in">
+            <div id="namespace-1261654229" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -2208,22 +2208,67 @@ variable; e.g. <code>%base_url%?sub/page</code> will be replaced accordingly.</p
                 <pre class="signature" style="margin-right: 54px;">readPages() : void</pre>
                 <p><em>Reads the data of all pages known to Pico</em></p>
                 <p>The page data will be an array containing the following values:</p>
-<pre>
-+----------------+--------+------------------------------------------+
-| Array key      | Type   | Description                              |
-+----------------+--------+------------------------------------------+
-| id             | string | relative path to the content file        |
-| url            | string | URL to the page                          |
-| title          | string | title of the page (YAML header)          |
-| description    | string | description of the page (YAML header)    |
-| author         | string | author of the page (YAML header)         |
-| time           | string | timestamp derived from the Date header   |
-| date           | string | date of the page (YAML header)           |
-| date_formatted | string | formatted date of the page               |
-| raw_content    | string | raw, not yet parsed contents of the page |
-| meta           | string | parsed meta data of the page             |
-+----------------+--------+------------------------------------------+
-</pre>
+<table>
+<thead>
+<tr>
+<th>Array key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>relative path to the content file</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>URL to the page</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>title of the page (YAML header)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>description of the page (YAML header)</td>
+</tr>
+<tr>
+<td>author</td>
+<td>string</td>
+<td>author of the page (YAML header)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>string</td>
+<td>timestamp derived from the Date header</td>
+</tr>
+<tr>
+<td>date</td>
+<td>string</td>
+<td>date of the page (YAML header)</td>
+</tr>
+<tr>
+<td>date_formatted</td>
+<td>string</td>
+<td>formatted date of the page</td>
+</tr>
+<tr>
+<td>raw_content</td>
+<td>string</td>
+<td>raw, not yet parsed contents of the page</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>string</td>
+<td>parsed meta data of the page</td>
+</tr>
+</tbody>
+</table>
 
                 
                 
@@ -2508,7 +2553,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 30th, 2015 at 17:51.
+                    on December 7th, 2015 at 14:21.
                 </section>
             </section>
         </section>

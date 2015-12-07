@@ -909,10 +909,9 @@ class Pico
      * Reads the data of all pages known to Pico
      *
      * The page data will be an array containing the following values:
-     * <pre>
-     * +----------------+--------+------------------------------------------+
+     *
      * | Array key      | Type   | Description                              |
-     * +----------------+--------+------------------------------------------+
+     * | -------------- | ------ | ---------------------------------------- |
      * | id             | string | relative path to the content file        |
      * | url            | string | URL to the page                          |
      * | title          | string | title of the page (YAML header)          |
@@ -923,8 +922,6 @@ class Pico
      * | date_formatted | string | formatted date of the page               |
      * | raw_content    | string | raw, not yet parsed contents of the page |
      * | meta           | string | parsed meta data of the page             |
-     * +----------------+--------+------------------------------------------+
-     * </pre>
      *
      * @see    Pico::sortPages()
      * @see    Pico::getPages()
