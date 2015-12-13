@@ -267,7 +267,7 @@ class Pico
      * the rendered contents.
      *
      * @return string           rendered Pico contents
-     * @throws RuntimeException thrown when a not recoverable error occurs
+     * @throws Exception thrown when a not recoverable error occurs
      */
     public function run()
     {
@@ -518,12 +518,12 @@ class Pico
      * @see    Pico::getConfig()
      * @param  mixed[] $config  array with config variables
      * @return void
-     * @throws RuntimeException thrown if Pico already started processing
+     * @throws LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config)
     {
         if ($this->locked) {
-            throw new RuntimeException("You cannot modify Pico's config after processing has started");
+            throw new LogicException("You cannot modify Pico's config after processing has started");
         }
 
         $this->config = $config;

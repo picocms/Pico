@@ -9,6 +9,8 @@ Released: -
         all contributors and users which made this possible!
 * [New] Adding `$queryData` parameter to `Pico::getPageUrl()` method
 * [Changed] Moving `LICENSE` to `LICENSE.md`
+* [Changed] Throw `LogicException` instead of `RuntimeException` when calling
+            `Pico::setConfig()` after processing has started
 ```
 
 ### Version 1.0.0-beta.2
