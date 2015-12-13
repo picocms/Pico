@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1261654229"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1947227554"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1261654229" class="accordion-body collapse in">
+            <div id="namespace-1947227554" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -1111,7 +1111,7 @@ the rendered contents.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                    <dt>\RuntimeException</dt>
+                                                    <dt>\Exception</dt>
                             <dd><p>thrown when a not recoverable error occurs</p></dd>
                                                                     </dl>
                 
@@ -1235,7 +1235,7 @@ overwritten by {@path &quot;config/config.php&quot;}.</p>
                 
                                     <h4>Throws</h4>
                     <dl>
-                                                    <dt>\RuntimeException</dt>
+                                                    <dt>\LogicException</dt>
                             <dd><p>thrown if Pico already started processing</p></dd>
                                                                     </dl>
                 
@@ -1959,7 +1959,7 @@ e.g. removing the meta header and replacing %base_url%</em></p>
             <article class="method">
                 <h3 class="public ">getPageUrl()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getPageUrl(string  <span class="argument">$page</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">getPageUrl(string  <span class="argument">$page</span>, array|string  <span class="argument">$queryData = null</span>) : string</pre>
                 <p><em>Returns the URL to a given page</em></p>
                 
 
@@ -1969,6 +1969,12 @@ e.g. removing the meta header and replacing %base_url%</em></p>
                                 <td>string</td>
                                 <td>$page </td>
                                 <td><p>identifier of the page to link to</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array|string</td>
+                                <td>$queryData </td>
+                                <td><p>either an array containing properties to
+create a URL-encoded query string from, or a already encoded string</p></td>
                             </tr>
                                             </table>
                 
@@ -2553,7 +2559,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on December 7th, 2015 at 14:21.
+                    on December 13th, 2015 at 21:21.
                 </section>
             </section>
         </section>
