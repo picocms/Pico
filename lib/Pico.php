@@ -1250,7 +1250,7 @@ class Pico
             );
         }
         if (!empty($queryData)) {
-            $page = (!empty($page) || $this->isUrlRewritingEnabled()) ? $page : 'index';
+            $page = !empty($page) ? $page : 'index';
             $queryData = $this->isUrlRewritingEnabled() ? '?' . $queryData : '&' . $queryData;
         }
 
