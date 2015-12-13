@@ -7,6 +7,7 @@ Released: -
 ```
 * [New] This is Picos first stable release! The Pico Community wants to thank
         all contributors and users which made this possible!
+* [New] Adding `$queryData` parameter to `Pico::getPageUrl()` method
 * [Changed] Moving `LICENSE` to `LICENSE.md`
 ```
 

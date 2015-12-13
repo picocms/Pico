@@ -1234,17 +1234,32 @@ class Pico
     /**
      * Returns the URL to a given page
      *
-     * @param  string $page identifier of the page to link to
-     * @return string       URL
+     * @param  string       $page      identifier of the page to link to
+     * @param  array|string $queryData either an array containing properties to
+     *     create a URL-encoded query string from, or a already encoded string
+     * @return string                  URL
      */
-    public function getPageUrl($page)
+    public function getPageUrl($page, $queryData = null)
     {
+        if (is_array($queryData)) {
+            $queryData = http_build_query($queryData, '', '&');
+        } elseif (($queryData !== null) && !is_string($queryData)) {
+            throw new InvalidArgumentException(
+                'Argument 2 passed to ' . get_called_class() . '::getPageUrl() must be of the type array or string, '
+                . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
+            );
+        }
+        if (!empty($queryData)) {
+            $page = (!empty($page) || $this->isUrlRewritingEnabled()) ? $page : 'index';
+            $queryData = $this->isUrlRewritingEnabled() ? '?' . $queryData : '&' . $queryData;
+        }
+
         if (empty($page)) {
-            return $this->getBaseUrl();
+            return $this->getBaseUrl() . $queryData;
         } elseif (!$this->isUrlRewritingEnabled()) {
-            return $this->getBaseUrl() . '?' . rawurlencode($page);
+            return $this->getBaseUrl() . '?' . rawurlencode($page) . $queryData;
         } else {
-            return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page)));
+            return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page))) . $queryData;
         }
     }
 
