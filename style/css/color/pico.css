@@ -75,7 +75,7 @@ ul li:before {
 }
 @media only screen and (max-width: 959px) {
     .top-wrapper header {
-        background: linear-gradient(160deg, #2eae9b 0%, #2a2a2a 25%);
+        background: linear-gradient(170deg, #2eae9b 0%, #2a2a2a 60%);
     }
 }
 .menu ul li.active a,
