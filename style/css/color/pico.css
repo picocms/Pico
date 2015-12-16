@@ -63,36 +63,25 @@ a.button,
 .page-navi ul li a {
     background-color: #2EAE9B;
 }
-a.button.red {
-    background-color: #2EAE9B;
+ul li:before {
+    color: #616161;
 }
 .lite1 {
     color: #2EAE9B;
     border-bottom: 1px dotted #2EAE9B;
 }
-.banner {
-    background: #707070;
+.top-wrapper header {
+    background: linear-gradient(135deg, #2eae9b 120px, #2a2a2a 40%);
 }
-.tp-loader {
-    background: url('../../images/spinner.gif') no-repeat !important;
-    background-color: #707070;
-}
-.top-wrapper header .inner {
-    padding: 56px 0 50px;
-}
-header {
-    background-color: #2EAE9B;
-}
-.menu ul li a {
-    color: #afe1da;
+@media only screen and (max-width: 959px) {
+    .top-wrapper header {
+        background: linear-gradient(160deg, #2eae9b 0%, #2a2a2a 25%);
+    }
 }
 .menu ul li.active a,
 .menu ul li a:hover,
 .menu ul li a.selected {
-    color: #fff
-}
-.menu ul li a:before{
-    background-color: #fff;
+    color: #2EAE9B
 }
 .menu ul li ul:before {
     border-bottom: 5px solid #2EAE9B;
@@ -110,29 +99,18 @@ header {
 .box-wrapper .box:hover h3 {
     color: #2EAE9B;
 }
-footer {
-    background-color: #c0c0c0;
+footer a {
+    color: #2EAE9B;
 }
-footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
-    color: #616161;
-}
-footer p.description {
-    color: #262626;
-}
-footer p.description a {
+footer a:hover {
     color: #fff;
-}
-footer p.description a:hover {
-    color: #2EAE9B !important;
-}
-.subfooter-wrapper {
-    background-color: #707070;
 }
 .subfooter-wrapper a {
-    color: #fff;
+    color: #2EAE9B;
+    border-bottom: 0 none;
 }
 .subfooter-wrapper a:hover {
-    color: #2EAE9B
+    color: #fff;
 }
 ul.contact-info li i {
     color: #2EAE9B;
@@ -181,7 +159,7 @@ ul.contact-info li i {
     background-color: #2EAE9B;
 }
 .touchcarousel .touchcarousel-item .caption a:hover {
-	color: #2EAE9B;
+    color: #2EAE9B;
 }
 .touch-carousel .scrollbar {
     background-color: #2EAE9B !important;
