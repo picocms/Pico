@@ -24,7 +24,7 @@ toc:
         routing-system-2: Routing System
         plugin-system: Plugin System
         changelog: Changelog
-nav-url: /docs.html
+nav-url: /docs/
 gh_release: v1.0.0-beta.2
 ---
 
@@ -137,17 +137,17 @@ Users, please refer to the websites of the plugins you're using to get updates f
 
  We've changed a lot in this new release of Pico.  For additional details please check the `1.0.0` section of the project [changelog][Changelog].
 
-[UpgradeInstructions]: {{ site.base_url }}/docs.html#upgrade
-[InstallInstructions]: {{ site.base_url }}/docs.html#install
+[UpgradeInstructions]: {{ site.base_url }}/docs/#upgrade
+[InstallInstructions]: {{ site.base_url }}/docs/#install
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
-[RewriteDocs]: {{ site.base_url }}/docs.html#url-rewriting
+[RewriteDocs]: {{ site.base_url }}/docs/#url-rewriting
 [Symfony]: http://symfony.com/
 [SymfonyYAML]: http://symfony.com/doc/current/components/yaml/introduction.html
 [PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
 [PullRequest252]: https://github.com/picocms/Pico/pull/252
 [PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
-[GettingHelp]: {{ site.base_url }}/docs.html#getting-help
+[GettingHelp]: {{ site.base_url }}/docs/#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
 [Changelog]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CHANGELOG.md
-[PluginDev]: {{ site.base_url }}/plugin-dev.html
-[PluginUpgrade]: {{ site.base_url }}/plugin-dev.html#migrating-from-0x-to-10
+[PluginDev]: {{ site.base_url }}/plugin-dev/
+[PluginUpgrade]: {{ site.base_url }}/plugin-dev/#migrating-from-0x-to-10

@@ -21,4 +21,4 @@ Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated
 [SemVer]: http://semver.org
 [LatestRelease]: {{ site.gh_project_url }}/releases/latest
 [composer]: https://getcomposer.org/
-[HelpUpgrade]: {{ site.base_url }}/upgrade.html
+[HelpUpgrade]: {{ site.base_url }}/upgrade/

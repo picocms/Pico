@@ -21,10 +21,10 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
-[HelpUpgrade]: {{ site.base_url }}/upgrade.html
-[HelpUserDocs]: {{ site.base_url }}/docs.html
-[HelpDevDocs]: {{ site.base_url }}/plugin-dev.html
-[OfficialPlugins]: {{ site.base_url }}/plugins.html
+[HelpUpgrade]: {{ site.base_url }}/upgrade/
+[HelpUserDocs]: {{ site.base_url }}/docs/
+[HelpDevDocs]: {{ site.base_url }}/plugin-dev/
+[OfficialPlugins]: {{ site.base_url }}/plugins/
 [Wiki]: {{ site.gh_project_url }}/wiki
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
