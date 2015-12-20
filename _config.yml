@@ -7,7 +7,7 @@ gh_pages_url: https://github.com/picocms/Pico
 gh_pages_branch: gh-pages
 collections:
 - docs
-- plugin-dev
+- development
 - download
 - cookbook
 permalink: pretty
