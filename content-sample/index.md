@@ -230,9 +230,9 @@ and designers created in the past. As with plugins, you can find themes in
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://picocms.org/plugins.html, but
-there are many awesome third-party plugins out there! A good start point for
-discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at http://picocms.org/customization/,
+but there are many awesome third-party plugins out there! A good start point
+for discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
@@ -249,7 +249,7 @@ replace `false` with `true`.
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/plugin-dev.html. If you've
+about how to develop plugins at http://picocms.org/development/. If you've
 developed a plugin for Pico 0.9 or older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
 [upgrade section of the docs][PluginUpgrade].
@@ -294,5 +294,5 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[PluginUpgrade]: http://picocms.org/plugin-dev.html#upgrade
+[PluginUpgrade]: http://picocms.org/development/#upgrade
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
