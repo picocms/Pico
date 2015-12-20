@@ -155,5 +155,5 @@ Users, please refer to the websites of the plugins you're using to get updates f
 [GettingHelp]: {{ site.base_url }}/docs/#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
 [Changelog]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CHANGELOG.md
-[PluginDev]: {{ site.base_url }}/plugin-dev/
-[PluginUpgrade]: {{ site.base_url }}/plugin-dev/#migrating-from-0x-to-10
+[PluginDev]: {{ site.base_url }}/development/
+[PluginUpgrade]: {{ site.base_url }}/development/#migrating-from-0x-to-10

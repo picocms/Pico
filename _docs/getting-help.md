@@ -23,10 +23,10 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 [HelpUpgrade]: {{ site.base_url }}/upgrade/
 [HelpUserDocs]: {{ site.base_url }}/docs/
-[HelpDevDocs]: {{ site.base_url }}/plugin-dev/
+[HelpDevDocs]: {{ site.base_url }}/development/
 [HelpDevOverview]: {{ site.base_url }}/docs/#getting-help-as-a-developer
 [HelpDevContribute]: {{ site.base_url }}/docs/#contribute
-[OfficialPlugins]: {{ site.base_url }}/plugins/
+[OfficialPlugins]: {{ site.base_url }}/customization/
 [Wiki]: {{ site.gh_project_url }}/wiki
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
