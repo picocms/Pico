@@ -11,3 +11,5 @@ collections:
 - download
 - cookbook
 permalink: pretty
+gems:
+- jekyll-redirect-from
