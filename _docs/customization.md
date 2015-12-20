@@ -70,7 +70,7 @@ You don't have to create your own theme if Pico's default theme isn't sufficient
 
 #### Plugins for users
 
-Officially tested plugins can be found at [{{ site.base_url }}/development/][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at [{{ site.base_url }}/customization/][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply upload the files of the plugin to the `plugins/` directory and you're done. Depending on the plugin you've installed, you may have to go through some more steps (e.g. specifying config variables), the plugin docs or `README` file will explain what to do.
 
