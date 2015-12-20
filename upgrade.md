@@ -41,15 +41,15 @@ If you have a question about one of the new features of Pico 1.0, or about Pico 
 1. Create a backup of your Pico installation. You will need the files later!
 2. Empty your installation directory and [install Pico ordinarily][InstallInstructions].
 3. Copy the `config.php` from your backup to `config/config.php`. You don't have to change anything in this file.
-4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible with Pico's new routing system. You'll find detailed instructions on how to do this in the [Routing System](#routing-system) section below.
-5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible with Pico's new routing system.  Some themes may need to be modified for `Pico 1.0`, see the section [For Theme Designers](#for-theme-designers) below if you experience issues.
+4. Copy the `content` folder from your backup to Pico's installation directory. As a optional step, you can (but aren't required to) make your content files compatible with Pico's new routing system. You'll find detailed instructions on how to do this in the ["Routing System" section][UpgradeDetailsRoutingSystem] below.
+5. If applicable, also copy the folder of your custom theme within the `themes` directory of your backup to the `themes` folder of your Pico installation. Again you can (but aren't required to) make your theme compatible with Pico's new routing system.  Some themes may need to be modified for `Pico 1.0`, see the ["For Theme Designers" section][UpgradeDetailsThemes] below if you experience issues.
 6. Provided that you're using plugins, also copy all of your plugins from the `plugins` directory. Don't copy the `plugins/pico_plugin.php` - this is not a real plugin, but Pico's old dummy plugin.
 
 #### Additional Information
 
 Pico 1.0 introduces a brand new routing system that is now compatible to any webserver. Even URL rewriting has become optional. If you don't use the `.htaccess` file provided by Pico, you must update your rewriting rules to let the webserver rewrite internal links correctly. URLs like `http://example.com/pico/sub/page` must now be rewritten to `/pico/?sub/page`. Please refer to Pico's [`.htaccess` file][RewriteFile] and the [corresponding section in the docs][RewriteDocs].
 
-A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the [Drop of `{% raw %}{{ page.content }}{% endraw %}`](#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin) and [Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`](#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin) sections below.
+A potential source of problems for users with custom themes is the removal of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}`. As long as you use old plugins, the newly introduced `PicoDeprecated` plugin ensures the further availability of these variables. However, this plugin won't get enabled when all of your plugins were updated to Pico 1.0. Furthermore we will drop the auto provision of `{% raw %}{{ page.content }}{% endraw %}` and `{% raw %}{{ page.excerpt }}{% endraw %}` with Pico 1.1. If you're using one of these variables in your theme, we highly recommend you to take the steps described in the ["Drop of `{% raw %}{{ page.content }}{% endraw %}`"][UpgradeDetailsPageContent] and ["Drop of `{% raw %}{{ page.excerpt }}{% endraw %}`"][UpgradeDetailsPageExcerpt] sections below.
 
 Besides the bigger new features (and their implications regarding a upgrade) explained below, Pico also introduces a vast number of smaller improvements and changes.
 
@@ -64,7 +64,7 @@ You are not required to update your internal links to meet the new routing syste
 
 In Markdown files (i.e. your `content` directory), replace all occurrences of e.g. `%base_url%/sub/page` with `%base_url%?sub/page`. If you're linking to the main page (i.e. just `%base_url%`), you either shouldn't change anything or replace it with `%base_url%?index` - even this isn't absolutely necessary. Pico replaces the `%base_url%` variable the same as always, but also removes the `?` when URL rewriting is enabled.
 
-To see how these changes affect custom themes, see the [For Theme Designers](#routing-system-1) section below.
+To see how these changes affect custom themes, see the ["For Theme Designers" section][UpgradeDetailsRoutingSystemThemes] section below.
 
 Please note that plugins or themes, which haven't been updated to Pico 1.0 yet, could force you to keep URL rewriting enabled.
 
@@ -137,6 +137,11 @@ Users, please refer to the websites of the plugins you're using to get updates f
 
  We've changed a lot in this new release of Pico.  For additional details please check the `1.0.0` section of the project [changelog][Changelog].
 
+[UpgradeDetailsRoutingSystem]: {{ site.base_url }}/upgrade/#routing-system
+[UpgradeDetailsThemes]: {{ site.base_url }}/upgrade/#for-theme-designers
+[UpgradeDetailsPageContent]: {{ site.base_url }}/upgrade/#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin
+[UpgradeDetailsPageExcerpt]: {{ site.base_url }}/upgrade/#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin
+[UpgradeDetailsRoutingSystemThemes]: {{ site.base_url }}/upgrade/#routing-system-1
 [UpgradeInstructions]: {{ site.base_url }}/docs/#upgrade
 [InstallInstructions]: {{ site.base_url }}/docs/#install
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7

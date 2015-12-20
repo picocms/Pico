@@ -17,7 +17,7 @@ create your first plugin!
 
 Officially tested plugins can be found at [{{ site.base_url }}/plugins/]({{ site.base_url }}/plugins/),
 but there are many awesome third-party plugins out there! A good start point
-for discovery is our [Wiki](#plugin-wiki).
+for discovery is our [Wiki](plugins/#plugin-wiki).
 
 ---
 
