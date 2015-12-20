@@ -26,6 +26,7 @@ toc:
         changelog: Changelog
 nav-url: /docs/
 gh_release: v1.0.0-beta.2
+redirect_from: /upgrade.html
 ---
 
 We worked hard to make the upgrade process to Pico 1.0 as easy as possible.  As a user, you shouldn't have to consider anything special when upgrading a existing Pico 0.8 or 0.9 installation to Pico 1.0.  Nevertheless you should always make sure you __create a backup of your Pico installation before upgrading__. You can follow the regular [Upgrade instructions][UpgradeInstructions] as if we updated the `MINOR` version.  For convenience, these instructions are also provided below, as well as additional steps for power-users and theme designers.

@@ -4,6 +4,10 @@ title: Development
 headline: Create your own plugins & themes
 description: Below is our developer documentation, you may also refer to Pico's [class documentation](phpDoc/master/).
 collection: plugin-dev
+redirect_from:
+    - /development.html
+    - /plugin-dev/index.html
+    - /plugin-dev.html
 ---
 
 > **Please note:** Unfortunately we didn't have the time to finish the developer docs. We'll finish this page by the release of the final Pico 1.0.0, so please stay in touch.

@@ -7,4 +7,5 @@ description: |
     You simply create .md files in the "content" folder and that becomes a page.
 collection: docs
 nav: 2
+redirect_from: /docs.html
 ---
