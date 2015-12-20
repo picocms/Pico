@@ -15,9 +15,9 @@ You will find a full example template in [plugins/DummyPlugin.php]({{ site.base_
 started on building some great stuff. Otherwise, keep reading to learn how to
 create your first plugin!
 
-Officially tested plugins can be found at [{{ site.base_url }}/customization/](customization/),
+Officially tested plugins can be found at [{{ site.base_url }}/customization/]({{ site.base_url }}/customization/),
 but there are many awesome third-party plugins out there! A good start point
-for discovery is our [Wiki](development/#plugin-wiki).
+for discovery is our [Wiki]({{ site.base_url }}/development/#plugin-wiki).
 
 ---
 
