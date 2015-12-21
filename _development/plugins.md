@@ -2,7 +2,6 @@
 toc:
     plugins:
         _title: Plugins
-        migrating-from-0x-to-10: Migrating 0.X -> 1.0
         your-first-plugin: Your First Plugin
 nav: 3
 ---
@@ -18,39 +17,6 @@ create your first plugin!
 Officially tested plugins can be found at [{{ site.github.url }}/customization/]({{ site.github.url }}/customization/),
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki]({{ site.github.url }}/development/#plugin-wiki).
-
----
-
-### Migrating from 0.X to 1.0
-
-The new event system supports plugin dependencies as well as some new events.
-You will be able to set an enabled/disabled state by default as well. If you
-have previously created a plugin for Pico, it is *HIGHLY* recommended that you
-update your class to extend from [AbstractPicoPlugin]({{ site.github.url }}/phpDoc/master/classes/AbstractPicoPlugin.html) and use the new events
-to avoid activating the [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin.
-
-
-| Event               | ... triggers the deprecated event                         |
-| ------------------- | --------------------------------------------------------- |
-| onPluginsLoaded     | plugins_loaded()                                          |
-| onConfigLoaded      | config_loaded($config)                                    |
-| onRequestUrl        | request_url($url)                                         |
-| onContentLoading    | before_load_content($file)                                |
-| onContentLoaded     | after_load_content($file, $rawContent)                    |
-| on404ContentLoading | before_404_load_content($file)                            |
-| on404ContentLoaded  | after_404_load_content($file, $rawContent)                |
-| onMetaHeaders       | before_read_file_meta($headers)                           |
-| onMetaParsed        | file_meta($meta)                                          |
-| onContentParsing    | before_parse_content($rawContent)                         |
-| onContentParsed     | after_parse_content($content)                             |
-| onContentParsed     | content_parsed($content)                                  |
-| onSinglePageLoaded  | get_page_data($pages, $meta)                              |
-| onPagesLoaded       | get_pages($pages, $currentPage, $previousPage, $nextPage) |
-| onTwigRegistration  | before_twig_register()                                    |
-| onPageRendering     | before_render($twigVariables, $twig, $templateName)       |
-| onPageRendered      | after_render($output)                                     |
-
----
 
 ### Your First Plugin
 

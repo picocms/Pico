@@ -1,7 +1,7 @@
 ---
 toc:
     plugin-wiki: Wiki
-nav: 3
+nav: 5
 ---
 
 ## Plugin Wiki
