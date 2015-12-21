@@ -37,7 +37,7 @@
 
                     {% capture tocContent %}
                         {% assign tocItemCount = 0 %}
-                        {% assign tocBaseUrl = page.url %}
+                        {% capture tocBaseUrl %}{{ site.github.url }}{{ page.url }}{% endcapture %}
                         {% if page.toc %}
                             {% assign toc = page.toc %}
                             {% include tocItem.html %}
