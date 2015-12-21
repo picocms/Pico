@@ -23,8 +23,10 @@
             <nav>
                 <a href="#" class="menu-icon"></a>
                 <ul>
-                    {% for page in pages %}
-                        <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    {% for page in pages if page.title %}
+                        <li{% if page.id == current_page.id %} class="active"{% endif %}>
+                            <a href="{{ page.url }}">{{ page.title }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
             </nav>

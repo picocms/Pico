@@ -11,6 +11,8 @@ Released: -
 * [Changed] Moving `LICENSE` to `LICENSE.md`
 * [Changed] Throw `LogicException` instead of `RuntimeException` when calling
             `Pico::setConfig()` after processing has started
+* [Changed] Default theme now highlights the current page and only lists pages
+            with a title in the navigation
 ```
 
 ### Version 1.0.0-beta.2
