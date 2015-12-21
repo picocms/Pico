@@ -501,28 +501,6 @@ p.description {
     -moz-transition: all 200ms ease-in;
     position: relative;
 }
-.menu ul li a:before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    top: 11px;
-    left: -32px;
-    background: #3d3d3d;
-    /* Rotate */
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    /* Rotate Origin */
-    -webkit-transform-origin: 0 100%;
-    -moz-transform-origin: 0 100%;
-    -ms-transform-origin: 0 100%;
-    -o-transform-origin: 0 100%;
-    transform-origin: 0 100%;
-}
 .menu ul li:first-child a:before,
 .menu ul ul li a:before {
     display: none
@@ -607,6 +585,9 @@ p.description {
     line-height: 20px;
     background-size: 30px 28px;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
 }
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
 	.selectnav {
@@ -730,17 +711,11 @@ p.description {
 .box-wrapper .box:hover i.special {
     opacity: 1;
     color: #ff6760;
-    -webkit-animation: moveFromTop 300ms ease-in-out;
-    -moz-animation: moveFromTop 300ms ease-in-out;
-    -ms-animation: moveFromTop 300ms ease-in-out;
 }
 .box-wrapper .box:hover p,
 .box-wrapper .box:hover h3 {
     opacity: 1;
     color: #ff6760;
-    -webkit-animation: moveFromBottom 300ms ease-in-out;
-    -moz-animation: moveFromBottom 300ms ease-in-out;
-    -ms-animation: moveFromBottom 300ms ease-in-out;
 }
 @-webkit-keyframes moveFromBottom {
 	from {
