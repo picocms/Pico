@@ -753,6 +753,8 @@ class Pico
      * @param  string   $rawContent the raw file contents
      * @param  string[] $headers    known meta headers
      * @return array                parsed meta data
+     * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
+     *     meta data is invalid
      */
     public function parseFileMeta($rawContent, array $headers)
     {
@@ -949,7 +951,14 @@ class Pico
             $url = $this->getPageUrl($id);
             if ($file != $this->requestFile) {
                 $rawContent = file_get_contents($file);
-                $meta = $this->parseFileMeta($rawContent, $this->getMetaHeaders());
+
+                $headers = $this->getMetaHeaders();
+                try {
+                    $meta = $this->parseFileMeta($rawContent, $headers);
+                } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+                    $meta = $this->parseFileMeta('', $headers);
+                    $meta['YAML_ParseError'] = $e->getMessage();
+                }
             } else {
                 $rawContent = &$this->rawContent;
                 $meta = &$this->meta;
