@@ -758,11 +758,11 @@ class Pico
     {
         $meta = array();
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
-            . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
-        if (preg_match($pattern, $rawContent, $rawMetaMatches)) {
+            . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
+        if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
             $yamlParser = new \Symfony\Component\Yaml\Parser();
             $meta = $yamlParser->parse($rawMetaMatches[3]);
-            $meta = array_change_key_case($meta, CASE_LOWER);
+            $meta = ($meta !== null) ? array_change_key_case($meta, CASE_LOWER) : array();
 
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
@@ -840,7 +840,7 @@ class Pico
     {
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
-            . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
+            . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace %site_title%
