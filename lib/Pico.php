@@ -962,8 +962,7 @@ class Pico
                 try {
                     $meta = $this->parseFileMeta($rawContent, $headers);
                 } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
-                    $meta = array_fill_keys(array_keys($headers), '');
-                    $meta['time'] = $meta['date_formatted'] = '';
+                    $meta = $this->parseFileMeta('', $headers);
                     $meta['YAML_ParseError'] = $e->getMessage();
                 }
             } else {
