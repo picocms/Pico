@@ -3,7 +3,7 @@
 
     {% include headInclude.html %}
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} - {{ site.description }}{% endif %}</title>
-    <link href="{{ site.base_url }}{{ page.url }}" rel="canonical" />
+    <link href="{{ site.github.url }}{{ page.url }}" rel="canonical" />
 
 </head>
 <body class="full-layout">
@@ -25,7 +25,7 @@
                     {% endif %}
 
                     <a href="{{ editPageUrl }}" title="Open this documentation on GitHub">
-                        <img src="{{ site.base_url }}/style/images/GitHub-Mark-32px.png" alt="Open this documentation on GitHub" class="github-edit-icon" />
+                        <img src="{{ site.github.url }}/style/images/GitHub-Mark-32px.png" alt="Open this documentation on GitHub" class="github-edit-icon" />
                     </a>
                     Found a typo? Something is wrong in this documentation? Just <a href="{{ editPageUrl }}">fork and edit</a> it!
                 {% endcapture %}

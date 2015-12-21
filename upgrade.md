@@ -118,15 +118,15 @@ If you're a plugin developer, please refer to the new development docs, particul
 Detailed below is some of the most important changes to note when upgrading Pico from a `0.x` release to the new `Pico 1.0`
 
 ### Initialization
-Initialization of Pico now works completely different: rather than defining constants (which are probably conflicting with other applications...), Pico now expects its paths to be passed as parameters to the [constructor]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method___construct). The constructor doesn't start Pico's processing anymore, you now have to call the [`Pico::run()`]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method_run) method, which returns the parsed page contents instead of directly echoing them. The [`PicoDeprecated`]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin defines the now deprecated constants `ROOT_DIR`, `LIB_DIR` etc., so old plugins can still use them. Those constants are defined before reading `config.php` in Pico's root folder, so upgrading users usually aren't bothered with e.g. a `PHP Notice: Use of undefined constant ROOT_DIR - assumed 'ROOT_DIR'` error when using `ROOT_DIR` in their `config.php` (so: no BC break). This change is reflected in the new [`index.php`]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/index.php) file.
+Initialization of Pico now works completely different: rather than defining constants (which are probably conflicting with other applications...), Pico now expects its paths to be passed as parameters to the [constructor]({{ site.github.url }}/phpDoc/master/classes/Pico.html#method___construct). The constructor doesn't start Pico's processing anymore, you now have to call the [`Pico::run()`]({{ site.github.url }}/phpDoc/master/classes/Pico.html#method_run) method, which returns the parsed page contents instead of directly echoing them. The [`PicoDeprecated`]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin defines the now deprecated constants `ROOT_DIR`, `LIB_DIR` etc., so old plugins can still use them. Those constants are defined before reading `config.php` in Pico's root folder, so upgrading users usually aren't bothered with e.g. a `PHP Notice: Use of undefined constant ROOT_DIR - assumed 'ROOT_DIR'` error when using `ROOT_DIR` in their `config.php` (so: no BC break). This change is reflected in the new [`index.php`]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/index.php) file.
 
-New users don't need the constants anymore, relative paths are now always interpreted to be relative to Pico's root directory, so `$config['content_dir'] = 'content';` is always sufficient (previously this was depending on the webserver config). All these changes are supposed to improve Pico's interoperability with other applications and allows developers to integrate Pico in other applications, therefore there is a newly added [`Pico::setConfig()`]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method_setConfig) method to even make the use of a `config.php` optional.
+New users don't need the constants anymore, relative paths are now always interpreted to be relative to Pico's root directory, so `$config['content_dir'] = 'content';` is always sufficient (previously this was depending on the webserver config). All these changes are supposed to improve Pico's interoperability with other applications and allows developers to integrate Pico in other applications, therefore there is a newly added [`Pico::setConfig()`]({{ site.github.url }}/phpDoc/master/classes/Pico.html#method_setConfig) method to even make the use of a `config.php` optional.
 
 ### Routing System
-The new routing system now works out-of-the-box (even without rewriting) with any webserver using the QUERY_STRING routing method. Internal links now look like `?sub/page`, rewriting to remove the `?` is still possible and recommended. Contrary to Pico 0.9 every webserver should work just fine. Pico 0.9 required working URL rewriting, so if you want to use old plugins/themes/contents, a working rewrite setup may still be required. If you're not using the default .htaccess, you must update your rewrite rules to follow the new principles. Internal links in content files are declared with `%base_url%?sub/page`. Internal links in templates should be declared using the new link filter (e.g. `{{ "sub/page"|link }}`), what basically calls [`Pico::getPageUrl()`]({{ site.base_url }}/phpDoc/master/classes/Pico.html#method_getPageUrl)
+The new routing system now works out-of-the-box (even without rewriting) with any webserver using the QUERY_STRING routing method. Internal links now look like `?sub/page`, rewriting to remove the `?` is still possible and recommended. Contrary to Pico 0.9 every webserver should work just fine. Pico 0.9 required working URL rewriting, so if you want to use old plugins/themes/contents, a working rewrite setup may still be required. If you're not using the default .htaccess, you must update your rewrite rules to follow the new principles. Internal links in content files are declared with `%base_url%?sub/page`. Internal links in templates should be declared using the new link filter (e.g. `{{ "sub/page"|link }}`), what basically calls [`Pico::getPageUrl()`]({{ site.github.url }}/phpDoc/master/classes/Pico.html#method_getPageUrl)
 
 ### Plugin System
-A whole new plugin system has been implemented while maintaining full backward compatibility. See the class docs of [PicoPluginInterface]({{ site.base_url }}/phpDoc/master/classes/PicoPluginInterface.html) for details. The new event system supports plugin dependencies as well as some new events. It was necessary to reliably distinct between old and new events, so __all events were renamed__. The new [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin is crucial for backward compatibility, it's enabled on demand. Refer to its class docs for details.
+A whole new plugin system has been implemented while maintaining full backward compatibility. See the class docs of [PicoPluginInterface]({{ site.github.url }}/phpDoc/master/classes/PicoPluginInterface.html) for details. The new event system supports plugin dependencies as well as some new events. It was necessary to reliably distinct between old and new events, so __all events were renamed__. The new [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) plugin is crucial for backward compatibility, it's enabled on demand. Refer to its class docs for details.
 
 It is important to note the performance issue with Pico 0.x releases is fixed only when the [PicoParsePagesContent]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/01-PicoParsePagesContent.php) plugin isn't enabled. It's disabled by default, but gets automatically enabled with [PicoDeprecated]({{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/00-PicoDeprecated.php) as soon as an old plugin is loaded. This is necessary to maintain backward compatibility. You can still disable it manually by executing` $pico->getPlugin('PicoParsePagesContent')->setEnabled(false);` or adding `$config['PicoParsePagesContent.enabled'] = false;` to your `config.php`.
 
@@ -138,22 +138,22 @@ Users, please refer to the websites of the plugins you're using to get updates f
 
  We've changed a lot in this new release of Pico.  For additional details please check the `1.0.0` section of the project [changelog][Changelog].
 
-[UpgradeDetailsRoutingSystem]: {{ site.base_url }}/upgrade/#routing-system
-[UpgradeDetailsThemes]: {{ site.base_url }}/upgrade/#for-theme-designers
-[UpgradeDetailsPageContent]: {{ site.base_url }}/upgrade/#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin
-[UpgradeDetailsPageExcerpt]: {{ site.base_url }}/upgrade/#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin
-[UpgradeDetailsRoutingSystemThemes]: {{ site.base_url }}/upgrade/#routing-system-1
-[UpgradeInstructions]: {{ site.base_url }}/docs/#upgrade
-[InstallInstructions]: {{ site.base_url }}/docs/#install
+[UpgradeDetailsRoutingSystem]: {{ site.github.url }}/upgrade/#routing-system
+[UpgradeDetailsThemes]: {{ site.github.url }}/upgrade/#for-theme-designers
+[UpgradeDetailsPageContent]: {{ site.github.url }}/upgrade/#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin
+[UpgradeDetailsPageExcerpt]: {{ site.github.url }}/upgrade/#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin
+[UpgradeDetailsRoutingSystemThemes]: {{ site.github.url }}/upgrade/#routing-system-1
+[UpgradeInstructions]: {{ site.github.url }}/docs/#upgrade
+[InstallInstructions]: {{ site.github.url }}/docs/#install
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
-[RewriteDocs]: {{ site.base_url }}/docs/#url-rewriting
+[RewriteDocs]: {{ site.github.url }}/docs/#url-rewriting
 [Symfony]: http://symfony.com/
 [SymfonyYAML]: http://symfony.com/doc/current/components/yaml/introduction.html
 [PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
 [PullRequest252]: https://github.com/picocms/Pico/pull/252
 [PullRequest252Message]: https://github.com/picocms/Pico/pull/252#issue-103755569
-[GettingHelp]: {{ site.base_url }}/docs/#getting-help
+[GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
 [Changelog]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CHANGELOG.md
-[PluginDev]: {{ site.base_url }}/development/
-[PluginUpgrade]: {{ site.base_url }}/development/#migrating-from-0x-to-10
+[PluginDev]: {{ site.github.url }}/development/
+[PluginUpgrade]: {{ site.github.url }}/development/#migrating-from-0x-to-10

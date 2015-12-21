@@ -21,12 +21,12 @@ When the docs can't answer your question or when you're experiencing problems wi
 
 **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include steps to reproduce the problem.
 
-[HelpUpgrade]: {{ site.base_url }}/upgrade/
-[HelpUserDocs]: {{ site.base_url }}/docs/
-[HelpDevDocs]: {{ site.base_url }}/development/
-[HelpDevOverview]: {{ site.base_url }}/docs/#getting-help-as-a-developer
-[HelpDevContribute]: {{ site.base_url }}/docs/#contribute
-[OfficialPlugins]: {{ site.base_url }}/customization/
+[HelpUpgrade]: {{ site.github.url }}/upgrade/
+[HelpUserDocs]: {{ site.github.url }}/docs/
+[HelpDevDocs]: {{ site.github.url }}/development/
+[HelpDevOverview]: {{ site.github.url }}/docs/#getting-help-as-a-developer
+[HelpDevContribute]: {{ site.github.url }}/docs/#contribute
+[OfficialPlugins]: {{ site.github.url }}/customization/
 [Wiki]: {{ site.gh_project_url }}/wiki
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
