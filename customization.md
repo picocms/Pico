@@ -17,34 +17,34 @@ redirect_from:
 <div class="one-third">
     <h3>Tags</h3>
     <p>Provides tags functionality for Pico.</p>
-    <p><a href="https://github.com/PontusHorn/Pico-Tags" class="button red">Download</a></p>
+    <p><a href="https://github.com/PontusHorn/Pico-Tags" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third">
     <h3>Editor</h3>
     <p>Markdown editor and file manager for Pico.</p>
-    <p><a href="https://github.com/theshka/Pico-Editor-Plugin" class="button red">Download</a></p>
+    <p><a href="https://github.com/theshka/Pico-Editor-Plugin" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Pico GAnalytics</h3>
     <p>Gooogle Analytics for Pico with basic options. </p>
-    <p><a href="https://github.com/bricebou/pico_ganalytics" class="button red">Download</a></p>
+    <p><a href="https://github.com/bricebou/pico_ganalytics" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
 <div class="one-third">
     <h3>Pagination</h3>
     <p>Provides basic pagination for Pico.</p>
-    <p><a href="https://github.com/rewdy/Pico-Pagination" class="button red">Download</a></p>
+    <p><a href="https://github.com/rewdy/Pico-Pagination" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third">
     <h3>Navigation</h3>
     <p>Generates a better navigation for Pico.</p>
-    <p><a href="https://github.com/ahmet2106/pico-navigation" class="button red">Download</a></p>
+    <p><a href="https://github.com/ahmet2106/pico-navigation" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Pico GitHub Activity</h3>
     <p>Your GitHub public activity feed.</p>
-    <p><a href="https://github.com/theshka/pico_githubactivity" class="button red">Download</a></p>
+    <p><a href="https://github.com/theshka/pico_githubactivity" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
@@ -53,7 +53,7 @@ redirect_from:
 <div class="one-third last">
     <h3>NotePaper</h3>
     <p>Dark wood grain, lined paper, and sticky note widgets.</p>
-    <p><a href="https://github.com/smcdougall/NotePaper" class="button red">Download</a></p>
+    <p><a href="https://github.com/smcdougall/NotePaper" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
