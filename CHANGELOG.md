@@ -13,6 +13,7 @@ Released: -
             `Pico::setConfig()` after processing has started
 * [Changed] Default theme now highlights the current page and only lists pages
             with a title in the navigation
+* [Fixed] Support empty meta header
 ```
 
 ### Version 1.0.0-beta.2
