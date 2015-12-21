@@ -679,11 +679,11 @@ p.description {
     text-align: center;
     overflow: hidden;
     position: relative;
-    -webkit-transition: all 300ms linear;
-    -moz-transition: all 300ms linear;
-    -o-transition: all 300ms linear;
-    -ms-transition: all 300ms linear;
-    transition: all 300ms linear;
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    transition: all 200ms linear;
 }
 .box-wrapper .box p {
 	color: #616161 !important;
@@ -699,11 +699,11 @@ p.description {
 .box-wrapper .box h3,
 .box-wrapper .box p,
 .box-wrapper .box i.special {
-    -webkit-transition: all 300ms linear;
-    -moz-transition: all 300ms linear;
-    -o-transition: all 300ms linear;
-    -ms-transition: all 300ms linear;
-    transition: all 300ms linear;
+    -webkit-transition: all 200ms linear;
+    -moz-transition: all 200ms linear;
+    -o-transition: all 200ms linear;
+    -ms-transition: all 200ms linear;
+    transition: all 200ms linear;
 }
 .box-wrapper .box h3 {
     margin-bottom: 10px
