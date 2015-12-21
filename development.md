@@ -10,7 +10,7 @@ redirect_from:
     - /plugin-dev.html
 ---
 
-> **Please note:** Unfortunately we didn't have the time to finish the developer docs. We'll finish this page by the release of the final Pico 1.0.0, so please stay in touch.
+> **Please note:** Unfortunately we didn't have the time to finish the developer docs. We'll finish this page as soon as possible, so please stay in touch.
 
 If you're searching for information about how to upgrade your plugin to Pico 1.0 (we appreciate that!), you can find basic information in the Pull Request message of [#252][PullRequest252] and its comments (especially [this comment][PullRequest252UpgradeNotes]). The changes were wide-ranging, so until we finish the docs (help is appreciated!), we advise you to really read the Pull Request message and, at least, skim through all comments.
 
