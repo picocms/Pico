@@ -7,8 +7,8 @@
                 {% assign pages = site.pages|sort:"nav" %}
                 {% for nav in pages %}
                     {% if nav.title and nav.nav > 0 %}
-                        <li {% if page.url == nav.url or (page.nav-url and page.nav-url == nav.url) %}class="active"{% endif %}>
-                            <a href="{{ site.github.url }}{{ nav.url }}">{{ nav.title }}</a>
+                        <li{% if page.url == nav.url or (page.nav-url and page.nav-url == nav.url) %} class="active"{% endif %}>
+                            <a href="{{ site.github.url }}{{ nav.url }}">{% if nav.nav-title %}{{ nav.nav-title }}{% else %}{{ nav.title }}{% endif %}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
