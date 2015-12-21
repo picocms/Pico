@@ -69,7 +69,7 @@ With Pico 1.0 we removed some empty `index.html` files, whose object was to prev
 
 Please make sure directory listing is disabled and users cannot browse to the `config`, `content`, `content-sample`, `lib` and `vendor` directories. Try it yourself by browsing to both your `lib` directory (e.g. `http://example.com/pico/lib/`) and `lib/Pico.php` file (e.g. `http://example.com/pico/lib/Pico.php`) - your webserver should either report `404 Not Found` or `403 Forbidden`.
 
-If you were previously hosting assets (images, downloads, etc.) inside your content directory, we recommend you to move them to a to-be created `assets` folder in Pico's root directory. Don't forget to update your links accordingly.
+If you were previously hosting assets (images, downloads, etc.) inside your content directory, we recommend you to move them to a dedicated `assets` folder in Pico's root directory. Don't forget to update your links accordingly.
 
 ## How to upgrade a custom theme
 
