@@ -80,7 +80,9 @@
 
                     {% if page.collection %}
                         <!-- contents of {{ page.path }} -->
-                        {{ content }}
+                        <div class="justify">
+                            {{ content }}
+                        </div>
                     {% endif %}
 
                     {% if tocItemCount > 0 %}
@@ -93,12 +95,14 @@
                                 {{ editPageContent }}
                             </p>
                         </div>
-                        <div class="three-fourth last">
+                        <div class="three-fourth last justify">
                             {{ pageContent }}
                         </div>
                         <div class="clear"></div>
                     {% else %}
-                        {{ pageContent }}
+                        <div class="justify">
+                            {{ pageContent }}
+                        </div>
 
                         <p class="github-edit">
                             {{ editPageContent }}
@@ -106,7 +110,9 @@
                     {% endif %}
                 {% else %}
                     <!-- contents of {{ page.path }} -->
-                    {{ content }}
+                    <div class="justify">
+                        {{ content }}
+                    </div>
 
                     <p class="github-edit">
                         {{ editPageContent }}
