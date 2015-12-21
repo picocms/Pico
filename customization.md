@@ -19,7 +19,7 @@ redirect_from:
     <p>Provides tags functionality for Pico.</p>
     <p><a href="https://github.com/PontusHorn/Pico-Tags" class="button red">Download</a></p>
 </div>
-<div class="one-third ">
+<div class="one-third">
     <h3>Editor</h3>
     <p>Markdown editor and file manager for Pico.</p>
     <p><a href="https://github.com/theshka/Pico-Editor-Plugin" class="button red">Download</a></p>
@@ -29,7 +29,7 @@ redirect_from:
     <p>Gooogle Analytics for Pico with basic options. </p>
     <p><a href="https://github.com/bricebou/pico_ganalytics" class="button red">Download</a></p>
 </div>
-<div class="clear"></div><br />
+<div class="clear"></div>
 
 <div class="one-third">
     <h3>Pagination</h3>
@@ -41,14 +41,12 @@ redirect_from:
     <p>Generates a better navigation for Pico.</p>
     <p><a href="https://github.com/ahmet2106/pico-navigation" class="button red">Download</a></p>
 </div>
-<div class="one-third">
+<div class="one-third last">
     <h3>Pico GitHub Activity</h3>
     <p>Your GitHub public activity feed.</p>
     <p><a href="https://github.com/theshka/pico_githubactivity" class="button red">Download</a></p>
 </div>
-<div class="clear"></div><br />
-
----
+<div class="clear"></div>
 
 ## Themes
 
@@ -57,12 +55,8 @@ redirect_from:
     <p>Dark wood grain, lined paper, and sticky note widgets.</p>
     <p><a href="https://github.com/smcdougall/NotePaper" class="button red">Download</a></p>
 </div>
-<div class="clear"></div><br />
-
----
+<div class="clear"></div>
 
 ## More plugins & themes
 
-On this page we just present a tiny selection of the vast number of awesome third-party plugins and themes out there! A good start point for discovery is [our Wiki]({{ site.gh_project_url }}/wiki), where you can find many more [plugins]({{ site.gh_project_url }}/wiki/Pico-Plugins) and [themes]({{ site.gh_project_url }}/wiki/Pico-Themes).
-
-For more information, especially about how you can create your own plugin or theme, please refer to the [docs]({{ site.base_url }}/docs/#customization).
+On this page we just present a tiny selection of the vast number of awesome third-party plugins and themes out there! A good start point for discovery is [our Wiki]({{ site.gh_project_url }}/wiki), where you can find many more [plugins]({{ site.gh_project_url }}/wiki/Pico-Plugins) and [themes]({{ site.gh_project_url }}/wiki/Pico-Themes). For more information, especially about how you can create your own plugin or theme, please refer to the [docs]({{ site.base_url }}/docs/#customization).
