@@ -1,32 +1,21 @@
 Pico
-======
-Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ for more info.
+====
 
-## Domains
-* see [CNAME](https://github.com/picocms/Pico/blob/gh-pages/CNAME) file
+This is the repository of [Pico's official website](http://picocms.org/). Pico is a stupidly simple, blazing fast, flat file CMS.
 
-## Technology
+For information about how to edit the contents of this website, please refer to the ["Contributing" section](https://github.com/picocms/Pico/#contributing) of the main repository.
+
+Technology
+----------
+
 * GitHub Pages
     - [Jekyll](http://jekyllrb.com/)
 * Theme
-    - http://themes.iki-bir.com/webpaint/multipage/full/
-* JavaScript
-    - [bootstrapslider](http://twitter.github.com/bootstrap/javascript.html)
-    - [html5 shiv](https://github.com/afarkas/html5shiv)
-    - [ddsmoothmenu](http://www.dynamicdrive.com/dynamicindex1/ddlevelsmenu/)
-    - [selectnav](http://lukaszfiszer.github.io/selectnav.js/)
-    - [TwitterJS](http://code.google.com/p/twitterjs/)
-* jQuery
-    - [easytabs](http://os.alfajango.com/easytabs/)
-    - [fancybox](http://fancybox.net)
-    - [isotope](http://isotope.metafizzy.co)
-    - [slickforms](http://www.designchemical.com)
-    - [fitvids](http://fitvidsjs.com)
-    - [touch carousel](http://dimsemenov.com/plugins/touchcarousel/)
-* Fonts
-    - [Fontello](http://fontello.com)
+    - [Webpaint](http://themes.iki-bir.com/webpaint/multipage/full/) theme by [elemis](http://iki-bir.com)
 * Analytics
     - [Clicky Analytics](http://getclicky.com)
 
-## Contact
-Pico is maintained by a [community of volunteers](https://github.com/picocms/Pico/graphs/contributors), the best way to contact us is by creating a new [issue](https://github.com/picocms/Pico/issues/new) on [GitHub](https://github.com/picocms/Pico). We also announce new releases and other Pico-related stuff on [Twitter](https://twitter.com/gitpicocms).
+Contact
+-------
+
+Pico is maintained by a [community of volunteers](https://github.com/picocms/Pico/graphs/contributors). The best way to contact us is by creating a new [issue](https://github.com/picocms/Pico/issues/new) on [GitHub](https://github.com/picocms/Pico). We also announce new releases and other Pico-related stuff on [Twitter](https://twitter.com/gitpicocms).
