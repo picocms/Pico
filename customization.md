@@ -48,6 +48,8 @@ redirect_from:
 </div>
 <div class="clear"></div>
 
+---
+
 ## Themes
 
 <div class="one-third last">
@@ -56,6 +58,8 @@ redirect_from:
     <p><a href="https://github.com/smcdougall/NotePaper" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
+
+---
 
 ## More plugins & themes
 
