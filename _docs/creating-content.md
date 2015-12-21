@@ -11,7 +11,7 @@ nav: 4
 
 Pico is a flat file CMS. This means there is no administration backend or database to deal with. You simply create `.md` files in the `content` folder and those files become your pages. For example, creating a file called `index.md` will make it show as your main landing page.
 
-When you install Pico, it comes with a `content-sample` folder.  Inside this folder is a sample website that will display until you add your own content.  You should create your own `content` folder in Pico's root directory and place your files there.  No configuration is required, Pico will automatically use the `content` folder if it exists.
+When you install Pico, it comes with a `content-sample` folder. Inside this folder is a sample website that will display until you add your own content. You should create your own `content` folder in Pico's root directory and place your files there. No configuration is required, Pico will automatically use the `content` folder if it exists.
 
 If you create a folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL `http://example.com/?sub`. If you want another page within the sub folder, simply create a text file with the corresponding name and you will be able to access it (e.g. `content/sub/page.md` is accessible from the URL `http://example.com/?sub/page`). Below we've shown some examples of locations and their corresponding URLs:
 
@@ -48,7 +48,7 @@ If you create a folder within the content folder (e.g. `content/sub`) and put an
 
 If a file cannot be found, the file `content/404.md` will be shown. You can add `404.md` files to any directory. So, for example, if you wanted to use a special error page for your blog, you could simply create `content/blog/404.md`.
 
-As a common practice, we recommend you to separate your contents and assets (like images, downloads, etc.). We even deny access to your `content` directory by default. If you want to use some assets (e.g. a image) in one of your content files, you should create an `assets` folder in Pico's root directory and upload your assets there.  You can then access them in your markdown using `%base_url/assets/` for example: `![Image Title](%base_url%/assets/image.png)`
+As a common practice, we recommend you to separate your contents and assets (like images, downloads, etc.). We even deny access to your `content` directory by default. If you want to use some assets (e.g. a image) in one of your content files, you should create an `assets` folder in Pico's root directory and upload your assets there. You can then access them in your markdown using `%base_url%/assets/` for example: `![Image Title](%base_url%/assets/image.png)`
 
 ### Text File Markup
 
