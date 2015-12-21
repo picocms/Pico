@@ -391,14 +391,33 @@ hr {
     border: 1px solid #e6c555;
     color: #9e660d;
 }
+code {
+    font-family: monospace;
+    font-size: 80%;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 2px 4px;
+}
+code,
 pre {
-    margin: 0 0px 20px 0px;
-    padding: 5px 10px;
-    display: block;
-    clear: both;
     background: #f7f7f7;
     border: 1px solid #e7e7e7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    clear: both;
+    margin-bottom: 20px;
+    padding: 10px;
+    line-height: 20px;
     overflow: auto;
+}
+pre code {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    white-space: pre;
 }
 blockquote p {
     font-size: 19px;
