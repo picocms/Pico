@@ -11,18 +11,18 @@ Congratulations, you have successfully installed [Pico](http://picocms.org/).
 ## Creating Content
 
 Pico is a flat file CMS. This means there is no administration backend or
-database to deal with. You simply create `.md` files in the `content` folder and
-those files become your pages. For example, this file is called `index.md` and
-is shown as the main landing page.
+database to deal with. You simply create `.md` files in the `content` folder
+and those files become your pages. For example, creating a file called
+`index.md` will make it show as your main landing page.
 
-When you install Pico, it comes with a `content-sample` folder.  Inside this
+When you install Pico, it comes with a `content-sample` folder. Inside this
 folder is a sample website that will display until you add your own content.
 You should create your own `content` folder in Pico's root directory and place
-your files there.  No configuration is required, Pico will automatically use the
+your files there. No configuration is required, Pico will automatically use the
 `content` folder if it exists.
 
-If you create a folder within the content folder (e.g. `content/sub`) and put an
-`index.md` inside it, you can access that folder at the URL
+If you create a folder within the content folder (e.g. `content/sub`) and put
+an `index.md` inside it, you can access that folder at the URL
 `http://example.com/?sub`. If you want another page within the sub folder,
 simply create a text file with the corresponding name and you will be able to
 access it (e.g. `content/sub/page.md` is accessible from the URL
@@ -71,7 +71,7 @@ As a common practice, we recommend you to separate your contents and assets
 (like images, downloads, etc.). We even deny access to your `content` directory
 by default. If you want to use some assets (e.g. a image) in one of your content
 files, you should create an `assets` folder in Pico's root directory and upload
-your assets there.  You can then access them in your markdown using
+your assets there. You can then access them in your markdown using
 <code>&#37;base_url&#37;/assets/</code> for example:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
 
@@ -101,7 +101,7 @@ There are also certain variables that you can use in your text files:
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
 * <code>&#37;meta.&#42;&#37;</code> - Access any meta variable of the current
-page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+  page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
 
 ### Blogging
 
