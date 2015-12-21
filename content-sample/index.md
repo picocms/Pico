@@ -12,8 +12,8 @@ Congratulations, you have successfully installed [Pico](http://picocms.org/).
 
 Pico is a flat file CMS. This means there is no administration backend or
 database to deal with. You simply create `.md` files in the `content` folder
-and those files become your pages. For example, creating a file called
-`index.md` will make it show as your main landing page.
+and those files become your pages. For example, this file is called `index.md`
+and is shown as the main landing page.
 
 When you install Pico, it comes with a `content-sample` folder. Inside this
 folder is a sample website that will display until you add your own content.
