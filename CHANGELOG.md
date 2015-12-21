@@ -13,6 +13,7 @@ Released: -
             `Pico::setConfig()` after processing has started
 * [Changed] Default theme now highlights the current page and only lists pages
             with a title in the navigation
+* [Changed] #292: Ignore YAML parse errors (meta data) in `Pico::readPages()`
 * [Fixed] Support empty meta header
 ```
 
