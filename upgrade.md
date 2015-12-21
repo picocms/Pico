@@ -4,7 +4,7 @@ title: Upgrade
 headline: Upgrade Pico 0.8 or 0.9 to Pico 1.0
 description: We have worked hard to make the upgrade process to Pico 1.0 as easy as possible - and we think we made the grade.
 toc:
-    upgrading-to-pico-1.0:
+    upgrading-to-pico-10:
         _title: Upgrading to Pico 1.0
         general-instructions: General instructions
         additional-information: Additional information
