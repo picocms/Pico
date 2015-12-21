@@ -971,9 +971,6 @@ class Pico
                 $meta = &$this->meta;
             }
 
-            // fallback to page id if page title is empty
-            $meta['title'] = (!empty($meta['title'])) ? $meta['title'] : $id;
-
             // build page data
             // title, description, author and date are assumed to be pretty basic data
             // everything else is accessible through $page['meta']
