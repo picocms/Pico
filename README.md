@@ -1,7 +1,7 @@
 Pico
 ====
 
-[![License](https://img.shields.io/github/license/picocms/Pico.svg)](https://github.com/picocms/Pico/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/picocms/Pico.svg)](https://github.com/picocms/Pico/blob/master/LICENSE.md)
 [![Version](https://img.shields.io/github/release/picocms/Pico.svg)](https://github.com/picocms/Pico/releases/latest)
 [![Build Status](https://img.shields.io/travis/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/theshka/pico.svg)](https://scrutinizer-ci.com/g/theshka/Pico/?branch=master)
@@ -123,7 +123,7 @@ Contributing
 
 You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
-1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/plugin-dev.html. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Doing so, we may select and promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
+1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/development/. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes page][WikiThemes]. Doing so, we may select and promote your plugin or theme on [our website][OfficialPlugins] as officially supported!
 
 2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork Pico from https://github.com/picocms/Pico, change the Markdown files and open a [pull request][PullRequests].
 
@@ -137,10 +137,10 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [composer]: https://getcomposer.org/
 [SemVer]: http://semver.org
 [PHPServer]: http://php.net/manual/en/features.commandline.webserver.php
-[HelpUpgrade]: http://picocms.org/upgrade.html
-[HelpUserDocs]: http://picocms.org/docs.html
-[HelpDevDocs]: http://picocms.org/plugin-dev.html
-[OfficialPlugins]: http://picocms.org/plugins.html
+[HelpUpgrade]: http://picocms.org/upgrade/
+[HelpUserDocs]: http://picocms.org/docs/
+[HelpDevDocs]: http://picocms.org/development/
+[OfficialPlugins]: http://picocms.org/customization/
 [Wiki]: https://github.com/picocms/Pico/wiki
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
@@ -150,4 +150,4 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
 [EditInlineDocs]: https://github.com/picocms/Pico/edit/master/content-sample/index.md
 [EditUserDocs]: https://github.com/picocms/Pico/tree/gh-pages/_docs
-[EditDevDocs]: https://github.com/picocms/Pico/tree/gh-pages/_plugin-dev
+[EditDevDocs]: https://github.com/picocms/Pico/tree/gh-pages/_development

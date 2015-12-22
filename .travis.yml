@@ -30,7 +30,7 @@ before_deploy:
   - composer install --no-dev --optimize-autoloader
   - find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
   - mv index.php.dist index.php
-  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
+  - tar -czf "pico-release-$TRAVIS_TAG.tar.gz" README.md LICENSE.md CONTRIBUTING.md CHANGELOG.md composer.json composer.lock config content-sample lib plugins themes vendor .htaccess index.php
 
 deploy:
   provider: releases

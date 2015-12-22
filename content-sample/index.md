@@ -10,18 +10,24 @@ Congratulations, you have successfully installed [Pico](http://picocms.org/).
 
 ## Creating Content
 
-Pico is a flat file CMS, this means there is no administration backend or
-database to deal with. You simply create `.md` files in the `content-sample`
-folder and that becomes a page. For example, this file is called `index.md`
+Pico is a flat file CMS. This means there is no administration backend or
+database to deal with. You simply create `.md` files in the `content` folder
+and those files become your pages. For example, this file is called `index.md`
 and is shown as the main landing page.
 
-If you create a folder within the content folder (e.g. `content-sample/sub`)
-and put an `index.md` inside it, you can access that folder at the URL
-`http://example.com/pico/?sub`. If you want another page within the sub folder,
+When you install Pico, it comes with a `content-sample` folder. Inside this
+folder is a sample website that will display until you add your own content.
+You should create your own `content` folder in Pico's root directory and place
+your files there. No configuration is required, Pico will automatically use the
+`content` folder if it exists.
+
+If you create a folder within the content folder (e.g. `content/sub`) and put
+an `index.md` inside it, you can access that folder at the URL
+`http://example.com/?sub`. If you want another page within the sub folder,
 simply create a text file with the corresponding name and you will be able to
-access it (e.g. `content-sample/sub/page.md` is accessible from the URL
-`http://example.com/pico/?sub/page`). Below we've shown some examples of
-locations and their corresponding URLs:
+access it (e.g. `content/sub/page.md` is accessible from the URL
+`http://example.com/?sub/page`). Below we've shown some examples of locations
+and their corresponding URLs:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
@@ -32,41 +38,42 @@ locations and their corresponding URLs:
     </thead>
     <tbody>
         <tr>
-            <td>content-sample/index.md</td>
+            <td>content/index.md</td>
             <td><a href="%base_url%">/</a></td>
         </tr>
         <tr>
-            <td>content-sample/sub.md</td>
+            <td>content/sub.md</td>
             <td><del>?sub</del> (not accessible, see below)</td>
         </tr>
         <tr>
-            <td>content-sample/sub/index.md</td>
+            <td>content/sub/index.md</td>
             <td><a href="%base_url%?sub">?sub</a> (same as above)</td>
         </tr>
         <tr>
-            <td>content-sample/sub/page.md</td>
+            <td>content/sub/page.md</td>
             <td><a href="%base_url%?sub/page">?sub/page</a></td>
         </tr>
         <tr>
-            <td>content-sample/a/very/long/url.md</td>
-            <td><a href="%base_url%?a/very/long/url">?a/very/long/url</a> (doesn't exist)</td>
+            <td>content/a/very/long/url.md</td>
+            <td>
+              <a href="%base_url%?a/very/long/url">?a/very/long/url</a>
+              (doesn't exist)
+            </td>
         </tr>
     </tbody>
 </table>
 
-If a file cannot be found, the file `content-sample/404.md` will be shown. You
-can add `404.md` files to any directory, so if you want to use a special error
-page for your blog, simply create `content-sample/blog/404.md`.
-
-Instead of adding your own content to the `content-sample` folder, you should
-create your own `content` directory in Pico's root directory. You can then add
-and access your contents as described above.
+If a file cannot be found, the file `content/404.md` will be shown. You can add
+`404.md` files to any directory. So, for example, if you wanted to use a special
+error page for your blog, you could simply create `content/blog/404.md`.
 
 As a common practice, we recommend you to separate your contents and assets
-(like images, downloads etc.). We even deny access to your `content` directory
-by default. So if you want to use a asset (e.g. a image) in one of your content
-files, upload it to the (to be created) directory `assets` and use it as
-follows: <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
+(like images, downloads, etc.). We even deny access to your `content` directory
+by default. If you want to use some assets (e.g. a image) in one of your content
+files, you should create an `assets` folder in Pico's root directory and upload
+your assets there. You can then access them in your markdown using
+<code>&#37;base_url&#37;/assets/</code> for example:
+<code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
 
 ### Text File Markup
 
@@ -93,8 +100,8 @@ There are also certain variables that you can use in your text files:
 * <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
-* <code>&#37;meta.*&#37;</code> - Access any meta variable of the current page,
-  e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+* <code>&#37;meta.&#42;&#37;</code> - Access any meta variable of the current
+  page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
 
 ### Blogging
 
@@ -231,9 +238,9 @@ and designers created in the past. As with plugins, you can find themes in
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://picocms.org/plugins.html, but
-there are many awesome third-party plugins out there! A good start point for
-discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at http://picocms.org/customization/,
+but there are many awesome third-party plugins out there! A good start point
+for discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
@@ -250,7 +257,7 @@ replace `false` with `true`.
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/plugin-dev.html. If you've
+about how to develop plugins at http://picocms.org/development/. If you've
 developed a plugin for Pico 0.9 or older, you probably want to upgrade it
 to the brand new plugin system introduced with Pico 1.0. Please refer to the
 [upgrade section of the docs][PluginUpgrade].
@@ -295,5 +302,5 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[PluginUpgrade]: http://picocms.org/plugin-dev.html#upgrade
+[PluginUpgrade]: http://picocms.org/development/#upgrade
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html

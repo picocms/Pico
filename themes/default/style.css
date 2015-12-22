@@ -222,9 +222,14 @@ blockquote {
     margin-bottom: 80px;
     color: #afe1da;
 }
-#header a { color: #afe1da; }
+#header a {
+    color: #afe1da;
+}
 #header h1 a,
-#header a:hover { color: #fff; }
+#header a:hover,
+#header .active a {
+    color: #fff;
+}
 #header h1 {
     font-weight: bold;
     margin: 0;

@@ -267,7 +267,7 @@ class Pico
      * the rendered contents.
      *
      * @return string           rendered Pico contents
-     * @throws RuntimeException thrown when a not recoverable error occurs
+     * @throws Exception thrown when a not recoverable error occurs
      */
     public function run()
     {
@@ -518,12 +518,12 @@ class Pico
      * @see    Pico::getConfig()
      * @param  mixed[] $config  array with config variables
      * @return void
-     * @throws RuntimeException thrown if Pico already started processing
+     * @throws LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config)
     {
         if ($this->locked) {
-            throw new RuntimeException("You cannot modify Pico's config after processing has started");
+            throw new LogicException("You cannot modify Pico's config after processing has started");
         }
 
         $this->config = $config;
@@ -753,16 +753,18 @@ class Pico
      * @param  string   $rawContent the raw file contents
      * @param  string[] $headers    known meta headers
      * @return array                parsed meta data
+     * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
+     *     meta data is invalid
      */
     public function parseFileMeta($rawContent, array $headers)
     {
         $meta = array();
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
-            . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
-        if (preg_match($pattern, $rawContent, $rawMetaMatches)) {
+            . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
+        if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
             $yamlParser = new \Symfony\Component\Yaml\Parser();
             $meta = $yamlParser->parse($rawMetaMatches[3]);
-            $meta = array_change_key_case($meta, CASE_LOWER);
+            $meta = ($meta !== null) ? array_change_key_case($meta, CASE_LOWER) : array();
 
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
@@ -840,7 +842,7 @@ class Pico
     {
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
-            . "(.*?)(?:\r)?\n(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
+            . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace %site_title%
@@ -909,10 +911,9 @@ class Pico
      * Reads the data of all pages known to Pico
      *
      * The page data will be an array containing the following values:
-     * <pre>
-     * +----------------+--------+------------------------------------------+
+     *
      * | Array key      | Type   | Description                              |
-     * +----------------+--------+------------------------------------------+
+     * | -------------- | ------ | ---------------------------------------- |
      * | id             | string | relative path to the content file        |
      * | url            | string | URL to the page                          |
      * | title          | string | title of the page (YAML header)          |
@@ -923,8 +924,6 @@ class Pico
      * | date_formatted | string | formatted date of the page               |
      * | raw_content    | string | raw, not yet parsed contents of the page |
      * | meta           | string | parsed meta data of the page             |
-     * +----------------+--------+------------------------------------------+
-     * </pre>
      *
      * @see    Pico::sortPages()
      * @see    Pico::getPages()
@@ -952,7 +951,14 @@ class Pico
             $url = $this->getPageUrl($id);
             if ($file != $this->requestFile) {
                 $rawContent = file_get_contents($file);
-                $meta = $this->parseFileMeta($rawContent, $this->getMetaHeaders());
+
+                $headers = $this->getMetaHeaders();
+                try {
+                    $meta = $this->parseFileMeta($rawContent, $headers);
+                } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+                    $meta = $this->parseFileMeta('', $headers);
+                    $meta['YAML_ParseError'] = $e->getMessage();
+                }
             } else {
                 $rawContent = &$this->rawContent;
                 $meta = &$this->meta;
@@ -1237,17 +1243,32 @@ class Pico
     /**
      * Returns the URL to a given page
      *
-     * @param  string $page identifier of the page to link to
-     * @return string       URL
+     * @param  string       $page      identifier of the page to link to
+     * @param  array|string $queryData either an array containing properties to
+     *     create a URL-encoded query string from, or a already encoded string
+     * @return string                  URL
      */
-    public function getPageUrl($page)
+    public function getPageUrl($page, $queryData = null)
     {
+        if (is_array($queryData)) {
+            $queryData = http_build_query($queryData, '', '&');
+        } elseif (($queryData !== null) && !is_string($queryData)) {
+            throw new InvalidArgumentException(
+                'Argument 2 passed to ' . get_called_class() . '::getPageUrl() must be of the type array or string, '
+                . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
+            );
+        }
+        if (!empty($queryData)) {
+            $page = !empty($page) ? $page : 'index';
+            $queryData = $this->isUrlRewritingEnabled() ? '?' . $queryData : '&' . $queryData;
+        }
+
         if (empty($page)) {
-            return $this->getBaseUrl();
+            return $this->getBaseUrl() . $queryData;
         } elseif (!$this->isUrlRewritingEnabled()) {
-            return $this->getBaseUrl() . '?' . rawurlencode($page);
+            return $this->getBaseUrl() . '?' . rawurlencode($page) . $queryData;
         } else {
-            return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page)));
+            return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page))) . $queryData;
         }
     }
 

@@ -18,7 +18,7 @@ echo
 # update a separate phpDoc cache
 if [ "$PHPDOC_CACHE_DIR" != "-" ]; then
     # parse phpDoc files (i.e. update cache)
-    printf "\nUpdate phpDoc cache...\n"
+    printf "Update phpDoc cache...\n"
     phpdoc project:parse --config "$PHPDOC_CONFIG" \
         --target "$PHPDOC_CACHE_DIR"
 
