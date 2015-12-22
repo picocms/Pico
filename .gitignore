@@ -26,6 +26,7 @@ desktop.ini
 # User themes
 /themes/*
 !/themes/default
+!/themes/alpha
 
 # User plugins
 /plugins/*

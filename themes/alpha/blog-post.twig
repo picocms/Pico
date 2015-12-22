@@ -1,0 +1,23 @@
+{% include 'includes/htmlHead.twig' %}
+{% include 'includes/head.twig' %}
+<body>
+    {% include 'includes/nav.twig' %}
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% include 'includes/blog-breadcrumb.twig' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                {% include 'includes/blog-meta.twig' %}
+            </div>
+            <div class="col-sm-3 col-sm-offset-1">
+                {% include 'includes/blog-sidebar.twig' %}
+            </div>
+        </div>
+    </div>
+    {% include 'includes/foot.twig' %}
+</body>
+{% include 'includes/htmlFoot.twig' %}

@@ -8,6 +8,12 @@ Released: -
 * [New] This is Picos first stable release! The Pico Community wants to thank
         all contributors and users which made this possible!
 * [New] Adding `$queryData` parameter to `Pico::getPageUrl()` method
+* [New] Default Theme: Use Twitter Bootstrap `4.0.0-alpha` + Font Awesome `4.5.0` via MaxCDN
+* [New] Default Theme: `Blog Example` included!
+* [New] Default Theme: `blog`, `blog-post` and `blog-post-full` layouts
+* [New] Default Theme: `blog/` directory in `content-sample` with new demo posts
+* [New] Default Theme: add `theme_config` to `config/config.php.template`
+* [New] Default Theme: use new `sort_by` twig filters
 * [Changed] Moving `LICENSE` to `LICENSE.md`
 * [Changed] Throw `LogicException` instead of `RuntimeException` when calling
             `Pico::setConfig()` after processing has started
