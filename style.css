@@ -131,7 +131,7 @@ p {
     padding-bottom: 20px
 }
 p.justify,
-.justify p {
+.justify p:not(.alignleft):not(.alignright):not(.aligncenter) {
     text-align: justify;
 }
 h1,
