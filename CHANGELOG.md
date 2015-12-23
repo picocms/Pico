@@ -15,6 +15,7 @@ Released: -
             with a title in the navigation
 * [Changed] #292: Ignore YAML parse errors (meta data) in `Pico::readPages()`
 * [Fixed] Support empty meta header
+* [Fixed] #307: Fix path handling on Windows
 ```
 
 ### Version 1.0.0-beta.2

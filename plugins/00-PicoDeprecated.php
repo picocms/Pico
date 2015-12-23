@@ -175,7 +175,7 @@ class PicoDeprecated extends AbstractPicoPlugin
                     $config['base_url'] = rtrim($config['base_url'], '/') . '/';
                 }
                 if (isset($config['content_dir'])) {
-                    $config['content_dir'] = rtrim($config['content_dir'], '/') . '/';
+                    $config['content_dir'] = rtrim($config['content_dir'], '/\\') . '/';
                 }
 
                 $realConfig = $config + $realConfig;

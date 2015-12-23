@@ -213,7 +213,7 @@ class Pico
      */
     public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
     {
-        $this->rootDir = rtrim($rootDir, '/') . '/';
+        $this->rootDir = rtrim($rootDir, '/\\') . '/';
         $this->configDir = $this->getAbsolutePath($configDir);
         $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
         $this->themesDir = $this->getAbsolutePath($themesDir);
@@ -1219,7 +1219,7 @@ class Pico
 
         $this->config['base_url'] =
             $protocol . "://" . $_SERVER['HTTP_HOST']
-            . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+            . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
 
         return $this->getConfig('base_url');
     }
@@ -1323,10 +1323,16 @@ class Pico
      */
     public function getAbsolutePath($path)
     {
-        if (substr($path, 0, 1) !== '/') {
-            $path = $this->getRootDir() . $path;
+        if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {
+            if (preg_match('/^([a-zA-Z]:\\\\|\\\\\\\\)/', $path) !== 1) {
+                $path = $this->getRootDir() . $path;
+            }
+        } else {
+            if (substr($path, 0, 1) !== '/') {
+                $path = $this->getRootDir() . $path;
+            }
         }
-        return rtrim($path, '/') . '/';
+        return rtrim($path, '/\\') . '/';
     }
 
     /**
