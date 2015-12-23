@@ -138,7 +138,7 @@ class PicoDeprecated extends AbstractPicoPlugin
         }
         if (!defined('LIB_DIR')) {
             $picoReflector = new ReflectionClass('Pico');
-            define('LIB_DIR', dirname($picoReflector->getFileName() . '/'));
+            define('LIB_DIR', dirname($picoReflector->getFileName()) . '/');
         }
         if (!defined('PLUGINS_DIR')) {
             define('PLUGINS_DIR', $this->getPluginsDir());
