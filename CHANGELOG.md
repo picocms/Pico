@@ -8,12 +8,14 @@ Released: -
 * [New] This is Picos first stable release! The Pico Community wants to thank
         all contributors and users which made this possible!
 * [New] Adding `$queryData` parameter to `Pico::getPageUrl()` method
+* [Changed] Improve documentation
 * [Changed] Moving `LICENSE` to `LICENSE.md`
 * [Changed] Throw `LogicException` instead of `RuntimeException` when calling
             `Pico::setConfig()` after processing has started
-* [Changed] Default theme now highlights the current page and only lists pages
-            with a title in the navigation
+* [Changed] Default theme now highlights the current page and shows pages with
+            a title in the navigation only
 * [Changed] #292: Ignore YAML parse errors (meta data) in `Pico::readPages()`
+* [Changed] Various small improvements and changes...
 * [Fixed] Support empty meta header
 * [Fixed] #307: Fix path handling on Windows
 ```
