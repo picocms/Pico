@@ -498,6 +498,7 @@ p.description {
 .top-wrapper .banner a.button {
     padding: 11px 30px;
     font-size: 13px;
+    margin-bottom: 8px;
 }
 .top-wrapper .banner a:not(.button):hover {
     color: #ebebeb;
@@ -1823,7 +1824,7 @@ ul.retina-icons li span {
     width: 100% !important;
     position: relative;
     padding: 0;
-    max-height: 460px !important;
+    max-height: 480px !important;
     overflow: hidden;
 }
 .portfolio-bannercontainer {
