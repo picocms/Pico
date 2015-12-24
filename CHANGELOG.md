@@ -2,11 +2,12 @@ Pico Changelog
 ==============
 
 ### Version 1.0.0
-Released: -
+Released: 2015-12-24
 
 ```
-* [New] This is Picos first stable release! The Pico Community wants to thank
-        all contributors and users which made this possible!
+* [New] On Christmas Eve, we are happy to announce Pico's first stable release!
+        The Pico Community wants to thank all contributors and users who made
+        this possible. Merry Christmas and a Happy New Year 2016!
 * [New] Adding `$queryData` parameter to `Pico::getPageUrl()` method
 * [Changed] Improve documentation
 * [Changed] Moving `LICENSE` to `LICENSE.md`
