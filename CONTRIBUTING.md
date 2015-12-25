@@ -79,7 +79,9 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 
 Labeling of Issues & Pull Requests
 ----------------------------------
-Pico makes extensive use of GitHub's label and milestone features. Ideally, every issue and PR will be appropriately labelled with an `info:`, `pri:`, `status:`, and `type:` label to aide developers in quickly identifying and prioritizing which issues that need to be worked on. Below is a detailed description of the labels: 
+Pico makes extensive use of GitHub's label and milestone features. Ideally, every issue and PR will be appropriately labelled with an `info:`, `pri:`, `status:`, and `type:` label to aide developers in quickly identifying and prioritizing which issues need to be worked on.
+
+Below is a detailed description of the labels:
 
 ### Info Labels
 Info labels help to categorize external resources used by Pico and more importantly, to notify and gather feedback from the community.
@@ -100,11 +102,10 @@ Label | Description
 `pri:Normal` | indicates a normal priority item, this is the default statea new issue/PR is assigned.
 `pri:Low` | indicates that this issue/PR is __not__ being actively worked on, or there is little interest in implementing a solution to the problem.
 `pri:Unknown` | Catch-all priority for issues/PR.
-
-__Note that `type: Discussion`, `type: Invalid`, `type: Notice`, `type: Question` and `type: Release` never have an `pri` label!__
+__Note:__ | `type: Discussion`, `type: Invalid`, `type: Notice`, `type: Question` and `type: Release` never have an `pri` label!
 
 ### Status Labels
-Status labels determine the current working-status the project collaborators have assigned to your issue/PR.
+Status labels determine the current status project collaborators have assigned to your issue/PR.
 
 Label | Description
 ------|------------
@@ -115,8 +116,7 @@ Label | Description
 `status:Resolved` | This issue/PR has been actively worked on, and is now resolved.
 `status:Won'tFix` | This issue/PR will not be worked on or fixed in the foreseeable future.
 `status:Unknown` | Catch-all status for issues/PR.
-
-__Note that `type: Discussion`, `type: Notice`, `type: Question` and `type: Idea` never have a `status:` label!__
+__Note:__ | `type: Discussion`, `type: Notice`, `type: Question` and `type: Idea` never have a `status:` label!__
 
 ### Type Labels
 Type labels help to internally categorize the issue or pull-request that has been presented.
