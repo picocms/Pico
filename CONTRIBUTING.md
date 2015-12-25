@@ -79,28 +79,26 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 
 Labeling of Issues & Pull Requests
 ----------------------------------
-Pico makes extensive use of GitHub's label and milestone features. Ideally, every issue and PR will be appropriately labelled with an `info:`, `pri:`, `status:`, and `type:` label to aide developers in quickly identifying and prioritizing which issues need to be worked on.
-
-Below is a detailed description of the labels:
+Pico makes extensive use of GitHub's label and milestone features. Ideally, every issue and PR will be appropriately labelled with an `info:`, `pri:`, `status:`, and `type:` label to aide developers in quickly identifying and prioritizing which issues need to be worked on. Below is a detailed description of the labels:
 
 ### Info Labels
 Info labels help to categorize external resources used by Pico and more importantly, to notify and gather feedback from the community.
 
 Label | Description
 ------|------------
-`info:FeedbackNeeded` | input from the Pico community is appreciated
-`info:Upstream` | things related to `composer.json` dependencies
-`info:Meta` | relates to Travis/our build environment, CodeSniffer, phpDoc, README.md/CONTRIBUTING.md (i.e. not release specific things which aren't related to our website etc...)
-`info:Website` | reserved for issues and PR's that concern the main picocms.org website.
+`info:FeedbackNeeded` | Input from the Pico community is appreciated
+`info:Upstream` | Things related to `composer.json` dependencies
+`info:Meta` | Relates to Travis/our build environment, CodeSniffer, phpDoc, README.md/CONTRIBUTING.md (i.e. not release specific things which aren't related to our website etc...)
+`info:Website` | Reserved for issues and PR's that concern the main picocms.org website.
 
 ### Priority Labels  
 Priority labels determine the level of urgency that is assigned to your issue/PR.
 
 Label | Description
 ------|------------
-`pri:High` | should only be used for urgent/showstopper bugs or security issues.
-`pri:Normal` | indicates a normal priority item, this is the default statea new issue/PR is assigned.
-`pri:Low` | indicates that this issue/PR is __not__ being actively worked on, or there is little interest in implementing a solution to the problem.
+`pri:High` | Should only be used for urgent/showstopper bugs or security issues.
+`pri:Normal` | Indicates a normal priority item, this is the default state a new issue/PR is assigned.
+`pri:Low` | Indicates that this issue/PR is __not__ being actively worked on, or there is little interest in implementing a solution to the problem.
 `pri:Unknown` | Catch-all priority for issues/PR.
 __Note:__ | `type: Discussion`, `type: Invalid`, `type: Notice`, `type: Question` and `type: Release` never have an `pri` label!
 
