@@ -77,6 +77,63 @@ Pico's actual development happens in separate development branches. Development 
 
 As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes which will be part of the next `PATCH` version will be merged directly into `master`.
 
+Labeling of Issues & Pull Requests
+----------------------------------
+Pico makes extensive use of GitHub's label and milestone features. Ideally, every issue and PR will be appropriately labelled with an `info:`, `pri:`, `status:`, and `type:` label to aide developers in quickly identifying and prioritizing which issues that need to be worked on. Below is a detailed description of the labels: 
+
+### Info Labels
+Info labels help to categorize external resources used by Pico and more importantly, to notify and gather feedback from the community.
+
+Label | Description
+------|------------
+`info:FeedbackNeeded` | input from the Pico community is appreciated
+`info:Upstream` | things related to `composer.json` dependencies
+`info:Meta` | relates to Travis/our build environment, CodeSniffer, phpDoc, README.md/CONTRIBUTING.md (i.e. not release specific things which aren't related to our website etc...)
+`info:Website` | reserved for issues and PR's that concern the main picocms.org website.
+
+### Priority Labels  
+Priority labels determine the level of urgency that is assigned to your issue/PR.
+
+Label | Description
+------|------------
+`pri:High` | should only be used for urgent/showstopper bugs or security issues.
+`pri:Normal` | indicates a normal priority item, this is the default statea new issue/PR is assigned.
+`pri:Low` | indicates that this issue/PR is __not__ being actively worked on, or there is little interest in implementing a solution to the problem.
+`pri:Unknown` | Catch-all priority for issues/PR.
+
+__Note that `type: Discussion`, `type: Invalid`, `type: Notice`, `type: Question` and `type: Release` never have an `pri` label!__
+
+### Status Labels
+Status labels determine the current working-status the project collaborators have assigned to your issue/PR.
+
+Label | Description
+------|------------
+`status:InProgress` | This issue/PR is actively being worked on.
+`status:Conflict` | This issue/PR conflicts with another proposed change, or goes against coding standards laid out in this `CONTRIBUTING.md`.
+`status:Rejected` |This issue/PR has been rejected and will not be merged in its current state.
+`status:PendingMerge` | The development of this PR is assumed to be finished, and is pending merge with `master`.
+`status:Resolved` | This issue/PR has been actively worked on, and is now resolved.
+`status:Won'tFix` | This issue/PR will not be worked on or fixed in the foreseeable future.
+`status:Unknown` | Catch-all status for issues/PR.
+
+__Note that `type: Discussion`, `type: Notice`, `type: Question` and `type: Idea` never have a `status:` label!__
+
+### Type Labels
+Type labels help to internally categorize the issue or pull-request that has been presented.
+
+Label | Description
+------|------------
+`type:Bug` | Assigned to an issue/PR that has been identified as a bug or security issue in the underlying Pico code.
+`type:Discussion` | Assigned to an issue/PR where a discussion is happening on a topic.
+`type:Duplicate` | This issue/PR is a duplicate issue. Please use the search function described in [issues](#issues) section above.
+`type:Enhancement` | Assigned to an issue/PR or branch that is a [`MINOR`](#versioning) version increase and/or enhancement to the Pico platform.
+`type:Feature` | Assigned to an issue/PR or branch that is a [`MAJOR`](#versioning) or [`MINOR`](#versioning) version increase, and is a new feature being introduced to the Pico platform.
+`type:Idea` | This issue/PR is a new idea that needs more feedback.
+`type:Invalid` | This issue/PR is invalid, and/or not related to Pico.
+`type:Notice` | This issue/PR is an important notice from the Pico community!
+`type:Question` | Used for issues that pose a question rather than identify a problem, solution or stimulate a discussion.
+`type:Release` | Reserved for labelling tagged released of Pico.
+
 Build & Release process
 -----------------------
 
