@@ -111,7 +111,7 @@ The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and o
 [UpgradeDetailsRoutingSystem]: {{ site.github.url }}/upgrade/#routing-system
 [UpgradeDetailsRoutingSystemThemes]: {{ site.github.url }}/upgrade/#routing-system-1
 [Changelog]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/CHANGELOG.md
-[PicoGetPageUrl]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/lib/Pico.php#L1168-L1171
+[PicoGetPageUrl]: {{ site.github.url }}/phpDoc/{{ page.gh_release }}/classes/Pico.html#method_getPageUrl
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
 [RewriteDocs]: {{ site.github.url }}/docs/#url-rewriting
 [Symfony]: http://symfony.com/
