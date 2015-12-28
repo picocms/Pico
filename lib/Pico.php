@@ -1339,7 +1339,7 @@ class Pico
      * Triggers events on plugins which implement PicoPluginInterface
      *
      * Deprecated events (as used by plugins not implementing
-     * {@link IPocPlugin}) are triggered by {@link PicoDeprecated}.
+     * {@link PicoPluginInterface}) are triggered by {@link PicoDeprecated}.
      *
      * @see    PicoPluginInterface
      * @see    AbstractPicoPlugin
