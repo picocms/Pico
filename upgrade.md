@@ -17,7 +17,7 @@ toc:
         drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin: Drop of `{{ page.excerpt }}`
     notes-for-plugin-developers: Notes for plugin developers
 nav-url: /docs/
-gh_release: v1.0.0-beta.2
+gh_release: v1.0.0
 redirect_from: /upgrade.html
 ---
 
