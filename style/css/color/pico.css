@@ -19,12 +19,12 @@ ul li:before {
     border-bottom: 1px dotted #2EAE9B;
 }
 .top-wrapper header {
-    background: linear-gradient(135deg, #2eae9b 120px, #2a2a2a 40%);
+    background: linear-gradient(137.5deg, #2eae9b 120px, #2a2a2a 40%);
     border: 0 none;
 }
 .cover-layout .top-wrapper header {
     border-bottom: 1px solid transparent;
-    border-image: linear-gradient(135deg, #B9B9B9 120px, #2A2A2A 40%) 1;
+    border-image: linear-gradient(137.5deg, #B9B9B9 120px, #2a2a2a 40%) 1;
 }
 @media only screen and (max-width: 959px) {
     .top-wrapper header {
@@ -33,7 +33,7 @@ ul li:before {
     }
     .cover-layout .top-wrapper header {
         border-bottom: 1px solid transparent;
-        border-image: linear-gradient(170deg, #B9B9B9 0%, #2A2A2A 60%) 1;
+        border-image: linear-gradient(170deg, #B9B9B9 0%, #2a2a2a 60%) 1;
     }
 }
 .menu ul li.active a,
