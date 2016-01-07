@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+
+##
+# Deploys phpDoc class documentation
+#
+# @author  Daniel Rudolf
+# @link    http://picocms.org
+# @license http://opensource.org/licenses/MIT
+#
+
 set -e
 
 # environment variables
