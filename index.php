@@ -1,10 +1,10 @@
 <?php // @codingStandardsIgnoreFile
 
 // load dependencies
-if(is_file(__DIR__ . '/vendor/autoload.php')) {
+if (is_file(__DIR__ . '/vendor/autoload.php')) {
     // composer root package
     require_once(__DIR__ . '/vendor/autoload.php');
-} elseif(is_file(__DIR__ . '/../../../vendor/autoload.php')) {
+} elseif (is_file(__DIR__ . '/../../../vendor/autoload.php')) {
     // composer dependency package
     require_once(__DIR__ . '/../../../vendor/autoload.php');
 } else {
