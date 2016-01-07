@@ -133,7 +133,7 @@ class Pico
      * Meta data of the page to serve
      *
      * @see Pico::getFileMeta()
-     * @var string[]|null
+     * @var array|null
      */
     protected $meta;
 
