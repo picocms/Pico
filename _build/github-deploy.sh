@@ -34,7 +34,7 @@ fi
 # but it should give a basic protection without disabling concurrent builds completely
 if [ -n "$CHECK_REPO_SLUG" ] && [ -n "$CHECK_REMOTE_REF" ] && [ -n "$CHECK_LOCAL_COMMIT" ]; then
     # retrieve information using GitHub APIv3
-    printf '\nChecking latest commit...\n'
+    printf 'Checking latest commit...\n'
     CHECK_API_URL="https://api.github.com/repos/$CHECK_REPO_SLUG/git/refs/$CHECK_REMOTE_REF"
     if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
         CHECK_API_RESPONSE="$(wget -O- --header="Authorization: token $GITHUB_OAUTH_TOKEN" "$CHECK_API_URL" 2> /dev/null)"
@@ -59,10 +59,12 @@ if [ -n "$CHECK_REPO_SLUG" ] && [ -n "$CHECK_REMOTE_REF" ] && [ -n "$CHECK_LOCAL
         echo "WARNING: latest local commit '$CHECK_LOCAL_COMMIT' doesn't match latest remote commit '$CHECK_REMOTE_COMMIT'" >&2
         exit 0
     fi
+
+    echo
 fi
 
 # push changes
-printf '\nPushing changes...\n'
+printf 'Pushing changes...\n'
 git push
 EXIT_CODE=$?
 

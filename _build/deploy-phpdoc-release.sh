@@ -24,11 +24,13 @@ generate-phpdoc.sh \
 [ $? -eq 0 ] || exit 1
 
 # commit phpDocs
+echo "Committing changes..."
 git add "$GIT_DIR/phpDoc/$PHPDOC_ID"
 git commit \
     --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
     "$GIT_DIR/phpDoc/$PHPDOC_ID"
 [ $? -eq 0 ] || exit 1
+echo
 
 # update version badge
 gnerate-badge.sh \

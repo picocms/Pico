@@ -19,7 +19,7 @@ echo
 
 # check for git repo
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    printf 'Not a git repo; aborting...\n\n'
+    printf 'Not a git repo; aborting...\n\n' >&2
     exit 1
 fi
 
@@ -33,3 +33,5 @@ if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
     git config credential.helper 'store --file=.git/credentials'
     (umask 077 && echo "https://GitHub:$GITHUB_OAUTH_TOKEN@github.com" > .git/credentials)
 fi
+
+echo

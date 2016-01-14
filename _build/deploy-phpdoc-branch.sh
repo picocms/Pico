@@ -38,11 +38,13 @@ generate-phpdoc.sh \
 [ -n "$(git status --porcelain "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache")" ] || exit 0
 
 # commit phpDocs
+echo "Committing changes..."
 git add "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 git commit \
     --message="Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
     "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 [ $? -eq 0 ] || exit 1
+echo
 
 # deploy phpDocs
 github-deploy.sh "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH" "$TRAVIS_COMMIT"
