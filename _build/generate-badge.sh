@@ -15,10 +15,10 @@
 set -e
 
 # parameters
-BADGE_FILE_PATH="$1"
-BADGE_SUBJECT="$2"
-BADGE_STATUS="$3"
-BADGE_COLOR="$4"
+BADGE_FILE_PATH="$1"    # target file path
+BADGE_SUBJECT="$2"      # subject (left half) of the badge
+BADGE_STATUS="$3"       # status (right half) of the badge
+BADGE_COLOR="$4"        # color of the badge
 
 # print parameters
 echo "Generating badge..."

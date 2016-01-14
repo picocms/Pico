@@ -10,9 +10,6 @@
 
 set -e
 
-# environment variables
-# GITHUB_OAUTH_TOKEN    GitHub authentication token, see https://github.com/settings/tokens
-
 # parameters
 CHECK_REPO_SLUG="$1"        # optional GitHub repo (e.g. picocms/Pico) to check
                             # its latest commit as basic race condition protection
@@ -26,27 +23,10 @@ printf 'CHECK_REMOTE_REF="%s"\n' "$CHECK_REMOTE_REF"
 printf 'CHECK_LOCAL_COMMIT="%s"\n' "$CHECK_LOCAL_COMMIT"
 echo
 
-# check for git repo
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    printf 'Not a git repo; aborting...\n\n'
-    exit 1
-fi
-
 # check for changes
 if [ -z "$(git log --oneline '@{upstream}..')" ]; then
     printf 'Nothing to deploy; skipping...\n\n'
     exit 0
-fi
-
-# setup git
-printf 'Preparing repo...\n'
-git config push.default simple
-git config user.name "Travis CI"
-git config user.email "travis-ci@picocms.org"
-
-if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
-    git config credential.helper 'store --file=.git/credentials'
-    (umask 077 && echo "https://GitHub:$GITHUB_OAUTH_TOKEN@github.com" > .git/credentials)
 fi
 
 # race condition protection for concurrent Travis builds

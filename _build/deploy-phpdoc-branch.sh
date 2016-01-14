@@ -26,6 +26,9 @@ git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$PHPDO
 cd "$PHPDOC_GIT_DIR"
 echo
 
+# setup repo
+github-setup.sh
+
 # generate phpDocs
 generate-phpdoc.sh \
     "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
