@@ -2,17 +2,17 @@
 
 if [ "$TRAVIS_PHP_VERSION" != "5.3" ]; then
     echo "Skipping phpDoc deployment because this is not on the required runtime"
-    exit
+    exit 0
 fi
 
 if [[ ",$DEPLOY_PHPDOC_BRANCHES," != *,"$TRAVIS_BRANCH",* ]]; then
     echo "Skipping phpDoc deployment because this branch ($TRAVIS_BRANCH) is not permitted to deploy"
-    exit
+    exit 0
 fi
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     echo "Skipping phpDoc deployment because this pull request (#$TRAVIS_PULL_REQUEST) is not permitted to deploy"
-    exit
+    exit 0
 fi
 
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"

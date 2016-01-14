@@ -66,7 +66,5 @@ fi
 # push changes
 printf 'Pushing changes...\n'
 git push
-EXIT_CODE=$?
 
 echo
-exit $EXIT_CODE

@@ -7,7 +7,7 @@ if [ "$DEPLOY_VERSION_BADGE" != "true" ]; then
     echo "Skipping version badge deployment because it has been disabled"
 fi
 if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true" ]; then
-    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && exit || echo
+    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && exit 0 || echo
 fi
 
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"

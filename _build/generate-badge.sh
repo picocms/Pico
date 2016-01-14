@@ -37,8 +37,8 @@ wget -O "$TMP_BADGE" \
 
 # validate badge
 if [ ! -f "$TMP_BADGE" ] || [ ! -s "$TMP_BADGE" ]; then
-    printf 'Unable to generate badge; skipping...\n\n'
-    exit 0
+    echo "Unable to generate badge; skipping..." >&2
+    exit 1
 fi
 
 # MIME type image/svg+xml isn't supported at the moment
