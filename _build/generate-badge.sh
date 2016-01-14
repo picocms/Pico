@@ -36,7 +36,7 @@ wget -O "$TMP_BADGE" \
     "https://img.shields.io/badge/$BADGE_SUBJECT-$BADGE_STATUS-$BADGE_COLOR.svg"
 
 # validate badge
-if [ ! -f "$TMP_BADGE" ]; then
+if [ ! -f "$TMP_BADGE" ] || [ ! -s "$TMP_BADGE" ]; then
     printf 'Unable to generate badge; skipping...\n\n'
     exit 0
 fi
