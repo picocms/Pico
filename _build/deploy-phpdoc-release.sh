@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-[ "$DEPLOY_PHPDOC_RELEASES" == "true" ] || exit
+if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ]; then
+    echo "Skipping phpDoc release deployment because it has been disabled"
+fi
+if [ "$DEPLOY_VERSION_BADGE" != "true" ]; then
+    echo "Skipping version badge deployment because it has been disabled"
+fi
+if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true" ]; then
+    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && exit || echo
+fi
 
 PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
 GIT_DIR="$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID.git"
@@ -17,31 +25,40 @@ echo
 github-setup.sh
 
 # generate phpDocs
-generate-phpdoc.sh \
-    "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
-    "-" "$GIT_DIR/phpDoc/$PHPDOC_ID" \
-    "Pico 1.0 API Documentation ($TRAVIS_TAG)"
-[ $? -eq 0 ] || exit 1
+if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
+    generate-phpdoc.sh \
+        "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
+        "-" "$GIT_DIR/phpDoc/$PHPDOC_ID" \
+        "Pico 1.0 API Documentation ($TRAVIS_TAG)"
+    [ $? -eq 0 ] || exit 1
 
-# commit phpDocs
-echo "Committing changes..."
-git add "$GIT_DIR/phpDoc/$PHPDOC_ID"
-git commit \
-    --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
-    "$GIT_DIR/phpDoc/$PHPDOC_ID"
-[ $? -eq 0 ] || exit 1
-echo
+    # commit phpDocs
+    if [ -n "$(git status --porcelain "$GIT_DIR/phpDoc/$PHPDOC_ID")" ]; then
+        echo "Committing phpDoc changes..."
+        git add "$GIT_DIR/phpDoc/$PHPDOC_ID"
+        git commit \
+            --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
+            "$GIT_DIR/phpDoc/$PHPDOC_ID"
+        [ $? -eq 0 ] || exit 1
+        echo
+    fi
+fi
 
 # update version badge
-gnerate-badge.sh \
-    "$GIT_DIR/badges/pico-version.svg" \
-    "release" "v$TRAVIS_TAG" "blue"
+if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
+    generate-badge.sh \
+        "$GIT_DIR/badges/pico-version.svg" \
+        "release" "v$TRAVIS_TAG" "blue"
 
-# commit version badge
-git add "$GIT_DIR/badges/pico-version.svg"
-git commit \
-    --message="Update version badge for $TRAVIS_TAG" \
-    "$GIT_DIR/badges/pico-version.svg"
+    # commit version badge
+    echo "Committing changes..."
+    git add "$GIT_DIR/badges/pico-version.svg"
+    git commit \
+        --message="Update version badge for $TRAVIS_TAG" \
+        "$GIT_DIR/badges/pico-version.svg"
+    [ $? -eq 0 ] || exit 1
+    echo
+fi
 
 # deploy
 github-deploy.sh "$TRAVIS_REPO_SLUG" "tags/$TRAVIS_TAG" "$TRAVIS_COMMIT"
