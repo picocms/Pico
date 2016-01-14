@@ -29,10 +29,13 @@ printf 'BADGE_COLOR="%s"\n' "$BADGE_COLOR"
 echo
 
 # download badge from shields.io
+# use SSLv3 due to a strange TLS bug in Ubuntu 12.04 LTS used by Travis CI
+# see https://bugs.launchpad.net/ubuntu/+source/openssl/+bug/861137 for details
 printf 'Downloading badge...\n'
 TMP_BADGE="$(mktemp -u)"
 
-wget -O "$TMP_BADGE" \
+wget --secure-protocol=SSLv3 \
+    -O "$TMP_BADGE" \
     "https://img.shields.io/badge/$BADGE_SUBJECT-$BADGE_STATUS-$BADGE_COLOR.svg"
 
 # validate badge
