@@ -35,6 +35,7 @@ generate-phpdoc.sh \
     "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache" "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID" \
     "Pico 1.0 API Documentation ($TRAVIS_BRANCH branch)"
 [ $? -eq 0 ] || exit 1
+[ -n "$(git status --porcelain "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache")" ] || exit 0
 
 # commit phpDocs
 git add "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
