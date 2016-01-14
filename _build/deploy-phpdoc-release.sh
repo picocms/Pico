@@ -48,7 +48,7 @@ fi
 if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
     generate-badge.sh \
         "$GIT_DIR/badges/pico-version.svg" \
-        "release" "v$TRAVIS_TAG" "blue"
+        "release" "$TRAVIS_TAG" "blue"
 
     # commit version badge
     echo "Committing changes..."
