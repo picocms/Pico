@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ##
-# Deploys phpDoc class documentation
+# Pushes commits to a GitHub repo
 #
 # @author  Daniel Rudolf
 # @link    http://picocms.org
@@ -14,22 +14,26 @@ set -e
 # GITHUB_OAUTH_TOKEN    GitHub authentication token, see https://github.com/settings/tokens
 
 # parameters
-COMMIT_MESSAGE="$1"         # commit message
-CHECK_REPO_SLUG="$2"        # optional GitHub repo (e.g. picocms/Pico) to check
+CHECK_REPO_SLUG="$1"        # optional GitHub repo (e.g. picocms/Pico) to check
                             # its latest commit as basic race condition protection
-CHECK_REMOTE_REF="$3"       # optional remote Git reference (e.g. heads/master)
-CHECK_LOCAL_COMMIT="$4"     # optional local commit SHA1
+CHECK_REMOTE_REF="$2"       # optional remote Git reference (e.g. heads/master)
+CHECK_LOCAL_COMMIT="$3"     # optional local commit SHA1
 
 # print parameters
-echo "Deploying phpDocs..."
-printf 'COMMIT_MESSAGE="%s"\n' "$COMMIT_MESSAGE"
+echo "Deploying repo..."
 printf 'CHECK_REPO_SLUG="%s"\n' "$CHECK_REPO_SLUG"
 printf 'CHECK_REMOTE_REF="%s"\n' "$CHECK_REMOTE_REF"
 printf 'CHECK_LOCAL_COMMIT="%s"\n' "$CHECK_LOCAL_COMMIT"
 echo
 
+# check for git repo
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    printf 'Not a git repo; aborting...\n\n'
+    exit 1
+fi
+
 # check for changes
-if [ -z "$(git status --porcelain)" ]; then
+if [ -z "$(git log --oneline '@{upstream}..')" ]; then
     printf 'Nothing to deploy; skipping...\n\n'
     exit 0
 fi
@@ -44,11 +48,6 @@ if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
     git config credential.helper 'store --file=.git/credentials'
     (umask 077 && echo "https://GitHub:$GITHUB_OAUTH_TOKEN@github.com" > .git/credentials)
 fi
-
-# commit changes
-printf '\nCommiting changes...\n'
-git add --all
-git commit --message="$COMMIT_MESSAGE"
 
 # race condition protection for concurrent Travis builds
 # this is no definite protection (race conditions are still possible during `git push`),
@@ -84,6 +83,8 @@ fi
 
 # push changes
 printf '\nPushing changes...\n'
-git push origin
+git push
+EXIT_CODE=$?
 
 echo
+exit $EXIT_CODE

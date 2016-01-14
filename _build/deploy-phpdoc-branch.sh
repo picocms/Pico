@@ -33,8 +33,13 @@ generate-phpdoc.sh \
     "Pico 1.0 API Documentation ($TRAVIS_BRANCH branch)"
 [ $? -eq 0 ] || exit 1
 
+# commit phpDocs
+git add "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
+git commit \
+    --message="Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
+    "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
+[ $? -eq 0 ] || exit 1
+
 # deploy phpDocs
-deploy-phpdoc.sh \
-    "Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
-    "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH" "$TRAVIS_COMMIT"
+github-deploy.sh "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH" "$TRAVIS_COMMIT"
 [ $? -eq 0 ] || exit 1
