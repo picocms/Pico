@@ -39,10 +39,10 @@ generate-phpdoc.sh \
 
 # commit phpDocs
 echo "Committing changes..."
-git add "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
+git add "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache" "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 git commit \
     --message="Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
-    "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
+    "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID.cache" "$PHPDOC_GIT_DIR/phpDoc/$PHPDOC_ID"
 [ $? -eq 0 ] || exit 1
 echo
 
