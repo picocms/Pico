@@ -57,7 +57,7 @@ if [ -n "$CHECK_REPO_SLUG" ] && [ -n "$CHECK_REMOTE_REF" ] && [ -n "$CHECK_LOCAL
     # compare source reference against the latest commit
     if [ "$CHECK_REMOTE_COMMIT" != "$CHECK_LOCAL_COMMIT" ]; then
         echo "Latest local commit '$CHECK_LOCAL_COMMIT' doesn't match latest remote commit '$CHECK_REMOTE_COMMIT'; aborting..." >&2
-        exit 0
+        exit 1
     fi
 
     echo
