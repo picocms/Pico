@@ -19,7 +19,7 @@ echo
 
 # check for git repo
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    printf 'Not a git repo; aborting...\n\n' >&2
+    echo "Not a git repo; aborting..." >&2
     exit 1
 fi
 
