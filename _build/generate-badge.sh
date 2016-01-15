@@ -32,7 +32,7 @@ echo
 printf 'Downloading badge...\n'
 TMP_BADGE="$(mktemp -u)"
 
-wget -O "$TMP_BADGE" \
+curl --location --output "$TMP_BADGE" \
     "https://img.shields.io/badge/$BADGE_SUBJECT-$BADGE_STATUS-$BADGE_COLOR.svg"
 
 # validate badge
