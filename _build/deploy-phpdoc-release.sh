@@ -10,15 +10,15 @@ if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true
     [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && exit 0 || echo
 fi
 
-PHPDOC_ID="${TRAVIS_BRANCH//\//_}"
-GIT_DIR="$TRAVIS_BUILD_DIR/_build/phpdoc-$PHPDOC_ID.git"
+DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
+DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
 # clone repo
 echo "Cloning repo..."
-git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$GIT_DIR"
+git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$DEPLOYMENT_DIR"
 [ $? -eq 0 ] || exit 1
 
-cd "$GIT_DIR"
+cd "$DEPLOYMENT_DIR"
 echo
 
 # setup repo
@@ -28,17 +28,17 @@ github-setup.sh
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
     generate-phpdoc.sh \
         "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
-        "-" "$GIT_DIR/phpDoc/$PHPDOC_ID" \
+        "-" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
         "Pico 1.0 API Documentation ($TRAVIS_TAG)"
     [ $? -eq 0 ] || exit 1
 
     # commit phpDocs
-    if [ -n "$(git status --porcelain "$GIT_DIR/phpDoc/$PHPDOC_ID")" ]; then
+    if [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID")" ]; then
         echo "Committing phpDoc changes..."
-        git add "$GIT_DIR/phpDoc/$PHPDOC_ID"
+        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
         git commit \
             --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
-            "$GIT_DIR/phpDoc/$PHPDOC_ID"
+            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
         [ $? -eq 0 ] || exit 1
         echo
     fi
@@ -47,15 +47,15 @@ fi
 # update version badge
 if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
     generate-badge.sh \
-        "$GIT_DIR/badges/pico-version.svg" \
+        "$DEPLOYMENT_DIR/badges/pico-version.svg" \
         "release" "$TRAVIS_TAG" "blue"
 
     # commit version badge
     echo "Committing changes..."
-    git add "$GIT_DIR/badges/pico-version.svg"
+    git add "$DEPLOYMENT_DIR/badges/pico-version.svg"
     git commit \
         --message="Update version badge for $TRAVIS_TAG" \
-        "$GIT_DIR/badges/pico-version.svg"
+        "$DEPLOYMENT_DIR/badges/pico-version.svg"
     [ $? -eq 0 ] || exit 1
     echo
 fi
