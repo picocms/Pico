@@ -814,7 +814,9 @@ class Pico
      */
     protected function registerParsedown()
     {
-        $this->parsedown = new ParsedownExtra();
+        if (is_null($this->parsedown)) {
+            $this->parsedown = new ParsedownExtra();
+        }
     }
 
     /**
@@ -826,6 +828,16 @@ class Pico
     public function getParsedown()
     {
         return $this->parsedown;
+    }
+
+    /**
+     * Set the Parsedown Extra markdown parser
+     *
+     * @param ParsedownExtra $parsedown Parsedown Extra markdown parser
+     */
+    public function setParsedown(ParsedownExtra $parsedown)
+    {
+        $this->parsedown = $parsedown;
     }
 
     /**
