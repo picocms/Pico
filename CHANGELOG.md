@@ -1,6 +1,15 @@
 Pico Changelog
 ==============
 
+### Version 1.0.1
+Released: -
+
+```
+* [Changed] Improve documentation
+* [Changed] Replace `version_compare()` with `PHP_VERSION_ID` in
+            `index.php.dist` (available since PHP 5.2.7)
+```
+
 ### Version 1.0.0
 Released: 2015-12-24
 
