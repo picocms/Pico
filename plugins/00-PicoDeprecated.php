@@ -104,7 +104,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      * @see    PicoDeprecated::loadRootDirConfig()
      * @see    PicoDeprecated::enablePlugins()
      * @see    DummyPlugin::onConfigLoaded()
-     * @param  mixed[] &$config array of config variables
+     * @param  array &$config array of config variables
      * @return void
      */
     public function onConfigLoaded(array &$config)
@@ -159,7 +159,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      *
      * @see    PicoDeprecated::onConfigLoaded()
      * @see    Pico::loadConfig()
-     * @param  mixed[] &$realConfig array of config variables
+     * @param  array &$realConfig array of config variables
      * @return void
      */
     protected function loadRootDirConfig(array &$realConfig)
