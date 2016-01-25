@@ -101,7 +101,7 @@ class Pico
      * Current configuration of this Pico instance
      *
      * @see Pico::getConfig()
-     * @var mixed[]|null
+     * @var array|null
      */
     protected $config;
 
@@ -197,7 +197,7 @@ class Pico
      * Variables passed to the twig template
      *
      * @see Pico::getTwigVariables
-     * @var mixed[]|null
+     * @var array|null
      */
     protected $twigVariables;
 
@@ -516,7 +516,7 @@ class Pico
      *
      * @see    Pico::loadConfig()
      * @see    Pico::getConfig()
-     * @param  mixed[] $config  array with config variables
+     * @param  array $config  array with config variables
      * @return void
      * @throws LogicException thrown if Pico already started processing
      */
@@ -1173,7 +1173,7 @@ class Pico
      * URLs and paths (namely `base_dir`, `base_url`, `theme_dir` and
      * `theme_url`) don't add a trailing slash for historic reasons.
      *
-     * @return mixed[] template variables
+     * @return array template variables
      */
     protected function getTwigVariables()
     {

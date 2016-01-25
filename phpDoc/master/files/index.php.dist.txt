@@ -1,7 +1,7 @@
 <?php // @codingStandardsIgnoreFile
 
 // check PHP version
-if (version_compare(PHP_VERSION, '5.3.6', '<')) {
+if (PHP_VERSION_ID < 50306) {
     die('Pico requires PHP 5.3.6 or above to run');
 }
 
