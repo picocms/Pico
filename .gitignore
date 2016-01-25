@@ -15,10 +15,10 @@ desktop.ini
 /composer.phar
 /vendor
 
-# phpDocumentor
-/_build/phpdoc/
-/_build/phpdoc.cache/
-/_build/phpdoc-*/
+# Build system
+/_build/phpdoc
+/_build/phpdoc.cache
+/_build/deploy-*.git
 
 # User config
 /config/config.php
