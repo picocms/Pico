@@ -77,7 +77,8 @@ your assets there. You can then access them in your markdown using
 
 ### Text File Markup
 
-Text files are marked up using [Markdown][]. They can also contain regular HTML.
+Text files are marked up using [Markdown][] and [Markdown Extra][MarkdownExtra].
+They can also contain regular HTML.
 
 At the top of text files you can place a block comment and specify certain meta
 attributes of the page using [YAML][] (the "YAML header"). For example:
@@ -297,6 +298,7 @@ setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 For more help have a look at the Pico documentation at http://picocms.org/docs.
 
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
+[MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [YAML]: https://en.wikipedia.org/wiki/YAML
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
