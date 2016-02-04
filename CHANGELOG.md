@@ -8,6 +8,7 @@ Released: -
 * [Changed] Improve documentation
 * [Changed] Replace `version_compare()` with `PHP_VERSION_ID` in
             `index.php.dist` (available since PHP 5.2.7)
+* [Fixed] Suppress PHP warning when using `date_default_timezone_get()`
 ```
 
 ### Version 1.0.0

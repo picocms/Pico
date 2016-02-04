@@ -498,7 +498,7 @@ class Pico
             // explicitly set a default timezone to prevent a E_NOTICE
             // when no timezone is set; the `date_default_timezone_get()`
             // function always returns a timezone, at least UTC
-            $this->config['timezone'] = date_default_timezone_get();
+            $this->config['timezone'] = @date_default_timezone_get();
         }
         date_default_timezone_set($this->config['timezone']);
     }
