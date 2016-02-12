@@ -80,7 +80,7 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 Build & Release process
 -----------------------
 
-We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages and uploading them to GitHub. Please refer to [our `.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) for details.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages, a version badge and pushing both to our website (the [`gh-pages` branch](https://github.com/picocms/Pico/tree/gh-pages)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) and the [`_build` directory](https://github.com/picocms/Pico/tree/master/_build) for details.
 
 As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
