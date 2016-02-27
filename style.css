@@ -877,15 +877,19 @@ ul.contact-info li i {
 }
 .social li {
     display: inline-block;
-    font-family: 'fontello-social';
-    margin-left: 3px;
+    margin-left: 0.5em;
     margin-bottom: 6px;
+    padding-left: 0;
+}
+.social li:first-child {
+    margin-left: 0;
 }
 .social.team li {
     margin: 0 3px 0 0
 }
 .social a i {
     color: #FFF;
+    background-color: #2eae9b;
     width: 31px;
     height: 31px;
     -webkit-border-radius: 31px;
