@@ -2,7 +2,7 @@ Pico Changelog
 ==============
 
 ### Version 1.0.1
-Released: -
+Released: 2016-02-27
 
 ```
 * [Changed] Improve documentation
