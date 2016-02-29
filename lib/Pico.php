@@ -383,6 +383,7 @@ class Pico
      * - 60 to 79: Plugins hooking into template or markdown parsing
      * - 80 to 99: Plugins using the `onPageRendered` event
      *
+     * @see    Pico::loadPlugin()
      * @see    Pico::getPlugin()
      * @see    Pico::getPlugins()
      * @return void
@@ -404,9 +405,50 @@ class Pico
                 $this->plugins[$className] = $plugin;
             } else {
                 // TODO: breaks backward compatibility
-                //throw new RuntimeException("Unable to load plugin '".$className."'");
+                //throw new RuntimeException("Unable to load plugin '" . $className . "'");
             }
         }
+    }
+
+    /**
+     * Manually loads a plugin
+     *
+     * Manually loaded plugins must implement {@see PicoPluginInterface}.
+     *
+     * @see    Pico::loadPlugins()
+     * @see    Pico::getPlugin()
+     * @see    Pico::getPlugins()
+     * @param  PicoPluginInterface|string $plugin either the class name of a
+     *     plugin to instantiate or a plugin instance
+     * @return PicoPluginInterface                instance of the loaded plugin
+     * @throws RuntimeException                   thrown when a plugin couldn't
+     *     be loaded
+     */
+    public function loadPlugin($plugin)
+    {
+        if (!is_object($plugin)) {
+            $className = (string) $plugin;
+            if (class_exists($className)) {
+                $plugin = new $className($this);
+            } else {
+                throw new RuntimeException("Unable to load plugin '" . $className . "'");
+            }
+        }
+
+        $className = get_class($plugin);
+        if (!is_a($plugin, 'PicoPluginInterface')) {
+            throw new RuntimeException(
+                "Manually loaded plugins must implement 'PicoPluginInterface', "
+                . "'" . $className . "' given"
+            );
+        }
+
+        if ($this->plugins === null) {
+            $this->plugins = array();
+        }
+        $this->plugins[$className] = $plugin;
+
+        return $plugin;
     }
 
     /**
