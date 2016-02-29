@@ -1,6 +1,13 @@
 Pico Changelog
 ==============
 
+### Version 1.0.2
+Released: -
+
+```
+* [Fixed] Check dependencies when a plugin is enabled by default
+```
+
 ### Version 1.0.1
 Released: 2016-02-27
 
