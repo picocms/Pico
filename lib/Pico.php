@@ -1382,6 +1382,7 @@ class Pico
      *
      * Deprecated events (as used by plugins not implementing
      * {@link PicoPluginInterface}) are triggered by {@link PicoDeprecated}.
+     * You MUST NOT trigger events of Pico's core through a plugin!
      *
      * @see    PicoPluginInterface
      * @see    AbstractPicoPlugin
@@ -1390,7 +1391,7 @@ class Pico
      * @param  array  $params    optional parameters to pass
      * @return void
      */
-    protected function triggerEvent($eventName, array $params = array())
+    public function triggerEvent($eventName, array $params = array())
     {
         if (!empty($this->plugins)) {
             foreach ($this->plugins as $plugin) {
