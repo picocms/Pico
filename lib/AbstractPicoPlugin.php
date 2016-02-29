@@ -165,7 +165,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                 $plugin = $this->getPlugin($pluginName);
             } catch (RuntimeException $e) {
                 throw new RuntimeException(
-                    "Unable to enable plugin '" . get_called_class() . "':"
+                    "Unable to enable plugin '" . get_called_class() . "': "
                     . "Required plugin '" . $pluginName . "' not found"
                 );
             }
@@ -177,13 +177,13 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                         $plugin->setEnabled(true, true, true);
                     } else {
                         throw new RuntimeException(
-                            "Unable to enable plugin '" . get_called_class() . "':"
+                            "Unable to enable plugin '" . get_called_class() . "': "
                             . "Required plugin '" . $pluginName . "' was disabled manually"
                         );
                     }
                 } else {
                     throw new RuntimeException(
-                        "Unable to enable plugin '" . get_called_class() . "':"
+                        "Unable to enable plugin '" . get_called_class() . "': "
                         . "Required plugin '" . $pluginName . "' is disabled"
                     );
                 }
