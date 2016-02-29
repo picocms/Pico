@@ -77,9 +77,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                 $pluginConfig = $this->getConfig(get_called_class());
                 if (is_array($pluginConfig) && isset($pluginConfig['enabled'])) {
                     $this->setEnabled($pluginConfig['enabled']);
-                } else {
-                    // make sure dependencies are checked
-                    $this->setEnabled($this->enabled, true, true);
+                } elseif ($this->enabled) {
+                    // make sure dependencies are fulfilled
+                    $this->checkDependencies(true);
                 }
             }
         }
