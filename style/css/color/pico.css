@@ -153,3 +153,6 @@ pre {
     background: #f5f5f5;
     border-color: #ccc;
 }
+.social a i {
+    background-color: #2eae9b;
+}
