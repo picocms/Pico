@@ -405,7 +405,13 @@ class Pico
                 $this->plugins[$className] = $plugin;
             } else {
                 // TODO: breaks backward compatibility
-                //throw new RuntimeException("Unable to load plugin '" . $className . "'");
+                /*
+                $pluginFileName = substr($pluginFile, strlen($this->getPluginsDir()));
+                throw new RuntimeException(
+                    "Unable to load plugin '" . $className . "' "
+                    . "from '" . $pluginFileName . "'"
+                );
+                */
             }
         }
     }
@@ -431,15 +437,15 @@ class Pico
             if (class_exists($className)) {
                 $plugin = new $className($this);
             } else {
-                throw new RuntimeException("Unable to load plugin '" . $className . "'");
+                throw new RuntimeException("Unable to load plugin '" . $className . "':  Class not found");
             }
         }
 
         $className = get_class($plugin);
         if (!is_a($plugin, 'PicoPluginInterface')) {
             throw new RuntimeException(
-                "Manually loaded plugins must implement 'PicoPluginInterface', "
-                . "'" . $className . "' given"
+                "Unable to load plugin '" . $className . "': "
+                . "Manually loaded plugins must implement 'PicoPluginInterface'"
             );
         }
 
@@ -1382,7 +1388,7 @@ class Pico
      *
      * Deprecated events (as used by plugins not implementing
      * {@link PicoPluginInterface}) are triggered by {@link PicoDeprecated}.
-     * You MUST NOT trigger events of Pico's core through a plugin!
+     * You MUST NOT trigger events of Pico's core with a plugin!
      *
      * @see    PicoPluginInterface
      * @see    AbstractPicoPlugin
