@@ -211,6 +211,17 @@ blockquote {
 
 /* Structure Styles
 /*---------------------------------------------*/
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+}
+body > * {
+    flex: none;
+    width: 100%;
+}
+
 .inner {
     width: 850px;
     margin: 0 auto;
@@ -261,6 +272,9 @@ blockquote {
 #header li {
     display: inline-block;
     float: left;
+}
+#content {
+    flex: 1 0 auto;
 }
 #footer {
     background: #707070;
