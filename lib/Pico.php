@@ -687,18 +687,28 @@ class Pico
      */
     public function load404Content($file)
     {
-        $errorFileDir = substr($file, strlen($this->getConfig('content_dir')));
-        do {
-            $errorFileDir = dirname($errorFileDir);
-            $errorFile = $errorFileDir . '/404' . $this->getConfig('content_ext');
-        } while (!file_exists($this->getConfig('content_dir') . $errorFile) && ($errorFileDir !== '.'));
+        $contentDir = $this->getConfig('content_dir');
+        $contentDirLength = strlen($contentDir);
 
-        if (!file_exists($this->getConfig('content_dir') . $errorFile)) {
-            $errorFile = ($errorFileDir === '.') ? '404' . $this->getConfig('content_ext') : $errorFile;
-            throw new RuntimeException('Required "' . $this->getConfig('content_dir') . $errorFile . '" not found');
+        if (substr($file, 0, $contentDirLength) === $contentDir) {
+            $errorFileDir = substr($file, $contentDirLength);
+
+            while ($errorFileDir !== '.') {
+                $errorFileDir = dirname($errorFileDir);
+                $errorFile = $errorFileDir . '/404' . $this->getConfig('content_ext');
+
+                if (file_exists($this->getConfig('content_dir') . $errorFile)) {
+                    return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
+                }
+            }
+        } elseif (file_exists($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'))) {
+            // provided that the requested file is not in the regular
+            // content directory, fallback to Pico's global `404.md`
+            return $this->loadFileContent($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'));
         }
 
-        return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
+        $errorFile = $this->getConfig('content_dir') . '404' . $this->getConfig('content_ext');
+        throw new RuntimeException('Required "' . $errorFile . '" not found');
     }
 
     /**
@@ -1060,8 +1070,16 @@ class Pico
         $pageIds = array_keys($this->pages);
 
         $contentDir = $this->getConfig('content_dir');
+        $contentDirLength = strlen($contentDir);
+
+        // the requested file is not in the regular content directory, therefore its ID
+        // isn't specified and it's impossible to determine the current page automatically
+        if (substr($this->requestFile, 0, $contentDirLength) !== $contentDir) {
+            return;
+        }
+
         $contentExt = $this->getConfig('content_ext');
-        $currentPageId = substr($this->requestFile, strlen($contentDir), -strlen($contentExt));
+        $currentPageId = substr($this->requestFile, $contentDirLength, -strlen($contentExt));
         $currentPageIndex = array_search($currentPageId, $pageIds);
         if ($currentPageIndex !== false) {
             $this->currentPage = &$this->pages[$currentPageId];
