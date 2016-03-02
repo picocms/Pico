@@ -74,9 +74,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
             if ($pluginEnabled !== null) {
                 $this->setEnabled($pluginEnabled);
             } else {
-                $pluginConfig = $this->getConfig(get_called_class());
-                if (is_array($pluginConfig) && isset($pluginConfig['enabled'])) {
-                    $this->setEnabled($pluginConfig['enabled']);
+                $pluginEnabled = $this->getPluginConfig('enabled');
+                if ($pluginEnabled !== null) {
+                    $this->setEnabled($pluginEnabled);
                 } elseif ($this->enabled) {
                     // make sure dependencies are already fulfilled,
                     // otherwise the plugin needs to be enabled manually
@@ -133,6 +133,29 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     public function getPico()
     {
         return $this->pico;
+    }
+
+    /**
+     * Returns either the value of the specified plugin config variable or
+     * the config array
+     *
+     * @param  string $configName optional name of a config variable
+     * @return mixed              returns either the value of the named plugin
+     *     config variable, null if the config variable doesn't exist or the
+     *     plugin's config array if no config name was supplied
+     */
+    protected function getPluginConfig($configName = null)
+    {
+        $pluginConfig = $this->getConfig(get_called_class());
+        if ($pluginConfig) {
+            if ($configName === null) {
+                return $pluginConfig;
+            } elseif (isset($pluginConfig[$configName])) {
+                return $pluginConfig[$configName];
+            }
+        }
+
+        return null;
     }
 
     /**
