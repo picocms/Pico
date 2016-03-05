@@ -27,6 +27,13 @@
 class Pico
 {
     /**
+     * Pico version
+     *
+     * @var string
+     */
+    const VERSION = '1.1.0-dev';
+
+    /**
      * Sort files in alphabetical ascending order
      *
      * @see Pico::getFiles()
@@ -907,6 +914,9 @@ class Pico
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
+        // replace %version%
+        $content = str_replace('%version%', static::VERSION, $content);
+
         // replace %site_title%
         $content = str_replace('%site_title%', $this->getConfig('site_title'), $content);
 
@@ -1267,6 +1277,7 @@ class Pico
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
             'is_front_page' => ($this->requestFile === $frontPage),
+            'version' => static::VERSION
         );
     }
 

@@ -5,8 +5,8 @@ Description: Pico is a stupidly simple, blazing fast, flat file CMS.
 
 ## Welcome to Pico
 
-Congratulations, you have successfully installed [Pico](http://picocms.org/).
-%meta.description% <!-- replaced by the above Description meta header -->
+Congratulations, you have successfully installed [Pico](http://picocms.org/)
+%version%. %meta.description% <!-- replaced by the above Description header -->
 
 ## Creating Content
 
