@@ -915,38 +915,36 @@ class Pico
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace %version%
-        $content = str_replace('%version%', static::VERSION, $content);
+        $variables['%version%'] = static::VERSION;
 
         // replace %site_title%
-        $content = str_replace('%site_title%', $this->getConfig('site_title'), $content);
+        $variables['%site_title%'] = $this->getConfig('site_title');
 
         // replace %base_url%
         if ($this->isUrlRewritingEnabled()) {
             // always use `%base_url%?sub/page` syntax for internal links
             // we'll replace the links accordingly, depending on enabled rewriting
-            $content = str_replace('%base_url%?', $this->getBaseUrl(), $content);
+            $variables['%base_url%?'] = $this->getBaseUrl();
         } else {
             // actually not necessary, but makes the URL look a little nicer
-            $content = str_replace('%base_url%?', $this->getBaseUrl() . '?', $content);
+            $variables['%base_url%?'] = $this->getBaseUrl() . '?';
         }
-        $content = str_replace('%base_url%', rtrim($this->getBaseUrl(), '/'), $content);
+        $variables['%base_url%'] = rtrim($this->getBaseUrl(), '/');
 
         // replace %theme_url%
         $themeUrl = $this->getBaseUrl() . basename($this->getThemesDir()) . '/' . $this->getConfig('theme');
-        $content = str_replace('%theme_url%', $themeUrl, $content);
+        $variables['%theme_url%'] = $themeUrl;
 
         // replace %meta.*%
         if (!empty($meta)) {
-            $metaKeys = $metaValues = array();
             foreach ($meta as $metaKey => $metaValue) {
                 if (is_scalar($metaValue) || ($metaValue === null)) {
-                    $metaKeys[] = '%meta.' . $metaKey . '%';
-                    $metaValues[] = strval($metaValue);
+                    $variables['%meta.' . $metaKey . '%'] = strval($metaValue);
                 }
             }
-            $content = str_replace($metaKeys, $metaValues, $content);
         }
 
+        $content = str_replace(array_keys($variables), $variables, $content);
         return $content;
     }
 
