@@ -657,8 +657,11 @@ class Pico
      */
     protected function discoverRequestFile()
     {
+        $contentDir = $this->getConfig('content_dir');
+        $contentExt = $this->getConfig('content_ext');
+
         if (empty($this->requestUrl)) {
-            $this->requestFile = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
+            $this->requestFile = $contentDir . 'index' . $contentExt;
         } else {
             // prevent content_dir breakouts using malicious request URLs
             // we don't use realpath() here because we neither want to check for file existance
@@ -680,24 +683,24 @@ class Pico
             }
 
             if (empty($requestFileParts)) {
-                $this->requestFile = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
+                $this->requestFile = $contentDir . 'index' . $contentExt;
                 return;
             }
 
             // discover the content file to serve
             // Note: $requestFileParts neither contains a trailing nor a leading slash
-            $this->requestFile = $this->getConfig('content_dir') . implode('/', $requestFileParts);
+            $this->requestFile = $contentDir . implode('/', $requestFileParts);
             if (is_dir($this->requestFile)) {
                 // if no index file is found, try a accordingly named file in the previous dir
                 // if this file doesn't exist either, show the 404 page, but assume the index
                 // file as being requested (maintains backward compatibility to Pico < 1.0)
-                $indexFile = $this->requestFile . '/index' . $this->getConfig('content_ext');
-                if (file_exists($indexFile) || !file_exists($this->requestFile . $this->getConfig('content_ext'))) {
+                $indexFile = $this->requestFile . '/index' . $contentExt;
+                if (file_exists($indexFile) || !file_exists($this->requestFile . $contentExt)) {
                     $this->requestFile = $indexFile;
                     return;
                 }
             }
-            $this->requestFile .= $this->getConfig('content_ext');
+            $this->requestFile .= $contentExt;
         }
     }
 
@@ -737,25 +740,26 @@ class Pico
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
+        $contentExt = $this->getConfig('content_ext');
 
         if (substr($file, 0, $contentDirLength) === $contentDir) {
             $errorFileDir = substr($file, $contentDirLength);
 
             while ($errorFileDir !== '.') {
                 $errorFileDir = dirname($errorFileDir);
-                $errorFile = $errorFileDir . '/404' . $this->getConfig('content_ext');
+                $errorFile = $errorFileDir . '/404' . $contentExt;
 
-                if (file_exists($this->getConfig('content_dir') . $errorFile)) {
-                    return $this->loadFileContent($this->getConfig('content_dir') . $errorFile);
+                if (file_exists($contentDir . $errorFile)) {
+                    return $this->loadFileContent($contentDir . $errorFile);
                 }
             }
-        } elseif (file_exists($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'))) {
+        } elseif (file_exists($contentDir . '404' . $contentExt)) {
             // provided that the requested file is not in the regular
             // content directory, fallback to Pico's global `404.md`
-            return $this->loadFileContent($this->getConfig('content_dir') . '404' . $this->getConfig('content_ext'));
+            return $this->loadFileContent($contentDir . '404' . $contentExt);
         }
 
-        $errorFile = $this->getConfig('content_dir') . '404' . $this->getConfig('content_ext');
+        $errorFile = $contentDir . '404' . $contentExt;
         throw new RuntimeException('Required "' . $errorFile . '" not found');
     }
 
@@ -989,25 +993,30 @@ class Pico
      */
     protected function readPages()
     {
+        $contentDir = $this->getConfig('content_dir');
+        $contentDirLength = strlen($contentDir);
+        $contentExt = $this->getConfig('content_ext');
+        $contentExtLength = strlen($contentExt);
+
         $this->pages = array();
-        $files = $this->getFiles($this->getConfig('content_dir'), $this->getConfig('content_ext'), Pico::SORT_NONE);
+        $files = $this->getFiles($contentDir, $contentExt, Pico::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
-            if (basename($file) === '404' . $this->getConfig('content_ext')) {
+            if (basename($file) === '404' . $contentExt) {
                 unset($files[$i]);
                 continue;
             }
 
-            $id = substr($file, strlen($this->getConfig('content_dir')), -strlen($this->getConfig('content_ext')));
+            $id = substr($file, $contentDirLength, -$contentExtLength);
 
             // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
-            $conflictFile = $this->getConfig('content_dir') . $id . '/index' . $this->getConfig('content_ext');
+            $conflictFile = $contentDir . $id . '/index' . $contentExt;
             if (in_array($conflictFile, $files, true)) {
                 continue;
             }
 
             $url = $this->getPageUrl($id);
-            if ($file != $this->requestFile) {
+            if ($file !== $this->requestFile) {
                 $rawContent = file_get_contents($file);
 
                 $headers = $this->getMetaHeaders();
@@ -1126,8 +1135,7 @@ class Pico
             return;
         }
 
-        $contentExt = $this->getConfig('content_ext');
-        $currentPageId = substr($this->requestFile, $contentDirLength, -strlen($contentExt));
+        $currentPageId = substr($this->requestFile, $contentDirLength, -strlen($this->getConfig('content_ext')));
         $currentPageIndex = array_search($currentPageId, $pageIds);
         if ($currentPageIndex !== false) {
             $this->currentPage = &$this->pages[$currentPageId];
@@ -1287,7 +1295,7 @@ class Pico
             $protocol . "://" . $_SERVER['HTTP_HOST']
             . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
 
-        return $this->getConfig('base_url');
+        return $this->config['base_url'];
     }
 
     /**
@@ -1303,7 +1311,7 @@ class Pico
         }
 
         $this->config['rewrite_url'] = (isset($_SERVER['PICO_URL_REWRITING']) && $_SERVER['PICO_URL_REWRITING']);
-        return $this->getConfig('rewrite_url');
+        return $this->config['rewrite_url'];
     }
 
     /**
@@ -1363,7 +1371,7 @@ class Pico
             foreach ($files as $file) {
                 // exclude hidden files/dirs starting with a .; this also excludes the special dirs . and ..
                 // exclude files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if ((substr($file, 0, 1) === '.') || in_array(substr($file, -1), array('~', '#'))) {
+                if (($file[0] === '.') || in_array(substr($file, -1), array('~', '#'))) {
                     continue;
                 }
 
@@ -1394,7 +1402,7 @@ class Pico
                 $path = $this->getRootDir() . $path;
             }
         } else {
-            if (substr($path, 0, 1) !== '/') {
+            if ($path[0] !== '/') {
                 $path = $this->getRootDir() . $path;
             }
         }
