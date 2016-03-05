@@ -1017,6 +1017,9 @@ class Pico
 
             $id = substr($file, $contentDirLength, -$contentExtLength);
 
+            // trigger onSinglePageLoading event
+            $this->triggerEvent('onSinglePageLoading', array(&$id));
+
             // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
             $conflictFile = $contentDir . $id . '/index' . $contentExt;
             if (in_array($conflictFile, $files, true)) {
@@ -1061,10 +1064,12 @@ class Pico
 
             unset($rawContent, $meta);
 
-            // trigger event
+            // trigger onSinglePageLoaded event
             $this->triggerEvent('onSinglePageLoaded', array(&$page));
 
-            $this->pages[$id] = $page;
+            if ($page !== null) {
+                $this->pages[$id] = $page;
+            }
         }
     }
 
