@@ -165,8 +165,10 @@ class PicoDeprecated extends AbstractPicoPlugin
     protected function loadRootDirConfig(array &$realConfig)
     {
         if (file_exists($this->getRootDir() . 'config.php')) {
+            $config = null;
+
             // scope isolated require()
-            $includeClosure = function ($configFile) {
+            $includeClosure = function ($configFile) use (&$config) {
                 require($configFile);
             };
             if (PHP_VERSION_ID >= 50400) {
@@ -175,7 +177,6 @@ class PicoDeprecated extends AbstractPicoPlugin
 
             // config.php in Pico::$rootDir is deprecated
             // use config.php in Pico::$configDir instead
-            $config = null;
             $includeClosure($this->getRootDir() . 'config.php');
 
             if (is_array($config)) {

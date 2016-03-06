@@ -517,7 +517,7 @@ class Pico
         $config = null;
         if (file_exists($this->getConfigDir() . 'config.php')) {
             // scope isolated require()
-            $includeClosure = function ($configFile) {
+            $includeClosure = function ($configFile) use (&$config) {
                 require($configFile);
             };
             if (PHP_VERSION_ID >= 50400) {
