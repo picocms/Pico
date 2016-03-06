@@ -398,10 +398,18 @@ class Pico
      */
     protected function loadPlugins()
     {
+        // scope isolated require_once()
+        $includeClosure = function ($pluginFile) {
+            require_once($pluginFile);
+        };
+        if (PHP_VERSION_ID >= 50400) {
+            $includeClosure = $includeClosure->bindTo(null);
+        }
+
         $this->plugins = array();
         $pluginFiles = $this->getFiles($this->getPluginsDir(), '.php');
         foreach ($pluginFiles as $pluginFile) {
-            require_once($pluginFile);
+            $includeClosure($pluginFile);
 
             $className = preg_replace('/^[0-9]+-/', '', basename($pluginFile, '.php'));
             if (class_exists($className)) {
@@ -508,7 +516,15 @@ class Pico
     {
         $config = null;
         if (file_exists($this->getConfigDir() . 'config.php')) {
-            require($this->getConfigDir() . 'config.php');
+            // scope isolated require()
+            $includeClosure = function ($configFile) {
+                require($configFile);
+            };
+            if (PHP_VERSION_ID >= 50400) {
+                $includeClosure = $includeClosure->bindTo(null);
+            }
+
+            $includeClosure($this->getConfigDir() . 'config.php');
         }
 
         $defaultConfig = array(
