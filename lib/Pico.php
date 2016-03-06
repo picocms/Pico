@@ -509,12 +509,12 @@ class Pico
      * Loads the config.php and any *.config.php from Pico::$configDir
      *
      * After loading the {@path "config/config.php"}, Pico proceeds with any
-     * existing {@path "config/*.config.php"} in alphabetical order. The file
-     * order is crucial: Config values which has been set already, cannot be
-     * overwritten by a succeeding file. This is also true for arrays,
-     * i.e. when specifying `$config['test'] = array('foo' => 'bar')` in
-     * `config/a.config.php` and `$config['test'] = array('baz' => 42)` in
-     * `config/b.config.php`, `$config['test']['baz']` will be undefined!
+     * existing `config/*.config.php` in alphabetical order. The file order is
+     * crucial: Config values which has been set already, cannot be overwritten
+     * by a succeeding file. This is also true for arrays, i.e. when specifying
+     * `$config['test'] = array('foo' => 'bar')` in `config/a.config.php` and
+     * `$config['test'] = array('baz' => 42)` in `config/b.config.php`,
+     * `$config['test']['baz']` will be undefined!
      *
      * @see    Pico::setConfig()
      * @see    Pico::getConfig()
