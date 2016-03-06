@@ -506,7 +506,15 @@ class Pico
     }
 
     /**
-     * Loads the config.php from Pico::$configDir
+     * Loads the config.php and any *.config.php from Pico::$configDir
+     *
+     * After loading the {@path "config/config.php"}, Pico proceeds with any
+     * existing {@path "config/*.config.php"} in alphabetical order. The file
+     * order is crucial: Config values which has been set already, cannot be
+     * overwritten by a succeeding file. This is also true for arrays,
+     * i.e. when specifying `$config['test'] = array('foo' => 'bar')` in
+     * `config/a.config.php` and `$config['test'] = array('baz' => 42)` in
+     * `config/b.config.php`, `$config['test']['baz']` will be undefined!
      *
      * @see    Pico::setConfig()
      * @see    Pico::getConfig()
@@ -514,20 +522,33 @@ class Pico
      */
     protected function loadConfig()
     {
-        $config = null;
-        if (file_exists($this->getConfigDir() . 'config.php')) {
-            // scope isolated require()
-            $includeClosure = function ($configFile) use (&$config) {
-                require($configFile);
-            };
-            if (PHP_VERSION_ID >= 50400) {
-                $includeClosure = $includeClosure->bindTo(null);
-            }
-
-            $includeClosure($this->getConfigDir() . 'config.php');
+        // scope isolated require()
+        $includeClosure = function ($configFile) {
+            require($configFile);
+            return (isset($config) && is_array($config)) ? $config : array();
+        };
+        if (PHP_VERSION_ID >= 50400) {
+            $includeClosure = $includeClosure->bindTo(null);
         }
 
-        $defaultConfig = array(
+        // load main config file (config/config.php)
+        $this->config = is_array($this->config) ? $this->config : array();
+        if (file_exists($this->getConfigDir() . 'config.php')) {
+            $this->config += $includeClosure($this->getConfigDir() . 'config.php');
+        }
+
+        // merge $config of config/*.config.php files
+        $configFiles = glob($this->getConfigDir() . '?*.config.php', GLOB_MARK);
+        if ($configFiles) {
+            foreach ($configFiles as $configFile) {
+                if (substr($configFile, -1) !== '/') {
+                    $this->config += $includeClosure($configFile);
+                }
+            }
+        }
+
+        // merge default config
+        $this->config += array(
             'site_title' => 'Pico',
             'base_url' => '',
             'rewrite_url' => null,
@@ -540,9 +561,6 @@ class Pico
             'content_ext' => '.md',
             'timezone' => ''
         );
-
-        $this->config = is_array($this->config) ? $this->config : array();
-        $this->config += is_array($config) ? $config + $defaultConfig : $defaultConfig;
 
         if (empty($this->config['base_url'])) {
             $this->config['base_url'] = $this->getBaseUrl();
