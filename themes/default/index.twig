@@ -1,67 +1,51 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8" />
 
-    {% block documentHeader %}
-        <title>{% block title %}{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}{% endblock %}</title>
-        {% if meta.description %}
-            <meta name="description" content="{{ meta.description|striptags }}">
-        {% endif %}{% if meta.robots %}
-            <meta name="robots" content="{{ meta.robots }}">
-        {% endif %}
-    {% endblock %}
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    {% if meta.description %}
+        <meta name="description" content="{{ meta.description|striptags }}">
+    {% endif %}{% if meta.robots %}
+        <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}
 
-    {% block stylesheets %}
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
-        <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
-    {% endblock %}
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
 
-    {% block javascript %}
-        <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
-    {% endblock %}
+    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
 </head>
 <body>
 
-    {% block pageHeader %}
-        <header id="header">
-            <div class="inner clearfix">
-                <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
-                {% block header %}
-                    <nav>
-                        <a href="#" class="menu-icon"></a>
-                        <ul>
-                            {% for page in pages if page.title %}
-                                <li{% if page.id == current_page.id %} class="active"{% endif %}>
-                                    <a href="{{ page.url }}">{{ page.title }}</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </nav>
-                {% endblock %}
-            </div>
-        </header>
-    {% endblock %}
+    <header id="header">
+        <div class="inner clearfix">
+            <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
+            <nav>
+                <a href="#" class="menu-icon"></a>
+                <ul>
+                    {% for page in pages if page.title %}
+                        <li{% if page.id == current_page.id %} class="active"{% endif %}>
+                            <a href="{{ page.url }}">{{ page.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    {% block pageContent %}
-        <section id="content">
-            <div class="inner">
-                {% block content content %}
-            </div>
-        </section>
-    {% endblock %}
+    <section id="content">
+        <div class="inner">
+            {{ content }}
+        </div>
+    </section>
 
-    {% block pageFooter %}
-        <footer id="footer">
-            <div class="inner">
-                {% block footer %}
-                    <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
-                    and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
-                    Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.
-                {% endblock %}
-            </div>
-        </footer>
-    {% endblock %}
+    <footer id="footer">
+        <div class="inner">
+            <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
+            and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
+            Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.
+        </div>
+    </footer>
 
 </body>
 </html>
