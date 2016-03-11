@@ -102,7 +102,7 @@ class PicoTwigExtension extends Twig_Extension
      */
     public function mapFilter($var, $mapKeyPath)
     {
-        if (!is_array($var) && (!is_object($var) || !is_a($var, 'Traversable'))) {
+        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
             throw new Twig_Error_Runtime(sprintf(
                 'The map filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
@@ -141,7 +141,7 @@ class PicoTwigExtension extends Twig_Extension
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
-        if (is_object($var) && is_a($var, 'Traversable')) {
+        if (is_object($var) && ($var instanceof Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
             throw new Twig_Error_Runtime(sprintf(
@@ -204,9 +204,9 @@ class PicoTwigExtension extends Twig_Extension
 
         foreach ($keyPath as $key) {
             if (is_object($var)) {
-                if (is_a($var, 'ArrayAccess')) {
+                if ($var instanceof ArrayAccess) {
                     // use ArrayAccess, see below
-                } elseif (is_a($var, 'Traversable')) {
+                } elseif ($var instanceof Traversable) {
                     $var = iterator_to_array($var);
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};

@@ -199,7 +199,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
             }
 
             // plugins which don't implement PicoPluginInterface are always enabled
-            if (is_a($plugin, 'PicoPluginInterface') && !$plugin->isEnabled()) {
+            if (($plugin instanceof PicoPluginInterface) && !$plugin->isEnabled()) {
                 if ($recursive) {
                     if (!$plugin->isStatusChanged()) {
                         $plugin->setEnabled(true, true, true);
@@ -272,7 +272,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
             $this->dependants = array();
             foreach ($this->getPlugins() as $pluginName => $plugin) {
                 // only plugins which implement PicoPluginInterface support dependencies
-                if (is_a($plugin, 'PicoPluginInterface')) {
+                if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
                     if (in_array(get_called_class(), $dependencies)) {
                         $this->dependants[$pluginName] = $plugin;

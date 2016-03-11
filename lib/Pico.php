@@ -457,7 +457,7 @@ class Pico
         }
 
         $className = get_class($plugin);
-        if (!is_a($plugin, 'PicoPluginInterface')) {
+        if (!($plugin instanceof PicoPluginInterface)) {
             throw new RuntimeException(
                 "Unable to load plugin '" . $className . "': "
                 . "Manually loaded plugins must implement 'PicoPluginInterface'"
@@ -1477,7 +1477,7 @@ class Pico
             foreach ($this->plugins as $plugin) {
                 // only trigger events for plugins that implement PicoPluginInterface
                 // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
-                if (is_a($plugin, 'PicoPluginInterface')) {
+                if ($plugin instanceof PicoPluginInterface) {
                     $plugin->handleEvent($eventName, $params);
                 }
             }

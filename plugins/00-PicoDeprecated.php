@@ -68,7 +68,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     {
         if (!empty($plugins)) {
             foreach ($plugins as $plugin) {
-                if (!is_a($plugin, 'PicoPluginInterface')) {
+                if (!($plugin instanceof PicoPluginInterface)) {
                     // the plugin doesn't implement PicoPluginInterface; it uses deprecated events
                     // enable PicoDeprecated if it hasn't be explicitly enabled/disabled yet
                     if (!$this->isStatusChanged()) {
