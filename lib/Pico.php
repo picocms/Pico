@@ -1140,8 +1140,8 @@ class Pico
     /**
      * Registers the twig template engine
      *
-     * This method also registers Picos core Twig filters `link` and `content`
-     * as well as Picos {@link PicoTwigExtension} Twig extension.
+     * This method also registers Pico's core Twig filters `link` and `content`
+     * as well as Pico's {@link PicoTwigExtension} Twig extension.
      *
      * @see    Pico::getTwig()
      * @return void
