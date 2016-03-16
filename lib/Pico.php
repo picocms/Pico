@@ -791,7 +791,17 @@ class Pico
             }
 
             if (!empty($meta['date'])) {
-                $meta['time'] = strtotime($meta['date']);
+                // workaround for issue #336
+                // Symfony YAML interprets ISO-8601 datetime strings and returns timestamps instead of the string
+                // this behavior conforms to the YAML standard, i.e. this is no bug of Symfony YAML
+                if (is_int($meta['date'])) {
+                    $meta['time'] = $meta['date'];
+
+                    $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
+                    $meta['date'] = date($rawDateFormat, $meta['time']);
+                } else {
+                    $meta['time'] = strtotime($meta['date']);
+                }
                 $meta['date_formatted'] = utf8_encode(strftime($this->getConfig('date_format'), $meta['time']));
             } else {
                 $meta['time'] = $meta['date_formatted'] = '';
