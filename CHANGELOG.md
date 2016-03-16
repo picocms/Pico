@@ -2,9 +2,10 @@ Pico Changelog
 ==============
 
 ### Version 1.0.2
-Released: -
+Released: 2016-03-16
 
 ```
+* [Changed] Various small improvements and changes...
 * [Fixed] Check dependencies when a plugin is enabled by default
 * [Fixed] Allow `Pico::$requestFile` to point to somewhere outside `content_dir`
 * [Fixed] #336: Fix `Date` meta header parsing with ISO-8601 datetime strings
