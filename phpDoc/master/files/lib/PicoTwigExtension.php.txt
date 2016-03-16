@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Picos Twig extension to implement additional filters
+ * Pico's Twig extension to implement additional filters
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
@@ -54,7 +54,7 @@ class PicoTwigExtension extends Twig_Extension
      * Returns the Twig filters markdown, map and sort_by
      *
      * @see    Twig_ExtensionInterface::getFilters()
-     * @return Twig_SimpleFilter[] array of Picos Twig filters
+     * @return Twig_SimpleFilter[] array of Pico's Twig filters
      */
     public function getFilters()
     {
