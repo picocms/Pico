@@ -6,6 +6,8 @@ Released: -
 
 ```
 * [Fixed] Check dependencies when a plugin is enabled by default
+* [Fixed] Allow `Pico::$requestFile` to point to somewhere outside `content_dir`
+* [Fixed] #336: Fix `Date` meta header parsing with ISO-8601 datetime strings
 ```
 
 ### Version 1.0.1
