@@ -100,7 +100,7 @@ If you want to use Pico as a blogging software, you probably want to do somethin
 {% endfor %}</code></pre>{% endraw %}
     </li>
     <li>
-        Make sure to exclude the blog articles from your page navigation. You can achieve this by adding <code>{&#37; if not page starts with "blog/" &#37;}...{&#37; endif &#37;}</code> to the navigation loop (<code>{&#37; for page in pages &#37;}...{&#37; endfor &#37;}</code>) in your themes <code>index.twig</code>.
+        Make sure to exclude blog articles from your page navigation. You can achieve this by adding <code>{&#37; if not (page.id starts with "blog/") &#37;}...{&#37; endif &#37;}</code> to the navigation loop (<code>{&#37; for page in pages &#37;}...{&#37; endfor &#37;}</code>) in your theme's <code>index.twig</code>.
     </li>
 </ol>
 
