@@ -52,29 +52,30 @@ redirect_from:
 
 ## Themes
 
-<div class="one-third last">
+<div class="one-third">
     <h3>NotePaper</h3>
     <p>Dark wood grain, lined paper, and sticky note widgets.</p>
     <p><a href="https://github.com/smcdougall/NotePaper" class="button" target="_blank">Download</a></p>
 </div>
-<div class="clear"></div>
-<div class="one-third last">
+<div class="one-third">
     <h3>Single</h3>
     <p>Pico CMS theme for personal sites</p>
     <p><a href="https://github.com/BesrourMS/single" class="button" target="_blank">Download</a></p>
 </div>
-<div class="clear"></div>
 <div class="one-third last">
     <h3>Magazine</h3>
     <p>Blogging Theme for Pico CMS </p>
     <p><a href="https://github.com/BesrourMS/magazine" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
+
 <div class="one-third last">
     <h3>Identity</h3>
     <p>Personal "business card" style site</p>
     <p><a href="https://github.com/BesrourMS/Identity" class="button" target="_blank">Download</a></p>
 </div>
+<div class="clear"></div>
+
 ---
 
 ## More Plugins & Themes
