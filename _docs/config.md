@@ -16,11 +16,11 @@ Pico's default URLs (e.g. http://example.com/pico/?sub/page) already are very us
 
 If you're using the Apache web server, URL rewriting should be enabled automatically. If you get an error message from your web server, please make sure to enable the [`mod_rewrite` module][ModRewrite]. Assuming rewritten URLs work, but Pico still shows no rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
-If you're using Nginx, you can use the following configuration to enable URL rewriting. Don't forget to adjust the path (`/pico/`; line `1` and `4`) to match your installation directory. You can then enable URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
+If you're using Nginx, you can use the following configuration to enable URL rewriting. Don't forget to adjust the path (`/pico`; line `1` and `4`) to match your installation directory. You can then enable URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
-    location /pico/ {
+    location ~ ^/pico(.*) {
         index index.php;
-        try_files $uri $uri/ /pico/?$uri&$args;
+        try_files $uri $uri/ /pico/?$1&$args;
     }
 
 [ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template
