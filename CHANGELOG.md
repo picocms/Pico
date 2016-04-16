@@ -7,6 +7,7 @@ Released: -
 ```
 * [Changed] Improve documentation
 * [Changed] Add CSS rules for definition lists to default theme
+* [Fixed] #342: Fix responsiveness in default theme
 ```
 
 ### Version 1.0.2
