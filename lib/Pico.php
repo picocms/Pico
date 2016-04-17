@@ -1237,11 +1237,12 @@ class Pico
         }
 
         $protocol = 'http';
-        if (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
+            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1')) ? 'https' : 'http';
+        } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } elseif ($_SERVER['SERVER_PORT'] == 443) {
-            $protocol = 'https';
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
             $protocol = 'https';
         }
 
