@@ -20,12 +20,12 @@ If you're using the Apache web server, URL rewriting should be enabled automatic
 #### Nginx Configuration
 
 If you're using Nginx, you can use the following configuration to enable URL rewriting. Don't forget to adjust the path (`/pico`; line `1` and `4`) to match your installation directory. You can then enable URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
-
-    location ~ ^/pico(.&#42;) {
-        index index.php;
-        try_files $uri $uri/ /pico/?$1&$args;
-    }
-
+```
+location ~ ^/pico(.*) {
+	index index.php;
+	try_files $uri $uri/ /pico/?$1&$args;
+}
+```
 Nginx is a very extensive subject.  If you have any trouble, please read through our page on [Nginx Configuration][NginxConfig].  Don't be afraid to open a [new issue](https://github.com/picocms/Pico/issues) on GitHub or contact us at [#picocms on Freenode IRC](https://webchat.freenode.net/?channels=%23picocms) for additional assistance.
 
 [ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template
