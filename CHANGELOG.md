@@ -9,6 +9,7 @@ Released: -
 * [Changed] Add CSS rules for definition lists to default theme
 * [Fixed] #342: Fix responsiveness in default theme
 * [Fixed] #344: Improve HTTPS detection with proxies
+* [Fixed] #346: Fix mixed content warning in default theme
 ```
 
 ### Version 1.0.2
