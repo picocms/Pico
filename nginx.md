@@ -18,15 +18,13 @@ toc:
     _title: Advanced Configuration Tips
     modular-pico-config: Modular Pico Config
 nav-url: /docs/
-gh_release: v1.0.2
-redirect_from: /nginx.html
 ---
 
 [Nginx](https://www.nginx.com/) has quickly become a solid contender in the realm of web servers.  While most of the web still uses Apache for serving web content, we acknowledge that a growing portion of our users may be interested in deploying Pico on Nginx instead of Apache.  Deploying Pico on Apache at the moment is relatively painless, with Pico's `.htaccess` file providing almost all the configuration necessary.
 
 Unlike Apache, Nginx uses a ["Centralized" configuration](https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations#distributed-vs-centralized-configuration).  Apache scours every folder it hosts in search of `.htaccess` files.  These files hold extra configuration options, often deployed with hosted software to make their setup easy.  Pico is no exception to this, and in most cases, Pico's `.htaccess` provides all the settings required to get it up and running without user interaction.
 
-This "Distributed" configuration can make it hard to understand what's really going on behind the scenes.  Apache's configuration can be spread out into as many folders as your webapps (or own content) provide.
+This "Distributed" configuration can make it hard to understand what's really going on behind the scenes.  Apache's configuration can be spread out into as many folders as your webapps (or your own content) provide.
 
 In comparison, Nginx's "Centralized" configuration is all located in one place.  On a Linux server, this configuration would usually be located in `/etc/nginx`, but this may vary by distro and OS.  While configuration of Nginx as a  whole is out of the scope of this document, we hope to provide you with enough information to get over any hurdles you may encounter.
 
@@ -125,7 +123,7 @@ location ~ ^/pico(.*) {
 }
 ```
 
-You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the url, but this time in a subfolder named `pico`.  What's different is that we're using `$1` to reference the page url instead of `$uri`.  This is because `$uri` will contain the entire url from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the url for us.  This `location` rule looks for any url that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the name of your own subfolder.
+You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the url, but this time in a subfolder named `pico`.  What's different is that we're using `$1` to reference the page url instead of `$uri`.  This is because `$uri` will contain the entire url from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the url for us.  This `location` rule looks for any url that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the location of your own subfolder.
 
 Since this `location` rule uses regex, it's slightly less efficient then the rule for Pico in Document Root.  While this is unlikely to make a real-world difference, it's something to keep in mind when deciding which rule to use.
 
@@ -145,12 +143,15 @@ Let's say you're a real Pico enthusiast and have several Pico websites running o
 
 * Link to PHP setup tutorial.
 
-* Cover both methods of rewrite vs one?  Include all three?
+* Include warning about `cgi.fix_pathinfo`
+
+* Revise previous page example and include php rewrite line
+
+* Include `try_files $uri $uri/ @pico` method?
 
 * Deny `.htaccess` vs 404?
 
 * link to Nginx documetation where "out of scope"
 * link entire https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations ?
-* Php is external
 
 {% endcomment %}
