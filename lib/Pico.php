@@ -32,6 +32,13 @@ class Pico
      * @var string
      */
     const VERSION = '1.1.0-dev';
+    
+    /**
+     * Pico version ID
+     * 
+     * @var int
+     */
+    const VERSION_ID = 10100;
 
     /**
      * Sort files in alphabetical ascending order
