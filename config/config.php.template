@@ -10,23 +10,23 @@
  * {@path "config/config.php"}, uncomment the line, then make and
  * save your changes.
  *
- * @author  Gilbert Pellegrom
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.1
  */
 
 /*
  * BASIC
  */
 // $config['site_title'] = 'Pico';              // Site title
-// $config['base_url'] = '';                    // Override base URL (e.g. http://example.com)
+// $config['base_url'] = '';                    // Override base URL (e.g. http://example.com/pico/)
 // $config['rewrite_url'] = null;               // A boolean indicating forced URL rewriting
 
 /*
  * THEME
  */
 // $config['theme'] = 'default';                // Set the theme (defaults to "default")
+// $config['theme_url'] = '';                   // Override the base URL of the themes folder (e.g. http://example.com/pico/themes/)
 // $config['twig_config'] = array(              // Twig settings
 //     'cache' => false,                        // To enable Twig caching change this to a path to a writable directory
 //     'autoescape' => false,                   // Auto-escape Twig vars

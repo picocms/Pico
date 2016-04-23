@@ -22,7 +22,7 @@
  * @author  Daniel Rudolf
  * @link    <http://picocms.org>
  * @license The MIT License <http://opensource.org/licenses/MIT>
- * @version 1.0
+ * @version 1.1
  */
 class Pico
 {
@@ -590,6 +590,14 @@ class Pico
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
 
+        if (empty($this->config['theme_url'])) {
+            $this->config['theme_url'] = $this->getBaseThemeUrl();
+        } elseif (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $this->config['theme_url'])) {
+            $this->config['theme_url'] = rtrim($this->config['theme_url'], '/') . '/';
+        } else {
+            $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
+        }
+
         if (empty($this->config['timezone'])) {
             // explicitly set a default timezone to prevent a E_NOTICE
             // when no timezone is set; the `date_default_timezone_get()`
@@ -973,8 +981,7 @@ class Pico
         $variables['%base_url%'] = rtrim($this->getBaseUrl(), '/');
 
         // replace %theme_url%
-        $themeUrl = $this->getBaseUrl() . basename($this->getThemesDir()) . '/' . $this->getConfig('theme');
-        $variables['%theme_url%'] = $themeUrl;
+        $variables['%theme_url%'] = $this->getBaseThemeUrl() . $this->getConfig('theme');
 
         // replace %meta.*%
         if (!empty($meta)) {
@@ -1311,7 +1318,7 @@ class Pico
             'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
-            'theme_url' => $this->getBaseUrl() . basename($this->getThemesDir()) . '/' . $this->getConfig('theme'),
+            'theme_url' => $this->getBaseThemeUrl() . $this->getConfig('theme'),
             'rewrite_url' => $this->isUrlRewritingEnabled(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
@@ -1408,6 +1415,40 @@ class Pico
         } else {
             return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page))) . $queryData;
         }
+    }
+
+    /**
+     * Returns the URL of the themes folder of this Pico instance
+     *
+     * We assume that the themes folder is a arbitrary deep sub folder of the
+     * script's base path (i.e. the directory {@path "index.php"} is in resp.
+     * the `httpdocs` directory). Usually the script's base path is identical
+     * to {@link Pico::$rootDir}, but this may aberrate when Pico got installed
+     * as a composer dependency. However, ultimately it allows us to use
+     * {@link Pico::getBaseUrl()} as origin of the theme URL. Otherwise Pico
+     * falls back to the basename of {@link Pico::$themesDir} (i.e. assuming
+     * that `Pico::$themesDir` is `foo/bar/baz`, the base URL of the themes
+     * folder will be `baz/`; this ensures BC to Pico < 1.1). Pico's base URL
+     * always gets prepended appropriately.
+     *
+     * @return string the URL of the themes folder
+     */
+    public function getBaseThemeUrl()
+    {
+        $themeUrl = $this->getConfig('theme_url');
+        if (!empty($themeUrl)) {
+            return $themeUrl;
+        }
+
+        $basePath = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
+        $basePathLength = strlen($basePath);
+        if (substr($this->getThemesDir(), 0, $basePathLength) === $basePath) {
+            $this->config['theme_url'] = $this->getBaseUrl() . substr($this->getThemesDir(), $basePathLength);
+        } else {
+            $this->config['theme_url'] = $this->getBaseUrl() . basename($this->getThemesDir()) . '/';
+        }
+
+        return $this->config['theme_url'];
     }
 
     /**
