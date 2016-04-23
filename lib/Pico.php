@@ -1387,9 +1387,18 @@ class Pico
                 . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
             );
         }
+
+        // drop "index"
+        if ($page === 'index') {
+            $page = '';
+        } elseif (($pagePathLength = strrpos($page, '/')) !== false) {
+            if (substr($page, $pagePathLength + 1) === 'index') {
+                $page = substr($page, 0, $pagePathLength);
+            }
+        }
+
         if (!empty($queryData)) {
-            $page = !empty($page) ? $page : 'index';
-            $queryData = $this->isUrlRewritingEnabled() ? '?' . $queryData : '&' . $queryData;
+            $queryData = ($this->isUrlRewritingEnabled() || empty($page)) ? '?' . $queryData : '&' . $queryData;
         }
 
         if (empty($page)) {
