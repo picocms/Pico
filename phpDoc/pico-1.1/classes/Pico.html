@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Pico 1.0 API Documentation (pico-1.1 branch)</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Pico 1.0 API Documentation (pico-1.1 branch)</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">27</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1904725476"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1904725476" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/PicoPluginInterface.html">PicoPluginInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/AbstractPicoPlugin.html">AbstractPicoPlugin</a></li>
+                                                    <li class="class"><a href="../classes/DummyPlugin.html">DummyPlugin</a></li>
+                                                    <li class="class"><a href="../classes/Pico.html">Pico</a></li>
+                                                    <li class="class"><a href="../classes/PicoTwigExtension.html">PicoTwigExtension</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>Pico</h1>
+                    <p><em>Pico</em></p>
+                    <p>Pico is a stupidly simple, blazing fast, flat file CMS.</p>
+<ul>
+<li>Stupidly Simple: Pico makes creating and maintaining a
+website as simple as editing text files.</li>
+<li>Blazing Fast: Pico is seriously lightweight and doesn't
+use a database, making it super fast.</li>
+<li>No Database: Pico is a &quot;flat file&quot; CMS, meaning no
+database woes, no MySQL queries, nothing.</li>
+<li>Markdown Formatting: Edit your website in your favourite
+text editor using simple Markdown formatting.</li>
+<li>Twig Templates: Pico uses the Twig templating engine,
+for powerful and flexible themes.</li>
+<li>Open Source: Pico is completely free and open source,
+released under the MIT license.
+See <a href="http://picocms.org/">http://picocms.org/</a> for more info.</li>
+</ul>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Pico.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getRootDir" class="">getRootDir()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getConfigDir" class="">getConfigDir()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPluginsDir" class="">getPluginsDir()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getThemesDir" class="">getThemesDir()</a><br />
+                                                                    <a href="../classes/Pico.html#method_run" class="">run()</a><br />
+                                                                    <a href="../classes/Pico.html#method_loadPlugin" class="">loadPlugin()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPlugin" class="">getPlugin()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPlugins" class="">getPlugins()</a><br />
+                                                                    <a href="../classes/Pico.html#method_setConfig" class="">setConfig()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getConfig" class="">getConfig()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getRequestUrl" class="">getRequestUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getRequestFile" class="">getRequestFile()</a><br />
+                                                                    <a href="../classes/Pico.html#method_loadFileContent" class="">loadFileContent()</a><br />
+                                                                    <a href="../classes/Pico.html#method_load404Content" class="">load404Content()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getRawContent" class="">getRawContent()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getMetaHeaders" class="">getMetaHeaders()</a><br />
+                                                                    <a href="../classes/Pico.html#method_parseFileMeta" class="">parseFileMeta()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getFileMeta" class="">getFileMeta()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getParsedown" class="">getParsedown()</a><br />
+                                                                    <a href="../classes/Pico.html#method_prepareFileContent" class="">prepareFileContent()</a><br />
+                                                                    <a href="../classes/Pico.html#method_parseFileContent" class="">parseFileContent()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getFileContent" class="">getFileContent()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPages" class="">getPages()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getCurrentPage" class="">getCurrentPage()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPreviousPage" class="">getPreviousPage()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getNextPage" class="">getNextPage()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getTwig" class="">getTwig()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getBaseUrl" class="">getBaseUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_isUrlRewritingEnabled" class="">isUrlRewritingEnabled()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getPageUrl" class="">getPageUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getBaseThemeUrl" class="">getBaseThemeUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getAbsolutePath" class="">getAbsolutePath()</a><br />
+                                                                    <a href="../classes/Pico.html#method_triggerEvent" class="">triggerEvent()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Pico.html#constant_VERSION" class="">VERSION</a><br />
+                                                                    <a href="../classes/Pico.html#constant_VERSION_ID" class="">VERSION_ID</a><br />
+                                                                    <a href="../classes/Pico.html#constant_SORT_ASC" class="">SORT_ASC</a><br />
+                                                                    <a href="../classes/Pico.html#constant_SORT_DESC" class="">SORT_DESC</a><br />
+                                                                    <a href="../classes/Pico.html#constant_SORT_NONE" class="">SORT_NONE</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/Pico.html#method_loadPlugins" class="">loadPlugins()</a><br />
+                                                                    <a href="../classes/Pico.html#method_loadConfig" class="">loadConfig()</a><br />
+                                                                    <a href="../classes/Pico.html#method_evaluateRequestUrl" class="">evaluateRequestUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_discoverRequestFile" class="">discoverRequestFile()</a><br />
+                                                                    <a href="../classes/Pico.html#method_registerParsedown" class="">registerParsedown()</a><br />
+                                                                    <a href="../classes/Pico.html#method_readPages" class="">readPages()</a><br />
+                                                                    <a href="../classes/Pico.html#method_sortPages" class="">sortPages()</a><br />
+                                                                    <a href="../classes/Pico.html#method_discoverCurrentPage" class="">discoverCurrentPage()</a><br />
+                                                                    <a href="../classes/Pico.html#method_registerTwig" class="">registerTwig()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getTwigVariables" class="">getTwigVariables()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getFiles" class="">getFiles()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Pico.html#property_rootDir" class="">$rootDir</a><br />
+                                                                    <a href="../classes/Pico.html#property_configDir" class="">$configDir</a><br />
+                                                                    <a href="../classes/Pico.html#property_pluginsDir" class="">$pluginsDir</a><br />
+                                                                    <a href="../classes/Pico.html#property_themesDir" class="">$themesDir</a><br />
+                                                                    <a href="../classes/Pico.html#property_locked" class="">$locked</a><br />
+                                                                    <a href="../classes/Pico.html#property_plugins" class="">$plugins</a><br />
+                                                                    <a href="../classes/Pico.html#property_config" class="">$config</a><br />
+                                                                    <a href="../classes/Pico.html#property_requestUrl" class="">$requestUrl</a><br />
+                                                                    <a href="../classes/Pico.html#property_requestFile" class="">$requestFile</a><br />
+                                                                    <a href="../classes/Pico.html#property_rawContent" class="">$rawContent</a><br />
+                                                                    <a href="../classes/Pico.html#property_meta" class="">$meta</a><br />
+                                                                    <a href="../classes/Pico.html#property_parsedown" class="">$parsedown</a><br />
+                                                                    <a href="../classes/Pico.html#property_content" class="">$content</a><br />
+                                                                    <a href="../classes/Pico.html#property_pages" class="">$pages</a><br />
+                                                                    <a href="../classes/Pico.html#property_currentPage" class="">$currentPage</a><br />
+                                                                    <a href="../classes/Pico.html#property_previousPage" class="">$previousPage</a><br />
+                                                                    <a href="../classes/Pico.html#property_nextPage" class="">$nextPage</a><br />
+                                                                    <a href="../classes/Pico.html#property_twig" class="">$twig</a><br />
+                                                                    <a href="../classes/Pico.html#property_twigVariables" class="">$twigVariables</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/lib.Pico.html"><div class="path-wrapper">lib/Pico.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Pico</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href="&lt;http://picocms.org&gt;"><div class="namespace-wrapper">&lt;http://picocms.org&gt;</div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Gilbert Pellegrom</p>
+                                                                    <p>Daniel Rudolf</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p>The MIT License <a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                version
+                            </th>
+                            <td>
+                                                                    
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION" name="constant_VERSION" class="anchor"></a>
+            <article id="constant_VERSION" class="constant">
+                <h3 class="">VERSION</h3>
+                <pre class="signature">VERSION</pre>
+                <p><em>Pico version</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_VERSION_ID" name="constant_VERSION_ID" class="anchor"></a>
+            <article id="constant_VERSION_ID" class="constant">
+                <h3 class="">VERSION_ID</h3>
+                <pre class="signature">VERSION_ID</pre>
+                <p><em>Pico version ID</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SORT_ASC" name="constant_SORT_ASC" class="anchor"></a>
+            <article id="constant_SORT_ASC" class="constant">
+                <h3 class="">SORT_ASC</h3>
+                <pre class="signature">SORT_ASC</pre>
+                <p><em>Sort files in alphabetical ascending order</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFiles"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SORT_DESC" name="constant_SORT_DESC" class="anchor"></a>
+            <article id="constant_SORT_DESC" class="constant">
+                <h3 class="">SORT_DESC</h3>
+                <pre class="signature">SORT_DESC</pre>
+                <p><em>Sort files in alphabetical descending order</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFiles"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SORT_NONE" name="constant_SORT_NONE" class="anchor"></a>
+            <article id="constant_SORT_NONE" class="constant">
+                <h3 class="">SORT_NONE</h3>
+                <pre class="signature">SORT_NONE</pre>
+                <p><em>Don&#039;t sort files</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFiles"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_rootDir" name="property_rootDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$rootDir</h3>
+                <pre class="signature">$rootDir : string</pre>
+                <p><em>Root directory of this Pico instance</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRootDir"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_configDir" name="property_configDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$configDir</h3>
+                <pre class="signature">$configDir : string</pre>
+                <p><em>Config directory of this Pico instance</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getConfigDir"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pluginsDir" name="property_pluginsDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$pluginsDir</h3>
+                <pre class="signature">$pluginsDir : string</pre>
+                <p><em>Plugins directory of this Pico instance</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getPluginsDir"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_themesDir" name="property_themesDir" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$themesDir</h3>
+                <pre class="signature">$themesDir : string</pre>
+                <p><em>Themes directory of this Pico instance</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getThemesDir"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_locked" name="property_locked" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$locked</h3>
+                <pre class="signature">$locked : boolean</pre>
+                <p><em>Boolean indicating whether Pico started processing yet</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_plugins" name="property_plugins" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$plugins</h3>
+                <pre class="signature">$plugins : array&lt;mixed,object&gt;|null</pre>
+                <p><em>List of loaded plugins</em></p>
+                
+
+                                <h4>Type</h4>
+                array&lt;mixed,object&gt;|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_config" name="property_config" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$config</h3>
+                <pre class="signature">$config : array|null</pre>
+                <p><em>Current configuration of this Pico instance</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getConfig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_requestUrl" name="property_requestUrl" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$requestUrl</h3>
+                <pre class="signature">$requestUrl : string|null</pre>
+                <p><em>Part of the URL describing the requested contents</em></p>
+                
+
+                                <h4>Type</h4>
+                string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRequestUrl"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_requestFile" name="property_requestFile" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$requestFile</h3>
+                <pre class="signature">$requestFile : string|null</pre>
+                <p><em>Absolute path to the content file being served</em></p>
+                
+
+                                <h4>Type</h4>
+                string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRequestFile"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_rawContent" name="property_rawContent" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$rawContent</h3>
+                <pre class="signature">$rawContent : string|null</pre>
+                <p><em>Raw, not yet parsed contents to serve</em></p>
+                
+
+                                <h4>Type</h4>
+                string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRawContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_meta" name="property_meta" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$meta</h3>
+                <pre class="signature">$meta : array|null</pre>
+                <p><em>Meta data of the page to serve</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFileMeta"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parsedown" name="property_parsedown" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$parsedown</h3>
+                <pre class="signature">$parsedown : \ParsedownExtra|null</pre>
+                <p><em>Parsedown Extra instance used for markdown parsing</em></p>
+                
+
+                                <h4>Type</h4>
+                \ParsedownExtra|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getParsedown"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_content" name="property_content" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$content</h3>
+                <pre class="signature">$content : string|null</pre>
+                <p><em>Parsed content being served</em></p>
+                
+
+                                <h4>Type</h4>
+                string|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pages" name="property_pages" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$pages</h3>
+                <pre class="signature">$pages : array&lt;mixed,array&gt;|null</pre>
+                <p><em>List of known pages</em></p>
+                
+
+                                <h4>Type</h4>
+                array&lt;mixed,array&gt;|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getPages"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_currentPage" name="property_currentPage" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$currentPage</h3>
+                <pre class="signature">$currentPage : array|null</pre>
+                <p><em>Data of the page being served</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getCurrentPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_previousPage" name="property_previousPage" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$previousPage</h3>
+                <pre class="signature">$previousPage : array|null</pre>
+                <p><em>Data of the previous page relative to the page being served</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getPreviousPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nextPage" name="property_nextPage" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$nextPage</h3>
+                <pre class="signature">$nextPage : array|null</pre>
+                <p><em>Data of the next page relative to the page being served</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getNextPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_twig" name="property_twig" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$twig</h3>
+                <pre class="signature">$twig : \Twig_Environment|null</pre>
+                <p><em>Twig instance used for template parsing</em></p>
+                
+
+                                <h4>Type</h4>
+                \Twig_Environment|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getTwig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_twigVariables" name="property_twigVariables" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$twigVariables</h3>
+                <pre class="signature">$twigVariables : array|null</pre>
+                <p><em>Variables passed to the twig template</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string  <span class="argument">$rootDir</span>, string  <span class="argument">$configDir</span>, string  <span class="argument">$pluginsDir</span>, string  <span class="argument">$themesDir</span>) </pre>
+                <p><em>Constructs a new Pico instance</em></p>
+                <p>To carry out all the processing in Pico, call <a href="/classes/Pico.html#method_run">Pico::run()</a>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$rootDir </td>
+                                <td><p>root directory of this Pico instance</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$configDir </td>
+                                <td><p>config directory of this Pico instance</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pluginsDir </td>
+                                <td><p>plugins directory of this Pico instance</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$themesDir </td>
+                                <td><p>themes directory of this Pico instance</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRootDir" name="method_getRootDir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRootDir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRootDir() : string</pre>
+                <p><em>Returns the root directory of this Pico instance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>root directory path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getConfigDir" name="method_getConfigDir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getConfigDir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getConfigDir() : string</pre>
+                <p><em>Returns the config directory of this Pico instance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>config directory path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPluginsDir" name="method_getPluginsDir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPluginsDir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPluginsDir() : string</pre>
+                <p><em>Returns the plugins directory of this Pico instance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>plugins directory path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getThemesDir" name="method_getThemesDir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getThemesDir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getThemesDir() : string</pre>
+                <p><em>Returns the themes directory of this Pico instance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>themes directory path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_run" name="method_run" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">run()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">run() : string</pre>
+                <p><em>Runs this Pico instance</em></p>
+                <p>Loads plugins, evaluates the config file, does URL routing, parses
+meta headers, processes Markdown, does Twig processing and returns
+the rendered contents.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Exception</dt>
+                            <dd><p>thrown when a not recoverable error occurs</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>rendered Pico contents</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadPlugin" name="method_loadPlugin" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">loadPlugin()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadPlugin(\PicoPluginInterface|string  <span class="argument">$plugin</span>) : \PicoPluginInterface</pre>
+                <p><em>Manually loads a plugin</em></p>
+                <p>Manually loaded plugins must implement <a href="/classes/PicoPluginInterface.html">\PicoPluginInterface</a>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/PicoPluginInterface.html">\PicoPluginInterface</a>|string</td>
+                                <td>$plugin </td>
+                                <td><p>either the class name of a
+plugin to instantiate or a plugin instance</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>thrown when a plugin couldn't
+be loaded</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/PicoPluginInterface.html">\PicoPluginInterface</a>
+                                            &mdash; <p>instance of the loaded plugin</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugin"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPlugin" name="method_getPlugin" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPlugin()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPlugin(string  <span class="argument">$pluginName</span>) : object</pre>
+                <p><em>Returns the instance of a named plugin</em></p>
+                <p>Plugins SHOULD implement <a href="/classes/PicoPluginInterface.html">PicoPluginInterface</a>, but you MUST NOT
+rely on it. For more information see <a href="/classes/PicoPluginInterface.html">PicoPluginInterface</a>.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pluginName </td>
+                                <td><p>name of the plugin</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>thrown when the plugin wasn't found</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>instance of the plugin</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPlugins" name="method_getPlugins" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPlugins()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPlugins() : array&lt;mixed,object&gt;|null</pre>
+                <p><em>Returns all loaded plugins</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,object&gt;|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugin"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setConfig" name="method_setConfig" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setConfig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setConfig(array  <span class="argument">$config</span>) : void</pre>
+                <p><em>Sets Pico&#039;s config before calling Pico::run()</em></p>
+                <p>This method allows you to modify Pico's config without creating a
+{@path &quot;config/config.php&quot;} or changing some of its variables before
+Pico starts processing.</p>
+<p>You can call this method between <a href="/classes/Pico.html#method___construct">Pico::__construct()</a> and
+<a href="/classes/Pico.html#method_run">Pico::run()</a> only. Options set with this method cannot be
+overwritten by {@path &quot;config/config.php&quot;}.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$config </td>
+                                <td><p>array with config variables</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LogicException</dt>
+                            <dd><p>thrown if Pico already started processing</p></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadConfig"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getConfig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getConfig" name="method_getConfig" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getConfig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getConfig(string  <span class="argument">$configName = null</span>) : mixed</pre>
+                <p><em>Returns either the value of the specified config variable or
+the config array</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$configName </td>
+                                <td><p>optional name of a config variable</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>returns either the value of the named config
+variable, null if the config variable doesn't exist or the config
+array if no config name was supplied</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_setConfig"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_loadConfig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestUrl" name="method_getRequestUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestUrl() : string|null</pre>
+                <p><em>Returns the URL where a user requested the page</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|null
+                                            &mdash; <p>request URL</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_evaluateRequestUrl"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestFile" name="method_getRequestFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestFile() : string|null</pre>
+                <p><em>Returns the absolute path to the content file to serve</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|null
+                                            &mdash; <p>file path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_discoverRequestFile"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadFileContent" name="method_loadFileContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">loadFileContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadFileContent(string  <span class="argument">$file</span>) : string</pre>
+                <p><em>Returns the raw contents of a file</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file </td>
+                                <td><p>file path</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>raw contents of the file</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRawContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_load404Content" name="method_load404Content" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">load404Content()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">load404Content(string  <span class="argument">$file</span>) : string</pre>
+                <p><em>Returns the raw contents of the first found 404 file when traversing
+up from the directory the requested file is in</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$file </td>
+                                <td><p>path to requested (but not existing) file</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>thrown when no suitable 404 file is found</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>raw contents of the 404 file</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRawContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRawContent" name="method_getRawContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRawContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRawContent() : string|null</pre>
+                <p><em>Returns the raw contents, either of the requested or the 404 file</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|null
+                                            &mdash; <p>raw contents</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_load404Content"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMetaHeaders" name="method_getMetaHeaders" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMetaHeaders()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMetaHeaders() : array&lt;mixed,string&gt;</pre>
+                <p><em>Returns known meta headers and triggers the onMetaHeaders event</em></p>
+                <p>Heads up! Calling this method triggers the <code>onMetaHeaders</code> event.
+Keep this in mind to prevent a infinite loop!</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,string&gt;
+                                            &mdash; <p>known meta headers; the array value specifies the
+YAML key to search for, the array key is later used to access the
+found value</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseFileMeta" name="method_parseFileMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">parseFileMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseFileMeta(string  <span class="argument">$rawContent</span>, array&lt;mixed,string&gt;  <span class="argument">$headers</span>) : array</pre>
+                <p><em>Parses the file meta from raw file contents</em></p>
+                <p>Meta data MUST start on the first line of the file, either opened and
+closed by <code>---</code> or C-style block comments (deprecated). The headers are
+parsed by the YAML component of the Symfony project, keys are lowered.
+If you're a plugin developer, you MUST register new headers during the
+<code>onMetaHeaders</code> event first. The implicit availability of headers is
+for users and pure (!) theme developers ONLY.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$rawContent </td>
+                                <td><p>the raw file contents</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array&lt;mixed,string&gt;</td>
+                                <td>$headers </td>
+                                <td><p>known meta headers</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\Symfony\Component\Yaml\Exception\ParseException</dt>
+                            <dd><p>thrown when the
+meta data is invalid</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>parsed meta data</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getFileMeta"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFileMeta" name="method_getFileMeta" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFileMeta()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFileMeta() : array|null</pre>
+                <p><em>Returns the parsed meta data of the requested page</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>parsed meta data</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_parseFileMeta"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParsedown" name="method_getParsedown" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParsedown()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParsedown() : \ParsedownExtra|null</pre>
+                <p><em>Returns the Parsedown Extra markdown parser</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \ParsedownExtra|null
+                                            &mdash; <p>Parsedown Extra markdown parser</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_registerParsedown"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prepareFileContent" name="method_prepareFileContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">prepareFileContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prepareFileContent(string  <span class="argument">$rawContent</span>, array  <span class="argument">$meta</span>) : string</pre>
+                <p><em>Applies some static preparations to the raw contents of a page,
+e.g. removing the meta header and replacing %base_url%</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$rawContent </td>
+                                <td><p>raw contents of a page</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$meta </td>
+                                <td><p>meta data to use for %meta.*% replacement</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>contents prepared for parsing</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_parseFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseFileContent" name="method_parseFileContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">parseFileContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseFileContent(string  <span class="argument">$content</span>) : string</pre>
+                <p><em>Parses the contents of a page using ParsedownExtra</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$content </td>
+                                <td><p>raw contents of a page (Markdown)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>parsed contents (HTML)</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_prepareFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFileContent" name="method_getFileContent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFileContent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFileContent() : string|null</pre>
+                <p><em>Returns the cached contents of the requested page</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|null
+                                            &mdash; <p>parsed contents</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_prepareFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_parseFileContent"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPages" name="method_getPages" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPages() : array&lt;mixed,array&gt;|null</pre>
+                <p><em>Returns the list of known pages</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,array&gt;|null
+                                            &mdash; <p>the data of all pages</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_readPages"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_sortPages"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCurrentPage" name="method_getCurrentPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCurrentPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCurrentPage() : array|null</pre>
+                <p><em>Returns the data of the requested page</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>page data</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_discoverCurrentPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPreviousPage" name="method_getPreviousPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPreviousPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPreviousPage() : array|null</pre>
+                <p><em>Returns the data of the previous page relative to the page being served</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>page data</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_discoverCurrentPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNextPage" name="method_getNextPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getNextPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNextPage() : array|null</pre>
+                <p><em>Returns the data of the next page relative to the page being served</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>page data</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_discoverCurrentPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTwig" name="method_getTwig" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTwig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTwig() : \Twig_Environment|null</pre>
+                <p><em>Returns the twig template engine</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Twig_Environment|null
+                                            &mdash; <p>Twig template engine</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_registerTwig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBaseUrl" name="method_getBaseUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBaseUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBaseUrl() : string</pre>
+                <p><em>Returns the base URL of this Pico instance</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the base url</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isUrlRewritingEnabled" name="method_isUrlRewritingEnabled" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isUrlRewritingEnabled()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isUrlRewritingEnabled() : boolean</pre>
+                <p><em>Returns true if URL rewriting is enabled</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>true if URL rewriting is enabled, false otherwise</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPageUrl" name="method_getPageUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPageUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPageUrl(string  <span class="argument">$page</span>, array|string  <span class="argument">$queryData = null</span>) : string</pre>
+                <p><em>Returns the URL to a given page</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$page </td>
+                                <td><p>identifier of the page to link to</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array|string</td>
+                                <td>$queryData </td>
+                                <td><p>either an array containing properties to
+create a URL-encoded query string from, or a already encoded string</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>URL</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getBaseThemeUrl" name="method_getBaseThemeUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getBaseThemeUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getBaseThemeUrl() : string</pre>
+                <p><em>Returns the URL of the themes folder of this Pico instance</em></p>
+                <p>We assume that the themes folder is a arbitrary deep sub folder of the
+script's base path (i.e. the directory {@path &quot;index.php&quot;} is in resp.
+the <code>httpdocs</code> directory). Usually the script's base path is identical
+to <a href="/classes/Pico.html#property_rootDir">Pico::$rootDir</a>, but this may aberrate when Pico got installed
+as a composer dependency. However, ultimately it allows us to use
+<a href="/classes/Pico.html#method_getBaseUrl">Pico::getBaseUrl()</a> as origin of the theme URL. Otherwise Pico
+falls back to the basename of <a href="/classes/Pico.html#property_themesDir">Pico::$themesDir</a> (i.e. assuming
+that <code>Pico::$themesDir</code> is <code>foo/bar/baz</code>, the base URL of the themes
+folder will be <code>baz/</code>; this ensures BC to Pico &lt; 1.1). Pico's base URL
+always gets prepended appropriately.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>the URL of the themes folder</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAbsolutePath" name="method_getAbsolutePath" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAbsolutePath()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAbsolutePath(string  <span class="argument">$path</span>) : string</pre>
+                <p><em>Makes a relative path absolute to Pico&#039;s root dir</em></p>
+                <p>This method also guarantees a trailing slash.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$path </td>
+                                <td><p>relative or absolute path</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>absolute path</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_triggerEvent" name="method_triggerEvent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">triggerEvent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">triggerEvent(string  <span class="argument">$eventName</span>, array  <span class="argument">$params = array()</span>) : void</pre>
+                <p><em>Triggers events on plugins which implement PicoPluginInterface</em></p>
+                <p>Deprecated events (as used by plugins not implementing
+<a href="/classes/PicoPluginInterface.html">PicoPluginInterface</a>) are triggered by \PicoDeprecated.
+You MUST NOT trigger events of Pico's core with a plugin!</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$eventName </td>
+                                <td><p>name of the event to trigger</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params </td>
+                                <td><p>optional parameters to pass</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/PicoPluginInterface.html"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/AbstractPicoPlugin.html"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/DummyPlugin.html"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadPlugins" name="method_loadPlugins" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadPlugins()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadPlugins() : void</pre>
+                <p><em>Loads plugins from Pico::$pluginsDir in alphabetical order</em></p>
+                <p>Plugin files MAY be prefixed by a number (e.g. 00-PicoDeprecated.php)
+to indicate their processing order. Plugins without a prefix will be
+loaded last. If you want to use a prefix, you MUST consider the
+following directives:</p>
+<ul>
+<li>00 to 19: Reserved</li>
+<li>20 to 39: Low level code helper plugins</li>
+<li>40 to 59: Plugins manipulating routing or the pages array</li>
+<li>60 to 79: Plugins hooking into template or markdown parsing</li>
+<li>80 to 99: Plugins using the <code>onPageRendered</code> event</li>
+</ul>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\RuntimeException</dt>
+                            <dd><p>thrown when a plugin couldn't be loaded</p></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_loadPlugin"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugin"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPlugins"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_loadConfig" name="method_loadConfig" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">loadConfig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">loadConfig() : void</pre>
+                <p><em>Loads the config.php and any *.config.php from Pico::$configDir</em></p>
+                <p>After loading the {@path &quot;config/config.php&quot;}, Pico proceeds with any
+existing <code>config/*.config.php</code> in alphabetical order. The file order is
+crucial: Config values which has been set already, cannot be overwritten
+by a succeeding file. This is also true for arrays, i.e. when specifying
+<code>$config['test'] = array('foo' =&gt; 'bar')</code> in <code>config/a.config.php</code> and
+<code>$config['test'] = array('baz' =&gt; 42)</code> in <code>config/b.config.php</code>,
+<code>$config['test']['baz']</code> will be undefined!</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_setConfig"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getConfig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_evaluateRequestUrl" name="method_evaluateRequestUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">evaluateRequestUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">evaluateRequestUrl() : void</pre>
+                <p><em>Evaluates the requested URL</em></p>
+                <p>Pico 1.0 uses the <code>QUERY_STRING</code> routing method (e.g. <code>/pico/?sub/page</code>)
+to support SEO-like URLs out-of-the-box with any webserver. You can
+still setup URL rewriting (e.g. using <code>mod_rewrite</code> on Apache) to
+basically remove the <code>?</code> from URLs, but your rewritten URLs must follow
+the new <code>QUERY_STRING</code> principles. URL rewriting requires some special
+configuration on your webserver, but this should be &quot;basic work&quot; for
+any webmaster...</p>
+<p>Pico 0.9 and older required Apache with <code>mod_rewrite</code> enabled, thus old
+plugins, templates and contents may require you to enable URL rewriting
+to work. If you're upgrading from Pico 0.9, you will probably have to
+update your rewriting rules.</p>
+<p>We recommend you to use the <code>link</code> filter in templates to create
+internal links, e.g. <code>{{ "sub/page"|link }}</code> is equivalent to
+<code>{{ base_url }}/sub/page</code> and <code>{{ base_url }}?sub/page</code>, depending on
+enabled URL rewriting. In content files you can use the <code>%base_url%</code>
+variable; e.g. <code>%base_url%?sub/page</code> will be replaced accordingly.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRequestUrl"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_discoverRequestFile" name="method_discoverRequestFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">discoverRequestFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">discoverRequestFile() : void</pre>
+                <p><em>Uses the request URL to discover the content file to serve</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRequestFile"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_registerParsedown" name="method_registerParsedown" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">registerParsedown()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">registerParsedown() : void</pre>
+                <p><em>Registers the Parsedown Extra markdown parser</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getParsedown"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_readPages" name="method_readPages" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">readPages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">readPages() : void</pre>
+                <p><em>Reads the data of all pages known to Pico</em></p>
+                <p>The page data will be an array containing the following values:</p>
+<table>
+<thead>
+<tr>
+<th>Array key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>relative path to the content file</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>URL to the page</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>title of the page (YAML header)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>description of the page (YAML header)</td>
+</tr>
+<tr>
+<td>author</td>
+<td>string</td>
+<td>author of the page (YAML header)</td>
+</tr>
+<tr>
+<td>time</td>
+<td>string</td>
+<td>timestamp derived from the Date header</td>
+</tr>
+<tr>
+<td>date</td>
+<td>string</td>
+<td>date of the page (YAML header)</td>
+</tr>
+<tr>
+<td>date_formatted</td>
+<td>string</td>
+<td>formatted date of the page</td>
+</tr>
+<tr>
+<td>raw_content</td>
+<td>string</td>
+<td>raw, not yet parsed contents of the page</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>string</td>
+<td>parsed meta data of the page</td>
+</tr>
+</tbody>
+</table>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_sortPages"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPages"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sortPages" name="method_sortPages" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">sortPages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sortPages() : void</pre>
+                <p><em>Sorts all pages known to Pico</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_readPages"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPages"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_discoverCurrentPage" name="method_discoverCurrentPage" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">discoverCurrentPage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">discoverCurrentPage() : void</pre>
+                <p><em>Walks through the list of known pages and discovers the requested page
+as well as the previous and next page relative to it</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getCurrentPage"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getPreviousPage"><span class="namespace-wrapper"></span></a></dd>
+                                            <dd><a href="../classes/Pico.html#method_getNextPage"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_registerTwig" name="method_registerTwig" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">registerTwig()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">registerTwig() : void</pre>
+                <p><em>Registers the twig template engine</em></p>
+                <p>This method also registers Picos core Twig filters <code>link</code> and <code>content</code>
+as well as Picos <a href="/classes/PicoTwigExtension.html">PicoTwigExtension</a> Twig extension.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getTwig"><span class="namespace-wrapper"></span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTwigVariables" name="method_getTwigVariables" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getTwigVariables()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTwigVariables() : array</pre>
+                <p><em>Returns the variables passed to the template</em></p>
+                <p>URLs and paths (namely <code>base_dir</code>, <code>base_url</code>, <code>theme_dir</code> and
+<code>theme_url</code>) don't add a trailing slash for historic reasons.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>template variables</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFiles" name="method_getFiles" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getFiles()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFiles(string  <span class="argument">$directory</span>, string  <span class="argument">$fileExtension = &#039;&#039;</span>, integer  <span class="argument">$order = self::SORT_ASC</span>) : array</pre>
+                <p><em>Recursively walks through a directory and returns all containing files
+matching the specified file extension</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$directory </td>
+                                <td><p>start directory</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fileExtension </td>
+                                <td><p>return files with the given file extension
+only (optional)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$order </td>
+                                <td><p>specify whether and how files should be
+sorted; use Pico::SORT_ASC for a alphabetical ascending order (this
+is the default behaviour), Pico::SORT_DESC for a descending order
+or Pico::SORT_NONE to leave the result unsorted</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>list of found files</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Pico.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/lib/Pico.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on April 23rd, 2016 at 23:27.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
