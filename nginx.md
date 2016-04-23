@@ -117,7 +117,7 @@ If your Pico installation is in the `Document Root` of your website, then config
 
 ```
 location / {
-	try_files $uri $uri/ /?$uri&$args
+	try_files $uri $uri/ /?$uri&$args;
 }
 ```
 
