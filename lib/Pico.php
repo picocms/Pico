@@ -656,13 +656,19 @@ class Pico
     /**
      * Evaluates the requested URL
      *
-     * Pico 1.0 uses the `QUERY_STRING` routing method (e.g. `/pico/?sub/page`)
+     * Pico uses the `QUERY_STRING` routing method (e.g. `/pico/?sub/page`)
      * to support SEO-like URLs out-of-the-box with any webserver. You can
-     * still setup URL rewriting (e.g. using `mod_rewrite` on Apache) to
-     * basically remove the `?` from URLs, but your rewritten URLs must follow
-     * the new `QUERY_STRING` principles. URL rewriting requires some special
-     * configuration on your webserver, but this should be "basic work" for
-     * any webmaster...
+     * still setup URL rewriting to basically remove the `?` from URLs.
+     * However, URL rewriting requires some special configuration of your
+     * webserver, but this should be "basic work" for any webmaster...
+     *
+     * With Pico 1.0 you had to setup URL rewriting (e.g. using `mod_rewrite`
+     * on Apache) in a way that rewritten URLs follow the `QUERY_STRING`
+     * principles. Starting with version 1.1, Pico additionally supports the
+     * `REQUEST_URI` routing method, what allows you to simply rewrite all
+     * requests to just `index.php`. Pico then reads the requested page from
+     * the `REQUEST_URI` environment variable provided by the webserver.
+     * Please note that `QUERY_STRING` takes precedence over `REQUEST_URI`.
      *
      * Pico 0.9 and older required Apache with `mod_rewrite` enabled, thus old
      * plugins, templates and contents may require you to enable URL rewriting
@@ -675,23 +681,43 @@ class Pico
      * enabled URL rewriting. In content files you can use the `%base_url%`
      * variable; e.g. `%base_url%?sub/page` will be replaced accordingly.
      *
+     * Heads up! Pico always interprets the first parameter as name of the
+     * requested page (provided that the parameter has no value). According to
+     * that you MUST NOT call Pico with a parameter without value as first
+     * parameter (e.g. http://example.com/pico/?someBooleanParam), otherwise
+     * Pico interprets `someBooleanParam` as name of the requested page. Use
+     * `/pico/?someBooleanParam=` or `/pico/?index&someBooleanParam` instead.
+     *
      * @see    Pico::getRequestUrl()
      * @return void
      */
     protected function evaluateRequestUrl()
     {
         // use QUERY_STRING; e.g. /pico/?sub/page
-        // if you want to use rewriting, you MUST make your rules to
-        // rewrite the URLs to follow the QUERY_STRING method
-        //
-        // Note: you MUST NOT call the index page with /pico/?someBooleanParameter;
-        // use /pico/?someBooleanParameter= or /pico/?index&someBooleanParameter instead
-        $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
-        if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
-            $pathComponent = substr($pathComponent, 0, $pathComponentLength);
+        $pathComponent = $_SERVER['QUERY_STRING'];
+        if (!empty($pathComponent)) {
+            if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
+                $pathComponent = substr($pathComponent, 0, $pathComponentLength);
+            }
+            if (strpos($pathComponent, '=') === false) {
+                $this->requestUrl = trim(rawurldecode($pathComponent), '/');
+            }
         }
-        $this->requestUrl = (strpos($pathComponent, '=') === false) ? rawurldecode($pathComponent) : '';
-        $this->requestUrl = trim($this->requestUrl, '/');
+
+        // use REQUEST_URI (requires URL rewriting); e.g. /pico/sub/page
+        if (($this->requestUrl === null) && $this->isUrlRewritingEnabled()) {
+            $basePath = dirname($_SERVER['SCRIPT_NAME']) . '/';
+            $basePathLength = strlen($basePath);
+
+            $requestUri = $_SERVER['REQUEST_URI'];
+            if (substr($requestUri, 0, $basePathLength) === $basePath) {
+                $requestUri = substr($requestUri, $basePathLength);
+                if (($requestUriLength = strpos($requestUri, '?')) !== false) {
+                    $requestUri = substr($requestUri, 0, $requestUriLength);
+                }
+                $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
+            }
+        }
     }
 
     /**

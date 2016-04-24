@@ -1,13 +1,18 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    #May be required to access sub-directories
+    # May be required to access sub-directories
     #RewriteBase /
+
+    # Deny access to internal dirs by passing the URL to Pico
+    RewriteRule ^(.git|config|content|content-sample|lib|vendor)(/|$) index.php [L]
+
+    # Enable URL rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?$1 [L,QSA]
-    RewriteRule ^(config|content|content-sample|lib|vendor)/.* - [R=404,L]
+    RewriteRule ^ index.php [L]
 
     <IfModule mod_env.c>
+        # Let Pico know about available URL rewriting
         SetEnv PICO_URL_REWRITING 1
     </IfModule>
 </IfModule>
