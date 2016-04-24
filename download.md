@@ -9,7 +9,7 @@ redirect_from: /download.html
 ---
 
 <p class="aligncenter">
-    <a href="{{ site.gh_project_url }}/releases/latest" class="button">Download Pico</a>
+    <a href="{{ site.gh_project_url }}/releases/latest" class="button">Download Pico {{ site.data.version.name }}</a>
 </p>
 
 ---
