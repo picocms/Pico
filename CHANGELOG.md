@@ -7,6 +7,10 @@ Released: -
 ```
 * [Changed] Improve documentation
 * [Changed] Add CSS rules for definition lists to default theme
+* [Changed] Always use `on404Content...` execution path when serving a `404.md`
+* [Changed] Deny access to `.git` directory (`.htaccess` file)
+* [Changed] Use Pico's `404.md` to deny access to `.git`, `config`, `content`,
+*           `content-sample`, `lib` and `vendor` dirs (`.htaccess` file)
 * [Fixed] #342: Fix responsiveness in default theme
 * [Fixed] #344: Improve HTTPS detection with proxies
 * [Fixed] #346: Force HTTPS to load Google Fonts in default theme
