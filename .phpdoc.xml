@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title><![CDATA[Pico 1.0 API Documentation]]></title>
+    <title><![CDATA[Pico API Documentation]]></title>
     <parser>
         <target>_build/phpdoc.cache</target>
     </parser>

@@ -29,10 +29,14 @@ github-setup.sh
 
 # generate phpDocs
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
+    # get current Pico milestone
+    MILESTONE="Pico$([[ "$TRAVIS_TAG" =~ ^v([0-9]+\.[0-9]+)\. ]] && echo " ${BASH_REMATCH[1]}")"
+
+    # generate phpDocs
     generate-phpdoc.sh \
         "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
         "-" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
-        "Pico 1.0 API Documentation ($TRAVIS_TAG)"
+        "$MILESTONE API Documentation ($TRAVIS_TAG)"
     [ $? -eq 0 ] || exit 1
 
     # commit phpDocs

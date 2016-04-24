@@ -18,6 +18,10 @@ fi
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
+# get current Pico milestone
+VERSION="$(php -r 'require_once(__DIR__ . "/lib/Pico.php"); echo Pico::VERSION;')"
+MILESTONE="Pico$([[ "$VERSION" =~ ^([0-9]+\.[0-9]+)\. ]] && echo " ${BASH_REMATCH[1]}")"
+
 # clone repo
 echo "Cloning repo..."
 git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$DEPLOYMENT_DIR"
@@ -33,7 +37,7 @@ github-setup.sh
 generate-phpdoc.sh \
     "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
     "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
-    "Pico 1.0 API Documentation ($TRAVIS_BRANCH branch)"
+    "$MILESTONE API Documentation ($TRAVIS_BRANCH branch)"
 [ $? -eq 0 ] || exit 1
 [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache")" ] || exit 0
 
