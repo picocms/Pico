@@ -1,11 +1,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    #May be required to access sub-directories
+    # May be required to access sub directories
     #RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?$1 [L,QSA]
-    RewriteRule ^(config|content|content-sample|lib|vendor)/.* - [R=404,L]
+    RewriteRule ^(.git|config|content|content-sample|lib|vendor)/.* index.php?404 [L]
 
     <IfModule mod_env.c>
         SetEnv PICO_URL_REWRITING 1
