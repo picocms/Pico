@@ -137,13 +137,12 @@ h3 {
     margin-top: 2em;
 }
 
-p, table {
+p, table, ol, ul, pre, blockquote, dl {
     margin-bottom: 1em;
 }
 
 ol, ul {
     padding-left: 30px;
-    margin-bottom: 1em;
 }
 
 b, strong {
@@ -198,15 +197,18 @@ code {
 pre {
     background: #eee;
     padding: 20px;
-    margin-bottom: 1em;
     overflow: auto;
 }
 
 blockquote {
     font-style: italic;
-    margin: 0 0 1em 15px;
+    margin-left: 15px;
     padding-left: 10px;
     border-left: 5px solid #dddddd;
+}
+
+dd {
+    margin-left: 2em;
 }
 
 /* Structure Styles
@@ -223,7 +225,8 @@ body > * {
 }
 
 .inner {
-    width: 850px;
+    width: 100%;
+    max-width: 850px;
     margin: 0 auto;
 }
 

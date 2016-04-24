@@ -1,11 +1,29 @@
 Pico Changelog
 ==============
 
-### Version 1.0.2
+### Version 1.0.3
 Released: -
 
 ```
+* [Changed] Improve documentation
+* [Changed] Add CSS rules for definition lists to default theme
+* [Changed] Always use `on404Content...` execution path when serving a `404.md`
+* [Changed] Deny access to `.git` directory (`.htaccess` file)
+* [Changed] Use Pico's `404.md` to deny access to `.git`, `config`, `content`,
+*           `content-sample`, `lib` and `vendor` dirs (`.htaccess` file)
+* [Fixed] #342: Fix responsiveness in default theme
+* [Fixed] #344: Improve HTTPS detection with proxies
+* [Fixed] #346: Force HTTPS to load Google Fonts in default theme
+```
+
+### Version 1.0.2
+Released: 2016-03-16
+
+```
+* [Changed] Various small improvements and changes...
 * [Fixed] Check dependencies when a plugin is enabled by default
+* [Fixed] Allow `Pico::$requestFile` to point to somewhere outside `content_dir`
+* [Fixed] #336: Fix `Date` meta header parsing with ISO-8601 datetime strings
 ```
 
 ### Version 1.0.1

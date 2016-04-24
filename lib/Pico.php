@@ -312,7 +312,8 @@ class Pico
         // load raw file content
         $this->triggerEvent('onContentLoading', array(&$this->requestFile));
 
-        if (file_exists($this->requestFile)) {
+        $notFoundFile = '404' . $this->getConfig('content_ext');
+        if (file_exists($this->requestFile) && (basename($this->requestFile) !== $notFoundFile)) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
@@ -925,7 +926,17 @@ class Pico
             }
 
             if (!empty($meta['date'])) {
-                $meta['time'] = strtotime($meta['date']);
+                // workaround for issue #336
+                // Symfony YAML interprets ISO-8601 datetime strings and returns timestamps instead of the string
+                // this behavior conforms to the YAML standard, i.e. this is no bug of Symfony YAML
+                if (is_int($meta['date'])) {
+                    $meta['time'] = $meta['date'];
+
+                    $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
+                    $meta['date'] = date($rawDateFormat, $meta['time']);
+                } else {
+                    $meta['time'] = strtotime($meta['date']);
+                }
                 $meta['date_formatted'] = utf8_encode(strftime($this->getConfig('date_format'), $meta['time']));
             } else {
                 $meta['time'] = $meta['date_formatted'] = '';
@@ -1283,8 +1294,8 @@ class Pico
     /**
      * Registers the twig template engine
      *
-     * This method also registers Picos core Twig filters `link` and `content`
-     * as well as Picos {@link PicoTwigExtension} Twig extension.
+     * This method also registers Pico's core Twig filters `link` and `content`
+     * as well as Pico's {@link PicoTwigExtension} Twig extension.
      *
      * @see    Pico::getTwig()
      * @return void
@@ -1371,11 +1382,12 @@ class Pico
         }
 
         $protocol = 'http';
-        if (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+            $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
+            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1')) ? 'https' : 'http';
+        } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } elseif ($_SERVER['SERVER_PORT'] == 443) {
-            $protocol = 'https';
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
             $protocol = 'https';
         }
 
