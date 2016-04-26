@@ -4,7 +4,7 @@ toc:
 nav: 2
 ---
 
-## Upgrade
+## Upgrade [Learn more...][HelpUpgrade]
 
 Upgrading Pico is very easy: You just have to replace all of Pico's files - that's it! Nevertheless you should *always* create a backup of your Pico installation before upgrading.
 

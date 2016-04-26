@@ -18,7 +18,9 @@ toc:
     notes-for-plugin-developers: Notes for plugin developers
 nav-url: /docs/
 gh_release: v1.0.0
-redirect_from: /upgrade.html
+redirect_from:
+    - /upgrade/index.html
+    - /upgrade.html
 ---
 
 With the release of Pico 1.0 we did a complete code refactoring, overhauled the plugin system, fixed countless bugs and problems, created compatibility to any web server and massively enhanced documentation. Making Pico extremely simple, faster, and more flexible than ever. Best of all, it's completely backwards compatible!
