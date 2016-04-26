@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>Pico 1.0 API Documentation (pico-1.1 branch)</title>
+    <title>Pico 1.1 API Documentation (pico-1.1 branch)</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
@@ -83,7 +83,7 @@
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <i class="icon-ellipsis-vertical"></i>
             </a>
-            <a class="brand" href="../index.html">Pico 1.0 API Documentation (pico-1.1 branch)</a>
+            <a class="brand" href="../index.html">Pico 1.1 API Documentation (pico-1.1 branch)</a>
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1904725476"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1257397289"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1904725476" class="accordion-body collapse in">
+            <div id="namespace-1257397289" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -181,9 +181,9 @@ text editor using simple Markdown formatting.</li>
 <li>Twig Templates: Pico uses the Twig templating engine,
 for powerful and flexible themes.</li>
 <li>Open Source: Pico is completely free and open source,
-released under the MIT license.
-See <a href="http://picocms.org/">http://picocms.org/</a> for more info.</li>
+released under the MIT license.</li>
 </ul>
+<p>See <a href="http://picocms.org/">http://picocms.org/</a> for more info.</p>
                     
                                         
                     <section id="summary">
@@ -2304,13 +2304,18 @@ by a succeeding file. This is also true for arrays, i.e. when specifying
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">evaluateRequestUrl() : void</pre>
                 <p><em>Evaluates the requested URL</em></p>
-                <p>Pico 1.0 uses the <code>QUERY_STRING</code> routing method (e.g. <code>/pico/?sub/page</code>)
+                <p>Pico uses the <code>QUERY_STRING</code> routing method (e.g. <code>/pico/?sub/page</code>)
 to support SEO-like URLs out-of-the-box with any webserver. You can
-still setup URL rewriting (e.g. using <code>mod_rewrite</code> on Apache) to
-basically remove the <code>?</code> from URLs, but your rewritten URLs must follow
-the new <code>QUERY_STRING</code> principles. URL rewriting requires some special
-configuration on your webserver, but this should be &quot;basic work&quot; for
-any webmaster...</p>
+still setup URL rewriting to basically remove the <code>?</code> from URLs.
+However, URL rewriting requires some special configuration of your
+webserver, but this should be &quot;basic work&quot; for any webmaster...</p>
+<p>With Pico 1.0 you had to setup URL rewriting (e.g. using <code>mod_rewrite</code>
+on Apache) in a way that rewritten URLs follow the <code>QUERY_STRING</code>
+principles. Starting with version 1.1, Pico additionally supports the
+<code>REQUEST_URI</code> routing method, what allows you to simply rewrite all
+requests to just <code>index.php</code>. Pico then reads the requested page from
+the <code>REQUEST_URI</code> environment variable provided by the webserver.
+Please note that <code>QUERY_STRING</code> takes precedence over <code>REQUEST_URI</code>.</p>
 <p>Pico 0.9 and older required Apache with <code>mod_rewrite</code> enabled, thus old
 plugins, templates and contents may require you to enable URL rewriting
 to work. If you're upgrading from Pico 0.9, you will probably have to
@@ -2320,6 +2325,12 @@ internal links, e.g. <code>{{ "sub/page"|link }}</code> is equivalent to
 <code>{{ base_url }}/sub/page</code> and <code>{{ base_url }}?sub/page</code>, depending on
 enabled URL rewriting. In content files you can use the <code>%base_url%</code>
 variable; e.g. <code>%base_url%?sub/page</code> will be replaced accordingly.</p>
+<p>Heads up! Pico always interprets the first parameter as name of the
+requested page (provided that the parameter has no value). According to
+that you MUST NOT call Pico with a parameter without value as first
+parameter (e.g. <a href="http://example.com/pico/?someBooleanParam">http://example.com/pico/?someBooleanParam</a>), otherwise
+Pico interprets <code>someBooleanParam</code> as name of the requested page. Use
+<code>/pico/?someBooleanParam=</code> or <code>/pico/?index&amp;someBooleanParam</code> instead.</p>
 
                 
                 
@@ -2553,8 +2564,8 @@ as well as the previous and next page relative to it</em></p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">registerTwig() : void</pre>
                 <p><em>Registers the twig template engine</em></p>
-                <p>This method also registers Picos core Twig filters <code>link</code> and <code>content</code>
-as well as Picos <a href="/classes/PicoTwigExtension.html">PicoTwigExtension</a> Twig extension.</p>
+                <p>This method also registers Pico's core Twig filters <code>link</code> and <code>content</code>
+as well as Pico's <a href="/classes/PicoTwigExtension.html">PicoTwigExtension</a> Twig extension.</p>
 
                 
                 
@@ -2705,7 +2716,7 @@ or Pico::SORT_NONE to leave the result unsorted</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 23rd, 2016 at 23:27.
+                    on April 26th, 2016 at 16:23.
                 </section>
             </section>
         </section>
