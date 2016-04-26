@@ -4,7 +4,7 @@ toc:
 nav: 2
 ---
 
-## Upgrade [Learn more...][HelpUpgrade]{:.learn-more}
+## Upgrade [Learn more…][HelpUpgrade]{:.learn-more}
 {:#upgrade}
 
 Upgrading Pico is very easy: You just have to replace all of Pico's files - that's it! Nevertheless you should *always* create a backup of your Pico installation before upgrading.
@@ -22,4 +22,4 @@ Upgrading Pico 0.8 or 0.9 to Pico 1.0 is a special case. The new `PicoDeprecated
 [SemVer]: http://semver.org
 [LatestRelease]: {{ site.gh_project_url }}/releases/latest
 [composer]: https://getcomposer.org/
-[HelpUpgrade]: {{ site.github.url }}/upgrade/
+[HelpUpgrade]: {{ site.github.url }}/in-depth/upgrade/

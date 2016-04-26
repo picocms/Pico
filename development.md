@@ -20,6 +20,6 @@ If you have a question about one of the new features of Pico 1.0, please comment
 
 [PullRequest252]: https://github.com/picocms/Pico/pull/252
 [PullRequest252UpgradeNotes]: https://github.com/picocms/Pico/pull/252#issuecomment-138078795
-[Upgrade]: {{ site.github.url }}/upgrade/
+[Upgrade]: {{ site.github.url }}/in-depth/upgrade/
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [Issues]: {{ site.gh_project_url }}/issues

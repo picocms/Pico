@@ -107,11 +107,11 @@ The new `PicoDeprecated` plugin ensures backward compatibility to Pico 0.9 and o
 
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [Issues]: {{ site.gh_project_url }}/issues
-[UpgradeDetailsThemes]: {{ site.github.url }}/upgrade/#how-to-upgrade-a-custom-theme
-[UpgradeDetailsPageContent]: {{ site.github.url }}/upgrade/#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin
-[UpgradeDetailsPageExcerpt]: {{ site.github.url }}/upgrade/#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin
-[UpgradeDetailsRoutingSystem]: {{ site.github.url }}/upgrade/#routing-system
-[UpgradeDetailsRoutingSystemThemes]: {{ site.github.url }}/upgrade/#routing-system-1
+[UpgradeDetailsThemes]: {{ site.github.url }}/in-depth/upgrade/#how-to-upgrade-a-custom-theme
+[UpgradeDetailsPageContent]: {{ site.github.url }}/in-depth/upgrade/#drop-of--pagecontent--and-the-new-picoparsepagescontent-plugin
+[UpgradeDetailsPageExcerpt]: {{ site.github.url }}/in-depth/upgrade/#drop-of--pageexcerpt--and-the-new-picoexcerpt-plugin
+[UpgradeDetailsRoutingSystem]: {{ site.github.url }}/in-depth/upgrade/#routing-system
+[UpgradeDetailsRoutingSystemThemes]: {{ site.github.url }}/in-depth/upgrade/#routing-system-1
 [Changelog]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/CHANGELOG.md
 [PicoGetPageUrl]: {{ site.github.url }}/phpDoc/{{ page.gh_release }}/classes/Pico.html#method_getPageUrl
 [RewriteFile]: {{ site.gh_project_url }}/blob/{{ page.gh_release }}/.htaccess#L7
