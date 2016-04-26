@@ -298,7 +298,8 @@ class Pico
         // load raw file content
         $this->triggerEvent('onContentLoading', array(&$this->requestFile));
 
-        if (file_exists($this->requestFile)) {
+        $notFoundFile = '404' . $this->getConfig('content_ext');
+        if (file_exists($this->requestFile) && (basename($this->requestFile) !== $notFoundFile)) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
