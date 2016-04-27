@@ -1,0 +1,41 @@
+---
+layout: default
+title: phpDocumentor class documentation
+headline: phpDocumentor class documentation
+description: The phpDocumentor class documentation provides an in-depth view of Pico.
+nav-url: /docs/
+---
+
+{% assign index = 0 %}
+{% assign previousType = "" %}
+{% assign phpDocs = site.data.phpDoc|sort:"type" %}
+{% for phpDoc in phpDocs %}
+    {% if phpDoc.type != previousType and forloop.first == false %}
+        {% assign index = 0 %}
+        </div>
+    {% endif %}
+
+    {% assign currentCycle = index|modulo:3 %}
+    {% if currentCycle == 0 or phpDoc.type != previousType %}
+        <div class="pricing three">
+    {% endif %}
+
+    <div class="plan">
+        <h3>{{ phpDoc.title }}</h3>
+        <div class="features">
+            <ul>
+                <li>Last Update: {{ phpDoc.last_update|date:"%F %R" }}</li>
+            </ul>
+        </div>
+        <div class="select">
+            <div><a class="button" href="{{ site.github.url }}/phpDoc/{{ phpDoc.id }}">Show</a></div>
+        </div>
+    </div>
+
+    {% if currentCycle == 2 or forloop.last == true %}
+        </div>
+    {% endif %}
+
+    {% assign previousType = phpDoc.type %}
+    {% assign index = index|plus:1 %}
+{% endfor %}
