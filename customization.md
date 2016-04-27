@@ -4,7 +4,7 @@ title: Customization
 headline: Pico Plugins &amp; Themes
 description: |
     Below are some plugins and themes which extend the functionality of Pico and make it even more awesome.<br />
-    Want to make a plugin or theme? Please refer to [our documentation](docs/#plugins)!
+    Want to create a plugin or theme? Please refer to [our documentation](/docs/#plugins)!
 nav: 4
 redirect_from:
     - /customization.html

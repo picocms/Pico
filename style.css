@@ -2844,3 +2844,16 @@ media_tag_5 {media_subcode:5}
     float: left;
     margin: 8px 0.5em 0.5em 0;
 }
+h1 .learn-more, h2 .learn-more, h3 .learn-more,
+h4 .learn-more, h5 .learn-more, h6 .learn-more {
+    margin-left: 1em;
+    font-size: 66.66%;
+    font-weight: 700; /* bold, but not as bold as the header itself (font-weight: 900) */
+    line-height: 1;
+    color: #bbb;
+}
+h1:hover .learn-more, h2:hover .learn-more, h3:hover .learn-more,
+h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
+    color: #ff6760;
+    font-size: 75%;
+}

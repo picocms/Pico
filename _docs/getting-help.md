@@ -21,7 +21,7 @@ When the docs can't answer your question, you can get help by joining us on [#pi
 
 **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps you have taken to resolve the problem by yourself (i.e. *your own troubleshooting*).
 
-[HelpUpgrade]: {{ site.github.url }}/upgrade/
+[HelpUpgrade]: {{ site.github.url }}/in-depth/upgrade/
 [HelpUserDocs]: {{ site.github.url }}/docs/
 [HelpDevDocs]: {{ site.github.url }}/development/
 [HelpDevOverview]: {{ site.github.url }}/docs/#getting-help-as-a-developer
