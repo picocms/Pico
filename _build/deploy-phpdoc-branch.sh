@@ -40,7 +40,7 @@ generate-phpdoc.sh \
 # update phpDoc list
 update-phpdoc-list.sh \
     "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
-    "$TRAVIS_BRANCH" "branch" "\`$TRAVIS_BRANCH\` branch" "$(date +%s)"
+    "$TRAVIS_BRANCH" "branch" "<code>$TRAVIS_BRANCH</code> branch" "$(date +%s)"
 
 # commit phpDocs
 echo "Committing changes..."
