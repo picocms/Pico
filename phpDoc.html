@@ -6,10 +6,20 @@ description: The phpDocumentor class documentation provides an in-depth view of 
 nav-url: /docs/
 ---
 
+{% capture phpDocSort %}
+    {% for phpDoc in site.data.phpDoc %}
+        #{{ phpDoc.type }}-{{ phpDoc.last_update }}-{{ phpDoc.id }}={{ forloop.index0 }}
+    {% endfor %}
+{% endcapture %}
+
 {% assign index = 0 %}
 {% assign previousType = "" %}
-{% assign phpDocs = site.data.phpDoc|sort:"type" %}
-{% for phpDoc in phpDocs %}
+{% assign phpDocSort = phpDocSort|split:'#'|sort %}
+{% for phpDocSortString in phpDocSort reversed offset:1 %}
+    {% assign phpDocSortData = phpDocSortString|strip|split:'=' %}
+    {% assign phpDocIndex = phpDocSortData[1]|plus:0 %}
+    {% assign phpDoc = site.data.phpDoc[phpDocIndex] %}
+
     {% if phpDoc.type != previousType and forloop.first == false %}
         {% assign index = 0 %}
         </div>
