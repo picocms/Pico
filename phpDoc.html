@@ -6,6 +6,27 @@ description: The phpDocumentor class documentation provides an in-depth view of 
 nav-url: /docs/
 ---
 
+{% capture phpDocSort %}
+    {% for phpDoc in site.data.phpDoc %}
+        #{{ phpDoc.type }}-{{ phpDoc.last_update }}-{{ phpDoc.id }}={{ forloop.index0 }}
+    {% endfor %}
+{% endcapture %}
+
+<!-- phpDocSort (string) = {{ phpDocSort }} -->
+
+{% phpDocSort = phpDocSort|split:'#'|sort %}
+<!-- phpDocSort (array) = {{ phpDocSort|join:'#' }} -->
+
+{% for phpDocSortString in phpDocSort %}
+    <!-- iterate: phpDocSortString = {{ phpDocSortString }} -->
+    {% assign phpDocSortData = phpDocSortString|split:'=' %}
+    <!-- iterate: phpDocSortData = {{ phpDocSortData }} -->
+    {% assign phpDocIndex = phpDocSortData[1] %}
+    <!-- iterate: phpDocIndex = {{ phpDocIndex }} -->
+    {% assign phpDoc = site.data.phpDoc[phpDocIndex] %}
+    <!-- iterate: phpDoc.id = {{ phpDoc.id }} -->
+{% endfor %}
+
 {% assign index = 0 %}
 {% assign previousType = "" %}
 {% assign phpDocs = site.data.phpDoc|sort:"type" %}
