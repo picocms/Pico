@@ -1,0 +1,28 @@
+- id: master
+  type: branch
+  title: <code>master</code> branch
+  last_update: 1461680820
+- id: v1.0.0-beta.1
+  type: version
+  title: Pico 1.0.0-beta.1
+  last_update: 1446832680
+- id: v1.0.0-beta.2
+  type: version
+  title: Pico 1.0.0-beta.2
+  last_update: 1448902620
+- id: v1.0.0
+  type: version
+  title: Pico 1.0.0
+  last_update: 1450957500
+- id: v1.0.1
+  type: version
+  title: Pico 1.0.1
+  last_update: 1456594800
+- id: pico-1.1
+  type: branch
+  title: <code>pico-1.1</code> branch
+  last_update: 1461680580
+- id: v1.0.2
+  type: version
+  title: Pico 1.0.2
+  last_update: 1458132180
