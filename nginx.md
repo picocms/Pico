@@ -188,8 +188,3 @@ Again, please note that this is only provided as an **example**.  You should not
 ### Modular Pico Config
 
 Let's say you're a real Pico enthusiast and have several Pico websites running on the same server.  You may get tired of writing all these rules into each and every server configuration.  An easier solution might be to place all the common components (index, access denials, php rules) into a separate file and include it using `include /absolute/path/to/file`.  You could also add the rewrite rule to this file, but a better option would be to include a second file, that way you can chose to include it *only* when Pico is located in your Document Root.
-
-{% comment %}
-
-
-{% endcomment %}
