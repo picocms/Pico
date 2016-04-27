@@ -23,6 +23,8 @@ nav-url: /docs/
     {% if phpDoc.type != previousType and forloop.first == false %}
         {% assign index = 0 %}
         </div>
+
+        <hr />
     {% endif %}
 
     {% assign currentCycle = index|modulo:3 %}
