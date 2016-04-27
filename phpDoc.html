@@ -14,7 +14,7 @@ nav-url: /docs/
 
 <!-- phpDocSort (string) = {{ phpDocSort }} -->
 
-{% phpDocSort = phpDocSort|split:'#'|sort %}
+{% assign phpDocSort = phpDocSort|split:'#'|sort %}
 <!-- phpDocSort (array) = {{ phpDocSort|join:'#' }} -->
 
 {% for phpDocSortString in phpDocSort %}
