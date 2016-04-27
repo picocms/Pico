@@ -12,28 +12,19 @@ nav-url: /docs/
     {% endfor %}
 {% endcapture %}
 
-<!-- phpDocSort (string) = {{ phpDocSort }} -->
-
-{% assign phpDocSort = phpDocSort|split:'#'|sort %}
-<!-- phpDocSort (array) = {{ phpDocSort|join:'#' }} -->
-
-{% for phpDocSortString in phpDocSort %}
-    <!-- iterate: phpDocSortString = {{ phpDocSortString }} -->
-    {% assign phpDocSortData = phpDocSortString|split:'=' %}
-    <!-- iterate: phpDocSortData = {{ phpDocSortData }} -->
-    {% assign phpDocIndex = phpDocSortData[1] %}
-    <!-- iterate: phpDocIndex = {{ phpDocIndex }} -->
-    {% assign phpDoc = site.data.phpDoc[phpDocIndex] %}
-    <!-- iterate: phpDoc.id = {{ phpDoc.id }} -->
-{% endfor %}
-
 {% assign index = 0 %}
 {% assign previousType = "" %}
-{% assign phpDocs = site.data.phpDoc|sort:"type" %}
-{% for phpDoc in phpDocs %}
+{% assign phpDocSort = phpDocSort|split:'#'|sort %}
+{% for phpDocSortString in phpDocSort reversed offset:1 %}
+    {% assign phpDocSortData = phpDocSortString|strip|split:'=' %}
+    {% assign phpDocIndex = phpDocSortData[1]|plus:0 %}
+    {% assign phpDoc = site.data.phpDoc[phpDocIndex] %}
+
     {% if phpDoc.type != previousType and forloop.first == false %}
         {% assign index = 0 %}
         </div>
+
+        <hr />
     {% endif %}
 
     {% assign currentCycle = index|modulo:3 %}
