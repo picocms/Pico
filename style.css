@@ -2849,6 +2849,7 @@ h4 .learn-more, h5 .learn-more, h6 .learn-more {
     margin-left: 1em;
     font-size: 66.66%;
     font-weight: 700; /* bold, but not as bold as the header itself (font-weight: 900) */
+    line-height: 1;
     color: #bbb;
 }
 h1:hover .learn-more, h2:hover .learn-more, h3:hover .learn-more,
