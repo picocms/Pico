@@ -5,7 +5,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?$1 [L,QSA]
-    RewriteRule ^(.git|config|content|content-sample|lib|vendor)/.*$ index.php?$0 [L,QSA]
+    RewriteRule ^(\.git|config|content|content-sample|lib|vendor)(/.*)?$ index.php?$0 [L,QSA]
+    RewriteRule ^(CHANGELOG.md|composer.(json|lock)) index.php?404 [L]
 
     <IfModule mod_env.c>
         SetEnv PICO_URL_REWRITING 1
