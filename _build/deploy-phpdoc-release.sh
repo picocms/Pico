@@ -65,7 +65,7 @@ fi
 
 # update version file
 if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
-    generate-version.sh \
+    update-version-file.sh \
         "$DEPLOYMENT_DIR/_data/version.yml" \
         "${TRAVIS_TAG#v}"
 
