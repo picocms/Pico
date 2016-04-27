@@ -14,6 +14,7 @@ toc:
     pico-in-a-subfolder:
       _title: Pico in a Subfolder
       regex-and-nginxs-processing-order: Regex and Nginx's Processing Order
+  example-configuration: Example Configuration
   advanced-configuration-tips:
     _title: Advanced Configuration Tips
     modular-pico-config: Modular Pico Config
@@ -26,7 +27,9 @@ Unlike Apache, Nginx uses a ["Centralized" configuration](https://www.digitaloce
 
 This "Distributed" configuration can make it hard to understand what's really going on behind the scenes.  Apache's configuration can be spread out into as many folders as your webapps (or your own content) provide.
 
-In comparison, Nginx's "Centralized" configuration is all located in one place.  On a Linux server, this configuration would usually be located in `/etc/nginx`, but this may vary by distro and OS.  While configuration of Nginx as a  whole is out of the scope of this document, we hope to provide you with enough information to get over any hurdles you may encounter.
+In comparison, Nginx's "Centralized" configuration is all located in one place.  On a Linux server, this configuration would usually be located in `/etc/nginx`, but this may vary by distro and OS.  While [configuration of Nginx](https://www.nginx.com/resources/wiki/start/) as a whole is out of the scope of this document, we hope to provide you with enough information to get over any hurdles you may encounter.
+
+If you are migrating from Apache, [this article](https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations) (also linked above) and [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-migrate-from-an-apache-web-server-to-nginx-on-an-ubuntu-vps) provide an excellent overview on the differences between the two and the changes you'll have to make.
 
 ## Getting Started
 
@@ -57,21 +60,17 @@ Below we'll add a few more sections to this server configuration.  All of the fo
 
 One of the important features provided by Pico's `.htaccess` is the denial of access to some of Pico's directories.  There are two simple reasons for this, added security, and ease-of-use.  We don't want anyone snooping around and reading files they shouldn't be (like our Pico `config.php`), but we also don't want people accidentally navigating to a raw markdown file or viewing directory indexes (not actually an issue, since they're disabled unless specified in Nginx, but this isn't always the case in Apache).
 
-There are two rules you should always use in the Nginx config of your Pico site:
+You should always use the following rule in the Nginx config of your Pico site:
 
 ```
-location ~* /\.ht {
-	deny all;
-}
-
-location ~* /(config|content|content-sample|lib|vendor) {
+location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor) {
 	return 404;
 }
 ```
 
-The first rule denies access to Pico's `.htaccess` file if it exists.  Remember, this is a configuration file for Apache, and Apache would have denied access to it automatically.  While it doesn't do anything under Nginx, you may have unknowingly left it in your Pico directory, as it is hidden by default.  While you can safely remove `.htaccess` from your Pico installation, we'd recommend you use this rule anyway just in case.  For example, you may upgrade Pico in the future and forget to remove it!  In general though, this rule is for security, and usually recommend in Nginx, even outside of running Pico.
+This rule returns a 404 (file not found) error if someone tries to access `.htaccess` or Pico's other internal files.  Remember, `.htaccess` is a configuration file for Apache, and Apache would have denied access to it automatically.  While it doesn't do anything under Nginx, you may have unknowingly left it in your Pico directory, as it is hidden by default.  While you can safely remove `.htaccess` from your Pico installation, we'd recommend you keep it in this rule anyway just in case.  For example, you may upgrade Pico in the future and forget to remove it!  In general though, this rule is for security, and a similar rule is usually recommend in Nginx, even outside of running Pico.
 
-The next rule returns a 404 (file not found) page if the user tries to navigate into Pico's internal file structure.  We recommend this rule as it's generally a good practice.  Users's don't need access to these files, so why allow it?
+The rest of the rule returns a 404 page if the user tries to navigate into Pico's internal file structure.  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
 
 ## PHP Configuration
 
@@ -143,6 +142,47 @@ When we're using a Regular Expression for a `location` block in Nginx, we need t
 
 This means that the Pico rewrite rule must come **last** in your server configuration.  If any of the other rules we've defined are after it, they will never be used.  Nginx will stop once it gets to the rewrite rule since it will be the first match.
 
+## Example Configuration
+
+If we combine all the examples above, your configuration will look something like this:
+
+```
+server {
+	listen 80;
+
+	server_name www.example.com example.com;
+	root /var/www/example;
+
+	index index.php;
+
+	location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor) {
+		return 404;
+	}
+
+	location ~ [^/]\.php(/|$) {
+		fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+
+		# Protection Against "cgi.fix_pathinfo = 1"
+		if (!-f $document_root$fastcgi_script_name) {
+			return 404;
+		}
+
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+
+		# Inform Pico we will be rewriting URL's for it.
+		fastcgi_param PICO_URL_REWRITING 1;
+	}
+
+	location / {
+		try_files $uri $uri/ /?$uri&$args;
+	}
+}
+```
+
+Again, please note that this is only provided as an **example**.  You should not copy it, but only use it as a reference.  Your own configuration will depend very much on your own system configuration.  If you do copy this code, be sure to modify it according to your own requirements.
+
 ## Advanced Configuration Tips
 
 ### Modular Pico Config
@@ -151,13 +191,5 @@ Let's say you're a real Pico enthusiast and have several Pico websites running o
 
 {% comment %}
 
-* Revise previous page example and include php rewrite line
-
-* Include `try_files $uri $uri/ @pico` method?
-
-* Deny `.htaccess` vs 404?
-
-* link to Nginx documetation where "out of scope"
-* link entire https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations ?
 
 {% endcomment %}
