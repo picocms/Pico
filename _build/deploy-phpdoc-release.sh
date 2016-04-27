@@ -35,13 +35,18 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
         "Pico 1.0 API Documentation ($TRAVIS_TAG)"
     [ $? -eq 0 ] || exit 1
 
-    # commit phpDocs
     if [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID")" ]; then
+        # update phpDoc list
+        update-phpdoc-list.sh \
+            "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
+            "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
+
+        # commit phpDocs
         echo "Committing phpDoc changes..."
-        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
         git commit \
             --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
         [ $? -eq 0 ] || exit 1
         echo
     fi

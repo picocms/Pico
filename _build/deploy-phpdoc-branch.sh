@@ -37,12 +37,20 @@ generate-phpdoc.sh \
 [ $? -eq 0 ] || exit 1
 [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache")" ] || exit 0
 
+# update phpDoc list
+update-phpdoc-list.sh \
+    "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
+    "$TRAVIS_BRANCH" "branch" "\`$TRAVIS_BRANCH\` branch" "$(date +%s)"
+
 # commit phpDocs
 echo "Committing changes..."
-git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+git add \
+    "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
+    "$DEPLOYMENT_DIR/_data/phpDoc.yml"
 git commit \
     --message="Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
-    "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+    "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
+    "$DEPLOYMENT_DIR/_data/phpDoc.yml"
 [ $? -eq 0 ] || exit 1
 echo
 
