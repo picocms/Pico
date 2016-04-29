@@ -36,6 +36,6 @@ This configuration should provide the *bare minimum* you need for Pico.  Nginx i
 
 [ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
-[NginxConfig]: {{ site.github.url }}/nginx/
+[NginxConfig]: {{ site.github.url }}/in-depth/nginx/
 [Issues]: {{ site.gh_project_url }}/issues
 [FreeNode]: https://webchat.freenode.net/?channels=%23picocms
