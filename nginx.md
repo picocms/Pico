@@ -87,9 +87,7 @@ location ~ [^/]\.php(/|$) {
 	fastcgi_split_path_info ^(.+?\.php)(/.*)$;
 
 	# Protection Against "cgi.fix_pathinfo = 1"
-	if (!-f $document_root$fastcgi_script_name) {
-		return 404;
-	}
+	try_files $uri =404;
 
 	fastcgi_pass unix:/var/run/php5-fpm.sock;
 	fastcgi_index index.php;
@@ -104,7 +102,7 @@ Please note that this is only provided as an **example**.  You should write your
 
 This `location` rule tells Nginx to send all pages ending in `.php` to an external PHP processor called `php-fpm`.  Again, setting this up is outside the scope of this document.  There are many tutorials available online.  Here is one for [Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-14-04#3-install-php-for-processing).
 
-By default, `php-fpm` comes with a very insecure setting that can allow unauthorized code execution.  We've included a small `if` statement here that will protect you from this vulnerability.  If you've changed php-fpm's `cgi.fix_pathinfo` setting to `0`, you do not need this statement.
+By default, `php-fpm` comes with a very insecure setting that can allow unauthorized code execution.  We've included a small `try_files` statement here that will protect you from this vulnerability.  If you've changed php-fpm's `cgi.fix_pathinfo` setting to `0`, you do not need this statement.
 
 The line `fastcgi_param PICO_URL_REWRITING 1;` informs Pico that we will be rewriting url's in Nginx.  This prevents Pico from using its own url-rewriting, and gives us nicer url's.
 
