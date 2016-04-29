@@ -65,7 +65,7 @@ One of the important features provided by Pico's `.htaccess` is the denial of ac
 You should always use the following rule in the Nginx config of your Pico site:
 
 ```
-location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor) {
+location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
 	return 404;
 }
 ```
