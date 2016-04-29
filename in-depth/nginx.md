@@ -83,9 +83,7 @@ Configuring PHP is a topic that will differ slightly depending on the OS you are
 Your PHP configuration will look something like this:
 
 ```
-location ~ [^/]\.php(/|$) {
-	fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-
+location ~ \.php$ {
 	# Protection Against "cgi.fix_pathinfo = 1"
 	try_files $uri =404;
 
@@ -155,17 +153,13 @@ server {
 
 	index index.php;
 
-	location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor) {
+	location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
 		return 404;
 	}
 
-	location ~ [^/]\.php(/|$) {
-		fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-
+	location ~ \.php$ {
 		# Protection Against "cgi.fix_pathinfo = 1"
-		if (!-f $document_root$fastcgi_script_name) {
-			return 404;
-		}
+		try_files $uri =404;
 
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;

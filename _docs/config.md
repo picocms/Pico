@@ -22,7 +22,7 @@ If you're using the Apache web server, URL rewriting should be enabled automatic
 If you're using Nginx, you can use the following configuration to enable URL rewriting.  You'll need to adjust the path (`/pico` on lines `5` and `7`) to match your installation directory. You should also add `fastcgi_param PICO_URL_REWRITING 1;` to your PHP Location Block to enable URL rewriting in Pico.
 
 ```
-location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor) {
+location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
 	return 404;
 }
 
