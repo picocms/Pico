@@ -32,8 +32,10 @@ location ~ ^/pico(.*) {
 }
 ```
 
-This configuration should provide the *bare minimum* you need to for Pico.  Nginx is a very extensive subject.  If you have any trouble, please read through our page on [Nginx Configuration][NginxConfig].  Don't be afraid to open a [new issue](https://github.com/picocms/Pico/issues) on GitHub or contact us at [#picocms on Freenode IRC](https://webchat.freenode.net/?channels=%23picocms) for additional assistance.
+This configuration should provide the *bare minimum* you need for Pico.  Nginx is a very extensive subject.  If you have any trouble, please read through our page on [Nginx Configuration][NginxConfig].  Don't be afraid to open a [new issue][Issues] on GitHub or contact us at [#picocms on Freenode IRC][FreeNode] for additional assistance.
 
 [ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [NginxConfig]: {{ site.github.url }}/nginx/
+[Issues]: {{ site.gh_project_url }}/issues
+[FreeNode]: https://webchat.freenode.net/?channels=%23picocms
