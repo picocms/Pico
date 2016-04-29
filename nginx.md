@@ -33,9 +33,9 @@ If you are migrating from Apache, [this article](https://www.digitalocean.com/co
 
 ## Getting Started
 
-While the [example]({{ site.github.url }}/docs#nginx-configuration) provided on the previous page is a good starting point, it will likely not be enough to fully configure your Pico installation.
+While the [example]({{ site.github.url }}/docs#nginx-configuration) provided on the previous page is a good starting point, here we will provide a more in-depth look at Nginx configuration.
 
-There are three main parts to configuring a Pico site under Nginx, in addition to general server configuration.  The three sets of rules we will be developing provide the following functions: Denying access to Pico's internal files, configuring PHP, and setting up Pico's url-rewriting.  Although it's arguably the most important function, we'll be configuring url-rewriting last due to the order that Nginx processes its config.  We'll discuss that in more detail when we get to it below.
+We've broken down the process of configuring Pico into three segments, in addition to general server configuration.  The three sets of rules we will be developing provide the following functions: Denying access to Pico's internal files, configuring PHP, and setting up Pico's url-rewriting.  Although it's arguably the most important function, we'll be configuring url-rewriting last due to the order that Nginx processes its config.  We'll discuss that in more detail when we get to it below.
 
 ## General Server Configuration
 
@@ -53,6 +53,8 @@ server {
 ```
 
 Let's break down this example.  The first line, `listen 80` tells Nginx to listen on port 80 for incoming connections.  This is the default port used by web traffic, and what you'll want to use 99% of the time.  `server_name` is where you specify what domain name or names match this configuration.  You'll likely want to include your domain both with and without the `www.` subdomain.  `root` lets you specify the Document Root for this site.  This is usually going to be where you've installed Pico, but ultimately it depends on your configuration.  `index index.php` tells Nginx that your site's index file will be called `index.php`.  This is necessary for Pico, however you can use something like `index index.html index.htm index.php` if you'd like Nginx to also search for a non-Pico html index file.
+
+We'd highly recommend you consider securing your website using HTTPS.  Using HTTPS will provide your users with extra protection, and prevent third parties from being able to snoop on their web traffic.  Unfortunately, configuring SSL is out of the scope of this document, but we'd be happy to point you in the right direction.  For an easy to set up SSL Certificate, you can check out [Let's Encrypt](https://letsencrypt.org/) and [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04).  For more general information, see Nginx's own [configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html).
 
 Below we'll add a few more sections to this server configuration.  All of the following examples should be placed **inside** the server block, before the closing `}`
 
@@ -76,7 +78,7 @@ The rest of the rule returns a 404 page if the user tries to navigate into Pico'
 
 This is a topic outside the realm of this document.  Unlike Apache (which sends every document to PHP automatically), Nginx is more streamlined.  It needs to be *told* to send a file to an external PHP processor.  It does not handle PHP itself.
 
-Configuring PHP is a topic that is largely up to the OS you are using.  The examples I'm going to provide here apply to Ubuntu 14.04, but they also require external configuration of `php-fpm` or another php processor.
+Configuring PHP is a topic that will differ slightly depending on the OS you are using.  The examples I'm going to provide here apply to Ubuntu 14.04, but they also require external configuration of `php-fpm` or another PHP processor.
 
 Your PHP configuration will look something like this:
 
@@ -100,7 +102,7 @@ location ~ [^/]\.php(/|$) {
 
 Please note that this is only provided as an **example**.  You should write your own PHP location block based on your personal system configuration.
 
-This `location` rule tells Nginx to send all pages ending in `.php` to an external php processor called `php-fpm`.  Again, setting this up is outside the scope of this document.  There are many tutorials available online.  Here is one for [Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-14-04#3-install-php-for-processing).
+This `location` rule tells Nginx to send all pages ending in `.php` to an external PHP processor called `php-fpm`.  Again, setting this up is outside the scope of this document.  There are many tutorials available online.  Here is one for [Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-14-04#3-install-php-for-processing).
 
 By default, `php-fpm` comes with a very insecure setting that can allow unauthorized code execution.  We've included a small `if` statement here that will protect you from this vulnerability.  If you've changed php-fpm's `cgi.fix_pathinfo` setting to `0`, you do not need this statement.
 
@@ -112,15 +114,15 @@ There are several ways to approach Pico's url-rewriting in Nginx.  We'll be cove
 
 ### Pico in Document Root
 
-If your Pico installation is in the `Document Root` of your website, then configuration is relatively easy.
+If your Pico installation is in the Document Root of your website, then configuration is relatively easy.
 
 ```
 location / {
-	try_files $uri $uri/ /?$uri&$args;
+	try_files $uri $uri/ /index.php?$uri&$args;
 }
 ```
 
-This rule tells Nginx that whenever it looks up a url within your site, it should first look for a file of that name, then a directory, and finally, if neither exist, it should rewrite the url for Pico.  When the url is rewritten for Pico, it is formatted as `/` followed by a query string (starts with `?`) containing the file path (`$uri`) and then followed by any other query arguments (`$args`).  By referencing `/`, Nginx will load `index.php` (as defined in our server config above) and pass the rendering along to your php processor.
+This rule tells Nginx that whenever it looks up a url within your site, it should first look for a file of that name, then a directory, and finally, if neither exist, it should rewrite the url for Pico.  When the url is rewritten for Pico, it is formatted as `/` followed by a query string (starts with `?`) containing the file path (`$uri`) and then followed by any other query arguments (`$args`).  By referencing `/`, Nginx will load `index.php` (as defined in our server config above) and pass the rendering along to your PHP processor.
 
 ### Pico in a Subfolder
 
@@ -128,11 +130,11 @@ If your Pico installation is in a subfolder, configuration is slightly more comp
 
 ```
 location ~ ^/pico(.*) {
-	try_files $uri $uri/ /pico/?$1&$args;
+	try_files $uri $uri/ /pico/index.php?$1&$args;
 }
 ```
 
-You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the url, but this time in a subfolder named `pico`.  What's different is that we're using `$1` to reference the page url instead of `$uri`.  This is because `$uri` will contain the entire url from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the url for us.  This `location` rule looks for any url that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the location of your own subfolder.
+You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the url, but this time in a subfolder named `pico`.  The difference is that we're using `$1` to reference the page url instead of `$uri`.  This is because `$uri` will contain the entire url from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the url for us.  This `location` rule looks for any url that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the location of your own subfolder.
 
 Since this `location` rule uses regex, it's slightly less efficient then the rule for Pico in Document Root.  While this is unlikely to make a real-world difference, it's something to keep in mind when deciding which rule to use.
 
@@ -187,4 +189,4 @@ Again, please note that this is only provided as an **example**.  You should not
 
 ### Modular Pico Config
 
-Let's say you're a real Pico enthusiast and have several Pico websites running on the same server.  You may get tired of writing all these rules into each and every server configuration.  An easier solution might be to place all the common components (index, access denials, php rules) into a separate file and include it using `include /absolute/path/to/file`.  You could also add the rewrite rule to this file, but a better option would be to include a second file, that way you can chose to include it *only* when Pico is located in your Document Root.
+Let's say you're a real Pico enthusiast and have several Pico websites running on the same server.  You may get tired of writing all these rules into each and every server configuration.  An easier solution might be to place all the common components ([index](#general-server-configuration), [access denials](#denying-access-to-picos-internal-files), [PHP rules](#php-configuration)) into a separate file and include it using `include /absolute/path/to/file`.  You could also add the rewrite rule to this file, but a better option would be to include a second file, that way you can chose to include it *only* when Pico is located in your Document Root.
