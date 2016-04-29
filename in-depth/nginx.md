@@ -39,7 +39,7 @@ We've broken down the process of configuring Pico into three segments, in additi
 
 ## General Server Configuration
 
-Nginx's server configuration is broken into sections called `blocks`.  Each website has its own `server` block inside your Nginx config.  While configuration of Nginx sites, virtual hosts, and other aspects of this topic are outside the scope of this guide, we'll provide enough to at least get you started with Pico.
+Nginx's server configuration is broken into `blocks`.  Each website has its own `server` block inside your Nginx config.  While configuration of Nginx sites, virtual hosts, and other aspects of this topic are outside the scope of this guide, we'll provide enough to at least get you started with Pico.
 
 ```
 server {
@@ -60,7 +60,7 @@ Below we'll add a few more sections to this server configuration.  All of the fo
 
 ## Denying Access to Pico's Internal Files
 
-One of the important features provided by Pico's `.htaccess` is the denial of access to some of Pico's directories.  There are two simple reasons for this, added security, and ease-of-use.  We don't want anyone snooping around and reading files they shouldn't be (like our Pico `config.php`), but we also don't want people accidentally navigating to a raw markdown file or viewing directory indexes (not actually an issue, since they're disabled unless specified in Nginx, but this isn't always the case in Apache).
+One of the important features provided by Pico's `.htaccess` is the denial of access to some of Pico's directories.  There are two simple reasons for this, added security, and ease-of-use.  We don't want anyone snooping around and reading files they shouldn't be (like our Pico `config.php`), and we also don't really want people navigating to our raw markdown files.
 
 You should always use the following rule in the Nginx config of your Pico site:
 
@@ -76,7 +76,7 @@ The rest of the rule returns a 404 page if the user tries to navigate into Pico'
 
 ## PHP Configuration
 
-This is a topic outside the realm of this document.  Unlike Apache (which sends every document to PHP automatically), Nginx is more streamlined.  It needs to be *told* to send a file to an external PHP processor.  It does not handle PHP itself.
+This is a topic outside the realm of this document.  Unlike Apache (which sends documents to PHP automatically), Nginx needs to be *told* to send a file to an external PHP processor.
 
 Configuring PHP is a topic that will differ slightly depending on the OS you are using.  The examples I'm going to provide here apply to Ubuntu 14.04, but they also require external configuration of `php-fpm` or another PHP processor.
 
