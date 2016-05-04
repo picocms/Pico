@@ -74,6 +74,8 @@ This rule returns a 404 (file not found) error if someone tries to access `.htac
 
 The rest of the rule returns a 404 page if the user tries to navigate into Pico's internal file structure.  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
 
+In order to keep configuration simple, this example will block access to these files/folders *anywhere* they may occur (in Document Root, a subfolder, etc).  If this interferes with your site or blocks unintended files, you can add `^/path/to/pico/folder` to the beginning of the rule.  For example: `location ~ ^/pico/(\.htaccess|...etc.)`
+
 ## PHP Configuration
 
 This is a topic outside the realm of this document.  Unlike Apache (which sends documents to PHP automatically), Nginx needs to be *told* to send a file to an external PHP processor.
