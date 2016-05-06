@@ -33,7 +33,7 @@ If you are migrating from Apache, [this article](https://www.digitalocean.com/co
 
 ## Getting Started
 
-While the [example]({{ site.github.url }}/docs#nginx-configuration) provided on the previous page is a good starting point, here we will provide a more in-depth look at Nginx configuration.
+While the [example]({{ site.github.url }}/docs#nginx) provided on the previous page is a good starting point, here we will provide a more in-depth look at Nginx configuration.
 
 We've broken down the process of configuring Pico into three segments, in addition to [general server configuration](#general-server-configuration).  The three sets of rules we will be developing provide the following functions: [Denying access to Pico's internal files](#denying-access-to-picos-internal-files), [configuring PHP](#php-configuration), and [setting up Pico's URL rewriting](#url-rewriting).  Although it's arguably the most important function, we'll be configuring URL rewriting last due to the order that Nginx processes its config.  We'll discuss that in more detail when we get to it below.
 
