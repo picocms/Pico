@@ -13,7 +13,7 @@ toc:
     pico-in-document-root: Pico in Document Root
     pico-in-a-subfolder:
       _title: Pico in a Subfolder
-      regex-and-nginxs-processing-order: Regex and Nginx's Processing Order
+      regexes-and-nginxs-processing-order: Regexes and Nginx's Processing Order
   example-configuration: Example Configuration
   advanced-configuration-tips:
     _title: Advanced Configuration Tips
@@ -133,7 +133,7 @@ You'll notice that similar to our last example, we're sending Nginx to `index.ph
 
 Since this `location` rule uses a regex, it's slightly less efficient then the rule for Pico in Document Root.  While this is unlikely to make a real-world difference, it's something to keep in mind when deciding which rule to use.
 
-#### Regex and Nginx's Processing Order
+#### Regexes and Nginx's Processing Order
 
 When we're using a Regular Expression for a `location` block in Nginx, we need to pay close attention to the order of our config.  When analyzing your `location` blocks, Nginx first looks at any absolute locations, then tries to match against any regex rules. When it's trying to match the URL to a regex rule, it stops checking after it finds the first matching rule.  The subfolder rule above is very *very* broad.  It matches *anything* inside the `pico` subfolder.  Because of this, it also matches any `.php` files, `.htaccess`, and any of the files and folders we denied access to earlier.
 
