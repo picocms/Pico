@@ -3,7 +3,8 @@ toc:
     config:
         _title: Config
         url-rewriting: URL Rewriting
-        nginx-configuration: Nginx Configuration
+        apache: Apache
+        nginx: Nginx
 nav: 6
 ---
 
@@ -20,7 +21,7 @@ Pico's default URLs (e.g. http://example.com/pico/?sub/page) already are very us
 If you're using the Apache web server, URL rewriting should be enabled automatically. If you get an error message from your web server, please make sure to enable the [`mod_rewrite` module][ModRewrite]. Assuming rewritten URLs work, but Pico still shows no rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
 #### Nginx [Learn more…][NginxConfig]{:.learn-more}
-{:#nginx-configuration}
+{:#nginx}
 
 If you're using Nginx, you can use the following configuration to enable URL rewriting (lines `5` to `8`) and denying access to Pico's internal files (lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `5` and `7`) to match your installation directory. Additionally, you'll need to enable URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
