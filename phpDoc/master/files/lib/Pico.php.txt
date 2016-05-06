@@ -861,6 +861,8 @@ class Pico
      */
     public function prepareFileContent($rawContent, array $meta)
     {
+        $variables = array();
+
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
