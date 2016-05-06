@@ -35,11 +35,11 @@ If you are migrating from Apache, [this article](https://www.digitalocean.com/co
 
 While the [example]({{ site.github.url }}/docs#nginx-configuration) provided on the previous page is a good starting point, here we will provide a more in-depth look at Nginx configuration.
 
-We've broken down the process of configuring Pico into three segments, in addition to general server configuration.  The three sets of rules we will be developing provide the following functions: Denying access to Pico's internal files, configuring PHP, and setting up Pico's url-rewriting.  Although it's arguably the most important function, we'll be configuring url-rewriting last due to the order that Nginx processes its config.  We'll discuss that in more detail when we get to it below.
+We've broken down the process of configuring Pico into three segments, in addition to [general server configuration](#general-server-configuration).  The three sets of rules we will be developing provide the following functions: [Denying access to Pico's internal files](#denying-access-to-picos-internal-files), [configuring PHP](#php-configuration), and [setting up Pico's URL rewriting](#url-rewriting).  Although it's arguably the most important function, we'll be configuring URL rewriting last due to the order that Nginx processes its config.  We'll discuss that in more detail when we get to it below.
 
 ## General Server Configuration
 
-Nginx's server configuration is broken into `blocks`.  Each website has its own `server` block inside your Nginx config.  While configuration of Nginx sites, virtual hosts, and other aspects of this topic are outside the scope of this guide, we'll provide enough to at least get you started with Pico.
+Nginx's server configuration is broken into blocks.  Each website has its own `server` block inside your Nginx config.  While configuration of Nginx sites, virtual hosts, and other aspects of this topic are outside the scope of this guide, we'll provide enough to at least get you started with Pico.
 
 ```
 server {
@@ -52,15 +52,15 @@ server {
 }
 ```
 
-Let's break down this example.  The first line, `listen 80` tells Nginx to listen on port 80 for incoming connections.  This is the default port used by web traffic, and what you'll want to use 99% of the time.  `server_name` is where you specify what domain name or names match this configuration.  You'll likely want to include your domain both with and without the `www.` subdomain.  `root` lets you specify the Document Root for this site.  This is usually going to be where you've installed Pico, but ultimately it depends on your configuration.  `index index.php` tells Nginx that your site's index file will be called `index.php`.  This is necessary for Pico, however you can use something like `index index.html index.htm index.php` if you'd like Nginx to also search for a non-Pico html index file.
+Let's break down this example.  The first line, `listen 80` tells Nginx to listen on port 80 for incoming connections.  This is the default port used by web traffic, and what you'll want to use 99% of the time.  `server_name` is where you specify what domain name or names match this configuration.  You'll likely want to include your domain both with and without the `www.` subdomain.  `root` lets you specify the Document Root for this site.  This is usually going to be where you've installed Pico, but ultimately it depends on your configuration.  `index index.php` tells Nginx that your site's index file will be called `index.php`.  This is necessary for Pico, however you can use something like `index index.html index.php` if you'd like Nginx to also search for a non-Pico HTML index file.
 
-We'd highly recommend you consider securing your website using HTTPS.  Using HTTPS will provide your users with extra protection, and prevent third parties from being able to snoop on their web traffic.  Unfortunately, configuring SSL is out of the scope of this document, but we'd be happy to point you in the right direction.  For an easy to set up SSL Certificate, you can check out [Let's Encrypt](https://letsencrypt.org/) and [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04).  For more general information, see Nginx's own [configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html).
+We'd highly recommend you consider securing your website using HTTPS.  Using HTTPS will provide your users with extra protection, and prevent third parties from being able to snoop on their web traffic.  Unfortunately, configuring SSL is out of the scope of this document, but we'd be happy to point you in the right direction.  For an easy to set up SSL certificate, you can check out [Let's Encrypt](https://letsencrypt.org/) and [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04).  For more general information, see Nginx's own documentation about [configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html).
 
-Below we'll add a few more sections to this server configuration.  All of the following examples should be placed **inside** the server block, before the closing `}`
+Below we'll add a few more sections to this server configuration.  All of the following examples should be placed **inside** the server block, before the closing `}`.
 
 ## Denying Access to Pico's Internal Files
 
-One of the important features provided by Pico's `.htaccess` is the denial of access to some of Pico's directories.  There are two simple reasons for this, added security, and ease-of-use.  We don't want anyone snooping around and reading files they shouldn't be (like our Pico `config.php`), and we also don't really want people navigating to our raw markdown files.
+One of the important features provided by Pico's `.htaccess` file is the denial of access to some of Pico's internal files and directories.  There are two simple reasons for this, added security, and ease-of-use.  We don't want anyone snooping around and reading files they shouldn't be (like your `config/config.php`), and we also don't really want people navigating to raw markdown files.
 
 You should always use the following rule in the Nginx config of your Pico site:
 
@@ -70,15 +70,13 @@ location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG
 }
 ```
 
-This rule returns a 404 (file not found) error if someone tries to access `.htaccess` or Pico's other internal files.  Remember, `.htaccess` is a configuration file for Apache, and Apache would have denied access to it automatically.  While it doesn't do anything under Nginx, you may have unknowingly left it in your Pico directory, as it is hidden by default.  While you can safely remove `.htaccess` from your Pico installation, we'd recommend you keep it in this rule anyway just in case.  For example, you may upgrade Pico in the future and forget to remove it!  In general though, this rule is for security, and a similar rule is usually recommend in Nginx, even outside of running Pico.
+This rule returns a `404 Not Found` error if someone tries to access one of Pico's internal files like `.htaccess` (what actually doesn't do anything under Nginx).  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
 
-The rest of the rule returns a 404 page if the user tries to navigate into Pico's internal file structure.  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
-
-In order to keep configuration simple, this example will block access to these files/folders *anywhere* they may occur (in Document Root, a subfolder, etc).  If this interferes with your site or blocks unintended files, you can add `^/path/to/pico/folder` to the beginning of the rule.  For example: `location ~ ^/pico/(\.htaccess|...etc.)`
+In order to keep configuration simple, this example will block access to these files/folders *anywhere* they may occur (in Document Root, a subfolder, etc).  If this interferes with your site or blocks unintended files, you can add `^/path/to/pico/folder` to the beginning of the rule.  For example: `location ~ ^/pico/(\.htaccess|…) { … }`
 
 ## PHP Configuration
 
-This is a topic outside the realm of this document.  Unlike Apache (which sends documents to PHP automatically), Nginx needs to be *told* to send a file to an external PHP processor.
+This is a topic outside the realm of this document.  Unlike Apache (which sends documents to PHP in most default configurations automatically), Nginx needs to be *told* to send a file to an external PHP processor.
 
 Configuring PHP is a topic that will differ slightly depending on the OS you are using.  The examples I'm going to provide here apply to Ubuntu 14.04, but they also require external configuration of `php-fpm` or another PHP processor.
 
@@ -86,14 +84,13 @@ Your PHP configuration will look something like this:
 
 ```
 location ~ \.php$ {
-	# Protection Against "cgi.fix_pathinfo = 1"
 	try_files $uri =404;
 
 	fastcgi_pass unix:/var/run/php5-fpm.sock;
 	fastcgi_index index.php;
 	include fastcgi_params;
 
-	# Inform Pico we will be rewriting URL's for it.
+	# Let Pico know about available URL rewriting
 	fastcgi_param PICO_URL_REWRITING 1;
 }
 ```
@@ -102,13 +99,13 @@ Please note that this is only provided as an **example**.  You should write your
 
 This `location` rule tells Nginx to send all pages ending in `.php` to an external PHP processor called `php-fpm`.  Again, setting this up is outside the scope of this document.  There are many tutorials available online.  Here is one for [Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-14-04#3-install-php-for-processing).
 
-By default, `php-fpm` comes with a very insecure setting that can allow unauthorized code execution.  We've included a small `try_files` statement here that will protect you from this vulnerability.  If you've changed php-fpm's `cgi.fix_pathinfo` setting to `0`, you do not need this statement.
+By default, `php-fpm` comes with a very insecure setting that can allow unauthorized code execution.  We've included a small `try_files` statement here that will protect you from this vulnerability.
 
-The line `fastcgi_param PICO_URL_REWRITING 1;` informs Pico that we will be rewriting url's in Nginx.  This prevents Pico from using its own url-rewriting, and gives us nicer url's.
+The line `fastcgi_param PICO_URL_REWRITING 1;` informs Pico that URL rewriting is available, so you won't have to explicitly set `$config['rewrite_url'] = true;` in your `config/config.php`.
 
 ## URL Rewriting
 
-There are several ways to approach Pico's url-rewriting in Nginx.  We'll be covering two different approaches in this document, but there really is no right answer.
+There are several ways to approach Pico's URL rewriting in Nginx.  We'll be covering two different approaches in this document, but there really is no right answer.
 
 ### Pico in Document Root
 
@@ -120,7 +117,7 @@ location / {
 }
 ```
 
-This rule tells Nginx that whenever it looks up a url within your site, it should first look for a file of that name, then a directory, and finally, if neither exist, it should rewrite the url for Pico.  When the url is rewritten for Pico, it is formatted as `/` followed by a query string (starts with `?`) containing the file path (`$uri`) and then followed by any other query arguments (`$args`).  By referencing `/`, Nginx will load `index.php` (as defined in our server config above) and pass the rendering along to your PHP processor.
+This rule tells Nginx that whenever it looks up a URL within your site, it should first look for a file of that name, then a directory, and finally, if neither exist, it should rewrite the URL for Pico.  When the URL is rewritten for Pico, the request is passed to `index.php` followed by a query string (starts with `?`) containing the file path (`$uri`) and then followed by any other query arguments (`$args`).  Nginx will load `index.php` and pass the rendering along to your PHP processor.
 
 ### Pico in a Subfolder
 
@@ -132,13 +129,13 @@ location ~ ^/pico(.*) {
 }
 ```
 
-You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the url, but this time in a subfolder named `pico`.  The difference is that we're using `$1` to reference the page url instead of `$uri`.  This is because `$uri` will contain the entire url from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the url for us.  This `location` rule looks for any url that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the location of your own subfolder.
+You'll notice that similar to our last example, we're sending Nginx to `index.php` with a query string of the URL, but this time in a subfolder named `pico`.  The difference is that we're using `$1` to reference the page URL instead of `$uri`.  This is because `$uri` will contain the entire URL from the Document Root, but we only want the part that comes *after* the `/pico` subfolder.  Since we can't use `$uri` for this, we're using a Regular Expression (also called "regex") to determine the URL for us.  This `location` rule looks for any URL that starts with `/pico`, and takes note of whatever comes afterward.  In your own configuration, you'll need to replace `pico` on both lines with the location of your own subfolder.
 
-Since this `location` rule uses regex, it's slightly less efficient then the rule for Pico in Document Root.  While this is unlikely to make a real-world difference, it's something to keep in mind when deciding which rule to use.
+Since this `location` rule uses a regex, it's slightly less efficient then the rule for Pico in Document Root.  While this is unlikely to make a real-world difference, it's something to keep in mind when deciding which rule to use.
 
 #### Regex and Nginx's Processing Order
 
-When we're using a Regular Expression for a `location` block in Nginx, we need to pay close attention to the order of our config.  When analyzing your `location` blocks, Nginx first looks at any absolute locations, then tries to match against any regex rules. When it's trying to match the url to a regex rule, it stops checking after it finds the first matching rule.  The Subfolder rule above is very *very* broad.  It matches *anything* inside the `pico` subfolder.  Because of this, it also matches any `.php` files, `.htaccess`, and any of the folders we denied access to earlier.
+When we're using a Regular Expression for a `location` block in Nginx, we need to pay close attention to the order of our config.  When analyzing your `location` blocks, Nginx first looks at any absolute locations, then tries to match against any regex rules. When it's trying to match the URL to a regex rule, it stops checking after it finds the first matching rule.  The subfolder rule above is very *very* broad.  It matches *anything* inside the `pico` subfolder.  Because of this, it also matches any `.php` files, `.htaccess`, and any of the files and folders we denied access to earlier.
 
 This means that the Pico rewrite rule must come **last** in your server configuration.  If any of the other rules we've defined are after it, they will never be used.  Nginx will stop once it gets to the rewrite rule since it will be the first match.
 
@@ -160,14 +157,13 @@ server {
 	}
 
 	location ~ \.php$ {
-		# Protection Against "cgi.fix_pathinfo = 1"
 		try_files $uri =404;
 
 		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
 		include fastcgi_params;
 
-		# Inform Pico we will be rewriting URL's for it.
+		# Let Pico know about available URL rewriting
 		fastcgi_param PICO_URL_REWRITING 1;
 	}
 
@@ -183,4 +179,4 @@ Again, please note that this is only provided as an **example**.  You should not
 
 ### Modular Pico Config
 
-Let's say you're a real Pico enthusiast and have several Pico websites running on the same server.  You may get tired of writing all these rules into each and every server configuration.  An easier solution might be to place all the common components ([index](#general-server-configuration), [access denials](#denying-access-to-picos-internal-files), [PHP rules](#php-configuration)) into a separate file and include it using `include /absolute/path/to/file`.  You could also add the rewrite rule to this file, but a better option would be to include a second file, that way you can chose to include it *only* when Pico is located in your Document Root.
+Let's say you're a real Pico enthusiast and have several Pico websites running on the same server.  You may get tired of writing all these rules into each and every server configuration.  An easier solution might be to place all the common components ([index](#general-server-configuration), [access denials](#denying-access-to-picos-internal-files), [PHP rules](#php-configuration)) into a separate file and include it using `include /absolute/path/to/file`.  You could also add the [rewrite rule](#url-rewriting) to this file, but a better option would be to include a second file, that way you can chose to include it *only* when Pico is located in your Document Root.

@@ -17,7 +17,7 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [Issues]: {{ site.gh_project_url }}/issues
 [PullRequests]: {{ site.gh_project_url }}/pulls
 [ContributionGuidelines]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/CONTRIBUTING.md
-[PluginDocs]: ({{ site.github.url }}/development/)
+[PluginDocs]: {{ site.github.url }}/development/
 [Wiki]: {{ site.gh_project_url }}/wiki
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes

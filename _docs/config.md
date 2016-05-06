@@ -15,14 +15,17 @@ You can override the default Pico settings (and add your own custom settings) by
 
 Pico's default URLs (e.g. http://example.com/pico/?sub/page) already are very user-friendly. Additionally, Pico offers you a URL rewrite feature to make URLs even more user-friendly (e.g. http://example.com/pico/sub/page).
 
+#### Apache
+
 If you're using the Apache web server, URL rewriting should be enabled automatically. If you get an error message from your web server, please make sure to enable the [`mod_rewrite` module][ModRewrite]. Assuming rewritten URLs work, but Pico still shows no rewritten URLs, force URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
-#### Nginx Configuration [Learn more…][NginxConfig]{:.learn-more}
+#### Nginx [Learn more…][NginxConfig]{:.learn-more}
+{:#nginx-configuration}
 
-If you're using Nginx, you can use the following configuration to enable URL rewriting.  You'll need to adjust the path (`/pico` on lines `5` and `7`) to match your installation directory. You should also add `fastcgi_param PICO_URL_REWRITING 1;` to your PHP Location Block to enable URL rewriting in Pico.
+If you're using Nginx, you can use the following configuration to enable URL rewriting (lines `5` to `8`) and denying access to Pico's internal files (lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `5` and `7`) to match your installation directory. Additionally, you'll need to enable URL rewriting by setting `$config['rewrite_url'] = true;` in your `config/config.php`.
 
 ```
-location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
+location ~ /pico/(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
 	return 404;
 }
 
@@ -32,10 +35,9 @@ location ~ ^/pico(.*) {
 }
 ```
 
-This configuration should provide the *bare minimum* you need for Pico.  Nginx is a very extensive subject.  If you have any trouble, please read through our page on [Nginx Configuration][NginxConfig].  Don't be afraid to open a [new issue][Issues] on GitHub or contact us at [#picocms on Freenode IRC][FreeNode] for additional assistance.
+This configuration should provide the *bare minimum* you need for Pico. Nginx is a very extensive subject. If you have any trouble, please read through our page on [Nginx Configuration][NginxConfig]. For additional assistance, please refer to the ["Getting Help" section][GettingHelp] below.
 
 [ConfigTemplate]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/config/config.php.template
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [NginxConfig]: {{ site.github.url }}/in-depth/nginx/
-[Issues]: {{ site.gh_project_url }}/issues
-[FreeNode]: https://webchat.freenode.net/?channels=%23picocms
+[GettingHelp]: {{ site.github.url }}/docs/#getting-help
