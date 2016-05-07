@@ -19,22 +19,30 @@ nav: 2
 ---
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create .md files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
-* Better transition between second sentence (original end of paragraph) and third.
 
 ![Pico's Default Theme]({{ site.github.url }}/style/images/docs/pico_about_default_theme.png)
 Pico's default theme.  It's a bit bare... but that's intentional!
 
-* Something about Pico's extendability and customizability
+Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
+
+That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
 ![NotePaper Theme for Pico]({{ site.github.url }}/style/images/docs/pico_about_notepaper_theme.jpg)
+NotePaper, a ready-to-go, community-developed theme.
+
 * Probably move this later, but I didn't want to forget to include it in the same commit as the image file.
+* Add example images for other themes.
 
 
 * insert some images showing Pico in use.  Borrow from readme?
   * Can the site do thumbnails and lightboxing?
+* Add a style for these images? Their lack of a border or shadow makes them hard to distinguish from the page background.
+  * Again, can these be thumbnailed and lightboxed? That might work better.
 
 * Larger "About" portion at the beginning.
   * Should contain all the "Why's" of Pico, before the "How's"
+
+Now let's dive into what makes Pico different from other solutions.
 
 ## A Flat File CMS
 
