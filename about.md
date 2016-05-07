@@ -26,7 +26,7 @@ Pico's default theme.  It's a bit bare... but that's intentional!
 
 * Something about Pico's extendability and customizability
 
-![NotePaper Theme for Pico]({{ site.github.url }}/style/images/docs/pico_about_notepaper_theme.png)
+![NotePaper Theme for Pico]({{ site.github.url }}/style/images/docs/pico_about_notepaper_theme.jpg)
 * Probably move this later, but I didn't want to forget to include it in the same commit as the image file.
 
 
