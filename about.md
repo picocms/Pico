@@ -73,6 +73,8 @@ Part of Pico's simplicity comes from the use of Markdown for formatting your pag
 
 You can learn more about Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
+* Add markdown example block?
+
 ### Control Your Metadata With YAML
 
 As we covered earlier, all of Pico's content is stored in flat files.  This includes the Metadata for your pages as well.
@@ -82,6 +84,8 @@ Metadata makes up all the little details that accompany your page.  Things like 
 Each Markdown-based page you create in Pico will have a small header at the top that contains all the metadata for that file.  The metadata is formatted using [YAML][YAML], which makes it really easy to manage.  We go more in-depth about [using YAML][DocsYAML] for your page header in our Documentation.
 
 Let's say for instance that you have a page that you'd like to back-date to last January.  Maybe that was the date you started your project or organization and you want the page to reflect that.  All you do is... type in that date!  There's no hoops to jump through, you don't have to go into some management console to modify your post, you just change the date.  You also don't have to worry that that minor edit you made to an older file will silently change a page's date to today's, thoroughly confusing all your visitors.
+
+* Add YAML Example block?
 
 ## Flexibility and Customization
 
@@ -110,15 +114,12 @@ Pico's Plugin system allows for users to extend Pico's functionality by hooking 
 Ready to try Pico for yourself?  Head on over to our [Download][Download] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
 
 * **General Notes**
-* Footnote URLs
 * Overview of Why's
 * Expand YAML in main documentation.
 
 
 * **VS Other CMS's**
 * configuration
-* migration
-* interfaces - only way to configure
 * limitations
 
 * **Community**
