@@ -15,6 +15,7 @@ toc:
     plugins: Plugins...
   getting-started: Getting Started
 nav-url: /about/
+nav: 2
 ---
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?
