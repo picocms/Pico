@@ -23,7 +23,11 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 ![Pico's Default Theme]({{ site.github.url }}/style/images/docs/pico_about_default_theme.png)
 Pico's default theme.  It's a bit bare... but that's intentional!
 
+* Center the text below images.
+
 Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
+
+* Is this too discouraging?
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
@@ -67,7 +71,7 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 
 Part of Pico's simplicity comes from the use of Markdown for formatting your pages.  Markdown is a formatting syntax that painlessly converts your writing into HTML.  A Markdown file is just a text file with an `.md` extension instead of `.txt`.  Markdown makes building new pages as easy as writing basic text.  Writing in Markdown is a lot quicker than coding in HTML, and much easier to learn.  Even this document was written using the simplicity of Markdown!
 
-You can learn more about Markdown in its official documentation at [Daring Fireball](http://daringfireball.net/projects/markdown/).  Pico also uses the extensions to Markdown found in [Markdown Extra](https://michelf.ca/projects/php-markdown/extra/).  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
+You can learn more about Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
 ### Control Your Metadata With YAML
 
@@ -75,21 +79,21 @@ As we covered earlier, all of Pico's content is stored in flat files.  This incl
 
 Metadata makes up all the little details that accompany your page.  Things like the title, author, description, post date, etc.  While other CMS's would store this data in the database with everything else, Pico simply places it at the beginning of the file.
 
-Each Markdown-based page you create in Pico will have a small header at the top that contains all the metadata for that file.  The metadata is formatted using [YAML](https://en.wikipedia.org/wiki/YAML), which makes it really easy to manage.  We go more in-depth about [using YAML]({{ site.github.url }}/docs#text-file-markup) for your page header in our Documentation.
+Each Markdown-based page you create in Pico will have a small header at the top that contains all the metadata for that file.  The metadata is formatted using [YAML][YAML], which makes it really easy to manage.  We go more in-depth about [using YAML][DocsYAML] for your page header in our Documentation.
 
 Let's say for instance that you have a page that you'd like to back-date to last January.  Maybe that was the date you started your project or organization and you want the page to reflect that.  All you do is... type in that date!  There's no hoops to jump through, you don't have to go into some management console to modify your post, you just change the date.  You also don't have to worry that that minor edit you made to an older file will silently change a page's date to today's, thoroughly confusing all your visitors.
 
 ## Flexibility and Customization
 
-Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins]({{ site.github.url }}/customization/).
+Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins][Customization].
 
 ### Themes...
 
 * Snappier section titles
 
-Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site]({{ site.github.url }}/customization/#themes), as well as some more on [our wiki]({{ site.gh_project_url }}/wiki/Pico-Themes).
+Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][SiteThemes], as well as some more on [our wiki][WikiThemes].
 
-Pico's "Themes" are built using [Twig Templates](http://twig.sensiolabs.org/).  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.
+Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.
 
 * link to cookbook? docs?
 
@@ -103,7 +107,7 @@ Pico's Plugin system allows for users to extend Pico's functionality by hooking 
 
 ## Getting Started
 
-Ready to try Pico for yourself?  Head on over to our [Download]({{ site.github.url }}/download/) page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation]({{ site.github.url }}/docs/).  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help]({{ site.github.url }}/docs/#getting-help) section of our Documentation, contact us on [Freenode IRC](https://webchat.freenode.net/?channels=%23picocms), or most importantly, create a [New Issue]({{ site.gh_project_url }}/issues) on GitHub!  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
+Ready to try Pico for yourself?  Head on over to our [Download][Download] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
 
 * **General Notes**
 * Footnote URLs
@@ -120,3 +124,19 @@ Ready to try Pico for yourself?  Head on over to our [Download]({{ site.github.u
 * **Community**
 * Start a discussion about how people got started with Pico.
   * LUP and maybe an interview to build community?
+
+[Docs]: {{ site.github.url }}/docs/
+[DocsYAML]: {{ site.github.url }}/docs#text-file-markup
+[GettingHelp]: {{ site.github.url }}/docs/#getting-help
+[Customization]: {{ site.github.url }}/customization/
+[Download]: {{ site.github.url }}/download/
+
+[SiteThemes]: {{ site.github.url }}/customization/#themes
+[WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
+[SitePlugins]: {{ site.github.url }}/customization/#plugins
+[WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
+
+[Markdown]: http://daringfireball.net/projects/markdown/
+[MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
+[Twig]: http://twig.sensiolabs.org/
+[YAML]: https://en.wikipedia.org/wiki/YAML
