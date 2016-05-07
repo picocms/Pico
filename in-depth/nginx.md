@@ -70,7 +70,7 @@ location ~ /(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG
 }
 ```
 
-This rule returns a `404 Not Found` error if someone tries to access one of Pico's internal files like `.htaccess` (what actually doesn't do anything under Nginx).  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
+This rule returns a `404 Not Found` error if someone tries to access one of Pico's internal files like `.htaccess` (which actually doesn't do anything under Nginx).  We recommend this as it's generally a good practice.  Users's don't need access to these files, so why allow it?
 
 In order to keep configuration simple, this example will block access to these files/folders *anywhere* they may occur (in Document Root, a subfolder, etc).  If this interferes with your site or blocks unintended files, you can add `^/path/to/pico/folder` to the beginning of the rule.  For example: `location ~ ^/pico/(\.htaccess|…) { … }`
 
