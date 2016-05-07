@@ -18,11 +18,20 @@ nav-url: /about/
 nav: 2
 ---
 
-Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?
+Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create .md files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
+* Better transition between second sentence (original end of paragraph) and third.
+
+![Pico's Default Theme]({{ site.github.url }}/style/images/docs/pico_about_default_theme.png)
+Pico's default theme.  It's a bit bare... but that's intentional!
+
+* Something about Pico's extendability and customizability
+
+![NotePaper Theme for Pico]({{ site.github.url }}/style/images/docs/pico_about_notepaper_theme.png)
+* Probably move this later, but I didn't want to forget to include it in the same commit as the image file.
+
 
 * insert some images showing Pico in use.  Borrow from readme?
   * Can the site do thumbnails and lightboxing?
-	* "Pico's default theme.  It's a bit bare... but that's intentional!"
 
 * Larger "About" portion at the beginning.
   * Should contain all the "Why's" of Pico, before the "How's"
