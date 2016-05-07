@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: All About Pico
+title: About
 headline: All About Pico
 description: What *is* a "stupidly simple, blazing fast, flat file CMS" anyway?
 toc:
