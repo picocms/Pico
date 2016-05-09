@@ -61,11 +61,13 @@ Pico is different.  With Pico, all your content is stored as "flat files", which
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
-* ...That... was just the intro.
-
 ## Web Pages Without HTML
 
-* Write an intro
+Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a `<p>`paragraph tag`</p>`, links would have an `<a href="http://example.com">`anchor tag`</a>` wrapped around them, and lists would require a heck of a lot of `<li>`list item tags`</li>`, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
+
+That's where a CMS comes in, allowing you the freedom to write a page the same way you'd write any other document.  The CMS handles the heavy lifting of formatting of your page to be compatible with the web.
+
+Pico is no different.  It leverages Markdown to provide quick and uncomplicated formatting and uses YAML to manage your metadata.  Every page is just a plain text file that you can open in any editor.  Once you understand the basics (and maybe you already do), you'll be churning out pages in no time at all.
 
 ### Markdown Makes Formatting Easy
 
