@@ -28,6 +28,9 @@ Pico's default theme.  It's a bit bare... but that's intentional!
 Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
 
 * Is this too discouraging?
+* Focus on / emphasize advantages over disadvantages
+  * Highlight extendability and small footprint
+	* "small footprint" implies they may need to get their hands dirty.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
@@ -61,6 +64,10 @@ Pico is different.  With Pico, all your content is stored as "flat files", which
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
+* Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
+* database performance issues, especially when overkill for a small site (bottleneck)
+* low system requirements. Runs on any system / web space
+
 ## Web Pages Without HTML
 
 Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a `<p>`paragraph tag`</p>`, links would have an `<a href="http://example.com">`anchor tag`</a>` wrapped around them, and lists would require a heck of a lot of `<li>`list item tags`</li>`, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
@@ -69,6 +76,8 @@ That's where a CMS comes in, allowing you the freedom to write a page the same w
 
 Pico is no different.  It leverages Markdown to provide quick and uncomplicated formatting and uses YAML to manage your metadata.  Every page is just a plain text file that you can open in any editor.  Once you understand the basics (and maybe you already do), you'll be churning out pages in no time at all.
 
+* New code formatting
+
 ### Markdown Makes Formatting Easy
 
 Part of Pico's simplicity comes from the use of Markdown for formatting your pages.  Markdown is a formatting syntax that painlessly converts your writing into HTML.  A Markdown file is just a text file with an `.md` extension instead of `.txt`.  Markdown makes building new pages as easy as writing basic text.  Writing in Markdown is a lot quicker than coding in HTML, and much easier to learn.  Even this document was written using the simplicity of Markdown!
@@ -76,6 +85,8 @@ Part of Pico's simplicity comes from the use of Markdown for formatting your pag
 You can learn more about Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
 * Add markdown example block?
+* History Lesson / Origins / What & Why
+* Link to Wikipedia first (has good example)
 
 ### Control Your Metadata With YAML
 
@@ -101,7 +112,9 @@ Pico's default theme is *not* intended for production use.  It is provided as a 
 
 Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.
 
-* link to cookbook? docs?
+* link to docs?
+* link to cookbook in the future as well.
+* Twig is so powerful that in many cases you don't even need Plugins ("for most typical tasks")
 
 And if that's not enough creative power for you, you can check out Pico's Plugin system.
 
@@ -118,15 +131,11 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * **General Notes**
 * Overview of Why's
 * Expand YAML in main documentation.
-
+* add screenshots too customization as well (could look really good with thumbnails & lightboxing)
 
 * **VS Other CMS's**
 * configuration
 * limitations
-
-* **Community**
-* Start a discussion about how people got started with Pico.
-  * LUP and maybe an interview to build community?
 
 [Docs]: {{ site.github.url }}/docs/
 [DocsYAML]: {{ site.github.url }}/docs#text-file-markup
