@@ -70,7 +70,7 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 
 ## Web Pages Without HTML
 
-Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a <code><strong>&lt;p&gt;</strong>paragraph tag<strong>&lt;/p&gt;</strong></code>, links would have an <code><strong>&lt;a href="http://example.com"&gt;</strong>anchor tag<strong>&lt;/a&gt;</strong></code> wrapped around them, and lists would require a heck of a lot of <code><strong>&lt;li&gt;</strong>list item tags<strong>&lt;/li&gt;</strong></code>, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
+Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a <code><strong>&lt;p&gt;</strong>paragraph tag<strong>&lt;/p&gt;</strong></code>, links would have an <code><strong>&lt;a&nbsp;href="http://example.com"&gt;</strong>anchor tag<strong>&lt;/a&gt;</strong></code> wrapped around them, and lists would require a heck of a lot of <code><strong>&lt;li&gt;</strong>list item tags<strong>&lt;/li&gt;</strong></code>, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
 
 That's where a CMS comes in, allowing you the freedom to write a page the same way you'd write any other document.  The CMS handles the heavy lifting of formatting of your page to be compatible with the web.
 
@@ -78,13 +78,20 @@ Pico is no different.  It leverages Markdown to provide quick and uncomplicated 
 
 ### Markdown Makes Formatting Easy
 
-Part of Pico's simplicity comes from the use of Markdown for formatting your pages.  Markdown is a formatting syntax that painlessly converts your writing into HTML.  A Markdown file is just a text file with an `.md` extension instead of `.txt`.  Markdown makes building new pages as easy as writing basic text.  Writing in Markdown is a lot quicker than coding in HTML, and much easier to learn.  Even this document was written using the simplicity of Markdown!
+Part of Pico's simplicity comes from the use of Markdown for formatting your pages.  According to its creator, John Gruber, "Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)."
 
-You can learn more about Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
+Writing in Markdown is a lot quicker than coding in HTML, and much easier to learn.  Markdown makes building new pages as easy as writing basic text.  A Markdown file is just a plain text document with an `.md` extension instead of `.txt`.  Even this page was written using the simplicity of Markdown!
 
+You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a [good example][WikiMarkdownExample] there showing the before and after of how Markdown works, so be sure to check that out!
+
+You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
+```
+* Example excerpt from Pico's inline readme
+```
 * Add markdown example block?
 * History Lesson / Origins / What & Why
-* Link to Wikipedia first (has good example)
+
+* Removed: Markdown is a formatting syntax that painlessly converts your writing into HTML.  (Replaced with quote)
 
 ### Control Your Metadata With YAML
 
@@ -146,6 +153,8 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 [SitePlugins]: {{ site.github.url }}/customization/#plugins
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 
+[WikiMarkdown]: https://en.wikipedia.org/wiki/Markdown
+[WikiMarkdownExample]: https://en.wikipedia.org/wiki/Markdown#Example
 [Markdown]: http://daringfireball.net/projects/markdown/
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [Twig]: http://twig.sensiolabs.org/
