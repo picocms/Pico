@@ -70,13 +70,11 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 
 ## Web Pages Without HTML
 
-Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a `<p>`paragraph tag`</p>`, links would have an `<a href="http://example.com">`anchor tag`</a>` wrapped around them, and lists would require a heck of a lot of `<li>`list item tags`</li>`, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
+Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a <code><strong>&lt;p&gt;</strong>paragraph tag<strong>&lt;/p&gt;</strong></code>, links would have an <code><strong>&lt;a href="http://example.com"&gt;</strong>anchor tag<strong>&lt;/a&gt;</strong></code> wrapped around them, and lists would require a heck of a lot of <code><strong>&lt;li&gt;</strong>list item tags<strong>&lt;/li&gt;</strong></code>, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
 
 That's where a CMS comes in, allowing you the freedom to write a page the same way you'd write any other document.  The CMS handles the heavy lifting of formatting of your page to be compatible with the web.
 
 Pico is no different.  It leverages Markdown to provide quick and uncomplicated formatting and uses YAML to manage your metadata.  Every page is just a plain text file that you can open in any editor.  Once you understand the basics (and maybe you already do), you'll be churning out pages in no time at all.
-
-* New code formatting
 
 ### Markdown Makes Formatting Easy
 
