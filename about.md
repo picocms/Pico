@@ -11,8 +11,8 @@ toc:
     control-your-metadata-with-yaml: Control Your Metadata With YAML
   flexibility-and-customization:
     _title: Flexibility and Customization
-    themes: Themes...
-    plugins: Plugins...
+    theming-with-twig-templates: Theming With Twig Templates
+    plugins-extend-picos-php: Plugins Extend Pico's PHP
   getting-started: Getting Started
 nav-url: /about/
 nav: 2
@@ -86,9 +86,17 @@ You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a 
 
 You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 ```
-* Example excerpt from Pico's inline readme
+## Markdown Heading
+
+This is an example of using Markdown to format your document.  It's not very difficult.
+
+* Here are some bullet points.
+* Markdown is pretty simple to understand...
+  * But it's also really readable.
+	* HTML can't even compare!
+* You'll get the hang of it in no time at all.
 ```
-* Add markdown example block?
+
 * History Lesson / Origins / What & Why
 
 * Removed: Markdown is a formatting syntax that painlessly converts your writing into HTML.  (Replaced with quote)
@@ -103,15 +111,20 @@ Each Markdown-based page you create in Pico will have a small header at the top 
 
 Let's say for instance that you have a page that you'd like to back-date to last January.  Maybe that was the date you started your project or organization and you want the page to reflect that.  All you do is... type in that date!  There's no hoops to jump through, you don't have to go into some management console to modify your post, you just change the date.  You also don't have to worry that that minor edit you made to an older file will silently change a page's date to today's, thoroughly confusing all your visitors.
 
-* Add YAML Example block?
+```
+---
+Title: YAML Example
+Description: This is what your Metadata will look like in YAML
+Author: Your Name
+Date: 2016/05/10
+---
+```
 
 ## Flexibility and Customization
 
 Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins][Customization].
 
-### Themes...
-
-* Snappier section titles
+### Theming With Twig Templates
 
 Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][SiteThemes], as well as some more on [our wiki][WikiThemes].
 
@@ -123,7 +136,7 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 
 And if that's not enough creative power for you, you can check out Pico's Plugin system.
 
-### Plugins...
+### Plugins Extend Pico's PHP
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site]({{ site.github.url }}/customization/#plugins), and even more on [our wiki]({{ site.gh_project_url }}/wiki/Pico-Plugins).
 
