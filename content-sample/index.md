@@ -299,7 +299,7 @@ location ~ /pico/(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHAN
 
 location ~ ^/pico(.*) {
     index index.php;
-    try_files $uri $uri/ /pico/?$1&$args;
+    try_files $uri $uri/ /pico/index.php?$1&$args;
 }
 ```
 
