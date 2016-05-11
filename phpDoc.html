@@ -13,6 +13,7 @@ nav-url: /docs/
 {% endcapture %}
 
 {% assign index = 0 %}
+{% assign currentCycle = 0 %}
 {% assign previousType = "" %}
 {% assign phpDocSort = phpDocSort|split:'#'|sort %}
 {% for phpDocSortString in phpDocSort reversed offset:1 %}
@@ -21,9 +22,9 @@ nav-url: /docs/
     {% assign phpDoc = site.data.phpDoc[phpDocIndex] %}
 
     {% if phpDoc.type != previousType and forloop.first == false %}
-        {% assign index = 0 %}
-        </div>
+        {% if currentCycle != 2 %}</div>{% endif %}
 
+        {% assign index = 0 %}
         <hr />
     {% endif %}
 
