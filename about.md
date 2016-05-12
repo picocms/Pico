@@ -30,6 +30,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 * Using `capture` because I couldn't concatenate 'site.github.url' with uri using 'assign'.
 * needs to be an inline element, new styles
   * img is also set to display: block
+* fix overlay
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
 
