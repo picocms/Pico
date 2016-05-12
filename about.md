@@ -20,21 +20,23 @@ nav: 2
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create .md files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
-<!-- Capturing because I couldn't concatenate 'site.github.url' with uri using 'assign'. -->
+
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/default_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
 {% capture heading %}Pico's Default Theme{% endcapture %}
 {% capture description %}It's a bit bare... but that's intentional!{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+* Using `capture` because I couldn't concatenate 'site.github.url' with uri using 'assign'.
 * needs to be an inline element, new styles
+  * img is also set to display: block
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
 
 * Is this too discouraging?
 * Focus on / emphasize advantages over disadvantages
   * Highlight extendability and small footprint
-	* "small footprint" implies they may need to get their hands dirty.
+  * "small footprint" implies they may need to get their hands dirty.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
