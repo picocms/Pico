@@ -69,9 +69,14 @@ redirect_from:
 </div>
 <div class="clear"></div>
 
-<div class="one-third last">
+<div class="one-third">
     <h3>Identity</h3>
     <p>Personal "business card" style site</p>
+    <p><a href="https://github.com/BesrourMS/Identity" class="button" target="_blank">Download</a></p>
+</div>
+<div class="one-third last">
+    <h3>Hold</h3>
+    <p>Personal Profile Theme for Pico CMS</p>
     <p><a href="https://github.com/BesrourMS/Identity" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
