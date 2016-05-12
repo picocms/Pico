@@ -2861,6 +2861,10 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     position: relative;
 }
 
+.fancybox img {
+    display: inline-block;
+}
+
 .fancybox .overlay {
     display: none;
     height: 100%;
