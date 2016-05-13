@@ -136,6 +136,22 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 {% capture description %}Simple Sidebar is a theme from Start Bootstrap, ported to Pico.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+{% comment %}
+[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/)
+https://github.com/dmelo/bt-theme
+{% endcomment %}
+
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simpletwo_theme.png{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simpletwo_theme.png{% endcapture %}
+{% capture heading %}SimpleTwo Theme{% endcapture %}
+{% capture description %}A simple theme with two columns for picoCMS.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
+{% comment %}
+https://github.com/sonst-was/simpleTwo
+{% endcomment %}
+
+* Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
 * NotePaper screenshot in both places?
   * Description is more fitting of above location.
 * Add example images for other themes.
