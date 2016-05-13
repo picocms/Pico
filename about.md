@@ -29,12 +29,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 
 * Using `capture` because I couldn't concatenate 'site.github.url' with uri using 'assign'.
 
-Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
-
-* Is this too discouraging?
-* Focus on / emphasize advantages over disadvantages
-  * Highlight extendability and small footprint
-  * "small footprint" implies they may need to get their hands dirty.
+Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
@@ -48,12 +43,8 @@ That being said, Pico is incredibly extendable and customizable.  With a very sm
   * Or keep at the top to better showcase?
 * Add example images for other themes.
 
-
 * insert some more images showing Pico in use.
 * Better styles for these images?
-
-* Larger "About" portion at the beginning.
-  * Should contain all the "Why's" of Pico, before the "How's"
 
 Now let's dive into what makes Pico different from other solutions.
 
@@ -100,7 +91,7 @@ This is an example of using Markdown to format your document.  It's not very dif
 * Here are some bullet points.
 * Markdown is pretty simple to understand...
   * But it's also really readable.
-	* HTML can't even compare!
+  * HTML can't even compare!
 * You'll get the hang of it in no time at all.
 ```
 
@@ -139,7 +130,6 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 
 * link to docs?
 * link to cookbook in the future as well.
-* Twig is so powerful that in many cases you don't even need Plugins ("for most typical tasks")
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 
@@ -154,7 +144,8 @@ Pico's Plugin system allows for users to extend Pico's functionality by hooking 
 Ready to try Pico for yourself?  Head on over to our [Download][Download] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
 
 * **General Notes**
-* Overview of Why's
+* Larger "About" portion at the beginning?
+  * Should contain all the "Why's" of Pico, before the "How's".
 * Expand YAML in main documentation.
 * Add screenshots to customization as well.
 
