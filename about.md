@@ -20,28 +20,17 @@ nav: 2
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create .md files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
-
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/default_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
 {% capture heading %}Pico's Default Theme{% endcapture %}
 {% capture description %}It's a bit bare... but that's intentional!{% endcapture %}
 {% include fancyboxtemplate.html %}
 
-* Using `capture` because I couldn't concatenate 'site.github.url' with uri using 'assign'.
+* Using `capture` for thumbnail variables because I couldn't concatenate 'site.github.url' with uri using 'assign'.
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
-{% capture heading %}NotePaper Theme{% endcapture %}
-{% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
-{% include fancyboxtemplate.html %}
-
-* Move this to themes?
-  * Or keep at the top to better showcase?
-* Add example images for other themes.
 
 * insert some more images showing Pico in use.
 * Better styles for these images?
@@ -67,6 +56,7 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% capture description %}An example of a content folder in Pico.  This one is from a writing website.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+* Smaller screenshot?  This one doesn't really benefit from the added space.
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
 * database performance issues, especially when overkill for a small site (bottleneck)
 * low system requirements. Runs on any system / web space
@@ -132,9 +122,17 @@ Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues 
 
 Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][SiteThemes], as well as some more on [our wiki][WikiThemes].
 
-Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.
+Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.  You can find more information on making your own templates in [Twig's Documentation][TwigDocs] and see how they relate to Pico in our own [Documentation][DocsThemes].
 
-* link to docs?
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
+{% capture heading %}NotePaper Theme{% endcapture %}
+{% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
+* NotePaper screenshot in both places?
+  * Description is more fitting of above location.
+* Add example images for other themes.
 * link to cookbook in the future as well.
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
@@ -161,6 +159,7 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 
 [Docs]: {{ site.github.url }}/docs/
 [DocsYAML]: {{ site.github.url }}/docs#text-file-markup
+[DocsThemes]: {{ site.github.url }}/docs#themes
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [Customization]: {{ site.github.url }}/customization/
 [Download]: {{ site.github.url }}/download/
@@ -175,4 +174,5 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 [Markdown]: http://daringfireball.net/projects/markdown/
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [Twig]: http://twig.sensiolabs.org/
+[TwigDocs]: http://twig.sensiolabs.org/documentation
 [YAML]: https://en.wikipedia.org/wiki/YAML
