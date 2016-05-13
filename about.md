@@ -22,26 +22,26 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/default_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
-{% capture heading %}Pico's Default Theme{% endcapture %}
-{% capture description %}It's a bit bare... but that's intentional!{% endcapture %}
-{% capture relation %}intro{% endcapture %}
+{% assign heading = "Pico's Default Theme" %}
+{% assign description = "It's a bit bare... but that's intentional!" %}
+{% assign relation = "intro" %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
-{% capture heading %}NotePaper Theme{% endcapture %}
-{% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
-{% capture relation %}intro{% endcapture %}
+{% assign heading = "NotePaper Theme" %}
+{% assign description = "A ready-to-go, community-developed theme." %}
+{% assign relation = "intro" %}
 {% include fancyboxtemplate.html %}
 
-* Using `capture` for thumbnail variables because I couldn't concatenate 'site.github.url' with uri using 'assign'.
+* Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
+* Add Magnifying Glass as second style?
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
-* insert some more images showing Pico in use.
-* Better styles for these images?
+* Better styles for these images? Border/shadow?
 
 Now let's dive into what makes Pico different from other solutions.
 
@@ -60,16 +60,16 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/content_folder.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/content_folder.png{% endcapture %}
-{% capture heading %}Content Folder{% endcapture %}
-{% capture description %}An example of a content folder in Pico.  This one is from a writing website.{% endcapture %}
-{% capture relation %}usage{% endcapture %}
+{% assign heading = "Content Folder" %}
+{% assign description = "An example of a content folder in Pico.  This one is from a writing website." %}
+{% assign relation = "usage" %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/config.png{% endcapture %}
-{% capture heading %}Pico's Config File{% endcapture %}
-{% capture description %}Here's an example of configuring Pico.{% endcapture %}
-{% capture relation %}usage{% endcapture %}
+{% assign heading = "Pico's Config File" %}
+{% assign description = "Here's an example of configuring Pico." %}
+{% assign relation = "usage" %}
 {% include fancyboxtemplate.html %}
 
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
@@ -108,8 +108,6 @@ This is an example of using Markdown to format your document.  It's not very dif
 
 * History Lesson / Origins / What & Why
 
-* Removed sentence: Markdown is a formatting syntax that painlessly converts your writing into HTML.  (Replaced with quote)
-
 ### Control Your Metadata With YAML
 
 As we covered earlier, all of Pico's content is stored in flat files.  This includes the Metadata for your pages as well.
@@ -141,16 +139,16 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
-{% capture heading %}NotePaper Theme{% endcapture %}
-{% capture description %}A highly customizable theme, designed exclusively for Pico.{% endcapture %}
-{% capture relation %}theme{% endcapture %}
+{% assign heading = "NotePaper Theme" %}
+{% assign description = "A highly customizable theme, designed exclusively for Pico." %}
+{% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simple_sidebar_theme.png{% endcapture %}
-{% capture heading %}Simple Sidebar Theme{% endcapture %}
-{% capture description %}Simple Sidebar is a theme from Start Bootstrap, ported to Pico.{% endcapture %}
-{% capture relation %}theme{% endcapture %}
+{% assign heading = "Simple Sidebar Theme" %}
+{% assign description = "Simple Sidebar is a theme from Start Bootstrap, ported to Pico." %}
+{% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
@@ -160,9 +158,9 @@ https://github.com/dmelo/bt-theme
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simpletwo_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simpletwo_theme.png{% endcapture %}
-{% capture heading %}SimpleTwo Theme{% endcapture %}
-{% capture description %}A simple theme with two columns for picoCMS.{% endcapture %}
-{% capture relation %}theme{% endcapture %}
+{% assign heading = "SimpleTwo Theme" %}
+{% assign description = "A simple theme with two columns for picoCMS." %}
+{% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
@@ -171,9 +169,9 @@ https://github.com/sonst-was/simpleTwo
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/magazine_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/magazine_theme.jpg{% endcapture %}
-{% capture heading %}Magazine Theme{% endcapture %}
-{% capture description %}Magazine Theme from FreeHTML5.co, ported to Pico.{% endcapture %}
-{% capture relation %}theme{% endcapture %}
+{% assign heading = "Magazine Theme" %}
+{% assign description = "Magazine Theme from FreeHTML5.co, ported to Pico." %}
+{% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
