@@ -56,6 +56,12 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% capture description %}An example of a content folder in Pico.  This one is from a writing website.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/config.png{% endcapture %}
+{% capture heading %}Pico's Config File{% endcapture %}
+{% capture description %}Here's an example of configuring Pico.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
 * Smaller screenshot?  This one doesn't really benefit from the added space.
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
 * database performance issues, especially when overkill for a small site (bottleneck)
@@ -165,7 +171,6 @@ https://github.com/BesrourMS/magazine
 * Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
 * NotePaper screenshot in both places?
   * Description is more fitting of above location.
-* Add example images for other themes.
 * link to cookbook in the future as well.
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
