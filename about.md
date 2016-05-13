@@ -26,6 +26,12 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% capture description %}It's a bit bare... but that's intentional!{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
+{% capture heading %}NotePaper Theme{% endcapture %}
+{% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
 * Using `capture` for thumbnail variables because I couldn't concatenate 'site.github.url' with uri using 'assign'.
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
@@ -62,7 +68,6 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% capture description %}Here's an example of configuring Pico.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
-* Smaller screenshot?  This one doesn't really benefit from the added space.
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
 * database performance issues, especially when overkill for a small site (bottleneck)
 * low system requirements. Runs on any system / web space
@@ -133,7 +138,7 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
 {% capture heading %}NotePaper Theme{% endcapture %}
-{% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
+{% capture description %}A highly customizable theme, designed exclusively for Pico.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
@@ -169,8 +174,6 @@ https://github.com/BesrourMS/magazine
 {% endcomment %}
 
 * Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
-* NotePaper screenshot in both places?
-  * Description is more fitting of above location.
 * link to cookbook in the future as well.
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
