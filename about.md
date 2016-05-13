@@ -130,6 +130,12 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 {% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simple_sidebar_theme.png{% endcapture %}
+{% capture heading %}Simple Sidebar Theme{% endcapture %}
+{% capture description %}Simple Sidebar is a theme from Start Bootstrap, ported to Pico.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
 * NotePaper screenshot in both places?
   * Description is more fitting of above location.
 * Add example images for other themes.
