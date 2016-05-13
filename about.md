@@ -24,12 +24,14 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
 {% capture heading %}Pico's Default Theme{% endcapture %}
 {% capture description %}It's a bit bare... but that's intentional!{% endcapture %}
+{% capture relation %}intro{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
 {% capture heading %}NotePaper Theme{% endcapture %}
 {% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
+{% capture relation %}intro{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 * Using `capture` for thumbnail variables because I couldn't concatenate 'site.github.url' with uri using 'assign'.
@@ -60,12 +62,14 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/content_folder.png{% endcapture %}
 {% capture heading %}Content Folder{% endcapture %}
 {% capture description %}An example of a content folder in Pico.  This one is from a writing website.{% endcapture %}
+{% capture relation %}usage{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/config.png{% endcapture %}
 {% capture heading %}Pico's Config File{% endcapture %}
 {% capture description %}Here's an example of configuring Pico.{% endcapture %}
+{% capture relation %}usage{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
@@ -139,12 +143,14 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
 {% capture heading %}NotePaper Theme{% endcapture %}
 {% capture description %}A highly customizable theme, designed exclusively for Pico.{% endcapture %}
+{% capture relation %}theme{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simple_sidebar_theme.png{% endcapture %}
 {% capture heading %}Simple Sidebar Theme{% endcapture %}
 {% capture description %}Simple Sidebar is a theme from Start Bootstrap, ported to Pico.{% endcapture %}
+{% capture relation %}theme{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
@@ -156,6 +162,7 @@ https://github.com/dmelo/bt-theme
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simpletwo_theme.png{% endcapture %}
 {% capture heading %}SimpleTwo Theme{% endcapture %}
 {% capture description %}A simple theme with two columns for picoCMS.{% endcapture %}
+{% capture relation %}theme{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
@@ -166,6 +173,7 @@ https://github.com/sonst-was/simpleTwo
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/magazine_theme.jpg{% endcapture %}
 {% capture heading %}Magazine Theme{% endcapture %}
 {% capture description %}Magazine Theme from FreeHTML5.co, ported to Pico.{% endcapture %}
+{% capture relation %}theme{% endcapture %}
 {% include fancyboxtemplate.html %}
 
 {% comment %}
@@ -174,6 +182,7 @@ https://github.com/BesrourMS/magazine
 {% endcomment %}
 
 * Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
+* Restore Next/Previous Image functionality.
 * link to cookbook in the future as well.
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
