@@ -151,6 +151,17 @@ https://github.com/dmelo/bt-theme
 https://github.com/sonst-was/simpleTwo
 {% endcomment %}
 
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/magazine_theme.jpg{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/magazine_theme.jpg{% endcapture %}
+{% capture heading %}Magazine Theme{% endcapture %}
+{% capture description %}Magazine Theme from FreeHTML5.co, ported to Pico.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
+{% comment %}
+Magazine Theme from [FreeHTML5.co](http://freehtml5.co/), ported to Pico.
+https://github.com/BesrourMS/magazine
+{% endcomment %}
+
 * Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
 * NotePaper screenshot in both places?
   * Description is more fitting of above location.
