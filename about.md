@@ -61,6 +61,12 @@ Pico is different.  With Pico, all your content is stored as "flat files", which
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/content_folder.png{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/content_folder.png{% endcapture %}
+{% capture heading %}Content Folder{% endcapture %}
+{% capture description %}An example of a content folder in Pico.  This one is from a writing website.{% endcapture %}
+{% include fancyboxtemplate.html %}
+
 * Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
 * database performance issues, especially when overkill for a small site (bottleneck)
 * low system requirements. Runs on any system / web space
