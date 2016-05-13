@@ -28,9 +28,6 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% include fancyboxtemplate.html %}
 
 * Using `capture` because I couldn't concatenate 'site.github.url' with uri using 'assign'.
-* needs to be an inline element, new styles
-  * img is also set to display: block
-* fix overlay
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  If your goal is to deploy a generic-looking website without getting your hands dirty, Pico is probably not for you.
 
@@ -47,14 +44,13 @@ That being said, Pico is incredibly extendable and customizable.  With a very sm
 {% capture description %}A ready-to-go, community-developed theme.{% endcapture %}
 {% include fancyboxtemplate.html %}
 
-* Probably move this later, but I didn't want to forget to include it in the same commit as the image file.
+* Move this to themes?
+  * Or keep at the top to better showcase?
 * Add example images for other themes.
 
 
-* insert some images showing Pico in use.  Borrow from readme?
-  * Can the site do thumbnails and lightboxing?
-* Add a style for these images? Their lack of a border or shadow makes them hard to distinguish from the page background.
-  * Again, can these be thumbnailed and lightboxed? That might work better.
+* insert some more images showing Pico in use.
+* Better styles for these images?
 
 * Larger "About" portion at the beginning.
   * Should contain all the "Why's" of Pico, before the "How's"
@@ -95,6 +91,7 @@ Writing in Markdown is a lot quicker than coding in HTML, and much easier to lea
 You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a [good example][WikiMarkdownExample] there showing the before and after of how Markdown works, so be sure to check that out!
 
 You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
+
 ```
 ## Markdown Heading
 
@@ -109,7 +106,7 @@ This is an example of using Markdown to format your document.  It's not very dif
 
 * History Lesson / Origins / What & Why
 
-* Removed: Markdown is a formatting syntax that painlessly converts your writing into HTML.  (Replaced with quote)
+* Removed sentence: Markdown is a formatting syntax that painlessly converts your writing into HTML.  (Replaced with quote)
 
 ### Control Your Metadata With YAML
 
@@ -138,13 +135,13 @@ Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues 
 
 Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][SiteThemes], as well as some more on [our wiki][WikiThemes].
 
-Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.
+Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.
 
 * link to docs?
 * link to cookbook in the future as well.
 * Twig is so powerful that in many cases you don't even need Plugins ("for most typical tasks")
 
-And if that's not enough creative power for you, you can check out Pico's Plugin system.
+And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 
 ### Plugins Extend Pico's PHP
 
@@ -159,7 +156,7 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * **General Notes**
 * Overview of Why's
 * Expand YAML in main documentation.
-* add screenshots too customization as well (could look really good with thumbnails & lightboxing)
+* Add screenshots to customization as well.
 
 * **VS Other CMS's**
 * configuration
