@@ -41,20 +41,17 @@ Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
-* Better styles for these images? Border/shadow?
-
 Now let's dive into what makes Pico different from other solutions.
 
 ## A Flat File CMS
 
-Pico is a Content Management System, or CMS.  If you've heard the term before, it's likely in the context of WordPress, Joomla, Drupal (intentionally not linking to the competition ;P) or many of the other popular CMS's on the block.  A Content Management System makes creating a beautiful and well-organized website easy and frustration free.  It can also help those without extensive knowledge of programming on the web to achieve the same professional quality website as those that do.
-
- * Last sentence is a bit rough....
- * Add headers for CMS and Flat file or is that excessive?
+Pico is a Content Management System, or CMS.  If you've heard the term before, it's likely in the context of WordPress, Joomla, Drupal or many of the other popular CMS's on the block.  A Content Management System makes creating a beautiful and well-organized website easy and frustration free.  It can also help those without extensive knowledge of programming on the web to achieve the same professional quality website as those that do.
 
 Most Content Management Systems make use of extensive databases to hold their content.  These databases can sometimes require a confusing setup process, though this is often obscured by one-click setup utilities.  While they can be simple to set up thanks to these utilities, users may experience difficulty when trying to modify, edit, or migrate their content.  Everything that makes their site "what it is" is locked up in a hard-to-manage database.  Anyone who's tried to migrate their WordPress installation from one server to another has likely experienced this pain.
 
 Pico is different.  With Pico, all your content is stored as "flat files", which is pretty much exactly as it sounds.  When using Pico, all your site content is stored as simple text files.  It remains readily available to modify, edit, organize, and migrate as you see fit.
+
+Unlike a traditional CMS, Pico doesn't require write access on your server to function.  This makes it more secure by design and reduces difficult PHP configuration.  Since Pico doesn't use a database for its backend, it has very low system requirements and will run on almost any web space.  Databases can also often be a bottleneck on your site's performance, especially on a small website, where a database-driven CMS is simply overkill.
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
@@ -72,9 +69,7 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% assign relation = "usage" %}
 {% include fancyboxtemplate.html %}
 
-* Pico doesn't require write access (without admin plugin) either, making it more secure by design, and reducing difficult PHP configuration.
-* database performance issues, especially when overkill for a small site (bottleneck)
-* low system requirements. Runs on any system / web space
+* Fix slight gap under images. (line-height: 0 and line-height: 24px)
 
 ## Web Pages Without HTML
 
@@ -107,6 +102,7 @@ This is an example of using Markdown to format your document.  It's not very dif
 ```
 
 * History Lesson / Origins / What & Why
+  * Something about Markdown's standardization and popularity?
 
 ### Control Your Metadata With YAML
 
@@ -130,6 +126,8 @@ Date: 2016/05/10
 ## Flexibility and Customization
 
 Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins][Customization].
+
+* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]?
 
 ### Theming With Twig Templates
 
@@ -180,7 +178,6 @@ https://github.com/BesrourMS/magazine
 {% endcomment %}
 
 * Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
-* Restore Next/Previous Image functionality.
 * link to cookbook in the future as well.
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
