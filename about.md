@@ -34,9 +34,6 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% assign relation = "intro" %}
 {% include fancyboxtemplate.html %}
 
-* Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
-* Add Magnifying Glass as second style?
-
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
@@ -69,8 +66,6 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% assign relation = "usage" %}
 {% include fancyboxtemplate.html %}
 
-* Fix slight gap under images. (line-height: 0 and line-height: 24px)
-
 ## Web Pages Without HTML
 
 Writing HTML is annoying.  Traditionally, if you wanted to build a web page, you had no choice but to fumble around with HTML.  Every paragraph of your site would be contained in a <code><strong>&lt;p&gt;</strong>paragraph tag<strong>&lt;/p&gt;</strong></code>, links would have an <code><strong>&lt;a&nbsp;href="http://example.com"&gt;</strong>anchor tag<strong>&lt;/a&gt;</strong></code> wrapped around them, and lists would require a heck of a lot of <code><strong>&lt;li&gt;</strong>list item tags<strong>&lt;/li&gt;</strong></code>, a pair around each item.  If you've written a traditional HTML page before, you know how this can be a tedious, repetitive, and error-prone process.
@@ -101,9 +96,6 @@ This is an example of using Markdown to format your document.  It's not very dif
 * You'll get the hang of it in no time at all.
 ```
 
-* History Lesson / Origins / What & Why
-  * Something about Markdown's standardization and popularity?
-
 ### Control Your Metadata With YAML
 
 As we covered earlier, all of Pico's content is stored in flat files.  This includes the Metadata for your pages as well.
@@ -126,8 +118,6 @@ Date: 2016/05/10
 ## Flexibility and Customization
 
 Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins][Customization].
-
-* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]?
 
 ### Theming With Twig Templates
 
@@ -177,30 +167,41 @@ Magazine Theme from [FreeHTML5.co](http://freehtml5.co/), ported to Pico.
 https://github.com/BesrourMS/magazine
 {% endcomment %}
 
-* Add support for markdown links inside description without *catastrophically breaking* the rest of the page.
-* link to cookbook in the future as well.
-
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 
 ### Plugins Extend Pico's PHP
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site]({{ site.github.url }}/customization/#plugins), and even more on [our wiki]({{ site.gh_project_url }}/wiki/Pico-Plugins).
 
-* **@PhrozenByte** any more to say about Plugins?
-
 ## Getting Started
 
 Ready to try Pico for yourself?  Head on over to our [Download][Download] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
+
+---
 
 * **General Notes**
 * Larger "About" portion at the beginning?
   * Should contain all the "Why's" of Pico, before the "How's".
 * Expand YAML in main documentation.
-* Add screenshots to customization as well.
 
 * **VS Other CMS's**
-* configuration
-* limitations
+* configuration / interface
+* limitations when customizing
+
+* **Markdown and YAML**
+* History Lesson / Origins / What & Why
+  * Something about Markdown's standardization and popularity?
+
+* **Customization**
+* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]? (First/Intro Line)
+* link to cookbook in the future as well.
+* **@PhrozenByte** any more to say about Plugins?
+
+* **Fancybox Implementation**
+* Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
+* Add Magnifying Glass as second style?
+* Fix slight gap under images. (line-height: 0; on container and line-height: 24px; on content seems to fix)
+* Add support for markdown links inside descriptions without *catastrophically breaking* the rest of the page.
 
 [Docs]: {{ site.github.url }}/docs/
 [DocsYAML]: {{ site.github.url }}/docs#text-file-markup
