@@ -34,7 +34,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% assign relation = "intro" %}
 {% include fancyboxtemplate.html %}
 
-Let's get this out of the way: Pico is *not* a turn-key solution.  Pico's trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
+Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
@@ -183,6 +183,8 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * Larger "About" portion at the beginning?
   * Should contain all the "Why's" of Pico, before the "How's".
 * Expand YAML in main documentation.
+* Better image captions
+* Fix line indentation in gedit image
 
 * **VS Other CMS's**
 * configuration / interface
@@ -193,7 +195,7 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
   * Something about Markdown's standardization and popularity?
 
 * **Customization**
-* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]? (First/Intro Line)
+* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]? (First/Intro Line) (And one in intro)
 * link to cookbook in the future as well.
 * **@PhrozenByte** any more to say about Plugins?
 
