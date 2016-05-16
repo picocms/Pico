@@ -2859,7 +2859,9 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .fancybox {
     display: inline-block;
     position: relative;
-    overflow: scroll;
+    overflow: hidden;
+    line-height: 0;
+    margin: 1em;
 }
 
 .fancybox img {
@@ -2875,6 +2877,7 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     z-index: 100;
     background-color: rgba(255,103,96, 0.92);
     padding: 20px;
+    line-height: 24px;
 }
 .fancybox .overlay h3 {
     color: #FFF;

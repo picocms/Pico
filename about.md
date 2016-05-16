@@ -202,7 +202,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * **Fancybox Implementation**
 * Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
 * Add Magnifying Glass as second style?
-* Fix slight gap under images. (line-height: 0; on container and line-height: 24px; on content seems to fix)
 * Add support for markdown links inside descriptions without *catastrophically breaking* the rest of the page.
 
 [Docs]: {{ site.github.url }}/docs/
