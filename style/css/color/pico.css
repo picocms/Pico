@@ -144,6 +144,10 @@ ul.contact-info li i {
 .carousel-control:hover {
     background-color: #2EAE9B;
 }
+
+.fancybox .link:hover {
+    background-color: #2EAE9B;
+}
 .fancybox .overlay,
 .overlay a .more {
     background-color: rgba(46,174,155, 0.92);

@@ -2893,3 +2893,44 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 #fancybox-thumbs li {
     margin: initial;
 }
+
+/* Fancybox Style 2 */
+.fancybox .link {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: #ebebeb;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #4a4a4a;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 3px;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    -webkit-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    line-height: 20px;
+}
+.fancybox:hover .link {
+    -moz-opacity: 1;
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
+.fancybox .link:hover {
+    background-color: #ff6760;
+    color: #FFF;
+}
+.fancybox .link:before {
+    display: block;
+    content: "\f50d";
+    font-family: 'fontello';
+    text-align: center;
+}
+.fancybox .link.chain:before { /* ??? */
+    content: "\f517";
+}

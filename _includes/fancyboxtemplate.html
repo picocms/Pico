@@ -1,13 +1,20 @@
 {% capture title_num %}{% increment title_num %}{% endcapture %}
 
 <div class="fancybox" style="{{ style }}">
-	<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
-		<div style="display: none;" class="overlay">
-			<h3>{{ heading }}</h3>
-			<span class="meta">{{ description }}</span>
-		</div>
+	{% if image_style == "overlay" %}
+		<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
+			<div style="display: none;" class="overlay">
+				<h3>{{ heading }}</h3>
+				<span class="meta">{{ description }}</span>
+			</div>
+			<img src="{{ thumbnail }}" alt="">
+		</a>
+	{% else %}
 		<img src="{{ thumbnail }}" alt="">
-	</a>
+		<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
+			<span class="link"></span>
+		</a>
+	{% endif %}
 	<div id="title-{{ title_num }}" class="info hidden">
 		<h2>{{ heading }}</h2>
 		<div class="fancybody">{{ description }}</div>
