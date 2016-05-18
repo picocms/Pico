@@ -18,13 +18,12 @@ nav-url: /about/
 nav: 2
 ---
 
-Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create .md files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
+Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/default_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
 {% assign heading = "Pico's Default Theme" %}
 {% assign description = "It's a bit bare... but that's intentional!" %}
-{% assign relation = "intro" %}
 {% assign style = "float: right;" %}
 {% include fancyboxtemplate.html %}
 
@@ -129,44 +128,30 @@ Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engi
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
 {% assign heading = "NotePaper Theme" %}
-{% assign description = "A highly customizable theme, designed exclusively for Pico." %}
+{% assign description = "[NotePaper](http://development.sjmcdougall.com/pico-themes/NotePaper/) - A highly customizable theme, designed exclusively for Pico." %}
 {% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simple_sidebar_theme.png{% endcapture %}
 {% assign heading = "Simple Sidebar Theme" %}
-{% assign description = "Simple Sidebar is a theme from Start Bootstrap, ported to Pico." %}
+{% assign description = "[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/), [ported to Pico](https://github.com/dmelo/bt-theme)." %}
 {% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
-
-{% comment %}
-[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/)
-https://github.com/dmelo/bt-theme
-{% endcomment %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simpletwo_theme.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simpletwo_theme.png{% endcapture %}
 {% assign heading = "SimpleTwo Theme" %}
-{% assign description = "A simple theme with two columns for picoCMS." %}
+{% assign description = "[SimpleTwo](https://github.com/sonst-was/simpleTwo) is a simple theme with two columns for picoCMS." %}
 {% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
-
-{% comment %}
-https://github.com/sonst-was/simpleTwo
-{% endcomment %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/magazine_theme.jpg{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/magazine_theme.jpg{% endcapture %}
 {% assign heading = "Magazine Theme" %}
-{% assign description = "Magazine Theme from FreeHTML5.co, ported to Pico." %}
+{% assign description = "[Magazine Theme](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template) from [FreeHTML5.co](http://freehtml5.co/), [ported to Pico](https://github.com/BesrourMS/magazine)." %}
 {% assign relation = "theme" %}
 {% include fancyboxtemplate.html %}
-
-{% comment %}
-Magazine Theme from [FreeHTML5.co](http://freehtml5.co/), ported to Pico.
-https://github.com/BesrourMS/magazine
-{% endcomment %}
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 
@@ -201,7 +186,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 
 * **Fancybox Implementation**
 * Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
-* Add Magnifying Glass as second style?
 * Add support for markdown links inside descriptions without *catastrophically breaking* the rest of the page.
 
 [Docs]: {{ site.github.url }}/docs/

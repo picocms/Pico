@@ -4,8 +4,12 @@
 	{% if image_style == "overlay" %}
 		<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
 			<div style="display: none;" class="overlay">
-				<h3>{{ heading }}</h3>
-				<span class="meta">{{ description }}</span>
+<h3>
+{{ heading }}
+</h3>
+<span class="meta">
+{{ description }}
+</span>
 			</div>
 			<img src="{{ thumbnail }}" alt="">
 		</a>
@@ -16,8 +20,12 @@
 		</a>
 	{% endif %}
 	<div id="title-{{ title_num }}" class="info hidden">
-		<h2>{{ heading }}</h2>
-		<div class="fancybody">{{ description }}</div>
+<h2  markdown="1">
+{{ heading }}
+</h2>
+<div class="fancybody" markdown="1">
+{{ description }}
+</div>
 	</div>
 </div>
 
