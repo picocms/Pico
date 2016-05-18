@@ -25,13 +25,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who are
 {% assign heading = "Pico's Default Theme" %}
 {% assign description = "It's a bit bare... but that's intentional!" %}
 {% assign relation = "intro" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
-{% assign heading = "NotePaper Theme" %}
-{% assign description = "A ready-to-go, community-developed theme." %}
-{% assign relation = "intro" %}
+{% assign style = "float: right;" %}
 {% include fancyboxtemplate.html %}
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
@@ -56,14 +50,21 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/content_folder.png{% endcapture %}
 {% assign heading = "Content Folder" %}
 {% assign description = "An example of a content folder in Pico.  This one is from a writing website." %}
-{% assign relation = "usage" %}
+{% assign relation = "workflow" %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
 {% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/config.png{% endcapture %}
 {% assign heading = "Pico's Config File" %}
 {% assign description = "Here's an example of configuring Pico." %}
-{% assign relation = "usage" %}
+{% assign relation = "workflow" %}
+{% include fancyboxtemplate.html %}
+
+{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/editing_markdown.png{% endcapture %}
+{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/editing_markdown.png{% endcapture %}
+{% assign heading = "Editing Markdown" %}
+{% assign description = "Here's an example of editing a page." %}
+{% assign relation = "workflow" %}
 {% include fancyboxtemplate.html %}
 
 ## Web Pages Without HTML
