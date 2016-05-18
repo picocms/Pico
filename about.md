@@ -51,7 +51,6 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% assign heading = "Content Folder" %}
 {% assign description = "An example of a content folder in Pico.  This one is from a writing website." %}
 {% assign relation = "workflow" %}
-{% assign style = "width: 225px" %}{% comment %}Temporary!{% endcomment %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
@@ -59,7 +58,6 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% assign heading = "Pico's Config File" %}
 {% assign description = "Here's an example of configuring Pico." %}
 {% assign relation = "workflow" %}
-{% assign style = "width: 225px" %}{% comment %}Temporary!{% endcomment %}
 {% include fancyboxtemplate.html %}
 
 {% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/editing_markdown.png{% endcapture %}
@@ -67,7 +65,6 @@ There really isn't that much more to say about it.  The beauty of Pico is in its
 {% assign heading = "Editing Markdown" %}
 {% assign description = "Here's an example of editing a page." %}
 {% assign relation = "workflow" %}
-{% assign style = "width: 225px" %}{% comment %}Temporary!{% endcomment %}
 {% include fancyboxtemplate.html %}
 
 ## Web Pages Without HTML
@@ -188,9 +185,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
   * Should contain all the "Why's" of Pico, before the "How's".
 * Expand YAML in main documentation.
 * Better image captions
-* Magnifying glass style images
-* Resize "Workflow" group
-* Fix line indentation in gedit image
 
 * **VS Other CMS's**
 * configuration / interface
