@@ -16,16 +16,66 @@ toc:
   getting-started: Getting Started
 nav-url: /about/
 nav: 2
+galleries:
+  standalone:
+    style: magnify
+    images:
+      -
+        heading: Pico's Default Theme
+        description: It's a bit bare... but that's intentional!
+        thumbnail: /style/images/docs/about/thumbnails/default_theme.png
+        fullsize: /style/images/docs/about/fullsize/default_theme.png
+        styles: "float: right;"
+  workflow:
+    headline: Carousel Headline
+    description: Carousel Description
+    style: carousel
+    images:
+      -
+        heading: Content Folder
+        description: An example of a content folder in Pico.  This one is from a writing website.
+        thumbnail: /style/images/docs/about/thumbnails/content_folder.png
+        fullsize: /style/images/docs/about/fullsize/content_folder.png
+      -
+        heading: Pico's Config File
+        description: Here's an example of configuring Pico.
+        thumbnail: /style/images/docs/about/thumbnails/config.png
+        fullsize: /style/images/docs/about/fullsize/config.png
+      -
+        heading: Editing Markdown
+        description: Here's an example of editing a page.
+        thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
+        fullsize: /style/images/docs/about/fullsize/editing_markdown.png
+  themes:
+    headline: Carousel Headline
+    description: Carousel Description
+    style: carousel
+    images:
+      -
+        heading: NotePaper Theme
+        description: "[NotePaper](http://development.sjmcdougall.com/pico-themes/NotePaper/) - A highly customizable theme, designed exclusively for Pico."
+        thumbnail: /style/images/docs/about/thumbnails/notepaper_theme.jpg
+        fullsize: /style/images/docs/about/fullsize//notepaper_theme.jpg
+      -
+        heading: Simple Sidebar Theme
+        description: "[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/), [ported to Pico](https://github.com/dmelo/bt-theme)."
+        thumbnail: /style/images/docs/about/thumbnails/simple_sidebar_theme.png
+        fullsize: /style/images/docs/about/fullsize/simple_sidebar_theme.png
+      -
+        heading: SimpleTwo Theme
+        description: "[SimpleTwo](https://github.com/sonst-was/simpleTwo) is a simple theme with two columns for picoCMS."
+        thumbnail: /style/images/docs/about/thumbnails/simpletwo_theme.png
+        fullsize: /style/images/docs/about/fullsize/simpletwo_theme.png
+      -
+        heading: Magazine Theme
+        description: "[Magazine Theme](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template) from [FreeHTML5.co](http://freehtml5.co/), [ported to Pico](https://github.com/BesrourMS/magazine)."
+        thumbnail: /style/images/docs/about/thumbnails/magazine_theme.jpg
+        fullsize: /style/images/docs/about/fullsize/magazine_theme.jpg
 ---
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/default_theme.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/default_theme.png{% endcapture %}
-{% assign heading = "Pico's Default Theme" %}
-{% assign description = "It's a bit bare... but that's intentional!" %}
-{% assign style = "float: right;" %}
-{% include fancyboxtemplate.html %}
+{% include fancyboxtemplate.html gallery='standalone' %}
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
@@ -45,26 +95,7 @@ Unlike a traditional CMS, Pico doesn't require write access on your server to fu
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/content_folder.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/content_folder.png{% endcapture %}
-{% assign heading = "Content Folder" %}
-{% assign description = "An example of a content folder in Pico.  This one is from a writing website." %}
-{% assign relation = "workflow" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/config.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/config.png{% endcapture %}
-{% assign heading = "Pico's Config File" %}
-{% assign description = "Here's an example of configuring Pico." %}
-{% assign relation = "workflow" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/editing_markdown.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/editing_markdown.png{% endcapture %}
-{% assign heading = "Editing Markdown" %}
-{% assign description = "Here's an example of editing a page." %}
-{% assign relation = "workflow" %}
-{% include fancyboxtemplate.html %}
+{% include fancyboxtemplate.html gallery='workflow' %}
 
 ## Web Pages Without HTML
 
@@ -125,33 +156,7 @@ Pico's default theme is *not* intended for production use.  It is provided as a 
 
 Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.  You can find more information on making your own templates in [Twig's Documentation][TwigDocs] and see how they relate to Pico in our own [Documentation][DocsThemes].
 
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/notepaper_theme.jpg{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/notepaper_theme.jpg{% endcapture %}
-{% assign heading = "NotePaper Theme" %}
-{% assign description = "[NotePaper](http://development.sjmcdougall.com/pico-themes/NotePaper/) - A highly customizable theme, designed exclusively for Pico." %}
-{% assign relation = "theme" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simple_sidebar_theme.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simple_sidebar_theme.png{% endcapture %}
-{% assign heading = "Simple Sidebar Theme" %}
-{% assign description = "[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/), [ported to Pico](https://github.com/dmelo/bt-theme)." %}
-{% assign relation = "theme" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/simpletwo_theme.png{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/simpletwo_theme.png{% endcapture %}
-{% assign heading = "SimpleTwo Theme" %}
-{% assign description = "[SimpleTwo](https://github.com/sonst-was/simpleTwo) is a simple theme with two columns for picoCMS." %}
-{% assign relation = "theme" %}
-{% include fancyboxtemplate.html %}
-
-{% capture thumbnail %}{{ site.github.url }}/style/images/docs/about/thumbnails/magazine_theme.jpg{% endcapture %}
-{% capture fullsize %}{{ site.github.url }}/style/images/docs/about/fullsize/magazine_theme.jpg{% endcapture %}
-{% assign heading = "Magazine Theme" %}
-{% assign description = "[Magazine Theme](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template) from [FreeHTML5.co](http://freehtml5.co/), [ported to Pico](https://github.com/BesrourMS/magazine)." %}
-{% assign relation = "theme" %}
-{% include fancyboxtemplate.html %}
+{% include fancyboxtemplate.html gallery='themes' %}
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 

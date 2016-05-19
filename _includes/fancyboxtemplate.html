@@ -1,37 +1,31 @@
+{% for image in page.galleries[include.gallery].images %}
 {% capture title_num %}{% increment title_num %}{% endcapture %}
-
-<div class="fancybox" style="{{ style }}">
-	{% if image_style == "overlay" %}
-		<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
+<div class="fancybox" style="{{ image.styles }}">
+	{% if site.galleries[include.gallery].style == "overlay" %}
+		<a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
 			<div style="display: none;" class="overlay">
-<h3>
-{{ heading }}
-</h3>
-<span class="meta">
-{{ description }}
-</span>
+				<h3>
+					{{ image.heading|markdownify }}
+				</h3>
+				<span class="meta">
+					{{ image.description|markdownify }}
+				</span>
 			</div>
-			<img src="{{ thumbnail }}" alt="">
+			<img src="{{ site.github.url }}{{ image.thumbnail }}" alt="">
 		</a>
 	{% else %}
-		<img src="{{ thumbnail }}" alt="">
-		<a href="{{ fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ relation }}">
+		<img src="{{ site.github.url }}{{ image.thumbnail }}" alt="">
+		<a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
 			<span class="link"></span>
 		</a>
 	{% endif %}
 	<div id="title-{{ title_num }}" class="info hidden">
-<h2  markdown="1">
-{{ heading }}
-</h2>
-<div class="fancybody" markdown="1">
-{{ description }}
-</div>
+		<h2>
+			{{ image.heading|markdownify }}
+		</h2>
+		<div class="fancybody">
+			{{ image.description|markdownify }}
+		</div>
 	</div>
 </div>
-
-{% assign thumbnail = "" %}
-{% assign fullsize = "" %}
-{% assign heading = "" %}
-{% assign description = "" %}
-{% assign relation = "" %}
-{% assign style = "" %}
+{% endfor %}
