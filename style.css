@@ -2138,7 +2138,7 @@ media_tag_4 {media_subcode:4}
 }
 .category-wrapper .carousel-wrapper {
     float: right;
-    width: 830px;
+    width: calc(100% - 280px);
 }
 .fullwidth .carousel-wrapper {
 	width: 100%;
@@ -2193,12 +2193,9 @@ media_tag_4 {media_subcode:4}
     cursor: auto
 }
 .touch-carousel {
-    width: 830px;
+    width: 100%;
     height: 230px;
     margin: 0 auto;
-}
-.fullwidth .touch-carousel {
-	width: 100%;
 }
 .touch-carousel .touchcarousel-item {
     margin-right: 10px;
@@ -2921,26 +2918,3 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .fancybox .link.chain:before { /* ??? */
     content: "\f517";
 }
-
-/* Carousel Style */
-@media only screen and (min-width: 960px) {
-    .category-wrapper .carousel-wrapper {
-        width: calc(100% - 280px) !important;
-    }
-}
-@media only screen and (max-width: 959px) {
-    .category-wrapper .carousel-wrapper {
-        width: 100% !important;
-    }
-}
-.touch-carousel {
-    width: 100% !important;
-}
-
-@media only screen and (max-width: 959px) {
-    .category-wrapper .category-info {
-        background: #efefef !important;
-        padding: 25px !important;
-    }
-}
-
