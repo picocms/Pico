@@ -1,15 +1,34 @@
+{% if page.galleries[include.gallery].style == "carousel" %}
+<div class="category-wrapper">
+	<div class="category-info">
+<h3 markdown="1">
+{{ page.galleries[include.gallery].headline }}
+</h3>
+<span markdown="1">
+{{ page.galleries[include.gallery].description }}
+</span>
+	</div>
+	<div class="carousel-wrapper">
+		<div class="touchcarousel touch-carousel">
+			<ul class="touchcarousel-container">
+{% endif %}
+
 {% for image in page.galleries[include.gallery].images %}
 {% capture title_num %}{% increment title_num %}{% endcapture %}
+{% if page.galleries[include.gallery].style == "carousel" %}
+				<li class="touchcarousel-item item-block">
+{% else %}
 <div class="fancybox" style="{{ image.styles }}">
+{% endif %}
 	{% if site.galleries[include.gallery].style == "overlay" %}
 		<a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
 			<div style="display: none;" class="overlay">
-				<h3>
-					{{ image.heading|markdownify }}
-				</h3>
-				<span class="meta">
-					{{ image.description|markdownify }}
-				</span>
+<h3 markdown="1">
+{{ image.heading }}
+</h3>
+<span class="meta" markdown="1">
+{{ image.description }}
+</span>
 			</div>
 			<img src="{{ site.github.url }}{{ image.thumbnail }}" alt="">
 		</a>
@@ -20,12 +39,25 @@
 		</a>
 	{% endif %}
 	<div id="title-{{ title_num }}" class="info hidden">
-		<h2>
-			{{ image.heading|markdownify }}
-		</h2>
-		<div class="fancybody">
-			{{ image.description|markdownify }}
+<h2 markdown="1">
+{{ image.heading }}
+</h2>
+<div class="fancybody" markdown="1">
+{{ image.description }}
+</div>
+	</div>
+{% if page.galleries[include.gallery].style == "carousel" %}
+				</li>
+{% else %}
+</div>
+{% endif %}
+{% endfor %}
+
+{% if page.galleries[include.gallery].style == "carousel" %}
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
-{% endfor %}
+<div class="clear"></div>
+{% endif %}

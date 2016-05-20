@@ -27,8 +27,8 @@ galleries:
         fullsize: /style/images/docs/about/fullsize/default_theme.png
         styles: "float: right;"
   workflow:
-    headline: Carousel Headline
-    description: Carousel Description
+    headline: Pico's Workflow
+    description: Working with Pico is pretty simple.
     style: carousel
     images:
       -
@@ -47,8 +47,8 @@ galleries:
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
   themes:
-    headline: Carousel Headline
-    description: Carousel Description
+    headline: Custom Themes
+    description: Community developed themes to customize Pico
     style: carousel
     images:
       -
