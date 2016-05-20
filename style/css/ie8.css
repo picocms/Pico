@@ -9,3 +9,17 @@
 .comment-form textarea {
     padding-top: 8px;
 }
+.category-wrapper .category-info {
+    width: 100%;
+    margin-bottom: 10px;
+    float: none;
+    height: auto;
+}
+.category-wrapper .category-info h3 {
+    margin-bottom: 10px;
+}
+.category-wrapper .carousel-wrapper,
+.touch-carousel {
+    width: 100%;
+    float: none;
+}
