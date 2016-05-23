@@ -25,12 +25,17 @@ galleries:
         description: It's a bit bare... but that's intentional!
         thumbnail: /style/images/docs/about/thumbnails/default_theme.png
         fullsize: /style/images/docs/about/fullsize/default_theme.png
-        styles: "float: right;"
+        styles: "float: right; margin: 2em;"
   workflow:
     headline: Pico's Workflow
     description: Working with Pico is pretty simple.
     style: carousel
     images:
+      -
+        heading: Pico Folder
+        description: An example of a Pico installation.
+        thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
+        fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
         heading: Content Folder
         description: An example of a content folder in Pico.  This one is from a writing website.
