@@ -168,7 +168,7 @@ server {
 	}
 
 	location / {
-		try_files $uri $uri/ /?$uri&$args;
+		try_files $uri $uri/ /index.php?$uri&$args;
 	}
 }
 ```
