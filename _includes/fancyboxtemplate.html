@@ -1,13 +1,12 @@
 {% if page.galleries[include.gallery].style == "carousel" %}
 <div class="category-wrapper">
-	<div class="category-info">
-<h3 markdown="1">
-{{ page.galleries[include.gallery].headline }}
-</h3>
-<span markdown="1">
+<div class="category-info" markdown="1">
+
+### {{ page.galleries[include.gallery].headline }}
+
 {{ page.galleries[include.gallery].description }}
-</span>
-	</div>
+
+</div>
 	<div class="carousel-wrapper">
 		<div class="touchcarousel touch-carousel">
 			<ul class="touchcarousel-container">

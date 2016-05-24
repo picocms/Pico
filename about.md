@@ -53,7 +53,7 @@ galleries:
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
   themes:
     headline: Custom Themes
-    description: Community developed themes to customize Pico
+    description: "Community developed themes to customize Pico."
     style: carousel
     images:
       -
