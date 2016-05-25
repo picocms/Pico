@@ -20,9 +20,9 @@ redirect_from:
     <p><a href="https://github.com/PontusHorn/Pico-Tags" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third">
-    <h3>Editor</h3>
-    <p>Markdown editor and file manager for Pico.</p>
-    <p><a href="https://github.com/theshka/Pico-Editor-Plugin" class="button" target="_blank">Download</a></p>
+    <h3>Pico edit</h3>
+    <p>An admin interface for Pico CMS.</p>
+    <p><a href="https://github.com/blocknotes/pico_edit" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Pico GAnalytics</h3>
