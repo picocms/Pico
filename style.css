@@ -2918,3 +2918,32 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .fancybox .link.chain:before { /* ??? */
     content: "\f517";
 }
+
+/* Three-Fourths Carousel */
+.three-fourth .category-wrapper {
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #f5f5f5;
+}
+
+.three-fourth .category-wrapper .category-info {
+    padding: 0.5em;
+    float: none;
+    width: initial;
+    height: initial;
+    background: none;
+}
+
+.three-fourth .category-wrapper .category-info h3, .three-fourth .category-wrapper .category-info p {
+    display: inline-block;
+}
+
+.three-fourth .category-wrapper .category-info h3 {
+    margin: 0 1em 0 0;
+}
+
+.three-fourth .category-wrapper .carousel-wrapper {
+    float: none;
+    width: initial;
+}
