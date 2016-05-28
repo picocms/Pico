@@ -28,32 +28,32 @@ galleries:
         styles: "float: right; margin: 2em;"
   workflow:
     headline: Pico's Workflow
-    description: Working with Pico is pretty simple.
+    description: Creating content with Pico couldn't be simpler!
     style: carousel
     images:
       -
-        heading: Pico Folder
-        description: An example of a Pico installation.
+        heading: A Pico Installation
+        description: Here's what Pico looks like installed on your web server.
         thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
         fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
-        heading: Content Folder
+        heading: Your Content Folder
         description: An example of a content folder in Pico.  This one is from a writing website.
         thumbnail: /style/images/docs/about/thumbnails/content_folder.png
         fullsize: /style/images/docs/about/fullsize/content_folder.png
       -
-        heading: Pico's Config File
-        description: Here's an example of configuring Pico.
+        heading: Pico's Configuration File
+        description: Configuring Pico is as simple as uncommenting a few lines in the included template.
         thumbnail: /style/images/docs/about/thumbnails/config.png
         fullsize: /style/images/docs/about/fullsize/config.png
       -
-        heading: Editing Markdown
-        description: Here's an example of editing a page.
+        heading: Editing a Page
+        description: Creating content couldn't be easier using Markdown.  Here's an example of editing a page.
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
   themes:
-    headline: Custom Themes
-    description: "Community developed themes to customize Pico."
+    headline: Community Themes
+    description: Ready-to-go, community developed themes to customize your Pico website.
     style: carousel
     images:
       -
@@ -179,7 +179,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * **General Notes**
 * Larger "About" portion at the beginning?
   * Should contain all the "Why's" of Pico, before the "How's".
-* Expand YAML in main documentation.
 * Better image captions
 
 * **VS Other CMS's**
@@ -192,12 +191,7 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 
 * **Customization**
 * Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]? (First/Intro Line) (And one in intro)
-* link to cookbook in the future as well.
 * **@PhrozenByte** any more to say about Plugins?
-
-* **Fancybox Implementation**
-* Using `capture` for thumbnail variables because I couldn't concatenate `site.github.url` with the URI using `assign`.
-* Add support for markdown links inside descriptions without *catastrophically breaking* the rest of the page.
 
 {% endcomment %}
 
