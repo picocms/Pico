@@ -29,7 +29,7 @@ galleries:
   workflow:
     headline: Pico's Workflow
     description: Creating content with Pico couldn't be simpler!
-    style: carousel
+    style: carousel-box
     images:
       -
         heading: A Pico Installation
@@ -54,7 +54,7 @@ galleries:
   themes:
     headline: Community Themes
     description: Ready-to-go, community developed themes to customize your Pico website.
-    style: carousel
+    style: carousel-box
     images:
       -
         heading: NotePaper Theme

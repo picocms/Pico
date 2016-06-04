@@ -2919,31 +2919,28 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     content: "\f517";
 }
 
-/* Three-Fourths Carousel */
-.three-fourth .category-wrapper {
+/* Carousel Box gallery */
+.gallery-carousel-box .category-wrapper {
     padding: 1em;
     border: 1px solid #ccc;
     border-radius: 3px;
     background: #f5f5f5;
 }
-
-.three-fourth .category-wrapper .category-info {
-    padding: 0.5em;
+.gallery-carousel-box .category-wrapper .category-info {
+    width: 100%;
+    height: auto;
     float: none;
-    width: initial;
-    height: initial;
+    padding: 0.5em;
     background: none;
 }
-
-.three-fourth .category-wrapper .category-info h3, .three-fourth .category-wrapper .category-info p:first-of-type {
-    display: inline-block;
-}
-
-.three-fourth .category-wrapper .category-info h3 {
+.gallery-carousel-box .category-wrapper .category-info h3 {
     margin: 0 1em 0 0;
 }
-
-.three-fourth .category-wrapper .carousel-wrapper {
+.gallery-carousel-box .category-wrapper .category-info h3,
+.gallery-carousel-box .category-wrapper .category-info p:first-of-type {
+    display: inline-block;
+}
+.gallery-carousel-box .category-wrapper .carousel-wrapper {
+    width: 100%;
     float: none;
-    width: initial;
 }
