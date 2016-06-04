@@ -2150,7 +2150,6 @@ media_tag_4 {media_subcode:4}
 .touchcarousel {
     position: relative;
     width: 600px;
-    height: 400px;
     overflow: hidden;
 }
 .touchcarousel .touchcarousel-container {
@@ -2165,6 +2164,7 @@ media_tag_4 {media_subcode:4}
     overflow: hidden;
     width: 100%;
     height: 100%;
+    padding-bottom: 10px;
 }
 .touchcarousel .scrollbar-holder {
     position: absolute;
@@ -2194,13 +2194,11 @@ media_tag_4 {media_subcode:4}
 }
 .touch-carousel {
     width: 100%;
-    height: 230px;
     margin: 0 auto;
 }
 .touch-carousel .touchcarousel-item {
     margin-right: 10px;
     width: 270px;
-    height: 220px;
     float: left;
     position: relative;
 }
@@ -2278,7 +2276,6 @@ media_tag_4 {media_subcode:4}
 }
 .touch-carousel .item-block {
     width: 270px;
-    height: 220px;
     display: block;
 }
 .touch-carousel .item-block img {
