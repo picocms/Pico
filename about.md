@@ -80,7 +80,7 @@ galleries:
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
-{% include fancyboxtemplate.html gallery='standalone' %}
+{% include gallery.html gallery='standalone' %}
 
 Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
@@ -100,7 +100,7 @@ Unlike a traditional CMS, Pico doesn't require write access on your server to fu
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
-{% include fancyboxtemplate.html gallery='workflow' %}
+{% include gallery.html gallery='workflow' %}
 
 ## Web Pages Without HTML
 
@@ -161,7 +161,7 @@ Pico's default theme is *not* intended for production use.  It is provided as a 
 
 Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.  You can find more information on making your own templates in [Twig's Documentation][TwigDocs] and see how they relate to Pico in our own [Documentation][DocsThemes].
 
-{% include fancyboxtemplate.html gallery='themes' %}
+{% include gallery.html gallery='themes' %}
 
 And if that's still not enough creative power for you, you can check out Pico's Plugin system.
 
