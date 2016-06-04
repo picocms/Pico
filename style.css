@@ -2928,6 +2928,7 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     height: auto;
     float: none;
     padding: 0.5em;
+    margin-bottom: 10px;
     background: none;
 }
 .gallery-carousel-box .category-wrapper .category-info h3 {
@@ -2940,4 +2941,7 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .gallery-carousel-box .category-wrapper .carousel-wrapper {
     width: 100%;
     float: none;
+}
+.gallery-carousel-box .category-wrapper .carousel-wrapper .touch-carousel .item-block img {
+    height: initial;
 }
