@@ -11,9 +11,9 @@
 }
 .category-wrapper .category-info {
     width: 100%;
-    margin-bottom: 10px;
-    float: none;
     height: auto;
+    float: none;
+    margin-bottom: 10px;
 }
 .category-wrapper .category-info h3 {
     margin-bottom: 10px;
