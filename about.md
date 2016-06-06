@@ -177,20 +177,21 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 ---
 
 * **General Notes**
-* Larger "About" portion at the beginning?
+* Include a larger "About" portion at the beginning?
   * Should contain all the "Why's" of Pico, before the "How's".
-* Better image captions
+  * Explain what Pico is better *before* talking about other CMS's.
+* Better image captions (Already updated some of them.)
 
-* **VS Other CMS's**
-* configuration / interface
-* limitations when customizing
+* **Disadvantages of Other CMS's**
+* Difficulties with configuration and having to work through an overcomplicated interface / admin panel.
+* limitations when customizing, harder to create your own unique look and feel if you aren't satisfied with existing themes.
 
 * **Markdown and YAML**
 * History Lesson / Origins / What & Why
-  * Something about Markdown's standardization and popularity?
+  * Add a section about Markdown's standardization and popularity?
 
 * **Customization**
-* Link to Themes and Plugins sections separately?  Link to this page instead of [Customization][Customization]? (First/Intro Line) (And one in intro)
+* Link to Themes and Plugins sections separately?  Should they be linked to this page instead of [Customization][Customization]? (Line 156) (And one in intro, line 87)
 * **@PhrozenByte** any more to say about Plugins?
 
 {% endcomment %}
