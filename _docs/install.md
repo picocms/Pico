@@ -2,7 +2,7 @@
 toc:
     installing-pico:
         _title: Installing Pico
-        using-a-pre-bundled-release--recommended-: Using a Pre-Bundled Release
+        using-a-pre-bundled-release-recommended: Using a Pre-Bundled Release
         composer: Composer
 nav: 1
 ---
@@ -16,8 +16,6 @@ You can install Pico using either a pre-bundled release (which we'd recommend fo
 ### Using a Pre-Bundled Release (Recommended)
 
 Just [download the latest Pico release][LatestRelease] from GitHub and upload all the extracted files to the `httpdocs` directory (e.g. `/var/www/html`) of your server.  If you are using Apache, make sure you upload our `.htaccess` file for worry-free configuration.  **Please Note** that depending on your OS, after you've extracted the files, the `.htaccess` file may appear hidden by your file manager.
-
-* investigate how "Recommended" id works.
 
 ### Composer
 
