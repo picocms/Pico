@@ -149,7 +149,8 @@ ul.contact-info li i {
     background-color: #2EAE9B;
 }
 .fancybox .overlay,
-.overlay a .more {
+.overlay a .more,
+.items li a .overlay {
     background-color: rgba(46,174,155, 0.92);
 }
 code,

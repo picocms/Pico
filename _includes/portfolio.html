@@ -1,0 +1,50 @@
+<div class="portfolio-wrapper showcase">
+	<ul class="filter">
+		<li><a class="active" href="#" data-filter="*">All</a></li>
+		{% for category in page.portfolio.categories %}
+			<li><a href="#" data-filter=".{{ category[0] }}">{{ category[1] }}</a></li>
+		{% endfor %}
+	</ul>
+	<ul class="items col4">
+		{% for item in page.portfolio.items %}
+		<li class="item {{ item.categories }}" ata-callback="callPortfolioScripts();" data-detailcontent='
+			<div class="content">
+				{% assign num_images = item.images|size %}
+				<div {% if num_images > 1 %}id="myCarousel" class="carousel slide"{% else %}class="single"{% endif %}>
+					{% if num_images > 1 %}<div class="carousel-inner">{% endif %}
+						{% assign title_num = forloop.index %}
+						{% for image in item.images %}
+							{% if num_images > 1 %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
+								<img alt="" width="100%" src="{{ image }}"><a href="{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
+								<span class="link"></span></a>
+							{% if num_images > 1 %}</div>{% endif %}
+						{% endfor %}
+					{% if num_images > 1 %}
+				</div>
+						<a class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
+						<a class="carousel-control right" href="#myCarousel" data-slide="next"></a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="item-details">
+				<h2>{{ item.heading }}</h2>
+				<ul class="item-info">
+					{% for info in item.info %}
+						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] }}: </span>{% endif %}{{ info[1] }}</li>
+					{% endfor %}
+				</ul>
+				<p>{{ item.description }}</p>
+				<a href="{{ item.link }}" class="button">Launch Site</a>
+			</div>
+			<div class="clear"></div>'>
+			<a href="#">
+				<div class="overlay">
+					<h3>{{ item.heading }}</h3>
+					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
+				</div>
+				<img src="{{ item.thumbnail }}" alt="" />
+			</a>
+		</li>
+	{% endfor %}
+	</ul>
+</div>
