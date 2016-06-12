@@ -1,12 +1,23 @@
+{% if include.portfolio %}
+	{% assign portfolio = include.portfolio %}
+{% else %}
+	{% assign portfolio = page.portfolio.items %}
+{% endif %}
+{% if include.categories %}
+	{% assign categories = include.categories %}
+{% else %}
+	{% assign categories = page.portfolio.categories %}
+{% endif %}
+
 <div class="portfolio-wrapper showcase">
 	<ul class="filter">
 		<li><a class="active" href="#" data-filter="*">All</a></li>
-		{% for category in page.portfolio.categories %}
+		{% for category in categories %}
 			<li><a href="#" data-filter=".{{ category[0] }}">{{ category[1] }}</a></li>
 		{% endfor %}
 	</ul>
 	<ul class="items col4">
-		{% for item in page.portfolio.items %}
+		{% for item in portfolio %}
 		<li class="item {{ item.categories }}" ata-callback="callPortfolioScripts();" data-detailcontent='
 			<div class="content">
 				{% assign num_images = item.images|size %}
