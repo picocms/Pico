@@ -18,7 +18,6 @@ portfolio:
 ---
 
 {% include portfolio.html portfolio=site.customization %}
-{{ comment }}{% include portfolio.html portfolio=site.customization categories=page.portfolio.categories2 %}{{ endcomment }}
 
 ---
 
