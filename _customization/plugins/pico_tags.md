@@ -9,7 +9,7 @@ link: https://github.com/PontusHorn/Pico-Tags
 images:
   - /style/images/docs/customization/fullsize/default_theme.png
 info:
-  By: <a href="https://github.com/PontusHorn">PontusHorn</a>
+  By: "[PontusHorn](https://github.com/PontusHorn)"
   Last Updated: 6/07/16
 ---
 Provides tags functionality for Pico.

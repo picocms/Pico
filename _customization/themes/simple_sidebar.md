@@ -9,8 +9,8 @@ link: https://github.com/dmelo/bt-theme
 images:
   - /style/images/docs/customization/fullsize/simple_sidebar_theme.png
 info:
-  Ported By: <a href="https://github.com/dmelo">dmelo</a>
-  Original By: <a href="http://startbootstrap.com/template-overviews/simple-sidebar/">Start Bootstrap</a>
+  Ported By: "[dmelo](https://github.com/dmelo)"
+  Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/simple-sidebar/)"
   Last Updated: 2/13/16
 collection: customization
 ---

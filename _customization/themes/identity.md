@@ -10,8 +10,8 @@ link: https://github.com/BesrourMS/single
 images:
   - /style/images/docs/customization/fullsize/identity_theme.jpg
 info:
-  Ported By: <a href="https://github.com/BesrourMS">BesrourMS</a>
-  Original By: <a href="https://html5up.net/identity">html5up.net</a>
+  Ported By: "[BesrourMS](https://github.com/BesrourMS)"
+  Original By: "[html5up.net](https://html5up.net/identity)"
   Last Updated: 4/04/16
 ---
 Identity Theme from HTML5 UP, ported to Pico.

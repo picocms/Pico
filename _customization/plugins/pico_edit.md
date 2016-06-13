@@ -9,7 +9,7 @@ link: https://github.com/blocknotes/pico_edit
 images:
   - /style/images/docs/customization/fullsize/default_theme.png
 info:
-  By: <a href="https://github.com/blocknotes">blocknotes</a>
+  By: "[blocknotes](https://github.com/blocknotes)"
   Last Updated: 5/25/16
 ---
 A simple admin for Pico with pages/404/options editor.

@@ -9,7 +9,7 @@ link: https://github.com/theshka/pico_githubactivity
 images:
   - /style/images/docs/customization/fullsize/default_theme.png
 info:
-  By: <a href="https://github.com/theshka">theshka</a>
+  By: "[theshka](https://github.com/theshka)"
   Last Updated: 10/08/15
 ---
 Your GitHub public activity feed.

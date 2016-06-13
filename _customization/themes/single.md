@@ -10,8 +10,8 @@ link: https://github.com/BesrourMS/single
 images:
   - /style/images/docs/customization/fullsize/single_theme.jpg
 info:
-  Ported By: <a href="https://github.com/BesrourMS">BesrourMS</a>
-  Original By: <a href="http://freehtml5.co/preview/?item=single-free-html5-bootstrap-template">FreeHTML5.co</a>
+  Ported By: "[BesrourMS](https://github.com/BesrourMS)"
+  Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=single-free-html5-bootstrap-template)"
   Last Updated: 4/07/16
 ---
 Single Theme from FreeHTML5.co, ported to Pico.

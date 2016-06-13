@@ -10,8 +10,8 @@ link: https://github.com/BesrourMS/magazine
 images:
   - /style/images/docs/customization/fullsize/hold_theme.jpg
 info:
-  Ported By: <a href="https://github.com/BesrourMS">BesrourMS</a>
-  Original By: <a href="http://freehtml5.co/preview/?item=hold-free-html5-bootstrap-template">FreeHTML5.co</a>
+  Ported By: "[BesrourMS](https://github.com/BesrourMS)"
+  Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=hold-free-html5-bootstrap-template)"
   Last Updated: 5/12/16
 ---
 Hold Theme from FreeHTML5.co, ported to Pico.

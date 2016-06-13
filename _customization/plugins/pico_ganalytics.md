@@ -9,7 +9,7 @@ link: https://github.com/bricebou/pico_ganalytics
 images:
   - /style/images/docs/customization/fullsize/default_theme.png
 info:
-  By: <a href="https://github.com/bricebou">bricebou</a>
+  By: "[bricebou](https://github.com/bricebou)"
   Last Updated: 5/29/16
 ---
 Google Analytics for Pico with basic options.
