@@ -1,5 +1,5 @@
 ---
-heading: Pico&#39;s Default Theme
+heading: Pico's Default Theme
 thumbnail: /style/images/docs/customization/thumbnails/default_theme.png
 categories: theme
 meta: Custom Theme

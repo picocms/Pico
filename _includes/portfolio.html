@@ -38,24 +38,24 @@
 				</div>
 			</div>
 			<div class="item-details">
-				<h2>{{ item.heading }}</h2>
+				<h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
 				<ul class="item-info">
 					{% for info in item.info %}
-						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] }}: </span>{% endif %}{{ info[1] }}</li>
+						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" }}: </span>{% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
 					{% endfor %}
 				</ul>
 				{% assign content_exists = item.content|strip_newlines|size %}
 				{% if content_exists > 0 %}
 					{{ item.content }}
 				{% else %}
-					<p>{{ item.description }}</p>
+					{{ item.description|markdownify }}
 				{% endif %}
 				<a href="{{ item.link }}" class="button">Launch Site</a>
 			</div>
 			<div class="clear"></div>'>
 			<a href="#">
 				<div class="overlay">
-					<h3>{{ item.heading }}</h3>
+					<h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
 					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
 				</div>
 				<img src="{{ item.thumbnail }}" alt="" />
