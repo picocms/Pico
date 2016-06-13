@@ -1,8 +1,10 @@
 ---
 heading: Identity
-description: Identity Theme from HTML5 UP, ported to Pico.
 thumbnail: /style/images/docs/customization/thumbnails/identity_theme.jpg
-categories: theme
+categories:
+  - theme
+  - single-page
+  - personal
 meta: Custom Theme
 link: https://github.com/BesrourMS/single
 images:
@@ -12,3 +14,4 @@ info:
   Original By: <a href="https://html5up.net/identity">html5up.net</a>
   Last Updated: 4/04/16
 ---
+Identity Theme from HTML5 UP, ported to Pico.

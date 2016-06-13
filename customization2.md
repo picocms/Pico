@@ -11,6 +11,13 @@ portfolio:
   categories:
     theme: Themes
     plugin: Plugins
+    single-page: Single Page
+    multi-page: Multiple Pages
+    personal: Personal Website
+    blog: Blog-Style
+    admin: Administration
+    developer: Developer-Focused
+    theming: Theming Extensions
   categories2:
     theme: Themes2
     plugin: Plugins2

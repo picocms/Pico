@@ -1,8 +1,9 @@
 ---
 heading: Pico GitHub Activity
-description: Your GitHub public activity feed.
 thumbnail: /style/images/docs/customization/thumbnails/plugin.png
-categories: plugin
+categories:
+  - plugin
+  - developer
 meta: Plugin
 link: https://github.com/theshka/pico_githubactivity
 images:
@@ -11,3 +12,4 @@ info:
   By: <a href="https://github.com/theshka">theshka</a>
   Last Updated: 10/08/15
 ---
+Your GitHub public activity feed.

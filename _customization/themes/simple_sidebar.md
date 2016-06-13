@@ -1,8 +1,9 @@
 ---
 heading: Simple Sidebar
-description: Simple Sidebar is a theme from Start Bootstrap, ported to Pico.
 thumbnail: /style/images/docs/customization/thumbnails/simple_sidebar_theme.png
-categories: theme
+categories:
+  - theme
+  - multi-page
 meta: Custom Theme
 link: https://github.com/dmelo/bt-theme
 images:
@@ -13,3 +14,4 @@ info:
   Last Updated: 2/13/16
 collection: customization
 ---
+Simple Sidebar is a theme from Start Bootstrap, ported to Pico.
