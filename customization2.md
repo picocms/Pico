@@ -21,6 +21,7 @@ portfolio:
   categories2:
     theme: Themes2
     plugin: Plugins2
+  button: Download
 
 ---
 

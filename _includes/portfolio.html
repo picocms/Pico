@@ -8,6 +8,11 @@
 {% else %}
 	{% assign categories = page.portfolio.categories %}
 {% endif %}
+{% if page.portfolio.button %}
+	{% assign button = page.portfolio.button %}
+{% else %}
+	{% assign button = "Launch Site" %}
+{% endif %}
 
 <div class="portfolio-wrapper showcase">
 	<ul class="filter">
@@ -50,7 +55,8 @@
 				{% else %}
 					{{ item.description|markdownify }}
 				{% endif %}
-				<a href="{{ item.link }}" class="button">Launch Site</a>
+				{% if item.button %}{% assign button = item.button %}{% endif %}
+				<a href="{{ item.link }}" class="button">{{ button }}</a>
 			</div>
 			<div class="clear"></div>'>
 			<a href="#">
