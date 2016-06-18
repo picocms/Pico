@@ -22,8 +22,8 @@
  *
  * @author  Gilbert Pellegrom
  * @author  Daniel Rudolf
- * @link    <http://picocms.org>
- * @license The MIT License <http://opensource.org/licenses/MIT>
+ * @link    http://picocms.org
+ * @license http://opensource.org/licenses/MIT The MIT License
  * @version 1.1
  */
 class Pico
@@ -896,7 +896,7 @@ class Pico
      * for users and pure (!) theme developers ONLY.
      *
      * @see    Pico::getFileMeta()
-     * @see    <http://symfony.com/doc/current/components/yaml/introduction.html>
+     * @see    http://symfony.com/doc/current/components/yaml/introduction.html
      * @param  string   $rawContent the raw file contents
      * @param  string[] $headers    known meta headers
      * @return array                parsed meta data

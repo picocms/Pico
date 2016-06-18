@@ -283,15 +283,25 @@ you get an error message from your web server, please make sure to enable the
 still shows no rewritten URLs, force URL rewriting by setting
 `$config['rewrite_url'] = true;` in your `config/config.php`.
 
-If you're using Nginx, you can use the following configuration to enable
-URL rewriting. Don't forget to adjust the path (`/pico/`; line `1` and `3`)
-to match your installation directory. You can then enable URL rewriting by
-setting `$config['rewrite_url'] = true;` in your `config/config.php`.
+If you're using Nginx, you can use the following configuration to enable URL
+rewriting (lines `5` to `8`) and denying access to Pico's internal files
+(lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `5`
+and `7`) to match your installation directory. Additionally, you'll need to
+enable URL rewriting by setting `$config['rewrite_url'] = true;` in your
+`config/config.php`. The Nginx configuration should provide the *bare minimum*
+you need for Pico. Nginx is a very extensive subject. If you have any trouble,
+please read through our [Nginx configuration docs][NginxConfig].
 
-    location /pico/ {
-        index index.php;
-        try_files $uri $uri/ /pico/$is_args$args;
-    }
+```
+location ~ /pico/(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
+    return 404;
+}
+
+location /pico/ {
+    index index.php;
+    try_files $uri $uri/ /pico/index.php$is_args$args;
+}
+```
 
 ## Documentation
 
@@ -305,3 +315,4 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [PluginUpgrade]: http://picocms.org/development/#upgrade
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
+[NginxConfig]: http://picocms.org/in-depth/nginx/

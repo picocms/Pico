@@ -8,7 +8,7 @@
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT
+ * @license http://opensource.org/licenses/MIT The MIT License
  * @version 1.0
  */
 final class DummyPlugin extends AbstractPicoPlugin

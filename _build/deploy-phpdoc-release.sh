@@ -39,13 +39,18 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
         "$MILESTONE API Documentation ($TRAVIS_TAG)"
     [ $? -eq 0 ] || exit 1
 
-    # commit phpDocs
     if [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID")" ]; then
+        # update phpDoc list
+        update-phpdoc-list.sh \
+            "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
+            "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
+
+        # commit phpDocs
         echo "Committing phpDoc changes..."
-        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
         git commit \
             --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID"
+            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
         [ $? -eq 0 ] || exit 1
         echo
     fi
@@ -69,7 +74,7 @@ fi
 
 # update version file
 if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
-    generate-version.sh \
+    update-version-file.sh \
         "$DEPLOYMENT_DIR/_data/version.yml" \
         "${TRAVIS_TAG#v}"
 

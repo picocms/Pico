@@ -109,7 +109,7 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [composer]: https://getcomposer.org/
 [SemVer]: http://semver.org
 [PHPServer]: http://php.net/manual/en/features.commandline.webserver.php
-[HelpUpgrade]: http://picocms.org/upgrade/
+[HelpUpgrade]: http://picocms.org/in-depth/upgrade/
 [HelpUserDocs]: http://picocms.org/docs/
 [HelpDevDocs]: http://picocms.org/development/
 [OfficialPlugins]: http://picocms.org/customization/
