@@ -1,12 +1,12 @@
 ---
 heading: Pico Edit
-thumbnail: /style/images/docs/customization/thumbnails/plugin.png
+thumbnail: /style/images/docs/customization/thumbnails/pico_edit.png
 categories:
   - admin
 meta: Plugin
 link: https://github.com/blocknotes/pico_edit
 images:
-  - /style/images/docs/customization/fullsize/default_theme.png
+  - /style/images/docs/customization/fullsize/pico_edit.png
 info:
   By: "[blocknotes](https://github.com/blocknotes)"
   Last Updated: 5/25/16
