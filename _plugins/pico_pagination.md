@@ -2,7 +2,6 @@
 heading: Pico Pagination
 thumbnail: /style/images/docs/customization/thumbnails/plugin.png
 categories:
-- plugin
 - theming
 meta: Plugin
 link: https://github.com/rewdy/Pico-Pagination

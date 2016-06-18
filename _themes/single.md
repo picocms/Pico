@@ -2,7 +2,6 @@
 heading: Single
 thumbnail: /style/images/docs/customization/thumbnails/single_theme.jpg
 categories:
-  - theme
   - single-page
   - personal
 meta: Custom Theme

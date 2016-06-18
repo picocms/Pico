@@ -2,7 +2,6 @@
 heading: Identity
 thumbnail: /style/images/docs/customization/thumbnails/identity_theme.jpg
 categories:
-  - theme
   - single-page
   - personal
 meta: Custom Theme

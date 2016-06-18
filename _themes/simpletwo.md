@@ -2,7 +2,6 @@
 heading: SimpleTwo
 thumbnail: /style/images/docs/customization/thumbnails/simpletwo_theme.png
 categories:
-  - theme
   - multi-page
 meta: Custom Theme
 link: https://github.com/sonst-was/simpleTwo

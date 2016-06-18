@@ -2,7 +2,6 @@
 heading: Simple Sidebar
 thumbnail: /style/images/docs/customization/thumbnails/simple_sidebar_theme.png
 categories:
-  - theme
   - multi-page
 meta: Custom Theme
 link: https://github.com/dmelo/bt-theme

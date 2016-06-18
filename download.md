@@ -4,7 +4,7 @@ title: Download
 headline: Download Pico
 description: Download the latest version of Pico or [visit us on GitHub](https://github.com/picocms/Pico).
 collection: download
-nav: 5
+nav: 6
 redirect_from: /download.html
 ---
 

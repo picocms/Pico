@@ -2,7 +2,6 @@
 heading: Magazine
 thumbnail: /style/images/docs/customization/thumbnails/magazine_theme.jpg
 categories:
-  - theme
   - multi-page
   - blog
 meta: Custom Theme

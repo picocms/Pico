@@ -8,8 +8,8 @@ description: |
 nav: 4
 redirect_from:
     - /customization.html
-    - /plugins/index.html
-    - /plugins.html
+    #- /plugins/index.html
+    #- /plugins.html
 ---
 
 ## Plugins

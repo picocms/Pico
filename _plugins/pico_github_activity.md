@@ -2,7 +2,6 @@
 heading: Pico GitHub Activity
 thumbnail: /style/images/docs/customization/thumbnails/plugin.png
 categories:
-  - plugin
   - developer
 meta: Plugin
 link: https://github.com/theshka/pico_githubactivity

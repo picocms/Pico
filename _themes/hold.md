@@ -2,7 +2,6 @@
 heading: Hold
 thumbnail: /style/images/docs/customization/thumbnails/hold_theme.jpg
 categories:
-  - theme
   - multi-page
   - personal
 meta: Custom Theme

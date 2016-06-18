@@ -2,7 +2,6 @@
 heading: Pico Tags
 thumbnail: /style/images/docs/customization/thumbnails/plugin.png
 categories:
-  - plugin
   - theming
 meta: Plugin
 link: https://github.com/PontusHorn/Pico-Tags

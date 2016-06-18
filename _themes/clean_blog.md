@@ -2,7 +2,6 @@
 heading: Clean Blog
 thumbnail: /style/images/docs/customization/thumbnails/clean_blog_theme.jpg
 categories:
-  - theme
   - multi-page
   - blog
 meta: Custom Theme

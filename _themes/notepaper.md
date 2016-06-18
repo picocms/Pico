@@ -2,7 +2,6 @@
 heading: NotePaper
 thumbnail: /style/images/docs/customization/thumbnails/notepaper_theme.jpg
 categories:
-  - theme
   - multi-page
   - blog
 meta: Custom Theme
