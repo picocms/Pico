@@ -1,12 +1,12 @@
 ---
 heading: Pico GAnalytics
-thumbnail: /style/images/docs/customization/thumbnails/plugin.png
+thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - developer
 meta: Plugin
 link: https://github.com/bricebou/pico_ganalytics
 images:
-  - /style/images/docs/customization/fullsize/default_theme.png
+  - /themes/images/fullsize/default_theme.png
 info:
   By: "[bricebou](https://github.com/bricebou)"
   Last Updated: 5/29/16

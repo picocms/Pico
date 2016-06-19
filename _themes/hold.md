@@ -1,13 +1,13 @@
 ---
 heading: Hold
-thumbnail: /style/images/docs/customization/thumbnails/hold_theme.jpg
+thumbnail: /themes/images/thumbnails/hold_theme.jpg
 categories:
   - multi-page
   - personal
 meta: Custom Theme
 link: https://github.com/BesrourMS/magazine
 images:
-  - /style/images/docs/customization/fullsize/hold_theme.jpg
+  - /themes/images/fullsize/hold_theme.jpg
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=hold-free-html5-bootstrap-template)"

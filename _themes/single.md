@@ -1,13 +1,13 @@
 ---
 heading: Single
-thumbnail: /style/images/docs/customization/thumbnails/single_theme.jpg
+thumbnail: /themes/images/thumbnails/single_theme.jpg
 categories:
   - single-page
   - personal
 meta: Custom Theme
 link: https://github.com/BesrourMS/single
 images:
-  - /style/images/docs/customization/fullsize/single_theme.jpg
+  - /themes/images/fullsize/single_theme.jpg
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=single-free-html5-bootstrap-template)"

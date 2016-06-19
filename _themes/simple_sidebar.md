@@ -1,12 +1,12 @@
 ---
 heading: Simple Sidebar
-thumbnail: /style/images/docs/customization/thumbnails/simple_sidebar_theme.png
+thumbnail: /themes/images/thumbnails/simple_sidebar_theme.png
 categories:
   - multi-page
 meta: Custom Theme
 link: https://github.com/dmelo/bt-theme
 images:
-  - /style/images/docs/customization/fullsize/simple_sidebar_theme.png
+  - /themes/images/fullsize/simple_sidebar_theme.png
 info:
   Ported By: "[dmelo](https://github.com/dmelo)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/simple-sidebar/)"
