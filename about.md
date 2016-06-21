@@ -60,23 +60,28 @@ galleries:
       -
         heading: NotePaper Theme
         description: "[NotePaper](http://development.sjmcdougall.com/pico-themes/NotePaper/) - A highly customizable theme, designed exclusively for Pico."
-        thumbnail: /style/images/docs/about/thumbnails/notepaper_theme.jpg
-        fullsize: /style/images/docs/about/fullsize//notepaper_theme.jpg
+        thumbnail: /style/images/docs/about/thumbnails/notepaper.jpg
+        fullsize: /style/images/docs/about/fullsize//notepaper.jpg
       -
-        heading: Simple Sidebar Theme
-        description: "[Simple Sidebar](http://startbootstrap.com/template-overviews/simple-sidebar/) is a theme from [Start Bootstrap](http://startbootstrap.com/), [ported to Pico](https://github.com/dmelo/bt-theme)."
-        thumbnail: /style/images/docs/about/thumbnails/simple_sidebar_theme.png
-        fullsize: /style/images/docs/about/fullsize/simple_sidebar_theme.png
+        heading: Identity Theme
+        description: "[Identity](https://html5up.net/identity/) theme from [HTML5 UP](https://html5up.net/), [ported to Pico](https://github.com/BesrourMS/single)."
+        thumbnail: /style/images/docs/about/thumbnails/identity.jpg
+        fullsize: /style/images/docs/about/fullsize/identity.jpg
       -
         heading: SimpleTwo Theme
         description: "[SimpleTwo](https://github.com/sonst-was/simpleTwo) is a simple theme with two columns for picoCMS."
-        thumbnail: /style/images/docs/about/thumbnails/simpletwo_theme.png
-        fullsize: /style/images/docs/about/fullsize/simpletwo_theme.png
+        thumbnail: /style/images/docs/about/thumbnails/simpletwo.png
+        fullsize: /style/images/docs/about/fullsize/simpletwo.png
       -
         heading: Magazine Theme
-        description: "[Magazine Theme](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template) from [FreeHTML5.co](http://freehtml5.co/), [ported to Pico](https://github.com/BesrourMS/magazine)."
-        thumbnail: /style/images/docs/about/thumbnails/magazine_theme.jpg
-        fullsize: /style/images/docs/about/fullsize/magazine_theme.jpg
+        description: "[Magazine](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template) theme from [FreeHTML5.co](http://freehtml5.co/), [ported to Pico](https://github.com/BesrourMS/magazine)."
+        thumbnail: /style/images/docs/about/thumbnails/magazine.jpg
+        fullsize: /style/images/docs/about/fullsize/magazine.jpg
+      -
+        heading: Clean Blog Theme
+        description: "[Clean Blog](http://startbootstrap.com/template-overviews/clean-blog/) theme from [Start Bootstrap](http://startbootstrap.com/), [ported to Pico](https://github.com/BesrourMS/clean-blog)."
+        thumbnail: /style/images/docs/about/thumbnails/clean-blog.jpg
+        fullsize: /style/images/docs/about/fullsize/clean-blog.jpg
 ---
 
 Pico is a stupidly simple, blazing fast, flat file CMS.  That's definitely a mouthful, what does it even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
