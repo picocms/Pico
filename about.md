@@ -13,6 +13,7 @@ toc:
     _title: Flexibility and Customization
     theming-with-twig-templates: Theming With Twig Templates
     plugins-extend-picos-php: Plugins Extend Pico's PHP
+  pico-is-open-source: Pico is Open Source
   getting-started: Getting Started
 nav-url: /about/
 nav: 2
@@ -78,7 +79,7 @@ galleries:
         fullsize: /style/images/docs/about/fullsize/magazine_theme.jpg
 ---
 
-Pico is a stupidly simple, blazing fast, flat file CMS.  For those of us who aren't an expert webmaster, what does that even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
+Pico is a stupidly simple, blazing fast, flat file CMS.  That's definitely a mouthful, what does it even mean?  In the most basic sense, it means that there is no administration backend or database to deal with. You simply create markdown files in the content folder and those files become your pages.  There's *much* more to Pico than that though.
 
 {% include gallery.html gallery='standalone' %}
 
@@ -96,7 +97,7 @@ Most Content Management Systems make use of extensive databases to hold their co
 
 Pico is different.  With Pico, all your content is stored as "flat files", which is pretty much exactly as it sounds.  When using Pico, all your site content is stored as simple text files.  It remains readily available to modify, edit, organize, and migrate as you see fit.
 
-Unlike a traditional CMS, Pico doesn't require write access on your server to function.  This makes it more secure by design and reduces difficult PHP configuration.  Since Pico doesn't use a database for its backend, it has very low system requirements and will run on almost any web space.  Databases can also often be a bottleneck on your site's performance, especially on a small website, where a database-driven CMS is simply overkill.
+Unlike a traditional CMS, Pico doesn't require write access on your server to function.  This makes it more secure by design and reduces difficult PHP configuration.  Since Pico doesn't use a database for its backend, it has very low system requirements and will run on almost any web space.  Databases can often be a bottleneck on your site's performance, especially with a larger website.  For a smaller site, a database-driven CMS is often overkill.
 
 There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
@@ -118,7 +119,7 @@ Writing in Markdown is a lot quicker than coding in HTML, and much easier to lea
 
 You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a [good example][WikiMarkdownExample] there showing the before and after of how Markdown works, so be sure to check that out!
 
-You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic Markdown syntax is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
+You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic [Markdown syntax][MarkdownSyntax] is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
 ```
 ## Markdown Heading
@@ -147,19 +148,19 @@ Let's say for instance that you have a page that you'd like to back-date to last
 Title: YAML Example
 Description: This is what your Metadata will look like in YAML
 Author: Your Name
-Date: 2016/05/10
+Date: 2016-05-10
 ---
 ```
 
 ## Flexibility and Customization
 
-Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes and Plugins][Customization].
+Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes][] and [Plugins][].
 
 ### Theming With Twig Templates
 
-Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][SiteThemes], as well as some more on [our wiki][WikiThemes].
+Pico's default theme is *not* intended for production use.  It is provided as a great, but minimal starting place for you to develop your own customized website.  If you aren't familiar with HTML, fear not, we have an ever-growing variety of community-created themes available [here on our site][Themes], as well as some more on [our wiki][WikiThemes].
 
-Pico's "Themes" are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.  You can find more information on making your own templates in [Twig's Documentation][TwigDocs] and see how they relate to Pico in our own [Documentation][DocsThemes].
+Pico's themes are built using [Twig Templates][Twig].  Twig is a template engine which provides an easy and powerful way to customize your website.  You can use small amounts of Twig to add dynamic content to a mostly-static HTML website, or use large amounts of Twig to build in some really incredible features.  Twig is so powerful that you'll find it can accomplish most tasks by itself, eliminating the need for plugins.  You can find more information on making your own templates in [Twig's Documentation][TwigDocs] and see how they relate to Pico in our own [Documentation][DocsThemes].
 
 {% include gallery.html gallery='themes' %}
 
@@ -167,14 +168,19 @@ And if that's still not enough creative power for you, you can check out Pico's 
 
 ### Plugins Extend Pico's PHP
 
-Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site]({{ site.github.url }}/customization/#plugins), and even more on [our wiki]({{ site.gh_project_url }}/wiki/Pico-Plugins).
+Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site][Plugins], and even more on [our wiki][WikiPlugins].
+
+## Pico is Open Source
+
+Best of all, Pico is open source software!  This means that Pico is, and always will be free.  Free to use, and free to modify.  Pico is released under the [MIT license][License].
+
+Because Pico is open source, we welcome and appreciate any contributions.  If you'd like to help make Pico better, please check out the [Contribute][] section of our documentation.  We'd love to have your help.
 
 ## Getting Started
 
-Ready to try Pico for yourself?  Head on over to our [Download][Download] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
+Ready to try Pico for yourself?  Head on over to our [Download][] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
 
 {% comment %}
----
 
 * **General Notes**
 * Include a larger "About" portion at the beginning?
@@ -186,31 +192,25 @@ Ready to try Pico for yourself?  Head on over to our [Download][Download] page t
 * Difficulties with configuration and having to work through an overcomplicated interface / admin panel.
 * limitations when customizing, harder to create your own unique look and feel if you aren't satisfied with existing themes.
 
-* **Markdown and YAML**
-* History Lesson / Origins / What & Why
-  * Add a section about Markdown's standardization and popularity?
-
-* **Customization**
-* Link to Themes and Plugins sections separately?  Should they be linked to this page instead of [Customization][Customization]? (Line 156) (And one in intro, line 87)
-* **@PhrozenByte** any more to say about Plugins?
-
 {% endcomment %}
 
 [Docs]: {{ site.github.url }}/docs/
 [DocsYAML]: {{ site.github.url }}/docs#text-file-markup
 [DocsThemes]: {{ site.github.url }}/docs#themes
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
-[Customization]: {{ site.github.url }}/customization/
 [Download]: {{ site.github.url }}/download/
+[Contribute]: {{ site.github.url }}/docs/#contribute
+[License]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/LICENSE.md
 
-[SiteThemes]: {{ site.github.url }}/customization/#themes
+[Themes]: {{ site.github.url }}/customization/#themes
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
-[SitePlugins]: {{ site.github.url }}/customization/#plugins
+[Plugins]: {{ site.github.url }}/customization/#plugins
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 
 [WikiMarkdown]: https://en.wikipedia.org/wiki/Markdown
 [WikiMarkdownExample]: https://en.wikipedia.org/wiki/Markdown#Example
-[Markdown]: http://daringfireball.net/projects/markdown/
+[Markdown]: https://daringfireball.net/projects/markdown/basics
+[MarkdownSyntax]: https://daringfireball.net/projects/markdown/syntax
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [Twig]: http://twig.sensiolabs.org/
 [TwigDocs]: http://twig.sensiolabs.org/documentation
