@@ -26,7 +26,7 @@ galleries:
         description: It's a bit bare... but that's intentional!
         thumbnail: /style/images/docs/about/thumbnails/default_theme.png
         fullsize: /style/images/docs/about/fullsize/default_theme.png
-        styles: "float: right; margin-left: 2em;"
+        styles: "float: right; margin-left: 2em; border: 1px solid #CCC; border-top: none;"
   workflow:
     headline: Pico's Workflow
     description: Creating content with Pico couldn't be simpler!
