@@ -52,6 +52,16 @@ galleries:
         description: Creating content couldn't be easier using Markdown.  Here's an example of editing a page.
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
+      -
+        heading: Editing a Theme
+        description: Editing an HTML/Twig theme isn't so scary.  Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.  If you want to.
+        thumbnail: /style/images/docs/about/thumbnails/theme_template.png
+        fullsize: /style/images/docs/about/fullsize/theme_template.png
+      -
+        heading: Dummy Plugin
+        description: If you know PHP and you'd like to add some functionality to Pico, you can create a plugin!  Pico's DummyPlugin provides a great base for coding your own.
+        thumbnail: /style/images/docs/about/thumbnails/dummy_plugin.png
+        fullsize: /style/images/docs/about/fullsize/dummy_plugin.png
   themes:
     headline: Community Themes
     description: Ready-to-go, community developed themes to customize your Pico website.
