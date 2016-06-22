@@ -98,7 +98,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  That's definitely a mou
 
 {% include gallery.html gallery='standalone' %}
 
-Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
+Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for blazing speed, flexibility, and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
