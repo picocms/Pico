@@ -137,15 +137,25 @@ You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a 
 You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic [Markdown syntax][MarkdownSyntax] is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
 ```
-## Markdown Heading
+## Sally's Flower Shop
 
-This is an example of using Markdown to format your document.  It's not very difficult.
+Welcome to Sally's Flower Shop.  We have a *large* assortment to chose from.
 
-* Here are some bullet points.
-* Markdown is pretty simple to understand...
-  * But it's also really readable.
-  * HTML can't even compare!
-* You'll get the hang of it in no time at all.
+Please browse our [catalog](%base_url%/catalog) for an extensive selection of flowers.
+Our catalog also contains some varieties not found in our store which we can ship to you for free!
+
+![hydrangea](%base_url%/assets/hydrangea.jpg)
+
+This week, the following varieties are on sale:
+
+* Red Roses
+* Tiger Lilies
+* Daisies
+
+All sale prices are highlighted in the catalog for quick reference.
+
+**Please Note:** All sales are final.
+Due to the limited window of delivery, we are unable to offer any refunds.
 ```
 
 ### Control Your Metadata With YAML
