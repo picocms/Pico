@@ -33,32 +33,32 @@ galleries:
     style: carousel-box
     images:
       -
-        heading: A Pico Installation
-        description: Here's what Pico looks like installed on your web server.
+        heading: Pico's Easy to Install!
+        description: Simply upload Pico's files to your server and you're done!  This is what Pico's folder looks like after installation.
         thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
         fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
-        heading: Your Content Folder
-        description: An example of a content folder in Pico.  This one is from a writing website.
-        thumbnail: /style/images/docs/about/thumbnails/content_folder.png
-        fullsize: /style/images/docs/about/fullsize/content_folder.png
-      -
-        heading: Pico's Configuration File
-        description: Configuring Pico is as simple as uncommenting a few lines in the included template.
+        heading: Pico's Easy to Configure Too!
+        description: Configuring Pico is as simple as uncommenting a few lines in the included config template.
         thumbnail: /style/images/docs/about/thumbnails/config.png
         fullsize: /style/images/docs/about/fullsize/config.png
       -
-        heading: Editing a Page
-        description: Creating content couldn't be easier using Markdown.  Here's an example of editing a page.
+        heading: Your Content, Your Way
+        description: Creating content with Pico is easy.  You simply create Markdown files and they become pages on your website.  You can also organize your content however you'd like, just create some folders.  Here's an example of a content folder in Pico.  This one is from a writing website.
+        thumbnail: /style/images/docs/about/thumbnails/content_folder.png
+        fullsize: /style/images/docs/about/fullsize/content_folder.png
+      -
+        heading: Web Pages Made Easy
+        description: Creating content with Markdown couldn't be easier.  While Markdown makes formatting simple, HTML can also be used if you need more advanced options.
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
       -
-        heading: Editing a Theme
-        description: Editing an HTML/Twig theme isn't so scary.  Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.  If you want to.
+        heading: Theming your Site with Twig
+        description: Editing an HTML/Twig theme isn't so scary.  Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.
         thumbnail: /style/images/docs/about/thumbnails/theme_template.png
         fullsize: /style/images/docs/about/fullsize/theme_template.png
       -
-        heading: Dummy Plugin
+        heading: Developing Plugins with PHP
         description: If you know PHP and you'd like to add some functionality to Pico, you can create a plugin!  Pico's DummyPlugin provides a great base for coding your own.
         thumbnail: /style/images/docs/about/thumbnails/dummy_plugin.png
         fullsize: /style/images/docs/about/fullsize/dummy_plugin.png
