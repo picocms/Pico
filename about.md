@@ -33,12 +33,12 @@ galleries:
     style: carousel-box
     images:
       -
-        heading: Pico's Easy to Install!
+        heading: Installation is Easy!
         description: Simply upload Pico's files to your server and you're done!  This is what Pico's folder looks like after installation.
         thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
         fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
-        heading: Pico's Easy to Configure Too!
+        heading: Configuration is Easy Too!
         description: Configuring Pico is as simple as uncommenting a few lines in the included config template.
         thumbnail: /style/images/docs/about/thumbnails/config.png
         fullsize: /style/images/docs/about/fullsize/config.png
