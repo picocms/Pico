@@ -2393,6 +2393,20 @@ media_tag_4 {media_subcode:4}
 	background-image: url(style/images/fancy-loading.gif) !important;
 }
 media_tag_5 {media_subcode:5}
+-/*-----------------------------------------------------------------------------------*/
+-/*	PROGRESS BAR
+-/*-----------------------------------------------------------------------------------*/
+-.progress-bar li p {
+-    padding-bottom: 5px;
+-}
+-.progress-bar li  {
+-    margin-bottom: 20px;
+-}
+-.progress-bar li em {
+-    padding-left: 8px;
+-    color: #979797;
+-}
+-.progress-bar li em:before {
 /*----------------------------------------------------%
     content: "-";
     padding-right: 10px;
