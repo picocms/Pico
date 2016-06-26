@@ -2,6 +2,7 @@
 heading: Pico GAnalytics
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
+  - plugin
   - developer
 meta: Plugin
 link: https://github.com/bricebou/pico_ganalytics

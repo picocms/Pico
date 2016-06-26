@@ -2,6 +2,7 @@
 heading: Pico Random Page
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
+  - plugin
   - developer
 meta: Plugin
 link: https://github.com/PontusHorn/Pico-Random-Page

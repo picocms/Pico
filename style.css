@@ -2953,3 +2953,44 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .item-info li a:hover {
     color: #2EAE9B;
 }
+.items li.plugin a .overlay {
+    display: block !important;
+    opacity: 1 !important;
+    background-color: transparent;
+    transition: background-color 200ms linear 0s;
+}
+
+.items li.plugin a .overlay:hover {
+    background-color: rgba(46,174,155, 0.92);
+    transition: background-color 300ms linear 0s;
+}
+
+.items li.plugin a .overlay h3 {
+    color: black;
+    font-size: 28px;
+    line-height: 1.5em;
+    transition: color 200ms linear 0s;
+}
+
+.items li.plugin a .overlay:hover h3,
+.items li.plugin a .overlay:hover span.meta {
+    color: white;
+    transition: color 300ms linear 0s;
+}
+
+.items li.plugin a .overlay span.meta {
+    color: black;
+    transition: color 200ms linear 0s;
+}
+
+/* Temporary */
+.items li.plugin a img {
+    filter: saturate(50%);
+    opacity: .4;
+    transition: filter 200ms linear 0s, opacity 200ms linear 0s;
+}
+.items li.plugin a:hover img {
+    filter: none;
+    opacity: 1;
+    transition: filter 300ms linear 0s, opacity 300ms linear 0s;
+}
