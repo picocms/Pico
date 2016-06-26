@@ -170,10 +170,20 @@ Let's say for instance that you have a page that you'd like to back-date to last
 
 ```
 ---
-Title: YAML Example
-Description: This is what your Metadata will look like in YAML
-Author: Your Name
+Title: Flower Sale
+Description: There's a special sale running this week at Sally's.  Browse our catalog for more details.
+Author: Sally Flora
 Date: 2016-05-10
+social:
+  - title: Visit us on Facebook
+    url: https://example.com/sallysflowers
+    icon: facebook
+  - title: Check us out on Twitter
+    url: https://example.com/sallyflora
+    icon: twitter
+  - title: Contact us by Email!
+    url: mailto:sallysflowershop@example.com
+    icon: mail
 ---
 ```
 
