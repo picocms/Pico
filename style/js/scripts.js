@@ -661,7 +661,7 @@ jQuery(document).ready(function() {
 			pdv.find('.carousel').each(function() {
 
 				jQuery(this).carousel({
-					interval: 2000
+					interval: 4000
 				})
 			});
 
