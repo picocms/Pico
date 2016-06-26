@@ -8,8 +8,8 @@ meta: Custom Theme
 link: http://development.sjmcdougall.com/pico-themes/NotePaper/
 images:
   - /themes/images/fullsize/notepaper.jpg
-  - /themes/images/fullsize/notepaper_theme_writingdesk.jpg
-  - /themes/images/fullsize/notepaper_theme_sidebar.jpg
+  - /themes/images/fullsize/notepaper_writingdesk.jpg
+  - /themes/images/fullsize/notepaper_sidebar.jpg
 info:
   By: "[Simon McDougall](http://sjmcdougall.com)"
   Last Updated: 5/01/16
