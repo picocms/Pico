@@ -191,7 +191,9 @@ social:
 
 ## Flexibility and Customization
 
-Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes][] and [Plugins][].
+Pico's code base aims to be just as "stupidly simple" as Pico is easy to use.  While the core of Pico remains slim and lightweight, Pico has two very large avenues of customization, [Themes][] and [Plugins][].
+
+These aren't just new "skins" or "widgets" you can apply to your website either.  These underlying technologies are *powerful* frameworks you can leverage to make your website truly unique.
 
 ### Theming With Twig Templates
 
