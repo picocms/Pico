@@ -1,13 +1,13 @@
 ---
 heading: Clean Blog
-thumbnail: /themes/images/thumbnails/clean_blog_theme.jpg
+thumbnail: /themes/images/thumbnails/clean_blog.jpg
 categories:
   - multi-page
   - blog
 meta: Custom Theme
 link: https://github.com/BesrourMS/clean-blog
 images:
-  - /themes/images/fullsize/clean_blog_theme.jpg
+  - /themes/images/fullsize/clean_blog.jpg
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/clean-blog/)"

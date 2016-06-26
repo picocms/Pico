@@ -1,13 +1,13 @@
 ---
 heading: NotePaper
-thumbnail: /themes/images/thumbnails/notepaper_theme.jpg
+thumbnail: /themes/images/thumbnails/notepaper.jpg
 categories:
   - multi-page
   - blog
 meta: Custom Theme
 link: http://development.sjmcdougall.com/pico-themes/NotePaper/
 images:
-  - /themes/images/fullsize/notepaper_theme.jpg
+  - /themes/images/fullsize/notepaper.jpg
   - /themes/images/fullsize/notepaper_theme_writingdesk.jpg
   - /themes/images/fullsize/notepaper_theme_sidebar.jpg
 info:
