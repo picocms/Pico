@@ -114,7 +114,9 @@ Pico is different.  With Pico, all your content is stored as "flat files", which
 
 Unlike a traditional CMS, Pico doesn't require write access on your server to function.  This makes it more secure by design and reduces difficult PHP configuration.  Since Pico doesn't use a database for its backend, it has very low system requirements and will run on almost any web space.  Databases can often be a bottleneck on your site's performance, especially with a larger website.  For a smaller site, a database-driven CMS is often overkill.
 
-There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
+If you've ever found yourself frustrated, trying to navigate the complicated administration interface of a traditional CMS and not being able to find that *one* setting you need to change, Pico could be a refreshing change of pace.  Pico's configuration is all located in one text file, and is provided as a template with your installation.  Themes and Plugins may have additional options, but Pico's core requires only a small amount of configuration.  In fact, you'll likely leave most of this file commented out, only changing the options that matter to you.
+
+There really isn't much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
 {% include gallery.html gallery='workflow' %}
 
