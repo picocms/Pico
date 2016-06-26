@@ -46,7 +46,7 @@
 				<h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
 				<ul class="item-info">
 					{% for info in item.info %}
-						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" }}: </span>{% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
+						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
 					{% endfor %}
 				</ul>
 				{% assign content_exists = item.content|strip_newlines|size %}
