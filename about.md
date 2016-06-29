@@ -143,7 +143,7 @@ You can learn how to use Markdown in its official documentation at [Daring Fireb
 
 Welcome to Sally's Flower Shop.  We have a *large* assortment to chose from.
 
-Please browse our [catalog](%base_url%/catalog) for an extensive selection of flowers.
+Please browse our [catalog](%base_url%?catalog) for an extensive selection of flowers.
 Our catalog also contains some varieties not found in our store which we can ship to you for free!
 
 ![hydrangea](%base_url%/assets/hydrangea.jpg)
@@ -172,8 +172,10 @@ Let's say for instance that you have a page that you'd like to back-date to last
 
 ```
 ---
-Title: Flower Sale
-Description: There's a special sale running this week at Sally's.  Browse our catalog for more details.
+Title: Welcome
+Description: |
+  Welcome to Sally's Flower Shop!
+  There's a special sale running this week, browse our catalog for more details.
 Author: Sally Flora
 Date: 2016-05-10
 social:
