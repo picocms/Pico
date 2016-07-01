@@ -84,6 +84,8 @@ redirect_from:
     <p>Free Pico CMS theme that is good for resume and vcard websites.</p>
     <p><a href="https://github.com/BesrourMS/personal" class="button" target="_blank">Download</a></p>
 </div>
+<div class="clear"></div>
+
 <div class="one-third last">
     <h3>Clean Blog</h3>
     <p>A clean, Bootstrap blog theme for Pico CMS</p>
