@@ -33,25 +33,35 @@ galleries:
     style: carousel-box
     images:
       -
-        heading: A Pico Installation
-        description: Here's what Pico looks like installed on your web server.
+        heading: Installation is Easy!
+        description: Simply upload Pico's files to your server and you're done!  This is what Pico's folder looks like after installation.
         thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
         fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
-        heading: Your Content Folder
-        description: An example of a content folder in Pico.  This one is from a writing website.
-        thumbnail: /style/images/docs/about/thumbnails/content_folder.png
-        fullsize: /style/images/docs/about/fullsize/content_folder.png
-      -
-        heading: Pico's Configuration File
-        description: Configuring Pico is as simple as uncommenting a few lines in the included template.
+        heading: Configuration is Easy Too!
+        description: Configuring Pico is as simple as uncommenting a few lines in the included config template.
         thumbnail: /style/images/docs/about/thumbnails/config.png
         fullsize: /style/images/docs/about/fullsize/config.png
       -
-        heading: Editing a Page
-        description: Creating content couldn't be easier using Markdown.  Here's an example of editing a page.
+        heading: Your Content, Your Way
+        description: Creating content with Pico is easy.  You simply create Markdown files and they become pages on your website.  You can also organize your content however you'd like, just create some folders.  Here's an example of a content folder in Pico.  This one is from a writing website.
+        thumbnail: /style/images/docs/about/thumbnails/content_folder.png
+        fullsize: /style/images/docs/about/fullsize/content_folder.png
+      -
+        heading: Web Pages Made Easy
+        description: Creating content with Markdown couldn't be easier.  While Markdown makes formatting simple, HTML can also be used if you need more advanced options.
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
+      -
+        heading: Theming your Site with Twig
+        description: Editing an HTML/Twig theme isn't so scary.  Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.
+        thumbnail: /style/images/docs/about/thumbnails/theme_template.png
+        fullsize: /style/images/docs/about/fullsize/theme_template.png
+      -
+        heading: Developing Plugins with PHP
+        description: If you know PHP and you'd like to add some functionality to Pico, you can create a plugin!  Pico's DummyPlugin provides a great base for coding your own.
+        thumbnail: /style/images/docs/about/thumbnails/dummy_plugin.png
+        fullsize: /style/images/docs/about/fullsize/dummy_plugin.png
   themes:
     headline: Community Themes
     description: Ready-to-go, community developed themes to customize your Pico website.
@@ -88,7 +98,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS.  That's definitely a mou
 
 {% include gallery.html gallery='standalone' %}
 
-Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for flexibility and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
+Let's get this out of the way: Pico is *not* a turn-key solution.  Pico trades one-click setups and complex management interfaces for blazing speed, flexibility, and a lightweight footprint.  If a little bit of reading and some basic configuration sounds like too much then Pico is probably not for you.
 
 That being said, Pico is incredibly extendable and customizable.  With a very small amount of configuration, you'll find yourself with a very personalized experience.  There's also a growing community creating ready-to-go [themes and plugins](#flexibility-and-customization) for Pico.  It is very possible to get started with Pico even with [no prior knowledge of HTML](#web-pages-without-html).  You'll find however that a little bit of coding knowledge will get you a long way.
 
@@ -104,7 +114,9 @@ Pico is different.  With Pico, all your content is stored as "flat files", which
 
 Unlike a traditional CMS, Pico doesn't require write access on your server to function.  This makes it more secure by design and reduces difficult PHP configuration.  Since Pico doesn't use a database for its backend, it has very low system requirements and will run on almost any web space.  Databases can often be a bottleneck on your site's performance, especially with a larger website.  For a smaller site, a database-driven CMS is often overkill.
 
-There really isn't that much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
+If you've ever found yourself frustrated, trying to navigate the complicated administration interface of a traditional CMS and not being able to find that *one* setting you need to change, Pico could be a refreshing change of pace.  Pico's configuration is all located in one text file, and is provided as a template with your installation.  Themes and Plugins may have additional options, but Pico's core requires only a small amount of configuration.  In fact, you'll likely leave most of this file commented out, only changing the options that matter to you.
+
+There really isn't much more to say about it.  The beauty of Pico is in its simplicity.  If you want to create a new page, you make a new file.  That's it.  But that's far from the end of the story.  Despite Pico's simplicity, you'll find it incredibly powerful, and ready to take on any task.
 
 {% include gallery.html gallery='workflow' %}
 
@@ -127,15 +139,25 @@ You can learn more about Markdown on [Wikipedia][WikiMarkdown].  There's also a 
 You can learn how to use Markdown in its official documentation at [Daring Fireball][Markdown].  Pico also uses the extensions to Markdown found in [Markdown Extra][MarkdownExtra].  Markdown is a very common formatting syntax, and you'll find there are many other pieces of software that use it as well.  The basic [Markdown syntax][MarkdownSyntax] is universal across almost all software, but many will add their own unique extensions (like Markdown Extra).  Just keep the differences in mind if you decide to learn these extra features, as just about everyone has their own "flavor" of Markdown.
 
 ```
-## Markdown Heading
+## Sally's Flower Shop
 
-This is an example of using Markdown to format your document.  It's not very difficult.
+Welcome to Sally's Flower Shop.  We have a *large* assortment to chose from.
 
-* Here are some bullet points.
-* Markdown is pretty simple to understand...
-  * But it's also really readable.
-  * HTML can't even compare!
-* You'll get the hang of it in no time at all.
+Please browse our [catalog](%base_url%?catalog) for an extensive selection of flowers.
+Our catalog also contains some varieties not found in our store which we can ship to you for free!
+
+![hydrangea](%base_url%/assets/hydrangea.jpg)
+
+This week, the following varieties are on sale:
+
+* Red Roses
+* Tiger Lilies
+* Daisies
+
+All sale prices are highlighted in the catalog for quick reference.
+
+**Please Note:** All sales are final.
+Due to the limited window of delivery, we are unable to offer any refunds.
 ```
 
 ### Control Your Metadata With YAML
@@ -150,16 +172,30 @@ Let's say for instance that you have a page that you'd like to back-date to last
 
 ```
 ---
-Title: YAML Example
-Description: This is what your Metadata will look like in YAML
-Author: Your Name
+Title: Welcome
+Description: |
+  Welcome to Sally's Flower Shop!
+  There's a special sale running this week, browse our catalog for more details.
+Author: Sally Flora
 Date: 2016-05-10
+social:
+  - title: Visit us on Facebook
+    url: https://example.com/sallysflowers
+    icon: facebook
+  - title: Check us out on Twitter
+    url: https://example.com/sallyflora
+    icon: twitter
+  - title: Contact us by Email!
+    url: mailto:sallysflowershop@example.com
+    icon: mail
 ---
 ```
 
 ## Flexibility and Customization
 
-Pico is not just easy to use, it's *powerful*!  Pico has two very large avenues of customization, [Themes][] and [Plugins][].
+Pico's code base aims to be just as "stupidly simple" as Pico is easy to use.  While the core of Pico remains slim and lightweight, Pico has two very large avenues of customization, [Themes][] and [Plugins][].
+
+These aren't just new "skins" or "widgets" you can apply to your website either.  These underlying technologies are *powerful* frameworks you can leverage to make your website truly unique.
 
 ### Theming With Twig Templates
 
