@@ -1,5 +1,5 @@
 ---
-heading: Pico Pagination
+heading: Pagination
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin

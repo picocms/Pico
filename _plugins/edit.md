@@ -1,12 +1,12 @@
 ---
-heading: Pico Edit
-thumbnail: /plugins/images/thumbnails/pico_edit.png
+heading: Edit
+thumbnail: /plugins/images/thumbnails/edit.png
 categories:
   - admin
 meta: Edit your pages online
 link: https://github.com/blocknotes/pico_edit
 images:
-  - /plugins/images/fullsize/pico_edit.png
+  - /plugins/images/fullsize/edit.png
 info:
   By: "[blocknotes](https://github.com/blocknotes)"
   Last Updated: 5/25/16

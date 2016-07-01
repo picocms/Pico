@@ -1,5 +1,5 @@
 ---
-heading: Pico Search
+heading: Search
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin

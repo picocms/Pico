@@ -1,5 +1,5 @@
 ---
-heading: Pico Random Page
+heading: Random Page
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin

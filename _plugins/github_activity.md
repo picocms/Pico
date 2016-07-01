@@ -1,5 +1,5 @@
 ---
-heading: Pico GitHub Activity
+heading: GitHub Activity
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin
