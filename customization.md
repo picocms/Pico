@@ -20,9 +20,9 @@ redirect_from:
     <p><a href="https://github.com/PontusHorn/Pico-Tags" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third">
-    <h3>Editor</h3>
-    <p>Markdown editor and file manager for Pico.</p>
-    <p><a href="https://github.com/theshka/Pico-Editor-Plugin" class="button" target="_blank">Download</a></p>
+    <h3>Pico edit</h3>
+    <p>An admin interface for Pico CMS.</p>
+    <p><a href="https://github.com/blocknotes/pico_edit" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Pico GAnalytics</h3>
@@ -74,12 +74,22 @@ redirect_from:
     <p>Personal "business card" style site</p>
     <p><a href="https://github.com/BesrourMS/Identity" class="button" target="_blank">Download</a></p>
 </div>
-<div class="one-third last">
+<div class="one-third">
     <h3>Hold</h3>
     <p>Personal Profile Theme for Pico CMS</p>
     <p><a href="https://github.com/BesrourMS/hold" class="button" target="_blank">Download</a></p>
 </div>
+<div class="one-third last">
+    <h3>Personal</h3>
+    <p>Free Pico CMS theme that is good for resume and vcard websites.</p>
+    <p><a href="https://github.com/BesrourMS/personal" class="button" target="_blank">Download</a></p>
+</div>
 <div class="clear"></div>
+<div class="one-third last">
+    <h3>Clean Blog</h3>
+    <p>A clean, Bootstrap blog theme for Pico CMS</p>
+    <p><a href="https://github.com/BesrourMS/clean-blog" class="button" target="_blank">Download</a></p>
+</div>
 
 ---
 
