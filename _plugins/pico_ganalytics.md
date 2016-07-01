@@ -4,7 +4,7 @@ thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin
   - developer
-meta: Plugin
+meta: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics
 images:
   - /themes/images/fullsize/default_theme.png

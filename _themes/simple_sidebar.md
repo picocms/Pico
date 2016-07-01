@@ -3,7 +3,7 @@ heading: Simple Sidebar
 thumbnail: /themes/images/thumbnails/simple_sidebar.png
 categories:
   - multi-page
-meta: Custom Theme
+meta: Off-canvas sidebar navigation
 link: https://github.com/dmelo/bt-theme
 images:
   - /themes/images/fullsize/simple_sidebar.png

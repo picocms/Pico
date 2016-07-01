@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/notepaper.jpg
 categories:
   - multi-page
   - blog
-meta: Custom Theme
+meta: Dark wood grain, lined paper, and sticky note widgets.
 link: http://development.sjmcdougall.com/pico-themes/NotePaper/
 images:
   - /themes/images/fullsize/notepaper.jpg

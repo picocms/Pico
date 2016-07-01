@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/identity.jpg
 categories:
   - single-page
   - personal
-meta: Custom Theme
+meta: Your Personal "Business Card"
 link: https://github.com/BesrourMS/single
 images:
   - /themes/images/fullsize/identity.jpg

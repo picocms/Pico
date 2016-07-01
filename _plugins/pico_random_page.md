@@ -4,7 +4,7 @@ thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin
   - developer
-meta: Plugin
+meta: Take me anywhere
 link: https://github.com/PontusHorn/Pico-Random-Page
 images:
   - /themes/images/fullsize/default_theme.png

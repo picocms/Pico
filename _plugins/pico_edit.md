@@ -3,7 +3,7 @@ heading: Pico Edit
 thumbnail: /plugins/images/thumbnails/pico_edit.png
 categories:
   - admin
-meta: Plugin
+meta: Edit your pages online
 link: https://github.com/blocknotes/pico_edit
 images:
   - /plugins/images/fullsize/pico_edit.png

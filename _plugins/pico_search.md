@@ -4,7 +4,7 @@ thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin
   - developer
-meta: Plugin
+meta: Search through your pages
 link: https://github.com/PontusHorn/Pico-Search
 images:
   - /themes/images/fullsize/default_theme.png

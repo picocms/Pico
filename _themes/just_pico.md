@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/just_pico.png
 categories:
   - multi-page
   - blog
-meta: Custom Theme
+meta: And some PureCSS
 link: https://github.com/blocknotes/just-pico
 images:
   - /themes/images/fullsize/just_pico.png

@@ -4,7 +4,7 @@ thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin
   - developer
-meta: Plugin
+meta: Have you been active lately?
 link: https://github.com/theshka/pico_githubactivity
 images:
   - /themes/images/fullsize/default_theme.png

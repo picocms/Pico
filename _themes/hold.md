@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/hold.jpg
 categories:
   - multi-page
   - personal
-meta: Custom Theme
+meta: Showcase your portfolio
 link: https://github.com/BesrourMS/magazine
 images:
   - /themes/images/fullsize/hold.jpg

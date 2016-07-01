@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/single.jpg
 categories:
   - single-page
   - personal
-meta: Custom Theme
+meta: A single page that makes a statement
 link: https://github.com/BesrourMS/single
 images:
   - /themes/images/fullsize/single.jpg

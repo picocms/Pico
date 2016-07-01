@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/magazine.jpg
 categories:
   - multi-page
   - blog
-meta: Custom Theme
+meta: Clean, animated, and elegant.
 link: https://github.com/BesrourMS/magazine
 images:
   - /themes/images/fullsize/magazine.jpg

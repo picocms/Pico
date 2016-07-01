@@ -4,7 +4,7 @@ thumbnail: /themes/images/thumbnails/clean_blog.jpg
 categories:
   - multi-page
   - blog
-meta: Custom Theme
+meta: A stylish blog, ready to go
 link: https://github.com/BesrourMS/clean-blog
 images:
   - /themes/images/fullsize/clean_blog.jpg
