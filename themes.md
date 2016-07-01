@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Themes
-headline: Pico Themes
+headline: Community Themes
 description: |
-    Below are some themes which customize the look of Pico and make it even more awesome.<br />
-    Want to create your own theme? Please refer to [our documentation](/docs/#themes)!
+  Want to customize the look of Pico?  Below is a collection of our community-developed themes.<br>
+  Would you rather create your own theme? Learn how in [our documentation](/docs/#themes)!
 nav: 4
 
 portfolio:
@@ -21,6 +21,14 @@ portfolio:
 
 ---
 
-## More Themes
+## More Themes & How to Contribute Your Own
 
-On this page we just present a tiny selection of the vast number of awesome themes out there! A good start point for discovery is [our Wiki]({{ site.gh_project_url }}/wiki), where you can find many more [themes]({{ site.gh_project_url }}/wiki/Pico-Themes). For more information, especially about how you can create your own theme, please refer to the [docs]({{ site.github.url }}/docs/#customization).
+The themes shown here are only a smaller selection of those available.  You can find more themes on [our Wiki][].
+
+You can even [contribute][] your own theme to the community and we'll feature it here.  While you can freely add your theme to [our Wiki][], if you'd also like to be included on this page, you can follow the simple instructions in our [Submission Guidelines][].
+
+We appreciate any and all contributions, whether you've created something original or ported an existing HTML theme (license permitting), we'd love to see it!
+
+[contribute]: /docs/#contribute
+[our wiki]: {{ site.gh_project_url }}/wiki/Pico-Themes
+[Submission Guidelines]: /doesn't/exist/yet
