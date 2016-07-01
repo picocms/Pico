@@ -30,4 +30,4 @@ We appreciate any and all contributions, whether you've created something new or
 
 [contribute]: /docs/#contribute
 [our wiki]: {{ site.gh_project_url }}/wiki/Pico-Plugins
-[Submission Guidelines]: /doesn't/exist/yet
+[Submission Guidelines]: /in-depth/submission_guidelines
