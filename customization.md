@@ -85,11 +85,13 @@ redirect_from:
     <p><a href="https://github.com/BesrourMS/personal" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
+
 <div class="one-third last">
     <h3>Clean Blog</h3>
     <p>A clean, Bootstrap blog theme for Pico CMS</p>
     <p><a href="https://github.com/BesrourMS/clean-blog" class="button" target="_blank">Download</a></p>
 </div>
+<div class="clear"></div>
 
 ---
 
