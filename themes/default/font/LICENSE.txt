@@ -1,0 +1,22 @@
+Icon fonts generator
+
+## Fontello
+
+    Copyright (C) 2011 by Vitaly Puzrin
+
+    Author:     Vitaly Puzrin
+    License:    The MIT License <https://github.com/fontello/fontello/blob/master/LICENSE>
+    Homepage:   http://fontello.com/
+
+
+
+Font license info
+
+## Font Awesome
+
+    Copyright (C) 2012 by Dave Gandy
+
+    Author:     Dave Gandy
+    License:    SIL OFL 1.1 <http://scripts.sil.org/OFL>
+    Homepage:   http://fortawesome.github.com/Font-Awesome/
+
