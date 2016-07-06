@@ -2,7 +2,7 @@
 heading: GAnalytics
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
-  - plugin
+  - plugin-thumbnail
   - developer
 meta: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics

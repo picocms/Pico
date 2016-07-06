@@ -64,7 +64,7 @@
 					<h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
 					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
 				</div>
-				<img src="{{ item.thumbnail }}" alt="" />
+				<img src="{% if item.thumbnail %}{{ item.thumbnail }}{% endif %}" alt="" />
 			</a>
 		</li>
 	{% endfor %}

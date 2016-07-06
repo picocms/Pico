@@ -2,7 +2,7 @@
 heading: Search
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
-  - plugin
+  - plugin-thumbnail
   - developer
 meta: Search through your pages
 link: https://github.com/PontusHorn/Pico-Search

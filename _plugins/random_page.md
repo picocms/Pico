@@ -2,7 +2,7 @@
 heading: Random Page
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
-  - plugin
+  - plugin-thumbnail
   - developer
 meta: Take me anywhere
 link: https://github.com/PontusHorn/Pico-Random-Page

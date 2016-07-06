@@ -20,7 +20,7 @@ Submitting content to the website is easy, all you have to do is create a new [P
 
 ## The File Layout
 
-Pico's website is found in the [`gh-pages` branch][gh-pages] on GitHub.  In this branch, you'll find two folders named `_themes` and `_plugins`.  These folders contain all the individual files that make up the [Themes][] and [Plugins][] pages respectively.
+Pico's website is found in the [gh-pages branch][gh-pages] on GitHub.  In this branch, you'll find two folders named `_themes` and `_plugins`.  These folders contain all the individual files that make up the [Themes][] and [Plugins][] pages respectively.
 
 Each item has a minimum of *three* required files.
 
@@ -78,7 +78,6 @@ Fullsize image resolution isn't as strict.  These images will be proportionally 
 * Fullsize: `1440x900` or larger
 * Thumbnails: `270x220`
 
-
 ## Metadata Breakdown
 
 ### Heading
@@ -105,6 +104,8 @@ These categories are displayed along the top of the page.  By clicking them, you
 * Administration (`admin`) - A plugin that adds administration capabilities to Pico.
 * Developer-Focused (`developer`) - A plugin that adds developer-focused functionality. (Not really a good category...)
 * Theming Extensions (`theming`) - A plugin that adds extends twig by adding extra variables or functionality.
+* Use Plugin Styles (`plugin-thumbnail`) - This is a dummy category that provides special styles for a plugin with no thumbnail.
+* Use Plugin Layout (`plugin-layout`) - This is a dummy category that enables a two-column layout for plugins with no fullsize images.
 
 ### Meta
 

@@ -2,7 +2,7 @@
 heading: Tags
 thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
-  - plugin
+  - plugin-thumbnail
   - theming
 meta: Filter your posts by category
 link: https://github.com/PontusHorn/Pico-Tags

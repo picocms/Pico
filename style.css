@@ -2978,41 +2978,41 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 }
 
 /* Plugins */
-.items li.plugin a .overlay {
+.items li.plugin-thumbnail a .overlay {
     display: block !important;
     opacity: 1 !important;
     background-color: transparent;
     transition: background-color 200ms linear 0s;
 }
 
-.items li.plugin a .overlay:hover {
+.items li.plugin-thumbnail a .overlay:hover {
     background-color: rgba(46,174,155, 0.92);
     transition: background-color 300ms linear 0s;
 }
 
-.items li.plugin a .overlay h3 {
+.items li.plugin-thumbnail a .overlay h3 {
     color: #616161;
     transition: color 200ms linear 0s;
 }
 
-.items li.plugin a .overlay:hover h3,
-.items li.plugin a .overlay:hover span.meta {
+.items li.plugin-thumbnail a .overlay:hover h3,
+.items li.plugin-thumbnail a .overlay:hover span.meta {
     color: white;
     transition: color 300ms linear 0s;
 }
 
-.items li.plugin a .overlay span.meta {
+.items li.plugin-thumbnail a .overlay span.meta {
     color: #616161;
     transition: color 200ms linear 0s;
 }
 
 /* Temporary? */
-.items li.plugin a img {
+.items li.plugin-thumbnail a img {
     filter: saturate(50%);
     opacity: .4;
     transition: filter 200ms linear 0s, opacity 200ms linear 0s;
 }
-.items li.plugin a:hover img {
+.items li.plugin-thumbnail a:hover img {
     filter: none;
     opacity: 1;
     transition: filter 300ms linear 0s, opacity 300ms linear 0s;
