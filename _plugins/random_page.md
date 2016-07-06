@@ -1,6 +1,5 @@
 ---
 heading: Random Page
-thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin-thumbnail
   - developer

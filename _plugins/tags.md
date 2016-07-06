@@ -1,6 +1,5 @@
 ---
 heading: Tags
-thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin-thumbnail
   - theming

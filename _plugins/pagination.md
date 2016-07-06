@@ -1,6 +1,5 @@
 ---
 heading: Pagination
-thumbnail: /plugins/images/thumbnails/plugin.png
 categories:
   - plugin-thumbnail
   - theming
