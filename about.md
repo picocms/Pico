@@ -223,7 +223,8 @@ class PicoDrafts extends AbstractPicoPlugin
     public function onPagesLoaded(array &$pages)
     {
         foreach ($pages as $pageId => $pageData) {
-            if ($pageData['id'][0] === '_') {
+            $fileName = basename($pageData['id']);
+            if ($fileName[0] === '_') {
                 unset($pages[$pageId]);
             }
         }
