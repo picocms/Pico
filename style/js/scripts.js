@@ -435,7 +435,6 @@ jQuery(document).ready(function() {
 
 			 	if (pdv.length) {
 			 		var fade=false;
-			 		clearInterval(pdv.data('interval'));
 			 		pdv.addClass("portfolio-detail-view-remove").removeClass('portfolio-detail-view');
 				 	pdv.animate({'height':'0px','opacity':'0'},{duration:speed, complete:function() { jQuery(this).remove();}});
 
@@ -550,7 +549,6 @@ jQuery(document).ready(function() {
 	 	 setTimeout(function() {
 			 if (pdv.length) {
 			 		removeActiveThumbs($container);
-			 		clearInterval(pdv.data('interval'));
 				 	pdv.animate({'height':'0px','opacity':'0'},{duration:speed, complete:function() { jQuery(this).remove();}});
 				 	moveThumbs($container,pdv.data('itemstomove'),0);
 			}
@@ -621,13 +619,13 @@ jQuery(document).ready(function() {
 		 		'<div class="closebutton"><i class="icon-cancel-1"></i></div>'+
 		 		'</div>');
 
+
 		 	// CATCH THE DETAIL VIEW AND CONTENT CONTAINER
 		 	var pdv = jQuery('body').find('.portfolio-detail-view');
 		 	var closeb = pdv.find('.closebutton');
 		 	var pdcc = pdv.find('.portfolio-detail-content-container');
-		 	var pdvpad = parseInt(pdcc.css('paddingBottom'),0) + parseInt(pdcc.css('paddingTop'),0);
 
-		 	var offset = pdcc.height()+pdvpad + parseInt(pdv.css('marginBottom'),0);
+		 	var offset = pdcc.outerHeight(true) + parseInt(pdv.css('marginBottom'),0);
 
 
 		 	closeb.click(function() {
@@ -636,8 +634,7 @@ jQuery(document).ready(function() {
 		 	})
 
 		 	// ANIMATE THE OPENING OF THE CONTENT CONTAINER
-
-			pdv.animate({'height':(pdcc.outerHeight(true)+pdvpad)+"px"},{duration:speed,queue:false});
+			pdv.animate({'height':pdcc.outerHeight(true)+"px"},{duration:speed,queue:false});
 
 
 		 	// SAVE THE ITEMS TO MOVE IN THE PDV
@@ -676,18 +673,6 @@ jQuery(document).ready(function() {
 			});
 		 	// MOVE THE REST OF THE THUMBNAILS
 		 	moveThumbs($container,itemstomove,offset);
-
-		 	pdv.data('interval',setInterval(function() {
-			 	var pdv = jQuery('body').find('.portfolio-detail-view');
-			 	var closeb = pdv.find('.closebutton');
-			 	var pdcc = pdv.find('.portfolio-detail-content-container');
-			 	var pdvpad =  parseInt(pdcc.css('paddingBottom'),0) + parseInt(pdcc.css('paddingTop'),0);
-			 	var offset = pdcc.height()+pdvpad + parseInt(pdv.css('marginBottom'),0);
-			 	moveThumbs($container,itemstomove,offset);
-			 	pdv.animate({'height':Math.round(pdcc.height()+pdvpad)+"px"},{duration:speed,queue:false});
-
-		 	},100));
-
 	 }
 
 	 // MOVE THE THUMBS
