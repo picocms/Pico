@@ -22,14 +22,14 @@ Submitting content to the website is easy, all you have to do is create a new [P
 
 Pico's website is found in the [gh-pages branch][gh-pages] on GitHub.  In this branch, you'll find two folders named `_themes` and `_plugins`.  These folders contain all the individual files that make up the [Themes][] and [Plugins][] pages respectively.
 
-Each item has a minimum of *three* required files.
+Each item has three types of files:
 
 * A Markdown file, containing the YAML details of your submission.
 * A `fullsize` screenshot of your item.
   * Optionally, you can provide multiple fullsize screenshots.  These will automatically cycle on the page as a carousel.
-  * A plugin may omit this screenshot and elect to use a two-column layout instead.
+  * If you omit a fullsize image, the page will automatically use a two-column layout instead.  This may be useful for plugins that are too abstract to screenshot.
 * A `thumbnail` screenshot of your item.
-  * A plugin may omit a thumbnail and instead use our default plugin thumbnail and style.
+  * If you omit a thumbnail image, the page will automatically use our default thumbnail and special style.
 
 Here's an example of how we keep this section organized:
 
@@ -69,7 +69,7 @@ For your image format, we'd ask that you pick whichever format best optimizes yo
 
 For thumbnail images, you should use a resolution of `270x220`.  The thumbnails are a locked size on the website, so providing a different resolution will result in your image being squashed.
 
-Fullsize image resolution isn't as strict.  These images will be proportionally scaled to the right size.  We do however recommend a resolution of at least `1440x900`, as these images can be viewed fullscreen by clicking on the magnifying glass.
+Fullsize image resolution isn't as strict.  These images will be proportionally scaled to the right size.  We do however recommend a resolution of at least `1440x900`, as these images can be viewed fullscreen by clicking on their magnifying glass icon.
 
 ### Specifications
 
@@ -156,7 +156,9 @@ info:
 ---
 This is my Theme for Pico.
 
-If it really existed, this is where I would write some details about it.
+Or maybe it's a Plugin...
+
+Either way, if it really existed, this is where I would write some details about it.
 ```
 
 [Pull Request]: {{ site.gh_project_url }}/pull/new/gh-pages
