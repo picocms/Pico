@@ -1,7 +1,6 @@
 ---
 heading: Search
 categories:
-  - plugin-thumbnail
   - developer
 meta: Search through your pages
 link: https://github.com/PontusHorn/Pico-Search

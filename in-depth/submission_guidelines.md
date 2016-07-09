@@ -104,8 +104,6 @@ These categories are displayed along the top of the page.  By clicking them, you
 * Administration (`admin`) - A plugin that adds administration capabilities to Pico.
 * Developer-Focused (`developer`) - A plugin that adds developer-focused functionality. (Not really a good category...)
 * Theming Extensions (`theming`) - A plugin that adds extends twig by adding extra variables or functionality.
-* Use Plugin Styles (`plugin-thumbnail`) - This is a dummy category that provides special styles for a plugin with no thumbnail.
-* Use Plugin Layout (`plugin-layout`) - This is a dummy category that enables a two-column layout for plugins with no fullsize images.
 
 ### Meta
 

@@ -13,6 +13,13 @@
 {% else %}
 	{% assign button = "Launch Site" %}
 {% endif %}
+{% if include.defaultThumbnail %}
+	{% assign defaultThumbnail = include.defaultThumbnail %}
+{% elsif page.portfolio.defaultThumbnail %}
+	{% assign defaultThumbnail = page.portfolio.defaultThumbnail %}
+{% else %}
+	{% assign defaultThumbnail = "/style/images/docs/defaultThumbnail.png" %}
+{% endif %}
 
 <div class="portfolio-wrapper showcase">
 	<ul class="filter">
@@ -23,7 +30,7 @@
 	</ul>
 	<ul class="items col4">
 		{% for item in portfolio %}
-		<li class="item {{ item.categories|join: ' ' }}" ata-callback="callPortfolioScripts();" data-detailcontent='
+		<li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% unless item.images %} columns{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
 			<div class="content">
 				{% assign num_images = item.images|size %}
 				<div {% if num_images > 1 %}id="myCarousel" class="carousel slide"{% else %}class="single"{% endif %}>
@@ -64,7 +71,7 @@
 					<h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
 					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
 				</div>
-				<img src="{% if item.categories contains "plugin-thumbnail" %}/plugins/images/thumbnails/plugin.png{% else %}{{ item.thumbnail }}{% endif %}" alt="" />
+				<img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ defaultThumbnail }}{% endif %}" alt="" />
 			</a>
 		</li>
 	{% endfor %}

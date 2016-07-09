@@ -1,7 +1,6 @@
 ---
 heading: Random Page
 categories:
-  - plugin-thumbnail
   - developer
 meta: Take me anywhere
 link: https://github.com/PontusHorn/Pico-Random-Page

@@ -13,6 +13,7 @@ portfolio:
     developer: Developer-Focused
     theming: Theming Extensions
   button: Download
+  defaultThumbnail: /plugins/images/thumbnails/plugin.png
 
 ---
 

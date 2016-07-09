@@ -1,7 +1,6 @@
 ---
 heading: GitHub Activity
 categories:
-  - plugin-thumbnail
   - developer
 meta: Have you been active lately?
 link: https://github.com/theshka/pico_githubactivity
