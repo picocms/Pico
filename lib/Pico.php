@@ -1424,9 +1424,11 @@ class Pico
      * @param  string       $page      identifier of the page to link to
      * @param  array|string $queryData either an array containing properties to
      *     create a URL-encoded query string from, or a already encoded string
+     * @param  boolean      $dropIndex when the last path component is "index",
+     *     then passing TRUE (default) leads to removing this path component
      * @return string                  URL
      */
-    public function getPageUrl($page, $queryData = null)
+    public function getPageUrl($page, $queryData = null, $dropIndex = true)
     {
         if (is_array($queryData)) {
             $queryData = http_build_query($queryData, '', '&');
@@ -1438,11 +1440,13 @@ class Pico
         }
 
         // drop "index"
-        if ($page === 'index') {
-            $page = '';
-        } elseif (($pagePathLength = strrpos($page, '/')) !== false) {
-            if (substr($page, $pagePathLength + 1) === 'index') {
-                $page = substr($page, 0, $pagePathLength);
+        if ($dropIndex) {
+            if ($page === 'index') {
+                $page = '';
+            } elseif (($pagePathLength = strrpos($page, '/')) !== false) {
+                if (substr($page, $pagePathLength + 1) === 'index') {
+                    $page = substr($page, 0, $pagePathLength);
+                }
             }
         }
 
