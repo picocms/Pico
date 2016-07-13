@@ -1506,7 +1506,7 @@ class Pico
      *     or Pico::SORT_NONE to leave the result unsorted
      * @return array                 list of found files
      */
-    protected function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
+    public function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
     {
         $directory = rtrim($directory, '/');
         $result = array();
