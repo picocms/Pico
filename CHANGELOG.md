@@ -6,6 +6,7 @@ Released: -
 
 ```
 * [New] Add Pico's social icons to default theme
+* [Fixed] Fix handling of non-YAML 1-line front matters
 ```
 
 ### Version 1.0.3
