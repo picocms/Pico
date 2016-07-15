@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
     <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/fontello.css" type="text/css" />
 
     <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
 </head>
@@ -41,6 +42,11 @@
 
     <footer id="footer">
         <div class="inner">
+            <div class="social">
+                {% for social in meta.social %}
+                    <a href="{{ social.url }}" title="{{ social.title }}"><span class="icon-{{ social.icon }}"></span></a>
+                {% endfor %}
+            </div>
             <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
             and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
             Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.

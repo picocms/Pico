@@ -911,7 +911,14 @@ class Pico
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
             $yamlParser = new \Symfony\Component\Yaml\Parser();
             $meta = $yamlParser->parse($rawMetaMatches[3]);
-            $meta = ($meta !== null) ? array_change_key_case($meta, CASE_LOWER) : array();
+
+            if ($meta !== null) {
+                // the parser may return a string for non-YAML 1-liners
+                // assume that this string is the page title
+                $meta = is_array($meta) ? array_change_key_case($meta, CASE_LOWER) : array('title' => $meta);
+            } else {
+                $meta = array();
+            }
 
             foreach ($headers as $fieldId => $fieldName) {
                 $fieldName = strtolower($fieldName);
