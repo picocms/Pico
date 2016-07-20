@@ -308,7 +308,7 @@ class Pico
         $this->triggerEvent('onRequestUrl', array(&$this->requestUrl));
 
         // discover requested file
-        $this->discoverRequestFile();
+        $this->requestFile = $this->resolveFilePath($this->requestUrl);
         $this->triggerEvent('onRequestFile', array(&$this->requestFile));
 
         // load raw file content
@@ -735,24 +735,29 @@ class Pico
     }
 
     /**
-     * Uses the request URL to discover the content file to serve
+     * Resolves a given file path to its corresponding content file
+     *
+     * This method also prevents `content_dir` breakouts using malicious
+     * request URLs. We don't use `realpath()`, because we neither want to
+     * check for file existance, nor prohibit symlinks which intentionally
+     * point to somewhere outside the `content_dir` folder. It is STRONGLY
+     * RECOMMENDED to use PHP's `open_basedir` feature - always, not just
+     * with Pico!
      *
      * @see    Pico::getRequestFile()
-     * @return void
+     * @param  string $requestUrl path name (likely from a URL) to resolve
+     * @return string             path to the resolved content file
      */
-    protected function discoverRequestFile()
+    public function resolveFilePath($requestUrl)
     {
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
 
-        if (empty($this->requestUrl)) {
-            $this->requestFile = $contentDir . 'index' . $contentExt;
+        if (empty($requestUrl)) {
+            return $contentDir . 'index' . $contentExt;
         } else {
-            // prevent content_dir breakouts using malicious request URLs
-            // we don't use realpath() here because we neither want to check for file existance
-            // nor prohibit symlinks which intentionally point to somewhere outside the content_dir
-            // it is STRONGLY RECOMMENDED to use open_basedir - always, not just with Pico!
-            $requestUrl = str_replace('\\', '/', $this->requestUrl);
+            // prevent content_dir breakouts
+            $requestUrl = str_replace('\\', '/', $requestUrl);
             $requestUrlParts = explode('/', $requestUrl);
 
             $requestFileParts = array();
@@ -768,31 +773,29 @@ class Pico
             }
 
             if (empty($requestFileParts)) {
-                $this->requestFile = $contentDir . 'index' . $contentExt;
-                return;
+                return $contentDir . 'index' . $contentExt;
             }
 
             // discover the content file to serve
             // Note: $requestFileParts neither contains a trailing nor a leading slash
-            $this->requestFile = $contentDir . implode('/', $requestFileParts);
-            if (is_dir($this->requestFile)) {
+            $requestFile = $contentDir . implode('/', $requestFileParts);
+            if (is_dir($requestFile)) {
                 // if no index file is found, try a accordingly named file in the previous dir
                 // if this file doesn't exist either, show the 404 page, but assume the index
                 // file as being requested (maintains backward compatibility to Pico < 1.0)
-                $indexFile = $this->requestFile . '/index' . $contentExt;
-                if (file_exists($indexFile) || !file_exists($this->requestFile . $contentExt)) {
-                    $this->requestFile = $indexFile;
-                    return;
+                $indexFile = $requestFile . '/index' . $contentExt;
+                if (file_exists($indexFile) || !file_exists($requestFile . $contentExt)) {
+                    return $indexFile;
                 }
             }
-            $this->requestFile .= $contentExt;
+            return $requestFile . $contentExt;
         }
     }
 
     /**
      * Returns the absolute path to the content file to serve
      *
-     * @see    Pico::discoverRequestFile()
+     * @see    Pico::resolveFilePath()
      * @return string|null file path
      */
     public function getRequestFile()
