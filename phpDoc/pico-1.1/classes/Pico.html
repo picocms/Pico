@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1560291559"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1543154001"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1560291559" class="accordion-body collapse in">
+            <div id="namespace-1543154001" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -213,6 +213,7 @@ released under the MIT license.</li>
                                                                     <a href="../classes/Pico.html#method_setConfig" class="">setConfig()</a><br />
                                                                     <a href="../classes/Pico.html#method_getConfig" class="">getConfig()</a><br />
                                                                     <a href="../classes/Pico.html#method_getRequestUrl" class="">getRequestUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_resolveFilePath" class="">resolveFilePath()</a><br />
                                                                     <a href="../classes/Pico.html#method_getRequestFile" class="">getRequestFile()</a><br />
                                                                     <a href="../classes/Pico.html#method_loadFileContent" class="">loadFileContent()</a><br />
                                                                     <a href="../classes/Pico.html#method_load404Content" class="">load404Content()</a><br />
@@ -253,7 +254,6 @@ released under the MIT license.</li>
                                                                     <a href="../classes/Pico.html#method_loadPlugins" class="">loadPlugins()</a><br />
                                                                     <a href="../classes/Pico.html#method_loadConfig" class="">loadConfig()</a><br />
                                                                     <a href="../classes/Pico.html#method_evaluateRequestUrl" class="">evaluateRequestUrl()</a><br />
-                                                                    <a href="../classes/Pico.html#method_discoverRequestFile" class="">discoverRequestFile()</a><br />
                                                                     <a href="../classes/Pico.html#method_registerParsedown" class="">registerParsedown()</a><br />
                                                                     <a href="../classes/Pico.html#method_readPages" class="">readPages()</a><br />
                                                                     <a href="../classes/Pico.html#method_sortPages" class="">sortPages()</a><br />
@@ -1426,6 +1426,50 @@ array if no config name was supplied</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_resolveFilePath" name="method_resolveFilePath" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">resolveFilePath()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">resolveFilePath(string  <span class="argument">$requestUrl</span>) : string</pre>
+                <p><em>Resolves a given file path to its corresponding content file</em></p>
+                <p>This method also prevents <code>content_dir</code> breakouts using malicious
+request URLs. We don't use <code>realpath()</code>, because we neither want to
+check for file existance, nor prohibit symlinks which intentionally
+point to somewhere outside the <code>content_dir</code> folder. It is STRONGLY
+RECOMMENDED to use PHP's <code>open_basedir</code> feature - always, not just
+with Pico!</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$requestUrl </td>
+                                <td><p>path name (likely from a URL) to resolve</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>path to the resolved content file</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_getRequestFile"><span class="namespace-wrapper">\Pico::getRequestFile()</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_getRequestFile" name="method_getRequestFile" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">getRequestFile()</h3>
@@ -1446,7 +1490,7 @@ array if no config name was supplied</p>
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
                                                                                             <dt>See also</dt>
-                                                                <dd><a href="../classes/Pico.html#method_discoverRequestFile"><span class="namespace-wrapper">\Pico::discoverRequestFile()</span></a></dd>
+                                                                <dd><a href="../classes/Pico.html#method_resolveFilePath"><span class="namespace-wrapper">\Pico::resolveFilePath()</span></a></dd>
                                                                 </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -2410,34 +2454,6 @@ Pico interprets <code>someBooleanParam</code> as name of the requested page. Use
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_discoverRequestFile" name="method_discoverRequestFile" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">discoverRequestFile()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">discoverRequestFile() : void</pre>
-                <p><em>Uses the request URL to discover the content file to serve</em></p>
-                
-
-                
-                
-                				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                                            <dt>See also</dt>
-                                                                <dd><a href="../classes/Pico.html#method_getRequestFile"><span class="namespace-wrapper">\Pico::getRequestFile()</span></a></dd>
-                                                                </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
             <a id="method_registerParsedown" name="method_registerParsedown" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">registerParsedown()</h3>
@@ -2722,7 +2738,7 @@ as well as Pico's <a href="../classes/PicoTwigExtension.html">PicoTwigExtension<
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 15th, 2016 at 01:25.
+                    on July 20th, 2016 at 17:25.
                 </section>
             </section>
         </section>
