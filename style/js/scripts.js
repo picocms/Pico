@@ -673,6 +673,24 @@ jQuery(document).ready(function() {
 			});
 		 	// MOVE THE REST OF THE THUMBNAILS
 		 	moveThumbs($container,itemstomove,offset);
+
+
+
+            var images = pdv.find('.carousel .active img, .single img'),
+                imagesLoaded = 0,
+                imagesCallback = function () {
+                    imagesLoaded++;
+
+                    if (imagesLoaded === images.length) {
+                        moveThumbs($container, itemstomove, pdcc.outerHeight(true) + parseInt(pdv.css('marginBottom'), 0));
+                        pdv.animate({'height': pdcc.outerHeight(true) + "px" }, { duration: speed, queue: false });
+                    }
+                };
+            images.each(function () {
+                var image = jQuery(this);
+                image.load(imagesCallback);
+                image.attr('src', image.attr('src'));
+            });
 	 }
 
 	 // MOVE THE THUMBS
