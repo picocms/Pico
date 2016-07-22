@@ -18,7 +18,7 @@
 {% elsif page.portfolio.defaultThumbnail %}
 	{% assign defaultThumbnail = page.portfolio.defaultThumbnail %}
 {% else %}
-	{% assign defaultThumbnail = "/style/images/defaultThumbnail.png" %}
+	{% assign defaultThumbnail = "style/images/defaultThumbnail.png" %}
 {% endif %}
 
 <div class="portfolio-wrapper showcase">
@@ -38,7 +38,7 @@
 						{% assign title_num = forloop.index %}
 						{% for image in item.images %}
 							{% if num_images > 1 %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
-								<img alt="" width="100%" src="{{ image }}"><a href="{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
+								<img alt="" width="100%" src="{{ site.github.url }}/{{ image }}"><a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
 								<span class="link"></span></a>
 							{% if num_images > 1 %}</div>{% endif %}
 						{% endfor %}
@@ -71,7 +71,7 @@
 					<h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
 					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
 				</div>
-				<img src="{% if item.thumbnail %}{{ item.thumbnail }}{% else %}{{ defaultThumbnail }}{% endif %}" alt="" />
+				<img src="{% if item.thumbnail %}{{ site.github.url }}/{{ item.thumbnail }}{% else %}{{ site.github.url }}/{{ defaultThumbnail }}{% endif %}" alt="" />
 			</a>
 		</li>
 	{% endfor %}

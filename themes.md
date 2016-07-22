@@ -29,6 +29,6 @@ You can even [contribute][] your own theme to the community and we'll feature it
 
 We appreciate any and all contributions, whether you've created something original or ported an existing HTML theme (license permitting), we'd love to see it!
 
-[contribute]: /docs/#contribute
+[contribute]: {{ site.github.url }}/docs/#contribute
 [our wiki]: {{ site.gh_project_url }}/wiki/Pico-Themes
-[Submission Guidelines]: /in-depth/submission_guidelines
+[Submission Guidelines]: {{ site.github.url }}/in-depth/submission_guidelines

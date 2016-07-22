@@ -13,7 +13,7 @@ portfolio:
     developer: Developer-Focused
     theming: Theming Extensions
   button: Download
-  defaultThumbnail: /plugins/images/thumbnails/plugin.png
+  defaultThumbnail: plugins/images/thumbnails/plugin.png
 
 ---
 
@@ -29,6 +29,6 @@ You can even [contribute][] your own plugin to the community and we'll feature i
 
 We appreciate any and all contributions, whether you've created something new or restored an obsolete plugin, we'd love to see it!
 
-[contribute]: /docs/#contribute
+[contribute]: {{ site.github.url }}/docs/#contribute
 [our wiki]: {{ site.gh_project_url }}/wiki/Pico-Plugins
-[Submission Guidelines]: /in-depth/submission_guidelines
+[Submission Guidelines]: {{ site.github.url }}/in-depth/submission_guidelines

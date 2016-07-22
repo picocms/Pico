@@ -1,13 +1,13 @@
 ---
 heading: Magazine
-thumbnail: /themes/images/thumbnails/magazine.jpg
+thumbnail: themes/images/thumbnails/magazine.jpg
 categories:
   - multi-page
   - blog
 meta: Clean, animated, and elegant.
 link: https://github.com/BesrourMS/magazine
 images:
-  - /themes/images/fullsize/magazine.jpg
+  - themes/images/fullsize/magazine.jpg
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template)"
