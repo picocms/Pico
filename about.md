@@ -211,26 +211,7 @@ And if that's still not enough creative power for you, you can check out Pico's 
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site][Plugins], and even more on [our wiki][WikiPlugins].
 
-[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  Pico basically triggers a bunch of well defined events when it reaches a specific point in its processing procedure.  For instance, when Pico reads your configuration file (`config/config.php`), it triggers the `onConfigLoaded` event and passes the configuration as parameter, what allows a plugin developer to modify it as required.  Pico provides a extensive list of events - just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  You want to create your own plugin?  Simply copy the dummy plugin, remove the events you don't need and add your code.
-
-Here's a example of a "Drafts" plugin: it basically just removes all pages starting with a `_` from Pico's page list.  The page will not show up anywhere, however, you can still access it by manually navigating to the corresponding URL.
-
-```php
-<?php
-
-class PicoDrafts extends AbstractPicoPlugin
-{
-    public function onPagesLoaded(array &$pages)
-    {
-        foreach ($pages as $pageId => $pageData) {
-            $fileName = basename($pageData['id']);
-            if ($fileName[0] === '_') {
-                unset($pages[$pageId]);
-            }
-        }
-    }
-}
-```
+[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  Pico basically triggers a bunch of well defined events when it reaches a specific point in its processing procedure.  For instance, when Pico reads what pages you've created (the files in your `content` directory), it triggers the `onPagesLoaded` event and passes a list of those pages as parameter.  This allows a plugin developer to modify it as required.  Just have a look at [Pico's "Drafts" plugin][DraftsPluginExample] for an example.  Pico provides a extensive list of events - just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  You want to create your own plugin?  Simply copy the dummy plugin, remove the events you don't need and add your code.
 
 You don't understand anything of this crazy tech talk?  Don't worry!  You don't have to be a developer to use Pico.  *Using* plugins is no more than copying some `.php` file to your `plugins/` directory.  Really, it's that easy!  However, if you're a developer, you will immediately notice how damn simple developing plugins for Pico is.  You don't have to pore over hundreds of pages of documentation, you can simply start developing.
 
@@ -280,4 +261,5 @@ Ready to try Pico for yourself?  Head on over to our [Download][] page to get yo
 [TwigDocs]: http://twig.sensiolabs.org/documentation
 [YAML]: https://en.wikipedia.org/wiki/YAML
 [Hooking]: https://en.wikipedia.org/wiki/Hooking
-[DummyPlugin]: https://github.com/picocms/Pico/blob/master/plugins/DummyPlugin.php
+[DraftsPluginExample]: {{ site.github.url }}/plugins/drafts-example/
+[DummyPlugin]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/DummyPlugin.php
