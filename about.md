@@ -224,9 +224,13 @@ And if that's still not enough creative power for you, you can check out Pico's 
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site][Plugins], and even more on [our wiki][WikiPlugins].
 
-[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  Pico basically triggers a bunch of well defined events when it reaches a specific point in its processing procedure.  For instance, when Pico reads what pages you've created (the files in your `content` directory), it triggers the `onPagesLoaded` event and passes a list of those pages as parameter.  This allows a plugin developer to modify it as required.  Just have a look at [Pico's "Drafts" plugin][DraftsPluginExample] for an example.  Pico provides a extensive list of events - just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  You want to create your own plugin?  Simply copy the dummy plugin, remove the events you don't need and add your code.
+[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  When Pico reaches specific points in its processing procedure, it will trigger a series of well defined events that can be hooked into by a plugin.  For instance, when Pico reads the files in your `content` directory, it triggers the `onPagesLoaded` event and passes a list of those pages as parameter.  By hooking into this event, a plugin developer can easily modify the list of pages to suit their needs.
 
-You don't understand anything of this crazy tech talk?  Don't worry!  You don't have to be a developer to use Pico.  *Using* plugins is no more than copying some `.php` file to your `plugins/` directory.  Really, it's that easy!  However, if you're a developer, you will immediately notice how damn simple developing plugins for Pico is.  You don't have to pore over hundreds of pages of documentation, you can simply start developing.
+You can check out this example of a ["Drafts" plugin][DraftsPluginExample] to get an idea of how this concept works.
+
+Pico provides a extensive list of events you can hook into.  Just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  If you want to create your own plugin, simply make a copy of the dummy plugin, remove the events you don't need, and add your code.  It's really that easy!
+
+Don't worry if you don't understand any of this tech talk, you don't have to be a developer to use Pico.  *Using* a plugin requires no more than copying a `.php` file to your `plugins/` directory.  Really, it's that simple!  However, if you're a developer, you will immediately notice how easy developing plugins for Pico is.  You don't have to pore over hundreds of pages of documentation, you can just start developing.
 
 ## Pico is Open Source
 
