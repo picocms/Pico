@@ -211,6 +211,10 @@ And if that's still not enough creative power for you, you can check out Pico's 
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site][Plugins], and even more on [our wiki][WikiPlugins].
 
+[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  Pico basically triggers a bunch of well defined events when it reaches a specific point in its processing procedure.  For instance, when Pico reads what pages you've created (the files in your `content` directory), it triggers the `onPagesLoaded` event and passes a list of those pages as parameter.  This allows a plugin developer to modify it as required.  Just have a look at [Pico's "Drafts" plugin][DraftsPluginExample] for an example.  Pico provides a extensive list of events - just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  You want to create your own plugin?  Simply copy the dummy plugin, remove the events you don't need and add your code.
+
+You don't understand anything of this crazy tech talk?  Don't worry!  You don't have to be a developer to use Pico.  *Using* plugins is no more than copying some `.php` file to your `plugins/` directory.  Really, it's that easy!  However, if you're a developer, you will immediately notice how damn simple developing plugins for Pico is.  You don't have to pore over hundreds of pages of documentation, you can simply start developing.
+
 ## Pico is Open Source
 
 Best of all, Pico is open source software!  This means that Pico is, and always will be free.  Free to use, and free to modify.  Pico is released under the [MIT license][License].
@@ -256,3 +260,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][] page to get yo
 [Twig]: http://twig.sensiolabs.org/
 [TwigDocs]: http://twig.sensiolabs.org/documentation
 [YAML]: https://en.wikipedia.org/wiki/YAML
+[Hooking]: https://en.wikipedia.org/wiki/Hooking
+[DraftsPluginExample]: {{ site.github.url }}/plugins/drafts-example/
+[DummyPlugin]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/DummyPlugin.php
