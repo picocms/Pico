@@ -283,39 +283,6 @@ $(document).ready(function() {
 	});
 });
 /*-----------------------------------------------------------------------------------*/
-/*	IMAGE HOVER
-/*-----------------------------------------------------------------------------------*/
-$(document).ready(function() {
-	$('.overlay a').prepend('<span class="more"></span>');
-});
-$(document).ready(function() {
-	$('.overlay').mouseenter(function(e) {
-		$(this).children('a').children('span').fadeIn(300);
-	}).mouseleave(function(e) {
-		$(this).children('a').children('span').fadeOut(200);
-	});
-});
-$(document).ready(function() {
-        $('.items li').mouseenter(function(e) {
-
-            $(this).children('a').children('div').fadeIn(300);
-        }).mouseleave(function(e) {
-
-            if (!$(this).hasClass("active")) $(this).children('a').children('div').fadeOut(200);
-        });
-    });
-
-/* Fancybox */
-$(document).ready(function() {
-        $('.fancybox').mouseenter(function(e) {
-
-            $(this).children('a').children('div').fadeIn(300);
-        }).mouseleave(function(e) {
-
-            if (!$(this).hasClass("active")) $(this).children('a').children('div').fadeOut(200);
-        });
-    });
-/*-----------------------------------------------------------------------------------*/
 /*	TOUCH CAROUSEL
 /*-----------------------------------------------------------------------------------*/
 jQuery(function($) {
@@ -537,7 +504,7 @@ jQuery(document).ready(function() {
 	 function removeActiveThumbs($container) {
 		 	$container.find('.item').each(function() {
 					jQuery(this).removeClass('active');
-					if (!jQuery(this).hasClass('latest-active')) jQuery(this).children('a').children('div').fadeOut(200);
+					//if (!jQuery(this).hasClass('latest-active')) jQuery(this).children('a').children('div').fadeOut(200); //Interferes with new CSS styles
 
 			 	});
 	 }

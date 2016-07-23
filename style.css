@@ -1040,7 +1040,7 @@ ul.contact-info li i {
     display: block
 }
 .items li a .overlay {
-    display: none;
+    opacity: 0;
     height: 100%;
     position: absolute;
     text-decoration: none;
@@ -2977,15 +2977,26 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     border-color: #888;
 }
 
-/* Plugins */
+/* Transitions */
+.items li a .overlay {
+    transition: opacity 200ms linear 0s;
+}
+
+.items li:hover a .overlay,
+.items li.active a .overlay {
+    opacity: 1;
+    transition: opacity 300ms linear 0s;
+}
+
+/* defaultThumbnail */
 .items li.defaultThumbnail a .overlay {
-    display: block !important;
     opacity: 1 !important;
     background-color: transparent;
     transition: background-color 200ms linear 0s;
 }
 
-.items li.defaultThumbnail a .overlay:hover {
+.items li.defaultThumbnail:hover a .overlay,
+.items li.defaultThumbnail.active a .overlay  {
     background-color: rgba(46,174,155, 0.92);
     transition: background-color 300ms linear 0s;
 }
@@ -2995,8 +3006,10 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     transition: color 200ms linear 0s;
 }
 
-.items li.defaultThumbnail a .overlay:hover h3,
-.items li.defaultThumbnail a .overlay:hover span.meta {
+.items li.defaultThumbnail:hover a .overlay h3,
+.items li.defaultThumbnail.active a .overlay h3,
+.items li.defaultThumbnail:hover a .overlay span.meta,
+.items li.defaultThumbnail.active a .overlay span.meta {
     color: white;
     transition: color 300ms linear 0s;
 }
@@ -3012,7 +3025,8 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     opacity: .4;
     transition: filter 200ms linear 0s, opacity 200ms linear 0s;
 }
-.items li.defaultThumbnail a:hover img {
+.items li.defaultThumbnail:hover a img
+.items li.defaultThumbnail.active a img {
     filter: none;
     opacity: 1;
     transition: filter 300ms linear 0s, opacity 300ms linear 0s;
