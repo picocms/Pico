@@ -101,7 +101,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-}); 
+});
 /*-----------------------------------------------------------------------------------*/
 /*	FORM
 /*-----------------------------------------------------------------------------------*/
@@ -137,14 +137,14 @@ $(document).ready(function () {
 });
 /*-----------------------------------------------------------------------------------*/
 /*	TESTIMONIALS
-/*-----------------------------------------------------------------------------------*/  
+/*-----------------------------------------------------------------------------------*/
  $(document).ready( function() {
       $('#testimonials').easytabs({
 	      animationSpeed: 500,
 	      updateHash: false,
 	      cycle: 5000
       });
-      
+
     });
 /*-----------------------------------------------------------------------------------*/
 /*	TOGGLE
@@ -233,7 +233,7 @@ $(document).ready(function() {
 		shadow: 0,
 		//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows  (No Shadow in Fullwidth Version !)
 		fullWidth: "on" // Turns On or Off the Fullwidth Image Centering in FullWidth Modus
-	});	
+	});
 	$('.portfolio-banner').revolution({
 		delay: 0,
 		startheight: 550,
@@ -284,7 +284,7 @@ $(document).ready(function() {
 });
 /*-----------------------------------------------------------------------------------*/
 /*	IMAGE HOVER
-/*-----------------------------------------------------------------------------------*/				
+/*-----------------------------------------------------------------------------------*/
 $(document).ready(function() {
 	$('.overlay a').prepend('<span class="more"></span>');
 });
@@ -294,7 +294,7 @@ $(document).ready(function() {
 	}).mouseleave(function(e) {
 		$(this).children('a').children('span').fadeOut(200);
 	});
-}); 
+});
 $(document).ready(function() {
         $('.items li').mouseenter(function(e) {
 
@@ -303,22 +303,33 @@ $(document).ready(function() {
 
             if (!$(this).hasClass("active")) $(this).children('a').children('div').fadeOut(200);
         });
-    });	
+    });
+
+/* Fancybox */
+$(document).ready(function() {
+        $('.fancybox').mouseenter(function(e) {
+
+            $(this).children('a').children('div').fadeIn(300);
+        }).mouseleave(function(e) {
+
+            if (!$(this).hasClass("active")) $(this).children('a').children('div').fadeOut(200);
+        });
+    });
 /*-----------------------------------------------------------------------------------*/
 /*	TOUCH CAROUSEL
-/*-----------------------------------------------------------------------------------*/	
+/*-----------------------------------------------------------------------------------*/
 jQuery(function($) {
-			$(".touch-carousel").touchCarousel({					
+			$(".touch-carousel").touchCarousel({
 				pagingNav: false,
 				snapToItems: false,
-				itemsPerMove: 4,				
+				itemsPerMove: 4,
 				scrollToLast: false,
 				loopItems: false,
 				scrollbar: true
 		    });
-		});	
+		});
 /*-----------------------------------------------------------------------------------*/
-/*	PORTFOLIO SHOWCASE 
+/*	PORTFOLIO SHOWCASE
 /*-----------------------------------------------------------------------------------*/
 /**************************************************************************
  * jQuery Plugin for Showcase
@@ -340,7 +351,7 @@ jQuery(document).ready(function() {
 	///////////////////////////
 	function getUrlVars(hashdivider)
 			{
-				
+
 				try { var vars = [], hash;
 					var hashes = window.location.href.slice(window.location.href.indexOf(hashdivider) + 1).split('_');
 					for(var i = 0; i < hashes.length; i++)
@@ -352,7 +363,7 @@ jQuery(document).ready(function() {
 					}
 					return vars;
 				} catch(e) { }
-				
+
 			}
 
 
@@ -421,7 +432,7 @@ jQuery(document).ready(function() {
 
 			 	// CHECK IF WE ALREADY HAVE THE DETAIL WINDOW OPEN
 			 	 var pdv = jQuery('body').find('.portfolio-detail-view');
-				 
+
 			 	if (pdv.length) {
 			 		var fade=false;
 			 		clearInterval(pdv.data('interval'));
@@ -484,7 +495,7 @@ jQuery(document).ready(function() {
 		 	var thmb = parseInt(deeplink[0].split('entry-')[1],0)+1;
 			 $container.find('.item:nth-child('+thmb+')').click();
 			 $container.find('.item:nth-child('+thmb+')').addClass("active").children('a').children('div').fadeIn(300);;
-			 
+
 		}
 
 
@@ -492,23 +503,23 @@ jQuery(document).ready(function() {
 	 // CLICK ON FILTER SHOULD CLOSE THE DETAIL PAGE ALSO
 	 jQuery('.portfolio-wrapper.showcase .filter').find('li a').each(function() {
 		 jQuery(this).click(function() {
-			
+
 			closeDetailView($container)
 		 })
 	 })
 
 	 // ON RESIZE REMOVE THE DETAIL VIEW CONTAINER
-	 
+
 	 if (!ie) {
-		 jQuery(window).bind('resize',function()  {		
+		 jQuery(window).bind('resize',function()  {
 			if (!isiPhone()) {
 				closeDetailView($container);
 				centerpdv($container);
-				
+
 			}
 		 });
 	} else {
-		
+
 		$container.isotope( 'option', {resizable:false});
 	}
 
@@ -521,8 +532,8 @@ jQuery(document).ready(function() {
     			(navigator.platform.indexOf("iPad") != -1)
 			);
 		}
-		
-		
+
+
 	 // REMOVE ACTIVE THUMB EFFECTS
 	 function removeActiveThumbs($container) {
 		 	$container.find('.item').each(function() {
@@ -534,7 +545,7 @@ jQuery(document).ready(function() {
 
 	 // CLOSE DETAILVIEW
 	 function closeDetailView($container) {
-		
+
 		 var pdv = jQuery('body').find('.portfolio-detail-view');
 	 	 setTimeout(function() {
 			 if (pdv.length) {
@@ -544,16 +555,16 @@ jQuery(document).ready(function() {
 				 	moveThumbs($container,pdv.data('itemstomove'),0);
 			}
 			setTimeout(function() {
-					$container.isotope( 'reLayout',function() { 
-						$container.data('height',$container.height());								
+					$container.isotope( 'reLayout',function() {
+						$container.data('height',$container.height());
 						setTimeout(function() {
-							
+
 							$container.data('height',$container.height());
 						},speed);  //500 old value
 					});
 			},speed+50);
 			if (!ie && !ie9) updateURLParameter("");
-			 	
+
 		},150)
 	 }
 
@@ -561,13 +572,13 @@ jQuery(document).ready(function() {
 		try {
 			var pdv = jQuery('body').find('.portfolio-detail-view');
 			var pleft=jQuery('body').width()/2 - pdv.width()/2;
-			
+
 			pdv.css({'left':pleft+"px"});
-			
+
 		} catch(e) { }
 	 }
-	 
-	 
+
+
 	 // OPEN THE DETAILVEW AND CATCH THE THUMBS BEHIND THE CURRENT THUMB
 	 function openDetailView($container,thumb,fadeit) {
 
@@ -609,18 +620,18 @@ jQuery(document).ready(function() {
 		 		'</div>'+
 		 		'<div class="closebutton"><i class="icon-cancel-1"></i></div>'+
 		 		'</div>');
-		
+
 		 	// CATCH THE DETAIL VIEW AND CONTENT CONTAINER
 		 	var pdv = jQuery('body').find('.portfolio-detail-view');
 		 	var closeb = pdv.find('.closebutton');
 		 	var pdcc = pdv.find('.portfolio-detail-content-container');
 		 	var pdvpad = parseInt(pdcc.css('paddingBottom'),0) + parseInt(pdcc.css('paddingTop'),0);
-			
+
 		 	var offset = pdcc.height()+pdvpad + parseInt(pdv.css('marginBottom'),0);
 
-	
+
 		 	closeb.click(function() {
-				
+
 		 			closeDetailView($container);
 		 	})
 
@@ -632,21 +643,21 @@ jQuery(document).ready(function() {
 		 	// SAVE THE ITEMS TO MOVE IN THE PDV
 		 	pdv.data('itemstomove',itemstomove);
 
-			
-			
+
+
 		 	//PUT THE CONTAINER IN THE RIGHT POSITION
 		 	pdv.css({'top':(thumbOffsetTop+thumb.height()+parseInt(thumb.css('marginBottom'),0))+"px"});
-			
+
 			centerpdv($container);
-			
+
 			// FIRE THE CALLBACK HERE
 			try{
 				var callback = new Function(thumb.data('callback'));
-				
+
 				callback();
 			} catch(e) {}
-							
-			//INITIALISE THE CAROUSEL HERE			
+
+			//INITIALISE THE CAROUSEL HERE
 			pdv.find('.carousel').each(function() {
 
 				jQuery(this).carousel({
@@ -654,11 +665,11 @@ jQuery(document).ready(function() {
 				})
 			});
 
-			
+
 
 			jQuery.each(itemstomove,function() {
 				var thumb = jQuery(this);
-				if (ie ||ie9) 
+				if (ie ||ie9)
 					thumb.data('top',parseInt(thumb.position().top,0));
 				else
 					thumb.data('top',0);
@@ -674,25 +685,25 @@ jQuery(document).ready(function() {
 			 	var offset = pdcc.height()+pdvpad + parseInt(pdv.css('marginBottom'),0);
 			 	moveThumbs($container,itemstomove,offset);
 			 	pdv.animate({'height':Math.round(pdcc.height()+pdvpad)+"px"},{duration:speed,queue:false});
-				
+
 		 	},100));
 
 	 }
 
 	 // MOVE THE THUMBS
 	 function moveThumbs($container,itemstomove,offset) {
-		 
+
 			jQuery.each(itemstomove,function() {
 			 	var thumb = jQuery(this);
-			 	thumb.stop(true);				
-			 	thumb.animate({'top':(thumb.data('top')+offset)+"px"},{duration:speed,queue:false});				
+			 	thumb.stop(true);
+			 	thumb.animate({'top':(thumb.data('top')+offset)+"px"},{duration:speed,queue:false});
 		 	})
-			
-			
+
+
 			if (ie || ie9) {
 				$container.stop(true);
 				$container.animate({'height':($container.data('height')+offset)+"px"}, {duration:speed,queue:false});
-			} else {				
+			} else {
 				$container.css({'height':Math.round($container.data('height')+offset)+"px"});
 			}
 	 }

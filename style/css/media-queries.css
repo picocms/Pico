@@ -13,10 +13,6 @@
 	    margin: 0 8px 8px 0;
 	    width: 234px;
 	}
-	.category-wrapper .carousel-wrapper,
-	.touch-carousel {
-	    width: 680px
-	}
 	.blog-grid .post {
 	    width: 290px;
 	    margin-right: 45px;
@@ -104,15 +100,13 @@
 	    margin-bottom: 10px;
 	    float: none;
 	    height: auto;
-	    background: none;
-	    padding: 0;
 	}
 	.category-wrapper .category-info h3 {
 	    margin-bottom: 10px
 	}
 	.category-wrapper .carousel-wrapper,
 	.touch-carousel {
-	    width: 720px;
+	    width: 100%;
 	    float: none;
 	}
 	.content {
@@ -270,15 +264,13 @@
 	    margin-bottom: 10px;
 	    float: none;
 	    height: auto;
-	    background: none;
-	    padding: 0;
 	}
 	.category-wrapper .category-info h3 {
 	    margin-bottom: 10px
 	}
 	.category-wrapper .carousel-wrapper,
 	.touch-carousel {
-	    width: 440px;
+	    width: 100%;
 	    float: none;
 	}
 	.process .etabs {
@@ -488,15 +480,13 @@
 	    margin-bottom: 10px;
 	    float: none;
 	    height: auto;
-	    background: none;
-	    padding: 0;
 	}
 	.category-wrapper .category-info h3 {
 	    margin-bottom: 10px
 	}
 	.category-wrapper .carousel-wrapper,
 	.touch-carousel {
-	    width: 280px;
+	    width: 100%;
 	    float: none;
 	}
 	.touch-gallery,

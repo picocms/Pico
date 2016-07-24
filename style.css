@@ -1039,7 +1039,11 @@ ul.contact-info li i {
 .items li img {
     display: block
 }
-.items li a .overlay {
+.fancybox img {
+    display: inline-block;
+}
+.items li a .overlay,
+.fancybox .overlay  {
     display: none;
     height: 100%;
     position: absolute;
@@ -1049,13 +1053,15 @@ ul.contact-info li i {
     background-color: rgba(255,103,96, 0.92);
     padding: 20px;
 }
-.items li a .overlay h3 {
+.items li a .overlay h3,
+.fancybox .overlay h3 {
     color: #FFF;
     font-weight: 300;
     font-size: 22px;
     text-transform: uppercase;
 }
-.items li a .overlay span.meta {
+.items li a .overlay span.meta,
+.fancybox .overlay span.meta {
     color: #FFF;
     font-weight: 300;
     font-style: italic;
@@ -2124,7 +2130,7 @@ media_tag_4 {media_subcode:4}
 /*	CAROUSEL
 /*-----------------------------------------------------------------------------------*/
 .category-wrapper {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     overflow: hidden;
 }
 .category-wrapper .category-info {
@@ -2138,7 +2144,7 @@ media_tag_4 {media_subcode:4}
 }
 .category-wrapper .carousel-wrapper {
     float: right;
-    width: 830px;
+    width: calc(100% - 280px);
 }
 .fullwidth .carousel-wrapper {
 	width: 100%;
@@ -2150,7 +2156,6 @@ media_tag_4 {media_subcode:4}
 .touchcarousel {
     position: relative;
     width: 600px;
-    height: 400px;
     overflow: hidden;
 }
 .touchcarousel .touchcarousel-container {
@@ -2165,6 +2170,7 @@ media_tag_4 {media_subcode:4}
     overflow: hidden;
     width: 100%;
     height: 100%;
+    padding-bottom: 10px;
 }
 .touchcarousel .scrollbar-holder {
     position: absolute;
@@ -2193,17 +2199,12 @@ media_tag_4 {media_subcode:4}
     cursor: auto
 }
 .touch-carousel {
-    width: 830px;
-    height: 230px;
+    width: 100%;
     margin: 0 auto;
-}
-.fullwidth .touch-carousel {
-	width: 100%;
 }
 .touch-carousel .touchcarousel-item {
     margin-right: 10px;
     width: 270px;
-    height: 220px;
     float: left;
     position: relative;
 }
@@ -2213,7 +2214,8 @@ media_tag_4 {media_subcode:4}
 .touchcarousel .touchcarousel-item:before {
     display: none
 }
-.touchcarousel .touchcarousel-item .link {
+.touchcarousel .touchcarousel-item .link,
+.fancybox .link {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -2233,22 +2235,26 @@ media_tag_4 {media_subcode:4}
     -o-transition: all 200ms ease-in;
     -moz-transition: all 200ms ease-in;
 }
-.touchcarousel .touchcarousel-item:hover .link {
+.touchcarousel .touchcarousel-item:hover .link,
+.fancybox:hover .link {
     -moz-opacity: 1;
     filter: alpha(opacity=100);
     opacity: 1;
 }
-.touchcarousel .touchcarousel-item .link:hover {
+.touchcarousel .touchcarousel-item .link:hover,
+.fancybox .link:hover {
     background-color: #ff6760;
     color: #FFF;
 }
-.touchcarousel .touchcarousel-item .link:before {
+.touchcarousel .touchcarousel-item .link:before,
+.fancybox .link:before {
     display: block;
     content: "\f50d";
     font-family: 'fontello';
     text-align: center;
 }
-.touchcarousel .touchcarousel-item .link.chain:before {
+.touchcarousel .touchcarousel-item .link.chain:before,
+.fancybox .link.chain:before {
     content: "\f517";
 }
 .touchcarousel .touchcarousel-item .caption {
@@ -2281,7 +2287,6 @@ media_tag_4 {media_subcode:4}
 }
 .touch-carousel .item-block {
     width: 270px;
-    height: 220px;
     display: block;
 }
 .touch-carousel .item-block img {
@@ -2301,11 +2306,43 @@ media_tag_4 {media_subcode:4}
     background-color: #ff6760 !important;
     bottom: 0;
 }
+/* Carousel Box */
+.gallery-carousel-box .category-wrapper {
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #f5f5f5;
+}
+.gallery-carousel-box .category-wrapper .category-info {
+    width: 100%;
+    height: auto;
+    float: none;
+    padding: 0.5em;
+    margin-bottom: 10px;
+    background: none;
+}
+.gallery-carousel-box .category-wrapper .category-info h3 {
+    margin: 0 1em 0 0;
+}
+.gallery-carousel-box .category-wrapper .category-info h3,
+.gallery-carousel-box .category-wrapper .category-info p:first-of-type {
+    display: inline-block;
+}
+.gallery-carousel-box .category-wrapper .carousel-wrapper {
+    width: 100%;
+    float: none;
+}
+.gallery-carousel-box .category-wrapper .carousel-wrapper .touch-carousel .item-block img {
+    height: auto;
+}
 /*-----------------------------------------------------------------------------------*/
 /*	FANCYBOX
 /*-----------------------------------------------------------------------------------*/
 #fancybox-thumbs ul li img {
     max-width: none
+}
+#fancybox-thumbs li {
+    margin: auto;
 }
 .info.hidden {
     display: none
@@ -2399,6 +2436,23 @@ media_tag_4 {media_subcode:4}
 	background-image: url(style/images/fancy-loading.gif) !important;
 }
 media_tag_5 {media_subcode:5}
+/* Standalone Image Styles */
+.fancybox {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 1em;
+}
+/* Ugly Hack (see #352) */
+.fancybox {
+    line-height: 0;
+}
+.fancybox .overlay {
+    line-height: 24px;
+}
+.fancybox .link {
+    line-height: 20px;
+}
 /*-----------------------------------------------------------------------------------*/
 /*	PROGRESS BAR
 /*-----------------------------------------------------------------------------------*/

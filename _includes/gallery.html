@@ -1,0 +1,57 @@
+{% assign gallery = page.galleries[include.gallery] %}
+<div class="gallery-wrapper gallery-{{ gallery.style }}">
+    {% if gallery.style == "carousel" or gallery.style == "carousel-box" %}
+        <div class="category-wrapper">
+<div class="category-info" markdown="1">
+### {{ gallery.headline }}
+
+{{ gallery.description }}
+</div>
+            <div class="carousel-wrapper">
+                <div class="touchcarousel touch-carousel">
+                    <ul class="touchcarousel-container">
+    {% endif %}
+
+    {% for image in gallery.images %}
+        {% capture title_num %}{% increment title_num %}{% endcapture %}
+        {% if gallery.style == "carousel" or gallery.style == "carousel-box" %}
+            <li class="touchcarousel-item item-block">
+        {% else %}
+            <div class="fancybox" style="{{ image.styles }}">
+        {% endif %}
+
+        {% if gallery.style == "overlay" %}
+            <a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
+                <div class="overlay" style="display: none;">
+                    <h3>{{ image.heading | markdownify | remove: '<p>' | remove: '</p>' }}</h3>
+                    <span class="meta">{{ image.description | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+                </div>
+                <img src="{{ site.github.url }}{{ image.thumbnail }}" alt="">
+            </a>
+        {% else %}
+            <img src="{{ site.github.url }}{{ image.thumbnail }}" alt="">
+            <a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
+                <span class="link"></span>
+            </a>
+        {% endif %}
+
+        <div id="title-{{ title_num }}" class="info hidden">
+            <h2>{{ image.heading | markdownify | remove: '<p>' | remove: '</p>' }}</h2>
+            <div class="fancybody">{{ image.description | markdownify | remove: '<p>' | remove: '</p>' }}</div>
+        </div>
+
+        {% if gallery.style == "carousel" or gallery.style == "carousel-box" %}
+            </li>
+        {% else %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% if gallery.style == "carousel" or gallery.style == "carousel-box" %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    {% endif %}
+</div>
