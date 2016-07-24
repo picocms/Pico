@@ -2333,7 +2333,7 @@ media_tag_4 {media_subcode:4}
     float: none;
 }
 .gallery-carousel-box .category-wrapper .carousel-wrapper .touch-carousel .item-block img {
-    height: initial;
+    height: auto;
 }
 /*-----------------------------------------------------------------------------------*/
 /*	FANCYBOX
@@ -2342,7 +2342,7 @@ media_tag_4 {media_subcode:4}
     max-width: none
 }
 #fancybox-thumbs li {
-    margin: initial;
+    margin: auto;
 }
 .info.hidden {
     display: none
