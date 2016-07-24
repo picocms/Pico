@@ -2436,6 +2436,23 @@ media_tag_4 {media_subcode:4}
 	background-image: url(style/images/fancy-loading.gif) !important;
 }
 media_tag_5 {media_subcode:5}
+/* Standalone Image Styles */
+.fancybox {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin: 1em;
+}
+/* Ugly Hack (see #352) */
+.fancybox {
+    line-height: 0;
+}
+.fancybox .overlay {
+    line-height: 24px;
+}
+.fancybox .link {
+    line-height: 20px;
+}
 /*-----------------------------------------------------------------------------------*/
 /*	PROGRESS BAR
 /*-----------------------------------------------------------------------------------*/
@@ -2890,20 +2907,4 @@ h1:hover .learn-more, h2:hover .learn-more, h3:hover .learn-more,
 h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     color: #ff6760;
     font-size: 75%;
-}
-
-/* Fancybox */
-.fancybox {
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    line-height: 0;
-    margin: 1em;
-}
-.fancybox .overlay {
-    line-height: 24px;
-}
-/* Fancybox Style 2 */
-.fancybox .link {
-    line-height: 20px;
 }
