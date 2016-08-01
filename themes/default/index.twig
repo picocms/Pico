@@ -22,7 +22,6 @@
         <div class="inner clearfix">
             <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
             <nav>
-                <a href="#" class="menu-icon"></a>
                 <ul>
                     {% for page in pages if page.title %}
                         <li{% if page.id == current_page.id %} class="active"{% endif %}>
