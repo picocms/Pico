@@ -11,7 +11,7 @@ Pico is a stupidly simple, blazing fast, flat file CMS. See http://picocms.org/ 
 
 Screenshot
 -------
-![Pico Screenshot](https://cloud.githubusercontent.com/assets/640217/11488596/70b39396-978d-11e5-885e-01341ad9dd75.gif)
+![Pico Screenshot](https://cloud.githubusercontent.com/assets/920356/17342119/f5a85ee8-58f7-11e6-856e-cd72f76cec61.png)
 
 Install
 -------

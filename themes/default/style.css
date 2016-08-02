@@ -7,6 +7,7 @@
  *
  * Pico is a stupidly simple, blazing fast, flat file CMS.
  *
+ * @author  Gilbert Pellegrom
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
@@ -20,15 +21,8 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Droid Sans', 'Helvetica', 'Arial', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #444;
-}
-
-p, hr, table, .table-responsive, ol, ul, dl, pre, blockquote {
-    margin-bottom: 1em;
+article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display:block
 }
 
 .hidden { display: none !important; }
@@ -48,19 +42,17 @@ p, hr, table, .table-responsive, ol, ul, dl, pre, blockquote {
     -webkit-transition: height .5s ease-in !important;
             transition: height .5s ease-in !important;
 }
-.slide.up { height: 0 !important; }
 
 /*** BASIC LAYOUT ***/
 
-html { height: 100%; }
-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+html, body { height: 100%; }
+
+body { display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+header, footer { flex: 0 0 auto; }
+
 main {
-    flex: 1 0 auto;
-    margin: 5em 0 4em;
+    padding: 5em 0 4em;
 }
 
 .container {
@@ -83,13 +75,14 @@ header { background: #2EAE9B; }
 header h1 {
     float: left;
     font-size: 2rem;
-    margin: 0 1em 1.5em 0;
+    margin: 0;
+    padding: 1.5em 1em 1.5em 0;
 }
 header h1 a, header h1 a:hover { color: #fff; }
 
 header nav {
     text-align: right;
-    margin: 3em 0;
+    padding: 3em 0;
 }
 header nav ul {
     list-style: none;
@@ -106,17 +99,7 @@ header nav ul li {
 header nav a, #page-menu-toggle { color: #afe1da; }
 header nav .active a, header nav a:hover, #page-menu-toggle:hover { color: #fff; }
 
-#page-menu-toggle {
-    display: none;
-    float: right;
-    width: 2em;
-    margin: 0 0 0.5em 1em;
-    font-size: 1.5rem;
-    line-height: 2em;
-    text-align: center;
-    cursor: pointer;
-}
-#page-menu-toggle > * { vertical-align: middle; }
+#page-menu-toggle { display: none; }
 
 /*** BASIC LAYOUT: FOOTER ***/
 
@@ -129,35 +112,36 @@ footer a { color: #ddd; }
 footer a:hover { color: #fff; }
 
 footer p {
-    margin: 3em 0;
+    margin: 0;
+    padding: 3em 0;
 }
 
 footer .social {
     float: right;
-    margin: 0 0 0.5em 1em;
+    padding: 1.5em 0 0.5em 1em;
     font-size: 2rem;
 }
 
 /*** BASIC LAYOUT: EXTRA SMALL DEVICES ***/
 
 @media (max-width: 767px) {
-    main { margin: 2em 0 1em; }
+    main { padding: 2em 0 1em; }
 
     header h1 {
         float: none;
-        margin: 0.5em 0;
+        padding: 0.5em 0;
     }
 
     header nav {
         clear: right;
-        margin: 0;
+        padding: 0;
     }
     header nav ul {
         padding-bottom: 1em;
     }
     header nav ul li {
         display: block;
-        margin: 0;
+        margin-left: 0;
         text-align: center;
     }
     header nav ul li a {
@@ -165,12 +149,43 @@ footer .social {
         padding: 0.5em 0;
     }
 
-    .js #page-menu-toggle { display: block; }
+    .js #page-menu-toggle {
+        display: block;
+        float: right;
+        width: 2em;
+        margin: 0.6667em 0 0.6667em 1.3333em;
+        font-size: 1.5rem;
+        line-height: 2em;
+        text-align: center;
+        cursor: pointer;
+    }
+    .js #page-menu-toggle > * { vertical-align: middle;  }
 
-    footer p { margin: 1em 0; }
+    footer p { padding: 1em 0; }
+    footer .social { padding: 0.5em 0 0.5em 1em; }
 }
 
 /*** TEXT ***/
+
+body {
+    font-family: 'Droid Sans', 'Helvetica', 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    color: #444;
+}
+
+p, td, th, li, dd {
+    text-align: justify;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+p, hr, table, .table-responsive, ol, ul, dl, pre, blockquote {
+    margin-bottom: 1em;
+}
 
 a {
     color: #2EAE9B;
@@ -193,12 +208,6 @@ h5 { font-size: 1rem; }
 h6 { font-size: 1rem; font-weight: normal; font-style: italic; }
 
 img { max-width: 100%; }
-
-p, td, th, li, dd {
-    text-align: justify;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-}
 
 hr {
     border: 0.15em solid #f5f5f5;

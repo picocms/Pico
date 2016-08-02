@@ -16,7 +16,8 @@ utils = {};
  *
  * @param  object   object   the object to iterate through
  * @param  function callback function to call on every item; the key is passed
- *     as first, the value as second parameter
+ *     as first, the value as second parameter; the callback may return FALSE
+ *     to stop the iteration
  * @return void
  */
 utils.forEach = function (object, callback) {
@@ -31,7 +32,16 @@ utils.forEach = function (object, callback) {
 };
 
 /**
- * Slides a element up (i.e. hide a element by changing its height to 0)
+ * Checks whether the client's browser is able to slide elements or not
+ *
+ * @return boolean TRUE when the browser supports sliding, FALSE otherwise
+ */
+utils.canSlide = function () {
+    return (Modernizr.classlist && Modernizr.requestanimationframe && Modernizr.csstransitions);
+};
+
+/**
+ * Slides a element up (i.e. hide a element by changing its height to 0px)
  *
  * @param  HTMLElement element        the element to slide up
  * @param  function    finishCallback function to call when the animation has
@@ -40,12 +50,40 @@ utils.forEach = function (object, callback) {
  * @return void
  */
 utils.slideUp = function (element, finishCallback, startCallback) {
-    utils.slideOut(element, {
-        cssRule: 'height',
-        cssRuleRef: 'clientHeight',
-        cssClass: 'up',
-        startCallback: startCallback,
-        finishCallback: finishCallback
+    if (!utils.canSlide()) {
+        if (startCallback) startCallback();
+        element.className += (element.className !== '') ? ' hidden' : 'hidden';
+        if (finishCallback) window.requestAnimationFrame(finishCallback);
+        return;
+    }
+
+    element.style.height = element.clientHeight + 'px';
+
+    var slideId = parseInt(element.getAttribute('data-slide-id')) || 0;
+    element.setAttribute('data-slide-id', ++slideId);
+
+    window.requestAnimationFrame(function () {
+        element.classList.add('slide');
+
+        window.requestAnimationFrame(function () {
+            element.style.height = '0px';
+
+            if (startCallback) {
+                startCallback();
+            }
+
+            window.setTimeout(function () {
+                if (parseInt(element.getAttribute('data-slide-id')) !== slideId) return;
+
+                element.classList.add('hidden');
+                element.classList.remove('slide');
+                element.style.height = null;
+
+                if (finishCallback) {
+                    window.requestAnimationFrame(finishCallback);
+                }
+            }, 500);
+        });
     });
 };
 
@@ -59,48 +97,43 @@ utils.slideUp = function (element, finishCallback, startCallback) {
  * @return void
  */
 utils.slideDown = function (element, finishCallback, startCallback) {
-    utils.slideIn(element, {
-        cssRule: 'height',
-        cssRuleRef: 'clientHeight',
-        cssClass: 'up',
-        startCallback: startCallback,
-        finishCallback: finishCallback
-    });
-};
+    if (!utils.canSlide()) {
+        if (startCallback) startCallback();
+        element.className = element.className.replace(/\bhidden\b */g, '');
+        if (finishCallback) window.requestAnimationFrame(finishCallback);
+        return;
+    }
 
-/**
- * Slides a element out (i.e. hide the element)
- *
- * @param  HTMLElement element the element to slide out
- * @param  object      options the settings of the sliding process
- * @return void
- */
-utils.slideOut = function (element, options) {
-    element.style[options.cssRule] = element[options.cssRuleRef] + 'px';
+    var cssRuleOriginalValue = element.clientHeight + 'px',
+        slideId = parseInt(element.getAttribute('data-slide-id')) || 0;
 
-    var slideId = parseInt(element.dataset.slideId) || 0;
-    element.dataset.slideId = ++slideId;
+    element.setAttribute('data-slide-id', ++slideId);
+
+    element.style.height = null;
+    element.classList.remove('hidden');
+    element.classList.remove('slide');
+    var cssRuleValue = element.clientHeight + 'px';
+
+    element.style.height = cssRuleOriginalValue;
 
     window.requestAnimationFrame(function () {
         element.classList.add('slide');
 
         window.requestAnimationFrame(function () {
-            element.classList.add(options.cssClass);
+            element.style.height = cssRuleValue;
 
-            if (options.startCallback) {
-                options.startCallback();
+            if (startCallback) {
+                startCallback();
             }
 
             window.setTimeout(function () {
-                if (parseInt(element.dataset.slideId) !== slideId) return;
+                if (parseInt(element.getAttribute('data-slide-id')) !== slideId) return;
 
-                element.classList.add('hidden');
                 element.classList.remove('slide');
-                element.classList.remove(options.cssClass);
-                element.style[options.cssRule] = null;
+                element.style.height = null;
 
-                if (options.finishCallback) {
-                    window.requestAnimationFrame(options.finishCallback);
+                if (finishCallback) {
+                    window.requestAnimationFrame(finishCallback);
                 }
             }, 500);
         });
@@ -108,52 +141,9 @@ utils.slideOut = function (element, options) {
 };
 
 /**
- * Slides a element in (i.e. make the element visible)
+ * Checks whether a element is visible or not
  *
- * @param  HTMLElement element the element to slide in
- * @param  object      options the settings of the sliding process
- * @return void
- */
-utils.slideIn = function (element, options) {
-    var cssRuleOriginalValue = element[options.cssRuleRef] + 'px',
-        slideId = parseInt(element.dataset.slideId) || 0;
-
-    element.dataset.slideId = ++slideId;
-
-    element.style[options.cssRule] = null;
-    element.classList.remove('hidden', 'slide', options.cssClass);
-    var cssRuleValue = element[options.cssRuleRef] + 'px';
-
-    element.classList.add('slide');
-
-    window.requestAnimationFrame(function () {
-        element.style[options.cssRule] = cssRuleOriginalValue;
-
-        window.requestAnimationFrame(function () {
-            element.style[options.cssRule] = cssRuleValue;
-
-            if (options.startCallback) {
-                options.startCallback();
-            }
-
-            window.setTimeout(function () {
-                if (parseInt(element.dataset.slideId) !== slideId) return;
-
-                element.classList.remove('slide');
-                element.style[options.cssRule] = null;
-
-                if (options.finishCallback) {
-                    window.requestAnimationFrame(options.finishCallback);
-                }
-            }, 500);
-        });
-    });
-};
-
-/**
- * Check whether a element is visible or not
- *
- * @param  HTMLElement element the element to test
+ * @param  HTMLElement element the element to check
  * @return boolean             TRUE when the element is visible, FALSE otherwise
  */
 utils.isElementVisible = function (element) {

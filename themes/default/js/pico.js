@@ -11,14 +11,13 @@
 
 function main() {
     // capability CSS classes
-    document.documentElement.classList.remove('no-js');
-    document.documentElement.classList.add('js');
+    document.documentElement.className = 'js';
 
     // wrap tables
     utils.forEach(document.querySelectorAll('main table'), function (_, table) {
-        if (!table.parentElement.classList.contains('table-responsive')) {
+        if (!/\btable-responsive\b/.test(table.parentElement.className)) {
             var tableWrapper = document.createElement('div');
-            tableWrapper.classList.add('table-responsive');
+            tableWrapper.className = 'table-responsive';
 
             table.parentElement.insertBefore(tableWrapper, table);
             tableWrapper.appendChild(table);
@@ -49,14 +48,14 @@ function main() {
         },
         onResizeEvent = function () {
             if (utils.isElementVisible(menuToggle)) {
-                menu.classList.add('hidden');
+                menu.className = 'hidden';
                 menuToggle.addEventListener('click', toggleMenuEvent);
                 menuToggle.addEventListener('keydown', toggleMenuEvent);
             } else {
-                menuToggle.removeEventListener('keydown', toggleMenuEvent);
+                menu.className = '';
+                menu.removeAttribute('data-slide-id');
                 menuToggle.removeEventListener('click', toggleMenuEvent);
-                menu.classList.remove('hidden', 'slide', 'up');
-                delete menu.dataset.slideId;
+                menuToggle.removeEventListener('keydown', toggleMenuEvent);
             }
         };
 
