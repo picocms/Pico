@@ -41,4 +41,15 @@
     <rule ref="PSR2">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
     </rule>
+
+    <!--
+        The PHP-FIG PSR-2 Coding Style doesn't fully apply to JavaScript files
+        Furthermore, some sniffs aren't able to handle JavaScript peculiarities
+    -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure">
+        <exclude-pattern>*.js</exclude-pattern>
+    </rule>
+    <rule ref="Squiz.Functions.MultiLineFunctionDeclaration">
+        <exclude-pattern>*.js</exclude-pattern>
+    </rule>
 </ruleset>

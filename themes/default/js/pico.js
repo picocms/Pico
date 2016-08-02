@@ -9,7 +9,8 @@
  * @version 1.1
  */
 
-function main() {
+function main()
+{
     // capability CSS classes
     document.documentElement.className = 'js';
 
@@ -39,7 +40,9 @@ function main() {
             if (menuToggle.getAttribute('aria-expanded') === 'false') {
                 menuToggle.setAttribute('aria-expanded', 'true');
                 utils.slideDown(menu, null, function () {
-                    if (event.type === 'keydown') menu.focus();
+                    if (event.type === 'keydown') {
+                        menu.focus();
+                    }
                 });
             } else {
                 menuToggle.setAttribute('aria-expanded', 'false');

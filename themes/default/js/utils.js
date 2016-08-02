@@ -20,7 +20,8 @@ utils = {};
  *     to stop the iteration
  * @return void
  */
-utils.forEach = function (object, callback) {
+utils.forEach = function (object, callback)
+{
     var i = 0,
         keys = Object.keys(object),
         length = keys.length;
@@ -36,7 +37,8 @@ utils.forEach = function (object, callback) {
  *
  * @return boolean TRUE when the browser supports sliding, FALSE otherwise
  */
-utils.canSlide = function () {
+utils.canSlide = function ()
+{
     return (Modernizr.classlist && Modernizr.requestanimationframe && Modernizr.csstransitions);
 };
 
@@ -49,7 +51,8 @@ utils.canSlide = function () {
  * @param  function    startCallback  function to call when the animation starts
  * @return void
  */
-utils.slideUp = function (element, finishCallback, startCallback) {
+utils.slideUp = function (element, finishCallback, startCallback)
+{
     if (!utils.canSlide()) {
         if (startCallback) startCallback();
         element.className += (element.className !== '') ? ' hidden' : 'hidden';
@@ -96,7 +99,8 @@ utils.slideUp = function (element, finishCallback, startCallback) {
  * @param  function    startCallback  function to call when the animation starts
  * @return void
  */
-utils.slideDown = function (element, finishCallback, startCallback) {
+utils.slideDown = function (element, finishCallback, startCallback)
+{
     if (!utils.canSlide()) {
         if (startCallback) startCallback();
         element.className = element.className.replace(/\bhidden\b */g, '');
@@ -146,6 +150,7 @@ utils.slideDown = function (element, finishCallback, startCallback) {
  * @param  HTMLElement element the element to check
  * @return boolean             TRUE when the element is visible, FALSE otherwise
  */
-utils.isElementVisible = function (element) {
+utils.isElementVisible = function (element)
+{
     return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
 };
