@@ -185,7 +185,7 @@ p, td, th, li, dd {
     word-wrap: break-word;
 }
 
-p, hr, table, .table-responsive, ol, ul, dl, pre, blockquote {
+p, hr, table, .table-responsive, ol, ul, dl, pre, blockquote, fieldset {
     margin-bottom: 1em;
 }
 
@@ -267,11 +267,11 @@ code {
     border-radius: 0.3em;
     background: #f5f5f5;
     font-family: 'Droid Sans Mono', 'Courier New', 'Courier', monospace;
-    font-size: 0.9em;
+    font-size: 0.9rem;
 }
 
 pre {
-    padding: 0 0.9em;
+    padding: 0 1em;
     border: 1px solid #ccc;
     border-radius: 0.3em;
     background: #f5f5f5;
@@ -280,7 +280,7 @@ pre {
 pre code {
     display: block;
     margin: 0;
-    padding: 1em 0;
+    padding: 1.1111em 0;
     border: 0 none;
     background: transparent;
     overflow-x: auto;
@@ -294,3 +294,41 @@ blockquote {
     padding-left: 1em;
     border-left: 0.5em solid #f5f5f5;
 }
+
+/*** FORMS ***/
+
+label { font-weight: bold; }
+
+input::-moz-focus-inner, button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+input, button {
+    padding: 0.5em 1em;
+    outline: 0 none;
+    border: solid 1px #ccc;
+    border-radius: 0.3em;
+    background: #fff;
+    font-size: 1rem;
+}
+input:focus:not([type="checkbox"]):not([type="radio"]), button:focus {
+    border-color: #2EAE9B;
+    box-shadow: 0 0 8px #2EAE9B;
+}
+
+input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, button:focus,
+input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+fieldset {
+    padding: 1em;
+    border: solid 1px #ccc;
+    border-radius: 0.3em;
+    background: #f5f5f5;
+}
+fieldset label, fieldset input, fieldset button                                     { margin: 0.2em 0.5em; }
+fieldset label:first-child, fieldset input:first-child, fieldset button:first-child { margin-left: 0; }
+fieldset label:last-child, fieldset input:last-child, fieldset button:last-child    { margin-right: 0; }
