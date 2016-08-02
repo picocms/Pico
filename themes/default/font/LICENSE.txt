@@ -20,3 +20,4 @@ Font license info
     License:    SIL OFL 1.1 <http://scripts.sil.org/OFL>
     Homepage:   http://fortawesome.github.com/Font-Awesome/
 
+    Icons:      menu, github-circled ("octocat"), twitter ("birdy"), chat

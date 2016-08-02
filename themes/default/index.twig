@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html class="no-js">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
     <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
     {% if meta.description %}
-        <meta name="description" content="{{ meta.description|striptags }}">
+        <meta name="description" content="{{ meta.description|striptags }}" />
     {% endif %}{% if meta.robots %}
-        <meta name="robots" content="{{ meta.robots }}">
+        <meta name="robots" content="{{ meta.robots }}" />
     {% endif %}
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700|Droid+Sans+Mono" type="text/css" />
     <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
     <link rel="stylesheet" href="{{ theme_url }}/fontello.css" type="text/css" />
-
-    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
 </head>
-<body>
+<body{% if config.theme_config.widescreen %} class="widescreen"{% endif %}>
 
-    <header id="header">
-        <div class="inner clearfix">
-            <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
-            <nav>
-                <a href="#" class="menu-icon"></a>
+    <header>
+        <div class="container">
+            <a id="page-menu-toggle" title="Toggle Menu" role="button" aria-controls="page-menu" aria-expanded="false" tabindex="1">
+                <span class="icon-menu" aria-hidden="true"></span>
+                <span class="sr-only">Toggle Menu</span>
+            </a>
+            <h1>
+                <a href="{{ "index"|link }}">{{ site_title }}</a>
+            </h1>
+            <nav id="page-menu" role="region" tabindex="-1">
                 <ul>
                     {% for page in pages if page.title %}
                         <li{% if page.id == current_page.id %} class="active"{% endif %}>
@@ -34,24 +38,32 @@
         </div>
     </header>
 
-    <section id="content">
-        <div class="inner">
+    <main>
+        <div class="container">
             {{ content }}
         </div>
-    </section>
+    </main>
 
-    <footer id="footer">
-        <div class="inner">
+    <footer>
+        <div class="container">
             <div class="social">
                 {% for social in meta.social %}
-                    <a href="{{ social.url }}" title="{{ social.title }}"><span class="icon-{{ social.icon }}"></span></a>
+                    <a href="{{ social.url }}" title="{{ social.title }}" role="button">
+                        <span class="icon-{{ social.icon }}" aria-hidden="true"></span>
+                        <span class="sr-only">{{ social.title }}</span>
+                    </a>
                 {% endfor %}
             </div>
-            <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
-            and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
-            Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.
+            <p>
+                <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
+                and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
+                Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.
+            </p>
         </div>
     </footer>
+
+    <script src="{{ theme_url }}/js/utils.js" type="text/javascript"></script>
+    <script src="{{ theme_url }}/js/pico.js" type="text/javascript"></script>
 
 </body>
 </html>
