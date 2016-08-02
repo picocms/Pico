@@ -27,6 +27,9 @@
  */
 // $config['theme'] = 'default';                // Set the theme (defaults to "default")
 // $config['theme_url'] = '';                   // Override the base URL of the themes folder (e.g. http://example.com/pico/themes/)
+// $config['theme_config'] = array(             // Settings of the theme; depends on the theme used
+//     'widescreen' => false                    // Default theme: Allocate more horicontal space (i.e. make the site container wider)
+// );
 // $config['twig_config'] = array(              // Twig settings
 //     'cache' => false,                        // To enable Twig caching change this to a path to a writable directory
 //     'autoescape' => false,                   // Auto-escape Twig vars
