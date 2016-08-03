@@ -52,11 +52,10 @@ body { display: flex; flex-direction: column; }
 }
 
 .container {
-    max-width: 47em;
+    max-width: 48em;
     padding: 0 0.5em;
     margin: 0 auto;
 }
-
 .widescreen .container { max-width: 72em; }
 
 /* very ugly overflow fix, avoid this whenever possible! */
