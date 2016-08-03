@@ -297,38 +297,58 @@ blockquote {
 
 /*** FORMS ***/
 
-label { font-weight: bold; }
+label, fieldset legend { font-weight: bold; }
 
 input::-moz-focus-inner, button::-moz-focus-inner {
     border: 0;
     padding: 0;
 }
 
-input, button {
-    padding: 0.5em 1em;
-    outline: 0 none;
+input:not([type="checkbox"]):not([type="radio"]), button, select, textarea, fieldset, fieldset legend {
     border: solid 1px #ccc;
     border-radius: 0.3em;
     background: #fff;
+    -webkit-transition: none .2s ease-in;
+            transition: none .2s ease-in;
+    -webkit-transition-property: border-color, background, box-shadow;
+            transition-property: border-color, background, box-shadow;
+}
+
+input:not([type="checkbox"]):not([type="radio"]), button, select, textarea {
+    padding: 0.5em 1em;
+    outline: 0 none;
     font-size: 1rem;
 }
-input:focus:not([type="checkbox"]):not([type="radio"]), button:focus {
+input:focus:not([type="checkbox"]):not([type="radio"]), button:focus, select:focus, textarea:focus {
     border-color: #2EAE9B;
     box-shadow: 0 0 8px #2EAE9B;
 }
-
 input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus, button:focus,
 input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
     background: #f5f5f5;
     cursor: pointer;
 }
 
+textarea, select[multiple] {
+    vertical-align: bottom;
+    overflow: auto;
+}
+
 fieldset {
     padding: 1em;
-    border: solid 1px #ccc;
-    border-radius: 0.3em;
     background: #f5f5f5;
 }
-fieldset label, fieldset input, fieldset button                                     { margin: 0.2em 0.5em; }
-fieldset label:first-child, fieldset input:first-child, fieldset button:first-child { margin-left: 0; }
-fieldset label:last-child, fieldset input:last-child, fieldset button:last-child    { margin-right: 0; }
+fieldset legend { padding: 0 0.5em; }
+
+fieldset label, fieldset input, fieldset button,
+fieldset select, fieldset textarea {
+    margin: 0.2em 0.5em;
+}
+fieldset label:first-child, fieldset input:first-child, fieldset button:first-child,
+fieldset select:first-child, fieldset textarea:first-child {
+    margin-left: 0;
+}
+fieldset label:last-child, fieldset input:last-child, fieldset button:last-child,
+fieldset select:last-child, fieldset textarea:last-child {
+    margin-right: 0;
+}
