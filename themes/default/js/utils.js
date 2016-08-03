@@ -12,27 +12,6 @@
 utils = {};
 
 /**
- * Iterates through an iterable object (e.g. plain objects, arrays, NodeList)
- *
- * @param  object   object   the object to iterate through
- * @param  function callback function to call on every item; the key is passed
- *     as first, the value as second parameter; the callback may return FALSE
- *     to stop the iteration
- * @return void
- */
-utils.forEach = function (object, callback)
-{
-    var i = 0,
-        keys = Object.keys(object),
-        length = keys.length;
-    for (; i < length; i++) {
-        if (callback(keys[i], object[keys[i]]) === false) {
-            return;
-        }
-    }
-};
-
-/**
  * Checks whether the client's browser is able to slide elements or not
  *
  * @return boolean TRUE when the browser supports sliding, FALSE otherwise

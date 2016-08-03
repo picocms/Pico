@@ -15,19 +15,20 @@ function main()
     document.documentElement.className = 'js';
 
     // wrap tables
-    utils.forEach(document.querySelectorAll('main table'), function (_, table) {
-        if (!/\btable-responsive\b/.test(table.parentElement.className)) {
+    var tables = document.querySelectorAll('#main > .container > table');
+    for (var i = 0; i < tables.length; i++) {
+        if (!/\btable-responsive\b/.test(tables[i].parentElement.className)) {
             var tableWrapper = document.createElement('div');
             tableWrapper.className = 'table-responsive';
 
-            table.parentElement.insertBefore(tableWrapper, table);
-            tableWrapper.appendChild(table);
+            tables[i].parentElement.insertBefore(tableWrapper, tables[i]);
+            tableWrapper.appendChild(tables[i]);
         }
-    });
+    }
 
     // responsive menu
-    var menu = document.getElementById('page-menu'),
-        menuToggle = document.getElementById('page-menu-toggle'),
+    var menu = document.getElementById('nav'),
+        menuToggle = document.getElementById('nav-toggle'),
         toggleMenuEvent = function (event) {
             if (event.type === 'keydown') {
                 if ((event.keyCode != 13) && (event.keyCode != 32)) {

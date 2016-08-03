@@ -21,10 +21,6 @@
     padding: 0;
 }
 
-article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
-    display:block
-}
-
 .hidden { display: none !important; }
 .sr-only {
     position: absolute;
@@ -48,10 +44,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 html, body { height: 100%; }
 
 body { display: flex; flex-direction: column; }
-main { flex: 1 0 auto; }
-header, footer { flex: 0 0 auto; }
+#main { flex: 1 0 auto; }
+#header, #footer { flex: 0 0 auto; }
 
-main {
+#main {
     padding: 5em 0 4em;
 }
 
@@ -63,93 +59,98 @@ main {
 
 .widescreen .container { max-width: 72em; }
 
-main .container {
-    /* very ugly, avoid this whenever possible! */
-    overflow-x: auto;
-}
+/* very ugly overflow fix, avoid this whenever possible! */
+#main .container { overflow-x: auto; }
 
 /*** BASIC LAYOUT: HEADER ***/
 
-header { background: #2EAE9B; }
+#header { background: #2EAE9B; }
 
-header h1 {
+#header h1 {
     float: left;
     font-size: 2rem;
     margin: 0;
     padding: 1.5em 1em 1.5em 0;
 }
-header h1 a, header h1 a:hover { color: #fff; }
+#header h1 a, #header h1 a:hover { color: #fff; }
 
-header nav {
+#nav {
     text-align: right;
     padding: 3em 0;
 }
-header nav ul {
+#nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-header nav ul li {
+#nav ul li {
     display: inline-block;
     margin-left: 1em;
     padding: 0;
     font-weight: bold;
 }
 
-header nav a, #page-menu-toggle { color: #afe1da; }
-header nav .active a, header nav a:hover, #page-menu-toggle:hover { color: #fff; }
+#nav a, #nav-toggle { color: #afe1da; }
+#nav .active a, #nav a:hover, #nav-toggle:hover { color: #fff; }
 
-#page-menu-toggle { display: none; }
+#nav-toggle { display: none; }
+
+/* IE8 + IE9 clearfix */
+#header > .container:after {
+    content: '';
+    display: block;
+    clear: both;
+}
 
 /*** BASIC LAYOUT: FOOTER ***/
 
-footer {
+#footer {
     background: #707070;
     color: #C0C0C0;
 }
 
-footer a { color: #ddd; }
-footer a:hover { color: #fff; }
+#footer a { color: #ddd; }
+#footer a:hover { color: #fff; }
 
-footer p {
+#footer p {
     margin: 0;
     padding: 3em 0;
 }
 
-footer .social {
+#footer .social {
     float: right;
-    padding: 1.5em 0 0.5em 1em;
+    padding: 1.5em 0 1.5em 1em;
     font-size: 2rem;
 }
 
 /*** BASIC LAYOUT: EXTRA SMALL DEVICES ***/
 
 @media (max-width: 767px) {
-    main { padding: 2em 0 1em; }
+    #main { padding: 2em 0 1em; }
 
-    header h1 {
+    #header h1 {
         float: none;
         padding: 0.5em 0;
     }
 
-    header nav {
+    #nav {
         clear: right;
         padding: 0;
     }
-    header nav ul {
+    #nav ul {
         padding-bottom: 1em;
     }
-    header nav ul li {
+    #nav ul li {
         display: block;
         margin-left: 0;
         text-align: center;
     }
-    header nav ul li a {
+    #nav ul li a {
         display: block;
         padding: 0.5em 0;
     }
 
-    .js #page-menu-toggle {
+    .js #nav-toggle {
         display: block;
         float: right;
         width: 2em;
@@ -159,13 +160,13 @@ footer .social {
         text-align: center;
         cursor: pointer;
     }
-    .js #page-menu-toggle > * { vertical-align: middle;  }
+    .js #nav-toggle > * { vertical-align: middle;  }
 
-    footer p { padding: 1em 0; }
-    footer .social { padding: 0.5em 0 0.5em 1em; }
+    #footer p { padding: 1em 0; }
+    #footer .social { padding: 0.5em 0 0.5em 1em; }
 }
 
-/*** TEXT ***/
+/*** TYPOGRAPHY ***/
 
 html { font-size: 16px; }
 
@@ -245,6 +246,7 @@ tbody tr:last-child td:last-child {                            border-bottom-rig
 table thead + tbody tr:first-child td {                        border-radius: 0 !important; }
 
 .table-responsive { overflow-x: auto; }
+.table-responsive > table { margin-bottom: 0; }
 
 /*** LISTS ***/
 
@@ -299,11 +301,6 @@ blockquote {
 
 label, fieldset legend { font-weight: bold; }
 
-input::-moz-focus-inner, button::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
-
 input:not([type="checkbox"]):not([type="radio"]), button, select, textarea, fieldset, fieldset legend {
     border: solid 1px #ccc;
     border-radius: 0.3em;
@@ -351,4 +348,10 @@ fieldset select:first-child, fieldset textarea:first-child {
 fieldset label:last-child, fieldset input:last-child, fieldset button:last-child,
 fieldset select:last-child, fieldset textarea:last-child {
     margin-right: 0;
+}
+
+/* Firefox input size fix */
+input::-moz-focus-inner, button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
 }
