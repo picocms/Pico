@@ -33,7 +33,7 @@
 		<li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% unless item.images %} columns{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
 			<div class="content">
 				{% assign num_images = item.images|size %}
-				<div {% if num_images > 1 %}id="myCarousel" class="carousel slide"{% else %}class="single"{% endif %}>
+				<div {% if num_images > 1 %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
 					{% if num_images > 1 %}<div class="carousel-inner">{% endif %}
 						{% assign title_num = forloop.index %}
 						{% for image in item.images %}
@@ -44,8 +44,8 @@
 						{% endfor %}
 					{% if num_images > 1 %}
 				</div>
-						<a class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
-						<a class="carousel-control right" href="#myCarousel" data-slide="next"></a>
+						<a class="carousel-control left" href="#entry-{{ forloop.index0 }}-carousel" data-slide="prev"></a>
+						<a class="carousel-control right" href="#entry-{{ forloop.index0 }}-carousel" data-slide="next"></a>
 					{% endif %}
 				</div>
 			</div>
