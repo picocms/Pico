@@ -250,9 +250,9 @@ Ready to try Pico for yourself?  Head on over to our [Download][] page to get yo
 [Contribute]: {{ site.github.url }}/docs/#contribute
 [License]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/LICENSE.md
 
-[Themes]: {{ site.github.url }}/customization/#themes
+[Themes]: {{ site.github.url }}/themes
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
-[Plugins]: {{ site.github.url }}/customization/#plugins
+[Plugins]: {{ site.github.url }}/plugins
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 
 [WikiMarkdown]: https://en.wikipedia.org/wiki/Markdown
