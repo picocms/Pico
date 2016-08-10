@@ -64,13 +64,13 @@ Additional to Twigs extensive list of filters, functions and tags, Pico also pro
 
 You can use different templates for different content files by specifying the `Template` meta header. Simply add e.g. `Template: blog-post` to a content file and Pico will use the `blog-post.twig` file in your theme folder to render the page.
 
-You don't have to create your own theme if Pico's default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes].
+You don't have to create your own theme if Pico's default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes] and here on [our website][OfficialThemes].
 
 ### Plugins
 
 #### Plugins for users
 
-Officially tested plugins can be found at [{{ site.github.url }}/customization/][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at [{{ site.github.url }}/plugins/][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply upload the files of the plugin to the `plugins/` directory and you're done. Depending on the plugin you've installed, you may have to go through some more steps (e.g. specifying config variables), the plugin docs or `README` file will explain what to do.
 
@@ -83,6 +83,7 @@ You're a plugin developer? We love you guys! You can find tons of information ab
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
-[OfficialPlugins]: {{ site.github.url }}/customization/
+[OfficialPlugins]: {{ site.github.url }}/plugins/
+[OfficialThemes]: {{ site.github.url }}/Themes/
 [PluginDocs]: {{ site.github.url }}/development/
 [PluginUpgrade]: {{ site.github.url }}/development/#upgrade

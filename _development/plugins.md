@@ -14,7 +14,7 @@ You will find a full example template in [plugins/DummyPlugin.php]({{ site.githu
 started on building some great stuff. Otherwise, keep reading to learn how to
 create your first plugin!
 
-Officially tested plugins can be found at [{{ site.github.url }}/customization/]({{ site.github.url }}/customization/),
+Officially tested plugins can be found at [{{ site.github.url }}/plugins/]({{ site.github.url }}/plugins/),
 but there are many awesome third-party plugins out there! A good start point
 for discovery is our [Wiki]({{ site.github.url }}/development/#plugin-wiki).
 
