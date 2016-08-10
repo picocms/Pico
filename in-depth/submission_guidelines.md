@@ -29,7 +29,7 @@ Each item has three types of files:
   * Optionally, you can provide multiple fullsize screenshots.  These will automatically cycle on the page as a carousel.
   * If you omit a fullsize image, the page will automatically use a two-column layout instead.  This may be useful for plugins that are too abstract to screenshot.
 * A `thumbnail` screenshot of your item.
-  * If you omit a thumbnail image, the page will automatically use our default thumbnail and special style.
+  * If you omit a thumbnail image, the page will automatically use our default thumbnail and an alternate style.
 
 Here's an example of how we keep this section organized:
 
@@ -97,7 +97,7 @@ These categories are displayed along the top of the page.  By clicking them, you
 ##### Themes
 * Single Page (`single-page`) - A single page website, where all content is displayed on the `index` page.
 * Multiple Pages (`multi-page`) - A theme suitable for multiple pages, the opposite of single-page. (This category is kind of redundant isn't it.  It may not survive until the final version...)
-* Personal Website (`personal`) - A theme intended to be used as a portfolio of your work or to establish an online presence on your personal domain.
+* Personal Website (`personal`) - A theme intended to be used as a portfolio of your work or to establish an online presence on your personal domain. (Maybe this would be better refered to as `portfolio`, as most websites you'd make yourself could be considered "personal")
 * Blog-Style (`blog`) - A theme styled with blogging or news posts in mind.
 
 ##### Plugins
@@ -160,6 +160,13 @@ Or maybe it's a Plugin...
 
 Either way, if it really existed, this is where I would write some details about it.
 ```
+
+## Getting Started
+
+* This section will contain links to:
+* Info on how to fork and edit on github
+* Info on making a pull Request
+* Probably shy away from any actual `git` content.  Presumably, knowing how to use GitHub will suffice for this process.
 
 [Pull Request]: {{ site.gh_project_url }}/pull/new/gh-pages
 [Themes]: /themes
