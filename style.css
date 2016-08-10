@@ -2934,7 +2934,7 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 
 /* defaultThumbnail */
 .items li.defaultThumbnail a .overlay {
-    opacity: 1 !important;
+    opacity: 1;
     background-color: transparent;
     transition: background-color 200ms linear 0s;
 }
