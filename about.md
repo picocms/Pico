@@ -23,7 +23,9 @@ galleries:
     images:
       -
         heading: Pico's Default Theme
-        description: It's a bit bare... but that's intentional!
+        description: |
+          It's a bit bare... but that's intentional!<br>
+          The default theme isn't meant for production use, it's actually a template for you to design your own theme around!
         thumbnail: /style/images/docs/about/thumbnails/default_theme.png
         fullsize: /style/images/docs/about/fullsize/default_theme.png
         styles: "float: right; margin-left: 2em; border: 1px solid #CCC; border-top: none;"
@@ -34,7 +36,9 @@ galleries:
     images:
       -
         heading: Installation is Easy!
-        description: Simply upload Pico's files to your server and you're done!  This is what Pico's folder looks like after installation.
+        description: |
+          Simply upload Pico's files to your server and you're done!<br>
+          This is what Pico's folder looks like after installation.
         thumbnail: /style/images/docs/about/thumbnails/pico_folder.png
         fullsize: /style/images/docs/about/fullsize/pico_folder.png
       -
@@ -44,22 +48,31 @@ galleries:
         fullsize: /style/images/docs/about/fullsize/config.png
       -
         heading: Your Content, Your Way
-        description: Creating content with Pico is easy.  You simply create Markdown files and they become pages on your website.  You can also organize your content however you'd like, just create some folders.  Here's an example of a content folder in Pico.  This one is from a writing website.
+        description: |
+          Creating content with Pico is easy.  You simply create Markdown files and they become pages on your website.<br>
+          You can also organize your content however you'd like, just create some folders.<br>
+          Here's an example of a content folder in Pico.  This one is from a writing website.
         thumbnail: /style/images/docs/about/thumbnails/content_folder.png
         fullsize: /style/images/docs/about/fullsize/content_folder.png
       -
         heading: Web Pages Made Easy
-        description: Creating content with Markdown couldn't be easier.  While Markdown makes formatting simple, HTML can also be used if you need more advanced options.
+        description: |
+          Creating content with Markdown couldn't be easier.<br>
+          While Markdown makes formatting simple, HTML can also be used if you need more advanced options.
         thumbnail: /style/images/docs/about/thumbnails/editing_markdown.png
         fullsize: /style/images/docs/about/fullsize/editing_markdown.png
       -
         heading: Theming your Site with Twig
-        description: Editing an HTML/Twig theme isn't so scary.  Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.
+        description: |
+          Editing an HTML/Twig theme isn't so scary.<br>
+          Pico's default theme is rather simplistic, but Twig's power will allow you to go above and beyond the confines of a standard HTML page.
         thumbnail: /style/images/docs/about/thumbnails/theme_template.png
         fullsize: /style/images/docs/about/fullsize/theme_template.png
       -
         heading: Developing Plugins with PHP
-        description: If you know PHP and you'd like to add some functionality to Pico, you can create a plugin!  Pico's DummyPlugin provides a great base for coding your own.
+        description: |
+          If you know PHP and you'd like to add some functionality to Pico, you can create a plugin!<br>
+          Pico's DummyPlugin provides a great base for coding your own.
         thumbnail: /style/images/docs/about/thumbnails/dummy_plugin.png
         fullsize: /style/images/docs/about/fullsize/dummy_plugin.png
   themes:
@@ -74,7 +87,7 @@ galleries:
         fullsize: /style/images/docs/about/fullsize//notepaper.jpg
       -
         heading: Identity
-        description: "[Identity](https://html5up.net/identity/) theme from [HTML5 UP](https://html5up.net/), [ported to Pico](https://github.com/BesrourMS/single)."
+        description: "[Identity](https://html5up.net/identity/) theme from [HTML5 UP](https://html5up.net/), [ported to Pico](https://github.com/BesrourMS/Identity)."
         thumbnail: /style/images/docs/about/thumbnails/identity.jpg
         fullsize: /style/images/docs/about/fullsize/identity.jpg
       -
@@ -211,6 +224,14 @@ And if that's still not enough creative power for you, you can check out Pico's 
 
 Pico's Plugin system allows for users to extend Pico's functionality by hooking in their own PHP code.  Along with Themes, we also have a growing library of community-developed plugins you can use to add new features to your Pico site.  You can find these plugins [here on our site][Plugins], and even more on [our wiki][WikiPlugins].
 
+[Hooking][] is a simple, but extremely powerful way to alter or augment Pico's behavior.  When Pico reaches specific points in its processing procedure, it will trigger a series of well defined events that can be hooked into by a plugin.  For instance, when Pico reads the files in your `content` directory, it triggers the `onPagesLoaded` event and passes a list of those pages as parameter.  By hooking into this event, a plugin developer can easily modify the list of pages to suit their needs.
+
+You can check out this example of a ["Drafts" plugin][DraftsPluginExample] to get an idea of how this concept works.
+
+Pico provides a extensive list of events you can hook into.  Just have a look at [Pico's dummy plugin][DummyPlugin] (`plugins/DummyPlugin.php`) for a complete list of hooks.  If you want to create your own plugin, simply make a copy of the dummy plugin, remove the events you don't need, and add your code.  It's really that easy!
+
+Don't worry if you don't understand any of this tech talk, you don't have to be a developer to use Pico.  *Using* a plugin requires no more than copying a `.php` file to your `plugins/` directory.  Really, it's that simple!  However, if you're a developer, you will immediately notice how easy developing plugins for Pico is.  You don't have to pore over hundreds of pages of documentation, you can just start developing.
+
 ## Pico is Open Source
 
 Best of all, Pico is open source software!  This means that Pico is, and always will be free.  Free to use, and free to modify.  Pico is released under the [MIT license][License].
@@ -220,20 +241,6 @@ Because Pico is open source, we welcome and appreciate any contributions.  If yo
 ## Getting Started
 
 Ready to try Pico for yourself?  Head on over to our [Download][] page to get yourself a copy.  You can find more information on building your own Pico site in our [Documentation][Docs].  And of course, **we're here to help**!  If you require any assistance, or if you find a bug in Pico, let us know!  Check out the [Getting Help][GettingHelp] section of our Documentation for more details.  We appreciate your feedback!  Pico is a community-driven project and we need *your* feedback to keep making it better!
-
-{% comment %}
-
-* **General Notes**
-* Include a larger "About" portion at the beginning?
-  * Should contain all the "Why's" of Pico, before the "How's".
-  * Explain what Pico is better *before* talking about other CMS's.
-* Better image captions (Already updated some of them.)
-
-* **Disadvantages of Other CMS's**
-* Difficulties with configuration and having to work through an overcomplicated interface / admin panel.
-* limitations when customizing, harder to create your own unique look and feel if you aren't satisfied with existing themes.
-
-{% endcomment %}
 
 [Docs]: {{ site.github.url }}/docs/
 [DocsYAML]: {{ site.github.url }}/docs#text-file-markup
@@ -256,3 +263,6 @@ Ready to try Pico for yourself?  Head on over to our [Download][] page to get yo
 [Twig]: http://twig.sensiolabs.org/
 [TwigDocs]: http://twig.sensiolabs.org/documentation
 [YAML]: https://en.wikipedia.org/wiki/YAML
+[Hooking]: https://en.wikipedia.org/wiki/Hooking
+[DraftsPluginExample]: {{ site.github.url }}/plugins/drafts-example/
+[DummyPlugin]: {{ site.gh_project_url }}/blob/{{ site.gh_project_branch }}/plugins/DummyPlugin.php
