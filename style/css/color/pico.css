@@ -153,6 +153,9 @@ ul.contact-info li i {
 .items li a .overlay {
     background-color: rgba(46,174,155, 0.92);
 }
+.item-info li a:hover {
+    color: #2EAE9B;
+}
 code,
 pre {
     background: #f5f5f5;

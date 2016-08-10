@@ -1022,6 +1022,7 @@ ul.contact-info li i {
 .items {
     width: 110%;
     clear: both;
+    padding-left: 0;
 }
 .items li {
     float: left;
@@ -2695,6 +2696,17 @@ media_tag_5 {media_subcode:5}
     width: 770px;
     position: relative;
 }
+.portfolio-detail-view code,
+.portfolio-detail-view pre {
+    background: #444;
+    border-color: #888;
+}
+.item-info li a {
+    color: inherit;
+}
+.item-info li a:hover {
+    color: #ff6760;
+}
 /*-----------------------------------------------------------------------------------*/
 /*	SHOWCASE SLIDER
 /*-----------------------------------------------------------------------------------*/
@@ -2907,24 +2919,6 @@ h1:hover .learn-more, h2:hover .learn-more, h3:hover .learn-more,
 h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     color: #ff6760;
     font-size: 75%;
-}
-
-/* Portfolio */
-.item-info li a {
-    color: inherit;
-}
-.item-info li a:hover {
-    color: #2EAE9B;
-}
-
-.items {
-    padding-left: 0;
-}
-
-.portfolio-detail-view code,
-.portfolio-detail-view pre {
-    background: #444;
-    border-color: #888;
 }
 
 /* Transitions */
