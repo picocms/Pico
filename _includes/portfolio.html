@@ -33,19 +33,24 @@
 		<li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% unless item.images %} columns{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
 			<div class="content">
 				{% assign num_images = item.images|size %}
-				<div {% if num_images > 1 %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
-					{% if num_images > 1 %}<div class="carousel-inner">{% endif %}
+				{% if num_images == 0 or item.two-column %}{% assign two-column = true %}{% endif %}<!-- two-column vs twoColumn? -->
+				{% if num_images > 1 and two-column != true %}{% assign carousel = true %}{% endif %}
+				<div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single{% if two-column %} two-column{% endif %}"{% endif %}>
+					{% if carousel %}<div class="carousel-inner">{% endif %}
 						{% assign title_num = forloop.index %}
 						{% for image in item.images %}
-							{% if num_images > 1 %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
+							{% if carousel %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
 								<img alt="" width="100%" src="{{ site.github.url }}/{{ image }}"><a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
 								<span class="link"></span></a>
-							{% if num_images > 1 %}</div>{% endif %}
+							{% if carousel %}</div>{% endif %}
 						{% endfor %}
-					{% if num_images > 1 %}
+					{% if carousel %}
 				</div>
 						<a class="carousel-control left" href="#entry-{{ forloop.index0 }}-carousel" data-slide="prev"></a>
 						<a class="carousel-control right" href="#entry-{{ forloop.index0 }}-carousel" data-slide="next"></a>
+					{% endif %}
+					{% if two-column %}
+					<!-- Two Column Contents -->
 					{% endif %}
 				</div>
 			</div>
