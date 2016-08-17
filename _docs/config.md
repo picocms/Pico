@@ -10,6 +10,12 @@ nav: 6
 
 ## Config
 
+* First of all, this is more like "Webserver Config".  This section doesn't actually talk about configuring Pico at ALL.  And I feel like it needs to.
+* Overall, this section is good, just maybe needs some rewording.
+* `.htaccess` should be mentioned (~~and probably also in the installing section~~ done).
+  * We shouldn't have to start every troubleshooting session with "did you upload `.htaccess`".  It should be more prominent throughout the Docs.
+* Perhaps include some tutorial links both here and in installing.  Things that are out-of-scope for our documentation, but still important for users to know.
+
 You can override the default Pico settings (and add your own custom settings) by editing `config/config.php` in the Pico directory. For a brief overview of the available settings and their defaults see [`config/config.php.template`][ConfigTemplate]. To override a setting, copy `config/config.php.template` to `config/config.php`, uncomment the setting and set your custom value.
 
 ### URL Rewriting

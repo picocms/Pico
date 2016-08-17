@@ -11,7 +11,13 @@ nav: 5
 
 Pico is highly customizable in two different ways: On the one hand you can change Pico's appearance by using themes, on the other hand you can add new functionality by using plugins. Doing the former includes changing Pico's HTML, CSS and JavaScript, the latter mostly consists of PHP programming.
 
+* This intro is *really* bad.  It's practically Greek to *me*.  I think this would really scare me off.  It needs to be more like the About page.
+  * Also, in reference to the About page, I think Twig should be emphasized as capable of not just modifying appearance, but also functionality.
+  * Twig extends your website.  Plugins extend Pico.
+
 This is all Greek to you? Don't worry, you don't have to spend time on these techie talk - it's very easy to use one of the great themes or plugins others developed and released to the public. Please refer to the next sections for details.
+
+* Why refer to the next section?  Why not provide links here as well?
 
 ### Themes
 
@@ -60,17 +66,31 @@ Pages can be used like the following:
     {% endfor %}
 &lt;/ul&gt;</code></pre>{% endraw %}
 
+* The list of variables is honestly the *best* thing in the entire Documentation page.  I referenced this so many times when I started with Pico.  And yet... there's only a single, solitary link to Twig's Documentation, and it's not even called out.  If a user wants to customize their Pico theme, they're going to need more information on Twig than this.
+
 Additional to Twigs extensive list of filters, functions and tags, Pico also provides some useful additional filters to make theming easier. You can parse any Markdown string to HTML using the `markdown` filter. Arrays can be sorted by one of its keys or a arbitrary deep sub-key using the `sort_by` filter (e.g. `{% raw %}{% for page in pages|sort_by("meta:nav"|split(":")) %}...{% endfor %}{% endraw %}` iterates through all pages, ordered by the `nav` meta header; please note the `"meta:nav"|split(":")` part of the example, which passes `['meta', 'nav']` to the filter describing a key path). You can return all values of a given key or key path of an array using the `map` filter (e.g. `{% raw %}{{ pages|map("title") }}{% endraw %}` returns all page titles).
+
+* These filters feel *way* to complicated to just casually mention at the end of the variables list.
 
 You can use different templates for different content files by specifying the `Template` meta header. Simply add e.g. `Template: blog-post` to a content file and Pico will use the `blog-post.twig` file in your theme folder to render the page.
 
+* I wish I had a use for this function, really, but why would I want to rewrite my entire template when I can just have conditional sections using `if`.  I think the only way I'd use it would be if someone *else* provided a theme that had multiple templates built in.  If I were building it myself I'd never elect to rewrite everything, I'd probably just use my own meta variable.
+  * In all seriousness though, it's an okay feature, it needs to be mentioned somewhere, but I could only see it being useful for either the most *basic* of websites where you wouldn't mind rewriting things or in a case where you *need* to rewrite everything.
+	* Maybe provide example use cases for this, like having a special template for your landing page or your blog (there's that word again).
+
 You don't have to create your own theme if Pico's default theme isn't sufficient for you, you can use one of the great themes third-party developers and designers created in the past. As with plugins, you can find themes in [our Wiki][WikiThemes].
+
+* And the website.  These references are all inconsistant.  Some say Wiki, some say website (I think).  Both places should probably be mentioned every time.
+  * Or better yet, lets kill all references to the wiki and just make the wiki more apparent on the Customization page.  Give it it's own box in with the themes and plugins or at the very least a line underneath them (but not a footnote like it has now.)
 
 ### Plugins
 
 #### Plugins for users
 
 Officially tested plugins can be found at [{{ site.github.url }}/customization/][OfficialPlugins], but there are many awesome third-party plugins out there! A good start point for discovery is [our Wiki][WikiPlugins].
+
+* *Are* these officially tested?  And is this list current?
+* Also, we need more "Official" themes than just mine and BesrourMS's.  That's really a note for Customization, but I'm not on that yet.
 
 Pico makes it very easy for you to add new features to your website. Simply upload the files of the plugin to the `plugins/` directory and you're done. Depending on the plugin you've installed, you may have to go through some more steps (e.g. specifying config variables), the plugin docs or `README` file will explain what to do.
 

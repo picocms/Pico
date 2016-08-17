@@ -9,9 +9,16 @@ nav: 4
 
 ## Creating Content
 
-Pico is a flat file CMS. This means there is no administration backend or database to deal with. You simply create `.md` files in the `content` folder and those files become your pages. For example, creating a file called `index.md` will make it show as your main landing page.
+Pico is a flat file CMS. This means there is no administration backend or database to deal with. You simply create Markdown `.md` files in the `content` folder and those files become your pages. For example, creating a file called `index.md` will make it show as your main landing page.
+
+* Referencing `index.md` here may be a little odd.  We haven't even explained how Pico urls work yet.
+* Holy crap, other than the link to [Markdown][], we don't talk about it at ALL!
+  * We even get through this entire intro before using the word "Markdown".
+  * In the `text-file-markup` section, there's literally only the one link.  There's more documentation about YAML than Markdown... and the YAML section is abysmal!
 
 When you install Pico, it comes with a `content-sample` folder. Inside this folder is a sample website that will display until you add your own content. You should create your own `content` folder in Pico's root directory and place your files there. No configuration is required, Pico will automatically use the `content` folder if it exists.
+
+* Insert description of how URLs are generated before jumping too far into this topic.
 
 If you create a folder within the content folder (e.g. `content/sub`) and put an `index.md` inside it, you can access that folder at the URL `http://example.com/?sub`. If you want another page within the sub folder, simply create a text file with the corresponding name and you will be able to access it (e.g. `content/sub/page.md` is accessible from the URL `http://example.com/?sub/page`). Below we've shown some examples of locations and their corresponding URLs:
 
@@ -54,6 +61,8 @@ As a common practice, we recommend you to separate your contents and assets (lik
 
 Text files are marked up using [Markdown][] and [Markdown Extra][MarkdownExtra]. They can also contain regular HTML.
 
+* Should this all be rewritten in the style of the About page, with YAML and Markdown subsections, etc, just more in depth?
+
 At the top of text files you can place a block comment and specify certain meta attributes of the page using [YAML][] (the "YAML header"). For example:
 
 <pre><code>---
@@ -67,6 +76,10 @@ Template: index
 
 These values will be contained in the `{% raw %}{{ meta }}{% endraw %}` variable in themes (see below).
 
+* YAML section needs a BIG overhaul.  It's a very ambiguous topic at the moment.  It feels like we're just saying "Here, copy this" without explaining how it works.  I don't know, I think it used to trip me up as well.
+* Are these all the default meta variables?  I feel like they should be a proper list and not just a code example.
+  * There should also be a note about adding and using your own, and/or how custom themes may do so.
+
 There are also certain variables that you can use in your text files:
 
 * `%site_title%` - The title of your Pico site
@@ -77,6 +90,11 @@ There are also certain variables that you can use in your text files:
 ### Blogging
 
 Pico is not blogging software - but makes it very easy for you to use it as a blog. You can find many plugins out there implementing typical blogging features like authentication, tagging, pagination and social plugins. See the below Plugins section for details.
+
+* Pico is *not* blogging software... except for the fact that we always use a blog as the go-to example.  Even @Gilbitron reffered to it's use for blogging in his original release post.
+  * While I agree that Pico isn't a blogging software, I feel like right now it's got a bit of mistaken identity going on.  Plus, these features are on the road map.
+  * Maybe provide some more in-depth blogging related examples.  Or even better, write them in the cookbook and link them here.
+  * Ultimately, people expect to blog on a CMS, as that's the default use case for existing solutions.
 
 If you want to use Pico as a blogging software, you probably want to do something like the following:
 <ol>
