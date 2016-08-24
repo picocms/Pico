@@ -96,11 +96,16 @@ select:focus {
 
 /* Main Styles
 /*---------------------------------------------*/
+html { height: 100%; }
+
 body {
     font: 14px/1.8em 'Open Sans', Helvetica, Arial, Helvetica, sans-serif;
     color: #444;
     background: #fff;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 a, a:visited {
@@ -255,6 +260,7 @@ dd {
     display: inline-block;
     float: left;
 }
+#content { flex: 1 1 auto; }
 #footer {
     background: #707070;
     padding: 60px 0;
