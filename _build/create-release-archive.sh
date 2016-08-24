@@ -2,6 +2,7 @@
 
 RELEASE="$1"
 ARCHIVE="pico-release.tar.gz"
+[ -n "$RELEASE" ] && ARCHIVE="pico-release-$RELEASE.tar.gz"
 
 # install dependencies
 echo "Running \`composer install\`..."
@@ -15,7 +16,6 @@ find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
 echo
 
 # create release archive
-[ -n "$RELEASE" ] && ARCHIVE="pico-release-$RELEASE.tar.gz"
 echo "Creating release archive '$ARCHIVE'..."
 
 if [ -e "$ARCHIVE" ]; then
