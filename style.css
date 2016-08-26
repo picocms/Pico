@@ -2975,3 +2975,13 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     opacity: 1;
     transition: filter 300ms linear 0s, opacity 300ms linear 0s;
 }
+
+/* Two-Column */
+
+.portfolio-detail-view .content .columns {
+  max-width: 30%;
+  float: left;
+  margin: 0 2em 2em 0;
+}
+
+/* {% if columns %}width="50%"{% else %}width="100%"{% endif %} */
