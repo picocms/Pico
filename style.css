@@ -2978,39 +2978,39 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 
 /* Two-Column */
 
-.portfolio-detail-view .content.columns {
+.portfolio-detail-view .content.card {
     width: 100%;
 }
 
-.portfolio-detail-view .content.columns .image {
+.portfolio-detail-view .content.card .image {
     max-width: 30%;
     float: left;
     margin: 0 2em 2em 0;
 }
 
-.portfolio-detail-view .item-details.columns {
+.portfolio-detail-view .item-details.card {
     float: none;
     width: 100%;
 }
 
-.portfolio-detail-view .item-details.columns h2 {
+.portfolio-detail-view .item-details.card h2 {
     width: 30%;
     float: left;
     margin: 0 1.167em 1.167em 0;
 }
 
-.portfolio-detail-view .item-details.columns ul {
+.portfolio-detail-view .item-details.card ul {
     margin-bottom: 2em;
     padding: 0;
 }
-.portfolio-detail-view .item-details.columns li {
+.portfolio-detail-view .item-details.card li {
     display: inline-block;
 }
-.portfolio-detail-view .item-details.columns li:not(:last-child) {
+.portfolio-detail-view .item-details.card li:not(:last-child) {
     margin-right: 5em;
 }
 
-.portfolio-detail-view .item-details.columns .button {
+.portfolio-detail-view .item-details.card .button {
     float: right;
     margin: 0 0 1em 2em;
 }

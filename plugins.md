@@ -8,6 +8,7 @@ description: |
 nav: 5
 
 portfolio:
+  layout: card
   categories:
     admin: Administration
     developer: Developer-Focused

@@ -1,15 +1,8 @@
-{% if include.portfolio %}
-    {% assign portfolio = include.portfolio %}
-{% else %}
-    {% assign portfolio = page.portfolio.items %}
-{% endif %}
-{% if include.categories %}
-    {% assign categories = include.categories %}
-{% else %}
-    {% assign categories = page.portfolio.categories %}
-{% endif %}
+{% assign portfolio = include.portfolio | default: page.portfolio.items %}
+{% assign categories = include.categories | default: page.portfolio.categories %}
+{% assign layout = include.layout | default: page.portfolio.layout | default: "jumbovision" %}
 
-<div class="portfolio-wrapper showcase">
+<div class="portfolio-wrapper showcase {{ layout }}">
     <ul class="filter">
         <li><a class="active" href="#" data-filter="*">All</a></li>
         {% for category in categories %}
@@ -18,10 +11,6 @@
     </ul>
     <ul class="items col4">
         {% for item in portfolio %}
-            {% assign imageCount = item.images|size %}
-            {% if imageCount == 0 or item.columns %}{% assign columns = true %}{% endif %}
-            {% if imageCount > 1 and columns != true %}{% assign carousel = true %}{% endif %}
-
             {% capture itemHeading %}
                 <h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
             {% endcapture %}
@@ -41,14 +30,15 @@
                 </a>
             {% endcapture %}
             {% capture itemImage %}
-                <div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="image carousel slide"{% else %}class="image single"{% endif %}>
-                    {% if carousel %}
+                {% assign imageCount = item.images|size %}
+                <div {% if imageCount > 1 %}id="entry-{{ forloop.index0 }}-carousel" class="image carousel slide"{% else %}class="image single"{% endif %}>
+                    {% if imageCount > 1 %}
                         <div class="carousel-inner">
                     {% endif %}
 
                     {% assign title_num = forloop.index %}
                     {% for image in item.images %}
-                        {% if carousel %}
+                        {% if imageCount > 1 %}
                             <div class="{% if forloop.first %}active {% endif %}item">
                         {% endif %}
 
@@ -57,12 +47,12 @@
                             <span class="link"></span>
                         </a>
 
-                        {% if carousel %}
+                        {% if imageCount > 1 %}
                             </div>
                         {% endif %}
                     {% endfor %}
 
-                    {% if carousel %}
+                    {% if imageCount > 1 %}
                         </div>
                         <a class="carousel-control left" href="#entry-{{ forloop.index0 }}-carousel" data-slide="prev"></a>
                         <a class="carousel-control right" href="#entry-{{ forloop.index0 }}-carousel" data-slide="next"></a>
@@ -71,25 +61,25 @@
             {% endcapture %}
 
             <li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
-                {% if columns %}
-                    <div class="item-details columns">
-                        {{ itemHeading }}
-                        {{ itemButton }}
-                        {{ itemInfo }}
-                    </div>
-                    <div class="content columns">
+                {% if layout == "jumbovision" %}
+                    <div class="content {{ layout }}">
                         {{ itemImage }}
+                    </div>
+                    <div class="item-details {{ layout }}">
+                        {{ itemHeading }}
+                        {{ itemInfo }}
                         {{ item.content }}
+                        {{ itemButton }}
                     </div>
                 {% else %}
-                    <div class="content">
-                        {{ itemImage }}
-                    </div>
-                    <div class="item-details">
+                    <div class="item-details {{ layout }}">
                         {{ itemHeading }}
-                        {{ itemInfo }}
-                        {{ item.content }}
                         {{ itemButton }}
+                        {{ itemInfo }}
+                    </div>
+                    <div class="content {{ layout }}">
+                        {{ itemImage }}
+                        {{ item.content }}
                     </div>
                 {% endif %}
                 <div class="clear"></div>

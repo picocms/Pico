@@ -6,7 +6,6 @@ meta: Drop file prefixes from page URLs
 link: https://github.com/PhrozenByte/pico-file-prefixes
 images:
   - themes/images/fullsize/default_theme.png
-columns: true
 info:
   By: "[PhrozenByte](https://github.com/PhrozenByte/pico-file-prefixes)"
   Last Updated: 7/07/16
