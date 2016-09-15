@@ -4,8 +4,6 @@ categories:
   - developer
 meta: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics
-images:
-  - themes/images/fullsize/default_theme.png
 info:
   By: "[bricebou](https://github.com/bricebou)"
   Last Updated: 5/29/16

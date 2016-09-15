@@ -14,6 +14,7 @@ portfolio:
     developer: Developer-Focused
     theming: Theming Extensions
   defaultThumbnail: plugins/images/thumbnails/plugin.png
+  defaultImage: themes/images/fullsize/default_theme.png
 
 ---
 

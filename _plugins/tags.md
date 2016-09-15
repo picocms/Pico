@@ -4,8 +4,6 @@ categories:
   - theming
 meta: Filter your posts by category
 link: https://github.com/PontusHorn/Pico-Tags
-images:
-  - themes/images/fullsize/default_theme.png
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
   Last Updated: 6/07/16
