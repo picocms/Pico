@@ -11,4 +11,5 @@ info:
   By: "[sonst-was](https://github.com/sonst-was)"
   Last Updated: 4/05/16
 ---
+
 SimpleTwo is a simple theme with two columns for picoCMS.

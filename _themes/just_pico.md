@@ -12,4 +12,5 @@ info:
   By: "[Blocknotes](https://github.com/blocknotes)"
   Last Updated: 6/12/16
 ---
+
 A simple Pico CMS theme made with PureCSS.

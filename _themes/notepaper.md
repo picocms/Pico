@@ -14,10 +14,10 @@ info:
   By: "[Simon McDougall](http://sjmcdougall.com)"
   Last Updated: 5/01/16
 ---
+
 A highly customizable theme, designed exclusively for Pico.
 
 Features:
-
 
 * Widgets
 * Blog-Style Front Page

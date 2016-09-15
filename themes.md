@@ -13,7 +13,6 @@ portfolio:
     multi-page: Multiple Pages
     personal: Personal Website
     blog: Blog-Style
-  button: Download
 
 ---
 

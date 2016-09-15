@@ -8,18 +8,6 @@
 {% else %}
     {% assign categories = page.portfolio.categories %}
 {% endif %}
-{% if page.portfolio.button %}
-    {% assign button = page.portfolio.button %}
-{% else %}
-    {% assign button = "Launch Site" %}
-{% endif %}
-{% if include.defaultThumbnail %}
-    {% assign defaultThumbnail = include.defaultThumbnail %}
-{% elsif page.portfolio.defaultThumbnail %}
-    {% assign defaultThumbnail = page.portfolio.defaultThumbnail %}
-{% else %}
-    {% assign defaultThumbnail = "style/images/defaultThumbnail.png" %}
-{% endif %}
 
 <div class="portfolio-wrapper showcase">
     <ul class="filter">
@@ -38,13 +26,17 @@
                 <h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
                 <ul class="item-info">
                     {% for info in item.info %}
-                        <li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
+                        <li>
+                            {% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}
+                            {{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}
+                        </li>
                     {% endfor %}
                 </ul>
             {% endcapture %}
             {% capture itemButton %}
-                {% if item.button %}{% assign button = item.button %}{% endif %}
-                <a href="{{ item.link }}" class="button" target="_blank">{{ button }}</a>
+                <a href="{{ item.link }}" class="button" target="_blank">
+                    {{ item.button | default: page.portfolio.button | default: "Download" }}
+                </a>
             {% endcapture %}
             {% capture itemImage %}
                 <div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
@@ -54,10 +46,18 @@
 
                     {% assign title_num = forloop.index %}
                     {% for image in item.images %}
-                        {% if carousel %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
-                            <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}"><a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
-                            <span class="link"></span></a>
-                        {% if carousel %}</div>{% endif %}
+                        {% if carousel %}
+                            <div class="{% if forloop.first %}active {% endif %}item">
+                        {% endif %}
+
+                        <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}">
+                        <a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
+                            <span class="link"></span>
+                        </a>
+
+                        {% if carousel %}
+                            </div>
+                        {% endif %}
                     {% endfor %}
 
                     {% if carousel %}
@@ -76,13 +76,7 @@
                     </div>
                     <div class="content columns">
                         {{ itemImage }}
-
-                        {% assign content_exists = item.content|strip_newlines|size %}
-                        {% if content_exists > 0 %}
-                            {{ item.content }}
-                        {% else %}
-                            {{ item.description|markdownify }}
-                        {% endif %}
+                        {{ item.content }}
                     </div>
                 {% else %}
                     <div class="content">
@@ -90,14 +84,7 @@
                     </div>
                     <div class="item-details">
                         {{ itemInfo }}
-
-                        {% assign content_exists = item.content|strip_newlines|size %}
-                        {% if content_exists > 0 %}
-                            {{ item.content }}
-                        {% else %}
-                            {{ item.description|markdownify }}
-                        {% endif %}
-
+                        {{ item.content }}
                         {{ itemButton }}
                     </div>
                 {% endif %}
@@ -108,7 +95,7 @@
                         <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
                         {% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
                     </div>
-                    <img src="{% if item.thumbnail %}{{ site.github.url }}/{{ item.thumbnail }}{% else %}{{ site.github.url }}/{{ defaultThumbnail }}{% endif %}" alt="" />
+                    <img src="{{ site.github.url }}/{{ item.thumbnail | default: page.portfolio.defaultThumbnail | default: "style/images/defaultThumbnail.png" }}" alt="" />
                 </a>
             </li>
         {% endfor %}

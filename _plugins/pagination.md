@@ -10,4 +10,5 @@ info:
   By: "[rewdy](https://github.com/rewdy)"
   Last Updated: 1/31/16
 ---
+
 Provides basic pagination for Pico. (Supposedly Updated for 1.0)
