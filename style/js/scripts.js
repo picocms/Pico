@@ -643,7 +643,7 @@ jQuery(document).ready(function() {
 
 
 
-            var images = pdv.find('.carousel .active img, .single img'),
+            var images = pdv.find('img'),
                 imagesLoaded = 0,
                 imagesCallback = function () {
                     imagesLoaded++;
