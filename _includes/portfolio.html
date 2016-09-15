@@ -1,103 +1,116 @@
 {% if include.portfolio %}
-	{% assign portfolio = include.portfolio %}
+    {% assign portfolio = include.portfolio %}
 {% else %}
-	{% assign portfolio = page.portfolio.items %}
+    {% assign portfolio = page.portfolio.items %}
 {% endif %}
 {% if include.categories %}
-	{% assign categories = include.categories %}
+    {% assign categories = include.categories %}
 {% else %}
-	{% assign categories = page.portfolio.categories %}
+    {% assign categories = page.portfolio.categories %}
 {% endif %}
 {% if page.portfolio.button %}
-	{% assign button = page.portfolio.button %}
+    {% assign button = page.portfolio.button %}
 {% else %}
-	{% assign button = "Launch Site" %}
+    {% assign button = "Launch Site" %}
 {% endif %}
 {% if include.defaultThumbnail %}
-	{% assign defaultThumbnail = include.defaultThumbnail %}
+    {% assign defaultThumbnail = include.defaultThumbnail %}
 {% elsif page.portfolio.defaultThumbnail %}
-	{% assign defaultThumbnail = page.portfolio.defaultThumbnail %}
+    {% assign defaultThumbnail = page.portfolio.defaultThumbnail %}
 {% else %}
-	{% assign defaultThumbnail = "style/images/defaultThumbnail.png" %}
+    {% assign defaultThumbnail = "style/images/defaultThumbnail.png" %}
 {% endif %}
 
 <div class="portfolio-wrapper showcase">
-	<ul class="filter">
-		<li><a class="active" href="#" data-filter="*">All</a></li>
-		{% for category in categories %}
-			<li><a href="#" data-filter=".{{ category[0] }}">{{ category[1] }}</a></li>
-		{% endfor %}
-	</ul>
-	<ul class="items col4">
-		{% for item in portfolio %}
-		{% assign num_images = item.images|size %}
-		{% if num_images == 0 or item.columns %}{% assign columns = true %}{% endif %}
-		{% if num_images > 1 and columns != true %}{% assign carousel = true %}{% endif %}
-		<li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
-		{% if columns %} <!-- Duplicated Code from below.  There may be a better way to accomplish this, such as storing the output in a variable. -->
-		<div class="item-details columns">
-			<h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
-			<ul class="item-info">
-				{% for info in item.info %}
-					<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
-				{% endfor %}
-			</ul>
-			{% if item.button %}{% assign button = item.button %}{% endif %}
-			<a href="{{ item.link }}" class="button" target="_blank">{{ button }}</a>
-		</div>
-		{% endif %}
-			<div class="content{% if columns %} columns{% endif %}">
-				<div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
-					{% if carousel %}<div class="carousel-inner">{% endif %}
-						{% assign title_num = forloop.index %}
-						{% for image in item.images %}
-							{% if carousel %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
-								<img alt="" width="100%" src="{{ site.github.url }}/{{ image }}"><a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
-								<span class="link"></span></a>
-							{% if carousel %}</div>{% endif %}
-						{% endfor %}
-					{% if carousel %}
-				</div>
-						<a class="carousel-control left" href="#entry-{{ forloop.index0 }}-carousel" data-slide="prev"></a>
-						<a class="carousel-control right" href="#entry-{{ forloop.index0 }}-carousel" data-slide="next"></a>
-					{% endif %}
-				</div>
-				{% if columns %} <!-- Duplicated Code from below.  There may be a better way to accomplish this, such as storing the output in a variable. -->
-					{% assign content_exists = item.content|strip_newlines|size %}
-					{% if content_exists > 0 %}
-						{{ item.content }}
-					{% else %}
-						{{ item.description|markdownify }}
-					{% endif %}
-				{% endif %}
-			</div>
-			{% unless columns %}
-			<div class="item-details">
-				<h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
-				<ul class="item-info">
-					{% for info in item.info %}
-						<li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
-					{% endfor %}
-				</ul>
-					{% assign content_exists = item.content|strip_newlines|size %}
-					{% if content_exists > 0 %}
-						{{ item.content }}
-					{% else %}
-						{{ item.description|markdownify }}
-					{% endif %}
-				{% if item.button %}{% assign button = item.button %}{% endif %}
-				<a href="{{ item.link }}" class="button" target="_blank">{{ button }}</a>
-			</div>
-			{% endunless %}
-			<div class="clear"></div>'>
-			<a href="#">
-				<div class="overlay">
-					<h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
-					{% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
-				</div>
-				<img src="{% if item.thumbnail %}{{ site.github.url }}/{{ item.thumbnail }}{% else %}{{ site.github.url }}/{{ defaultThumbnail }}{% endif %}" alt="" />
-			</a>
-		</li>
-	{% endfor %}
-	</ul>
+    <ul class="filter">
+        <li><a class="active" href="#" data-filter="*">All</a></li>
+        {% for category in categories %}
+            <li><a href="#" data-filter=".{{ category[0] }}">{{ category[1] }}</a></li>
+        {% endfor %}
+    </ul>
+    <ul class="items col4">
+        {% for item in portfolio %}
+            {% assign imageCount = item.images|size %}
+            {% if imageCount == 0 or item.columns %}{% assign columns = true %}{% endif %}
+            {% if imageCount > 1 and columns != true %}{% assign carousel = true %}{% endif %}
+
+            {% capture itemInfo %}
+                <h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
+                <ul class="item-info">
+                    {% for info in item.info %}
+                        <li>{% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}{{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}</li>
+                    {% endfor %}
+                </ul>
+            {% endcapture %}
+            {% capture itemButton %}
+                {% if item.button %}{% assign button = item.button %}{% endif %}
+                <a href="{{ item.link }}" class="button" target="_blank">{{ button }}</a>
+            {% endcapture %}
+            {% capture itemImage %}
+                <div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
+                    {% if carousel %}
+                        <div class="carousel-inner">
+                    {% endif %}
+
+                    {% assign title_num = forloop.index %}
+                    {% for image in item.images %}
+                        {% if carousel %}<div class="{% if forloop.first %}active {% endif %}item">{% endif %}
+                            <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}"><a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
+                            <span class="link"></span></a>
+                        {% if carousel %}</div>{% endif %}
+                    {% endfor %}
+
+                    {% if carousel %}
+                        </div>
+                        <a class="carousel-control left" href="#entry-{{ forloop.index0 }}-carousel" data-slide="prev"></a>
+                        <a class="carousel-control right" href="#entry-{{ forloop.index0 }}-carousel" data-slide="next"></a>
+                    {% endif %}
+                </div>
+            {% endcapture %}
+
+            <li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
+                {% if columns %}
+                    <div class="item-details columns">
+                        {{ itemInfo }}
+                        {{ itemButton }}
+                    </div>
+                    <div class="content columns">
+                        {{ itemImage }}
+
+                        {% assign content_exists = item.content|strip_newlines|size %}
+                        {% if content_exists > 0 %}
+                            {{ item.content }}
+                        {% else %}
+                            {{ item.description|markdownify }}
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="content">
+                        {{ itemImage }}
+                    </div>
+                    <div class="item-details">
+                        {{ itemInfo }}
+
+                        {% assign content_exists = item.content|strip_newlines|size %}
+                        {% if content_exists > 0 %}
+                            {{ item.content }}
+                        {% else %}
+                            {{ item.description|markdownify }}
+                        {% endif %}
+
+                        {{ itemButton }}
+                    </div>
+                {% endif %}
+                <div class="clear"></div>
+            '>
+                <a href="#">
+                    <div class="overlay">
+                        <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
+                        {% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
+                    </div>
+                    <img src="{% if item.thumbnail %}{{ site.github.url }}/{{ item.thumbnail }}{% else %}{{ site.github.url }}/{{ defaultThumbnail }}{% endif %}" alt="" />
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
