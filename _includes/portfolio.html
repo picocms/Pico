@@ -1,8 +1,7 @@
 {% assign portfolio = include.portfolio | default: page.portfolio.items %}
 {% assign categories = include.categories | default: page.portfolio.categories %}
-{% assign layout = include.layout | default: page.portfolio.layout | default: "jumbovision" %}
 
-<div class="portfolio-wrapper showcase {{ layout }}">
+<div class="portfolio-wrapper showcase">
     <ul class="filter">
         <li><a class="active" href="#" data-filter="*">All</a></li>
         {% for category in categories %}
@@ -60,24 +59,25 @@
                 </div>
             {% endcapture %}
 
-            <li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
+            {% assign layout = item.layout | default: include.layout | default: page.portfolio.layout | default: "jumbovision" %}
+            <li class="item {{ layout }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ layout }}" ata-callback="callPortfolioScripts();" data-detailcontent='
                 {% if layout == "jumbovision" %}
-                    <div class="content {{ layout }}">
+                    <div class="content">
                         {{ itemImage }}
                     </div>
-                    <div class="item-details {{ layout }}">
+                    <div class="item-details">
                         {{ itemHeading }}
                         {{ itemInfo }}
                         {{ item.content }}
                         {{ itemButton }}
                     </div>
                 {% else %}
-                    <div class="item-details {{ layout }}">
+                    <div class="item-details">
                         {{ itemHeading }}
                         {{ itemButton }}
                         {{ itemInfo }}
                     </div>
-                    <div class="content {{ layout }}">
+                    <div class="content">
                         {{ itemImage }}
                         {{ item.content }}
                     </div>

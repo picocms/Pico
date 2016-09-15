@@ -577,7 +577,7 @@ jQuery(document).ready(function() {
 
 		 	// ADD THE NEW CONTENT IN THE DETAIL VIEW WINDOW.
 		 	jQuery('body').append(
-				'<div class="portfolio-detail-view">'+
+				'<div class="portfolio-detail-view '+(thumb.data('layout') || '')+'">'+
 		 		'<div class="inner">'+
 		 		'<div class="portfolio-detail-content-container">'+
 		 		thumb.data('detailcontent')+
