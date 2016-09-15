@@ -22,8 +22,10 @@
             {% if imageCount == 0 or item.columns %}{% assign columns = true %}{% endif %}
             {% if imageCount > 1 and columns != true %}{% assign carousel = true %}{% endif %}
 
-            {% capture itemInfo %}
+            {% capture itemHeading %}
                 <h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
+            {% endcapture %}
+            {% capture itemInfo %}
                 <ul class="item-info">
                     {% for info in item.info %}
                         <li>
@@ -39,7 +41,7 @@
                 </a>
             {% endcapture %}
             {% capture itemImage %}
-                <div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="carousel slide"{% else %}class="single"{% endif %}>
+                <div {% if carousel %}id="entry-{{ forloop.index0 }}-carousel" class="image carousel slide"{% else %}class="image single"{% endif %}>
                     {% if carousel %}
                         <div class="carousel-inner">
                     {% endif %}
@@ -71,8 +73,9 @@
             <li class="item {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" ata-callback="callPortfolioScripts();" data-detailcontent='
                 {% if columns %}
                     <div class="item-details columns">
-                        {{ itemInfo }}
+                        {{ itemHeading }}
                         {{ itemButton }}
+                        {{ itemInfo }}
                     </div>
                     <div class="content columns">
                         {{ itemImage }}
@@ -83,6 +86,7 @@
                         {{ itemImage }}
                     </div>
                     <div class="item-details">
+                        {{ itemHeading }}
                         {{ itemInfo }}
                         {{ item.content }}
                         {{ itemButton }}

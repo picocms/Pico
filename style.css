@@ -2978,42 +2978,39 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 
 /* Two-Column */
 
-.portfolio-detail-view .content.columns .single,
-.portfolio-detail-view .content.columns .carousel {
-  max-width: 30%;
-  float: left;
-  margin: 0 2em 2em 0;
+.portfolio-detail-view .content.columns {
+    width: 100%;
 }
 
-.portfolio-detail-content-container .content.columns {
-  width:auto;
+.portfolio-detail-view .content.columns .image {
+    max-width: 30%;
+    float: left;
+    margin: 0 2em 2em 0;
 }
 
-.item-details.columns {
-  float: none;
-  width: auto;
+.portfolio-detail-view .item-details.columns {
+    float: none;
+    width: 100%;
 }
 
-.item-details.columns h2 {
-  width: 30%;
-	float: left;
+.portfolio-detail-view .item-details.columns h2 {
+    width: 30%;
+    float: left;
+    margin: 0 1.167em 1.167em 0;
 }
 
-.item-details.columns ul {
-	width: calc(60% - 100px);
+.portfolio-detail-view .item-details.columns ul {
+    margin-bottom: 2em;
+    padding: 0;
+}
+.portfolio-detail-view .item-details.columns li {
+    display: inline-block;
+}
+.portfolio-detail-view .item-details.columns li:not(:last-child) {
+    margin-right: 5em;
 }
 
-.item-details.columns li {
-  margin-right: 5em;
+.portfolio-detail-view .item-details.columns .button {
+    float: right;
+    margin: 0 0 1em 2em;
 }
-
-.item-details.columns ul,
-.item-details.columns li {
-  display: inline-block;
-}
-
-.item-details.columns a {
-  float: right;
-}
-
-/* {% if columns %}width="50%"{% else %}width="100%"{% endif %} */
