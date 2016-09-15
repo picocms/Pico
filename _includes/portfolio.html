@@ -30,20 +30,20 @@
                 </a>
             {% endcapture %}
             {% capture itemImage %}
+                {% assign itemIndex = forloop.index %}
                 {% assign imageCount = item.images|size %}
                 <div {% if imageCount > 1 %}id="entry-{{ forloop.index0 }}-carousel" class="image carousel slide"{% else %}class="image single"{% endif %}>
                     {% if imageCount > 1 %}
                         <div class="carousel-inner">
                     {% endif %}
 
-                    {% assign title_num = forloop.index %}
                     {% for image in item.images %}
                         {% if imageCount > 1 %}
                             <div class="{% if forloop.first %}active {% endif %}item">
                         {% endif %}
 
                         <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}">
-                        <a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ title_num }}">
+                        <a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ itemIndex }}">
                             <span class="link"></span>
                         </a>
 
