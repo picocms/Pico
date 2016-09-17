@@ -1431,6 +1431,9 @@ class Pico
     /**
      * Returns the URL to a given page
      *
+     * This method can be used in Twig templates by applying the `link` filter
+     * to a string representing a page identifier.
+     *
      * @param  string       $page      identifier of the page to link to
      * @param  array|string $queryData either an array containing properties to
      *     create a URL-encoded query string from, or a already encoded string
