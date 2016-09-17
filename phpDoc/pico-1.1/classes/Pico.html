@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-344050326"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-674551096"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-344050326" class="accordion-body collapse in">
+            <div id="namespace-674551096" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -234,6 +234,8 @@ released under the MIT license.</li>
                                                                     <a href="../classes/Pico.html#method_isUrlRewritingEnabled" class="">isUrlRewritingEnabled()</a><br />
                                                                     <a href="../classes/Pico.html#method_getPageUrl" class="">getPageUrl()</a><br />
                                                                     <a href="../classes/Pico.html#method_getBaseThemeUrl" class="">getBaseThemeUrl()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getUrlParameter" class="">getUrlParameter()</a><br />
+                                                                    <a href="../classes/Pico.html#method_getFormParameter" class="">getFormParameter()</a><br />
                                                                     <a href="../classes/Pico.html#method_getFiles" class="">getFiles()</a><br />
                                                                     <a href="../classes/Pico.html#method_getAbsolutePath" class="">getAbsolutePath()</a><br />
                                                                     <a href="../classes/Pico.html#method_triggerEvent" class="">triggerEvent()</a><br />
@@ -260,6 +262,7 @@ released under the MIT license.</li>
                                                                     <a href="../classes/Pico.html#method_discoverCurrentPage" class="">discoverCurrentPage()</a><br />
                                                                     <a href="../classes/Pico.html#method_registerTwig" class="">registerTwig()</a><br />
                                                                     <a href="../classes/Pico.html#method_getTwigVariables" class="">getTwigVariables()</a><br />
+                                                                    <a href="../classes/Pico.html#method_filterVariable" class="">filterVariable()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <a href="../classes/Pico.html#property_rootDir" class="">$rootDir</a><br />
@@ -2105,7 +2108,8 @@ e.g. removing the meta header and replacing %base_url%</em></p>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">getPageUrl(string  <span class="argument">$page</span>, array|string  <span class="argument">$queryData = null</span>, boolean  <span class="argument">$dropIndex = true</span>) : string</pre>
                 <p><em>Returns the URL to a given page</em></p>
-                
+                <p>This method can be used in Twig templates by applying the <code>link</code> filter
+to a string representing a page identifier.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -2177,6 +2181,128 @@ always gets prepended appropriately.</p>
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
                                                                             </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUrlParameter" name="method_getUrlParameter" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUrlParameter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUrlParameter(string  <span class="argument">$name</span>, integer|string  <span class="argument">$filter = &#039;&#039;</span>, mixed|array  <span class="argument">$options = null</span>, integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;  <span class="argument">$flags = null</span>) : mixed</pre>
+                <p><em>Filters a URL GET parameter with a specified filter</em></p>
+                <p>This method is just an alias for <a href="../classes/Pico.html#method_filterVariable">Pico::filterVariable()</a>, see
+<a href="../classes/Pico.html#method_filterVariable">Pico::filterVariable()</a> for a detailed description. It can be
+used in Twig templates by calling the <code>url_param</code> function.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>name of the URL GET parameter
+to filter</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$filter </td>
+                                <td><p>the filter to apply</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed|array</td>
+                                <td>$options </td>
+                                <td><p>either a associative options
+array to be used by the filter or a scalar default value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;</td>
+                                <td>$flags </td>
+                                <td><p>flags and flag strings to
+be used by the filter</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>either the filtered data,
+FALSE if the filter fails, or NULL if the URL GET parameter doesn't
+exist and no default value is given</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_filterVariable"><span class="namespace-wrapper">\Pico::filterVariable()</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFormParameter" name="method_getFormParameter" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFormParameter()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFormParameter(string  <span class="argument">$name</span>, integer|string  <span class="argument">$filter = &#039;&#039;</span>, mixed|array  <span class="argument">$options = null</span>, integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;  <span class="argument">$flags = null</span>) : mixed</pre>
+                <p><em>Filters a HTTP POST parameter with a specified filter</em></p>
+                <p>This method is just an alias for <a href="../classes/Pico.html#method_filterVariable">Pico::filterVariable()</a>, see
+<a href="../classes/Pico.html#method_filterVariable">Pico::filterVariable()</a> for a detailed description. It can be
+used in Twig templates by calling the <code>form_param</code> function.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>name of the HTTP POST
+parameter to filter</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$filter </td>
+                                <td><p>the filter to apply</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed|array</td>
+                                <td>$options </td>
+                                <td><p>either a associative options
+array to be used by the filter or a scalar default value</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;</td>
+                                <td>$flags </td>
+                                <td><p>flags and flag strings to
+be used by the filter</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>either the filtered data,
+FALSE if the filter fails, or NULL if the HTTP POST parameter
+doesn't exist and no default value is given</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/Pico.html#method_filterVariable"><span class="namespace-wrapper">\Pico::filterVariable()</span></a></dd>
+                                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr><td colspan="2"><em>None found</em></td></tr>
@@ -2689,6 +2815,86 @@ as well as Pico's <a href="../classes/PicoTwigExtension.html">PicoTwigExtension<
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_filterVariable" name="method_filterVariable" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">filterVariable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">filterVariable(mixed  <span class="argument">$variable</span>, integer|string  <span class="argument">$filter = &#039;&#039;</span>, mixed|array  <span class="argument">$options = null</span>, integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;  <span class="argument">$flags = null</span>) : mixed</pre>
+                <p><em>Filters a variable with a specified filter</em></p>
+                <p>This method basically wraps around PHP's <code>filter_var()</code> function. It
+filters data by either validating or sanitizing it. This is especially
+useful when the data source contains unknown (or foreign) data, like
+user supplied input. Validation is used to validate or check if the data
+meets certain qualifications, but will not change the data itself.
+Sanitization will sanitize the data, so it may alter it by removing
+undesired characters. It doesn't actually validate the data! The
+behaviour of most filters can optionally be tweaked by flags.</p>
+<p>Heads up! Input validation is hard! Always validate your input data the
+most paranoid way you can imagine. Always prefer validation filters over
+sanitization filters; be very careful with sanitization filters, you
+might create cross-site scripting vulnerabilities!</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$variable </td>
+                                <td><p>value to filter</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string</td>
+                                <td>$filter </td>
+                                <td><p>ID (int) or name (string) of
+the filter to apply; if omitted, the method will return FALSE</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed|array</td>
+                                <td>$options </td>
+                                <td><p>either a associative array
+of options to be used by the filter (e.g. <code>array('default' =&gt; 42)</code>),
+or a scalar default value that will be returned when the passed
+value is NULL (optional)</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer|string|array&lt;mixed,integer&gt;|array&lt;mixed,string&gt;</td>
+                                <td>$flags </td>
+                                <td><p>either a bitwise disjunction
+of flags or a string with the significant part of a flag constant
+(the constant name is the result of &quot;FILTER<em>FLAG</em>&quot; and the given
+string in ASCII-only uppercase); you may also pass an array of flags
+and flag strings (optional)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>with a validation filter,
+the method either returns the validated value or, provided that the
+value wasn't valid, the given default value or FALSE; with a
+sanitization filter, the method returns the sanitized value; if no
+value (i.e. NULL) was given, the method always returns either the
+provided default value or NULL</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href=""><span class="namespace-wrapper">PHP&#039;s `filter_var()` function</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Validate filters</span></a></dd>
+                                            <dd><a href=""><span class="namespace-wrapper">Sanitize filters</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
                                                     </div>
     </section>
 
@@ -2738,7 +2944,7 @@ as well as Pico's <a href="../classes/PicoTwigExtension.html">PicoTwigExtension<
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 2nd, 2016 at 21:46.
+                    on September 17th, 2016 at 18:13.
                 </section>
             </section>
         </section>
