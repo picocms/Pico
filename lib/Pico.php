@@ -697,7 +697,7 @@ class Pico
     protected function evaluateRequestUrl()
     {
         // use QUERY_STRING; e.g. /pico/?sub/page
-        $pathComponent = $_SERVER['QUERY_STRING'];
+        $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
         if (!empty($pathComponent)) {
             if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
                 $pathComponent = substr($pathComponent, 0, $pathComponentLength);
