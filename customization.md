@@ -48,10 +48,15 @@ redirect_from:
 </div>
 <div class="clear"></div>
 
-<div class="one-third last">
+<div class="one-third">
     <h3>Pico File Prefixes</h3>
     <p>Drop file prefixes from page URLs.</p>
     <p><a href="https://github.com/PhrozenByte/pico-file-prefixes" class="button" target="_blank">Download</a></p>
+</div>
+<div class="one-third last">
+    <h3>Pico HTTP Parameters</h3>
+    <p>Access HTTP GET and HTTP POST parameters in Twig templates.</p>
+    <p><a href="https://github.com/PhrozenByte/pico-http-params" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
