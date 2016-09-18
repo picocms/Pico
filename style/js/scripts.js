@@ -363,8 +363,11 @@ $(function() {
         $(window).smartresize(function () {
             var newWindowWidth = $(window).width();
             if (newWindowWidth != windowWidth) {
-                closeActiveDetailView();
                 windowWidth = newWindowWidth;
+
+                if (!closeActiveDetailView()) {
+                    $container.isotope('reLayout');
+                }
             }
         });
 
