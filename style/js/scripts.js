@@ -51,6 +51,15 @@ $(document).ready(function () {
             layoutMode: 'fitRows',
             resizable: false
         });
+
+        var windowWidth = $(window).width();
+        $(window).smartresize(function () {
+            var newWindowWidth = $(window).width();
+            if (newWindowWidth != windowWidth) {
+                $('.portfolio-wrapper:not(.showcase) .items').isotope('reLayout');
+                windowWidth = newWindowWidth;
+            }
+        });
     });
 
     $('.filter li a').click(function () {
