@@ -406,13 +406,21 @@ $(function() {
             var $moveItem = $(this);
             $moveItem.stop(true);
             $moveItem.animate(
-                { top: offset + 'px' },
+                { top: (offset + (parseInt($moveItem.data('topOffset') || 0))) + 'px' },
                 { duration: animationSpeed, queue: false }
             );
         });
 
-        // grow container
-        $container.css({ height: ($container.data('height') + offset) + 'px' });
+        // grow/shrink container
+        if ($('html').hasClass('is-ie8') || $('html').hasClass('is-ie9')) {
+            $container.stop(true);
+            $container.animate(
+                { height: ($container.data('height') + offset) + 'px' },
+                { duration: animationSpeed, queue: false }
+            );
+        } else {
+            $container.css({ height: ($container.data('height') + offset) + 'px' });
+        }
     }
 
     function openDetailView($item, callback) {
@@ -459,6 +467,14 @@ $(function() {
         });
 
         $pdv.data('itemsToMove', itemsToMove);
+
+        // fix position of moved items in <= IE9
+        if ($('html').hasClass('is-ie8') || $('html').hasClass('is-ie9')) {
+            $.each(itemsToMove, function () {
+                var $moveItem = $(this);
+                $moveItem.data('topOffset', $moveItem.position().top);
+            });
+        }
 
         // scroll to the item
         $('html, body').animate(
