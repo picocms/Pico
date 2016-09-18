@@ -400,31 +400,7 @@ $(function() {
     function openDetailView($item, callback) {
         // mark item as active
         $item.addClass('active');
-
         updateUrlHash('entry-' + $item.index());
-
-        // scroll to the item
-        $('html, body').animate(
-            { scrollTop: $item.offset().top - 10 },
-            { duration: scrollSpeed, queue: false }
-        );
-
-        // unique ID of this detail view
-        var processId = (parseInt($container.data('process')) || 0) + 1;
-        $container.data('processId', processId);
-
-        // determine which items must be moved
-        var itemsToMove = [],
-            itemPosition = $item.position().top;
-        $container.find('.item').each(function () {
-            var $checkItem = $(this);
-            if ($checkItem.position().top > itemPosition) {
-                itemsToMove.push($checkItem);
-            }
-        });
-
-        // remember the container's height to calculate the final height with the opened detail view
-        $container.data('height', $container.height());
 
         // append detail view to body
         var $pdv = $(
@@ -447,8 +423,30 @@ $(function() {
             closeDetailView($item);
         });
 
-        // remember what items has been/will be moved
+        // unique ID of this detail view
+        var processId = (parseInt($container.data('process')) || 0) + 1;
+        $container.data('processId', processId);
+
+        // remember the container's height to calculate the final height with the opened detail view
+        $container.data('height', $container.height());
+
+        // determine which items must be moved
+        var itemsToMove = [],
+            itemPosition = $item.position().top;
+        $container.find('.item').each(function () {
+            var $checkItem = $(this);
+            if ($checkItem.position().top > itemPosition) {
+                itemsToMove.push($checkItem);
+            }
+        });
+
         $pdv.data('itemsToMove', itemsToMove);
+
+        // scroll to the item
+        $('html, body').animate(
+            { scrollTop: $item.offset().top - 10 },
+            { duration: scrollSpeed, queue: false }
+        );
 
         // open the detail view
         moveDetailView($item, $pdv);
@@ -496,17 +494,18 @@ $(function() {
     }
 
     function closeDetailView($item, callback) {
+        // unmark active item
         $item.removeClass('active');
         updateUrlHash();
 
         var $pdv = $('body > .portfolio-detail-view');
         if ($pdv.length) {
             var completeCallback = function () {
-                $(this).remove();
-
                 // let isotope recalculate container height
                 // jQuery fucks this up for some reason...
                 $container.isotope('reLayout', function () {
+                    $pdv.remove();
+
                     if (callback) {
                         setTimeout(function () { callback($item); }, 50);
                     }
