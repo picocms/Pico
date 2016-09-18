@@ -310,58 +310,59 @@ $(function() {
     var animationSpeed = 600;
     var scrollSpeed = 600;
 
-    // click on items to open/close them
-    $container.find('.item').click(function(event) {
-        event.preventDefault();
-
-        var $item = $(this);
-        if ($item.hasClass('active')) {
-            // close currently opened item
-            closeDetailView($item);
-        } else {
-            var $pdv = $('body > .portfolio-detail-view');
-            if ($pdv.length) {
-                // there's currently another item opened; close it first
-                closeActiveDetailView(function () {
-                    // open the new item afterwards
-                    openDetailView($item);
-                });
-
-                // a detail view is being closed in this exact moment
-                // ignore the click event
-                return;
-            }
-
-            // open new item
-            openDetailView($item);
-        }
-    });
-
-    // close detail view when applying filters
-    $('.portfolio-wrapper.showcase .filter *[data-filter]').each(function() {
-        var $filter = $(this);
-        $filter.click(function (event) {
+    // wait until isotope is ready to roll...
+    $container.imagesLoaded(function () {
+        // click on items to open/close them
+        $container.find('.item').click(function(event) {
             event.preventDefault();
+
+            var $item = $(this);
+            if ($item.hasClass('active')) {
+                // close currently opened item
+                closeDetailView($item);
+            } else {
+                var $pdv = $('body > .portfolio-detail-view');
+                if ($pdv.length) {
+                    // there's currently another item opened; close it first
+                    closeActiveDetailView(function () {
+                        // open the new item afterwards
+                        openDetailView($item);
+                    });
+
+                    // a detail view is being closed in this exact moment
+                    // ignore the click event
+                    return;
+                }
+
+                // open new item
+                openDetailView($item);
+            }
+        });
+
+        // close detail view when applying filters
+        $('.portfolio-wrapper.showcase .filter *[data-filter]').each(function() {
+            var $filter = $(this);
+            $filter.click(function (event) {
+                event.preventDefault();
+                closeActiveDetailView();
+            });
+        });
+
+        // close detail view when window is resized
+        $(window).resize(function () {
             closeActiveDetailView();
         });
-    });
 
-    // close detail view when window is resized
-    $(window).resize(function () {
-        closeActiveDetailView();
-    });
-
-    // support deeplinking
-    var deeplinkRegex = /^#entry-([0-9]+)$/;
-    var deeplinkMatch = deeplinkRegex.exec(window.location.hash);
-    if (deeplinkMatch) {
-        var $deeplinkItem = $container.find('.item:nth-child(' + (parseInt(deeplinkMatch[1]) + 1) + ')');
-        if ($deeplinkItem.length) {
-            $container.imagesLoaded(function () {
+        // support deeplinking
+        var deeplinkRegex = /^#entry-([0-9]+)$/;
+        var deeplinkMatch = deeplinkRegex.exec(window.location.hash);
+        if (deeplinkMatch) {
+            var $deeplinkItem = $container.find('.item:nth-child(' + (parseInt(deeplinkMatch[1]) + 1) + ')');
+            if ($deeplinkItem.length) {
                 $deeplinkItem.click();
-            });
+            }
         }
-    }
+    });
 
     function updateUrlHash(hash) {
         var scrollTop = $(document).scrollTop();
