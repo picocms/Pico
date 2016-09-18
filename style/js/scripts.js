@@ -474,22 +474,11 @@ $(function() {
         });
 
         // update detail view height after all images have been loaded
-        var $images = $pdcc.find('img'),
-            imagesLoaded = 0,
-            imagesCallback = function () {
-                imagesLoaded++;
-
-                if (imagesLoaded === $images.length) {
-                    if ($item.hasClass('active') && (processId == $container.data('processId'))) {
-                        moveDetailView($item, $pdv);
-                        moveItems($pdv.data('itemsToMove'), $pdcc.outerHeight(true) + pdvMargin);
-                    }
-                }
-            };
-        $images.each(function () {
-            var $image = $(this);
-            $image.load(imagesCallback);
-            $image.attr('src', $image.attr('src'));
+        $pdcc.imagesLoaded(function () {
+            if ($item.hasClass('active') && (processId == $container.data('processId'))) {
+                moveDetailView($item, $pdv);
+                moveItems($pdv.data('itemsToMove'), $pdcc.outerHeight(true) + pdvMargin);
+            }
         });
 
         // fire finish callback
