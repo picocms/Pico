@@ -370,9 +370,8 @@ $(function() {
         $(document).scrollTop(scrollTop);
     }
 
-    function moveDetailView($item) {
-        var $pdv = $('body > .portfolio-detail-view'),
-            $pdcc = $pdv.find('.portfolio-detail-content-container');
+    function moveDetailView($item, $pdv) {
+        var $pdcc = $pdv.find('.portfolio-detail-content-container');
 
         $pdv.css({ top: ($item.offset().top + $item.outerHeight(true)) + 'px' });
 
@@ -383,12 +382,9 @@ $(function() {
         );
     }
 
-    function moveItems(offset) {
-        var $pdv = $('body > .portfolio-detail-view'),
-            $pdcc = $pdv.find('.portfolio-detail-content-container');
-
+    function moveItems(itemsToMove, offset) {
         // move items
-        $.each($pdv.data('itemsToMove'), function () {
+        $.each(itemsToMove, function () {
             var $moveItem = $(this);
             $moveItem.stop(true);
             $moveItem.animate(
@@ -431,7 +427,7 @@ $(function() {
         $container.data('height', $container.height());
 
         // append detail view to body
-        $('body').append(
+        var $pdv = $(
             '<div class="portfolio-detail-view ' + ($item.data('layout') || '') + '">' +
             '<div class="inner">' +
             '<div class="portfolio-detail-content-container">' +
@@ -440,10 +436,9 @@ $(function() {
             '</div>' +
             '<div class="closebutton"><i class="icon-cancel-1"></i></div>' +
             '</div>'
-        );
+        ).appendTo('body');
 
-        var $pdv = $('body > .portfolio-detail-view'),
-            $pdcc = $pdv.find('.portfolio-detail-content-container'),
+        var $pdcc = $pdv.find('.portfolio-detail-content-container'),
             pdvMargin = parseInt($pdv.css('marginTop'), 0) + parseInt($pdv.css('marginBottom'), 0);
 
         // init close button
@@ -456,8 +451,8 @@ $(function() {
         $pdv.data('itemsToMove', itemsToMove);
 
         // open the detail view
-        moveDetailView($item);
-        moveItems($pdcc.outerHeight(true) + pdvMargin);
+        moveDetailView($item, $pdv);
+        moveItems($pdv.data('itemsToMove'), $pdcc.outerHeight(true) + pdvMargin);
 
         // fire item callback
         if ($item.data('callback')) {
@@ -482,8 +477,8 @@ $(function() {
 
                 if (imagesLoaded === $images.length) {
                     if ($item.hasClass('active') && (processId == $container.data('processId'))) {
-                        moveDetailView($item);
-                        moveItems($pdcc.outerHeight(true) + pdvMargin);
+                        moveDetailView($item, $pdv);
+                        moveItems($pdv.data('itemsToMove'), $pdcc.outerHeight(true) + pdvMargin);
                     }
                 }
             };
@@ -518,8 +513,10 @@ $(function() {
                 });
             };
 
-            moveItems(0);
+            // reset item position
+            moveItems($pdv.data('itemsToMove'), 0);
 
+            // close pdv
             $pdv.stop(true);
             $pdv.animate(
                 { height: '0px', opacity: 0 },
@@ -530,7 +527,7 @@ $(function() {
         }
 
         if (callback) {
-            callback($this);
+            callback($item);
         }
     }
 
@@ -538,12 +535,9 @@ $(function() {
         $activeItem = $container.find('.item.active');
         if ($activeItem.length) {
             closeDetailView($activeItem, callback);
-            return;
+            return true;
         }
-
-        if (callback) {
-            callback($this);
-        }
+        return false;
     }
 });
 /*-----------------------------------------------------------------------------------*/
