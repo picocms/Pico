@@ -66,7 +66,7 @@
             {% endcapture %}
 
             {% assign layout = item.layout | default: include.layout | default: page.portfolio.layout | default: "jumbovision" %}
-            <li class="item {{ layout }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ layout }}" ata-callback="callPortfolioScripts();" data-detailcontent='
+            <li class="item {{ layout }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ layout }}" data-detailcontent='
                 {% if layout == "jumbovision" %}
                     <div class="content">
                         {{ itemImage }}

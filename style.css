@@ -1023,6 +1023,7 @@ ul.contact-info li i {
     width: 110%;
     clear: both;
     padding-left: 0;
+    box-sizing: content-box;
 }
 .items li {
     float: left;
