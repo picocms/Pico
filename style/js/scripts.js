@@ -48,7 +48,8 @@ $(document).ready(function () {
     $container.imagesLoaded(function () {
         $container.isotope({
             itemSelector: '.item',
-            layoutMode: 'fitRows'
+            layoutMode: 'fitRows',
+            resizable: false
         });
     });
 
@@ -350,7 +351,7 @@ $(function() {
 
         // close detail view when window is resized, but ignore changes in height
         var windowWidth = $(window).width();
-        $(window).resize(function () {
+        $(window).smartresize(function () {
             var newWindowWidth = $(window).width();
             if (newWindowWidth != windowWidth) {
                 closeActiveDetailView();
