@@ -13,6 +13,7 @@ info:
   Original By: "[FreeHTML5.co](http://freehtml5.co/preview/?item=magazine-free-html5-bootstrap-template)"
   Last Updated: 4/03/16
 ---
+
 Magazine theme from FreeHTML5.co, ported to Pico.
 
 Magazine is a clean and minimal free html5 bootstrap template. Smooth animation upon scrolling and beautiful typography make this template stand out from the rest. This template is perfect for personal blog.

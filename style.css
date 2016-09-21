@@ -1023,6 +1023,7 @@ ul.contact-info li i {
     width: 110%;
     clear: both;
     padding-left: 0;
+    box-sizing: content-box;
 }
 .items li {
     float: left;
@@ -2978,42 +2979,51 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 
 /* Two-Column */
 
-.portfolio-detail-view .content.columns .single,
-.portfolio-detail-view .content.columns .carousel {
-  max-width: 30%;
-  float: left;
-  margin: 0 2em 2em 0;
+.portfolio-detail-view .portfolio-detail-content-container {
+    padding: 3em 0;
+}
+.portfolio-detail-view.card .portfolio-detail-content-container {
+    padding-bottom: 1em;
 }
 
-.portfolio-detail-content-container .content.columns {
-  width:auto;
+.portfolio-detail-view.card .content {
+    width: 100%;
 }
 
-.item-details.columns {
-  float: none;
-  width: auto;
+.portfolio-detail-view.card .content > .image {
+    max-width: 30%;
+    float: left;
+    margin: 0 2em 2em 0;
 }
 
-.item-details.columns h2 {
-  width: 30%;
-	float: left;
+.portfolio-detail-view.card .content > *:last-child {
+    margin-bottom: 2em;
+    padding-bottom: 0;
 }
 
-.item-details.columns ul {
-	width: calc(60% - 100px);
+.portfolio-detail-view.card .item-details {
+    float: none;
+    width: 100%;
 }
 
-.item-details.columns li {
-  margin-right: 5em;
+.portfolio-detail-view.card .item-details h2 {
+    width: 30%;
+    float: left;
+    margin: 0 1.167em 1.167em 0;
 }
 
-.item-details.columns ul,
-.item-details.columns li {
-  display: inline-block;
+.portfolio-detail-view.card .item-details ul {
+    margin-bottom: 2em;
+    padding: 0;
+}
+.portfolio-detail-view.card .item-details li {
+    display: inline-block;
+}
+.portfolio-detail-view.card .item-details li:not(:last-child) {
+    margin-right: 5em;
 }
 
-.item-details.columns a {
-  float: right;
+.portfolio-detail-view.card .item-details .button {
+    float: right;
+    margin: 0 0 1em 2em;
 }
-
-/* {% if columns %}width="50%"{% else %}width="100%"{% endif %} */

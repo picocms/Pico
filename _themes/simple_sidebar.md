@@ -13,4 +13,5 @@ info:
   Last Updated: 2/13/16
 collection: customization
 ---
+
 Simple Sidebar is a theme from Start Bootstrap, ported to Pico.

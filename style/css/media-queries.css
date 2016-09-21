@@ -300,6 +300,17 @@
 	    float: none;
 	    margin-bottom: 20px;
 	}
+	.portfolio-detail-view.card .content > .image.default {
+		display: none;
+	}
+	.portfolio-detail-view.card .content > .image {
+	    max-width: 100%;
+	    float: none;
+	    margin: 0 0 2em 0;
+	}
+	.portfolio-detail-view.card .item-details ul {
+	    clear: both;
+	}
 	.sidebar,
 	.item-details {
 	    width: 440px;
@@ -526,6 +537,17 @@
 	    width: 100%;
 	    float: none;
 	    margin-bottom: 20px;
+	}
+	.portfolio-detail-view.card .content > .image.default {
+		display: none;
+	}
+	.portfolio-detail-view.card .content > .image {
+	    max-width: 100%;
+	    float: none;
+	    margin: 0 0 2em 0;
+	}
+	.portfolio-detail-view.card .item-details ul {
+	    clear: both;
 	}
 	.sidebar,
 	.item-details {

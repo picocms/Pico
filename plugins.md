@@ -8,12 +8,13 @@ description: |
 nav: 5
 
 portfolio:
+  layout: card
   categories:
     admin: Administration
     developer: Developer-Focused
     theming: Theming Extensions
-  button: Download
   defaultThumbnail: plugins/images/thumbnails/plugin.png
+  defaultImage: themes/images/fullsize/default_theme.png
 
 ---
 

@@ -4,8 +4,6 @@ categories:
   - developer
 meta: Take me anywhere
 link: https://github.com/PontusHorn/Pico-Random-Page
-images:
-  - themes/images/fullsize/default_theme.png
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
   Last Updated: 6/20/16

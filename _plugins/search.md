@@ -4,8 +4,6 @@ categories:
   - developer
 meta: Search through your pages
 link: https://github.com/PontusHorn/Pico-Search
-images:
-  - themes/images/fullsize/default_theme.png
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
   Last Updated: 6/21/16
