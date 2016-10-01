@@ -847,8 +847,14 @@ class Pico
             return $this->loadFileContent($contentDir . '404' . $contentExt);
         }
 
-        $errorFile = $contentDir . '404' . $contentExt;
-        throw new RuntimeException('Required "' . $errorFile . '" not found');
+        // fallback to built-in error message
+        $rawErrorContent = "---\n"
+            . "Title: Error 404\n"
+            . "Robots: noindex,nofollow\n"
+            . "---\n\n"
+            . "# Error 404\n\n"
+            . "Woops. Looks like this page doesn't exist.\n";
+        return $rawErrorContent;
     }
 
     /**
