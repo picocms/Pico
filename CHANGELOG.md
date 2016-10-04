@@ -2,7 +2,7 @@ Pico Changelog
 ==============
 
 ### Version 1.0.4
-Released: -
+Released: 2016-10-04
 
 ```
 * [New] Add Pico's social icons to default theme
