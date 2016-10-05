@@ -699,9 +699,7 @@ class Pico
         // use QUERY_STRING; e.g. /pico/?sub/page
         $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
         if (!empty($pathComponent)) {
-            if (($pathComponentLength = strpos($pathComponent, '&')) !== false) {
-                $pathComponent = substr($pathComponent, 0, $pathComponentLength);
-            }
+            $pathComponent = strstr($pathComponent, '&', true) ?: $pathComponent;
             if (strpos($pathComponent, '=') === false) {
                 $this->requestUrl = trim(rawurldecode($pathComponent), '/');
             }
@@ -715,9 +713,7 @@ class Pico
             $requestUri = $_SERVER['REQUEST_URI'];
             if (substr($requestUri, 0, $basePathLength) === $basePath) {
                 $requestUri = substr($requestUri, $basePathLength);
-                if (($requestUriLength = strpos($requestUri, '?')) !== false) {
-                    $requestUri = substr($requestUri, 0, $requestUriLength);
-                }
+                $requestUri = strstr($requestUri, '?', true) ?: $requestUri;
                 $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
             }
         }
