@@ -1130,7 +1130,7 @@ class Pico
 
             $url = $this->getPageUrl($id);
             if ($file !== $this->requestFile) {
-                $rawContent = file_get_contents($file);
+                $rawContent = $this->loadFileContent($file);
 
                 $headers = $this->getMetaHeaders();
                 try {
