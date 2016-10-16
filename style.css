@@ -3027,3 +3027,14 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     float: right;
     margin: 0 0 1em 2em;
 }
+
+/* Definition Lists */
+dt {
+  font-size: 20px;
+	font-weight: bold;
+  margin-bottom: 0.25em;
+}
+
+dd {
+  margin-bottom: 0.75em;
+}
