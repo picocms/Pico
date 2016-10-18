@@ -3030,11 +3030,20 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 
 /* Definition Lists */
 dt {
-  font-size: 20px;
-	font-weight: bold;
-  margin-bottom: 0.25em;
+    width: 140px;
+    margin: 0 20px 10px 0;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+dd {
+    margin: 0 0 20px 160px;
 }
 
-dd {
-  margin-bottom: 0.75em;
+@media only screen and (max-width: 479px) {
+    dt {
+        width: auto;
+        float: none;
+    }
+    dd { margin-left: 0; }
 }
