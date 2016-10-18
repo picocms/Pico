@@ -25,38 +25,69 @@ You can create themes for your Pico installation in the `themes` folder. Check o
 
 All themes must include an `index.twig` (or `index.html`) file to define the HTML structure of the theme. Below are the Twig variables that are available to use in your theme. Please note that paths (e.g. `{% raw %}{{ base_dir }}{% endraw %}`) and URLs (e.g. `{% raw %}{{ base_url }}{% endraw %}`) don't have a trailing slash.
 
-* `{% raw %}{{ config }}{% endraw %}` - Contains the values you set in `config/config.php` (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
-* `{% raw %}{{ base_dir }}{% endraw %}` - The path to your Pico root directory
-* `{% raw %}{{ base_url }}{% endraw %}` - The URL to your Pico site; use Twigs `link` filter to specify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`), this guarantees that your link works whether URL rewriting is enabled or not
-* `{% raw %}{{ theme_dir }}{% endraw %}` - The path to the currently active theme
-* `{% raw %}{{ theme_url }}{% endraw %}` - The URL to the currently active theme
-* `{% raw %}{{ rewrite_url }}{% endraw %}` - A boolean flag indicating enabled/disabled URL rewriting
-* `{% raw %}{{ site_title }}{% endraw %}` - Shortcut to the site title (see `config/config.php`)
-* `{% raw %}{{ meta }}{% endraw %}` - Contains the meta values from the current page
-    * `{% raw %}{{ meta.title }}{% endraw %}`
-    * `{% raw %}{{ meta.description }}{% endraw %}`
-    * `{% raw %}{{ meta.author }}{% endraw %}`
-    * `{% raw %}{{ meta.date }}{% endraw %}`
-    * `{% raw %}{{ meta.date_formatted }}{% endraw %}`
-    * `{% raw %}{{ meta.time }}{% endraw %}`
-    * `{% raw %}{{ meta.robots }}{% endraw %}`
-    * ...
-* `{% raw %}{{ content }}{% endraw %}` - The content of the current page after it has been processed through Markdown)
-* `{% raw %}{{ pages }}{% endraw %}` - A collection of all the content pages in your site
-    * `{% raw %}{{ page.id }}{% endraw %}` - The relative path to the content file (unique ID)
-    * `{% raw %}{{ page.url }}{% endraw %}` - The URL to the page
-    * `{% raw %}{{ page.title }}{% endraw %}` - The title of the page (YAML header)
-    * `{% raw %}{{ page.description }}{% endraw %}` - The description of the page (YAML header)
-    * `{% raw %}{{ page.author }}{% endraw %}` - The author of the page (YAML header)
-    * `{% raw %}{{ page.time }}{% endraw %}` - The timestamp derived from the `Date` header
-    * `{% raw %}{{ page.date }}{% endraw %}` - The date of the page (YAML header)
-    * `{% raw %}{{ page.date_formatted }}{% endraw %}` - The formatted date of the page
-    * `{% raw %}{{ page.raw_content }}{% endraw %}` - The raw, not yet parsed contents of the page; use Twigs `content` filter to get the parsed contents of a page by passing its unique ID (e.g. `{% raw %}{{ "sub/page"|content }}{% endraw %}`)
-    * `{% raw %}{{ page.meta }}{% endraw %}`- The meta values of the page
-* `{% raw %}{{ prev_page }}{% endraw %}` - The data of the previous page (relative to `current_page`)
-* `{% raw %}{{ current_page }}{% endraw %}` - The data of the current page
-* `{% raw %}{{ next_page }}{% endraw %}` - The data of the next page (relative to `current_page`)
-* `{% raw %}{{ is_front_page }}{% endraw %}` - A boolean flag for the front page
+`{% raw %}{{ config }}{% endraw %}`
+: Contains the values you set in `config/config.php` (e.g. `{% raw %}{{ config.theme }}{% endraw %}` becomes `default`)
+
+`{% raw %}{{ base_dir }}{% endraw %}`
+: The path to your Pico root directory
+
+`{% raw %}{{ base_url }}{% endraw %}`
+: The URL to your Pico site; use Twigs `link` filter to specify internal links (e.g. `{% raw %}{{ "sub/page"|link }}{% endraw %}`), this guarantees that your link works whether URL rewriting is enabled or not
+
+`{% raw %}{{ theme_dir }}{% endraw %}`
+: The path to the currently active theme
+
+`{% raw %}{{ theme_url }}{% endraw %}`
+: The URL to the currently active theme
+
+`{% raw %}{{ rewrite_url }}{% endraw %}`
+: A boolean flag indicating enabled/disabled URL rewriting
+
+`{% raw %}{{ site_title }}{% endraw %}`
+: Shortcut to the site title (see `config/config.php`)
+
+`{% raw %}{{ meta }}{% endraw %}`
+
+: Contains the meta values from the current page
+
+  * `{% raw %}{{ meta.title }}{% endraw %}`
+  * `{% raw %}{{ meta.description }}{% endraw %}`
+  * `{% raw %}{{ meta.author }}{% endraw %}`
+  * `{% raw %}{{ meta.date }}{% endraw %}`
+  * `{% raw %}{{ meta.date_formatted }}{% endraw %}`
+  * `{% raw %}{{ meta.time }}{% endraw %}`
+  * `{% raw %}{{ meta.robots }}{% endraw %}`
+  * ...
+
+`{% raw %}{{ content }}{% endraw %}`
+: The content of the current page after it has been processed through Markdown)
+
+`{% raw %}{{ pages }}{% endraw %}`
+
+: A collection of all the content pages in your site
+
+  * `{% raw %}{{ page.id }}{% endraw %}` - The relative path to the content file (unique ID)
+  * `{% raw %}{{ page.url }}{% endraw %}` - The URL to the page
+  * `{% raw %}{{ page.title }}{% endraw %}` - The title of the page (YAML header)
+  * `{% raw %}{{ page.description }}{% endraw %}` - The description of the page (YAML header)
+  * `{% raw %}{{ page.author }}{% endraw %}` - The author of the page (YAML header)
+  * `{% raw %}{{ page.time }}{% endraw %}` - The timestamp derived from the `Date` header
+  * `{% raw %}{{ page.date }}{% endraw %}` - The date of the page (YAML header)
+  * `{% raw %}{{ page.date_formatted }}{% endraw %}` - The formatted date of the page
+  * `{% raw %}{{ page.raw_content }}{% endraw %}` - The raw, not yet parsed contents of the page; use Twigs `content` filter to get the parsed contents of a page by passing its unique ID (e.g. `{% raw %}{{ "sub/page"|content }}{% endraw %}`)
+  * `{% raw %}{{ page.meta }}{% endraw %}` - The meta values of the page
+
+`{% raw %}{{ prev_page }}{% endraw %}`
+: The data of the previous page (relative to `current_page`)
+
+`{% raw %}{{ current_page }}{% endraw %}`
+: The data of the current page
+
+`{% raw %}{{ next_page }}{% endraw %}`
+: The data of the next page (relative to `current_page`)
+
+`{% raw %}{{ is_front_page }}{% endraw %}`
+: A boolean flag for the front page
 
 Pages can be used like the following:
 

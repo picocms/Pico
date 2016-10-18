@@ -2945,3 +2945,15 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 .gallery-carousel-box .category-wrapper .carousel-wrapper .touch-carousel .item-block img {
     height: initial;
 }
+
+/* Definition Lists */
+dt {
+    width: 200px;
+    margin: 0 20px 10px 0;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+dd {
+    margin: 0 0 20px 220px;
+}
