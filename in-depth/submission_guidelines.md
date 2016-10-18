@@ -176,6 +176,6 @@ Either way, if it really existed, this is where I would write some details about
 [Themes]: /themes
 [Plugins]: /plugins
 [gh-pages]: {{ site.gh_project_url }}/tree/gh-pages
-[GettingHelp]: http://picocms.org/docs/#getting-help
+[GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [gh-themes]: {{ site.gh_project_url }}/tree/gh-pages/_themes
 [gh-plugins]: {{ site.gh_project_url }}/tree/gh-pages/_themes

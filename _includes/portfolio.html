@@ -17,7 +17,7 @@
                 <ul class="item-info">
                     {% for info in item.info %}
                         <li>
-                            {% if info[0] != "_blank" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}
+                            {% assign infocheck = info[0] | slice: 0 %}{% if infocheck != "_" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}
                             {{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}
                         </li>
                     {% endfor %}
