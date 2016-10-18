@@ -3,7 +3,7 @@ heading: SimpleTwo
 thumbnail: themes/images/thumbnails/simpletwo.png
 categories:
   - none
-meta: Two column minimalism
+description: Two column minimalism
 link: https://github.com/sonst-was/simpleTwo
 images:
   - themes/images/fullsize/simpletwo.png

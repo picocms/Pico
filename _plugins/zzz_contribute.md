@@ -5,7 +5,7 @@ images:
   - plugins/images/thumbnails/contribute.png
 categories:
   - none
-meta: Share your own plugin.
+description: Share your own plugin.
 link: https://picocms.org/in-depth/submission_guidelines/
 button: Learn More
 info:

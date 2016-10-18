@@ -3,7 +3,7 @@ heading: NotePaper
 thumbnail: themes/images/thumbnails/notepaper.jpg
 categories:
   - blog
-meta: Dark wood grain, lined paper, and sticky note widgets.
+description: Dark wood grain, lined paper, and sticky note widgets.
 link: http://development.sjmcdougall.com/pico-themes/NotePaper/
 images:
   - themes/images/fullsize/notepaper.jpg

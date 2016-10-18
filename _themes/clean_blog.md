@@ -3,7 +3,7 @@ heading: Clean Blog
 thumbnail: themes/images/thumbnails/clean_blog.jpg
 categories:
   - blog
-meta: A stylish blog, ready to go
+description: A stylish blog, ready to go
 link: https://github.com/BesrourMS/clean-blog
 images:
   - themes/images/fullsize/clean_blog.jpg

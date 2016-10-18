@@ -93,7 +93,7 @@
                 <a href="#">
                     <div class="overlay">
                         <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
-                        {% if item.meta %}<span class="meta">{{ item.meta }}</span>{% endif %}
+                        {% if item.description %}<span class="meta">{{ item.description }}</span>{% endif %}
                     </div>
                     <img src="{{ site.github.url }}/{{ item.thumbnail | default: page.portfolio.defaultThumbnail | default: "style/images/defaultThumbnail.png" }}" alt="" />
                 </a>

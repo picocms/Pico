@@ -2,7 +2,7 @@
 heading: Pagination
 categories:
   - theming
-meta: For those with too many pages
+description: For those with too many pages
 link: https://github.com/rewdy/Pico-Pagination
 info:
   By: "[rewdy](https://github.com/rewdy)"

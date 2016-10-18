@@ -3,7 +3,7 @@ heading: Simple Sidebar
 thumbnail: themes/images/thumbnails/simple_sidebar.png
 categories:
   - none
-meta: Off-canvas sidebar navigation
+description: Off-canvas sidebar navigation
 link: https://github.com/dmelo/bt-theme
 images:
   - themes/images/fullsize/simple_sidebar.png

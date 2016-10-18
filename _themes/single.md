@@ -3,7 +3,7 @@ heading: Single
 thumbnail: themes/images/thumbnails/single.jpg
 categories:
   - portfolio
-meta: A single page that makes a statement
+description: A single page that makes a statement
 link: https://github.com/BesrourMS/single
 images:
   - themes/images/fullsize/single.jpg

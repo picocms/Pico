@@ -2,7 +2,7 @@
 heading: GAnalytics
 categories:
   - utility
-meta: They're tracking you anyway...
+description: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics
 info:
   By: "[bricebou](https://github.com/bricebou)"

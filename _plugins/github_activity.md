@@ -2,7 +2,7 @@
 heading: GitHub Activity
 categories:
   - utility
-meta: Have you been active lately?
+description: Have you been active lately?
 link: https://github.com/theshka/pico_githubactivity
 info:
   By: "[theshka](https://github.com/theshka)"
