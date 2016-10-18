@@ -2,7 +2,7 @@
 heading: Simple Sidebar
 thumbnail: themes/images/thumbnails/simple_sidebar.png
 categories:
-  - multi-page
+  - none
 meta: Off-canvas sidebar navigation
 link: https://github.com/dmelo/bt-theme
 images:

@@ -11,7 +11,7 @@ portfolio:
   layout: card
   categories:
     admin: Administration
-    developer: Developer-Focused
+    utility: Utility
     theming: Theming Extensions
   defaultThumbnail: plugins/images/thumbnails/plugin.png
   defaultImage: themes/images/fullsize/default_theme.png

@@ -1,7 +1,7 @@
 ---
 heading: GitHub Activity
 categories:
-  - developer
+  - utility
 meta: Have you been active lately?
 link: https://github.com/theshka/pico_githubactivity
 info:

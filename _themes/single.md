@@ -2,8 +2,7 @@
 heading: Single
 thumbnail: themes/images/thumbnails/single.jpg
 categories:
-  - single-page
-  - personal
+  - portfolio
 meta: A single page that makes a statement
 link: https://github.com/BesrourMS/single
 images:

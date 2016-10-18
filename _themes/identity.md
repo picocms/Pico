@@ -3,7 +3,7 @@ heading: Identity
 thumbnail: themes/images/thumbnails/identity.jpg
 categories:
   - single-page
-  - personal
+  - portfolio
 meta: Your Personal "Business Card"
 link: https://github.com/BesrourMS/single
 images:

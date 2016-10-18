@@ -1,7 +1,7 @@
 ---
 heading: GAnalytics
 categories:
-  - developer
+  - utility
 meta: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics
 info:

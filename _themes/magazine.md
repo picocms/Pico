@@ -2,7 +2,6 @@
 heading: Magazine
 thumbnail: themes/images/thumbnails/magazine.jpg
 categories:
-  - multi-page
   - blog
 meta: Clean, animated, and elegant.
 link: https://github.com/BesrourMS/magazine

@@ -2,7 +2,6 @@
 heading: Just Pico
 thumbnail: themes/images/thumbnails/just_pico.png
 categories:
-  - multi-page
   - blog
 meta: And some PureCSS
 link: https://github.com/blocknotes/just-pico

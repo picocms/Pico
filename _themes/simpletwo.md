@@ -2,7 +2,7 @@
 heading: SimpleTwo
 thumbnail: themes/images/thumbnails/simpletwo.png
 categories:
-  - multi-page
+  - none
 meta: Two column minimalism
 link: https://github.com/sonst-was/simpleTwo
 images:

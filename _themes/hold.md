@@ -2,8 +2,7 @@
 heading: Hold
 thumbnail: themes/images/thumbnails/hold.jpg
 categories:
-  - multi-page
-  - personal
+  - portfolio
 meta: Showcase your portfolio
 link: https://github.com/BesrourMS/magazine
 images:

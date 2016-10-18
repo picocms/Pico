@@ -1,7 +1,7 @@
 ---
 heading: Random Page
 categories:
-  - developer
+  - utility
 meta: Take me anywhere
 link: https://github.com/PontusHorn/Pico-Random-Page
 info:

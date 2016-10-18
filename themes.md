@@ -10,8 +10,7 @@ nav: 4
 portfolio:
   categories:
     single-page: Single Page
-    multi-page: Multiple Pages
-    personal: Personal Website
+    portfolio: Portfolio
     blog: Blog-Style
 
 ---
