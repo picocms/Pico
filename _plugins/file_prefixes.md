@@ -2,7 +2,7 @@
 heading: File Prefixes
 categories:
   - admin
-description: Drop file prefixes from page URLs
+description: Drop file prefixes from page URLs.
 link: https://github.com/PhrozenByte/pico-file-prefixes
 info:
   By: "[PhrozenByte](https://github.com/PhrozenByte/pico-file-prefixes)"

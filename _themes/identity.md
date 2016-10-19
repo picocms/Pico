@@ -4,7 +4,7 @@ thumbnail: themes/images/thumbnails/identity.jpg
 categories:
   - single-page
   - portfolio
-description: Your Personal "Business Card"
+description: Your Personal "Business Card".
 link: https://github.com/BesrourMS/single
 images:
   - themes/images/fullsize/identity.jpg

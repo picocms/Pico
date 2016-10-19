@@ -3,7 +3,7 @@ heading: Hold
 thumbnail: themes/images/thumbnails/hold.jpg
 categories:
   - portfolio
-description: Showcase your portfolio
+description: Showcase your portfolio.
 link: https://github.com/BesrourMS/magazine
 images:
   - themes/images/fullsize/hold.jpg

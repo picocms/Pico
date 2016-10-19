@@ -3,7 +3,7 @@ heading: Edit
 thumbnail: plugins/images/thumbnails/edit.png
 categories:
   - admin
-description: Edit your pages online
+description: Edit your pages online.
 link: https://github.com/blocknotes/pico_edit
 images:
   - plugins/images/fullsize/edit.png

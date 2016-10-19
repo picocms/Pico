@@ -2,7 +2,7 @@
 heading: Search
 categories:
   - utility
-description: Search through your pages
+description: Search through your pages.
 link: https://github.com/PontusHorn/Pico-Search
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"

@@ -2,7 +2,7 @@
 heading: Tags
 categories:
   - theming
-description: Filter your posts by category
+description: Filter your posts by category.
 link: https://github.com/PontusHorn/Pico-Tags
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"

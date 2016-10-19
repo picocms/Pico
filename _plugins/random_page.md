@@ -2,7 +2,7 @@
 heading: Random Page
 categories:
   - utility
-description: Take me anywhere
+description: Take me anywhere.
 link: https://github.com/PontusHorn/Pico-Random-Page
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
