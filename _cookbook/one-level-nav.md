@@ -1,6 +1,6 @@
 ---
 title: One-level navigation
-description: How to show only pages on the first level on the navigation?
+description: How to show only pages of the first level (i.e. `page.md` and `sub/index.md`, not `sub/page.md`) on the navigation?
 ---
 
 <h5>Template snippet</h5>

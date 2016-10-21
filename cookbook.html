@@ -12,7 +12,7 @@ redirect_from: /cookbook.html
         <div class="togglebox">
             <div>
                 {% if item.description %}
-                    <p>{{ item.description }}</p>
+                    <p>{{ item.description | markdownify | remove: "<p>" | remove: "</p>" }}</p>
                 {% endif %}
 
                 {{ item.output }}
