@@ -98,10 +98,15 @@ redirect_from:
 </div>
 <div class="clear"></div>
 
-<div class="one-third last">
+<div class="one-third">
     <h3>Clean Blog</h3>
     <p>A clean, Bootstrap blog theme for Pico CMS</p>
     <p><a href="https://github.com/BesrourMS/clean-blog" class="button" target="_blank">Download</a></p>
+</div>
+<div class="one-third last">
+    <h3>Launch</h3>
+    <p>Coming Soon Theme For Pico CMS</p>
+    <p><a href="https://github.com/BesrourMS/launch" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
