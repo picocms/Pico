@@ -66,7 +66,7 @@
             {% endcapture %}
 
             {% assign view = item.view | default: include.view | default: page.portfolio.view | default: "jumbovision" %}
-            <li class="item {{ view }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ view }}" data-detailcontent='
+            {% capture item %}
                 {% if view == "jumbovision" %}
                     <div class="content">
                         {{ itemImage }}
@@ -89,7 +89,10 @@
                     </div>
                 {% endif %}
                 <div class="clear"></div>
-            '>
+            {% endcapture %}
+
+            {% capture itemClassNames %}item {{ view }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% endcapture %}
+            <li class="{{ itemClassNames }}" data-layout="{{ view }}" data-detailcontent="{{ item | xml_escape }}">
                 <a href="#">
                     <div class="overlay">
                         <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>
