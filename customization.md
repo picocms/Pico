@@ -21,12 +21,12 @@ redirect_from:
 </div>
 <div class="one-third">
     <h3>Pico edit</h3>
-    <p>An admin interface for Pico CMS.</p>
+    <p>An admin interface for Pico.</p>
     <p><a href="https://github.com/blocknotes/pico_edit" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Pico GAnalytics</h3>
-    <p>Gooogle Analytics for Pico with basic options. </p>
+    <p>Gooogle Analytics for Pico with basic options.</p>
     <p><a href="https://github.com/bricebou/pico_ganalytics" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
@@ -43,7 +43,7 @@ redirect_from:
 </div>
 <div class="one-third last">
     <h3>Pico GitHub Activity</h3>
-    <p>Your GitHub public activity feed.</p>
+    <p>Your public GitHub activity feed.</p>
     <p><a href="https://github.com/theshka/pico_githubactivity" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
@@ -71,41 +71,41 @@ redirect_from:
 </div>
 <div class="one-third">
     <h3>Single</h3>
-    <p>Pico CMS theme for personal sites</p>
+    <p>Pico theme for personal sites.</p>
     <p><a href="https://github.com/BesrourMS/single" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Magazine</h3>
-    <p>Blogging Theme for Pico CMS </p>
+    <p>Blogging theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/magazine" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
 <div class="one-third">
     <h3>Identity</h3>
-    <p>Personal "business card" style site</p>
+    <p>Personal "Business Card" style site.</p>
     <p><a href="https://github.com/BesrourMS/Identity" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third">
     <h3>Hold</h3>
-    <p>Personal Profile Theme for Pico CMS</p>
+    <p>Personal Profile theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/hold" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Personal</h3>
-    <p>Free Pico CMS theme that is good for resume and vcard websites.</p>
+    <p>Free Pico theme that is good for resume and VCard websites.</p>
     <p><a href="https://github.com/BesrourMS/personal" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
 <div class="one-third">
     <h3>Clean Blog</h3>
-    <p>A clean, Bootstrap blog theme for Pico CMS</p>
+    <p>A clean, Bootstrap blog theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/clean-blog" class="button" target="_blank">Download</a></p>
 </div>
 <div class="one-third last">
     <h3>Launch</h3>
-    <p>Coming Soon Theme For Pico CMS</p>
+    <p>A "Coming Soon" theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/launch" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
