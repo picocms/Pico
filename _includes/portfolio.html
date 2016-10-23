@@ -65,9 +65,9 @@
                 {% endif %}
             {% endcapture %}
 
-            {% assign layout = item.layout | default: include.layout | default: page.portfolio.layout | default: "jumbovision" %}
-            <li class="item {{ layout }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ layout }}" data-detailcontent='
-                {% if layout == "jumbovision" %}
+            {% assign view = item.view | default: include.view | default: page.portfolio.view | default: "jumbovision" %}
+            <li class="item {{ view }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}" data-layout="{{ view }}" data-detailcontent='
+                {% if view == "jumbovision" %}
                     <div class="content">
                         {{ itemImage }}
                     </div>

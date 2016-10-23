@@ -1,6 +1,6 @@
 ---
 heading: Contribute
-layout: card
+view: card
 thumbnail: plugins/images/thumbnails/contribute.png
 images:
   - plugins/images/fullsize/contribute.png
