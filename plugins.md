@@ -8,7 +8,7 @@ description: |
 nav: 5
 
 portfolio:
-  layout: card
+  view: card
   categories:
     admin: Administration
     utility: Utility
