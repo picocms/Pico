@@ -22,7 +22,7 @@
 
         {% if gallery.style == "overlay" %}
             <a href="{{ site.github.url }}{{ image.fullsize }}" class="fancybox-media" data-title-id="title-{{ title_num }}" rel="{{ include.gallery }}">
-                <div class="overlay" style="display: none;">
+                <div class="overlay">
                     <h3>{{ image.heading | markdownify | remove: '<p>' | remove: '</p>' }}</h3>
                     <span class="meta">{{ image.description | markdownify | remove: '<p>' | remove: '</p>' }}</span>
                 </div>

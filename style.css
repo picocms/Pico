@@ -2923,12 +2923,14 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
 }
 
 /* Transitions */
-.items li a .overlay {
+.items li a .overlay,
+.fancybox a .overlay {
     transition: opacity 200ms linear 0s;
 }
 
 .items li:hover a .overlay,
-.items li.active a .overlay {
+.items li.active a .overlay,
+.fancybox:hover a .overlay {
     opacity: 1;
     transition: opacity 300ms linear 0s;
 }
