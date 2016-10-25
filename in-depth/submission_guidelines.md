@@ -114,7 +114,11 @@ Description
 
 Link
 
-: The URL of the "download" link, at the bottom of your description.
+: The URL of the "Learn More" link, at the bottom of your description.
+
+Button
+
+: Specify custom text for the "Learn More" button.  This is an optional value, not included in the example below.  We don't recommended changing this text, so be ready to convince us as to why you feel the change is necessary.
 
 Images
 
