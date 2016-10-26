@@ -19,3 +19,34 @@
     width: 100%;
     float: none;
 }
+.top-wrapper header {
+    background-color: #2eae9b;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100, FinishOpacity=0, style=1, StartX=15, FinishX=45);
+}
+/*-----------------------------------------------------------------------------------*/
+/*	Portfolio
+/*-----------------------------------------------------------------------------------*/
+.items li a .overlay,
+.fancybox .overlay  {
+    background-color: #2eae9b;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+.items li:hover a .overlay,
+.items li.active a .overlay,
+.fancybox:hover a .overlay {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=92);
+}
+.items li.defaultThumbnail a .overlay {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=92);
+}
+.items li.defaultThumbnail:hover a .overlay,
+.items li.defaultThumbnail.active a .overlay  {
+    background-color: #2eae9b;
+}
+.items li.defaultThumbnail a img {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+}
+.items li.defaultThumbnail:hover a img
+.items li.defaultThumbnail.active a img {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
