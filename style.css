@@ -2966,17 +2966,14 @@ h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     transition: color 200ms linear 0s;
 }
 
-/* Temporary? */
 .items li.defaultThumbnail a img {
-    filter: saturate(50%);
     opacity: .4;
-    transition: filter 200ms linear 0s, opacity 200ms linear 0s;
+    transition: opacity 200ms linear 0s;
 }
 .items li.defaultThumbnail:hover a img
 .items li.defaultThumbnail.active a img {
-    filter: none;
     opacity: 1;
-    transition: filter 300ms linear 0s, opacity 300ms linear 0s;
+    transition: opacity 300ms linear 0s;
 }
 
 /* Two-Column */
