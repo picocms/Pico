@@ -336,13 +336,6 @@ dt {
 dd {
     margin: 0 0 20px 160px;
 }
-@media only screen and (max-width: 479px) {
-    dt {
-        width: auto;
-        float: none;
-    }
-    dd { margin-left: 0; }
-}
 .menu ul li:before,
 .contact-info li:before,
 .touchcarousel .touchcarousel-item:before,

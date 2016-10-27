@@ -2,7 +2,7 @@
 /*	MEDIA QUERIES
 /*-----------------------------------------------------------------------------------*/
 /* iPad Landscape */
-@media only screen and (min-width: 768px) and (max-width: 1200px) {  
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
 	.inner {
 	    width: 960px
 	}
@@ -49,12 +49,12 @@
 		width: 100%;
 	}
 	.box-layout .portfolio-detail-view,
-	.box-layout .portfolio-detail-view-remove	{	
+	.box-layout .portfolio-detail-view-remove	{
 		width:100%;
 	}
 }
 /* Tablet Portrait size to standard 960 (devices and browsers) */
-@media only screen and (min-width: 768px) and (max-width: 959px) { 
+@media only screen and (min-width: 768px) and (max-width: 959px) {
 	.inner {
 	    width: 720px
 	}
@@ -172,12 +172,12 @@
 		width: 100%;
 	}
 	.box-layout .portfolio-detail-view,
-	.box-layout .portfolio-detail-view-remove	{	
+	.box-layout .portfolio-detail-view-remove	{
 		width:100%;
 	}
 } /* END Smaller than standard 960 (devices and browsers) */
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
-@media only screen and (min-width: 480px) and (max-width: 767px) { 
+@media only screen and (min-width: 480px) and (max-width: 767px) {
 	.inner {
 	    width: 440px
 	}
@@ -407,7 +407,7 @@
 		width: 100%;
 	}
 	.box-layout .portfolio-detail-view,
-	.box-layout .portfolio-detail-view-remove	{	
+	.box-layout .portfolio-detail-view-remove	{
 		width:100%;
 	}
 	.resp-navigator {
@@ -415,7 +415,7 @@
 	}
 } /* END Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) { 
+@media only screen and (max-width: 479px) {
 	.inner {
 	    width: 280px
 	}
@@ -662,10 +662,15 @@
 		width: 100%;
 	}
 	.box-layout .portfolio-detail-view,
-	.box-layout .portfolio-detail-view-remove	{	
+	.box-layout .portfolio-detail-view-remove	{
 		width:100%;
 	}
 	.resp-navigator {
 	    display: block
 	}
+  dt {
+      width: auto;
+      float: none;
+  }
+  dd { margin-left: 0; }
 } /* END Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
