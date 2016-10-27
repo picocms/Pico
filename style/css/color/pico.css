@@ -150,7 +150,9 @@ ul.contact-info li i {
 }
 .fancybox .overlay,
 .overlay a .more,
-.items li a .overlay {
+.items li a .overlay,
+.items li.defaultThumbnail:hover a .overlay,
+.items li.defaultThumbnail.active a .overlay {
     background-color: rgba(46,174,155, 0.92);
 }
 .item-info li a:hover {
