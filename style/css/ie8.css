@@ -1,3 +1,6 @@
+body {
+    min-width: 1110px;
+}
 .forms fieldset .text-input,
 .forms fieldset .text-area,
 .searchform input,
@@ -26,6 +29,9 @@
 /*-----------------------------------------------------------------------------------*/
 /*	Portfolio
 /*-----------------------------------------------------------------------------------*/
+.portfolio-detail-view {
+    min-width: 1110px;
+}
 .items li a .overlay,
 .fancybox .overlay  {
     background-color: #2eae9b;
