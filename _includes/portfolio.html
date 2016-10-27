@@ -42,7 +42,7 @@
                                 <div class="{% if forloop.first %}active {% endif %}item">
                             {% endif %}
 
-                            <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}">
+                            <img alt="" src="{{ site.github.url }}/{{ image }}" />
                             <a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ itemIndex }}">
                                 <span class="link"></span>
                             </a>
@@ -60,7 +60,7 @@
                     </div>
                 {% elsif page.portfolio.defaultImage %}
                     <div class="image default">
-                        <img alt="" width="100%" src="{{ site.github.url }}/{{ page.portfolio.defaultImage }}">
+                        <img alt="" src="{{ site.github.url }}/{{ page.portfolio.defaultImage }}" />
                     </div>
                 {% endif %}
             {% endcapture %}
