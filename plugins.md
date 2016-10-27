@@ -14,8 +14,7 @@ portfolio:
     utility: Utility
     theming: Theming Extensions
   defaultThumbnail: plugins/images/thumbnails/plugin.png
-  defaultImage: themes/images/fullsize/default_theme.png
-
+  defaultImage: plugins/images/fullsize/plugin.svg
 ---
 
 {% include portfolio.html portfolio=site.plugins %}

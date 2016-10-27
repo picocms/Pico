@@ -56,3 +56,6 @@ body {
 .items li.defaultThumbnail.active a img {
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 }
+.portfolio-detail-view.card .content > .image.default {
+    display: none;
+}
