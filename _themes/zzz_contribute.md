@@ -13,12 +13,12 @@ info:
   _info: Learn how to contribute your own theme.
 ---
 
-The themes shown here are only a smaller selection of those available.  You can find more themes on [our Wiki][].
+Have you made your own theme and you'd like to see it featured here?  You're in luck!  We're always interested in new submissions.
 
-You can even [contribute][] your own theme to the community and we'll feature it here.  While you can freely add your theme to [our Wiki][], if you'd also like to be included on this page, you can follow the simple instructions in our [Submission Guidelines][].
+Our entire website is featured on [GitHub][gh-pages].  Submitting a new item for this gallery is as easy as creating a [Pull Request][].  Head over to our [Submission Guidelines][], where you can learn more about how to structure and format your submission.
 
-We appreciate any and all contributions, whether you've created something original or ported an existing HTML theme (license permitting), we'd love to see it!
+We appreciate any and all contributions, whether you've created something original or ported an existing HTML theme (license permitting), we'd love to see it!  And most importantly, thank you for your interest in Pico!  We're a small project, and we couldn't get by without the support of our Community.
 
-[contribute]: {{ site.github.url }}/docs/#contribute
-[our wiki]: {{ site.gh_project_url }}/wiki/Pico-Themes
+[gh-pages]: {{ site.gh_project_url }}/tree/gh-pages
+[Pull Request]: {{ site.gh_project_url }}/compare
 [Submission Guidelines]: {{ site.github.url }}/in-depth/submission_guidelines
