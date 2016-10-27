@@ -92,7 +92,7 @@
             {% endcapture %}
 
             {% capture itemClassNames %}item {{ view }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% endcapture %}
-            <li class="{{ itemClassNames }}" data-layout="{{ view }}" data-detailcontent="{{ itemData | xml_escape }}">
+            <li class="{{ itemClassNames }}" data-layout="{{ view }}" data-path="{{ item.relative_path }}" data-detailcontent="{{ itemData | xml_escape }}">
                 <a href="#">
                     <div class="overlay">
                         <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>

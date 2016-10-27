@@ -322,31 +322,41 @@ $(function() {
 
     // wait until isotope is ready to roll...
     $container.imagesLoaded(function () {
-        // click on items to open/close them
-        $container.find('.item').click(function(event) {
-            event.preventDefault();
-
+        $container.find('.item').each(function() {
             var $item = $(this);
-            if ($item.hasClass('active')) {
-                // close currently opened item
-                closeDetailView($item);
-            } else {
-                var $pdv = $('body > .portfolio-detail-view');
-                if ($pdv.length) {
-                    // there's currently another item opened; close it first
-                    closeActiveDetailView(function () {
-                        // open the new item afterwards
-                        openDetailView($item);
-                    });
 
-                    // a detail view is being closed in this exact moment
-                    // ignore the click event
-                    return;
+            // prepare deeplinking
+            var itemName = $item.data('path');
+            itemName = itemName.substring(itemName.lastIndexOf('/') + 1, itemName.lastIndexOf('.'));
+            itemName = itemName.replace(/[^a-zA-Z0-9_.-]/g, '_');
+            $item.attr('data-name', itemName);
+
+            // click on items to open/close them
+            $item.click(function(event) {
+                event.preventDefault();
+
+                var $item = $(this);
+                if ($item.hasClass('active')) {
+                    // close currently opened item
+                    closeDetailView($item);
+                } else {
+                    var $pdv = $('body > .portfolio-detail-view');
+                    if ($pdv.length) {
+                        // there's currently another item opened; close it first
+                        closeActiveDetailView(function () {
+                            // open the new item afterwards
+                            openDetailView($item);
+                        });
+
+                        // a detail view is being closed in this exact moment
+                        // ignore the click event
+                        return;
+                    }
+
+                    // open new item
+                    openDetailView($item);
                 }
-
-                // open new item
-                openDetailView($item);
-            }
+            });
         });
 
         // close detail view when applying filters
@@ -372,10 +382,10 @@ $(function() {
         });
 
         // support deeplinking
-        var deeplinkRegex = /^#entry-([0-9]+)$/;
+        var deeplinkRegex = /^#entry-([a-zA-Z0-9_.-]+)$/;
         var deeplinkMatch = deeplinkRegex.exec(window.location.hash);
         if (deeplinkMatch) {
-            var $deeplinkItem = $container.find('.item:nth-child(' + (parseInt(deeplinkMatch[1]) + 1) + ')');
+            var $deeplinkItem = $container.find('.item[data-name="' + deeplinkMatch[1] + '"]');
             if ($deeplinkItem.length) {
                 $deeplinkItem.click();
             }
@@ -426,7 +436,7 @@ $(function() {
     function openDetailView($item, callback) {
         // mark item as active
         $item.addClass('active');
-        updateUrlHash('entry-' + $item.index());
+        updateUrlHash('entry-' + $item.data('name'));
 
         // append detail view to body
         var $pdv = $(
