@@ -10,3 +10,7 @@ info:
 ---
 
 Allows you to create a very basic search form that searches through titles and content of your pages. The search results page filters the `pages` array to only contain pages matching the search terms.
+
+You can optionally scope the search to only get results from within a certain folder. For example, on the page `yoursite.com/blog/search/foobar`, the pages array will only contain results from pages in the blog folder.
+
+Search results can be paginated using a plugin such as [Pico-Pagination](https://github.com/rewdy/Pico-Pagination).
