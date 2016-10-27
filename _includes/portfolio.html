@@ -42,7 +42,7 @@
                                 <div class="{% if forloop.first %}active {% endif %}item">
                             {% endif %}
 
-                            <img alt="" width="100%" src="{{ site.github.url }}/{{ image }}">
+                            <img alt="" src="{{ site.github.url }}/{{ image }}" />
                             <a href="{{ site.github.url }}/{{ image }}" class="fancybox-media" rel="item-{{ itemIndex }}">
                                 <span class="link"></span>
                             </a>
@@ -60,7 +60,7 @@
                     </div>
                 {% elsif page.portfolio.defaultImage %}
                     <div class="image default">
-                        <img alt="" width="100%" src="{{ site.github.url }}/{{ page.portfolio.defaultImage }}">
+                        <img alt="" src="{{ site.github.url }}/{{ page.portfolio.defaultImage }}" />
                     </div>
                 {% endif %}
             {% endcapture %}
@@ -92,7 +92,7 @@
             {% endcapture %}
 
             {% capture itemClassNames %}item {{ view }} {{ item.categories|join: ' ' }}{% unless item.thumbnail %} defaultThumbnail{% endunless %}{% endcapture %}
-            <li class="{{ itemClassNames }}" data-layout="{{ view }}" data-detailcontent="{{ itemData | xml_escape }}">
+            <li class="{{ itemClassNames }}" data-layout="{{ view }}" data-path="{{ item.relative_path }}" data-detailcontent="{{ itemData | xml_escape }}">
                 <a href="#">
                     <div class="overlay">
                         <h3>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h3>

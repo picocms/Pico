@@ -1,3 +1,6 @@
+body {
+    min-width: 1110px;
+}
 .forms fieldset .text-input,
 .forms fieldset .text-area,
 .searchform input,
@@ -19,13 +22,16 @@
     width: 100%;
     float: none;
 }
-.top-wrapper header {
-    background-color: #2eae9b;
-    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100, FinishOpacity=0, style=1, StartX=15, FinishX=45);
-}
+.top-wrapper { background-color: #2eae9b; }
+.top-wrapper > * { background-color: #2a2a2a; }
+.top-wrapper > header { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0, FinishOpacity=100, style=1, StartX=15, FinishX=45); }
+.top-wrapper > header > .inner { position: relative; }
 /*-----------------------------------------------------------------------------------*/
 /*	Portfolio
 /*-----------------------------------------------------------------------------------*/
+.portfolio-detail-view {
+    min-width: 1110px;
+}
 .items li a .overlay,
 .fancybox .overlay  {
     background-color: #2eae9b;
