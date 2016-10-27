@@ -382,15 +382,24 @@ $(function() {
         });
 
         // support deeplinking
+        evaluateUrlHash();
+    });
+
+    // open detail view when URL hash changes
+    $(window).on('hashchange', function () {
+        evaluateUrlHash();
+    });
+
+    function evaluateUrlHash() {
         var deeplinkRegex = /^#entry-([a-zA-Z0-9_.-]+)$/;
         var deeplinkMatch = deeplinkRegex.exec(window.location.hash);
         if (deeplinkMatch) {
             var $deeplinkItem = $container.find('.item[data-name="' + deeplinkMatch[1] + '"]');
-            if ($deeplinkItem.length) {
+            if ($deeplinkItem.length && !$deeplinkItem.is('.active')) {
                 $deeplinkItem.click();
             }
         }
-    });
+    }
 
     function updateUrlHash(hash) {
         var scrollTop = $(document).scrollTop();
