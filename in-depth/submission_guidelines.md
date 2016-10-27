@@ -11,6 +11,7 @@ toc:
   screenshot-specifics: Screenshot Specifics
   metadata-breakdown: Metadata Breakdown
   markdownyaml-template: Markdown/YAML Template
+  getting-started: Getting Started
 nav-url: /docs/
 ---
 
@@ -171,15 +172,59 @@ Either way, if it really existed, this is where I would write some details about
 
 ## Getting Started
 
-* This section will contain links to:
-* Info on how to fork and edit on github
-* Info on making a pull Request
-* Probably shy away from any actual `git` content.  Presumably, knowing how to use GitHub will suffice for this process.
+So you've read all of our Guidelines and you're ready to make your submission.  What now?
 
-[Pull Request]: {{ site.gh_project_url }}/pull/new/gh-pages
+### Fork
+
+Well, you can start by creating a [Fork][] of our Git Repository on GitHub.  To do this, visit our [GitHub Page][] and click the "<svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>Fork" Button in the top right.
+
+You will of course need to have a GitHub account to do this.
+
+### Clone
+
+Next you need to [Clone][] your new Repository down to your local machine.  From the command line, this would be:
+
+`git clone https://github.com/YOUR USER NAME/Pico.git`
+
+### Checkout
+
+From there, you want to Checkout the `gh-pages` branch, where our website is stored.
+
+`git checkout gh-pages`
+
+### Make Changes
+
+Now, create your submission using the information we provided above.  Remember, Themes go in `_themes`, while Plugins go in `_plugins`.
+
+### Commit
+
+Once you're done, you can Commit your changes to your local Git Repository using the following command.  Remember to replace `YOUR SUBMISSION NAME` with the actual name of your submission.
+
+`git commit -am "Submission: YOUR SUBMISSION NAME"`
+
+### Push
+
+Finally, Push your Commit back up to your GitHub account with:
+
+`git push`
+
+### Pull Request
+
+Back on GitHub you'll need to create a [Pull Request][].  In the top left of your Repo, you'll want to click `Branch: master` and change it to say `Branch: gh-pages`.
+
+Then, click `New Pull Request`.
+
+Give your PR a name and a brief description and click `Create Pull Request`.
+
+We'll take it from there.  Be sure to check back and see if we have feedback or changes to request.
+
+[GitHub Page]: {{ site.gh_project_url }}
 [Themes]: /themes
 [Plugins]: /plugins
 [gh-pages]: {{ site.gh_project_url }}/tree/gh-pages
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [gh-themes]: {{ site.gh_project_url }}/tree/gh-pages/_themes
 [gh-plugins]: {{ site.gh_project_url }}/tree/gh-pages/_themes
+[Fork]: https://help.github.com/articles/fork-a-repo/
+[Clone]: https://help.github.com/articles/cloning-a-repository/
+[Pull Request]: https://help.github.com/articles/creating-a-pull-request/
