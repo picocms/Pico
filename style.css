@@ -326,6 +326,23 @@ ul li:before {
 ul li ul {
     padding: 0 0 0 1.5em;
 }
+dt {
+    width: 140px;
+    margin: 0 20px 10px 0;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+dd {
+    margin: 0 0 20px 160px;
+}
+@media only screen and (max-width: 479px) {
+    dt {
+        width: auto;
+        float: none;
+    }
+    dd { margin-left: 0; }
+}
 .menu ul li:before,
 .contact-info li:before,
 .touchcarousel .touchcarousel-item:before,
@@ -1045,7 +1062,7 @@ ul.contact-info li i {
     display: inline-block;
 }
 .items li a .overlay,
-.fancybox .overlay  {
+.fancybox a .overlay  {
     opacity: 0;
     height: 100%;
     position: absolute;
@@ -1054,6 +1071,47 @@ ul.contact-info li i {
     z-index: 100;
     background-color: rgba(255,103,96, 0.92);
     padding: 20px;
+    transition: opacity 200ms linear 0s;
+}
+.items li:hover a .overlay,
+.items li.active a .overlay,
+.fancybox:hover a .overlay {
+    opacity: 1;
+    transition: opacity 300ms linear 0s;
+}
+.items li.defaultThumbnail a .overlay {
+    opacity: 1;
+    background-color: transparent;
+    transition: background-color 200ms linear 0s;
+}
+.items li.defaultThumbnail:hover a .overlay,
+.items li.defaultThumbnail.active a .overlay {
+    background-color: rgba(255,103,96, 0.92);
+    transition: background-color 300ms linear 0s;
+}
+.items li.defaultThumbnail a .overlay h3 {
+    color: #616161;
+    transition: color 200ms linear 0s;
+}
+.items li.defaultThumbnail:hover a .overlay h3,
+.items li.defaultThumbnail.active a .overlay h3,
+.items li.defaultThumbnail:hover a .overlay span.meta,
+.items li.defaultThumbnail.active a .overlay span.meta {
+    color: white;
+    transition: color 300ms linear 0s;
+}
+.items li.defaultThumbnail a .overlay span.meta {
+    color: #616161;
+    transition: color 200ms linear 0s;
+}
+.items li.defaultThumbnail a img {
+    opacity: .4;
+    transition: opacity 200ms linear 0s;
+}
+.items li.defaultThumbnail:hover a img
+.items li.defaultThumbnail.active a img {
+    opacity: 1;
+    transition: opacity 300ms linear 0s;
 }
 .items li a .overlay h3,
 .fancybox .overlay h3 {
@@ -1155,6 +1213,47 @@ ul.contact-info li i {
 }
 .portfolio-content .item {
     margin-bottom: 60px
+}
+.portfolio-detail-view .portfolio-detail-content-container {
+    padding: 3em 0;
+}
+.portfolio-detail-view.card .portfolio-detail-content-container {
+    padding-bottom: 1em;
+}
+.portfolio-detail-view.card .content {
+    width: 100%;
+}
+.portfolio-detail-view.card .content > .image {
+    max-width: 30%;
+    float: left;
+    margin: 0 2em 2em 0;
+}
+.portfolio-detail-view.card .content > *:last-child {
+    margin-bottom: 2em;
+    padding-bottom: 0;
+}
+.portfolio-detail-view.card .item-details {
+    float: none;
+    width: 100%;
+}
+.portfolio-detail-view.card .item-details h2 {
+    width: 30%;
+    float: left;
+    margin: 0 1.167em 1.167em 0;
+}
+.portfolio-detail-view.card .item-details ul {
+    margin-bottom: 2em;
+    padding: 0;
+}
+.portfolio-detail-view.card .item-details li {
+    display: inline-block;
+}
+.portfolio-detail-view.card .item-details li:not(:last-child) {
+    margin-right: 5em;
+}
+.portfolio-detail-view.card .item-details .button {
+    float: right;
+    margin: 0 0 1em 2em;
 }
 /*-----------------------------------------------------------------------------------*/
 /*	PORTFOLIO NAVIGATION
@@ -2920,129 +3019,4 @@ h1:hover .learn-more, h2:hover .learn-more, h3:hover .learn-more,
 h4:hover .learn-more, h5:hover .learn-more, h6:hover .learn-more {
     color: #ff6760;
     font-size: 75%;
-}
-
-/* Transitions */
-.items li a .overlay,
-.fancybox a .overlay {
-    transition: opacity 200ms linear 0s;
-}
-
-.items li:hover a .overlay,
-.items li.active a .overlay,
-.fancybox:hover a .overlay {
-    opacity: 1;
-    transition: opacity 300ms linear 0s;
-}
-
-/* defaultThumbnail */
-.items li.defaultThumbnail a .overlay {
-    opacity: 1;
-    background-color: transparent;
-    transition: background-color 200ms linear 0s;
-}
-
-.items li.defaultThumbnail:hover a .overlay,
-.items li.defaultThumbnail.active a .overlay {
-    background-color: rgba(255,103,96, 0.92);
-    transition: background-color 300ms linear 0s;
-}
-
-.items li.defaultThumbnail a .overlay h3 {
-    color: #616161;
-    transition: color 200ms linear 0s;
-}
-
-.items li.defaultThumbnail:hover a .overlay h3,
-.items li.defaultThumbnail.active a .overlay h3,
-.items li.defaultThumbnail:hover a .overlay span.meta,
-.items li.defaultThumbnail.active a .overlay span.meta {
-    color: white;
-    transition: color 300ms linear 0s;
-}
-
-.items li.defaultThumbnail a .overlay span.meta {
-    color: #616161;
-    transition: color 200ms linear 0s;
-}
-
-.items li.defaultThumbnail a img {
-    opacity: .4;
-    transition: opacity 200ms linear 0s;
-}
-.items li.defaultThumbnail:hover a img
-.items li.defaultThumbnail.active a img {
-    opacity: 1;
-    transition: opacity 300ms linear 0s;
-}
-
-/* Two-Column */
-
-.portfolio-detail-view .portfolio-detail-content-container {
-    padding: 3em 0;
-}
-.portfolio-detail-view.card .portfolio-detail-content-container {
-    padding-bottom: 1em;
-}
-
-.portfolio-detail-view.card .content {
-    width: 100%;
-}
-
-.portfolio-detail-view.card .content > .image {
-    max-width: 30%;
-    float: left;
-    margin: 0 2em 2em 0;
-}
-
-.portfolio-detail-view.card .content > *:last-child {
-    margin-bottom: 2em;
-    padding-bottom: 0;
-}
-
-.portfolio-detail-view.card .item-details {
-    float: none;
-    width: 100%;
-}
-
-.portfolio-detail-view.card .item-details h2 {
-    width: 30%;
-    float: left;
-    margin: 0 1.167em 1.167em 0;
-}
-
-.portfolio-detail-view.card .item-details ul {
-    margin-bottom: 2em;
-    padding: 0;
-}
-.portfolio-detail-view.card .item-details li {
-    display: inline-block;
-}
-.portfolio-detail-view.card .item-details li:not(:last-child) {
-    margin-right: 5em;
-}
-
-.portfolio-detail-view.card .item-details .button {
-    float: right;
-    margin: 0 0 1em 2em;
-}
-
-/* Definition Lists */
-dt {
-    width: 140px;
-    margin: 0 20px 10px 0;
-    float: left;
-    font-size: 16px;
-    font-weight: bold;
-}
-dd {
-    margin: 0 0 20px 160px;
-}
-
-@media only screen and (max-width: 479px) {
-    dt {
-        width: auto;
-        float: none;
-    }
-    dd { margin-left: 0; }
 }
