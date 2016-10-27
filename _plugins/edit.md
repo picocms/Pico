@@ -12,9 +12,7 @@ info:
   Last Updated: 5/25/16
 ---
 
-A simple admin for Pico with pages/404/options editor.
-
-Pico Edit provides a back-end interface to edit Pico pages. Additionally, it has the ability to perform some basic Git operations such as commit, push/pull etc.
+A simple admin for Pico with pages/404/options editor.  Pico Edit provides a back-end interface to edit Pico pages. Additionally, it has the ability to perform some basic Git operations such as commit, push/pull etc.
 
 **Features**
 

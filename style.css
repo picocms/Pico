@@ -311,7 +311,7 @@ ol li {
     margin: 0 0 0 -1em;
 }
 ul li:before {
-    position: absolute;
+    float: left;
     display: block;
     width: 1em;
     margin-left: -1em;
