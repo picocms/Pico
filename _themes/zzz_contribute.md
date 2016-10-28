@@ -1,9 +1,9 @@
 ---
 heading: Contribute
 view: card
-thumbnail: plugins/images/thumbnails/contribute.png
+thumbnail: themes/images/thumbnails/contribute.png
 images:
-  - plugins/images/fullsize/contribute.png
+  - themes/images/fullsize/contribute.png
 categories:
   - none
 description: Share your own theme.
