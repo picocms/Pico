@@ -103,10 +103,15 @@ redirect_from:
     <p>A clean, Bootstrap blog theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/clean-blog" class="button" target="_blank">Download</a></p>
 </div>
-<div class="one-third last">
+<div class="one-third">
     <h3>Launch</h3>
     <p>A "Coming Soon" theme for Pico.</p>
     <p><a href="https://github.com/BesrourMS/launch" class="button" target="_blank">Download</a></p>
+</div>
+<div class="one-third last">
+    <h3>Story</h3>
+    <p>A simple & clean, Bootstrap blog theme for Pico</p>
+    <p><a href="https://github.com/BesrourMS/story" class="button" target="_blank">Download</a></p>
 </div>
 <div class="clear"></div>
 
