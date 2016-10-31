@@ -174,49 +174,57 @@ Either way, if it really existed, this is where I would write some details about
 
 So you've read all of our Guidelines and you're ready to make your submission.  What now?
 
-### Fork
+For those unfamiliar, there are many ways to interact with Git and GitHub.  For simplicity, we'll be covering the command line version of Git, but there are many graphical Git clients as well.  For those on Mac and Windows, you can check out [GitHub Desktop][], GitHub's official Git client.
 
-Well, you can start by creating a [Fork][] of our Git Repository on GitHub.  To do this, visit our [GitHub Page][] and click the "<svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>Fork" Button in the top right.
+If you're new to Open Source, or haven't contributed to a project before, we'd also recommend checking out GitHub's [Contributing to Open Source on GitHub][Contributing Guide] Guide.
 
-You will of course need to have a GitHub account to do this.
+Finally, GitHub also provides an excellent overview of the process we're about to embark on.  Check out their guide on [Forking Projects][] to learn all you'll need to know.
 
-### Clone
+Don't forget, we're here to help!  See our [Getting Help][] section for assistance, and don't be afraid to contact us.
 
-Next you need to [Clone][] your new Repository down to your local machine.  From the command line, this would be:
+1. **Fork**
 
-`git clone https://github.com/YOUR USER NAME/Pico.git`
+    Ready to go?  You can start by creating a [Fork][] of our Git Repository on GitHub.  To do this, visit our [GitHub Page][] and click the "<svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>Fork" Button in the top right.
 
-### Checkout
+    You will of course need to have a GitHub account to do this.
 
-From there, you want to Checkout the `gh-pages` branch, where our website is stored.
+2. **Clone**
 
-`git checkout gh-pages`
+    Next you need to [Clone][] your new Repository down to your local machine.  From the command line, this would be:
 
-### Make Changes
+    `git clone https://github.com/YOUR USER NAME/Pico.git`
 
-Now, create your submission using the information we provided above.  Remember, Themes go in `_themes`, while Plugins go in `_plugins`.
+3. **Checkout**
 
-### Commit
+    From there, you want to Checkout the `gh-pages` branch, where our website is stored.
 
-Once you're done, you can Commit your changes to your local Git Repository using the following command.  Remember to replace `YOUR SUBMISSION NAME` with the actual name of your submission.
+      `git checkout gh-pages`
 
-`git commit -am "Submission: YOUR SUBMISSION NAME"`
+4. **Make Changes**
 
-### Push
+    Now, create your submission using the information we provided above.  Remember, Themes go in `_themes`, while Plugins go in `_plugins`.
 
-Finally, Push your Commit back up to your GitHub account with:
+5. **Commit**
 
-`git push`
+    Once you're done, you can Commit your changes to your local Git Repository using the following command.  Remember to replace `YOUR SUBMISSION NAME` with the actual name of your submission.
 
-### Pull Request
+    `git commit -am "Submission: YOUR SUBMISSION NAME"`
 
-Back on GitHub you'll need to create a [Pull Request][].  In the top left of your Repo, you'll want to click `Branch: master` and change it to say `Branch: gh-pages`.
+6. **Push**
 
-Then, click `New Pull Request`.
+    Finally, Push your Commit back up to your GitHub account with:
 
-Give your PR a name and a brief description and click `Create Pull Request`.
+    `git push`
 
-We'll take it from there.  Be sure to check back and see if we have feedback or changes to request.
+7. **Pull Request**
+
+    Back on GitHub you'll need to create a [Pull Request][].  In the top left of your Repo, you'll want to click `Branch: master` and change it to say `Branch: gh-pages`.
+
+    Then, click `New Pull Request`.
+
+    Give your PR a name and a brief description and click `Create Pull Request`.
+
+    We'll take it from there.  Be sure to check back and see if we have feedback or changes to request.
 
 [GitHub Page]: {{ site.gh_project_url }}
 [Themes]: /themes
@@ -225,6 +233,10 @@ We'll take it from there.  Be sure to check back and see if we have feedback or 
 [GettingHelp]: {{ site.github.url }}/docs/#getting-help
 [gh-themes]: {{ site.gh_project_url }}/tree/gh-pages/_themes
 [gh-plugins]: {{ site.gh_project_url }}/tree/gh-pages/_themes
+[GitHub Desktop]: https://desktop.github.com/
+[Contributing Guide]: https://guides.github.com/activities/contributing-to-open-source/
+[Forking Projects]: https://guides.github.com/activities/forking/
+[Getting Help]: {{ site.github.url }}/docs/#getting-help
 [Fork]: https://help.github.com/articles/fork-a-repo/
 [Clone]: https://help.github.com/articles/cloning-a-repository/
 [Pull Request]: https://help.github.com/articles/creating-a-pull-request/
