@@ -182,43 +182,29 @@ Finally, GitHub also provides an excellent overview of the process we're about t
 
 Don't forget, we're here to help!  See our [Getting Help][] section for assistance, and don't be afraid to contact us.
 
-1. **Fork**
-
-    Ready to go?  You can start by creating a [Fork][] of our Git Repository on GitHub.  To do this, visit our [GitHub Page][] and click the "<svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>Fork" Button in the top right.
+1. **Fork** - Ready to go?  You can start by creating a [Fork][] of our Git Repository on GitHub.  To do this, visit our [GitHub Page][] and click the "<svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg> Fork" Button in the top right.
 
     You will of course need to have a GitHub account to do this.
 
-2. **Clone**
-
-    Next you need to [Clone][] your new Repository down to your local machine.  From the command line, this would be:
+2. **Clone** - Next you need to [Clone][] your new Repository down to your local machine.  From the command line, this would be:
 
     `git clone https://github.com/YOUR USER NAME/Pico.git`
 
-3. **Checkout**
-
-    From there, you want to Checkout the `gh-pages` branch, where our website is stored.
+3. **Checkout** - From there, you want to Checkout the `gh-pages` branch, where our website is stored.
 
       `git checkout gh-pages`
 
-4. **Make Changes**
+4. **Make Changes** - Now, create your submission using the information we provided above.  Remember, Themes go in `_themes`, while Plugins go in `_plugins`.
 
-    Now, create your submission using the information we provided above.  Remember, Themes go in `_themes`, while Plugins go in `_plugins`.
-
-5. **Commit**
-
-    Once you're done, you can Commit your changes to your local Git Repository using the following command.  Remember to replace `YOUR SUBMISSION NAME` with the actual name of your submission.
+5. **Commit** - Once you're done, you can Commit your changes to your local Git Repository using the following command.  Remember to replace `YOUR SUBMISSION NAME` with the actual name of your submission.
 
     `git commit -am "Submission: YOUR SUBMISSION NAME"`
 
-6. **Push**
-
-    Finally, Push your Commit back up to your GitHub account with:
+6. **Push** - Finally, Push your Commit back up to your GitHub account with:
 
     `git push`
 
-7. **Pull Request**
-
-    Back on GitHub you'll need to create a [Pull Request][].  In the top left of your Repo, you'll want to click `Branch: master` and change it to say `Branch: gh-pages`.
+7. **Pull Request** - Back on GitHub you'll need to create a [Pull Request][].  In the top left of your Repo, you'll want to click `Branch: master` and change it to say `Branch: gh-pages`.
 
     Then, click `New Pull Request`.
 
