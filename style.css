@@ -1251,6 +1251,9 @@ ul.contact-info li i {
 .portfolio-detail-view.card .content > .image.default {
     background-color: #2f2f2f;
 }
+.portfolio-detail-view.card .content > .image > img {
+    width: 100%;
+}
 /*-----------------------------------------------------------------------------------*/
 /*	PORTFOLIO NAVIGATION
 /*-----------------------------------------------------------------------------------*/
