@@ -6,6 +6,7 @@ description: Take me anywhere.
 link: https://github.com/PontusHorn/Pico-Random-Page
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
+  License: "[The MIT License](https://github.com/PontusHorn/Pico-Random-Page/blob/master/LICENSE)"
   Last Updated: 2016-06-20
 ---
 

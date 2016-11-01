@@ -6,6 +6,7 @@ description: They're tracking you anyway...
 link: https://github.com/bricebou/pico_ganalytics
 info:
   By: "[bricebou](https://github.com/bricebou)"
+  License: "[The MIT License](https://github.com/bricebou/pico_ganalytics/blob/master/MIT%20License)"
   Last Updated: 2016-05-29
 ---
 

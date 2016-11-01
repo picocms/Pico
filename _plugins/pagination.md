@@ -6,6 +6,7 @@ description: For those with too many pages.
 link: https://github.com/rewdy/Pico-Pagination
 info:
   By: "[rewdy](https://github.com/rewdy)"
+  License: "[The MIT License](http://opensource.org/licenses/MIT)"
   Last Updated: 2016-01-31
 ---
 

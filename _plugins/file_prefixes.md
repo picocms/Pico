@@ -6,6 +6,7 @@ description: Drop file prefixes from page URLs.
 link: https://github.com/PhrozenByte/pico-file-prefixes
 info:
   By: "[PhrozenByte](https://github.com/PhrozenByte/)"
+  License: "[The MIT License](https://github.com/PhrozenByte/pico-file-prefixes/blob/master/LICENSE)"
   Last Updated: 2016-07-07
 ---
 

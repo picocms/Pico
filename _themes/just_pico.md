@@ -9,6 +9,7 @@ images:
   - themes/images/fullsize/just_pico.png
 info:
   By: "[Blocknotes](https://github.com/blocknotes)"
+  License: "[The MIT License](https://github.com/blocknotes/just-pico/blob/master/LICENSE)"
   Last Updated: 2016-06-12
 ---
 

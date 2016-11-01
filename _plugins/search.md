@@ -6,6 +6,7 @@ description: Search through your pages.
 link: https://github.com/PontusHorn/Pico-Search
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
+  License: "[The MIT License](https://github.com/PontusHorn/Pico-Search/blob/master/LICENSE)"
   Last Updated: 2016-06-21
 ---
 

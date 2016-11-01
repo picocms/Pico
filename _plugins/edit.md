@@ -9,6 +9,7 @@ images:
   - plugins/images/fullsize/edit.png
 info:
   By: "[blocknotes](https://github.com/blocknotes)"
+  License: "[The MIT License](https://github.com/blocknotes/pico_edit/blob/master/LICENSE.txt)"
   Last Updated: 2016-05-25
 ---
 

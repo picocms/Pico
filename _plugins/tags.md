@@ -6,6 +6,7 @@ description: Filter your posts by category.
 link: https://github.com/PontusHorn/Pico-Tags
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
+  License: "[The MIT License](https://github.com/PontusHorn/Pico-Tags/blob/master/LICENSE)"
   Last Updated: 2016-06-07
 ---
 

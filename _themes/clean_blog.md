@@ -10,6 +10,7 @@ images:
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/clean-blog/)"
+  License: "[The MIT License](https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/master/LICENSE)"
   Last Updated: 2016-06-13
 ---
 
