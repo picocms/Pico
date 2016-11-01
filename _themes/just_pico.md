@@ -9,7 +9,7 @@ images:
   - themes/images/fullsize/just_pico.png
 info:
   By: "[Blocknotes](https://github.com/blocknotes)"
-  Last Updated: 6/12/16
+  Last Updated: 2016-06-12
 ---
 
 A simple Pico CMS theme made with PureCSS.

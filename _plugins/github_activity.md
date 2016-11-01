@@ -6,7 +6,7 @@ description: Have you been active lately?
 link: https://github.com/theshka/pico_githubactivity
 info:
   By: "[theshka](https://github.com/theshka)"
-  Last Updated: 10/08/15
+  Last Updated: 2015-10-08
 ---
 
 Your GitHub public activity feed.

@@ -11,7 +11,7 @@ images:
   - themes/images/fullsize/notepaper_sidebar.jpg
 info:
   By: "[Simon McDougall](http://sjmcdougall.com)"
-  Last Updated: 5/01/16
+  Last Updated: 2016-05-01
 ---
 
 A highly customizable theme, designed exclusively for Pico.

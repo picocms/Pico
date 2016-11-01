@@ -10,7 +10,7 @@ images:
 info:
   Ported By: "[dmelo](https://github.com/dmelo)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/simple-sidebar/)"
-  Last Updated: 2/13/16
+  Last Updated: 2016-02-13
 collection: customization
 ---
 

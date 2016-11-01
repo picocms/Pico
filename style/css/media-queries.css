@@ -668,9 +668,9 @@
 	.resp-navigator {
 	    display: block
 	}
-  dt {
-      width: auto;
-      float: none;
-  }
-  dd { margin-left: 0; }
+	dt {
+	    width: auto;
+	    float: none;
+	}
+	dd { margin-left: 0; }
 } /* END Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */

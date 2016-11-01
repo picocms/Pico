@@ -10,9 +10,9 @@ images:
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/clean-blog/)"
-  Last Updated: 6/13/16
+  Last Updated: 2016-06-13
 ---
 
-Clean Blog theme from FreeHTML5.co, ported to Pico.
+Clean Blog theme from Start Bootstrap, ported to Pico.
 
 Clean blog is a carefully styled Bootstrap blog theme that is perfect for personal or company blogs. This theme features four HTML pages including a blog index, an about page, a sample post, and a contact page.

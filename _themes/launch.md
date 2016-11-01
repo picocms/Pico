@@ -10,7 +10,7 @@ images:
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](https://freehtml5.co/preview/?item=launch-free-html5-bootstrap-template-for-coming-soon-page)"
-  Last Updated: 10/23/16
+  Last Updated: 2016-10-23
 ---
 
 Launch theme from FreeHTML5.co, ported to Pico.

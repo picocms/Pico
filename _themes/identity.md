@@ -11,7 +11,7 @@ images:
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[html5up.net](https://html5up.net/identity)"
-  Last Updated: 4/04/16
+  Last Updated: 2016-04-04
 ---
 
 Identity theme from HTML5 UP, ported to Pico.

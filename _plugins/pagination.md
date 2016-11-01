@@ -6,7 +6,7 @@ description: For those with too many pages.
 link: https://github.com/rewdy/Pico-Pagination
 info:
   By: "[rewdy](https://github.com/rewdy)"
-  Last Updated: 1/31/16
+  Last Updated: 2016-01-31
 ---
 
 Provides basic pagination support for Pico.  It divides up your `pages` array into a new `paged_pages` variable that allows you to limit the number of pages displayed.
