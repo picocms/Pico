@@ -7,10 +7,11 @@ description: |
   We've written some guidelines here to walk you through the process.
 toc:
   as-easy-as-making-a-pull-request: As Easy as Making a Pull Request
-  the-file-layout: The File Layout
-  screenshot-specifics: Screenshot Specifics
-  metadata-breakdown: Metadata Breakdown
-  template: Template
+  the-file-layout:
+    _title: The File Layout
+    screenshot-specifics: Screenshot Specifics
+    metadata-breakdown: Metadata Breakdown
+    template: Template
   getting-started: Getting Started
 nav-url: /docs/
 ---
@@ -62,7 +63,7 @@ Here's an example of how we keep these files organized:
     └── theme_2.md
 ```
 
-## Screenshot Specifics
+### Screenshot Specifics
 
 Each section, [themes][EditThemes] and [plugins][EditPlugins], has an `images` folder.  `images` is further separated into `fullsize` and `thumbnails` folders.  It's pretty self explanatory that fullsize and thumbnail images should go in their respective folders.
 
@@ -81,7 +82,7 @@ To cut a long story short, your screenshots should match the following specifica
 * Fullsize screenshots: 1440x900 px or larger
 * Thumbnails: 270x220 px
 
-## Metadata Breakdown
+### Metadata Breakdown
 
 Heading
 
@@ -139,7 +140,7 @@ Content
 
 : Finally, your main content should go after the YAML Frontmatter, in the Markdown body.  This content can be as long as you'd like, but keep in mind that, for themes, the content area is very narrow (it's roughly 40 characters wide).  Plugins are given a much larger space for their content.
 
-## Template
+### Template
 
 The following code block is a template for your submission's `.md` file.  Copy and paste this section into your document and edit it to create your submission.
 
