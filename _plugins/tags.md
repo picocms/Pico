@@ -6,7 +6,8 @@ description: Filter your posts by category.
 link: https://github.com/PontusHorn/Pico-Tags
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
-  Last Updated: 6/07/16
+  License: "[The MIT License](https://github.com/PontusHorn/Pico-Tags/blob/master/LICENSE)"
+  Last Updated: 2016-06-07
 ---
 
 Provides tags functionality for Pico.

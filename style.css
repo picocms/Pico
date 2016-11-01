@@ -327,14 +327,14 @@ ul li ul {
     padding: 0 0 0 1.5em;
 }
 dt {
-    width: 140px;
+    width: 120px;
     margin: 0 20px 10px 0;
     float: left;
     font-size: 16px;
     font-weight: bold;
 }
 dd {
-    margin: 0 0 20px 160px;
+    margin: 0 0 20px 140px;
 }
 .menu ul li:before,
 .contact-info li:before,

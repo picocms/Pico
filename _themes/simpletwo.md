@@ -9,7 +9,8 @@ images:
   - themes/images/fullsize/simpletwo.png
 info:
   By: "[sonst-was](https://github.com/sonst-was)"
-  Last Updated: 4/05/16
+  License: "[The MIT License](https://github.com/sonst-was/simpleTwo/blob/master/LICENSE)"
+  Last Updated: 2016-04-05
 ---
 
-SimpleTwo is a simple theme with two columns for picoCMS.
+SimpleTwo is a simple theme with two columns for Pico.

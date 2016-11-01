@@ -14,14 +14,16 @@
                 <h2>{{ item.heading | markdownify | remove: "<p>" | remove: "</p>" }}</h2>
             {% endcapture %}
             {% capture itemInfo %}
-                <ul class="item-info">
-                    {% for info in item.info %}
-                        <li>
-                            {% assign infocheck = info[0] | slice: 0 %}{% if infocheck != "_" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}
-                            {{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if item.info %}
+                    <ul class="item-info">
+                        {% for info in item.info %}
+                            <li>
+                                {% assign infocheck = info[0] | slice: 0 %}{% if infocheck != "_" %}<span class="lite1">{{ info[0] | markdownify | remove: "<p>" | remove: "</p>" | rstrip }}:</span> {% endif %}
+                                {{ info[1] | markdownify | remove: "<p>" | remove: "</p>" }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             {% endcapture %}
             {% capture itemButton %}
                 <a href="{{ item.link }}" class="button" target="_blank">

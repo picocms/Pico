@@ -9,7 +9,8 @@ images:
   - themes/images/fullsize/just_pico.png
 info:
   By: "[Blocknotes](https://github.com/blocknotes)"
-  Last Updated: 6/12/16
+  License: "[The MIT License](https://github.com/blocknotes/just-pico/blob/master/LICENSE)"
+  Last Updated: 2016-06-12
 ---
 
 A simple Pico CMS theme made with PureCSS.

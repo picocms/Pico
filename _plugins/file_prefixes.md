@@ -6,7 +6,8 @@ description: Drop file prefixes from page URLs.
 link: https://github.com/PhrozenByte/pico-file-prefixes
 info:
   By: "[PhrozenByte](https://github.com/PhrozenByte/)"
-  Last Updated: 7/07/16
+  License: "[The MIT License](https://github.com/PhrozenByte/pico-file-prefixes/blob/master/LICENSE)"
+  Last Updated: 2016-07-07
 ---
 
 `PicoFilePrefixes` removes file prefixes (e.g. date identifiers) from page URLs.

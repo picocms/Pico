@@ -10,9 +10,10 @@ images:
 info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](https://freehtml5.co/preview/?item=story-free-html5-bootstrap-template-for-personal-blog-websites)"
-  Last Updated: 10/31/16
+  License: "[Creative Commons Attribution 3.0](http://creativecommons.org/licenses/by/3.0/)"
+  Last Updated: 2016-10-31
 ---
 
 Story theme from FreeHTML5.co, ported to Pico.
 
-Story is a simple and clean free html5 bootstrap template specifically for personal blog websites. Built with the latest web development technology such as HTML5, CSS3, jQuery and Sass.
+Story is a simple and clean free HTML5 Bootstrap template specifically for personal blog websites. Built with the latest web development technology such as HTML5, CSS3 and jQuery.

@@ -84,6 +84,6 @@ You're a plugin developer? We love you guys! You can find tons of information ab
 [WikiThemes]: {{ site.gh_project_url }}/wiki/Pico-Themes
 [WikiPlugins]: {{ site.gh_project_url }}/wiki/Pico-Plugins
 [OfficialPlugins]: {{ site.github.url }}/plugins/
-[OfficialThemes]: {{ site.github.url }}/Themes/
+[OfficialThemes]: {{ site.github.url }}/themes/
 [PluginDocs]: {{ site.github.url }}/development/
 [PluginUpgrade]: {{ site.github.url }}/development/#upgrade
