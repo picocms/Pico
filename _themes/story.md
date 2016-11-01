@@ -11,7 +11,6 @@ info:
   Ported By: "[BesrourMS](https://github.com/BesrourMS)"
   Original By: "[FreeHTML5.co](https://freehtml5.co/preview/?item=story-free-html5-bootstrap-template-for-personal-blog-websites)"
   License: "[Creative Commons Attribution 3.0](http://creativecommons.org/licenses/by/3.0/)"
-  Last Updated: 2016-10-31
 ---
 
 Story theme from FreeHTML5.co, ported to Pico.

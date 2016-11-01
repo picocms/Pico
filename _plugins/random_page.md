@@ -7,7 +7,6 @@ link: https://github.com/PontusHorn/Pico-Random-Page
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
   License: "[The MIT License](https://github.com/PontusHorn/Pico-Random-Page/blob/master/LICENSE)"
-  Last Updated: 2016-06-20
 ---
 
 This simple plugin allows you to open a random page from your Pico site by using a special, customizable link such as `yoursite.com/random`.

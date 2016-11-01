@@ -7,7 +7,6 @@ link: https://github.com/theshka/pico_githubactivity
 info:
   By: "[theshka](https://github.com/theshka)"
   License: "[The MIT License](https://github.com/theshka/pico_githubactivity/blob/master/LICENSE.md)"
-  Last Updated: 2015-10-08
 ---
 
 Your GitHub public activity feed.

@@ -12,7 +12,6 @@ images:
 info:
   By: "[Simon McDougall](http://sjmcdougall.com)"
   License: "[GNU General Public License 3.0](https://github.com/smcdougall/NotePaper/blob/master/LICENSE.md)"
-  Last Updated: 2016-05-01
 ---
 
 A highly customizable theme, designed exclusively for Pico.

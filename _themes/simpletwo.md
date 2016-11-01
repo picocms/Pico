@@ -10,7 +10,6 @@ images:
 info:
   By: "[sonst-was](https://github.com/sonst-was)"
   License: "[The MIT License](https://github.com/sonst-was/simpleTwo/blob/master/LICENSE)"
-  Last Updated: 2016-04-05
 ---
 
 SimpleTwo is a simple theme with two columns for Pico.

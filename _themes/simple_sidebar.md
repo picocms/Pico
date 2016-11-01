@@ -11,7 +11,6 @@ info:
   Ported By: "[dmelo](https://github.com/dmelo)"
   Original By: "[Start Bootstrap](http://startbootstrap.com/template-overviews/simple-sidebar/)"
   License: "[The MIT License](https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/blob/master/LICENSE)"
-  Last Updated: 2016-02-13
 ---
 
 Simple Sidebar is a theme from Start Bootstrap, ported to Pico.

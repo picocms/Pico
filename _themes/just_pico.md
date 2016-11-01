@@ -10,7 +10,6 @@ images:
 info:
   By: "[Blocknotes](https://github.com/blocknotes)"
   License: "[The MIT License](https://github.com/blocknotes/just-pico/blob/master/LICENSE)"
-  Last Updated: 2016-06-12
 ---
 
 A simple Pico CMS theme made with PureCSS.

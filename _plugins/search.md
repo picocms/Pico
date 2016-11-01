@@ -7,7 +7,6 @@ link: https://github.com/PontusHorn/Pico-Search
 info:
   By: "[PontusHorn](https://github.com/PontusHorn)"
   License: "[The MIT License](https://github.com/PontusHorn/Pico-Search/blob/master/LICENSE)"
-  Last Updated: 2016-06-21
 ---
 
 Allows you to create a very basic search form that searches through titles and content of your pages. The search results page filters the `pages` array to only contain pages matching the search terms.
