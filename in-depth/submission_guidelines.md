@@ -75,7 +75,7 @@ For thumbnail images, you should use a resolution of 270x220 px.  The thumbnails
 
 Fullsize image resolution isn't as strict.  These images will be proportionally scaled to the right size.  We do however recommend a resolution of at least 1440x900 px, as these images can be viewed fullscreen by clicking on their magnifying glass icon.
 
-To cut a long story short, your screenshots should match the following specifications:
+Your screenshots should match the following specifications:
 
 * All images should match the filename of your `.md`
 * Choose an optimal format, usually `.png` or `.jpg`
