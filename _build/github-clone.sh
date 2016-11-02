@@ -23,11 +23,7 @@ printf 'CLONE_REPO_BRANCH="%s"\n' "$CLONE_REPO_BRANCH"
 echo
 
 # clone repo
-git clone "$CLONE_REPO_URL" "$CLONE_TARGET_DIR"
-
-# checkout branch
-if [ -n "$CLONE_REPO_BRANCH" ]; then
-    git checkout "$CLONE_REPO_BRANCH"
-fi
+[ -n "$CLONE_REPO_BRANCH" ] || CLONE_REPO_BRANCH="master"
+git clone --branch="$CLONE_REPO_BRANCH" "$CLONE_REPO_URL" "$CLONE_TARGET_DIR"
 
 echo
