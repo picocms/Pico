@@ -18,9 +18,12 @@ fi
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
+[ -n "$DEPLOY_REPO_SLUG" ] || export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
+[ -n "$DEPLOY_REPO_BRANCH" ] || export DEPLOY_REPO_BRANCH="gh-pages"
+
 # clone repo
 echo "Cloning repo..."
-git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$DEPLOYMENT_DIR"
+git clone --branch="$DEPLOY_REPO_BRANCH" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOYMENT_DIR"
 [ $? -eq 0 ] || exit 1
 
 cd "$DEPLOYMENT_DIR"
