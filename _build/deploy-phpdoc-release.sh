@@ -16,16 +16,18 @@ fi
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
+[ -n "$DEPLOY_REPO_SLUG" ] || export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
+[ -n "$DEPLOY_REPO_BRANCH" ] || export DEPLOY_REPO_BRANCH="gh-pages"
+
 # clone repo
-echo "Cloning repo..."
-git clone --branch="gh-pages" "https://github.com/$TRAVIS_REPO_SLUG.git" "$DEPLOYMENT_DIR"
+github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
 [ $? -eq 0 ] || exit 1
 
 cd "$DEPLOYMENT_DIR"
-echo
 
 # setup repo
 github-setup.sh
+[ $? -eq 0 ] || exit 1
 
 # generate phpDocs
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
@@ -44,6 +46,7 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
         update-phpdoc-list.sh \
             "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
             "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
+        [ $? -eq 0 ] || exit 1
 
         # commit phpDocs
         echo "Committing phpDoc changes..."
@@ -61,6 +64,7 @@ if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
     generate-badge.sh \
         "$DEPLOYMENT_DIR/badges/pico-version.svg" \
         "release" "$TRAVIS_TAG" "blue"
+    [ $? -eq 0 ] || exit 1
 
     # commit version badge
     echo "Committing version badge..."
@@ -77,6 +81,7 @@ if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
     update-version-file.sh \
         "$DEPLOYMENT_DIR/_data/version.yml" \
         "${TRAVIS_TAG#v}"
+    [ $? -eq 0 ] || exit 1
 
     # commit version file
     echo "Committing version file..."

@@ -1,12 +1,22 @@
 Pico Changelog
 ==============
 
-### Version 1.0.4
+### Version 1.0.5
 Released: -
 
 ```
+* [Changed] Improve documentation
+```
+
+### Version 1.0.4
+Released: 2016-10-04
+
+```
 * [New] Add Pico's social icons to default theme
+* [Changed] Improve documentation
+* [Changed] Add CSS flexbox rules to default theme
 * [Fixed] Fix handling of non-YAML 1-line front matters
+* [Fixed] Fix responsiveness in default theme
 ```
 
 ### Version 1.0.3

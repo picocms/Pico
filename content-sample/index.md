@@ -227,12 +227,12 @@ Additional to Twigs extensive list of filters, functions and tags, Pico also
 provides some useful additional filters to make theming easier. You can parse
 any Markdown string to HTML using the `markdown` filter. Arrays can be sorted
 by one of its keys or a arbitrary deep sub-key using the `sort_by` filter
-(e.g. `{% for page in pages|sort_by("meta:nav"|split(":")) %}...{% endfor %}`
+(e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
 iterates through all pages, ordered by the `nav` meta header; please note the
-`"meta:nav"|split(":")` part of the example, which passes `['meta', 'nav']` to
-the filter describing a key path). You can return all values of a given key or
-key path of an array using the `map` filter (e.g. `{{ pages|map("title") }}`
-returns all page titles).
+`[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
+`page.meta.nav`). You can return all values of a given key or key path of an
+array using the `map` filter (e.g. `{{ pages|map("title") }}` returns all
+page titles).
 
 You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog-post` to a content file
@@ -242,15 +242,15 @@ the page.
 You don't have to create your own theme if Pico's default theme isn't
 sufficient for you, you can use one of the great themes third-party developers
 and designers created in the past. As with plugins, you can find themes in
-[our Wiki][WikiThemes].
+[our Wiki][WikiThemes] and on [our website][OfficialThemes].
 
 ### Plugins
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://picocms.org/customization/,
-but there are many awesome third-party plugins out there! A good start point
-for discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at http://picocms.org/plugins/, but
+there are many awesome third-party plugins out there! A good start point for
+discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
@@ -323,6 +323,7 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
+[OfficialThemes]: http://picocms.org/themes/
 [PluginUpgrade]: http://picocms.org/development/#upgrade
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [NginxConfig]: http://picocms.org/in-depth/nginx/
