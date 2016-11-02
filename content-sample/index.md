@@ -242,15 +242,15 @@ the page.
 You don't have to create your own theme if Pico's default theme isn't
 sufficient for you, you can use one of the great themes third-party developers
 and designers created in the past. As with plugins, you can find themes in
-[our Wiki][WikiThemes].
+[our Wiki][WikiThemes] and on [our website][OfficialThemes].
 
 ### Plugins
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://picocms.org/customization/,
-but there are many awesome third-party plugins out there! A good start point
-for discovery is [our Wiki][WikiPlugins].
+Officially tested plugins can be found at http://picocms.org/plugins/, but
+there are many awesome third-party plugins out there! A good start point for
+discovery is [our Wiki][WikiPlugins].
 
 Pico makes it very easy for you to add new features to your website. Simply
 upload the files of the plugin to the `plugins/` directory and you're done.
@@ -323,6 +323,7 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [Twig]: http://twig.sensiolabs.org/documentation
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
+[OfficialThemes]: http://picocms.org/themes/
 [PluginUpgrade]: http://picocms.org/development/#upgrade
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [NginxConfig]: http://picocms.org/in-depth/nginx/
