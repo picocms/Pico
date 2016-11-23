@@ -1237,6 +1237,10 @@ class Pico
     /**
      * Returns the base URL of this Pico instance
      *
+     * Security Notice: You MUST configure Pico's base URL explicitly when
+     * using the base URL in contexts that are potentially vulnerable to
+     * HTTP Host Header Injection attacks (e.g. when generating emails).
+     *
      * @return string the base url
      */
     public function getBaseUrl()
@@ -1256,9 +1260,14 @@ class Pico
             $protocol = 'https';
         }
 
-        $this->config['base_url'] =
-            $protocol . "://" . $_SERVER['HTTP_HOST']
-            . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
+        $host = $_SERVER['SERVER_NAME'];
+        if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+            $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        } elseif (!empty($_SERVER['HTTP_HOST'])) {
+            $host = $_SERVER['HTTP_HOST'];
+        }
+
+        $this->config['base_url'] = $protocol . "://" . $host . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
 
         return $this->getConfig('base_url');
     }

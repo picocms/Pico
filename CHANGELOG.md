@@ -6,6 +6,7 @@ Released: -
 
 ```
 * [Changed] Improve documentation
+* [Fixed] Improve hostname detection with proxies
 ```
 
 ### Version 1.0.4
