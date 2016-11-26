@@ -146,6 +146,14 @@ class Pico
     protected $rawContent;
 
     /**
+     * Boolean indicating whether Pico is serving a 404 page
+     *
+     * @see Pico::is404Content()
+     * @var boolean
+     */
+    protected $is404Content = false;
+
+    /**
      * Meta data of the page to serve
      *
      * @see Pico::getFileMeta()
@@ -322,6 +330,7 @@ class Pico
 
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
             $this->rawContent = $this->load404Content($this->requestFile);
+            $this->is404Content = true;
 
             $this->triggerEvent('on404ContentLoaded', array(&$this->rawContent));
         }
@@ -864,6 +873,17 @@ class Pico
     public function getRawContent()
     {
         return $this->rawContent;
+    }
+
+    /**
+     * Returns TRUE when Pico is serving a 404 page
+     *
+     * @see    Pico::load404Content()
+     * @return boolean TRUE if Pico is serving a 404 page, FALSE otherwise
+     */
+    public function is404Content()
+    {
+        return $this->is404Content;
     }
 
     /**
