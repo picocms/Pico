@@ -154,6 +154,14 @@ class Pico
     protected $is404Content = false;
 
     /**
+     * Symfony YAML instance used for meta header parsing
+     *
+     * @see Pico::registerYamlParser()
+     * @var \Symfony\Component\Yaml\Parser|null
+     */
+    protected $yamlParser;
+
+    /**
      * List of known meta headers
      *
      * @see Pico::getMetaHeaders()
@@ -352,6 +360,9 @@ class Pico
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
         // parse file meta
+        $this->triggerEvent('onYamlParserRegistration');
+        $this->registerYamlParser();
+
         $this->metaHeaders = $this->getMetaHeaders();
         $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
 
@@ -992,6 +1003,28 @@ class Pico
     }
 
     /**
+     * Registers the Symfony YAML parser
+     *
+     * @see    Pico::getYamlParser()
+     * @return void
+     */
+    protected function registerYamlParser()
+    {
+        $this->yamlParser = new \Symfony\Component\Yaml\Parser();
+    }
+
+    /**
+     * Returns the Symfony YAML parser
+     *
+     * @see    Pico::registerYamlParser()
+     * @return \Symfony\Component\Yaml\Parser|null Symfony YAML parser
+     */
+    public function getYamlParser()
+    {
+        return $this->yamlParser;
+    }
+
+    /**
      * Parses the file meta from raw file contents
      *
      * Meta data MUST start on the first line of the file, either opened and
@@ -1015,8 +1048,7 @@ class Pico
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
-            $yamlParser = new \Symfony\Component\Yaml\Parser();
-            $meta = $yamlParser->parse($rawMetaMatches[3]);
+            $meta = $this->yamlParser->parse($rawMetaMatches[3]);
 
             if ($meta !== null) {
                 // the parser may return a string for non-YAML 1-liners
