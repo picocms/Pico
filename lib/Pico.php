@@ -1474,6 +1474,10 @@ class Pico
      */
     protected function getTwigVariables()
     {
+        if ($this->twigVariables !== null) {
+            return $this->twigVariables;
+        }
+
         $frontPage = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
         return array(
             'config' => $this->getConfig(),
