@@ -154,6 +154,14 @@ class Pico
     protected $is404Content = false;
 
     /**
+     * List of known meta headers
+     *
+     * @see Pico::getMetaHeaders()
+     * @var string[]|null
+     */
+    protected $metaHeaders;
+
+    /**
      * Meta data of the page to serve
      *
      * @see Pico::getFileMeta()
@@ -344,10 +352,11 @@ class Pico
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
         // parse file meta
-        $headers = $this->getMetaHeaders();
+        $this->metaHeaders = $this->getMetaHeaders();
+        $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
 
-        $this->triggerEvent('onMetaParsing', array(&$this->rawContent, &$headers));
-        $this->meta = $this->parseFileMeta($this->rawContent, $headers);
+        $this->triggerEvent('onMetaParsing', array(&$this->rawContent, &$this->metaHeaders));
+        $this->meta = $this->parseFileMeta($this->rawContent, $this->metaHeaders);
         $this->triggerEvent('onMetaParsed', array(&$this->meta));
 
         // register parsedown
@@ -960,10 +969,7 @@ class Pico
     }
 
     /**
-     * Returns known meta headers and triggers the onMetaHeaders event
-     *
-     * Heads up! Calling this method triggers the `onMetaHeaders` event.
-     * Keep this in mind to prevent a infinite loop!
+     * Returns known meta headers
      *
      * @return string[] known meta headers; the array value specifies the
      *     YAML key to search for, the array key is later used to access the
@@ -971,7 +977,11 @@ class Pico
      */
     public function getMetaHeaders()
     {
-        $headers = array(
+        if ($this->metaHeaders !== null) {
+            return $this->metaHeaders;
+        }
+
+        return array(
             'title' => 'Title',
             'description' => 'Description',
             'author' => 'Author',
@@ -979,9 +989,6 @@ class Pico
             'robots' => 'Robots',
             'template' => 'Template'
         );
-
-        $this->triggerEvent('onMetaHeaders', array(&$headers));
-        return $headers;
     }
 
     /**
