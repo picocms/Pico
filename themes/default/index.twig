@@ -28,7 +28,7 @@
             </h1>
             <div id="nav" role="region" tabindex="-1">
                 <ul>
-                    {% for page in pages if page.title %}
+                    {% for page in pages if page.title and not (page.id starts with "_") %}
                         {% set pageDepth = page.id|split('/')|length %}
                         {% if (pageDepth == 2) and (page.id ends with "/index") or (pageDepth == 1) %}
                             <li{% if page.id == current_page.id %} class="active"{% endif %}>
