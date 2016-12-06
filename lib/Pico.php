@@ -1006,6 +1006,9 @@ class Pico
      * Registers the Symfony YAML parser
      *
      * @see    Pico::getYamlParser()
+     * @see    http://symfony.com/doc/current/components/yaml/introduction.html
+     *     Symfony YAML component website
+     * @see    https://github.com/symfony/yaml Symfony YAML component on GitHub
      * @return void
      */
     protected function registerYamlParser()
@@ -1035,7 +1038,6 @@ class Pico
      * for users and pure (!) theme developers ONLY.
      *
      * @see    Pico::getFileMeta()
-     * @see    http://symfony.com/doc/current/components/yaml/introduction.html
      * @param  string   $rawContent the raw file contents
      * @param  string[] $headers    known meta headers
      * @return array                parsed meta data
@@ -1112,6 +1114,10 @@ class Pico
      * Registers the Parsedown Extra markdown parser
      *
      * @see    Pico::getParsedown()
+     * @see    http://parsedown.org/ Parsedown website
+     * @see    https://github.com/erusev/parsedown Parsedown on GitHub
+     * @see    https://github.com/erusev/parsedown-extra
+     *     Parsedown Extra on GitHub
      * @return void
      */
     protected function registerParsedown()
@@ -1453,6 +1459,8 @@ class Pico
      * as well as Pico's {@link PicoTwigExtension} Twig extension.
      *
      * @see    Pico::getTwig()
+     * @see    http://twig.sensiolabs.org/ Twig website
+     * @see    https://github.com/twigphp/Twig Twig on GitHub
      * @return void
      */
     protected function registerTwig()
