@@ -392,7 +392,8 @@ class PicoDeprecated extends AbstractPicoPlugin
     }
 
     /**
-     * Triggers the deprecated event before_render($twigVariables, $twig, $templateName)
+     * Adds the deprecated variables rewrite_url and is_front_page, triggers
+     * the deprecated event before_render($twigVariables, $twig, $templateName)
      *
      * Please note that the `before_render()` event gets `$templateName` passed
      * without its file extension. The file extension is later added again.
@@ -401,6 +402,16 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
     {
+        // rewrite_url and is_front_page are deprecated since Pico 1.1
+        if (!isset($twigVariables['rewrite_url'])) {
+            $twigVariables['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
+        if (!isset($twigVariables['is_front_page'])) {
+            $frontPage = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
+            $twigVariables['is_front_page'] = ($this->getRequestFile() === $frontPage);
+        }
+
         // template name contains file extension since Pico 1.0
         $fileExtension = '';
         if (($fileExtensionPos = strrpos($templateName, '.')) !== false) {

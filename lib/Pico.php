@@ -1518,14 +1518,12 @@ class Pico
             return $this->twigVariables;
         }
 
-        $frontPage = $this->getConfig('content_dir') . 'index' . $this->getConfig('content_ext');
         return array(
             'config' => $this->getConfig(),
             'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
             'theme_url' => $this->getBaseThemeUrl() . $this->getConfig('theme'),
-            'rewrite_url' => $this->isUrlRewritingEnabled(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
             'content' => $this->content,
@@ -1533,7 +1531,6 @@ class Pico
             'prev_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'is_front_page' => ($this->requestFile === $frontPage),
             'version' => static::VERSION
         );
     }

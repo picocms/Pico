@@ -183,7 +183,6 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
                      is enabled or not
 * `{{ theme_dir }}` - The path to the currently active theme
 * `{{ theme_url }}` - The URL to the currently active theme
-* `{{ rewrite_url }}` - A boolean flag indicating enabled/disabled URL rewriting
 * `{{ site_title }}` - Shortcut to the site title (see `config/config.php`)
 * `{{ meta }}` - Contains the meta values from the current page
     * `{{ meta.title }}`
@@ -213,7 +212,6 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 * `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
 * `{{ current_page }}` - The data of the current page
 * `{{ next_page }}` - The data of the next page (relative to `current_page`)
-* `{{ is_front_page }}` - A boolean flag for the front page
 
 Pages can be used like the following:
 
