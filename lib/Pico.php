@@ -290,11 +290,16 @@ class Pico
      * meta headers, processes Markdown, does Twig processing and returns
      * the rendered contents.
      *
-     * @return string           rendered Pico contents
+     * @return string    rendered Pico contents
      * @throws Exception thrown when a not recoverable error occurs
      */
     public function run()
     {
+        // check lock
+        if ($this->locked) {
+            throw new LogicException('You cannot run the same Pico instance multiple times');
+        }
+
         // lock Pico
         $this->locked = true;
 
@@ -378,7 +383,7 @@ class Pico
 
         // render template
         $this->twigVariables = $this->getTwigVariables();
-        if (isset($this->meta['template']) && $this->meta['template']) {
+        if (!empty($this->meta['template'])) {
             $templateName = $this->meta['template'];
         } else {
             $templateName = 'index';
@@ -639,6 +644,7 @@ class Pico
             'base_url' => '',
             'rewrite_url' => null,
             'theme' => 'default',
+            'theme_url' => '',
             'date_format' => '%D %T',
             'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
@@ -648,7 +654,7 @@ class Pico
             'timezone' => ''
         );
 
-        if (empty($this->config['base_url'])) {
+        if (!$this->config['base_url']) {
             $this->config['base_url'] = $this->getBaseUrl();
         } else {
             $this->config['base_url'] = rtrim($this->config['base_url'], '/') . '/';
@@ -658,7 +664,7 @@ class Pico
             $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
         }
 
-        if (empty($this->config['content_dir'])) {
+        if (!$this->config['content_dir']) {
             // try to guess the content directory
             if (is_dir($this->getRootDir() . 'content')) {
                 $this->config['content_dir'] = $this->getRootDir() . 'content/';
@@ -669,7 +675,7 @@ class Pico
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
 
-        if (empty($this->config['theme_url'])) {
+        if (!$this->config['theme_url']) {
             $this->config['theme_url'] = $this->getBaseThemeUrl();
         } elseif (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $this->config['theme_url'])) {
             $this->config['theme_url'] = rtrim($this->config['theme_url'], '/') . '/';
@@ -677,7 +683,7 @@ class Pico
             $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
         }
 
-        if (empty($this->config['timezone'])) {
+        if (!$this->config['timezone']) {
             // explicitly set a default timezone to prevent a E_NOTICE
             // when no timezone is set; the `date_default_timezone_get()`
             // function always returns a timezone, at least UTC
@@ -774,7 +780,7 @@ class Pico
     {
         // use QUERY_STRING; e.g. /pico/?sub/page
         $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
-        if (!empty($pathComponent)) {
+        if ($pathComponent) {
             $pathComponent = strstr($pathComponent, '&', true) ?: $pathComponent;
             if (strpos($pathComponent, '=') === false) {
                 $this->requestUrl = trim(rawurldecode($pathComponent), '/');
@@ -786,8 +792,8 @@ class Pico
             $basePath = dirname($_SERVER['SCRIPT_NAME']) . '/';
             $basePathLength = strlen($basePath);
 
-            $requestUri = $_SERVER['REQUEST_URI'];
-            if (substr($requestUri, 0, $basePathLength) === $basePath) {
+            $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+            if ($requestUri && (substr($requestUri, 0, $basePathLength) === $basePath)) {
                 $requestUri = substr($requestUri, $basePathLength);
                 $requestUri = strstr($requestUri, '?', true) ?: $requestUri;
                 $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
@@ -825,7 +831,7 @@ class Pico
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
 
-        if (empty($requestUrl)) {
+        if (!$requestUrl) {
             return $contentDir . 'index' . $contentExt;
         } else {
             // prevent content_dir breakouts
@@ -844,7 +850,7 @@ class Pico
                 $requestFileParts[] = $requestUrlPart;
             }
 
-            if (empty($requestFileParts)) {
+            if (!$requestFileParts) {
                 return $contentDir . 'index' . $contentExt;
             }
 
@@ -1041,7 +1047,7 @@ class Pico
                 }
                 $meta['date_formatted'] = utf8_encode(strftime($this->getConfig('date_format'), $meta['time']));
             } else {
-                $meta['time'] = $meta['date_formatted'] = '';
+                $meta['date'] = $meta['time'] = $meta['date_formatted'] = '';
             }
         } else {
             // guarantee array key existance
@@ -1125,7 +1131,7 @@ class Pico
         $variables['%theme_url%'] = $this->getBaseThemeUrl() . $this->getConfig('theme');
 
         // replace %meta.*%
-        if (!empty($meta)) {
+        if ($meta) {
             foreach ($meta as $metaKey => $metaValue) {
                 if (is_scalar($metaValue) || ($metaValue === null)) {
                     $variables['%meta.' . $metaKey . '%'] = strval($metaValue);
@@ -1483,7 +1489,7 @@ class Pico
     public function getBaseUrl()
     {
         $baseUrl = $this->getConfig('base_url');
-        if (!empty($baseUrl)) {
+        if ($baseUrl) {
             return $baseUrl;
         }
 
@@ -1555,11 +1561,11 @@ class Pico
             }
         }
 
-        if (!empty($queryData)) {
-            $queryData = ($this->isUrlRewritingEnabled() || empty($page)) ? '?' . $queryData : '&' . $queryData;
+        if ($queryData) {
+            $queryData = ($this->isUrlRewritingEnabled() || !$page) ? '?' . $queryData : '&' . $queryData;
         }
 
-        if (empty($page)) {
+        if (!$page) {
             return $this->getBaseUrl() . $queryData;
         } elseif (!$this->isUrlRewritingEnabled()) {
             return $this->getBaseUrl() . '?' . rawurlencode($page) . $queryData;
@@ -1587,7 +1593,7 @@ class Pico
     public function getBaseThemeUrl()
     {
         $themeUrl = $this->getConfig('theme_url');
-        if (!empty($themeUrl)) {
+        if ($themeUrl) {
             return $themeUrl;
         }
 
@@ -1708,7 +1714,7 @@ class Pico
             return $defaultValue;
         }
 
-        $filter = !empty($filter) ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
+        $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
         if (!$filter) {
             return false;
         }
@@ -1719,7 +1725,7 @@ class Pico
                 $filterOptions['flags'] |= (int) $flag;
             } elseif (is_string($flag)) {
                 $flag = strtoupper(preg_replace('/[^a-zA-Z0-9_]/', '', $flag));
-                if (($flag === 'NULL_ON_FAILURE') && ($filter ===  FILTER_VALIDATE_BOOLEAN)) {
+                if (($flag === 'NULL_ON_FAILURE') && ($filter === FILTER_VALIDATE_BOOLEAN)) {
                     $filterOptions['flags'] |= FILTER_NULL_ON_FAILURE;
                 } else {
                     $filterOptions['flags'] |= (int) constant('FILTER_FLAG_' . $flag);
@@ -1762,7 +1768,7 @@ class Pico
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
                     $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
-                } elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
+                } elseif (!$fileExtension || (substr($file, -$fileExtensionLength) === $fileExtension)) {
                     $result[] = $directory . '/' . $file;
                 }
             }
@@ -1809,7 +1815,7 @@ class Pico
      */
     public function triggerEvent($eventName, array $params = array())
     {
-        if (!empty($this->plugins)) {
+        if ($this->plugins) {
             foreach ($this->plugins as $plugin) {
                 // only trigger events for plugins that implement PicoPluginInterface
                 // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`

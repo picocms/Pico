@@ -238,7 +238,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     protected function checkDependants($recursive)
     {
         $dependants = $this->getDependants();
-        if (!empty($dependants)) {
+        if ($dependants) {
             if ($recursive) {
                 foreach ($this->getDependants() as $pluginName => $plugin) {
                     if ($plugin->isEnabled()) {

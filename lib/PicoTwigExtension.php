@@ -196,7 +196,7 @@ class PicoTwigExtension extends Twig_Extension
      */
     public static function getKeyOfVar($var, $keyPath)
     {
-        if (empty($keyPath)) {
+        if (!$keyPath) {
             return null;
         } elseif (!is_array($keyPath)) {
             $keyPath = array($keyPath);
