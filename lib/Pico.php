@@ -1279,6 +1279,12 @@ class Pico
     {
         // sort pages
         $order = $this->getConfig('pages_order');
+        $orderBy = $this->getConfig('pages_order_by');
+
+        if (($orderBy !== 'date') && ($orderBy !== 'alpha')) {
+            return;
+        }
+
         $alphaSortClosure = function ($a, $b) use ($order) {
             $aSortKey = (basename($a['id']) === 'index') ? dirname($a['id']) : $a['id'];
             $bSortKey = (basename($b['id']) === 'index') ? dirname($b['id']) : $b['id'];
@@ -1287,7 +1293,7 @@ class Pico
             return $cmp * (($order === 'desc') ? -1 : 1);
         };
 
-        if ($this->getConfig('pages_order_by') === 'date') {
+        if ($orderBy === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
                 if (empty($a['time']) || empty($b['time'])) {
