@@ -300,6 +300,7 @@ class Pico
 
         // load plugins
         $this->loadPlugins();
+        $this->sortPlugins();
         $this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
 
         // load config
@@ -489,6 +490,72 @@ class Pico
         $this->plugins[$className] = $plugin;
 
         return $plugin;
+    }
+
+    /**
+     * Sorts all loaded plugins using a plugin dependency topology
+     *
+     * Execution order matters: if plugin A depends on plugin B, it usually
+     * means that plugin B does stuff which plugin A requires. However, Pico
+     * loads plugins in alphabetical order, so events might get fired on
+     * plugin A before plugin B.
+     *
+     * Hence plugins need to be sorted. Pico sorts plugins using a dependency
+     * topology, this means that it moves all plugins, on which a plugin
+     * depends, in front of that plugin. The order isn't touched apart from
+     * that, so they are still sorted alphabetically, as long as this doesn't
+     * interfere with the dependency topology. Circular dependencies are being
+     * ignored; their behavior is undefiend. Missing dependencies are being
+     * ignored until you try to enable the dependant plugin.
+     *
+     * This method bases on Marc J. Schmidt's Topological Sort library in
+     * version 1.1.0, licensed under the MIT license. It uses the `ArraySort`
+     * implementation (class `\MJS\TopSort\Implementations\ArraySort`).
+     *
+     * @see    Pico::loadPlugins()
+     * @see    Pico::getPlugins()
+     * @see    https://github.com/marcj/topsort.php
+     *     Marc J. Schmidt's Topological Sort / Dependency resolver in PHP
+     * @see    https://github.com/marcj/topsort.php/blob/1.1.0/src/Implementations/ArraySort.php
+     *     \MJS\TopSort\Implementations\ArraySort class
+     * @return void
+     */
+    protected function sortPlugins()
+    {
+        $plugins = $this->plugins;
+        $sortedPlugins = array();
+        $visitedPlugins = array();
+        $visitPlugin = function ($plugin) use ($plugins, &$sortedPlugins, &$visitedPlugins, &$visitPlugin) {
+            $pluginName = get_class($plugin);
+
+            // skip already visited plugins and ignore circular dependencies
+            if (!isset($visitedPlugins[$pluginName])) {
+                $visitedPlugins[$pluginName] = true;
+
+                $dependencies = array();
+                if ($plugin instanceof PicoPluginInterface) {
+                    $dependencies = $plugin->getDependencies();
+                } else {
+                    $dependencies = array('PicoDeprecated');
+                }
+
+                foreach ($dependencies as $dependency) {
+                    // ignore missing dependencies
+                    // this is only a problem when the user tries to enable this plugin
+                    if (isset($plugins[$dependency])) {
+                        $visitPlugin($plugins[$dependency]);
+                    }
+                }
+
+                $sortedPlugins[$pluginName] = $plugin;
+            }
+        };
+
+        foreach ($this->plugins as $plugin) {
+            $visitPlugin($plugin);
+        }
+
+        $this->plugins = $sortedPlugins;
     }
 
     /**
