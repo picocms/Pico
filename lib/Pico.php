@@ -433,7 +433,13 @@ class Pico
      * Plugin files MAY be prefixed by a number (e.g. 00-PicoDeprecated.php)
      * to indicate their processing order. Plugins without a prefix will be
      * loaded last. If you want to use a prefix, you MUST NOT use the reserved
-     * prefixes `00` to `09`.
+     * prefixes `00` to `09`. Prefixes are completely optional, however, you
+     * SHOULD take the following prefix classification into consideration:
+     * - 10 to 19: Reserved
+     * - 20 to 39: Low level code helper plugins
+     * - 40 to 59: Plugins manipulating routing or the pages array
+     * - 60 to 79: Plugins hooking into template or markdown parsing
+     * - 80 to 99: Plugins using the `onPageRendered` event
      *
      * Please note that Pico will change the processing order when needed to
      * incorporate plugin dependencies. See {@see Pico::sortPlugins()} for
