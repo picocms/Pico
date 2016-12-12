@@ -344,11 +344,8 @@ class Pico
         // load raw file content
         $this->triggerEvent('onContentLoading', array(&$this->requestFile));
 
-        if (
-            file_exists($this->requestFile)
-            && (basename($this->requestFile) !== '404' . $this->getConfig('content_ext'))
-            && !preg_match('/(?:^|\/)_/', $this->requestFile)
-        ) {
+        $hiddenFileRegex = '/(?:^|\/)(?:_|404' . preg_quote($this->getConfig('content_ext'), '/') . '$)/';
+        if (file_exists($this->requestFile) && !preg_match($hiddenFileRegex, $this->requestFile)) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
