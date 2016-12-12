@@ -426,15 +426,18 @@ class Pico
     /**
      * Loads plugins from Pico::$pluginsDir in alphabetical order
      *
+     * Pico tries to load plugins from `<plugin name>/<plugin name>.php` and
+     * `<plugin name>.php` only. Plugin names are treated case insensitive.
+     * Pico will throw a RuntimeException if it can't load a plugin.
+     *
      * Plugin files MAY be prefixed by a number (e.g. 00-PicoDeprecated.php)
      * to indicate their processing order. Plugins without a prefix will be
-     * loaded last. If you want to use a prefix, you MUST consider the
-     * following directives:
-     * - 00 to 19: Reserved
-     * - 20 to 39: Low level code helper plugins
-     * - 40 to 59: Plugins manipulating routing or the pages array
-     * - 60 to 79: Plugins hooking into template or markdown parsing
-     * - 80 to 99: Plugins using the `onPageRendered` event
+     * loaded last. If you want to use a prefix, you MUST NOT use the reserved
+     * prefixes `00` to `09`.
+     *
+     * Please note that Pico will change the processing order when needed to
+     * incorporate plugin dependencies. See {@see Pico::sortPlugins()} for
+     * details.
      *
      * @see    Pico::loadPlugin()
      * @see    Pico::getPlugin()
@@ -444,6 +447,41 @@ class Pico
      */
     protected function loadPlugins()
     {
+        $this->plugins = array();
+
+        // discover plugin files
+        $pluginFiles = array();
+        $files = scandir($this->getPluginsDir());
+        if ($files !== false) {
+            foreach ($files as $file) {
+                if ($file[0] === '.') {
+                    continue;
+                }
+
+                if (is_dir($this->getPluginsDir() . $file)) {
+                    $className = preg_replace('/^[0-9]+-/', '', $file);
+
+                    $subdirFiles = $this->getFilesGlob($this->getPluginsDir() . $file . '/?*.php', self::SORT_NONE);
+                    foreach ($subdirFiles as $subdirFile) {
+                        $subdirFile = basename($subdirFile, '.php');
+                        if (strcasecmp($className, $subdirFile) === 0) {
+                            $pluginFiles[$className] = $file . '/' . $subdirFile . '.php';
+                        }
+                    }
+
+                    if (!isset($pluginFiles[$className])) {
+                        throw new RuntimeException(
+                            "Unable to load plugin '" . $className . "' from "
+                            . "'" . $file . "/" . $className . ".php': File not found"
+                        );
+                    }
+                } elseif (substr($file, -4) === '.php') {
+                    $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
+                    $pluginFiles[$className] = $file;
+                }
+            }
+        }
+
         // scope isolated require_once()
         $includeClosure = function ($pluginFile) {
             require_once($pluginFile);
@@ -452,27 +490,20 @@ class Pico
             $includeClosure = $includeClosure->bindTo(null);
         }
 
-        $this->plugins = array();
-        $pluginFiles = $this->getFiles($this->getPluginsDir(), '.php');
-        foreach ($pluginFiles as $pluginFile) {
-            $includeClosure($pluginFile);
+        foreach ($pluginFiles as $className => $pluginFile) {
+            $includeClosure($this->getPluginsDir() . $pluginFile);
 
-            $className = preg_replace('/^[0-9]+-/', '', basename($pluginFile, '.php'));
-            if (class_exists($className)) {
+            if (class_exists($className, false)) {
                 // class name and file name can differ regarding case sensitivity
                 $plugin = new $className($this);
                 $className = get_class($plugin);
 
                 $this->plugins[$className] = $plugin;
             } else {
-                // TODO: breaks backward compatibility
-                /*
-                $pluginFileName = substr($pluginFile, strlen($this->getPluginsDir()));
                 throw new RuntimeException(
                     "Unable to load plugin '" . $className . "' "
-                    . "from '" . $pluginFileName . "'"
+                    . "from '" . $pluginFile . "'"
                 );
-                */
             }
         }
     }
