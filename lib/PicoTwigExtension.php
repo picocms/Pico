@@ -51,7 +51,7 @@ class PicoTwigExtension extends Twig_Extension
     }
 
     /**
-     * Returns the Twig filters markdown, map and sort_by
+     * Returns a list of Pico-specific Twig filters
      *
      * @see    Twig_ExtensionInterface::getFilters()
      * @return Twig_SimpleFilter[] array of Pico's Twig filters
@@ -62,6 +62,21 @@ class PicoTwigExtension extends Twig_Extension
             'markdown' => new Twig_SimpleFilter('markdown', array($this, 'markdownFilter')),
             'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
             'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
+            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl'))
+        );
+    }
+
+    /**
+     * Returns a list of Pico-specific Twig functions
+     *
+     * @see    Twig_ExtensionInterface::getFunctions()
+     * @return Twig_SimpleFunction[] array of Pico's Twig functions
+     */
+    public function getFunctions()
+    {
+        return array(
+            'url_param' => new Twig_SimpleFunction('url_param', array($this->pico, 'getUrlParameter')),
+            'form_param' => new Twig_SimpleFunction('form_param', array($this->pico, 'getFormParameter'))
         );
     }
 

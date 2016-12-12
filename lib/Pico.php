@@ -1500,11 +1500,6 @@ class Pico
         $this->twig->addExtension(new Twig_Extension_Debug());
         $this->twig->addExtension(new PicoTwigExtension($this));
 
-        // register link filter and the url_param and form_param functions
-        $this->twig->addFilter(new Twig_SimpleFilter('link', array($this, 'getPageUrl')));
-        $this->twig->addFunction(new Twig_SimpleFunction('url_param', array($this, 'getUrlParameter')));
-        $this->twig->addFunction(new Twig_SimpleFunction('form_param', array($this, 'getFormParameter')));
-
         // register content filter
         // we pass the $pages array by reference to prevent multiple parser runs for the same page
         // this is the reason why we can't register this filter as part of PicoTwigExtension
