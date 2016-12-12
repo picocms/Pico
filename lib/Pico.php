@@ -391,6 +391,7 @@ class Pico
 
         $this->readPages();
         $this->sortPages();
+        $this->discoverPageSiblings();
         $this->discoverCurrentPage();
 
         $this->triggerEvent('onPagesLoaded', array(
@@ -1237,8 +1238,11 @@ class Pico
      * | date_formatted | string | formatted date of the page               |
      * | raw_content    | string | raw, not yet parsed contents of the page |
      * | meta           | string | parsed meta data of the page             |
+     * | previous_page  | &array | reference to the previous page           |
+     * | next_page      | &array | reference to the next page               |
      *
      * @see    Pico::sortPages()
+     * @see    Pico::discoverPageSiblings()
      * @see    Pico::getPages()
      * @return void
      */
@@ -1373,10 +1377,46 @@ class Pico
     }
 
     /**
+     * Walks through the list of all known pages and discovers the previous and
+     * next page respectively
+     *
+     * @see    Pico::readPages()
+     * @see    Pico::getPages()
+     * @return void
+     */
+    protected function discoverPageSiblings()
+    {
+        if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
+            $precedingPageKey = 'next_page';
+            $succeedingPageKey = 'previous_page';
+        } else {
+            $precedingPageKey = 'previous_page';
+            $succeedingPageKey = 'next_page';
+        }
+
+        $precedingPageId = null;
+        foreach ($this->pages as $id => &$pageData) {
+            $pageData[$precedingPageKey] = null;
+            $pageData[$succeedingPageKey] = null;
+
+            if ($pageData['hidden']) {
+                continue;
+            }
+
+            if ($precedingPageId !== null) {
+                $precedingPageData = &$this->pages[$precedingPageId];
+                $pageData[$precedingPageKey] = &$precedingPageData;
+                $precedingPageData[$succeedingPageKey] = &$pageData;
+            }
+
+            $precedingPageId = $id;
+        }
+    }
+
+    /**
      * Returns the list of known pages
      *
      * @see    Pico::readPages()
-     * @see    Pico::sortPages()
      * @return array[]|null the data of all pages
      */
     public function getPages()
@@ -1385,8 +1425,8 @@ class Pico
     }
 
     /**
-     * Walks through the list of known pages and discovers the requested page
-     * as well as the previous and next page relative to it
+     * Discovers the page data of the requested page as well as the previous
+     * and next page relative to it
      *
      * @see    Pico::getCurrentPage()
      * @see    Pico::getPreviousPage()
@@ -1395,8 +1435,6 @@ class Pico
      */
     protected function discoverCurrentPage()
     {
-        $pageIds = array_keys($this->pages);
-
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
 
@@ -1407,27 +1445,10 @@ class Pico
         }
 
         $currentPageId = substr($this->requestFile, $contentDirLength, -strlen($this->getConfig('content_ext')));
-        $currentPageIndex = array_search($currentPageId, $pageIds);
-        if ($currentPageIndex !== false) {
+        if (isset($this->pages[$currentPageId])) {
             $this->currentPage = &$this->pages[$currentPageId];
-
-            if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
-                $previousPageOffset = 1;
-                $nextPageOffset = -1;
-            } else {
-                $previousPageOffset = -1;
-                $nextPageOffset = 1;
-            }
-
-            if (isset($pageIds[$currentPageIndex + $previousPageOffset])) {
-                $previousPageId = $pageIds[$currentPageIndex + $previousPageOffset];
-                $this->previousPage = &$this->pages[$previousPageId];
-            }
-
-            if (isset($pageIds[$currentPageIndex + $nextPageOffset])) {
-                $nextPageId = $pageIds[$currentPageIndex + $nextPageOffset];
-                $this->nextPage = &$this->pages[$nextPageId];
-            }
+            $this->previousPage = &$this->pages[$currentPageId]['previous_page'];
+            $this->nextPage = &$this->pages[$currentPageId]['next_page'];
         }
     }
 
