@@ -6,7 +6,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.1
+ * @version 2.0
  */
 
 utils = {};

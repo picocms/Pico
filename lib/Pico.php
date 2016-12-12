@@ -24,7 +24,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.1
+ * @version 2.0
  */
 class Pico
 {
@@ -33,7 +33,7 @@ class Pico
      *
      * @var string
      */
-    const VERSION = '1.1.0-dev';
+    const VERSION = '2.0.0-dev';
 
     /**
      * Pico version ID
@@ -773,7 +773,7 @@ class Pico
      *
      * With Pico 1.0 you had to setup URL rewriting (e.g. using `mod_rewrite`
      * on Apache) in a way that rewritten URLs follow the `QUERY_STRING`
-     * principles. Starting with version 1.1, Pico additionally supports the
+     * principles. Starting with version 2.0, Pico additionally supports the
      * `REQUEST_URI` routing method, what allows you to simply rewrite all
      * requests to just `index.php`. Pico then reads the requested page from
      * the `REQUEST_URI` environment variable provided by the webserver.
@@ -1672,7 +1672,7 @@ class Pico
      * {@link Pico::getBaseUrl()} as origin of the theme URL. Otherwise Pico
      * falls back to the basename of {@link Pico::$themesDir} (i.e. assuming
      * that `Pico::$themesDir` is `foo/bar/baz`, the base URL of the themes
-     * folder will be `baz/`; this ensures BC to Pico < 1.1). Pico's base URL
+     * folder will be `baz/`; this ensures BC to Pico < 2.0). Pico's base URL
      * always gets prepended appropriately.
      *
      * @return string the URL of the themes folder

@@ -8,7 +8,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
+ * @version 2.0
  */
 abstract class AbstractPicoPlugin implements PicoPluginInterface
 {

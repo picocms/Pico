@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Serve features of Pico deprecated since v1.0
+ * Maintain backward compatibility to older Pico releases
  *
  * This plugin exists for backward compatibility and is disabled by default.
  * It gets automatically enabled when a plugin which doesn't implement
@@ -39,7 +39,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
+ * @version 2.0
  */
 class PicoDeprecated extends AbstractPicoPlugin
 {
@@ -402,7 +402,7 @@ class PicoDeprecated extends AbstractPicoPlugin
      */
     public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
     {
-        // rewrite_url and is_front_page are deprecated since Pico 1.1
+        // rewrite_url and is_front_page are deprecated since Pico 2.0
         if (!isset($twigVariables['rewrite_url'])) {
             $twigVariables['rewrite_url'] = $this->isUrlRewritingEnabled();
         }
