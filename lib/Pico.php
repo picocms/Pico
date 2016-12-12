@@ -40,7 +40,7 @@ class Pico
      *
      * @var int
      */
-    const VERSION_ID = 10100;
+    const VERSION_ID = 20000;
 
     /**
      * Sort files in alphabetical ascending order
