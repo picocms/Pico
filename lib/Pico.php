@@ -650,13 +650,9 @@ class Pico
         }
 
         // merge $config of config/*.config.php files
-        $configFiles = glob($this->getConfigDir() . '?*.config.php', GLOB_MARK);
-        if ($configFiles) {
-            foreach ($configFiles as $configFile) {
-                if (substr($configFile, -1) !== '/') {
-                    $this->config += $includeClosure($configFile);
-                }
-            }
+        $configFiles = $this->getFilesGlob($this->getConfigDir() . '?*.config.php');
+        foreach ($configFiles as $configFile) {
+            $this->config += $includeClosure($configFile);
         }
 
         // merge default config
@@ -1854,6 +1850,39 @@ class Pico
         }
 
         return $result;
+    }
+
+    /**
+     * Returns all files in a directory matching a libc glob() pattern
+     *
+     * @see    https://secure.php.net/manual/en/function.glob.php
+     *     PHP's glob() function
+     * @param  string $pattern the pattern to search for; see PHP's glob()
+     *     function for details
+     * @param  int    $order   specify whether and how files should be sorted;
+     *     use Pico::SORT_ASC for a alphabetical ascending order (this is the
+     *     default behaviour), Pico::SORT_DESC for a descending order or
+     *     Pico::SORT_NONE to leave the result unsorted
+     * @return array           list of found files
+     */
+    public function getFilesGlob($pattern, $order = self::SORT_ASC)
+    {
+        $result = array();
+        $sortFlag = ($order === self::SORT_NONE) ? GLOB_NOSORT : 0;
+
+        $files = glob($pattern, GLOB_MARK | $sortFlag);
+        if ($files) {
+            foreach ($files as $file) {
+                // exclude dirs and files ending with a ~ (vim/nano backup) or # (emacs backup)
+                if (in_array(substr($file, -1), array('/', '~', '#'))) {
+                    continue;
+                }
+
+                $result[] = $file;
+            }
+        }
+
+        return ($order === self::SORT_DESC) ? array_reverse($result) : $result;
     }
 
     /**
