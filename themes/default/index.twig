@@ -28,7 +28,7 @@
             </h1>
             <div id="nav" role="region" tabindex="-1">
                 <ul>
-                    {% for page in pages if page.title and not (page.id starts with "_") %}
+                    {% for page in pages if page.title and not page.hidden %}
                         {% set pageDepth = page.id|split('/')|length %}
                         {% if (pageDepth == 2) and (page.id ends with "/index") or (pageDepth == 1) %}
                             <li{% if page.id == current_page.id %} class="active"{% endif %}>
@@ -50,7 +50,7 @@
     <div id="footer">
         <div class="container">
             <div class="social">
-                {% for social in meta.social %}
+                {% for social in pages._meta.meta.social %}
                     <a href="{{ social.url }}" title="{{ social.title }}" role="button">
                         <span class="icon-{{ social.icon }}" aria-hidden="true"></span>
                         <span class="sr-only">{{ social.title }}</span>

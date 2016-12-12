@@ -344,8 +344,11 @@ class Pico
         // load raw file content
         $this->triggerEvent('onContentLoading', array(&$this->requestFile));
 
-        $notFoundFile = '404' . $this->getConfig('content_ext');
-        if (file_exists($this->requestFile) && (basename($this->requestFile) !== $notFoundFile)) {
+        if (
+            file_exists($this->requestFile)
+            && (basename($this->requestFile) !== '404' . $this->getConfig('content_ext'))
+            && !preg_match('/(?:^|\/)_/', $this->requestFile)
+        ) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
             $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
@@ -1294,6 +1297,7 @@ class Pico
                 'time' => &$meta['time'],
                 'date' => &$meta['date'],
                 'date_formatted' => &$meta['date_formatted'],
+                'hidden' => (bool) preg_match('/(?:^|\/)_/', $id),
                 'raw_content' => &$rawContent,
                 'meta' => &$meta
             );
@@ -1331,6 +1335,10 @@ class Pico
         }
 
         $alphaSortClosure = function ($a, $b) use ($order) {
+            if ($a['hidden'] xor $b['hidden']) {
+                return (!!$a['hidden'] - !!$b['hidden']) * (($order === 'desc') ? -1 : 1);
+            }
+
             $aSortKey = (basename($a['id']) === 'index') ? dirname($a['id']) : $a['id'];
             $bSortKey = (basename($b['id']) === 'index') ? dirname($b['id']) : $b['id'];
 
@@ -1341,8 +1349,12 @@ class Pico
         if ($orderBy === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
-                if (empty($a['time']) || empty($b['time'])) {
-                    $cmp = (empty($a['time']) - empty($b['time']));
+                if ($a['hidden'] xor $b['hidden']) {
+                    return $alphaSortClosure($a, $b);
+                }
+
+                if (!$a['time'] || !$b['time']) {
+                    $cmp = (!$a['time'] - !$b['time']);
                 } else {
                     $cmp = ($b['time'] - $a['time']);
                 }
