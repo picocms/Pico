@@ -1,0 +1,41 @@
+##
+# Basic
+#
+site_title: Pico                    # The title of your website
+base_url: ~                         # Pico will try to guess its base URL, if this fails, override it here
+                                    # Example: http://example.com/pico/
+rewrite_url: ~                      # A boolean (true or false) indicating whether URL rewriting is forced
+timezone: UTC                       # Your PHP installation might require you to manually specify a timezone
+
+##
+# Theme
+#
+theme: default                      # The name of your custom theme
+theme_url: ~                        # Pico will try to guess the URL to the themes dir of your installation
+                                    # If this fails, override it here. Example: http://example.com/pico/themes/
+theme_config:
+    widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
+twig_config:
+    cache: false                    # Enable Twig template caching by specifying a path to a writable directory
+    autoescape: false               # Let Twig escape variables by default
+    debug: false                    # Enable Twig's debugging mode
+
+##
+# Content
+#
+date_format: %D %T                  # Pico's default date format
+                                    # List of available variables: http://php.net/manual/en/function.strftime.php
+pages_order_by: alpha               # Change how Pico sorts pages ("alpha" for alphabetical order, or "date")
+pages_order: asc                    # Sort pages in ascending ("asc") or descending ("desc") order
+content_dir: content/               # The path to Pico's content directory
+content_ext: .md                    # The file extension of your Markdown files
+
+##
+# Plugins
+#
+DummyPlugin.enabled: false          # Force the plugin "DummyPlugin" to be disabled
+
+##
+# Custom
+#
+my_custom_setting: Hello World!     # You can access custom settings in themes using {{ config.my_custom_setting }}

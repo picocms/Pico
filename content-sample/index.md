@@ -263,10 +263,12 @@ to the brand new plugin system introduced with Pico 1.0. Please refer to the
 ## Config
 
 You can override the default Pico settings (and add your own custom settings)
-by editing `config/config.php` in the Pico directory. For a brief overview of
-the available settings and their defaults see `config/config.php.template`. To
-override a setting, copy `config/config.php.template` to `config/config.php`,
-uncomment the setting and set your custom value.
+by editing `config/config.yml` in the Pico directory. For a brief overview of
+the available settings and their defaults see `config/config.yml.template`. To
+override a setting, simply copy the line from `config/config.yml.template`
+to `config/config.yml` and set your custom value. Pico will read all `*.yml`
+files in the `config/` dir, thus you can even use a distinct settings file to
+configure your custom theme (e.g. `config/my_theme.yml`).
 
 ### URL Rewriting
 

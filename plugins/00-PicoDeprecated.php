@@ -4,11 +4,9 @@
  * Maintain backward compatibility to older Pico releases
  *
  * This plugin exists for backward compatibility and is disabled by default.
- * It gets automatically enabled when a plugin which doesn't implement
- * {@link PicoPluginInterface} is loaded. This plugin triggers deprecated
- * events and automatically enables {@link PicoParsePagesContent} and
- * {@link PicoExcerpt}. These plugins heavily impact Pico's performance! You
- * can disable this plugin by calling {@link PicoDeprecated::setEnabled()}.
+ * It gets automatically enabled when a plugin which either doesn't implement
+ * {@link PicoPluginInterface} (plugins for Pico 0.X) or define the
+ * {@link PicoDeprecated::API_VERSION} (plugins for Pico 1.0) is loaded.
  *
  * The following deprecated events are triggered by this plugin:
  *
@@ -32,9 +30,10 @@
  * | onPageRendering     | before_render($twigVariables, $twig, $templateName)       |
  * | onPageRendered      | after_render($output)                                     |
  *
- * Since Pico 1.0 the config is stored in {@path "config/config.php"}. This
- * plugin tries to read {@path "config.php"} in Pico's root dir and overwrites
- * all settings previously specified in {@path "config/config.php"}.
+ * Since Pico 2.0 the config is stored in `config/*.yml` files. This plugin
+ * also tries to read {@path "config/config.php"} (Pico 1.0) and
+ * {@path "config.php"} in Pico's root dir (Pico 0.X) and overwrites all
+ * previously specified settings.
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
@@ -110,6 +109,7 @@ class PicoDeprecated extends AbstractPicoPlugin
     public function onConfigLoaded(array &$config)
     {
         $this->defineConstants();
+        $this->loadScriptedConfig($config);
         $this->loadRootDirConfig($config);
         $this->enablePlugins();
         $GLOBALS['config'] = &$config;
@@ -151,6 +151,53 @@ class PicoDeprecated extends AbstractPicoPlugin
         }
         if (!defined('CONTENT_EXT')) {
             define('CONTENT_EXT', $this->getConfig('content_ext'));
+        }
+    }
+
+    /**
+     * Read config.php in Pico's config dir (i.e. config/config.php)
+     *
+     * @see    PicoDeprecated::onConfigLoaded()
+     * @see    Pico::loadConfig()
+     * @param  array &$realConfig array of config variables
+     * @return void
+     */
+    protected function loadScriptedConfig(array &$realConfig)
+    {
+        if (file_exists($this->getConfigDir() . 'config.php')) {
+            // scope isolated require()
+            $includeClosure = function ($configFile) {
+                require($configFile);
+                return (isset($config) && is_array($config)) ? $config : array();
+            };
+            if (PHP_VERSION_ID >= 50400) {
+                $includeClosure = $includeClosure->bindTo(null);
+            }
+
+            // config.php in Pico::$configDir (i.e. config/config.php) is deprecated
+            // use *.yml files in Pico::$configDir instead
+            $config = $includeClosure($this->getConfigDir() . 'config.php');
+
+            if ($config) {
+                if (!empty($config['base_url'])) {
+                    $config['base_url'] = rtrim($config['base_url'], '/') . '/';
+                }
+                if (!empty($config['content_dir'])) {
+                    $config['content_dir'] = $this->getAbsolutePath($config['content_dir']);
+                }
+                if (!empty($config['theme_url'])) {
+                    if (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $config['theme_url'])) {
+                        $config['theme_url'] = rtrim($config['theme_url'], '/') . '/';
+                    } else {
+                        $config['theme_url'] = $this->getBaseUrl() . rtrim($config['theme_url'], '/') . '/';
+                    }
+                }
+                if (!empty($config['timezone'])) {
+                    date_default_timezone_set($config['timezone']);
+                }
+
+                $realConfig = $config + $realConfig;
+            }
         }
     }
 

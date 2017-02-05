@@ -21,7 +21,7 @@ desktop.ini
 /_build/deploy-*.git
 
 # User config
-/config/config.php
+/config/config.yml
 
 # User themes
 /themes/*

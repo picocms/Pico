@@ -670,25 +670,26 @@ class Pico
      */
     protected function loadConfig()
     {
-        // scope isolated require()
-        $includeClosure = function ($configFile) {
-            require($configFile);
-            return (isset($config) && is_array($config)) ? $config : array();
+        // load config closure
+        $yamlParser = $this->getYamlParser();
+        $loadConfigClosure = function ($configFile) use ($yamlParser) {
+            $yaml = file_get_contents($configFile);
+            $config = $yamlParser->parse($yaml);
+            return is_array($config) ? $config : array();
         };
-        if (PHP_VERSION_ID >= 50400) {
-            $includeClosure = $includeClosure->bindTo(null);
-        }
 
-        // load main config file (config/config.php)
+        // load main config file (config/config.yml)
         $this->config = is_array($this->config) ? $this->config : array();
-        if (file_exists($this->getConfigDir() . 'config.php')) {
-            $this->config += $includeClosure($this->getConfigDir() . 'config.php');
+        if (file_exists($this->getConfigDir() . 'config.yml')) {
+            $this->config += $loadConfigClosure($this->getConfigDir() . 'config.yml');
         }
 
-        // merge $config of config/*.config.php files
-        $configFiles = $this->getFilesGlob($this->getConfigDir() . '?*.config.php');
+        // merge $config of config/*.yml files
+        $configFiles = $this->getFilesGlob($this->getConfigDir() . '*.yml');
         foreach ($configFiles as $configFile) {
-            $this->config += $includeClosure($configFile);
+            if ($configFile !== 'config.yml') {
+                $this->config += $loadConfigClosure($configFile);
+            }
         }
 
         // merge default config
@@ -697,14 +698,14 @@ class Pico
             'base_url' => '',
             'rewrite_url' => null,
             'theme' => 'default',
-            'theme_url' => '',
+            'theme_url' => null,
             'date_format' => '%D %T',
             'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
             'content_dir' => null,
             'content_ext' => '.md',
-            'timezone' => ''
+            'timezone' => null
         );
 
         if (!$this->config['base_url']) {
@@ -1333,8 +1334,8 @@ class Pico
     protected function sortPages()
     {
         // sort pages
-        $order = $this->getConfig('pages_order');
-        $orderBy = $this->getConfig('pages_order_by');
+        $order = strtolower($this->getConfig('pages_order'));
+        $orderBy = strtolower($this->getConfig('pages_order_by'));
 
         if (($orderBy !== 'date') && ($orderBy !== 'alpha')) {
             return;
