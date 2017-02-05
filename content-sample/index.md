@@ -156,15 +156,15 @@ details.
 
 You can create themes for your Pico installation in the `themes` folder. Check
 out the default theme for an example. Pico uses [Twig][] for template
-rendering. You can select your theme by setting the `$config['theme']` option
-in `config/config.php` to the name of your theme folder.
+rendering. You can select your theme by setting the `theme` option in
+`config/config.yml` to the name of your theme folder.
 
 All themes must include an `index.twig` (or `index.html`) file to define the
 HTML structure of the theme. Below are the Twig variables that are available
 to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 (e.g. `{{ base_url }}`) don't have a trailing slash.
 
-* `{{ config }}` - Contains the values you set in `config/config.php`
+* `{{ config }}` - Contains the values you set in `config/config.yml`
                    (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
 * `{{ base_url }}` - The URL to your Pico site; use Twigs `link` filter to
@@ -173,7 +173,7 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
                      is enabled or not
 * `{{ theme_dir }}` - The path to the currently active theme
 * `{{ theme_url }}` - The URL to the currently active theme
-* `{{ site_title }}` - Shortcut to the site title (see `config/config.php`)
+* `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
 * `{{ meta }}` - Contains the meta values from the current page
     * `{{ meta.title }}`
     * `{{ meta.description }}`
@@ -247,10 +247,10 @@ steps (e.g. specifying config variables), the plugin docs or `README` file will
 explain what to do.
 
 Plugins which were written to work with Pico 1.0 can be enabled and disabled
-through your `config/config.php`. If you want to e.g. disable the `PicoExcerpt`
-plugin, add the following line to your `config/config.php`:
-`$config['PicoExcerpt.enabled'] = false;`. To force the plugin to be enabled
-replace `false` with `true`.
+through your `config/config.yml`. If you want to e.g. disable the `PicoExcerpt`
+plugin, add the following line to your `config/config.yml`:
+`PicoExcerpt.enabled: false`. To force the plugin to be enabled replace `false`
+with `true`.
 
 #### Plugins for developers
 
@@ -281,14 +281,14 @@ enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
 you get an error message from your web server, please make sure to enable the
 [`mod_rewrite` module][ModRewrite]. Assuming the second URL works, but Pico
 still shows no rewritten URLs, force URL rewriting by setting
-`$config['rewrite_url'] = true;` in your `config/config.php`.
+`rewrite_url: true` in your `config/config.yml`.
 
 If you're using Nginx, you can use the following configuration to enable URL
 rewriting (lines `5` to `8`) and denying access to Pico's internal files
 (lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `5`
 and `7`) to match your installation directory. Additionally, you'll need to
-enable URL rewriting by setting `$config['rewrite_url'] = true;` in your
-`config/config.php`. The Nginx configuration should provide the *bare minimum*
+enable URL rewriting by setting `rewrite_url: true` in your
+`config/config.yml`. The Nginx configuration should provide the *bare minimum*
 you need for Pico. Nginx is a very extensive subject. If you have any trouble,
 please read through our [Nginx configuration docs][NginxConfig].
 

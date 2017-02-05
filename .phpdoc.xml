@@ -20,7 +20,7 @@
 
         <!-- exclude user config -->
         <ignore>config/*</ignore>
-        <file>config/config.php.template</file>
+        <file>config/config.yml.template</file>
 
         <!-- exclude all plugins -->
         <ignore>plugins/*</ignore>

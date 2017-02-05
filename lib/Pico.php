@@ -652,15 +652,15 @@ class Pico
     }
 
     /**
-     * Loads the config.php and any *.config.php from Pico::$configDir
+     * Loads the config.yml and any other *.yml from Pico::$configDir
      *
-     * After loading the {@path "config/config.php"}, Pico proceeds with any
-     * existing `config/*.config.php` in alphabetical order. The file order is
-     * crucial: Config values which has been set already, cannot be overwritten
-     * by a succeeding file. This is also true for arrays, i.e. when specifying
-     * `$config['test'] = array('foo' => 'bar')` in `config/a.config.php` and
-     * `$config['test'] = array('baz' => 42)` in `config/b.config.php`,
-     * `$config['test']['baz']` will be undefined!
+     * After loading {@path "config/config.yml"}, Pico proceeds with any other
+     * existing `config/*.yml` file in alphabetical order. The file order is
+     * crucial: Config values which have been set already, cannot be
+     * overwritten by a succeeding file. This is also true for arrays, i.e.
+     * when specifying `test: { foo: bar }` in `config/a.yml` and
+     * `test: { baz: 42 }` in `config/b.yml`, `{{ config.test.baz }}` will be
+     * undefined!
      *
      * @see    Pico::setConfig()
      * @see    Pico::getConfig()
@@ -763,12 +763,12 @@ class Pico
      * Sets Pico's config before calling Pico::run()
      *
      * This method allows you to modify Pico's config without creating a
-     * {@path "config/config.php"} or changing some of its variables before
+     * {@path "config/config.yml"} or changing some of its variables before
      * Pico starts processing.
      *
      * You can call this method between {@link Pico::__construct()} and
      * {@link Pico::run()} only. Options set with this method cannot be
-     * overwritten by {@path "config/config.php"}.
+     * overwritten by {@path "config/config.yml"}.
      *
      * @see    Pico::loadConfig()
      * @see    Pico::getConfig()
