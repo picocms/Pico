@@ -236,10 +236,18 @@ class Pico
     /**
      * Variables passed to the twig template
      *
-     * @see Pico::getTwigVariables
+     * @see Pico::getTwigVariables()
      * @var array|null
      */
     protected $twigVariables;
+
+    /**
+     * Name of the Twig template to render
+     *
+     * @see Pico::getTwigTemplate()
+     * @var string|null
+     */
+    protected $twigTemplate;
 
     /**
      * Constructs a new Pico instance
@@ -403,20 +411,10 @@ class Pico
 
         // render template
         $this->twigVariables = $this->getTwigVariables();
-        if (!empty($this->meta['template'])) {
-            $templateName = $this->meta['template'];
-        } else {
-            $templateName = 'index';
-        }
-        if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
-            $templateName .= '.twig';
-        } else {
-            $templateName .= '.html';
-        }
+        $this->twigTemplate = $this->getTwigTemplate();
+        $this->triggerEvent('onPageRendering', array(&$this->twig, &$this->twigVariables, &$this->twigTemplate));
 
-        $this->triggerEvent('onPageRendering', array(&$this->twig, &$this->twigVariables, &$templateName));
-
-        $output = $this->twig->render($templateName, $this->twigVariables);
+        $output = $this->twig->render($this->twigTemplate, $this->twigVariables);
         $this->triggerEvent('onPageRendered', array(&$output));
 
         return $output;
@@ -1573,6 +1571,28 @@ class Pico
             'next_page' => $this->nextPage,
             'version' => static::VERSION
         );
+    }
+
+    /**
+     * Returns the name of the Twig template to render
+     *
+     * @return string template name
+     */
+    protected function getTwigTemplate()
+    {
+        if ($this->twigTemplate !== null) {
+            return $this->twigTemplate;
+        }
+
+        $templateName = $this->meta['template'] ?: 'index';
+
+        if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
+            $templateName .= '.twig';
+        } else {
+            $templateName .= '.html';
+        }
+
+        return $templateName;
     }
 
     /**
