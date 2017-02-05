@@ -156,7 +156,7 @@ class Pico
     /**
      * Symfony YAML instance used for meta header parsing
      *
-     * @see Pico::registerYamlParser()
+     * @see Pico::getYamlParser()
      * @var \Symfony\Component\Yaml\Parser|null
      */
     protected $yamlParser;
@@ -359,10 +359,10 @@ class Pico
 
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
-        // parse file meta
+        // register YAML parser
         $this->triggerEvent('onYamlParserRegistration');
-        $this->registerYamlParser();
 
+        // parse file meta
         $this->metaHeaders = $this->getMetaHeaders();
         $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
 
@@ -372,7 +372,6 @@ class Pico
 
         // register parsedown
         $this->triggerEvent('onParsedownRegistration');
-        $this->registerParsedown();
 
         // parse file content
         $this->triggerEvent('onContentParsing', array(&$this->rawContent));
@@ -1037,27 +1036,16 @@ class Pico
     }
 
     /**
-     * Registers the Symfony YAML parser
-     *
-     * @see    Pico::getYamlParser()
-     * @see    http://symfony.com/doc/current/components/yaml/introduction.html
-     *     Symfony YAML component website
-     * @see    https://github.com/symfony/yaml Symfony YAML component on GitHub
-     * @return void
-     */
-    protected function registerYamlParser()
-    {
-        $this->yamlParser = new \Symfony\Component\Yaml\Parser();
-    }
-
-    /**
      * Returns the Symfony YAML parser
      *
-     * @see    Pico::registerYamlParser()
-     * @return \Symfony\Component\Yaml\Parser|null Symfony YAML parser
+     * @return \Symfony\Component\Yaml\Parser Symfony YAML parser
      */
     public function getYamlParser()
     {
+        if ($this->yamlParser === null) {
+            $this->yamlParser = new \Symfony\Component\Yaml\Parser();
+        }
+
         return $this->yamlParser;
     }
 
@@ -1084,7 +1072,7 @@ class Pico
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
-            $meta = $this->yamlParser->parse($rawMetaMatches[3]);
+            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]);
 
             if ($meta !== null) {
                 // the parser may return a string for non-YAML 1-liners
@@ -1145,28 +1133,16 @@ class Pico
     }
 
     /**
-     * Registers the Parsedown Extra markdown parser
-     *
-     * @see    Pico::getParsedown()
-     * @see    http://parsedown.org/ Parsedown website
-     * @see    https://github.com/erusev/parsedown Parsedown on GitHub
-     * @see    https://github.com/erusev/parsedown-extra
-     *     Parsedown Extra on GitHub
-     * @return void
-     */
-    protected function registerParsedown()
-    {
-        $this->parsedown = new ParsedownExtra();
-    }
-
-    /**
      * Returns the Parsedown Extra markdown parser
      *
-     * @see    Pico::registerParsedown()
-     * @return ParsedownExtra|null Parsedown Extra markdown parser
+     * @return ParsedownExtra Parsedown Extra markdown parser
      */
     public function getParsedown()
     {
+        if ($this->parsedown === null) {
+            $this->parsedown = new ParsedownExtra();
+        }
+
         return $this->parsedown;
     }
 
@@ -1232,11 +1208,7 @@ class Pico
      */
     public function parseFileContent($content)
     {
-        if ($this->parsedown === null) {
-            throw new LogicException("Unable to parse file contents: Parsedown instance wasn't registered yet");
-        }
-
-        return $this->parsedown->text($content);
+        return $this->getParsedown()->text($content);
     }
 
     /**
@@ -1528,6 +1500,11 @@ class Pico
      */
     protected function registerTwig()
     {
+        if ($this->twig !== null) {
+            // nothing to do
+            return;
+        }
+
         $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
         $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
         $this->twig->addExtension(new Twig_Extension_Debug());
@@ -1559,6 +1536,10 @@ class Pico
      */
     public function getTwig()
     {
+        if ($this->twig === null) {
+            $this->registerTwig();
+        }
+
         return $this->twig;
     }
 
