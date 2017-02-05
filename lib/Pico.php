@@ -695,15 +695,16 @@ class Pico
             'site_title' => 'Pico',
             'base_url' => '',
             'rewrite_url' => null,
+            'timezone' => null,
             'theme' => 'default',
             'theme_url' => null,
+            'twig_config' => null,
             'date_format' => '%D %T',
-            'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
             'content_dir' => null,
             'content_ext' => '.md',
-            'timezone' => null
+            'content_config' => null
         );
 
         if (!$this->config['base_url']) {
@@ -714,6 +715,29 @@ class Pico
 
         if ($this->config['rewrite_url'] === null) {
             $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
+        if (!$this->config['timezone']) {
+            // explicitly set a default timezone to prevent a E_NOTICE
+            // when no timezone is set; the `date_default_timezone_get()`
+            // function always returns a timezone, at least UTC
+            $this->config['timezone'] = @date_default_timezone_get();
+        }
+        date_default_timezone_set($this->config['timezone']);
+
+        if (!$this->config['theme_url']) {
+            $this->config['theme_url'] = $this->getBaseThemeUrl();
+        } elseif (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $this->config['theme_url'])) {
+            $this->config['theme_url'] = rtrim($this->config['theme_url'], '/') . '/';
+        } else {
+            $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
+        }
+
+        $defaultTwigConfig = array('cache' => false, 'autoescape' => false, 'debug' => false);
+        if (!is_array($this->config['twig_config'])) {
+            $this->config['twig_config'] = $defaultTwigConfig;
+        } else {
+            $this->config['twig_config'] += $defaultTwigConfig;
         }
 
         if (!$this->config['content_dir']) {
@@ -727,21 +751,12 @@ class Pico
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
 
-        if (!$this->config['theme_url']) {
-            $this->config['theme_url'] = $this->getBaseThemeUrl();
-        } elseif (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $this->config['theme_url'])) {
-            $this->config['theme_url'] = rtrim($this->config['theme_url'], '/') . '/';
+        $defaultContentConfig = array('extra' => true, 'breaks' => false, 'escape' => false, 'auto_urls' => true);
+        if (!is_array($this->config['content_config'])) {
+            $this->config['content_config'] = $defaultContentConfig;
         } else {
-            $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
+            $this->config['content_config'] += $defaultContentConfig;
         }
-
-        if (!$this->config['timezone']) {
-            // explicitly set a default timezone to prevent a E_NOTICE
-            // when no timezone is set; the `date_default_timezone_get()`
-            // function always returns a timezone, at least UTC
-            $this->config['timezone'] = @date_default_timezone_get();
-        }
-        date_default_timezone_set($this->config['timezone']);
     }
 
     /**
@@ -1139,7 +1154,12 @@ class Pico
     public function getParsedown()
     {
         if ($this->parsedown === null) {
-            $this->parsedown = new ParsedownExtra();
+            $className = $this->config['content_config']['extra'] ? 'ParsedownExtra' : 'Parsedown';
+            $this->parsedown = new $className();
+
+            $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
+            $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
+            $this->parsedown->setUrlsLinked((bool) $this->config['content_config']['auto_urls']);
         }
 
         return $this->parsedown;
