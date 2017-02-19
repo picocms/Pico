@@ -1371,7 +1371,7 @@ class Pico
      */
     public function getAbsolutePath($path)
     {
-        if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {
+        if (DIRECTORY_SEPARATOR === '\\') {
             if (preg_match('/^([a-zA-Z]:\\\\|\\\\\\\\)/', $path) !== 1) {
                 $path = $this->getRootDir() . $path;
             }

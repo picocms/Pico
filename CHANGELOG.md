@@ -7,6 +7,7 @@ Released: -
 ```
 * [Changed] Improve documentation
 * [Fixed] Improve hostname detection with proxies
+* [Fixed] Fix detection of Windows-based server environments
 ```
 
 ### Version 1.0.4
