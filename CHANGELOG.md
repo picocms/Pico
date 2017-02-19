@@ -5,6 +5,7 @@ Pico Changelog
 Released: -
 
 ```
+* [New] Add Bountysource
 * [Changed] Improve documentation
 * [Fixed] Improve hostname detection with proxies
 ```
