@@ -20,18 +20,5 @@ desktop.ini
 /_build/phpdoc.cache
 /_build/deploy-*.git
 
-# User config
-/config/config.yml
-
-# User themes
-/themes/*
-!/themes/default
-
-# User plugins
-/plugins/*
-!/plugins/0?-*
-!/plugins/1?-*
-!/plugins/DummyPlugin.php
-
 # User content
 /content

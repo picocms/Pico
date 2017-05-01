@@ -25,8 +25,10 @@
     "require": {
         "php": ">=5.3.6",
         "twig/twig": "^1.18",
+        "symfony/yaml" : "^2.3",
         "erusev/parsedown-extra": "^0.7",
-        "symfony/yaml" : "^2.3"
+        "picocms/pico-theme": "~2.0.0",
+        "picocms/pico-deprecated": "~2.0.0"
     },
     "require-dev" : {
         "phpdocumentor/phpdocumentor": "^2.8",
