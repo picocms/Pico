@@ -2,7 +2,7 @@
     "name": "picocms/pico",
     "type": "library",
     "description": "Pico is a flat file CMS, this means there is no administration backend and database to deal with. You simply create .md files in the \"content\" folder and that becomes a page.",
-    "keywords": ["flat-file","cms","php","twig","markdown"],
+    "keywords": ["pico", "picocms", "pico-cms", "simple", "flat-file", "cms", "content-management", "website", "markdown-to-html", "php", "markdown", "yaml", "twig" ],
     "homepage": "http://picocms.org/",
     "license": "MIT",
     "authors": [

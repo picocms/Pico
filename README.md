@@ -11,8 +11,9 @@ Pico is a stupidly simple, blazing fast, flat file CMS.
 Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
 
 Screenshot
--------
-![Pico Screenshot](https://cloud.githubusercontent.com/assets/920356/17342119/f5a85ee8-58f7-11e6-856e-cd72f76cec61.png)
+----------
+
+![Pico Screenshot](https://picocms.github.io/screenshot.png)
 
 Install
 -------
@@ -26,17 +27,22 @@ Just [download the latest Pico release][LatestRelease] and upload all files to t
 #### Composer
 
 ###### Step 1 - for users
+
 [Download the *source code* of Pico's latest release][LatestRelease], upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server and navigate to the upload directory using a shell.
 
 ###### Step 1 - for developers
+
 Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository as follows:
+
 ```shell
 $ git clone https://github.com/picocms/Pico.git .
 ```
 Please note that this gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
 ###### Step 2
+
 Download [composer][] and run it with the `install` option:
+
 ```shell
 $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install
@@ -63,30 +69,37 @@ Run
 You have nothing to consider specially, simply navigate to your Pico install using your favorite web browser. Pico's default contents will explain how to use your brand new, stupidly simple, blazing fast, flat file CMS.
 
 #### You don't have a web server?
+
 Starting with PHP 5.4 the easiest way to try Pico is using [the built-in web server of PHP][PHPServer]. Please note that PHPs built-in web server is for development and testing purposes only!
 
 ###### Step 1
+
 Navigate to Pico's installation directory using a shell.
 
 ###### Step 2
+
 Start PHPs built-in web server:
 ```shell
 $ php -S 127.0.0.1:8080
 ```
 
 ###### Step 3
+
 Access Pico from http://localhost:8080.
 
 Getting Help
 ------------
 
 #### Getting Help as a user
+
 If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 0.8 or 0.9 to Pico 1.0. You can find officially supported [plugins][OfficialPlugins] and [themes][OfficialThemes] on our website. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes][WikiThemes] pages respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
 
 #### Getting Help as a developer
+
 If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [dev docs on our website][HelpDevDocs].
 
 #### You still need help or experience a problem with Pico?
+
 When the docs can't answer your question, you can get help by joining us on [#picocms on Freenode IRC](https://webchat.freenode.net/?channels=%23picocms). When you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
 **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps you have taken to resolve the problem by yourself (i.e. *your own troubleshooting*).
