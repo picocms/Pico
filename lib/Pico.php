@@ -75,6 +75,14 @@ class Pico
     protected $rootDir;
 
     /**
+     * Vendor directory of this Pico instance
+     *
+     * @see Pico::getVendorDir()
+     * @var string
+     */
+    protected $vendorDir;
+
+    /**
      * Config directory of this Pico instance
      *
      * @see Pico::getConfigDir()
@@ -262,6 +270,7 @@ class Pico
     public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
     {
         $this->rootDir = rtrim($rootDir, '/\\') . '/';
+        $this->vendorDir = dirname(__DIR__) . '/';
         $this->configDir = $this->getAbsolutePath($configDir);
         $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
         $this->themesDir = $this->getAbsolutePath($themesDir);
@@ -275,6 +284,16 @@ class Pico
     public function getRootDir()
     {
         return $this->rootDir;
+    }
+
+    /**
+     * Returns the vendor directory of this Pico instance
+     *
+     * @return string vendor directory path
+     */
+    public function getVendorDir()
+    {
+        return $this->vendorDir;
     }
 
     /**
@@ -744,8 +763,10 @@ class Pico
             // try to guess the content directory
             if (is_dir($this->getRootDir() . 'content')) {
                 $this->config['content_dir'] = $this->getRootDir() . 'content/';
-            } else {
+            } elseif (is_dir($this->getRootDir() . 'content-sample')) {
                 $this->config['content_dir'] = $this->getRootDir() . 'content-sample/';
+            } else {
+                $this->config['content_dir'] = $this->getVendorDir() . 'content-sample/';
             }
         } else {
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
