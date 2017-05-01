@@ -291,12 +291,12 @@ final class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::getTwig()
      * @see    DummyPlugin::onPageRendered()
-     * @param  Twig_Environment &$twig          twig template engine
+     * @param  Twig_Environment $twig           twig template engine
      * @param  array            &$twigVariables template variables
      * @param  string           &$templateName  file name of the template
      * @return void
      */
-    public function onPageRendering(Twig_Environment &$twig, array &$twigVariables, &$templateName)
+    public function onPageRendering(Twig_Environment $twig, array &$twigVariables, &$templateName)
     {
         // your code
     }

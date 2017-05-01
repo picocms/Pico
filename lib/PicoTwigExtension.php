@@ -93,13 +93,6 @@ class PicoTwigExtension extends Twig_Extension
      */
     public function markdownFilter($markdown)
     {
-        if ($this->getPico()->getParsedown() === null) {
-            throw new LogicException(
-                'Unable to apply Twig "markdown" filter: '
-                . 'Parsedown instance wasn\'t registered yet'
-            );
-        }
-
         return $this->getPico()->getParsedown()->text($markdown);
     }
 
