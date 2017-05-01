@@ -55,7 +55,6 @@
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-menu:before { content: '\f0c9'; } /* '' */
-.icon-octocat:before { content: '\f09b'; } /* '' */
-.icon-birdy:before { content: '\f099'; } /* '' */
 .icon-chat:before { content: '\e800'; } /* '' */
+.icon-octocat:before { content: '\f09b'; } /* '' */
+.icon-menu:before { content: '\f0c9'; } /* '' */

@@ -6,6 +6,9 @@ Released: -
 
 ```
 * [Changed] Improve documentation
+* [Fixed] Improve hostname detection with proxies
+* [Fixed] Fix detection of Windows-based server environments
+* [Removed] Remove Twitter links
 ```
 
 ### Version 1.0.4
