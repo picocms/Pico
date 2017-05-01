@@ -761,9 +761,9 @@ class Pico
 
         if (!$this->config['content_dir']) {
             // try to guess the content directory
-            if (is_dir($this->getRootDir() . 'content')) {
+            if (is_file($this->getRootDir() . 'content/index' . $this->config['content_ext'])) {
                 $this->config['content_dir'] = $this->getRootDir() . 'content/';
-            } elseif (is_dir($this->getRootDir() . 'content-sample')) {
+            } elseif (is_file($this->getRootDir() . 'content-sample/index' . $this->config['content_ext'])) {
                 $this->config['content_dir'] = $this->getRootDir() . 'content-sample/';
             } else {
                 $this->config['content_dir'] = $this->getVendorDir() . 'content-sample/';
