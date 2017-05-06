@@ -14,8 +14,3 @@ desktop.ini
 /composer.lock
 /composer.phar
 /vendor
-
-# Build system
-/_build/phpdoc
-/_build/phpdoc.cache
-/_build/deploy-*.git
