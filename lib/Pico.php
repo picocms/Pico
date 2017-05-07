@@ -117,9 +117,9 @@ class Pico
      * List of loaded plugins
      *
      * @see Pico::getPlugins()
-     * @var object[]|null
+     * @var object[]
      */
-    protected $plugins;
+    protected $plugins = array();
 
     /**
      * Current configuration of this Pico instance
@@ -469,8 +469,6 @@ class Pico
      */
     protected function loadPlugins()
     {
-        $this->plugins = array();
-
         // discover plugin files
         $pluginFiles = array();
         $files = scandir($this->getPluginsDir());
@@ -520,6 +518,10 @@ class Pico
                 $plugin = new $className($this);
                 $className = get_class($plugin);
 
+                if (isset($this->plugins[$className])) {
+                    continue;
+                }
+
                 $this->plugins[$className] = $plugin;
             } else {
                 throw new RuntimeException(
@@ -563,9 +565,6 @@ class Pico
             );
         }
 
-        if ($this->plugins === null) {
-            $this->plugins = array();
-        }
         $this->plugins[$className] = $plugin;
 
         return $plugin;
@@ -1296,7 +1295,7 @@ class Pico
         $contentExtLength = strlen($contentExt);
 
         $this->pages = array();
-        $files = $this->getFiles($contentDir, $contentExt, Pico::SORT_NONE);
+        $files = $this->getFiles($contentDir, $contentExt, self::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
             if (basename($file) === '404' . $contentExt) {
@@ -2012,13 +2011,11 @@ class Pico
      */
     public function triggerEvent($eventName, array $params = array())
     {
-        if ($this->plugins) {
-            foreach ($this->plugins as $plugin) {
-                // only trigger events for plugins that implement PicoPluginInterface
-                // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
-                if ($plugin instanceof PicoPluginInterface) {
-                    $plugin->handleEvent($eventName, $params);
-                }
+        foreach ($this->plugins as $plugin) {
+            // only trigger events for plugins that implement PicoPluginInterface
+            // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
+            if ($plugin instanceof PicoPluginInterface) {
+                $plugin->handleEvent($eventName, $params);
             }
         }
     }
