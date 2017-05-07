@@ -11,10 +11,13 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 2.0
  */
-final class DummyPlugin extends AbstractPicoPlugin
+class DummyPlugin extends AbstractPicoPlugin
 {
     /**
-     * This plugin is enabled by default?
+     * This plugin is disabled by default
+     *
+     * If you want to enable your plugin by default, simply remove this class
+     * property.
      *
      * @see AbstractPicoPlugin::$enabled
      * @var boolean
@@ -23,6 +26,9 @@ final class DummyPlugin extends AbstractPicoPlugin
 
     /**
      * This plugin depends on ...
+     *
+     * If your plugin doesn't depend on any other plugin, remove this class
+     * property.
      *
      * @see AbstractPicoPlugin::$dependsOn
      * @var string[]
@@ -215,6 +221,7 @@ final class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico reads all known pages
      *
      * @see    Pico::readPages()
+     * @see    DummyPlugin::onSinglePageLoading()
      * @see    DummyPlugin::onSinglePageLoaded()
      * @see    DummyPlugin::onPagesLoaded()
      * @return void
@@ -225,7 +232,21 @@ final class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered when Pico reads a single page from the list of all known pages
+     * Triggered before Pico loads a single page
+     *
+     * @see    Pico::readPages()
+     * @see    DummyPlugin::onSinglePageLoaded()
+     * @see    DummyPlugin::onPagesLoaded()
+     * @param  string &$id relative path to the content file
+     * @return void
+     */
+    public function onSinglePageLoading(&$id)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico loads a single page
      *
      * The `$pageData` parameter consists of the following values:
      *
@@ -241,6 +262,8 @@ final class DummyPlugin extends AbstractPicoPlugin
      * | date_formatted | string | formatted date of the page               |
      * | raw_content    | string | raw, not yet parsed contents of the page |
      * | meta           | string | parsed meta data of the page             |
+     *
+     * Set `$pageData` to `null` to remove this page from the pages array.
      *
      * @see    DummyPlugin::onPagesLoaded()
      * @param  array &$pageData data of the loaded page
