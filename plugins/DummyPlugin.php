@@ -14,6 +14,13 @@
 class DummyPlugin extends AbstractPicoPlugin
 {
     /**
+     * API version used by this plugin
+     *
+     * @var int
+     */
+    const API_VERSION = 2;
+
+    /**
      * This plugin is disabled by default
      *
      * If you want to enable your plugin by default, simply remove this class

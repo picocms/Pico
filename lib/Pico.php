@@ -43,6 +43,13 @@ class Pico
     const VERSION_ID = 20000;
 
     /**
+     * Pico API version
+     *
+     * @var int
+     */
+    const API_VERSION = 2;
+
+    /**
      * Sort files in alphabetical ascending order
      *
      * @see Pico::getFiles()
@@ -120,6 +127,13 @@ class Pico
      * @var object[]
      */
     protected $plugins = array();
+
+    /**
+     * List of loaded plugins using the current API version
+     *
+     * @var object[]
+     */
+    protected $nativePlugins = array();
 
     /**
      * Current configuration of this Pico instance
@@ -523,6 +537,12 @@ class Pico
                 }
 
                 $this->plugins[$className] = $plugin;
+
+                if ($plugin instanceof PicoPluginInterface) {
+                    if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+                        $this->nativePlugins[$className] = $plugin;
+                    }
+                }
             } else {
                 throw new RuntimeException(
                     "Unable to load plugin '" . $className . "' "
@@ -566,6 +586,10 @@ class Pico
         }
 
         $this->plugins[$className] = $plugin;
+
+        if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+            $this->nativePlugins[$className] = $plugin;
+        }
 
         return $plugin;
     }
@@ -613,8 +637,9 @@ class Pico
                 $dependencies = array();
                 if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
-                } else {
-                    $dependencies = array('PicoDeprecated');
+                }
+                if (!isset($this->nativePlugins[$pluginName])) {
+                    $dependencies[] = 'PicoDeprecated';
                 }
 
                 foreach ($dependencies as $dependency) {
@@ -1996,10 +2021,14 @@ class Pico
     }
 
     /**
-     * Triggers events on plugins which implement PicoPluginInterface
+     * Triggers events on plugins using the current API version
      *
-     * Deprecated events (as used by plugins not implementing
-     * {@link PicoPluginInterface}) are triggered by {@link PicoDeprecated}.
+     * Plugins using older API versions are handled by {@see PicoDeprecated}.
+     * Please note that {@see PicoDeprecated} also triggers custom events on
+     * plugins using older API versions, thus you can safely use this method
+     * to trigger custom events on all loaded plugins, no matter what API
+     * version - the event will be triggered in any case
+     *
      * You MUST NOT trigger events of Pico's core with a plugin!
      *
      * @see    PicoPluginInterface
@@ -2011,12 +2040,8 @@ class Pico
      */
     public function triggerEvent($eventName, array $params = array())
     {
-        foreach ($this->plugins as $plugin) {
-            // only trigger events for plugins that implement PicoPluginInterface
-            // deprecated events (plugins for Pico 0.9 and older) will be triggered by `PicoDeprecated`
-            if ($plugin instanceof PicoPluginInterface) {
-                $plugin->handleEvent($eventName, $params);
-            }
+        foreach ($this->nativePlugins as $plugin) {
+            $plugin->handleEvent($eventName, $params);
         }
     }
 }

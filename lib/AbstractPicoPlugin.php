@@ -38,6 +38,14 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     protected $statusChanged = false;
 
     /**
+     * Boolean indicating whether this plugin matches Pico's API version
+     *
+     * @see AbstractPicoPlugin::checkCompatibility()
+     * @var boolean|null
+     */
+    protected $nativePlugin;
+
+    /**
      * List of plugins which this plugin depends on
      *
      * @see AbstractPicoPlugin::checkDependencies()
@@ -81,6 +89,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                     // make sure dependencies are already fulfilled,
                     // otherwise the plugin needs to be enabled manually
                     try {
+                        $this->checkCompatibility();
                         $this->checkDependencies(false);
                     } catch (RuntimeException $e) {
                         $this->enabled = false;
@@ -105,6 +114,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
         $this->enabled = (bool) $enabled;
 
         if ($enabled) {
+            $this->checkCompatibility();
             $this->checkDependencies($recursive);
         } else {
             $this->checkDependants($recursive);
@@ -282,5 +292,36 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
         }
 
         return $this->dependants;
+    }
+
+    /**
+     * Checks compatibility with Pico's API version
+     *
+     * Pico automatically adds a dependency to {@see PicoDeprecated} when the
+     * plugin's API is older than Pico's API. {@see PicoDeprecated} furthermore
+     * throws a exception when it can't provide compatibility in such cases.
+     * However, we still have to decide whether this plugin is compatible to
+     * newer API versions, what defaults to "no" by default.
+     *
+     * @return void
+     * @throws RuntimeException thrown when the plugin's and Pico's API
+     *     aren't compatible
+     */
+    protected function checkCompatibility()
+    {
+        if ($this->nativePlugin === null) {
+            $picoClassName = get_class($this->pico);
+            $picoApiVersion = defined($picoClassName . '::API_VERSION') ? $picoClassName::API_VERSION : 1;
+            $pluginApiVersion = defined('static::API_VERSION') ? static::API_VERSION : 1;
+
+            $this->nativePlugin = ($pluginApiVersion === $picoApiVersion);
+
+            if (!$this->nativePlugin && ($pluginApiVersion > $picoApiVersion)) {
+                throw new RuntimeException(
+                    "Unable to enable plugin '" . get_called_class() . "': The plugin's API (version "
+                    . $pluginApiVersion . ") isn't compatible with Pico's API (version " . $picoApiVersion . ")"
+                );
+            }
+        }
     }
 }
