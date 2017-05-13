@@ -154,7 +154,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *     config variable, null if the config variable doesn't exist or the
      *     plugin's config array if no config name was supplied
      */
-    protected function getPluginConfig($configName = null)
+    public function getPluginConfig($configName = null)
     {
         $pluginConfig = $this->getConfig(get_called_class());
         if ($pluginConfig) {
@@ -263,8 +263,8 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                     }
                 }
             } else {
-                $dependantsList = 'plugin' . ((count($dependants) > 1) ? 's' : '') . ' ';
-                $dependantsList .= "'" . implode("', '", array_keys($dependants)) . "'";
+                $dependantsList = 'plugin' . ((count($dependants) > 1) ? 's' : '') . ' '
+                    . "'" . implode("', '", array_keys($dependants)) . "'";
                 throw new RuntimeException(
                     "Unable to disable plugin '" . get_called_class() . "': "
                     . "Required by " . $dependantsList

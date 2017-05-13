@@ -274,7 +274,7 @@ class Pico
     /**
      * Constructs a new Pico instance
      *
-     * To carry out all the processing in Pico, call {@link Pico::run()}.
+     * To carry out all the processing in Pico, call {@see Pico::run()}.
      *
      * @param string $rootDir    root directory of this Pico instance
      * @param string $configDir  config directory of this Pico instance
@@ -677,8 +677,8 @@ class Pico
     /**
      * Returns the instance of a named plugin
      *
-     * Plugins SHOULD implement {@link PicoPluginInterface}, but you MUST NOT
-     * rely on it. For more information see {@link PicoPluginInterface}.
+     * Plugins SHOULD implement {@see PicoPluginInterface}, but you MUST NOT
+     * rely on it. For more information see {@see PicoPluginInterface}.
      *
      * @see    Pico::loadPlugins()
      * @see    Pico::getPlugins()
@@ -824,8 +824,8 @@ class Pico
      * {@path "config/config.yml"} or changing some of its variables before
      * Pico starts processing.
      *
-     * You can call this method between {@link Pico::__construct()} and
-     * {@link Pico::run()} only. Options set with this method cannot be
+     * You can call this method between {@see Pico::__construct()} and
+     * {@see Pico::run()} only. Options set with this method cannot be
      * overwritten by {@path "config/config.yml"}.
      *
      * @see    Pico::loadConfig()
@@ -1314,20 +1314,25 @@ class Pico
      *
      * The page data will be an array containing the following values:
      *
-     * | Array key      | Type   | Description                              |
-     * | -------------- | ------ | ---------------------------------------- |
-     * | id             | string | relative path to the content file        |
-     * | url            | string | URL to the page                          |
-     * | title          | string | title of the page (YAML header)          |
-     * | description    | string | description of the page (YAML header)    |
-     * | author         | string | author of the page (YAML header)         |
-     * | time           | string | timestamp derived from the Date header   |
-     * | date           | string | date of the page (YAML header)           |
-     * | date_formatted | string | formatted date of the page               |
-     * | raw_content    | string | raw, not yet parsed contents of the page |
-     * | meta           | string | parsed meta data of the page             |
-     * | previous_page  | &array | reference to the previous page           |
-     * | next_page      | &array | reference to the next page               |
+     * | Array key      | Type    | Description                                |
+     * | -------------- | ------- | ------------------------------------------ |
+     * | id             | string  | relative path to the content file          |
+     * | url            | string  | URL to the page                            |
+     * | title          | string  | title of the page (YAML header)            |
+     * | description    | string  | description of the page (YAML header)      |
+     * | author         | string  | author of the page (YAML header)           |
+     * | time           | string  | timestamp derived from the Date header     |
+     * | date           | string  | date of the page (YAML header)             |
+     * | date_formatted | string  | formatted date of the page                 |
+     * | hidden         | boolean | this page shouldn't be visible to the user |
+     * | raw_content    | string  | raw, not yet parsed contents of the page   |
+     * | meta           | string  | parsed meta data of the page               |
+     * | previous_page  | &array  | reference to the previous page             |
+     * | next_page      | &array  | reference to the next page                 |
+     *
+     * Please note that the `previous_page` and `next_page` keys won't be
+     * available until the `onPagesLoaded` event ({@see Pico::sortPages()})
+     * was triggered.
      *
      * @see    Pico::sortPages()
      * @see    Pico::discoverPageSiblings()
@@ -1578,10 +1583,10 @@ class Pico
     }
 
     /**
-     * Registers the twig template engine
+     * Registers the Twig template engine
      *
      * This method also registers Pico's core Twig filters `link` and `content`
-     * as well as Pico's {@link PicoTwigExtension} Twig extension.
+     * as well as Pico's {@see PicoTwigExtension} Twig extension.
      *
      * This method triggers the `onTwigRegistered` event when the Twig template
      * engine wasn't initiated yet.
@@ -1800,10 +1805,10 @@ class Pico
      * We assume that the themes folder is a arbitrary deep sub folder of the
      * script's base path (i.e. the directory {@path "index.php"} is in resp.
      * the `httpdocs` directory). Usually the script's base path is identical
-     * to {@link Pico::$rootDir}, but this may aberrate when Pico got installed
+     * to {@see Pico::$rootDir}, but this may aberrate when Pico got installed
      * as a composer dependency. However, ultimately it allows us to use
-     * {@link Pico::getBaseUrl()} as origin of the theme URL. Otherwise Pico
-     * falls back to the basename of {@link Pico::$themesDir} (i.e. assuming
+     * {@see Pico::getBaseUrl()} as origin of the theme URL. Otherwise Pico
+     * falls back to the basename of {@see Pico::$themesDir} (i.e. assuming
      * that `Pico::$themesDir` is `foo/bar/baz`, the base URL of the themes
      * folder will be `baz/`; this ensures BC to Pico < 2.0). Pico's base URL
      * always gets prepended appropriately.
@@ -1831,8 +1836,8 @@ class Pico
     /**
      * Filters a URL GET parameter with a specified filter
      *
-     * This method is just an alias for {@link Pico::filterVariable()}, see
-     * {@link Pico::filterVariable()} for a detailed description. It can be
+     * This method is just an alias for {@see Pico::filterVariable()}, see
+     * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `url_param` function.
      *
      * @see    Pico::filterVariable()
@@ -1856,8 +1861,8 @@ class Pico
     /**
      * Filters a HTTP POST parameter with a specified filter
      *
-     * This method is just an alias for {@link Pico::filterVariable()}, see
-     * {@link Pico::filterVariable()} for a detailed description. It can be
+     * This method is just an alias for {@see Pico::filterVariable()}, see
+     * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `form_param` function.
      *
      * @see    Pico::filterVariable()

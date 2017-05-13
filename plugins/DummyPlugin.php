@@ -122,18 +122,6 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico has read the contents of the file to serve
-     *
-     * @see    Pico::getRawContent()
-     * @param  string &$rawContent raw file contents
-     * @return void
-     */
-    public function onContentLoaded(&$rawContent)
-    {
-        // your code
-    }
-
-    /**
      * Triggered before Pico reads the contents of a 404 file
      *
      * @see    Pico::load404Content()
@@ -154,6 +142,22 @@ class DummyPlugin extends AbstractPicoPlugin
      * @return void
      */
     public function on404ContentLoaded(&$rawContent)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered after Pico has read the contents of the file to serve
+     *
+     * If Pico serves a 404 file, this event is triggered with the raw contents
+     * of said 404 file. Use {@see Pico::is404Content()} to check for this
+     * case when necessary.
+     *
+     * @see    Pico::getRawContent()
+     * @param  string &$rawContent raw file contents
+     * @return void
+     */
+    public function onContentLoaded(&$rawContent)
     {
         // your code
     }
@@ -273,18 +277,21 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * The `$pageData` parameter consists of the following values:
      *
-     * | Array key      | Type   | Description                              |
-     * | -------------- | ------ | ---------------------------------------- |
-     * | id             | string | relative path to the content file        |
-     * | url            | string | URL to the page                          |
-     * | title          | string | title of the page (YAML header)          |
-     * | description    | string | description of the page (YAML header)    |
-     * | author         | string | author of the page (YAML header)         |
-     * | time           | string | timestamp derived from the Date header   |
-     * | date           | string | date of the page (YAML header)           |
-     * | date_formatted | string | formatted date of the page               |
-     * | raw_content    | string | raw, not yet parsed contents of the page |
-     * | meta           | string | parsed meta data of the page             |
+     * | Array key      | Type    | Description                                |
+     * | -------------- | ------- | ------------------------------------------ |
+     * | id             | string  | relative path to the content file          |
+     * | url            | string  | URL to the page                            |
+     * | title          | string  | title of the page (YAML header)            |
+     * | description    | string  | description of the page (YAML header)      |
+     * | author         | string  | author of the page (YAML header)           |
+     * | time           | string  | timestamp derived from the Date header     |
+     * | date           | string  | date of the page (YAML header)             |
+     * | date_formatted | string  | formatted date of the page                 |
+     * | hidden         | boolean | this page shouldn't be visible to the user |
+     * | raw_content    | string  | raw, not yet parsed contents of the page   |
+     * | meta           | string  | parsed meta data of the page               |
+     * | previous_page  | &array  | reference to the previous page             |
+     * | next_page      | &array  | reference to the next page                 |
      *
      * Set `$pageData` to `null` to remove this page from the pages array.
      *
@@ -301,7 +308,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has discovered all known pages
      *
-     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data. Please note that the pages array isn't
      * sorted yet.
      *
@@ -318,7 +325,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has sorted the pages array
      *
-     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data.
      *
      * @see    Pico::getPages()
@@ -333,7 +340,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico discovered the current, previous and next pages
      *
-     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data.
      *
      * @see    Pico::discoverPageSiblings()

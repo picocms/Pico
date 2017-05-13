@@ -3,12 +3,12 @@
 /**
  * Common interface for Pico plugins
  *
- * For a list of supported events see {@link DummyPlugin}; you can use
- * {@link DummyPlugin} as template for new plugins. For a list of deprecated
- * events see {@link PicoDeprecated}.
+ * For a list of supported events see {@see DummyPlugin}; you can use
+ * {@see DummyPlugin} as template for new plugins. For a list of deprecated
+ * events see {@see PicoDeprecated}.
  *
  * You SHOULD NOT use deprecated events when implementing this interface.
- * Deprecated events are triggered by the {@link PicoDeprecated} plugin, if
+ * Deprecated events are triggered by the {@see PicoDeprecated} plugin, if
  * plugins which don't implement this interface are loaded. You can take
  * advantage from this behaviour if you want to do something only when old
  * plugins are loaded. Consequently the old events are never triggered when
