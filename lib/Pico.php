@@ -431,13 +431,11 @@ class Pico
         );
 
         // render template
-        $this->registerTwig();
-
         $this->twigVariables = $this->getTwigVariables();
         $this->twigTemplate = $this->getTwigTemplate();
         $this->triggerEvent('onPageRendering', array(&$this->twigTemplate, &$this->twigVariables));
 
-        $output = $this->twig->render($this->twigTemplate, $this->twigVariables);
+        $output = $this->getTwig()->render($this->twigTemplate, $this->twigVariables);
         $this->triggerEvent('onPageRendered', array(&$output));
 
         return $output;
@@ -1589,62 +1587,45 @@ class Pico
     }
 
     /**
-     * Registers the Twig template engine
-     *
-     * This method also registers Pico's core Twig filters `link` and `content`
-     * as well as Pico's {@see PicoTwigExtension} Twig extension.
+     * Returns the Twig template engine
      *
      * This method triggers the `onTwigRegistered` event when the Twig template
-     * engine wasn't initiated yet.
+     * engine wasn't initiated yet. When initiating Twig, this method also
+     * registers Pico's core Twig filters `link` and `content` as well as
+     * Pico's {@see PicoTwigExtension} Twig extension.
      *
      * @see    Pico::getTwig()
      * @see    http://twig.sensiolabs.org/ Twig website
      * @see    https://github.com/twigphp/Twig Twig on GitHub
-     * @return void
-     */
-    protected function registerTwig()
-    {
-        if ($this->twig !== null) {
-            // nothing to do
-            return;
-        }
-
-        $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
-        $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
-        $this->twig->addExtension(new Twig_Extension_Debug());
-        $this->twig->addExtension(new PicoTwigExtension($this));
-
-        // register content filter
-        // we pass the $pages array by reference to prevent multiple parser runs for the same page
-        // this is the reason why we can't register this filter as part of PicoTwigExtension
-        $pico = $this;
-        $pages = &$this->pages;
-        $this->twig->addFilter(new Twig_SimpleFilter('content', function ($page) use ($pico, &$pages) {
-            if (isset($pages[$page])) {
-                $pageData = &$pages[$page];
-                if (!isset($pageData['content'])) {
-                    $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
-                    $pageData['content'] = $pico->parseFileContent($pageData['content']);
-                }
-                return $pageData['content'];
-            }
-            return null;
-        }));
-
-        // trigger onTwigRegistration event
-        $this->triggerEvent('onTwigRegistered', array(&$this->twig));
-    }
-
-    /**
-     * Returns the twig template engine
-     *
-     * @see    Pico::registerTwig()
      * @return Twig_Environment|null Twig template engine
      */
     public function getTwig()
     {
         if ($this->twig === null) {
-            $this->registerTwig();
+            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
+            $this->twig = new Twig_Environment($twigLoader, $this->getConfig('twig_config'));
+            $this->twig->addExtension(new Twig_Extension_Debug());
+            $this->twig->addExtension(new PicoTwigExtension($this));
+
+            // register content filter
+            // we pass the $pages array by reference to prevent multiple parser runs for the same page
+            // this is the reason why we can't register this filter as part of PicoTwigExtension
+            $pico = $this;
+            $pages = &$this->pages;
+            $this->twig->addFilter(new Twig_SimpleFilter('content', function ($page) use ($pico, &$pages) {
+                if (isset($pages[$page])) {
+                    $pageData = &$pages[$page];
+                    if (!isset($pageData['content'])) {
+                        $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                        $pageData['content'] = $pico->parseFileContent($pageData['content']);
+                    }
+                    return $pageData['content'];
+                }
+                return null;
+            }));
+
+            // trigger onTwigRegistration event
+            $this->triggerEvent('onTwigRegistered', array(&$this->twig));
         }
 
         return $this->twig;
@@ -1660,10 +1641,6 @@ class Pico
      */
     protected function getTwigVariables()
     {
-        if ($this->twigVariables !== null) {
-            return $this->twigVariables;
-        }
-
         return array(
             'config' => $this->getConfig(),
             'base_dir' => rtrim($this->getRootDir(), '/'),
@@ -1688,10 +1665,6 @@ class Pico
      */
     protected function getTwigTemplate()
     {
-        if ($this->twigTemplate !== null) {
-            return $this->twigTemplate;
-        }
-
         $templateName = $this->meta['template'] ?: 'index';
 
         if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
