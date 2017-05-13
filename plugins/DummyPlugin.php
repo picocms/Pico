@@ -230,6 +230,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see    Pico::readPages()
      * @see    DummyPlugin::onSinglePageLoading()
      * @see    DummyPlugin::onSinglePageLoaded()
+     * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
      * @return void
      */
@@ -241,8 +242,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico loads a single page
      *
-     * @see    Pico::readPages()
+     * Set `$id` to `null` to remove this page from the pages array.
+     *
      * @see    DummyPlugin::onSinglePageLoaded()
+     * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
      * @param  string &$id relative path to the content file
      * @return void
@@ -272,6 +275,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * Set `$pageData` to `null` to remove this page from the pages array.
      *
+     * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
      * @param  array &$pageData data of the loaded page
      * @return void
@@ -282,23 +286,54 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered after Pico has read all known pages
+     * Triggered after Pico has discovered all known pages
+     *
+     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * structure of the page data. Please note that the pages array isn't
+     * sorted yet.
+     *
+     * @see    Pico::sortPages()
+     * @see    DummyPlugin::onPagesLoaded()
+     * @param  array[]    &$pages        data of all known pages
+     * @return void
+     */
+    public function onPagesDiscovered(array &$pages)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered after Pico has sorted the pages array
      *
      * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data.
      *
      * @see    Pico::getPages()
+     * @param  array[]    &$pages        data of all known pages
+     * @return void
+     */
+    public function onPagesLoaded(array &$pages)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico discovered the current, previous and next pages
+     *
+     * See {@link DummyPlugin::onSinglePageLoaded()} for details about the
+     * structure of the page data.
+     *
+     * @see    Pico::discoverPageSiblings()
+     * @see    Pico::discoverCurrentPage()
      * @see    Pico::getCurrentPage()
      * @see    Pico::getPreviousPage()
      * @see    Pico::getNextPage()
-     * @param  array[]    &$pages        data of all known pages
      * @param  array|null &$currentPage  data of the page being served
      * @param  array|null &$previousPage data of the previous page
      * @param  array|null &$nextPage     data of the next page
      * @return void
      */
-    public function onPagesLoaded(
-        array &$pages,
+    public function onCurrentPageDiscovered(
         array &$currentPage = null,
         array &$previousPage = null,
         array &$nextPage = null
@@ -307,26 +342,16 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered before Pico registers the twig template engine
-     *
-     * @return void
-     */
-    public function onTwigRegistration()
-    {
-        // your code
-    }
-
-    /**
      * Triggered before Pico renders the page
      *
-     * @see    Pico::getTwig()
+     * @see    Pico::getTwigTemplate()
+     * @see    Pico::getTwigVariables()
      * @see    DummyPlugin::onPageRendered()
-     * @param  Twig_Environment $twig           twig template engine
-     * @param  array            &$twigVariables template variables
      * @param  string           &$templateName  file name of the template
+     * @param  array            &$twigVariables template variables
      * @return void
      */
-    public function onPageRendering(Twig_Environment $twig, array &$twigVariables, &$templateName)
+    public function onPageRendering(&$templateName, array &$twigVariables)
     {
         // your code
     }
@@ -338,6 +363,42 @@ class DummyPlugin extends AbstractPicoPlugin
      * @return void
      */
     public function onPageRendered(&$output)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico registers the YAML parser
+     *
+     * @see    Pico::getYamlParser()
+     * @param  \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
+     * @return void
+     */
+    public function onYamlParserRegistered(\Symfony\Component\Yaml\Parser &$yamlParser)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico registers the Parsedown parser
+     *
+     * @see    Pico::getParsedown()
+     * @param  Parsedown &$parsedown Parsedown instance
+     * @return void
+     */
+    public function onParsedownRegistered(Parsedown &$parsedown)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico registers the twig template engine
+     *
+     * @see    Pico::getTwig()
+     * @param  Twig_Environment &$twig Twig instance
+     * @return void
+     */
+    public function onTwigRegistered(Twig_Environment &$twig)
     {
         // your code
     }

@@ -400,9 +400,6 @@ class Pico
 
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
-        // register YAML parser
-        $this->triggerEvent('onYamlParserRegistration');
-
         // parse file meta
         $this->metaHeaders = $this->getMetaHeaders();
         $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
@@ -410,9 +407,6 @@ class Pico
         $this->triggerEvent('onMetaParsing', array(&$this->rawContent, &$this->metaHeaders));
         $this->meta = $this->parseFileMeta($this->rawContent, $this->metaHeaders);
         $this->triggerEvent('onMetaParsed', array(&$this->meta));
-
-        // register parsedown
-        $this->triggerEvent('onParsedownRegistration');
 
         // parse file content
         $this->triggerEvent('onContentParsing', array(&$this->rawContent));
@@ -427,25 +421,24 @@ class Pico
         $this->triggerEvent('onPagesLoading');
 
         $this->readPages();
+        $this->triggerEvent('onPagesDiscovered', array(&$this->pages));
+
         $this->sortPages();
+        $this->triggerEvent('onPagesLoaded', array(&$this->pages));
+
         $this->discoverPageSiblings();
         $this->discoverCurrentPage();
-
-        $this->triggerEvent('onPagesLoaded', array(
-            &$this->pages,
-            &$this->currentPage,
-            &$this->previousPage,
-            &$this->nextPage
-        ));
-
-        // register twig
-        $this->triggerEvent('onTwigRegistration');
-        $this->registerTwig();
+        $this->triggerEvent(
+            'onCurrentPageDiscovered',
+            array(&$this->currentPage, &$this->previousPage, &$this->nextPage)
+        );
 
         // render template
+        $this->registerTwig();
+
         $this->twigVariables = $this->getTwigVariables();
         $this->twigTemplate = $this->getTwigTemplate();
-        $this->triggerEvent('onPageRendering', array(&$this->twig, &$this->twigVariables, &$this->twigTemplate));
+        $this->triggerEvent('onPageRendering', array(&$this->twigTemplate, &$this->twigVariables));
 
         $output = $this->twig->render($this->twigTemplate, $this->twigVariables);
         $this->triggerEvent('onPageRendered', array(&$output));
@@ -1097,12 +1090,16 @@ class Pico
     /**
      * Returns the Symfony YAML parser
      *
+     * This method triggers the `onYamlParserRegistered` event when the Symfony
+     * YAML parser wasn't initiated yet.
+     *
      * @return \Symfony\Component\Yaml\Parser Symfony YAML parser
      */
     public function getYamlParser()
     {
         if ($this->yamlParser === null) {
             $this->yamlParser = new \Symfony\Component\Yaml\Parser();
+            $this->triggerEvent('onYamlParserRegistered', array(&$this->yamlParser));
         }
 
         return $this->yamlParser;
@@ -1194,6 +1191,9 @@ class Pico
     /**
      * Returns the Parsedown Extra markdown parser
      *
+     * This method triggers the `onParsedownRegistered` event when the
+     * Parsedown Extra parser wasn't initiated yet.
+     *
      * @return ParsedownExtra Parsedown Extra markdown parser
      */
     public function getParsedown()
@@ -1205,6 +1205,8 @@ class Pico
             $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
             $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
             $this->parsedown->setUrlsLinked((bool) $this->config['content_config']['auto_urls']);
+
+            $this->triggerEvent('onParsedownRegistered', array(&$this->parsedown));
         }
 
         return $this->parsedown;
@@ -1332,6 +1334,10 @@ class Pico
 
             // trigger onSinglePageLoading event
             $this->triggerEvent('onSinglePageLoading', array(&$id));
+
+            if ($id === null) {
+                continue;
+            }
 
             // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
             $conflictFile = $contentDir . $id . '/index' . $contentExt;
@@ -1557,6 +1563,9 @@ class Pico
      * This method also registers Pico's core Twig filters `link` and `content`
      * as well as Pico's {@link PicoTwigExtension} Twig extension.
      *
+     * This method triggers the `onTwigRegistered` event when the Twig template
+     * engine wasn't initiated yet.
+     *
      * @see    Pico::getTwig()
      * @see    http://twig.sensiolabs.org/ Twig website
      * @see    https://github.com/twigphp/Twig Twig on GitHub
@@ -1590,6 +1599,9 @@ class Pico
             }
             return null;
         }));
+
+        // trigger onTwigRegistration event
+        $this->triggerEvent('onTwigRegistered', array(&$this->twig));
     }
 
     /**
