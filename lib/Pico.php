@@ -363,7 +363,7 @@ class Pico
         // load plugins
         $this->loadPlugins();
         $this->sortPlugins();
-        $this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
+        $this->triggerEvent('onPluginsLoaded', array($this->plugins));
 
         // load config
         $this->loadConfig();
@@ -548,7 +548,23 @@ class Pico
     /**
      * Manually loads a plugin
      *
-     * Manually loaded plugins must implement {@see PicoPluginInterface}.
+     * Manually loaded plugins MUST implement {@see PicoPluginInterface}. They
+     * are simply appended to the plugins array without any additional checks,
+     * so you might get unexpected results, depending on *when* you're loading
+     * a plugin. You SHOULD NOT load plugins after a event has been triggered
+     * by Pico. In-depth knowledge of Pico's inner workings is strongly advised
+     * otherwise, and you MUST NOT rely on {@see PicoDeprecated} to maintain
+     * backward compatibility in such cases.
+     *
+     * If you e.g. load a plugin after the `onPluginsLoaded` event, Pico
+     * doesn't guarantee the plugin's order ({@see Pico::sortPlugins()}).
+     * Already triggered events won't get triggered on the manually loaded
+     * plugin. Thus you SHOULD load plugins either before {@see Pico::run()}
+     * is called, or via the constructor of another plugin (i.e. the plugin's
+     * `__construct()` method; plugins are instanced in
+     * {@see Pico::loadPlugins()}).
+     *
+     * This method triggers the `onPluginManuallyLoaded` event.
      *
      * @see    Pico::loadPlugins()
      * @see    Pico::getPlugin()
@@ -583,6 +599,10 @@ class Pico
         if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
             $this->nativePlugins[$className] = $plugin;
         }
+
+        // trigger onPluginManuallyLoaded event
+        // the event is also called on the newly loaded plugin, allowing you to distinguish manual and auto loading
+        $this->triggerEvent('onPluginManuallyLoaded', array($this->plugins[$className]));
 
         return $plugin;
     }

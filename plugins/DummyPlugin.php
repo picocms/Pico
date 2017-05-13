@@ -50,10 +50,23 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::getPlugin()
      * @see    Pico::getPlugins()
-     * @param  object[] &$plugins loaded plugin instances
+     * @param  object[] $plugins loaded plugin instances
      * @return void
      */
-    public function onPluginsLoaded(array &$plugins)
+    public function onPluginsLoaded(array $plugins)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico manually loads a plugin
+     *
+     * @see    Pico::getPlugin()
+     * @see    Pico::getPlugins()
+     * @param  object $plugin loaded plugin instance
+     * @return void
+     */
+    public function onPluginManuallyLoaded($plugin)
     {
         // your code
     }
