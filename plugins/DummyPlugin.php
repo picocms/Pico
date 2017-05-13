@@ -300,6 +300,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * | previous_page  | &array  | reference to the previous page             |
      * | next_page      | &array  | reference to the next page                 |
      *
+     * Please note that the `previous_page` and `next_page` keys won't be
+     * available until the `onCurrentPageDiscovered` event was triggered.
+     *
      * Set `$pageData` to `null` to remove this page from the pages array.
      *
      * @see    DummyPlugin::onPagesDiscovered()

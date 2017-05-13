@@ -532,10 +532,7 @@ class Pico
                     }
                 }
             } else {
-                throw new RuntimeException(
-                    "Unable to load plugin '" . $className . "' "
-                    . "from '" . $pluginFile . "'"
-                );
+                throw new RuntimeException("Unable to load plugin '" . $className . "' from '" . $pluginFile . "'");
             }
         }
     }
@@ -1335,8 +1332,8 @@ class Pico
      * | next_page      | &array  | reference to the next page                 |
      *
      * Please note that the `previous_page` and `next_page` keys won't be
-     * available until the `onPagesLoaded` event ({@see Pico::sortPages()})
-     * was triggered.
+     * available until the `onCurrentPageDiscovered` event
+     * ({@see Pico::discoverPageSiblings()}) was triggered.
      *
      * @see    Pico::sortPages()
      * @see    Pico::discoverPageSiblings()
