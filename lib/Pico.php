@@ -667,6 +667,10 @@ class Pico
             }
         };
 
+        if (isset($this->plugins['PicoDeprecated'])) {
+            $visitPlugin($this->plugins['PicoDeprecated']);
+        }
+
         foreach ($this->plugins as $plugin) {
             $visitPlugin($plugin);
         }
