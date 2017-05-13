@@ -1378,6 +1378,9 @@ class Pico
             if ($file !== $this->requestFile) {
                 $rawContent = $this->loadFileContent($file);
 
+                // trigger onSinglePageContent event
+                $this->triggerEvent('onSinglePageContent', array($id, &$rawContent));
+
                 $headers = $this->getMetaHeaders();
                 try {
                     $meta = $this->parseFileMeta($rawContent, $headers);

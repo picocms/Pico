@@ -232,6 +232,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::readPages()
      * @see    DummyPlugin::onSinglePageLoading()
+     * @see    DummyPlugin::onSinglePageContent()
      * @see    DummyPlugin::onSinglePageLoaded()
      * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
@@ -247,6 +248,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * Set `$id` to `null` to remove this page from the pages array.
      *
+     * @see    DummyPlugin::onSinglePageContent()
      * @see    DummyPlugin::onSinglePageLoaded()
      * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
@@ -254,6 +256,25 @@ class DummyPlugin extends AbstractPicoPlugin
      * @return void
      */
     public function onSinglePageLoading(&$id)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico loads the raw contents of a single page
+     *
+     * Please note that this event isn't triggered when the currently processed
+     * page is the requested page. The reason for this exception is that the
+     * raw contents of this page were loaded already.
+     *
+     * @see    DummyPlugin::onSinglePageLoaded()
+     * @see    DummyPlugin::onPagesDiscovered()
+     * @see    DummyPlugin::onPagesLoaded()
+     * @param  string $id          relative path to the content file
+     * @param  string &$rawContent raw file contents
+     * @return void
+     */
+    public function onSinglePageContent($id, &$rawContent)
     {
         // your code
     }
