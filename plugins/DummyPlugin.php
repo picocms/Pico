@@ -163,20 +163,6 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
-     * Triggered when Pico reads its known meta header fields
-     *
-     * @see    Pico::getMetaHeaders()
-     * @param  string[] &$headers list of known meta header
-     *     fields; the array value specifies the YAML key to search for, the
-     *     array key is later used to access the found value
-     * @return void
-     */
-    public function onMetaHeaders(array &$headers)
-    {
-        // your code
-    }
-
-    /**
      * Triggered before Pico parses the meta header
      *
      * @see    Pico::parseFileMeta()
@@ -383,6 +369,20 @@ class DummyPlugin extends AbstractPicoPlugin
      * @return void
      */
     public function onPageRendered(&$output)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered when Pico reads its known meta header fields
+     *
+     * @see    Pico::getMetaHeaders()
+     * @param  string[] &$headers list of known meta header
+     *     fields; the array value specifies the YAML key to search for, the
+     *     array key is later used to access the found value
+     * @return void
+     */
+    public function onMetaHeaders(array &$headers)
     {
         // your code
     }

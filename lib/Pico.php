@@ -401,11 +401,8 @@ class Pico
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
         // parse file meta
-        $this->metaHeaders = $this->getMetaHeaders();
-        $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
-
-        $this->triggerEvent('onMetaParsing', array(&$this->rawContent, &$this->metaHeaders));
-        $this->meta = $this->parseFileMeta($this->rawContent, $this->metaHeaders);
+        $this->triggerEvent('onMetaParsing', array(&$this->rawContent));
+        $this->meta = $this->parseFileMeta($this->rawContent, $this->getMetaHeaders());
         $this->triggerEvent('onMetaParsed', array(&$this->meta));
 
         // parse file content
@@ -1091,24 +1088,29 @@ class Pico
     /**
      * Returns known meta headers
      *
+     * This method triggers the `onMetaHeaders` event when the known meta
+     * headers weren't assembled yet.
+     *
      * @return string[] known meta headers; the array value specifies the
      *     YAML key to search for, the array key is later used to access the
      *     found value
      */
     public function getMetaHeaders()
     {
-        if ($this->metaHeaders !== null) {
-            return $this->metaHeaders;
+        if ($this->metaHeaders === null) {
+            $this->metaHeaders = array(
+                'title' => 'Title',
+                'description' => 'Description',
+                'author' => 'Author',
+                'date' => 'Date',
+                'robots' => 'Robots',
+                'template' => 'Template'
+            );
+
+            $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
         }
 
-        return array(
-            'title' => 'Title',
-            'description' => 'Description',
-            'author' => 'Author',
-            'date' => 'Date',
-            'robots' => 'Robots',
-            'template' => 'Template'
-        );
+        return $this->metaHeaders;
     }
 
     /**
