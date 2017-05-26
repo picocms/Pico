@@ -24,6 +24,8 @@
     },
     "require": {
         "php": ">=5.3.6",
+        "ext-dom": "*",
+        "ext-mbstring": "*",
         "twig/twig": "^1.18",
         "erusev/parsedown-extra": "^0.7",
         "symfony/yaml" : "^2.3"
