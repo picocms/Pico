@@ -1,0 +1,9 @@
+{
+  "template": "php-apache",
+  "ports": [3000],
+  "name": "Pico",
+  "description": "Pico is a stupidly simple, blazing fast, flat file CMS.",
+  "scripts": {
+    "post-create": "rm -rf ~/code/public_html && cd ~/code/Pico && composer install && cd ~/code && mv Pico public_html && sudo chown -R nitrous:www-data public_html"
+  }
+}

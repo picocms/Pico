@@ -42,6 +42,17 @@ $ curl -sS https://getcomposer.org/installer | php
 $ php composer.phar install
 ```
 
+Nitrous Quickstart
+------------------
+
+You can quickly create a free development environment for this Pico project in the cloud on www.nitrous.io:
+
+<a href="https://www.nitrous.io/quickstart">
+  <img src="https://nitrous-image-icons.s3.amazonaws.com/quickstart.png" alt="Nitrous Quickstart" width=142 height=34>
+</a>
+
+Simply access your site via the `Preview > 3000` link in the IDE.
+
 Upgrade
 -------
 
