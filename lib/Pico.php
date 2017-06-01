@@ -124,6 +124,14 @@ class Pico
     protected $requestFile;
 
     /**
+     * Absolute path to the content file being served
+     *
+     * @see Pico::getRequestFile()
+     * @var boolean|false
+     */
+    protected $requestFileIsStatic;
+
+    /**
      * Raw, not yet parsed contents to serve
      *
      * @see Pico::getRawContent()
@@ -299,6 +307,16 @@ class Pico
 
         // load raw file content
         $this->triggerEvent('onContentLoading', array(&$this->requestFile));
+
+        if ($this->getRequestFileIsStatic()) {
+            // discover mime type
+            $mimeType = mime_content_type($this->requestFile);
+            $fp = fopen($this->requestFile, 'rb');
+            header("Content-Type: ".$mimeType);
+            header("Content-Length: " . filesize($this->requestFile));
+            fpassthru($fp);
+            exit;
+        }
 
         $notFoundFile = '404' . $this->getConfig('content_ext');
         if (file_exists($this->requestFile) && (basename($this->requestFile) !== $notFoundFile)) {
@@ -652,6 +670,16 @@ class Pico
                     return;
                 }
             }
+
+            // check if non-content file already exists
+            if (file_exists($this->requestFile)
+                && pathinfo($this->requestFile, PATHINFO_EXTENSION) != $this->getConfig('content_ext'))
+            {
+                $this->requestFileIsStatic = true;
+                return;
+            }
+
+            $this->requestFileIsStatic = false;
             $this->requestFile .= $this->getConfig('content_ext');
         }
     }
@@ -665,6 +693,17 @@ class Pico
     public function getRequestFile()
     {
         return $this->requestFile;
+    }
+
+    /**
+     * Returns true if the requested file is a static file
+     *
+     * @see    Pico::discoverRequestFile()
+     * @return string|null file path
+     */
+    public function getRequestFileIsStatic()
+    {
+        return $this->requestFileIsStatic;
     }
 
     /**
