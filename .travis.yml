@@ -1,6 +1,5 @@
 language: php
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
@@ -11,6 +10,9 @@ php:
   - hhvm-nightly
 
 matrix:
+  include:
+    - php: 5.3
+      dist: precise
   allow_failures:
     - php: nightly
     - php: hhvm-nightly
@@ -44,4 +46,5 @@ deploy:
     tags: true
     php: 5.3
 
+dist: trusty
 sudo: false
