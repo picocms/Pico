@@ -3,7 +3,7 @@ Pico
 
 [![License](https://picocms.github.io/badges/pico-license.svg)](https://github.com/picocms/Pico/blob/master/LICENSE.md)
 [![Version](https://picocms.github.io/badges/pico-version.svg)](https://github.com/picocms/Pico/releases/latest)
-[![Build Status](https://api.travis-ci.org/picocms/Pico.svg)](https://travis-ci.org/picocms/Pico)
+[![Build Status](https://api.travis-ci.org/picocms/Pico.svg?branch=master)](https://travis-ci.org/picocms/Pico)
 [![Freenode IRC Webchat](https://picocms.github.io/badges/pico-chat.svg)](https://webchat.freenode.net/?channels=%23picocms)
 
 Pico is a stupidly simple, blazing fast, flat file CMS.
