@@ -27,8 +27,8 @@
         "twig/twig": "^1.18",
         "symfony/yaml" : "^2.3",
         "erusev/parsedown-extra": "^0.7",
-        "picocms/pico-theme": "~2.0.0@dev",
-        "picocms/pico-deprecated": "~2.0.0@dev"
+        "picocms/pico-theme": "self.version",
+        "picocms/pico-deprecated": "self.version"
     },
     "require-dev" : {
         "phpdocumentor/phpdocumentor": "^2.8",
