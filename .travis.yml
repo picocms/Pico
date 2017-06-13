@@ -21,11 +21,14 @@ matrix:
 notifications:
   irc: "chat.freenode.net#picocms"
 
+before_install:
+  - export PATH="$TRAVIS_BUILD_DIR/_build:$PATH"
+
 install:
-  - composer install
+  - install.sh
 
 before_script:
-  - export PATH="$TRAVIS_BUILD_DIR/_build:$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
+  - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
 
 script:
   - phpcs --standard=.phpcs.xml "$TRAVIS_BUILD_DIR"
