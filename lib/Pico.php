@@ -570,12 +570,12 @@ class Pico
     protected function loadComposerPlugins()
     {
         $composerPlugins = array();
-        if (file_exists($this->vendorDir . 'vendor/pico-plugin.php')) {
+        if (file_exists($this->getVendorDir() . 'vendor/pico-plugin.php')) {
             // composer root package
-            $composerPlugins = require($this->vendorDir . 'vendor/pico-plugin.php') ?: array();
-        } elseif (file_exists($this->vendorDir . '../../../vendor/pico-plugin.php')) {
+            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: array();
+        } elseif (file_exists($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
             // composer dependency package
-            $composerPlugins = require($this->vendorDir . '../../../vendor/pico-plugin.php') ?: array();
+            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
         }
 
         foreach ($composerPlugins as $package => $classNames) {
