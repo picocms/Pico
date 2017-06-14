@@ -4,8 +4,8 @@
     #RewriteBase /
 
     # Deny access to internal dirs and files by passing the URL to Pico
-    RewriteRule ^(\.git|config|content|content-sample|lib|vendor)(/|$) index.php [L]
-    RewriteRule ^(CHANGELOG\.md|composer\.(json|lock)) index.php [L]
+    RewriteRule ^(\.git|_build|config|content|content-sample|lib|vendor)(/|$) index.php [L]
+    RewriteRule ^(\.git(attributes|ignore)|CHANGELOG\.md|composer\.(json|lock))$ index.php [L]
 
     # Enable URL rewriting
     RewriteCond %{REQUEST_FILENAME} !-f
