@@ -876,7 +876,7 @@ class Pico
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // process included files
-		if (preg_match('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches) > 0) {
+        if (preg_match('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches) > 0) {
             $includeFile = $this->getConfig('content_dir') . $matches[2];
             if (!file_exists($includeFile)) {
                 throw new RuntimeException('Required "' . $includeFile . '" not found');
