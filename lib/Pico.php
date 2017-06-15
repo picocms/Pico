@@ -877,14 +877,14 @@ class Pico
 
 		// process included files
 		if (preg_match('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches) > 0) {
-			$includeFile = $this->getConfig('content_dir') . $matches[2];			
-			if (!file_exists($includeFile))
-				throw new RuntimeException('Required "' . $includeFile . '" not found');	
-			$includeContent = $this->loadFileContent($includeFile);
-			$includeContent = preg_replace($metaHeaderPattern, '', $includeContent, 1);
-			$content = str_replace($matches[0], $includeContent, $content);
-		}		
-		
+            $includeFile = $this->getConfig('content_dir') . $matches[2];
+            if (!file_exists($includeFile))
+                throw new RuntimeException('Required "' . $includeFile . '" not found');
+            $includeContent = $this->loadFileContent($includeFile);
+            $includeContent = preg_replace($metaHeaderPattern, '', $includeContent, 1);
+            $content = str_replace($matches[0], $includeContent, $content);
+        }
+
         // replace %site_title%
         $content = str_replace('%site_title%', $this->getConfig('site_title'), $content);
 
