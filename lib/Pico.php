@@ -875,7 +875,7 @@ class Pico
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
-		// process included files
+        // process included files
 		if (preg_match('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches) > 0) {
             $includeFile = $this->getConfig('content_dir') . $matches[2];
             if (!file_exists($includeFile))
