@@ -876,14 +876,16 @@ class Pico
         $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // process included files
-        if (preg_match('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches) > 0) {
-            $includeFile = $this->getConfig('content_dir') . $matches[2];
+        $includeTokensCount = preg_match_all('|%include%\s*(["\'])(.*?)\1|smi', $content, $matches);
+        for ($i = 0; $i < $includeTokensCount; $i++) {
+            $includeFile = $this->getConfig('content_dir') . $matches[2][$i];
             if (!file_exists($includeFile)) {
-                throw new RuntimeException('Required "' . $includeFile . '" not found');
+                throw new RuntimeException('Unable to include file "' . $includeFile .
+                    '" referenced from "' . $this->requestFile . '"');
             }
             $includeContent = $this->loadFileContent($includeFile);
             $includeContent = preg_replace($metaHeaderPattern, '', $includeContent, 1);
-            $content = str_replace($matches[0], $includeContent, $content);
+            $content = str_replace($matches[0][$i], $includeContent, $content);
         }
 
         // replace %site_title%
