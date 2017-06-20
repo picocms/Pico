@@ -143,8 +143,9 @@ class PicoTwigExtension extends Twig_Extension
      *     will sort $var by $item['foo']['bar'])
      * @param  string            $fallback    specify what to do with items
      *     which don't contain the specified sort key; use "bottom" (default)
-     *     to move those items to the end of the sorted array, "top" to rank
-     *     them first, or "keep" to keep the original order of those items
+     *     to move these items to the end of the sorted array, "top" to rank
+     *     them first, "keep" to keep the original order, or "remove" to remove
+     *     these items
      * @return array                          sorted array
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
@@ -157,12 +158,15 @@ class PicoTwigExtension extends Twig_Extension
                 is_object($var) ? get_class($var) : gettype($var)
             ));
         }
-        if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep')) {
-            throw new Twig_Error_Runtime('The sort_by filter only supports the "top", "bottom" and "keep" fallbacks');
+        if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep') && ($fallback !== "remove")) {
+            throw new Twig_Error_Runtime(
+                'The sort_by filter only supports the "top", "bottom", "keep" and "remove" fallbacks'
+            );
         }
 
         $twigExtension = $this;
         $varKeys = array_keys($var);
+        $removeItems = [];
         uksort($var, function ($a, $b) use ($twigExtension, $var, $varKeys, $sortKeyPath, $fallback, &$removeItems) {
             $aSortValue = $twigExtension->getKeyOfVar($var[$a], $sortKeyPath);
             $aSortValueNull = ($aSortValue === null);
@@ -170,7 +174,15 @@ class PicoTwigExtension extends Twig_Extension
             $bSortValue = $twigExtension->getKeyOfVar($var[$b], $sortKeyPath);
             $bSortValueNull = ($bSortValue === null);
 
-            if ($aSortValueNull xor $bSortValueNull) {
+            if (($fallback === 'remove') && ($aSortValueNull || $bSortValueNull)) {
+                if ($aSortValueNull) {
+                    $removeItems[$a] = $var[$a];
+                }
+                if ($bSortValueNull) {
+                    $removeItems[$b] = $var[$b];
+                }
+                return ($aSortValueNull - $bSortValueNull);
+            } elseif ($aSortValueNull xor $bSortValueNull) {
                 if ($fallback === 'top') {
                     return ($aSortValueNull - $bSortValueNull) * -1;
                 } elseif ($fallback === 'bottom') {
@@ -187,6 +199,10 @@ class PicoTwigExtension extends Twig_Extension
             $bIndex = array_search($b, $varKeys);
             return ($aIndex > $bIndex) ? 1 : -1;
         });
+
+        if ($removeItems) {
+            $var = array_diff_key($var, $removeItems);
+        }
 
         return $var;
     }
