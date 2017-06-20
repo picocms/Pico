@@ -165,7 +165,7 @@ class PicoTwigExtension extends Twig_Extension
 
         $twigExtension = $this;
         $varKeys = array_keys($var);
-        $removeItems = [];
+        $removeItems = array();
         uksort($var, function ($a, $b) use ($twigExtension, $var, $varKeys, $sortKeyPath, $fallback, &$removeItems) {
             $aSortValue = $twigExtension->getKeyOfVar($var[$a], $sortKeyPath);
             $aSortValueNull = ($aSortValue === null);
