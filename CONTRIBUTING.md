@@ -94,7 +94,7 @@ Version 1.0.0
 * [Removed] ...
 ```
 
-Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico::VERSION_ID` constants. If you've simultaneously developed a new version of Pico's official [default theme](https://github.com/picocms/pico-theme) and/or the [`PicoDeprecated` plugin](https://github.com/picocms/pico-deprecated), make sure to remove a previously added `@dev` suffix from the corresponding dependencies in Pico's [`composer.json`](https://github.com/picocms/Pico/blob/master/composer.json).
+Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico::VERSION_ID` constants. If you've simultaneously developed a new version of Pico's official [default theme](https://github.com/picocms/pico-theme) and/or the [`PicoDeprecated` plugin](https://github.com/picocms/pico-deprecated), make sure to create releases for them first, otherwise automatic deployment will fail.
 
 Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](http://packagist.org/packages/picocms/pico) will be updated automatically.
 

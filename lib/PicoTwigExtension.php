@@ -130,10 +130,9 @@ class PicoTwigExtension extends Twig_Extension
      *
      * This method is registered as the Twig `sort_by` filter. You can use this
      * filter to e.g. sort the pages array by a arbitrary meta value. Calling
-     * `{{ pages|sort_by("meta:nav"|split(":")) }}` returns all pages sorted by
-     * the meta value `nav`. Please note the `"meta:nav"|split(":")` part of
-     * the example. The sorting algorithm will never assume equality of two
-     * values, it will then fall back to the original order. The result is
+     * `{{ pages|sort_by([ "meta", "nav" ]) }}` returns all pages sorted by the
+     * meta value `nav`. The sorting algorithm will never assume equality of
+     * two values, it will then fall back to the original order. The result is
      * always sorted in ascending order, apply Twigs `reverse` filter to
      * achieve a descending order.
      *

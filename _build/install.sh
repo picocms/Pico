@@ -3,7 +3,7 @@
 set -e
 
 # set COMPOSER_ROOT_VERSION when necessary
-if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     PICO_VERSION_PATTERN="$(php -r "
         \$json = json_decode(file_get_contents('$TRAVIS_BUILD_DIR/composer.json'), true);
         if (\$json !== null) {
@@ -20,7 +20,7 @@ if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         ")"
     fi
 
-    if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PICO_VERSION_PATTERN" ]; then
+    if [ -n "$PICO_VERSION_PATTERN" ]; then
         export COMPOSER_ROOT_VERSION="$PICO_VERSION_PATTERN"
     fi
 fi
