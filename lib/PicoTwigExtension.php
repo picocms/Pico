@@ -88,12 +88,16 @@ class PicoTwigExtension extends Twig_Extension
      * Don't use it to parse the contents of a page, use the `content` filter
      * instead, what ensures the proper preparation of the contents.
      *
+     * @see    Pico::substituteFileContent()
+     * @see    Pico::parseFileContent()
      * @param  string $markdown markdown to parse
+     * @param  array  $meta     meta data to use for %meta.*% replacement
      * @return string           parsed HTML
      */
-    public function markdownFilter($markdown)
+    public function markdownFilter($markdown, array $meta = array())
     {
-        return $this->getPico()->getParsedown()->text($markdown);
+        $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
+        return $this->getPico()->parseFileContent($markdown);
     }
 
     /**
