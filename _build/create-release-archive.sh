@@ -1,19 +1,6 @@
 #!/usr/bin/env bash
 
-RELEASE="$1"
-ARCHIVE="pico-release.tar.gz"
-[ -n "$RELEASE" ] && ARCHIVE="pico-release-$RELEASE.tar.gz"
-
-# install dependencies
-echo "Running \`composer install\`..."
-composer install --no-dev --optimize-autoloader
-[ $? -eq 0 ] || exit 1
-echo
-
-# remove .git dirs
-echo "Removing '.git' directories of dependencies..."
-find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
-echo
+ARCHIVE="$1"
 
 # create release archive
 echo "Creating release archive '$ARCHIVE'..."

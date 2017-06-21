@@ -16,6 +16,9 @@ CHECK_REPO_SLUG="$1"        # optional GitHub repo (e.g. picocms/Pico) to check
 CHECK_REMOTE_REF="$2"       # optional remote Git reference (e.g. heads/master)
 CHECK_LOCAL_COMMIT="$3"     # optional local commit SHA1
 
+# environment variables
+# GITHUB_OAUTH_TOKEN    GitHub authentication token, see https://github.com/settings/tokens
+
 # print parameters
 echo "Deploying repo..."
 printf 'CHECK_REPO_SLUG="%s"\n' "$CHECK_REPO_SLUG"
@@ -34,12 +37,12 @@ fi
 # but it should give a basic protection without disabling concurrent builds completely
 if [ -n "$CHECK_REPO_SLUG" ] && [ -n "$CHECK_REMOTE_REF" ] && [ -n "$CHECK_LOCAL_COMMIT" ]; then
     # retrieve information using GitHub APIv3
-    printf 'Checking latest commit...\n'
+    echo "Checking latest commit$([ -n "$GITHUB_OAUTH_TOKEN" ] && echo " (authorized)")..."
     CHECK_API_URL="https://api.github.com/repos/$CHECK_REPO_SLUG/git/refs/$CHECK_REMOTE_REF"
     if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
-        CHECK_API_RESPONSE="$(wget -O- --header="Authorization: token $GITHUB_OAUTH_TOKEN" "$CHECK_API_URL" 2> /dev/null)"
+        CHECK_API_RESPONSE="$(curl --fail --silent --show-error --header "Authorization: token $GITHUB_OAUTH_TOKEN" "$CHECK_API_URL")"
     else
-        CHECK_API_RESPONSE="$(wget -O- "$CHECK_API_URL" 2> /dev/null)"
+        CHECK_API_RESPONSE="$(curl --fail --silent --show-error "$CHECK_API_URL")"
     fi
 
     # evaluate JSON response

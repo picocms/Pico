@@ -1,25 +1,55 @@
-language: php
-php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - nightly
-  - hhvm
-  - hhvm-nightly
+dist: trusty
+sudo: false
 
-matrix:
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+jobs:
   include:
+    # Test stage
     - php: 5.3
       dist: precise
+    - php: 5.4
+    - php: 5.5
+    - php: 5.6
+    - php: 7.0
+    - php: 7.1
+    - php: nightly
+    - php: hhvm
+    - php: hhvm-nightly
+
+    # Deployment stage
+    - stage: deploy
+      install:
+        - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || travis_terminate 0'
+        - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
+        - install.sh
+      script:
+        - deploy-phpdoc-branch.sh
+
+    # Release stage
+    - stage: release
+      install:
+        - '[ -n "$TRAVIS_TAG" ] || travis_terminate 0'
+        - install.sh --release
+      script:
+        - deploy-phpdoc-release.sh
+      before_deploy:
+        - create-release-archive.sh "pico-release-$TRAVIS_TAG.tar.gz"
+      deploy:
+        provider: releases
+        api_key: ${GITHUB_OAUTH_TOKEN}
+        file: pico-release-$TRAVIS_TAG.tar.gz
+        skip_cleanup: true
+
+  # Ignore nightly build failures
   allow_failures:
     - php: nightly
     - php: hhvm-nightly
   fast-finish: true
-
-notifications:
-  irc: "chat.freenode.net#picocms"
 
 before_install:
   - export PATH="$TRAVIS_BUILD_DIR/_build:$PATH"
@@ -33,21 +63,5 @@ before_script:
 script:
   - phpcs --standard=.phpcs.xml "$TRAVIS_BUILD_DIR"
 
-after_success:
-  - deploy-phpdoc-branch.sh
-
-before_deploy:
-  - deploy-phpdoc-release.sh
-  - create-release-archive.sh "$TRAVIS_TAG"
-
-deploy:
-  provider: releases
-  api_key: ${GITHUB_OAUTH_TOKEN}
-  file: pico-release-$TRAVIS_TAG.tar.gz
-  skip_cleanup: true
-  on:
-    tags: true
-    php: 5.3
-
-dist: trusty
-sudo: false
+notifications:
+  irc: "chat.freenode.net#picocms"

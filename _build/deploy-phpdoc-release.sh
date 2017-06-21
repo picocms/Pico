@@ -50,7 +50,7 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
 
         # commit phpDocs
         echo "Committing phpDoc changes..."
-        git add "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
+        git add --all "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
         git commit \
             --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
