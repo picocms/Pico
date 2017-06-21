@@ -1290,22 +1290,40 @@ class Pico
 
     /**
      * Applies some static preparations to the raw contents of a page,
-     * e.g. removing the meta header and replacing %base_url%
+     * e.g. removing the meta header and replacing %...% placehodlers
      *
+     * This method calls the {@see Pico::substituteFileContent()} method.
+     *
+     * @see    Pico::substituteFileContent()
      * @see    Pico::parseFileContent()
      * @see    Pico::getFileContent()
      * @param  string $rawContent raw contents of a page
      * @param  array  $meta       meta data to use for %meta.*% replacement
-     * @return string             contents prepared for parsing
+     * @return string             prepared Markdown contents
      */
     public function prepareFileContent($rawContent, array $meta)
     {
-        $variables = array();
-
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
-        $content = preg_replace($metaHeaderPattern, '', $rawContent, 1);
+        $markdown = preg_replace($metaHeaderPattern, '', $rawContent, 1);
+
+        // replace placeholders
+        $markdown = $this->substituteFileContent($markdown, $meta);
+
+        return $markdown;
+    }
+
+    /**
+     * Replaces all %...% placeholders in a page's contents
+     *
+     * @param  string $markdown Markdown contents of a page
+     * @param  array  $meta     meta data to use for %meta.*% replacement
+     * @return string           substituted Markdown contents
+     */
+    public function substituteFileContent($markdown, array $meta = array())
+    {
+        $variables = array();
 
         // replace %version%
         $variables['%version%'] = static::VERSION;
@@ -1336,27 +1354,28 @@ class Pico
             }
         }
 
-        $content = str_replace(array_keys($variables), $variables, $content);
-        return $content;
+        return str_replace(array_keys($variables), $variables, $markdown);
     }
 
     /**
      * Parses the contents of a page using ParsedownExtra
      *
      * @see    Pico::prepareFileContent()
+     * @see    Pico::substituteFileContent()
      * @see    Pico::getFileContent()
-     * @param  string $content raw contents of a page (Markdown)
-     * @return string          parsed contents (HTML)
+     * @param  string $markdown Markdown contents of a page
+     * @return string           parsed contents (HTML)
      */
-    public function parseFileContent($content)
+    public function parseFileContent($markdown)
     {
-        return $this->getParsedown()->text($content);
+        return $this->getParsedown()->text($markdown);
     }
 
     /**
      * Returns the cached contents of the requested page
      *
      * @see    Pico::prepareFileContent()
+     * @see    Pico::substituteFileContent()
      * @see    Pico::parseFileContent()
      * @return string|null parsed contents
      */
