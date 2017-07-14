@@ -194,7 +194,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see    Pico::prepareFileContent()
      * @see    DummyPlugin::prepareFileContent()
      * @see    DummyPlugin::onContentParsed()
-     * @param  string &$rawContent raw file contents
+     * @param  string &$rawContent raw file contents of the requested page
      * @return void
      */
     public function onContentParsing(&$rawContent)
@@ -207,10 +207,10 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::parseFileContent()
      * @see    DummyPlugin::onContentParsed()
-     * @param  string &$content prepared file contents for parsing
+     * @param  string &$markdown Markdown contents of the requested page
      * @return void
      */
-    public function onContentPrepared(&$content)
+    public function onContentPrepared(&$markdown)
     {
         // your code
     }
@@ -219,7 +219,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has parsed the contents of the file to serve
      *
      * @see    Pico::getFileContent()
-     * @param  string &$content parsed contents
+     * @param  string &$content parsed contents (HTML) of the requested page
      * @return void
      */
     public function onContentParsed(&$content)
