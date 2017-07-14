@@ -1509,7 +1509,7 @@ class Pico
         $order = strtolower($this->getConfig('pages_order'));
         $orderBy = strtolower($this->getConfig('pages_order_by'));
 
-        if (($orderBy !== 'date') && ($orderBy !== 'alpha')) {
+        if (($orderBy !== 'alpha') && ($orderBy !== 'date') && ($orderBy !== 'meta')) {
             return;
         }
 
@@ -1525,7 +1525,31 @@ class Pico
             return $cmp * (($order === 'desc') ? -1 : 1);
         };
 
-        if ($orderBy === 'date') {
+        if ($orderBy === 'meta') {
+            // sort by arbitrary meta value
+            $orderByMeta = $this->getConfig('pages_order_by_meta');
+            uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order, $orderByMeta) {
+                $aSortValue = isset($a['meta'][$orderByMeta]) ? $a['meta'][$orderByMeta] : null;
+                $aSortValueNull = ($aSortValue === null);
+
+                $bSortValue = isset($b['meta'][$orderByMeta]) ? $b['meta'][$orderByMeta] : null;
+                $bSortValueNull = ($bSortValue === null);
+
+                $cmp = 0;
+                if ($aSortValueNull || $bSortValueNull) {
+                    $cmp = ($aSortValueNull - $bSortValueNull);
+                } elseif ($aSortValue != $bSortValue) {
+                    $cmp = ($aSortValue > $bSortValue) ? 1 : -1;
+                }
+
+                if ($cmp === 0) {
+                    // never assume equality; fallback to alphabetical order
+                    return $alphaSortClosure($a, $b);
+                }
+
+                return $cmp * (($order === 'desc') ? -1 : 1);
+            });
+        } elseif ($orderBy === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
                 if ($a['hidden'] xor $b['hidden']) {
