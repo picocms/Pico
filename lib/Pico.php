@@ -1284,7 +1284,14 @@ class Pico
             return $urlRewritingEnabled;
         }
 
-        $this->config['rewrite_url'] = (isset($_SERVER['PICO_URL_REWRITING']) && $_SERVER['PICO_URL_REWRITING']);
+        if (isset($_SERVER['PICO_URL_REWRITING'])) {
+            $this->config['rewrite_url'] = (bool) $_SERVER['PICO_URL_REWRITING'];
+        } elseif (isset($_SERVER['REDIRECT_PICO_URL_REWRITING'])) {
+            $this->config['rewrite_url'] = (bool) $_SERVER['REDIRECT_PICO_URL_REWRITING'];
+        } else {
+            $this->config['rewrite_url'] = false;
+        }
+
         return $this->getConfig('rewrite_url');
     }
 
