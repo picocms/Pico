@@ -965,7 +965,8 @@ class Pico
 
         // use REQUEST_URI (requires URL rewriting); e.g. /pico/sub/page
         if (($this->requestUrl === null) && $this->isUrlRewritingEnabled()) {
-            $basePath = dirname($_SERVER['SCRIPT_NAME']) . '/';
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $basePath = !in_array($basePath, array('.', '/')) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
