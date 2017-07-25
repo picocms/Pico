@@ -1,8 +1,17 @@
 Pico Changelog
 ==============
 
+### Version 1.0.6
+Released: 2017-07-25
+
+```
+* [Changed] Improve documentation
+* [Changed] Improve handling of Pico's Twig config (`$config['twig_config']`)
+* [Changed] Improve PHP platform requirement checks
+```
+
 ### Version 1.0.5
-Released: -
+Released: 2017-05-02
 
 ```
 * [Changed] Improve documentation
