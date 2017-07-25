@@ -465,7 +465,7 @@ class Pico
             'rewrite_url' => null,
             'theme' => 'default',
             'date_format' => '%D %T',
-            'twig_config' => array('cache' => false, 'autoescape' => false, 'debug' => false),
+            'twig_config' => null,
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
             'content_dir' => null,
@@ -484,6 +484,13 @@ class Pico
 
         if ($this->config['rewrite_url'] === null) {
             $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
+        $defaultTwigConfig = array('cache' => false, 'autoescape' => false, 'debug' => false);
+        if (!is_array($this->config['twig_config'])) {
+            $this->config['twig_config'] = $defaultTwigConfig;
+        } else {
+            $this->config['twig_config'] += $defaultTwigConfig;
         }
 
         if (empty($this->config['content_dir'])) {
