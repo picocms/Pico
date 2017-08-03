@@ -972,8 +972,12 @@ class Pico
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
             if ($requestUri && (substr($requestUri, 0, $basePathLength) === $basePath)) {
                 $requestUri = substr($requestUri, $basePathLength);
-                $requestUri = strstr($requestUri, '?', true) ?: $requestUri;
-                $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
+                if ($requestUri && (($queryStringPos = strpos($requestUri, '?')) !== false)) {
+                    $requestUri = substr($requestUri, 0, $queryStringPos);
+                }
+                if ($requestUri && ($requestUri !== basename($_SERVER['SCRIPT_NAME']))) {
+                    $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
+                }
             }
         }
     }
