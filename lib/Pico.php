@@ -901,14 +901,17 @@ class Pico
      * @see    Pico::setConfig()
      * @see    Pico::loadConfig()
      * @param  string $configName optional name of a config variable
-     * @return mixed              returns either the value of the named config
-     *     variable, null if the config variable doesn't exist or the config
-     *     array if no config name was supplied
+     * @param  mixed  $default    optional default value to return when the
+     *     named config variable doesn't exist
+     * @return mixed              if no name of a config variable has been
+     *     supplied, the config array is returned; otherwise it returns either
+     *     the value of the named config variable, or, if the named config
+     *     variable doesn't exist, the provided default value or NULL
      */
-    public function getConfig($configName = null)
+    public function getConfig($configName = null, $default = null)
     {
         if ($configName !== null) {
-            return isset($this->config[$configName]) ? $this->config[$configName] : null;
+            return isset($this->config[$configName]) ? $this->config[$configName] : $default;
         } else {
             return $this->config;
         }

@@ -150,22 +150,23 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * the config array
      *
      * @param  string $configName optional name of a config variable
-     * @return mixed              returns either the value of the named plugin
-     *     config variable, null if the config variable doesn't exist or the
-     *     plugin's config array if no config name was supplied
+     * @param  mixed  $default    optional default value to return when the
+     *     named config variable doesn't exist
+     * @return mixed              if no name of a config variable has been
+     *     supplied, the plugin's config array is returned; otherwise it
+     *     returns either the value of the named config variable, or, if the
+     *     named config variable doesn't exist, the provided default value
+     *     or NULL
      */
-    public function getPluginConfig($configName = null)
+    public function getPluginConfig($configName = null, $default = null)
     {
-        $pluginConfig = $this->getConfig(get_called_class());
-        if ($pluginConfig) {
-            if ($configName === null) {
-                return $pluginConfig;
-            } elseif (isset($pluginConfig[$configName])) {
-                return $pluginConfig[$configName];
-            }
+        $pluginConfig = $this->getConfig(get_called_class(), array());
+
+        if ($configName === null) {
+            return $pluginConfig;
         }
 
-        return null;
+        return isset($pluginConfig[$configName]) ? $pluginConfig[$configName] : $default;
     }
 
     /**
