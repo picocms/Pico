@@ -3,6 +3,9 @@
 /**
  * Abstract class to extend from when implementing a Pico plugin
  *
+ * Please refer to {@see PicoPluginInterface} for more information about how
+ * to develop a plugin for Pico.
+ *
  * @see PicoPluginInterface
  *
  * @author  Daniel Rudolf

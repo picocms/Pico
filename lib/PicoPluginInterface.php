@@ -7,18 +7,11 @@
  * {@see DummyPlugin} as template for new plugins. For a list of deprecated
  * events see {@see PicoDeprecated}.
  *
- * You SHOULD NOT use deprecated events when implementing this interface.
- * Deprecated events are triggered by the {@see PicoDeprecated} plugin, if
- * plugins which don't implement this interface are loaded. You can take
- * advantage from this behaviour if you want to do something only when old
- * plugins are loaded. Consequently the old events are never triggered when
- * your plugin is implementing this interface and no old plugins are present.
- *
- * If you're developing a new plugin, you MUST implement this interface. If
- * you're the developer of an old plugin, it is STRONGLY RECOMMENDED to use
- * the events introduced in Pico 1.0 when releasing a new version of your
- * plugin. If you want to use any of the new events, you MUST implement
- * this interface and update all other events you use.
+ * If you're developing a new plugin, you MUST both implement this interface
+ * and define the class constant `API_VERSION`. You SHOULD always use the
+ * API version of Pico's latest milestone when releasing a plugin. If you're
+ * developing a new version of an existing plugin, it is strongly recommended
+ * to update your plugin to use Pico's latest API version.
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
