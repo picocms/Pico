@@ -1676,17 +1676,8 @@ class Pico
      */
     protected function discoverCurrentPage()
     {
-        $contentDir = $this->getConfig('content_dir');
-        $contentDirLength = strlen($contentDir);
-
-        // the requested file is not in the regular content directory, therefore its ID
-        // isn't specified and it's impossible to determine the current page automatically
-        if (substr($this->requestFile, 0, $contentDirLength) !== $contentDir) {
-            return;
-        }
-
-        $currentPageId = substr($this->requestFile, $contentDirLength, -strlen($this->getConfig('content_ext')));
-        if (isset($this->pages[$currentPageId])) {
+        $currentPageId = $this->getPageId($this->requestFile);
+        if ($currentPageId && isset($this->pages[$currentPageId])) {
             $this->currentPage = &$this->pages[$currentPageId];
             $this->previousPage = &$this->pages[$currentPageId]['previous_page'];
             $this->nextPage = &$this->pages[$currentPageId]['next_page'];
@@ -1928,6 +1919,30 @@ class Pico
         } else {
             return $this->getBaseUrl() . implode('/', array_map('rawurlencode', explode('/', $page))) . $queryData;
         }
+    }
+
+    /**
+     * Returns the page ID of a given content file
+     *
+     * @param  string      $path path to the content file
+     * @return string|null       either the corresponding page ID or null
+     */
+    public function getPageId($path)
+    {
+        $contentDir = $this->getConfig('content_dir');
+        $contentDirLength = strlen($contentDir);
+
+        $contentExt = $this->getConfig('content_ext');
+        $contentExtLength = strlen($contentExt);
+
+        if (substr($path, 0, $contentDirLength) !== $contentDir) {
+            return null;
+        }
+        if (substr($path, -$contentExtLength) !== $contentExt) {
+            return null;
+        }
+
+        return substr($path, $contentDirLength, -$contentExtLength) ?: null;
     }
 
     /**
