@@ -131,7 +131,7 @@ class Pico
     /**
      * List of loaded plugins using the current API version
      *
-     * @var object[]
+     * @var PicoPluginInterface[]
      */
     protected $nativePlugins = array();
 
@@ -661,6 +661,7 @@ class Pico
         }
 
         $className = get_class($plugin);
+
         if (!($plugin instanceof PicoPluginInterface)) {
             throw new RuntimeException(
                 "Unable to load plugin '" . $className . "': "
@@ -676,7 +677,7 @@ class Pico
 
         // trigger onPluginManuallyLoaded event
         // the event is also called on the newly loaded plugin, allowing you to distinguish manual and auto loading
-        $this->triggerEvent('onPluginManuallyLoaded', array($this->plugins[$className]));
+        $this->triggerEvent('onPluginManuallyLoaded', array($plugin));
 
         return $plugin;
     }
@@ -2192,7 +2193,7 @@ class Pico
     public function getAbsolutePath($path)
     {
         if (DIRECTORY_SEPARATOR === '\\') {
-            if (preg_match('/^([a-zA-Z]:\\\\|\\\\\\\\)/', $path) !== 1) {
+            if (preg_match('/^(?>[a-zA-Z]:\\\\|\\\\\\\\)/', $path) !== 1) {
                 $path = $this->getRootDir() . $path;
             }
         } else {

@@ -8,7 +8,7 @@ if (is_file(__DIR__ . '/vendor/autoload.php')) {
     // composer dependency package
     require_once(__DIR__ . '/../../../vendor/autoload.php');
 } else {
-    die("Cannot find `vendor/autoload.php`. Run `composer install`.");
+    die("Cannot find 'vendor/autoload.php'. Run `composer install`.");
 }
 
 // instance Pico
