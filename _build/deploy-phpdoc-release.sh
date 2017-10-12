@@ -9,8 +9,8 @@ fi
 if [ "$DEPLOY_VERSION_FILE" != "true" ]; then
     echo "Skipping version file deployment because it has been disabled"
 fi
-if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true" ] || [ "$DEPLOY_VERSION_FILE" != "true" ]; then
-    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && [ "$DEPLOY_VERSION_FILE" != "true" ] && exit 0 || echo
+if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true" ] || [ "$DEPLOY_VERSION_FILE" != "true" ] || [ "$DEPLOY_CLOC_STATS" != "true" ]; then
+    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && [ "$DEPLOY_VERSION_FILE" != "true" ] && [ "$DEPLOY_CLOC_STATS" != "true" ] && exit 0 || echo
 fi
 
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
@@ -89,6 +89,23 @@ if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
     git commit \
         --message="Update version file for $TRAVIS_TAG" \
         "$DEPLOYMENT_DIR/_data/version.yml"
+    [ $? -eq 0 ] || exit 1
+    echo
+fi
+
+# update cloc statistics
+if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
+    update-cloc-stats.sh \
+        "$DEPLOYMENT_DIR/_data/clocCore.yml" \
+        "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+    [ $? -eq 0 ] || exit 1
+
+    # commit cloc statistics
+    echo "Commiting cloc statistics..."
+    git add "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+    git commit \
+        --message="Update cloc statistics for $TRAVIS_TAG" \
+        "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
     [ $? -eq 0 ] || exit 1
     echo
 fi
