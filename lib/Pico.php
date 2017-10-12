@@ -1789,7 +1789,7 @@ class Pico
      */
     protected function getTwigTemplate()
     {
-        $templateName = $this->meta['template'] ?: 'index';
+        $templateName = !empty($this->meta['template']) ? $this->meta['template'] : 'index';
 
         if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
             $templateName .= '.twig';
@@ -1839,9 +1839,9 @@ class Pico
     }
 
     /**
-     * Returns true if URL rewriting is enabled
+     * Returns TRUE if URL rewriting is enabled
      *
-     * @return boolean true if URL rewriting is enabled, false otherwise
+     * @return boolean TRUE if URL rewriting is enabled, FALSE otherwise
      */
     public function isUrlRewritingEnabled()
     {
@@ -1913,19 +1913,20 @@ class Pico
      * Returns the page ID of a given content file
      *
      * @param  string      $path path to the content file
-     * @return string|null       either the corresponding page ID or null
+     * @return string|null       either the corresponding page ID or NULL
      */
     public function getPageId($path)
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
 
-        $contentExt = $this->getConfig('content_ext');
-        $contentExtLength = strlen($contentExt);
-
         if (substr($path, 0, $contentDirLength) !== $contentDir) {
             return null;
         }
+
+        $contentExt = $this->getConfig('content_ext');
+        $contentExtLength = strlen($contentExt);
+
         if (substr($path, -$contentExtLength) !== $contentExt) {
             return null;
         }

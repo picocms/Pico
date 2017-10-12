@@ -41,7 +41,7 @@ DID_REPLACE="no"
 while IFS='' read -r LINE || [[ -n "$LINE" ]]; do
     if [ "$DO_REPLACE" == "yes" ]; then
         # skip lines until next entry is reached
-        [ "${LINE:0:2}" == "  " ] && continue
+        [ "${LINE:0:2}" != "  " ] || continue
         DO_REPLACE="no"
 
     elif [ "$LINE" == "- id: $LIST_ID" ]; then
