@@ -692,9 +692,17 @@ class Pico
     protected function sortPlugins()
     {
         $plugins = $this->plugins;
+        $nativePlugins = $this->nativePlugins;
         $sortedPlugins = array();
         $visitedPlugins = array();
-        $visitPlugin = function ($plugin) use ($plugins, &$sortedPlugins, &$visitedPlugins, &$visitPlugin) {
+
+        $visitPlugin = function ($plugin) use (
+            $plugins,
+            $nativePlugins,
+            &$sortedPlugins,
+            &$visitedPlugins,
+            &$visitPlugin
+        ) {
             $pluginName = get_class($plugin);
 
             // skip already visited plugins and ignore circular dependencies
@@ -705,7 +713,7 @@ class Pico
                 if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
                 }
-                if (!isset($this->nativePlugins[$pluginName])) {
+                if (!isset($nativePlugins[$pluginName])) {
                     $dependencies[] = 'PicoDeprecated';
                 }
 
