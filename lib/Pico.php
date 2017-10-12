@@ -540,56 +540,6 @@ class Pico
      */
     protected function loadLocalPlugins()
     {
-        $pluginsLowered = array_change_key_case($this->plugins, CASE_LOWER);
-
-        $pluginFiles = array();
-        $files = scandir($this->getPluginsDir()) ?: array();
-        foreach ($files as $file) {
-            if ($file[0] === '.') {
-                continue;
-            }
-
-            if (is_dir($this->getPluginsDir() . $file)) {
-                $className = preg_replace('/^[0-9]+-/', '', $file);
-                $classNameLowered = strtolower($className);
-
-                if (isset($pluginsLowered[$classNameLowered])) {
-                    continue;
-                }
-
-                if (file_exists($this->getPluginsDir() . $file . '/' . $className . '.php')) {
-                    $pluginFiles[$className] = $file . '/' . $className . '.php';
-                } else {
-                    $subdirFiles = $this->getFilesGlob($this->getPluginsDir() . $file . '/?*.php', self::SORT_NONE);
-                    foreach ($subdirFiles as $subdirFile) {
-                        $subdirFile = basename($subdirFile, '.php');
-                        if ($classNameLowered === strtolower($subdirFile)) {
-                            $pluginFiles[$className] = $file . '/' . $subdirFile . '.php';
-                            break;
-                        }
-                    }
-                }
-
-                if (!isset($pluginFiles[$className])) {
-                    throw new RuntimeException(
-                        "Unable to load plugin '" . $className . "' from "
-                        . "'" . $file . "/" . $className . ".php': File not found"
-                    );
-                }
-            } elseif (substr($file, -4) === '.php') {
-                $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
-                $classNameLowered = strtolower($className);
-
-                if (isset($pluginsLowered[$classNameLowered])) {
-                    continue;
-                }
-
-                $pluginFiles[$className] = $file;
-            } else {
-                throw new RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
-            }
-        }
-
         // scope isolated require()
         $includeClosure = function ($pluginFile) {
             require($pluginFile);
@@ -598,7 +548,34 @@ class Pico
             $includeClosure = $includeClosure->bindTo(null);
         }
 
-        foreach ($pluginFiles as $className => $pluginFile) {
+        $pluginFiles = array();
+        $files = scandir($this->getPluginsDir()) ?: array();
+        foreach ($files as $file) {
+            if ($file[0] === '.') {
+                continue;
+            }
+
+            $className = $pluginFile = null;
+            if (is_dir($this->getPluginsDir() . $file)) {
+                $className = preg_replace('/^[0-9]+-/', '', $file);
+                $pluginFile = $file . '/' . $className . '.php';
+
+                if (!file_exists($this->getPluginsDir() . $pluginFile)) {
+                    throw new RuntimeException(
+                        "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
+                    );
+                }
+            } elseif (substr($file, -4) === '.php') {
+                $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
+                $pluginFile = $file;
+            } else {
+                throw new RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
+            }
+
+            if (isset($this->plugins[$className])) {
+                continue;
+            }
+
             $includeClosure($this->getPluginsDir() . $pluginFile);
 
             if (class_exists($className, false)) {
@@ -614,7 +591,9 @@ class Pico
                     }
                 }
             } else {
-                throw new RuntimeException("Unable to load plugin '" . $className . "' from '" . $pluginFile . "'");
+                throw new RuntimeException(
+                    "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': Plugin class not found"
+                );
             }
         }
     }
