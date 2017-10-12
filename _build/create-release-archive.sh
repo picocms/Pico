@@ -17,7 +17,7 @@ mv index.php.dist index.php
 tar -czf "$ARCHIVE" \
     README.md LICENSE.md CONTRIBUTING.md CHANGELOG.md \
     composer.json composer.lock \
-    config content-sample lib plugins themes vendor \
+    assets config content content-sample lib plugins themes vendor \
     .htaccess index.php
 EXIT=$?
 
