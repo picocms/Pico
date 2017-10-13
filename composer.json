@@ -28,9 +28,12 @@
         "ext-mbstring": "*",
         "twig/twig": "^1.18",
         "symfony/yaml" : "^2.3",
-        "erusev/parsedown-extra": "^0.7",
-        "picocms/pico-theme": "self.version",
-        "picocms/pico-deprecated": "self.version"
+        "erusev/parsedown-extra": "^0.7"
+    },
+    "suggest": {
+        "picocms/pico-theme": "Pico requires a theme to actually display the contents of your website. This is Pico's official default theme.",
+        "picocms/pico-deprecated": "PicoDeprecated's purpose is to maintain backward compatibility to older versions of Pico.",
+        "picocms/composer-installer": "This Composer plugin is responsible for installing Pico plugins and themes using the Composer package manager."
     },
     "require-dev" : {
         "phpdocumentor/phpdocumentor": "^2.8",
