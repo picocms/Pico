@@ -136,6 +136,15 @@ class Pico
     protected $nativePlugins = array();
 
     /**
+     * Boolean indicating whether Pico loads plugins from the filesystem
+     *
+     * @see Pico::loadPlugins()
+     * @see Pico::loadLocalPlugins()
+     * @var bool
+     */
+    protected $enableLocalPlugins = true;
+
+    /**
      * Current configuration of this Pico instance
      *
      * @see Pico::getConfig()
@@ -276,18 +285,21 @@ class Pico
      *
      * To carry out all the processing in Pico, call {@see Pico::run()}.
      *
-     * @param string $rootDir    root directory of this Pico instance
-     * @param string $configDir  config directory of this Pico instance
-     * @param string $pluginsDir plugins directory of this Pico instance
-     * @param string $themesDir  themes directory of this Pico instance
+     * @param string $rootDir            root dir of this Pico instance
+     * @param string $configDir          config dir of this Pico instance
+     * @param string $pluginsDir         plugins dir of this Pico instance
+     * @param string $themesDir          themes dir of this Pico instance
+     * @param bool   $enableLocalPlugins enables (TRUE; default) or disables
+     *     (FALSE) loading plugins from the filesystem
      */
-    public function __construct($rootDir, $configDir, $pluginsDir, $themesDir)
+    public function __construct($rootDir, $configDir, $pluginsDir, $themesDir, $enableLocalPlugins = true)
     {
         $this->rootDir = rtrim($rootDir, '/\\') . '/';
         $this->vendorDir = dirname(__DIR__) . '/';
         $this->configDir = $this->getAbsolutePath($configDir);
         $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
         $this->themesDir = $this->getAbsolutePath($themesDir);
+        $this->enableLocalPlugins = (bool) $enableLocalPlugins;
     }
 
     /**
@@ -447,7 +459,9 @@ class Pico
      * See {@see Pico::loadComposerPlugins()} for details about plugins loaded
      * from `vendor/pico-plugin.php` (i.e. plugins that were installed using
      * `composer`), and {@see Pico::loadLocalPlugins()} for details about
-     * plugins installed to {@see Pico::$pluginsDir}.
+     * plugins installed to {@see Pico::$pluginsDir}. Pico loads plugins from
+     * the filesystem only if {@see Pico::$enableLocalPlugins} is set to TRUE
+     * (this is the default).
      *
      * Pico always loads plugins from `vendor/pico-plugin.php` first and
      * ignores conflicting plugins in {@see Pico::$pluginsDir}.
@@ -464,8 +478,11 @@ class Pico
      */
     protected function loadPlugins()
     {
-        $this->loadComposerPlugins();
-        $this->loadLocalPlugins();
+        $composerPlugins = $this->loadComposerPlugins();
+
+        if ($this->enableLocalPlugins) {
+            $this->loadLocalPlugins($composerPlugins);
+        }
     }
 
     /**
@@ -477,9 +494,10 @@ class Pico
      *
      * @see    Pico::loadPlugins()
      * @see    Pico::loadLocalPlugins()
-     * @return void
+     * @param  string[] $pluginBlacklist class names of plugins not to load
+     * @return string[]                  installer names of the loaded plugins
      */
-    protected function loadComposerPlugins()
+    protected function loadComposerPlugins(array $pluginBlacklist = array())
     {
         $composerPlugins = array();
         if (file_exists($this->getVendorDir() . 'vendor/pico-plugin.php')) {
@@ -490,12 +508,17 @@ class Pico
             $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
         }
 
-        foreach ($composerPlugins as $package => $classNames) {
-            foreach ($classNames as $className) {
+        $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
+
+        $loadedPlugins = array();
+        foreach ($composerPlugins as $package => $pluginData) {
+            $loadedPlugins[] = $pluginData['installerName'];
+
+            foreach ($pluginData['classNames'] as $className) {
                 $plugin = new $className($this);
                 $className = get_class($plugin);
 
-                if (isset($this->plugins[$className])) {
+                if (isset($this->plugins[$className]) || isset($pluginBlacklist[$className])) {
                     continue;
                 }
 
@@ -513,6 +536,8 @@ class Pico
                 }
             }
         }
+
+        return $loadedPlugins;
     }
 
     /**
@@ -535,10 +560,11 @@ class Pico
      *
      * @see    Pico::loadPlugins()
      * @see    Pico::loadComposerPlugins()
+     * @param  string[] $pluginBlacklist class names of plugins not to load
      * @return void
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadLocalPlugins()
+    protected function loadLocalPlugins(array $pluginBlacklist = array())
     {
         // scope isolated require()
         $includeClosure = function ($pluginFile) {
@@ -548,7 +574,8 @@ class Pico
             $includeClosure = $includeClosure->bindTo(null);
         }
 
-        $pluginFiles = array();
+        $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
+
         $files = scandir($this->getPluginsDir()) ?: array();
         foreach ($files as $file) {
             if ($file[0] === '.') {
@@ -572,7 +599,7 @@ class Pico
                 throw new RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
             }
 
-            if (isset($this->plugins[$className])) {
+            if (isset($this->plugins[$className]) || isset($pluginBlacklist[$className])) {
                 continue;
             }
 
