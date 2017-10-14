@@ -1199,12 +1199,12 @@ class Pico
     {
         if ($this->metaHeaders === null) {
             $this->metaHeaders = array(
-                'title' => 'Title',
-                'description' => 'Description',
-                'author' => 'Author',
-                'date' => 'Date',
-                'robots' => 'Robots',
-                'template' => 'Template'
+                'Title' => 'title',
+                'Description' => 'description',
+                'Author' => 'author',
+                'Date' => 'date',
+                'Robots' => 'robots',
+                'Template' => 'template'
             );
 
             $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
@@ -1254,27 +1254,19 @@ class Pico
         $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
-            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]);
+            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: array();
+            $meta = is_array($meta) ? $meta : array('title' => $meta);
 
-            if ($meta !== null) {
-                // the parser may return a string for non-YAML 1-liners
-                // assume that this string is the page title
-                $meta = is_array($meta) ? array_change_key_case($meta, CASE_LOWER) : array('title' => $meta);
-            } else {
-                $meta = array();
-            }
-
-            foreach ($headers as $fieldId => $fieldName) {
-                $fieldName = strtolower($fieldName);
-                if (isset($meta[$fieldName])) {
+            foreach ($headers as $name => $key) {
+                if (isset($meta[$name])) {
                     // rename field (e.g. remove whitespaces)
-                    if ($fieldId != $fieldName) {
-                        $meta[$fieldId] = $meta[$fieldName];
-                        unset($meta[$fieldName]);
+                    if ($key != $name) {
+                        $meta[$key] = $meta[$name];
+                        unset($meta[$name]);
                     }
-                } elseif (!isset($meta[$fieldId])) {
+                } elseif (!isset($meta[$key])) {
                     // guarantee array key existance
-                    $meta[$fieldId] = '';
+                    $meta[$key] = '';
                 }
             }
 

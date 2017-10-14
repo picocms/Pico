@@ -403,8 +403,8 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::getMetaHeaders()
      * @param  string[] &$headers list of known meta header
-     *     fields; the array value specifies the YAML key to search for, the
-     *     array key is later used to access the found value
+     *     fields; the array key specifies the YAML key to search for, the
+     *     array value is later used to access the found value
      * @return void
      */
     public function onMetaHeaders(array &$headers)
