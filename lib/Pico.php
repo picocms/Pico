@@ -395,13 +395,13 @@ class Pico
         $this->triggerEvent('onRequestFile', array(&$this->requestFile));
 
         // load raw file content
-        $this->triggerEvent('onContentLoading', array(&$this->requestFile));
+        $this->triggerEvent('onContentLoading');
 
         $hiddenFileRegex = '/(?:^|\/)(?:_|404' . preg_quote($this->getConfig('content_ext'), '/') . '$)/';
         if (file_exists($this->requestFile) && !preg_match($hiddenFileRegex, $this->requestFile)) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
-            $this->triggerEvent('on404ContentLoading', array(&$this->requestFile));
+            $this->triggerEvent('on404ContentLoading');
 
             header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
             $this->rawContent = $this->load404Content($this->requestFile);
@@ -413,17 +413,17 @@ class Pico
         $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
 
         // parse file meta
-        $this->triggerEvent('onMetaParsing', array(&$this->rawContent));
+        $this->triggerEvent('onMetaParsing');
         $this->meta = $this->parseFileMeta($this->rawContent, $this->getMetaHeaders());
         $this->triggerEvent('onMetaParsed', array(&$this->meta));
 
         // parse file content
-        $this->triggerEvent('onContentParsing', array(&$this->rawContent));
+        $this->triggerEvent('onContentParsing');
 
-        $this->content = $this->prepareFileContent($this->rawContent, $this->meta);
-        $this->triggerEvent('onContentPrepared', array(&$this->content));
+        $markdown = $this->prepareFileContent($this->rawContent, $this->meta);
+        $this->triggerEvent('onContentPrepared', array(&$markdown));
 
-        $this->content = $this->parseFileContent($this->content);
+        $this->content = $this->parseFileContent($markdown);
         $this->triggerEvent('onContentParsed', array(&$this->content));
 
         // read pages
@@ -1490,15 +1490,12 @@ class Pico
             $id = substr($file, $contentDirLength, -$contentExtLength);
 
             // trigger onSinglePageLoading event
-            $this->triggerEvent('onSinglePageLoading', array(&$id));
-
-            if ($id === null) {
-                continue;
-            }
-
-            // drop inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
+            // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists) by default
             $conflictFile = $contentDir . $id . '/index' . $contentExt;
-            if (in_array($conflictFile, $files, true)) {
+            $skipFile = in_array($conflictFile, $files, true) ?: null;
+            $this->triggerEvent('onSinglePageLoading', array($id, &$skipFile));
+
+            if ($skipFile) {
                 continue;
             }
 

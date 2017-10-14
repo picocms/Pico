@@ -113,10 +113,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::loadFileContent()
      * @see    DummyPlugin::onContentLoaded()
-     * @param  string &$file path to the file which contents will be read
      * @return void
      */
-    public function onContentLoading(&$file)
+    public function onContentLoading()
     {
         // your code
     }
@@ -126,10 +125,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::load404Content()
      * @see    DummyPlugin::on404ContentLoaded()
-     * @param  string &$file path to the file which contents were requested
      * @return void
      */
-    public function on404ContentLoading(&$file)
+    public function on404ContentLoading()
     {
         // your code
     }
@@ -167,11 +165,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see    Pico::parseFileMeta()
      * @see    DummyPlugin::onMetaParsed()
-     * @param  string   &$rawContent raw file contents
-     * @param  string[] &$headers    known meta header fields
      * @return void
      */
-    public function onMetaParsing(&$rawContent, array &$headers)
+    public function onMetaParsing()
     {
         // your code
     }
@@ -194,10 +190,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see    Pico::prepareFileContent()
      * @see    DummyPlugin::prepareFileContent()
      * @see    DummyPlugin::onContentParsed()
-     * @param  string &$rawContent raw file contents of the requested page
      * @return void
      */
-    public function onContentParsing(&$rawContent)
+    public function onContentParsing()
     {
         // your code
     }
@@ -246,16 +241,22 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico loads a single page
      *
-     * Set `$id` to `null` to remove this page from the pages array.
+     * Set the `$skipFile` parameter to TRUE to remove this page from the pages
+     * array. Pico usually passes NULL by default, unless it is a conflicting
+     * page (i.e. `content/sub.md`, but there's also a `content/sub/index.md`),
+     * then it passes TRUE. Don't change this value incautiously if it isn't
+     * NULL! Someone likely set it to TRUE or FALSE on purpose...
      *
      * @see    DummyPlugin::onSinglePageContent()
      * @see    DummyPlugin::onSinglePageLoaded()
      * @see    DummyPlugin::onPagesDiscovered()
      * @see    DummyPlugin::onPagesLoaded()
-     * @param  string &$id relative path to the content file
+     * @param  string    $id       relative path to the content file
+     * @param  bool|null $skipPage set this to TRUE to remove this page from
+     *     the pages array, otherwise leave it unchanged
      * @return void
      */
-    public function onSinglePageLoading(&$id)
+    public function onSinglePageLoading($id, &$skipPage)
     {
         // your code
     }
