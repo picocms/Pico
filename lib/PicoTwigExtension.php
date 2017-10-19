@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/PicoTwigExtension.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Pico's Twig extension to implement additional filters
@@ -31,8 +41,9 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns the extensions instance of Pico
      *
-     * @see    Pico
-     * @return Pico the extensions instance of Pico
+     * @see Pico
+     *
+     * @return Pico the extension's instance of Pico
      */
     public function getPico()
     {
@@ -42,7 +53,8 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns the name of the extension
      *
-     * @see    Twig_ExtensionInterface::getName()
+     * @see Twig_ExtensionInterface::getName()
+     *
      * @return string the extension name
      */
     public function getName()
@@ -53,7 +65,8 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns a list of Pico-specific Twig filters
      *
-     * @see    Twig_ExtensionInterface::getFilters()
+     * @see Twig_ExtensionInterface::getFilters()
+     *
      * @return Twig_SimpleFilter[] array of Pico's Twig filters
      */
     public function getFilters()
@@ -69,7 +82,8 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns a list of Pico-specific Twig functions
      *
-     * @see    Twig_ExtensionInterface::getFunctions()
+     * @see Twig_ExtensionInterface::getFunctions()
+     *
      * @return Twig_SimpleFunction[] array of Pico's Twig functions
      */
     public function getFunctions()
@@ -88,11 +102,13 @@ class PicoTwigExtension extends Twig_Extension
      * Don't use it to parse the contents of a page, use the `content` filter
      * instead, what ensures the proper preparation of the contents.
      *
-     * @see    Pico::substituteFileContent()
-     * @see    Pico::parseFileContent()
-     * @param  string $markdown markdown to parse
-     * @param  array  $meta     meta data to use for %meta.*% replacement
-     * @return string           parsed HTML
+     * @see Pico::substituteFileContent()
+     * @see Pico::parseFileContent()
+     *
+     * @param string $markdown markdown to parse
+     * @param array  $meta     meta data to use for %meta.*% replacement
+     *
+     * @return string parsed HTML
      */
     public function markdownFilter($markdown, array $meta = array())
     {
@@ -106,11 +122,12 @@ class PicoTwigExtension extends Twig_Extension
      * This method is registered as the Twig `map` filter. You can use this
      * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
      *
-     * @param  array|Traversable $var        variable to map
-     * @param  mixed             $mapKeyPath key to map; either a scalar or a
+     * @param array|Traversable $var        variable to map
+     * @param mixed             $mapKeyPath key to map; either a scalar or a
      *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
      *     $item['foo']['bar'] values)
-     * @return array                         mapped values
+     *
+     * @return array mapped values
      */
     public function mapFilter($var, $mapKeyPath)
     {
@@ -140,16 +157,17 @@ class PicoTwigExtension extends Twig_Extension
      * always sorted in ascending order, apply Twigs `reverse` filter to
      * achieve a descending order.
      *
-     * @param  array|Traversable $var         variable to sort
-     * @param  mixed             $sortKeyPath key to use for sorting; either
+     * @param array|Traversable $var         variable to sort
+     * @param mixed             $sortKeyPath key to use for sorting; either
      *     a scalar or a array interpreted as key path (i.e. ['foo', 'bar']
      *     will sort $var by $item['foo']['bar'])
-     * @param  string            $fallback    specify what to do with items
+     * @param string            $fallback    specify what to do with items
      *     which don't contain the specified sort key; use "bottom" (default)
      *     to move these items to the end of the sorted array, "top" to rank
      *     them first, "keep" to keep the original order, or "remove" to remove
      *     these items
-     * @return array                          sorted array
+     *
+     * @return array sorted array
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
@@ -214,12 +232,13 @@ class PicoTwigExtension extends Twig_Extension
      * Returns the value of a variable item specified by a scalar key or a
      * arbitrary deep sub-key using a key path
      *
-     * @param  array|Traversable|ArrayAccess|object $var     base variable
-     * @param  mixed                                $keyPath scalar key or a
+     * @param array|Traversable|ArrayAccess|object $var     base variable
+     * @param mixed                                $keyPath scalar key or a
      *     array interpreted as key path (when passing e.g. ['foo', 'bar'],
      *     the method will return $var['foo']['bar']) specifying the value
-     * @return mixed                                         the requested
-     *     value or NULL when the given key or key path didn't match
+     *
+     * @return mixed the requested value or NULL when the given key or key path
+     *     didn't match
      */
     public static function getKeyOfVar($var, $keyPath)
     {

@@ -13,8 +13,11 @@
         },
         {
             "name": "The Pico Community",
-            "homepage": "https://github.com/picocms/Pico/graphs/contributors",
-            "role": "Contributors"
+            "homepage": "http://picocms.org/"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/picocms/Pico/graphs/contributors"
         }
     ],
     "support": {

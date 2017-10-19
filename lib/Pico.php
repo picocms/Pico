@@ -1,4 +1,20 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/Pico.php>
+ *
+ * The file has been renamed in the past; the version control history of the
+ * original file applies accordingly, available from the following original
+ * location:
+ *
+ * <https://github.com/picocms/Pico/blob/adc356251ecd79689935ec1446c7c846db167d46/lib/pico.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Pico
@@ -116,7 +132,7 @@ class Pico
     /**
      * Boolean indicating whether Pico started processing yet
      *
-     * @var boolean
+     * @var bool
      */
     protected $locked = false;
 
@@ -180,7 +196,7 @@ class Pico
      * Boolean indicating whether Pico is serving a 404 page
      *
      * @see Pico::is404Content()
-     * @var boolean
+     * @var bool
      */
     protected $is404Content = false;
 
@@ -359,8 +375,9 @@ class Pico
      * meta headers, processes Markdown, does Twig processing and returns
      * the rendered contents.
      *
-     * @return string    rendered Pico contents
-     * @throws Exception thrown when a not recoverable error occurs
+     * @return string rendered Pico contents
+     *
+     * @throws Exception thrown when a irrecoverable error occurs
      */
     public function run()
     {
@@ -470,10 +487,12 @@ class Pico
      * incorporate plugin dependencies. See {@see Pico::sortPlugins()} for
      * details.
      *
-     * @see    Pico::loadPlugin()
-     * @see    Pico::getPlugin()
-     * @see    Pico::getPlugins()
+     * @see Pico::loadPlugin()
+     * @see Pico::getPlugin()
+     * @see Pico::getPlugins()
+     *
      * @return void
+     *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadPlugins()
@@ -492,10 +511,12 @@ class Pico
      * `picocms/pico-installer` installer by reading the `pico-plugin.php` in
      * composer's `vendor` dir.
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::loadLocalPlugins()
-     * @param  string[] $pluginBlacklist class names of plugins not to load
-     * @return string[]                  installer names of the loaded plugins
+     * @see Pico::loadPlugins()
+     * @see Pico::loadLocalPlugins()
+     *
+     * @param string[] $pluginBlacklist class names of plugins not to load
+     *
+     * @return string[] installer names of the loaded plugins
      */
     protected function loadComposerPlugins(array $pluginBlacklist = array())
     {
@@ -558,10 +579,13 @@ class Pico
      * - 60 to 79: Plugins hooking into template or markdown parsing
      * - 80 to 99: Plugins using the `onPageRendered` event
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::loadComposerPlugins()
-     * @param  string[] $pluginBlacklist class names of plugins not to load
+     * @see Pico::loadPlugins()
+     * @see Pico::loadComposerPlugins()
+     *
+     * @param string[] $pluginBlacklist class names of plugins not to load
+     *
      * @return void
+     *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadLocalPlugins(array $pluginBlacklist = array())
@@ -646,14 +670,16 @@ class Pico
      *
      * This method triggers the `onPluginManuallyLoaded` event.
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::getPlugin()
-     * @see    Pico::getPlugins()
-     * @param  PicoPluginInterface|string $plugin either the class name of a
+     * @see Pico::loadPlugins()
+     * @see Pico::getPlugin()
+     * @see Pico::getPlugins()
+     *
+     * @param PicoPluginInterface|string $plugin either the class name of a
      *     plugin to instantiate or a plugin instance
-     * @return PicoPluginInterface                instance of the loaded plugin
-     * @throws RuntimeException                   thrown when a plugin couldn't
-     *     be loaded
+     *
+     * @return PicoPluginInterface instance of the loaded plugin
+     *
+     * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     public function loadPlugin($plugin)
     {
@@ -708,12 +734,13 @@ class Pico
      * version 1.1.0, licensed under the MIT license. It uses the `ArraySort`
      * implementation (class `\MJS\TopSort\Implementations\ArraySort`).
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::getPlugins()
-     * @see    https://github.com/marcj/topsort.php
+     * @see Pico::loadPlugins()
+     * @see Pico::getPlugins()
+     * @see https://github.com/marcj/topsort.php
      *     Marc J. Schmidt's Topological Sort / Dependency resolver in PHP
-     * @see    https://github.com/marcj/topsort.php/blob/1.1.0/src/Implementations/ArraySort.php
+     * @see https://github.com/marcj/topsort.php/blob/1.1.0/src/Implementations/ArraySort.php
      *     \MJS\TopSort\Implementations\ArraySort class
+     *
      * @return void
      */
     protected function sortPlugins()
@@ -773,11 +800,14 @@ class Pico
      * Plugins SHOULD implement {@see PicoPluginInterface}, but you MUST NOT
      * rely on it. For more information see {@see PicoPluginInterface}.
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::getPlugins()
-     * @param  string           $pluginName name of the plugin
-     * @return object                       instance of the plugin
-     * @throws RuntimeException             thrown when the plugin wasn't found
+     * @see Pico::loadPlugins()
+     * @see Pico::getPlugins()
+     *
+     * @param string $pluginName name of the plugin
+     *
+     * @return object instance of the plugin
+     *
+     * @throws RuntimeException thrown when the plugin wasn't found
      */
     public function getPlugin($pluginName)
     {
@@ -791,8 +821,9 @@ class Pico
     /**
      * Returns all loaded plugins
      *
-     * @see    Pico::loadPlugins()
-     * @see    Pico::getPlugin()
+     * @see Pico::loadPlugins()
+     * @see Pico::getPlugin()
+     *
      * @return object[]|null
      */
     public function getPlugins()
@@ -811,8 +842,9 @@ class Pico
      * `test: { baz: 42 }` in `config/b.yml`, `{{ config.test.baz }}` will be
      * undefined!
      *
-     * @see    Pico::setConfig()
-     * @see    Pico::getConfig()
+     * @see Pico::setConfig()
+     * @see Pico::getConfig()
+     *
      * @return void
      */
     protected function loadConfig()
@@ -921,10 +953,13 @@ class Pico
      * {@see Pico::run()} only. Options set with this method cannot be
      * overwritten by {@path "config/config.yml"}.
      *
-     * @see    Pico::loadConfig()
-     * @see    Pico::getConfig()
-     * @param  array $config  array with config variables
+     * @see Pico::loadConfig()
+     * @see Pico::getConfig()
+     *
+     * @param array $config array with config variables
+     *
      * @return void
+     *
      * @throws LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config)
@@ -940,15 +975,17 @@ class Pico
      * Returns either the value of the specified config variable or
      * the config array
      *
-     * @see    Pico::setConfig()
-     * @see    Pico::loadConfig()
-     * @param  string $configName optional name of a config variable
-     * @param  mixed  $default    optional default value to return when the
+     * @see Pico::setConfig()
+     * @see Pico::loadConfig()
+     *
+     * @param string $configName optional name of a config variable
+     * @param mixed  $default    optional default value to return when the
      *     named config variable doesn't exist
-     * @return mixed              if no name of a config variable has been
-     *     supplied, the config array is returned; otherwise it returns either
-     *     the value of the named config variable, or, if the named config
-     *     variable doesn't exist, the provided default value or NULL
+     *
+     * @return mixed if no name of a config variable has been supplied, the
+     *     config array is returned; otherwise it returns either the value of
+     *     the named config variable, or, if the named config variable doesn't
+     *     exist, the provided default value or NULL
      */
     public function getConfig($configName = null, $default = null)
     {
@@ -994,7 +1031,8 @@ class Pico
      * Pico interprets `someBooleanParam` as name of the requested page. Use
      * `/pico/?someBooleanParam=` or `/pico/?index&someBooleanParam` instead.
      *
-     * @see    Pico::getRequestUrl()
+     * @see Pico::getRequestUrl()
+     *
      * @return void
      */
     protected function evaluateRequestUrl()
@@ -1030,7 +1068,8 @@ class Pico
     /**
      * Returns the URL where a user requested the page
      *
-     * @see    Pico::evaluateRequestUrl()
+     * @see Pico::evaluateRequestUrl()
+     *
      * @return string|null request URL
      */
     public function getRequestUrl()
@@ -1048,9 +1087,11 @@ class Pico
      * RECOMMENDED to use PHP's `open_basedir` feature - always, not just
      * with Pico!
      *
-     * @see    Pico::getRequestFile()
-     * @param  string $requestUrl path name (likely from a URL) to resolve
-     * @return string             path to the resolved content file
+     * @see Pico::getRequestFile()
+     *
+     * @param string $requestUrl path name (likely from a URL) to resolve
+     *
+     * @return string path to the resolved content file
      */
     public function resolveFilePath($requestUrl)
     {
@@ -1099,8 +1140,9 @@ class Pico
     /**
      * Returns the absolute path to the content file to serve
      *
-     * @see    Pico::resolveFilePath()
-     * @return string|null file path
+     * @see Pico::resolveFilePath()
+     *
+     * @return string|null file pat
      */
     public function getRequestFile()
     {
@@ -1110,9 +1152,11 @@ class Pico
     /**
      * Returns the raw contents of a file
      *
-     * @see    Pico::getRawContent()
-     * @param  string $file file path
-     * @return string       raw contents of the file
+     * @see Pico::getRawContent()
+     *
+     * @param string $file file path
+     *
+     * @return string raw contents of the file
      */
     public function loadFileContent($file)
     {
@@ -1125,9 +1169,11 @@ class Pico
      *
      * If no suitable `404.md` is found, fallback to a built-in error message.
      *
-     * @see    Pico::getRawContent()
-     * @param  string $file     path to requested (but not existing) file
-     * @return string           raw contents of the 404 file
+     * @see Pico::getRawContent()
+     *
+     * @param string $file path to requested (but not existing) file
+     *
+     * @return string raw contents of the 404 file
      */
     public function load404Content($file)
     {
@@ -1165,8 +1211,9 @@ class Pico
     /**
      * Returns the raw contents, either of the requested or the 404 file
      *
-     * @see    Pico::loadFileContent()
-     * @see    Pico::load404Content()
+     * @see Pico::loadFileContent()
+     * @see Pico::load404Content()
+     *
      * @return string|null raw contents
      */
     public function getRawContent()
@@ -1177,8 +1224,9 @@ class Pico
     /**
      * Returns TRUE when Pico is serving a 404 page
      *
-     * @see    Pico::load404Content()
-     * @return boolean TRUE if Pico is serving a 404 page, FALSE otherwise
+     * @see Pico::load404Content()
+     *
+     * @return bool TRUE if Pico is serving a 404 page, FALSE otherwise
      */
     public function is404Content()
     {
@@ -1191,8 +1239,8 @@ class Pico
      * This method triggers the `onMetaHeaders` event when the known meta
      * headers weren't assembled yet.
      *
-     * @return string[] known meta headers; the array value specifies the
-     *     YAML key to search for, the array key is later used to access the
+     * @return string[] known meta headers; the array key specifies the YAML
+     *     key to search for, the array value is later used to access the
      *     found value
      */
     public function getMetaHeaders()
@@ -1241,10 +1289,13 @@ class Pico
      * `onMetaHeaders` event first. The implicit availability of headers is
      * for users and pure (!) theme developers ONLY.
      *
-     * @see    Pico::getFileMeta()
-     * @param  string   $rawContent the raw file contents
-     * @param  string[] $headers    known meta headers
-     * @return array                parsed meta data
+     * @see Pico::getFileMeta()
+     *
+     * @param string   $rawContent the raw file contents
+     * @param string[] $headers    known meta headers
+     *
+     * @return array parsed meta data
+     *
      * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
      *     meta data is invalid
      */
@@ -1305,7 +1356,8 @@ class Pico
     /**
      * Returns the parsed meta data of the requested page
      *
-     * @see    Pico::parseFileMeta()
+     * @see Pico::parseFileMeta()
+     *
      * @return array|null parsed meta data
      */
     public function getFileMeta()
@@ -1343,12 +1395,14 @@ class Pico
      *
      * This method calls the {@see Pico::substituteFileContent()} method.
      *
-     * @see    Pico::substituteFileContent()
-     * @see    Pico::parseFileContent()
-     * @see    Pico::getFileContent()
-     * @param  string $rawContent raw contents of a page
-     * @param  array  $meta       meta data to use for %meta.*% replacement
-     * @return string             prepared Markdown contents
+     * @see Pico::substituteFileContent()
+     * @see Pico::parseFileContent()
+     * @see Pico::getFileContent()
+     *
+     * @param string $rawContent raw contents of a page
+     * @param array  $meta       meta data to use for %meta.*% replacement
+     *
+     * @return string prepared Markdown contents
      */
     public function prepareFileContent($rawContent, array $meta)
     {
@@ -1366,9 +1420,10 @@ class Pico
     /**
      * Replaces all %...% placeholders in a page's contents
      *
-     * @param  string $markdown Markdown contents of a page
-     * @param  array  $meta     meta data to use for %meta.*% replacement
-     * @return string           substituted Markdown contents
+     * @param string $markdown Markdown contents of a page
+     * @param array  $meta     meta data to use for %meta.*% replacement
+     *
+     * @return string substituted Markdown contents
      */
     public function substituteFileContent($markdown, array $meta = array())
     {
@@ -1409,11 +1464,13 @@ class Pico
     /**
      * Parses the contents of a page using ParsedownExtra
      *
-     * @see    Pico::prepareFileContent()
-     * @see    Pico::substituteFileContent()
-     * @see    Pico::getFileContent()
-     * @param  string $markdown Markdown contents of a page
-     * @return string           parsed contents (HTML)
+     * @see Pico::prepareFileContent()
+     * @see Pico::substituteFileContent()
+     * @see Pico::getFileContent()
+     *
+     * @param string $markdown Markdown contents of a page
+     *
+     * @return string parsed contents (HTML)
      */
     public function parseFileContent($markdown)
     {
@@ -1423,9 +1480,10 @@ class Pico
     /**
      * Returns the cached contents of the requested page
      *
-     * @see    Pico::prepareFileContent()
-     * @see    Pico::substituteFileContent()
-     * @see    Pico::parseFileContent()
+     * @see Pico::prepareFileContent()
+     * @see Pico::substituteFileContent()
+     * @see Pico::parseFileContent()
+     *
      * @return string|null parsed contents
      */
     public function getFileContent()
@@ -1448,19 +1506,20 @@ class Pico
      * | time           | string  | timestamp derived from the Date header     |
      * | date           | string  | date of the page (YAML header)             |
      * | date_formatted | string  | formatted date of the page                 |
-     * | hidden         | boolean | this page shouldn't be visible to the user |
+     * | hidden         | bool    | this page shouldn't be visible to the user |
      * | raw_content    | string  | raw, not yet parsed contents of the page   |
      * | meta           | string  | parsed meta data of the page               |
      * | previous_page  | &array  | reference to the previous page             |
      * | next_page      | &array  | reference to the next page                 |
      *
      * Please note that the `previous_page` and `next_page` keys won't be
-     * available until the `onCurrentPageDiscovered` event
-     * ({@see Pico::discoverPageSiblings()}) was triggered.
+     * available until the `onCurrentPageDiscovered` event was triggered
+     * ({@see Pico::discoverPageSiblings()}).
      *
-     * @see    Pico::sortPages()
-     * @see    Pico::discoverPageSiblings()
-     * @see    Pico::getPages()
+     * @see Pico::sortPages()
+     * @see Pico::discoverPageSiblings()
+     * @see Pico::getPages()
+     *
      * @return void
      */
     protected function readPages()
@@ -1545,8 +1604,9 @@ class Pico
     /**
      * Sorts all pages known to Pico
      *
-     * @see    Pico::readPages()
-     * @see    Pico::getPages()
+     * @see Pico::readPages()
+     * @see Pico::getPages()
+     *
      * @return void
      */
     protected function sortPages()
@@ -1625,8 +1685,9 @@ class Pico
      * Walks through the list of all known pages and discovers the previous and
      * next page respectively
      *
-     * @see    Pico::readPages()
-     * @see    Pico::getPages()
+     * @see Pico::readPages()
+     * @see Pico::getPages()
+     *
      * @return void
      */
     protected function discoverPageSiblings()
@@ -1661,7 +1722,8 @@ class Pico
     /**
      * Returns the list of known pages
      *
-     * @see    Pico::readPages()
+     * @see Pico::readPages()
+     *
      * @return array[]|null the data of all pages
      */
     public function getPages()
@@ -1673,9 +1735,10 @@ class Pico
      * Discovers the page data of the requested page as well as the previous
      * and next page relative to it
      *
-     * @see    Pico::getCurrentPage()
-     * @see    Pico::getPreviousPage()
-     * @see    Pico::getNextPage()
+     * @see Pico::getCurrentPage()
+     * @see Pico::getPreviousPage()
+     * @see Pico::getNextPage()
+     *
      * @return void
      */
     protected function discoverCurrentPage()
@@ -1691,7 +1754,8 @@ class Pico
     /**
      * Returns the data of the requested page
      *
-     * @see    Pico::discoverCurrentPage()
+     * @see Pico::discoverCurrentPage()
+     *
      * @return array|null page data
      */
     public function getCurrentPage()
@@ -1702,7 +1766,8 @@ class Pico
     /**
      * Returns the data of the previous page relative to the page being served
      *
-     * @see    Pico::discoverCurrentPage()
+     * @see Pico::discoverCurrentPage()
+     *
      * @return array|null page data
      */
     public function getPreviousPage()
@@ -1713,7 +1778,8 @@ class Pico
     /**
      * Returns the data of the next page relative to the page being served
      *
-     * @see    Pico::discoverCurrentPage()
+     * @see Pico::discoverCurrentPage()
+     *
      * @return array|null page data
      */
     public function getNextPage()
@@ -1729,9 +1795,10 @@ class Pico
      * registers Pico's core Twig filters `link` and `content` as well as
      * Pico's {@see PicoTwigExtension} Twig extension.
      *
-     * @see    Pico::getTwig()
-     * @see    http://twig.sensiolabs.org/ Twig website
-     * @see    https://github.com/twigphp/Twig Twig on GitHub
+     * @see Pico::getTwig()
+     * @see http://twig.sensiolabs.org/ Twig website
+     * @see https://github.com/twigphp/Twig Twig on GitHub
+     *
      * @return Twig_Environment|null Twig template engine
      */
     public function getTwig()
@@ -1857,7 +1924,7 @@ class Pico
     /**
      * Returns TRUE if URL rewriting is enabled
      *
-     * @return boolean TRUE if URL rewriting is enabled, FALSE otherwise
+     * @return bool TRUE if URL rewriting is enabled, FALSE otherwise
      */
     public function isUrlRewritingEnabled()
     {
@@ -1883,12 +1950,13 @@ class Pico
      * This method can be used in Twig templates by applying the `link` filter
      * to a string representing a page identifier.
      *
-     * @param  string       $page      identifier of the page to link to
-     * @param  array|string $queryData either an array containing properties to
+     * @param string       $page      identifier of the page to link to
+     * @param array|string $queryData either an array containing properties to
      *     create a URL-encoded query string from, or a already encoded string
-     * @param  boolean      $dropIndex when the last path component is "index",
+     * @param bool         $dropIndex when the last path component is "index",
      *     then passing TRUE (default) leads to removing this path component
-     * @return string                  URL
+     *
+     * @return string URL
      */
     public function getPageUrl($page, $queryData = null, $dropIndex = true)
     {
@@ -1928,8 +1996,9 @@ class Pico
     /**
      * Returns the page ID of a given content file
      *
-     * @param  string      $path path to the content file
-     * @return string|null       either the corresponding page ID or NULL
+     * @param string $path path to the content file
+     *
+     * @return string|null either the corresponding page ID or NULL
      */
     public function getPageId($path)
     {
@@ -1991,17 +2060,19 @@ class Pico
      * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `url_param` function.
      *
-     * @see    Pico::filterVariable()
-     * @param  string                    $name    name of the URL GET parameter
+     * @see Pico::filterVariable()
+     *
+     * @param string                    $name    name of the URL GET parameter
      *     to filter
-     * @param  int|string                $filter  the filter to apply
-     * @param  mixed|array               $options either a associative options
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
      *     array to be used by the filter or a scalar default value
-     * @param  int|string|int[]|string[] $flags   flags and flag strings to
-     *     be used by the filter
-     * @return mixed                              either the filtered data,
-     *     FALSE if the filter fails, or NULL if the URL GET parameter doesn't
-     *     exist and no default value is given
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the URL GET parameter doesn't exist and no default value is
+     *     given
      */
     public function getUrlParameter($name, $filter = '', $options = null, $flags = null)
     {
@@ -2016,17 +2087,19 @@ class Pico
      * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `form_param` function.
      *
-     * @see    Pico::filterVariable()
-     * @param  string                    $name    name of the HTTP POST
+     * @see Pico::filterVariable()
+     *
+     * @param string                    $name    name of the HTTP POST
      *     parameter to filter
-     * @param  int|string                $filter  the filter to apply
-     * @param  mixed|array               $options either a associative options
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
      *     array to be used by the filter or a scalar default value
-     * @param  int|string|int[]|string[] $flags   flags and flag strings to
-     *     be used by the filter
-     * @return mixed                              either the filtered data,
-     *     FALSE if the filter fails, or NULL if the HTTP POST parameter
-     *     doesn't exist and no default value is given
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the HTTP POST parameter doesn't exist and no default value
+     *     is given
      */
     public function getFormParameter($name, $filter = '', $options = null, $flags = null)
     {
@@ -2051,30 +2124,31 @@ class Pico
      * sanitization filters; be very careful with sanitization filters, you
      * might create cross-site scripting vulnerabilities!
      *
-     * @see    https://secure.php.net/manual/en/function.filter-var.php
+     * @see https://secure.php.net/manual/en/function.filter-var.php
      *     PHP's `filter_var()` function
-     * @see    https://secure.php.net/manual/en/filter.filters.validate.php
+     * @see https://secure.php.net/manual/en/filter.filters.validate.php
      *     Validate filters
-     * @see    https://secure.php.net/manual/en/filter.filters.sanitize.php
+     * @see https://secure.php.net/manual/en/filter.filters.sanitize.php
      *     Sanitize filters
-     * @param  mixed                     $variable value to filter
-     * @param  int|string                $filter   ID (int) or name (string) of
+     *
+     * @param mixed                     $variable value to filter
+     * @param int|string                $filter   ID (int) or name (string) of
      *     the filter to apply; if omitted, the method will return FALSE
-     * @param  mixed|array               $options  either a associative array
+     * @param mixed|array               $options  either a associative array
      *     of options to be used by the filter (e.g. `array('default' => 42)`),
      *     or a scalar default value that will be returned when the passed
      *     value is NULL (optional)
-     * @param  int|string|int[]|string[] $flags    either a bitwise disjunction
+     * @param int|string|int[]|string[] $flags    either a bitwise disjunction
      *     of flags or a string with the significant part of a flag constant
      *     (the constant name is the result of "FILTER_FLAG_" and the given
      *     string in ASCII-only uppercase); you may also pass an array of flags
      *     and flag strings (optional)
-     * @return mixed                               with a validation filter,
-     *     the method either returns the validated value or, provided that the
-     *     value wasn't valid, the given default value or FALSE; with a
-     *     sanitization filter, the method returns the sanitized value; if no
-     *     value (i.e. NULL) was given, the method always returns either the
-     *     provided default value or NULL
+     *
+     * @return mixed with a validation filter, the method either returns the
+     *     validated value or, provided that the value wasn't valid, the given
+     *     default value or FALSE; with a sanitization filter, the method
+     *     returns the sanitized value; if no value (i.e. NULL) was given, the
+     *     method always returns either the provided default value or NULL
      */
     protected function filterVariable($variable, $filter = '', $options = null, $flags = null)
     {
@@ -2116,14 +2190,15 @@ class Pico
      * Recursively walks through a directory and returns all containing files
      * matching the specified file extension
      *
-     * @param  string $directory     start directory
-     * @param  string $fileExtension return files with the given file extension
+     * @param string $directory     start directory
+     * @param string $fileExtension return files with the given file extension
      *     only (optional)
-     * @param  int    $order         specify whether and how files should be
+     * @param int    $order         specify whether and how files should be
      *     sorted; use Pico::SORT_ASC for a alphabetical ascending order (this
      *     is the default behaviour), Pico::SORT_DESC for a descending order
      *     or Pico::SORT_NONE to leave the result unsorted
-     * @return array                 list of found files
+     *
+     * @return array list of found files
      */
     public function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
     {
@@ -2156,15 +2231,17 @@ class Pico
     /**
      * Returns all files in a directory matching a libc glob() pattern
      *
-     * @see    https://secure.php.net/manual/en/function.glob.php
+     * @see https://secure.php.net/manual/en/function.glob.php
      *     PHP's glob() function
-     * @param  string $pattern the pattern to search for; see PHP's glob()
+     *
+     * @param string $pattern the pattern to search for; see PHP's glob()
      *     function for details
-     * @param  int    $order   specify whether and how files should be sorted;
+     * @param int    $order   specify whether and how files should be sorted;
      *     use Pico::SORT_ASC for a alphabetical ascending order (this is the
      *     default behaviour), Pico::SORT_DESC for a descending order or
      *     Pico::SORT_NONE to leave the result unsorted
-     * @return array           list of found files
+     *
+     * @return array list of found files
      */
     public function getFilesGlob($pattern, $order = self::SORT_ASC)
     {
@@ -2191,8 +2268,9 @@ class Pico
      *
      * This method also guarantees a trailing slash.
      *
-     * @param  string $path relative or absolute path
-     * @return string       absolute path
+     * @param string $path relative or absolute path
+     *
+     * @return string absolute path
      */
     public function getAbsolutePath($path)
     {
@@ -2219,11 +2297,13 @@ class Pico
      *
      * You MUST NOT trigger events of Pico's core with a plugin!
      *
-     * @see    PicoPluginInterface
-     * @see    AbstractPicoPlugin
-     * @see    DummyPlugin
-     * @param  string $eventName name of the event to trigger
-     * @param  array  $params    optional parameters to pass
+     * @see PicoPluginInterface
+     * @see AbstractPicoPlugin
+     * @see DummyPlugin
+     *
+     * @param string $eventName name of the event to trigger
+     * @param array  $params    optional parameters to pass
+     *
      * @return void
      */
     public function triggerEvent($eventName, array $params = array())

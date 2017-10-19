@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/PicoPluginInterface.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Common interface for Pico plugins
@@ -30,8 +40,9 @@ interface PicoPluginInterface
     /**
      * Handles a event that was triggered by Pico
      *
-     * @param  string $eventName name of the triggered event
-     * @param  array  $params    passed parameters
+     * @param string $eventName name of the triggered event
+     * @param array  $params    passed parameters
+     *
      * @return void
      */
     public function handleEvent($eventName, array $params);
@@ -39,35 +50,40 @@ interface PicoPluginInterface
     /**
      * Enables or disables this plugin
      *
-     * @see    PicoPluginInterface::isEnabled()
-     * @see    PicoPluginInterface::isStatusChanged()
-     * @param  boolean $enabled     enable (true) or disable (false) this plugin
-     * @param  boolean $recursive   when true, enable or disable recursively
+     * @see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::isStatusChanged()
+     *
+     * @param bool $enabled   enable (TRUE) or disable (FALSE) this plugin
+     * @param bool $recursive when TRUE, enable or disable recursively.
      *     In other words, if you enable a plugin, all required plugins are
      *     enabled, too. When disabling a plugin, all depending plugins are
      *     disabled likewise. Recursive operations are only performed as long
      *     as a plugin wasn't enabled/disabled manually. This parameter is
-     *     optional and defaults to true.
-     * @param  boolean $auto        enable or disable to fulfill a dependency
-     *     This parameter is optional and defaults to false.
+     *     optional and defaults to TRUE.
+     * @param bool $auto      enable or disable to fulfill a dependency. This
+     *     parameter is optional and defaults to FALSE.
+     *
      * @return void
-     * @throws RuntimeException     thrown when a dependency fails
+     *
+     * @throws RuntimeException thrown when a dependency fails
      */
     public function setEnabled($enabled, $recursive = true, $auto = false);
 
     /**
-     * Returns true if this plugin is enabled, false otherwise
+     * Returns TRUE if this plugin is enabled, FALSE otherwise
      *
-     * @see    PicoPluginInterface::setEnabled()
-     * @return boolean plugin is enabled (true) or disabled (false)
+     * @see PicoPluginInterface::setEnabled()
+     *
+     * @return bool plugin is enabled (TRUE) or disabled (FALSE)
      */
     public function isEnabled();
 
     /**
-     * Returns true if the plugin was ever enabled/disabled manually
+     * Returns TRUE if the plugin was ever enabled/disabled manually
      *
-     * @see    PicoPluginInterface::setEnabled()
-     * @return boolean plugin is in its default state (true), false otherwise
+     * @see PicoPluginInterface::setEnabled()
+     *
+     * @return bool plugin is in its default state (TRUE), FALSE otherwise
      */
     public function isStatusChanged();
 
@@ -88,7 +104,8 @@ interface PicoPluginInterface
     /**
      * Returns the plugins instance of Pico
      *
-     * @see    Pico
+     * @see Pico
+     *
      * @return Pico the plugins instance of Pico
      */
     public function getPico();

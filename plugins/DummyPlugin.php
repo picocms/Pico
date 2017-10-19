@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/plugins/DummyPlugin.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Pico dummy plugin - a template for plugins
@@ -27,7 +37,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * property.
      *
      * @see AbstractPicoPlugin::$enabled
-     * @var boolean
+     * @var bool
      */
     protected $enabled = false;
 
@@ -48,9 +58,11 @@ class DummyPlugin extends AbstractPicoPlugin
      * This event is triggered nevertheless the plugin is enabled or not.
      * It is NOT guaranteed that plugin dependencies are fulfilled!
      *
-     * @see    Pico::getPlugin()
-     * @see    Pico::getPlugins()
-     * @param  object[] $plugins loaded plugin instances
+     * @see Pico::getPlugin()
+     * @see Pico::getPlugins()
+     *
+     * @param object[] $plugins loaded plugin instances
+     *
      * @return void
      */
     public function onPluginsLoaded(array $plugins)
@@ -61,9 +73,11 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico manually loads a plugin
      *
-     * @see    Pico::getPlugin()
-     * @see    Pico::getPlugins()
-     * @param  object $plugin loaded plugin instance
+     * @see Pico::getPlugin()
+     * @see Pico::getPlugins()
+     *
+     * @param object $plugin loaded plugin instance
+     *
      * @return void
      */
     public function onPluginManuallyLoaded($plugin)
@@ -74,8 +88,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has read its configuration
      *
-     * @see    Pico::getConfig()
-     * @param  array &$config array of config variables
+     * @see Pico::getConfig()
+     *
+     * @param array &$config array of config variables
+     *
      * @return void
      */
     public function onConfigLoaded(array &$config)
@@ -86,8 +102,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has evaluated the request URL
      *
-     * @see    Pico::getRequestUrl()
-     * @param  string &$url part of the URL describing the requested contents
+     * @see Pico::getRequestUrl()
+     *
+     * @param string &$url part of the URL describing the requested contents
+     *
      * @return void
      */
     public function onRequestUrl(&$url)
@@ -98,9 +116,11 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has discovered the content file to serve
      *
-     * @see    Pico::getBaseUrl()
-     * @see    Pico::getRequestFile()
-     * @param  string &$file absolute path to the content file to serve
+     * @see Pico::getBaseUrl()
+     * @see Pico::getRequestFile()
+     *
+     * @param string &$file absolute path to the content file to serve
+     *
      * @return void
      */
     public function onRequestFile(&$file)
@@ -111,8 +131,9 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico reads the contents of the file to serve
      *
-     * @see    Pico::loadFileContent()
-     * @see    DummyPlugin::onContentLoaded()
+     * @see Pico::loadFileContent()
+     * @see DummyPlugin::onContentLoaded()
+     *
      * @return void
      */
     public function onContentLoading()
@@ -123,8 +144,9 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico reads the contents of a 404 file
      *
-     * @see    Pico::load404Content()
-     * @see    DummyPlugin::on404ContentLoaded()
+     * @see Pico::load404Content()
+     * @see DummyPlugin::on404ContentLoaded()
+     *
      * @return void
      */
     public function on404ContentLoading()
@@ -135,8 +157,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has read the contents of the 404 file
      *
-     * @see    Pico::getRawContent()
-     * @param  string &$rawContent raw file contents
+     * @see Pico::getRawContent()
+     *
+     * @param string &$rawContent raw file contents
+     *
      * @return void
      */
     public function on404ContentLoaded(&$rawContent)
@@ -151,8 +175,10 @@ class DummyPlugin extends AbstractPicoPlugin
      * of said 404 file. Use {@see Pico::is404Content()} to check for this
      * case when necessary.
      *
-     * @see    Pico::getRawContent()
-     * @param  string &$rawContent raw file contents
+     * @see Pico::getRawContent()
+     *
+     * @param string &$rawContent raw file contents
+     *
      * @return void
      */
     public function onContentLoaded(&$rawContent)
@@ -163,8 +189,9 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico parses the meta header
      *
-     * @see    Pico::parseFileMeta()
-     * @see    DummyPlugin::onMetaParsed()
+     * @see Pico::parseFileMeta()
+     * @see DummyPlugin::onMetaParsed()
+     *
      * @return void
      */
     public function onMetaParsing()
@@ -175,8 +202,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has parsed the meta header
      *
-     * @see    Pico::getFileMeta()
-     * @param  string[] &$meta parsed meta data
+     * @see Pico::getFileMeta()
+     *
+     * @param string[] &$meta parsed meta data
+     *
      * @return void
      */
     public function onMetaParsed(array &$meta)
@@ -187,9 +216,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico parses the pages content
      *
-     * @see    Pico::prepareFileContent()
-     * @see    DummyPlugin::prepareFileContent()
-     * @see    DummyPlugin::onContentParsed()
+     * @see Pico::prepareFileContent()
+     * @see DummyPlugin::prepareFileContent()
+     * @see DummyPlugin::onContentParsed()
+     *
      * @return void
      */
     public function onContentParsing()
@@ -200,9 +230,11 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has prepared the raw file contents for parsing
      *
-     * @see    Pico::parseFileContent()
-     * @see    DummyPlugin::onContentParsed()
-     * @param  string &$markdown Markdown contents of the requested page
+     * @see Pico::parseFileContent()
+     * @see DummyPlugin::onContentParsed()
+     *
+     * @param string &$markdown Markdown contents of the requested page
+     *
      * @return void
      */
     public function onContentPrepared(&$markdown)
@@ -213,8 +245,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has parsed the contents of the file to serve
      *
-     * @see    Pico::getFileContent()
-     * @param  string &$content parsed contents (HTML) of the requested page
+     * @see Pico::getFileContent()
+     *
+     * @param string &$content parsed contents (HTML) of the requested page
+     *
      * @return void
      */
     public function onContentParsed(&$content)
@@ -225,12 +259,13 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico reads all known pages
      *
-     * @see    Pico::readPages()
-     * @see    DummyPlugin::onSinglePageLoading()
-     * @see    DummyPlugin::onSinglePageContent()
-     * @see    DummyPlugin::onSinglePageLoaded()
-     * @see    DummyPlugin::onPagesDiscovered()
-     * @see    DummyPlugin::onPagesLoaded()
+     * @see Pico::readPages()
+     * @see DummyPlugin::onSinglePageLoading()
+     * @see DummyPlugin::onSinglePageContent()
+     * @see DummyPlugin::onSinglePageLoaded()
+     * @see DummyPlugin::onPagesDiscovered()
+     * @see DummyPlugin::onPagesLoaded()
+     *
      * @return void
      */
     public function onPagesLoading()
@@ -247,13 +282,15 @@ class DummyPlugin extends AbstractPicoPlugin
      * then it passes TRUE. Don't change this value incautiously if it isn't
      * NULL! Someone likely set it to TRUE or FALSE on purpose...
      *
-     * @see    DummyPlugin::onSinglePageContent()
-     * @see    DummyPlugin::onSinglePageLoaded()
-     * @see    DummyPlugin::onPagesDiscovered()
-     * @see    DummyPlugin::onPagesLoaded()
-     * @param  string    $id       relative path to the content file
-     * @param  bool|null $skipPage set this to TRUE to remove this page from
-     *     the pages array, otherwise leave it unchanged
+     * @see DummyPlugin::onSinglePageContent()
+     * @see DummyPlugin::onSinglePageLoaded()
+     * @see DummyPlugin::onPagesDiscovered()
+     * @see DummyPlugin::onPagesLoaded()
+     *
+     * @param string    $id       relative path to the content file
+     * @param bool|null $skipPage set this to TRUE to remove this page from the
+     *     pages array, otherwise leave it unchanged
+     *
      * @return void
      */
     public function onSinglePageLoading($id, &$skipPage)
@@ -268,11 +305,13 @@ class DummyPlugin extends AbstractPicoPlugin
      * page is the requested page. The reason for this exception is that the
      * raw contents of this page were loaded already.
      *
-     * @see    DummyPlugin::onSinglePageLoaded()
-     * @see    DummyPlugin::onPagesDiscovered()
-     * @see    DummyPlugin::onPagesLoaded()
-     * @param  string $id          relative path to the content file
-     * @param  string &$rawContent raw file contents
+     * @see DummyPlugin::onSinglePageLoaded()
+     * @see DummyPlugin::onPagesDiscovered()
+     * @see DummyPlugin::onPagesLoaded()
+     *
+     * @param string $id          relative path to the content file
+     * @param string &$rawContent raw file contents
+     *
      * @return void
      */
     public function onSinglePageContent($id, &$rawContent)
@@ -285,30 +324,32 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * The `$pageData` parameter consists of the following values:
      *
-     * | Array key      | Type    | Description                                |
-     * | -------------- | ------- | ------------------------------------------ |
-     * | id             | string  | relative path to the content file          |
-     * | url            | string  | URL to the page                            |
-     * | title          | string  | title of the page (YAML header)            |
-     * | description    | string  | description of the page (YAML header)      |
-     * | author         | string  | author of the page (YAML header)           |
-     * | time           | string  | timestamp derived from the Date header     |
-     * | date           | string  | date of the page (YAML header)             |
-     * | date_formatted | string  | formatted date of the page                 |
-     * | hidden         | boolean | this page shouldn't be visible to the user |
-     * | raw_content    | string  | raw, not yet parsed contents of the page   |
-     * | meta           | string  | parsed meta data of the page               |
-     * | previous_page  | &array  | reference to the previous page             |
-     * | next_page      | &array  | reference to the next page                 |
+     * | Array key      | Type   | Description                                |
+     * | -------------- | ------ | ------------------------------------------ |
+     * | id             | string | relative path to the content file          |
+     * | url            | string | URL to the page                            |
+     * | title          | string | title of the page (YAML header)            |
+     * | description    | string | description of the page (YAML header)      |
+     * | author         | string | author of the page (YAML header)           |
+     * | time           | string | timestamp derived from the Date header     |
+     * | date           | string | date of the page (YAML header)             |
+     * | date_formatted | string | formatted date of the page                 |
+     * | hidden         | bool   | this page shouldn't be visible to the user |
+     * | raw_content    | string | raw, not yet parsed contents of the page   |
+     * | meta           | string | parsed meta data of the page               |
+     * | previous_page  | &array | reference to the previous page             |
+     * | next_page      | &array | reference to the next page                 |
      *
      * Please note that the `previous_page` and `next_page` keys won't be
      * available until the `onCurrentPageDiscovered` event was triggered.
      *
-     * Set `$pageData` to `null` to remove this page from the pages array.
+     * Set `$pageData` to NULL to remove this page from the pages array.
      *
-     * @see    DummyPlugin::onPagesDiscovered()
-     * @see    DummyPlugin::onPagesLoaded()
-     * @param  array &$pageData data of the loaded page
+     * @see DummyPlugin::onPagesDiscovered()
+     * @see DummyPlugin::onPagesLoaded()
+     *
+     * @param array &$pageData data of the loaded page
+     *
      * @return void
      */
     public function onSinglePageLoaded(array &$pageData)
@@ -323,9 +364,11 @@ class DummyPlugin extends AbstractPicoPlugin
      * structure of the page data. Please note that the pages array isn't
      * sorted yet.
      *
-     * @see    Pico::sortPages()
-     * @see    DummyPlugin::onPagesLoaded()
-     * @param  array[]    &$pages        data of all known pages
+     * @see Pico::sortPages()
+     * @see DummyPlugin::onPagesLoaded()
+     *
+     * @param array[] &$pages data of all known pages
+     *
      * @return void
      */
     public function onPagesDiscovered(array &$pages)
@@ -339,8 +382,10 @@ class DummyPlugin extends AbstractPicoPlugin
      * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data.
      *
-     * @see    Pico::getPages()
-     * @param  array[]    &$pages        data of all known pages
+     * @see Pico::getPages()
+     *
+     * @param array[] &$pages data of all known pages
+     *
      * @return void
      */
     public function onPagesLoaded(array &$pages)
@@ -354,14 +399,16 @@ class DummyPlugin extends AbstractPicoPlugin
      * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
      * structure of the page data.
      *
-     * @see    Pico::discoverPageSiblings()
-     * @see    Pico::discoverCurrentPage()
-     * @see    Pico::getCurrentPage()
-     * @see    Pico::getPreviousPage()
-     * @see    Pico::getNextPage()
-     * @param  array|null &$currentPage  data of the page being served
-     * @param  array|null &$previousPage data of the previous page
-     * @param  array|null &$nextPage     data of the next page
+     * @see Pico::discoverPageSiblings()
+     * @see Pico::discoverCurrentPage()
+     * @see Pico::getCurrentPage()
+     * @see Pico::getPreviousPage()
+     * @see Pico::getNextPage()
+     *
+     * @param array|null &$currentPage  data of the page being served
+     * @param array|null &$previousPage data of the previous page
+     * @param array|null &$nextPage     data of the next page
+     *
      * @return void
      */
     public function onCurrentPageDiscovered(
@@ -375,11 +422,13 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico renders the page
      *
-     * @see    Pico::getTwigTemplate()
-     * @see    Pico::getTwigVariables()
-     * @see    DummyPlugin::onPageRendered()
-     * @param  string           &$templateName  file name of the template
-     * @param  array            &$twigVariables template variables
+     * @see Pico::getTwigTemplate()
+     * @see Pico::getTwigVariables()
+     * @see DummyPlugin::onPageRendered()
+     *
+     * @param string &$templateName  file name of the template
+     * @param array  &$twigVariables template variables
+     *
      * @return void
      */
     public function onPageRendering(&$templateName, array &$twigVariables)
@@ -390,7 +439,8 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has rendered the page
      *
-     * @param  string &$output contents which will be sent to the user
+     * @param string &$output contents which will be sent to the user
+     *
      * @return void
      */
     public function onPageRendered(&$output)
@@ -401,10 +451,12 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico reads its known meta header fields
      *
-     * @see    Pico::getMetaHeaders()
-     * @param  string[] &$headers list of known meta header
-     *     fields; the array key specifies the YAML key to search for, the
-     *     array value is later used to access the found value
+     * @see Pico::getMetaHeaders()
+     *
+     * @param string[] &$headers list of known meta header fields; the array
+     *     key specifies the YAML key to search for, the array value is later
+     *     used to access the found value
+     *
      * @return void
      */
     public function onMetaHeaders(array &$headers)
@@ -415,8 +467,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico registers the YAML parser
      *
-     * @see    Pico::getYamlParser()
-     * @param  \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
+     * @see Pico::getYamlParser()
+     *
+     * @param \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
+     *
      * @return void
      */
     public function onYamlParserRegistered(\Symfony\Component\Yaml\Parser &$yamlParser)
@@ -427,8 +481,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico registers the Parsedown parser
      *
-     * @see    Pico::getParsedown()
-     * @param  Parsedown &$parsedown Parsedown instance
+     * @see Pico::getParsedown()
+     *
+     * @param Parsedown &$parsedown Parsedown instance
+     *
      * @return void
      */
     public function onParsedownRegistered(Parsedown &$parsedown)
@@ -439,8 +495,10 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico registers the twig template engine
      *
-     * @see    Pico::getTwig()
-     * @param  Twig_Environment &$twig Twig instance
+     * @see Pico::getTwig()
+     *
+     * @param Twig_Environment &$twig Twig instance
+     *
      * @return void
      */
     public function onTwigRegistered(Twig_Environment &$twig)

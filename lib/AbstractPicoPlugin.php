@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/AbstractPicoPlugin.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Abstract class to extend from when implementing a Pico plugin
@@ -24,11 +34,11 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     private $pico;
 
     /**
-     * Boolean indicating if this plugin is enabled (true) or disabled (false)
+     * Boolean indicating if this plugin is enabled (TRUE) or disabled (FALSE)
      *
      * @see PicoPluginInterface::isEnabled()
      * @see PicoPluginInterface::setEnabled()
-     * @var boolean
+     * @var bool
      */
     protected $enabled = true;
 
@@ -36,7 +46,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * Boolean indicating if this plugin was ever enabled/disabled manually
      *
      * @see PicoPluginInterface::isStatusChanged()
-     * @var boolean
+     * @var bool
      */
     protected $statusChanged = false;
 
@@ -44,7 +54,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * Boolean indicating whether this plugin matches Pico's API version
      *
      * @see AbstractPicoPlugin::checkCompatibility()
-     * @var boolean|null
+     * @var bool|null
      */
     protected $nativePlugin;
 
@@ -152,14 +162,14 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * Returns either the value of the specified plugin config variable or
      * the config array
      *
-     * @param  string $configName optional name of a config variable
-     * @param  mixed  $default    optional default value to return when the
+     * @param string $configName optional name of a config variable
+     * @param mixed  $default    optional default value to return when the
      *     named config variable doesn't exist
-     * @return mixed              if no name of a config variable has been
-     *     supplied, the plugin's config array is returned; otherwise it
-     *     returns either the value of the named config variable, or, if the
-     *     named config variable doesn't exist, the provided default value
-     *     or NULL
+     *
+     * @return mixed if no name of a config variable has been supplied, the
+     *     plugin's config array is returned; otherwise it returns either the
+     *     value of the named config variable, or, if the named config variable
+     *     doesn't exist, the provided default value or NULL
      */
     public function getPluginConfig($configName = null, $default = null)
     {
@@ -175,10 +185,12 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Passes all not satisfiable method calls to Pico
      *
-     * @see    Pico
-     * @param  string $methodName name of the method to call
-     * @param  array  $params     parameters to pass
-     * @return mixed              return value of the called method
+     * @see Pico
+     *
+     * @param string $methodName name of the method to call
+     * @param array  $params     parameters to pass
+     *
+     * @return mixed return value of the called method
      */
     public function __call($methodName, array $params)
     {
@@ -195,10 +207,13 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Enables all plugins which this plugin depends on
      *
-     * @see    PicoPluginInterface::getDependencies()
-     * @param  boolean $recursive enable required plugins automatically
+     * @see PicoPluginInterface::getDependencies()
+     *
+     * @param bool $recursive enable required plugins automatically
+     *
      * @return void
-     * @throws RuntimeException   thrown when a dependency fails
+     *
+     * @throws RuntimeException thrown when a dependency fails
      */
     protected function checkDependencies($recursive)
     {
@@ -244,10 +259,13 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Disables all plugins which depend on this plugin
      *
-     * @see    PicoPluginInterface::getDependants()
-     * @param  boolean $recursive disabled dependant plugins automatically
+     * @see PicoPluginInterface::getDependants()
+     *
+     * @param bool $recursive disabled dependant plugins automatically
+     *
      * @return void
-     * @throws RuntimeException   thrown when a dependency fails
+     *
+     * @throws RuntimeException thrown when a dependency fails
      */
     protected function checkDependants($recursive)
     {
@@ -308,8 +326,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * newer API versions, what defaults to "no" by default.
      *
      * @return void
-     * @throws RuntimeException thrown when the plugin's and Pico's API
-     *     aren't compatible
+     *
+     * @throws RuntimeException thrown when the plugin's and Pico's API aren't
+     *     compatible
      */
     protected function checkCompatibility()
     {
