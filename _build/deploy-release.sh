@@ -31,6 +31,7 @@ if [ "$DEPLOY_FULL" != "true" ]; then
     echo
 fi
 
+. "$(dirname "$0")/functions/parse-version.sh.inc"
 export PATH="$(dirname "$0")/tools:$PATH"
 
 DEPLOYMENT_ID="${TRAVIS_TAG//\//_}"
@@ -38,6 +39,12 @@ DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
 [ -n "$DEPLOY_REPO_SLUG" ] || export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
 [ -n "$DEPLOY_REPO_BRANCH" ] || export DEPLOY_REPO_BRANCH="gh-pages"
+
+# parse version
+if ! parse_version "$TRAVIS_TAG"; then
+    echo "Invalid version '$TRAVIS_TAG'; aborting..." >&2
+    exit 1
+fi
 
 # clone repo
 github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
@@ -50,7 +57,7 @@ github-setup.sh
 # generate phpDocs
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
     # get current Pico milestone
-    MILESTONE="Pico$([[ "$TRAVIS_TAG" =~ ^v([0-9]+\.[0-9]+)\. ]] && echo " ${BASH_REMATCH[1]}")"
+    MILESTONE="Pico $VERSION_MILESTONE"
 
     # generate phpDocs
     generate-phpdoc.sh \
@@ -74,49 +81,52 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
     fi
 fi
 
-# update version badge
-if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
-    generate-badge.sh \
-        "$DEPLOYMENT_DIR/badges/pico-version.svg" \
-        "release" "$TRAVIS_TAG" "blue"
+# don't update version badge, version file and cloc statistics for pre-releases
+if [ "$VERSION_STABILITY" != "stable" ]; then
+    # update version badge
+    if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
+        generate-badge.sh \
+            "$DEPLOYMENT_DIR/badges/pico-version.svg" \
+            "release" "$TRAVIS_TAG" "blue"
 
-    # commit version badge
-    echo "Committing version badge..."
-    git add "$DEPLOYMENT_DIR/badges/pico-version.svg"
-    git commit \
-        --message="Update version badge for $TRAVIS_TAG" \
-        "$DEPLOYMENT_DIR/badges/pico-version.svg"
-    echo
-fi
+        # commit version badge
+        echo "Committing version badge..."
+        git add "$DEPLOYMENT_DIR/badges/pico-version.svg"
+        git commit \
+            --message="Update version badge for $TRAVIS_TAG" \
+            "$DEPLOYMENT_DIR/badges/pico-version.svg"
+        echo
+    fi
 
-# update version file
-if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
-    update-version-file.sh \
-        "$DEPLOYMENT_DIR/_data/version.yml" \
-        "${TRAVIS_TAG#v}"
+    # update version file
+    if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
+        update-version-file.sh \
+            "$DEPLOYMENT_DIR/_data/version.yml" \
+            "$VERSION_FULL"
 
-    # commit version file
-    echo "Committing version file..."
-    git add "$DEPLOYMENT_DIR/_data/version.yml"
-    git commit \
-        --message="Update version file for $TRAVIS_TAG" \
-        "$DEPLOYMENT_DIR/_data/version.yml"
-    echo
-fi
+        # commit version file
+        echo "Committing version file..."
+        git add "$DEPLOYMENT_DIR/_data/version.yml"
+        git commit \
+            --message="Update version file for $TRAVIS_TAG" \
+            "$DEPLOYMENT_DIR/_data/version.yml"
+        echo
+    fi
 
-# update cloc statistics
-if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
-    update-cloc-stats.sh \
-        "$DEPLOYMENT_DIR/_data/clocCore.yml" \
-        "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+    # update cloc statistics
+    if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
+        update-cloc-stats.sh \
+            "$DEPLOYMENT_DIR/_data/clocCore.yml" \
+            "$DEPLOYMENT_DIR/_data/clocRelease.yml"
 
-    # commit cloc statistics
-    echo "Commiting cloc statistics..."
-    git add "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-    git commit \
-        --message="Update cloc statistics for $TRAVIS_TAG" \
-        "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-    echo
+        # commit cloc statistics
+        echo "Commiting cloc statistics..."
+        git add "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+        git commit \
+            --message="Update cloc statistics for $TRAVIS_TAG" \
+            "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+        echo
+    fi
 fi
 
 # deploy
