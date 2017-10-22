@@ -5,21 +5,6 @@ if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
     composer config --global github-oauth.github.com "$GITHUB_OAUTH_TOKEN"
 fi
 
-if [ "$1" == "--release" ]; then
-    # install dependencies
-    echo "Running \`composer install\`..."
-    composer install --no-dev --optimize-autoloader
-    [ $? -eq 0 ] || exit 1
-    echo
-
-    # remove .git dirs
-    echo "Removing '.git' directories of dependencies..."
-    find vendor/ -type d -path 'vendor/*/*/.git' -print0 | xargs -0 rm -rf
-    echo
-
-    exit 0
-fi
-
 # set COMPOSER_ROOT_VERSION when necessary
 if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     PICO_VERSION_PATTERN="$(php -r "

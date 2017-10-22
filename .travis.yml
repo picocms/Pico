@@ -34,11 +34,11 @@ jobs:
     - stage: release
       install:
         - '[ -n "$TRAVIS_TAG" ] || travis_terminate 0'
-        - install.sh --release
+        - install.sh
       script:
         - deploy-release.sh
       before_deploy:
-        - create-release-archive.sh "pico-release-$TRAVIS_TAG.tar.gz"
+        - create-release.sh "pico-release-$TRAVIS_TAG.tar.gz"
       deploy:
         provider: releases
         api_key: ${GITHUB_OAUTH_TOKEN}
