@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# let composer use our GITHUB_OAUTH_TOKEN
+if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
+    composer config --global github-oauth.github.com "$GITHUB_OAUTH_TOKEN"
+fi
+
 if [ "$1" == "--release" ]; then
     # install dependencies
     echo "Running \`composer install\`..."
@@ -40,6 +45,6 @@ fi
 
 # install dependencies
 echo "Running \`composer install\`$([ -n "$COMPOSER_ROOT_VERSION" ] && echo -n " ($COMPOSER_ROOT_VERSION)")..."
-composer install
+composer install --no-suggest
 
 exit $?

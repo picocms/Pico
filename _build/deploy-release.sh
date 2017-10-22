@@ -1,21 +1,39 @@
 #!/usr/bin/env bash
+set -e
 
+DEPLOY_FULL="true"
 if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ]; then
     echo "Skipping phpDoc release deployment because it has been disabled"
+    DEPLOY_FULL="false"
 fi
 if [ "$DEPLOY_VERSION_BADGE" != "true" ]; then
     echo "Skipping version badge deployment because it has been disabled"
+    DEPLOY_FULL="false"
 fi
 if [ "$DEPLOY_VERSION_FILE" != "true" ]; then
     echo "Skipping version file deployment because it has been disabled"
+    DEPLOY_FULL="false"
 fi
-if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true" ] || [ "$DEPLOY_VERSION_FILE" != "true" ] || [ "$DEPLOY_CLOC_STATS" != "true" ]; then
-    [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && [ "$DEPLOY_VERSION_FILE" != "true" ] && [ "$DEPLOY_CLOC_STATS" != "true" ] && exit 0 || echo
+if [ "$DEPLOY_CLOC_STATS" != "true" ]; then
+    echo "Skipping cloc statistics deployment because it has been disabled"
+    DEPLOY_FULL="false"
+fi
+
+if [ "$DEPLOY_FULL" != "true" ]; then
+    if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] \
+        && [ "$DEPLOY_VERSION_BADGE" != "true" ] \
+        && [ "$DEPLOY_VERSION_FILE" != "true" ] \
+        && [ "$DEPLOY_CLOC_STATS" != "true" ]
+    then
+        # nothing to do
+        exit 0
+    fi
+    echo
 fi
 
 export PATH="$(dirname "$0")/tools:$PATH"
 
-DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
+DEPLOYMENT_ID="${TRAVIS_TAG//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
 [ -n "$DEPLOY_REPO_SLUG" ] || export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
@@ -23,13 +41,11 @@ DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
 # clone repo
 github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
-[ $? -eq 0 ] || exit 1
 
 cd "$DEPLOYMENT_DIR"
 
 # setup repo
 github-setup.sh
-[ $? -eq 0 ] || exit 1
 
 # generate phpDocs
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
@@ -41,14 +57,12 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
         "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
         "-" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
         "$MILESTONE API Documentation ($TRAVIS_TAG)"
-    [ $? -eq 0 ] || exit 1
 
     if [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID")" ]; then
         # update phpDoc list
         update-phpdoc-list.sh \
             "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
             "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
-        [ $? -eq 0 ] || exit 1
 
         # commit phpDocs
         echo "Committing phpDoc changes..."
@@ -56,7 +70,6 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
         git commit \
             --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
-        [ $? -eq 0 ] || exit 1
         echo
     fi
 fi
@@ -66,7 +79,6 @@ if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
     generate-badge.sh \
         "$DEPLOYMENT_DIR/badges/pico-version.svg" \
         "release" "$TRAVIS_TAG" "blue"
-    [ $? -eq 0 ] || exit 1
 
     # commit version badge
     echo "Committing version badge..."
@@ -74,7 +86,6 @@ if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
     git commit \
         --message="Update version badge for $TRAVIS_TAG" \
         "$DEPLOYMENT_DIR/badges/pico-version.svg"
-    [ $? -eq 0 ] || exit 1
     echo
 fi
 
@@ -83,7 +94,6 @@ if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
     update-version-file.sh \
         "$DEPLOYMENT_DIR/_data/version.yml" \
         "${TRAVIS_TAG#v}"
-    [ $? -eq 0 ] || exit 1
 
     # commit version file
     echo "Committing version file..."
@@ -91,7 +101,6 @@ if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
     git commit \
         --message="Update version file for $TRAVIS_TAG" \
         "$DEPLOYMENT_DIR/_data/version.yml"
-    [ $? -eq 0 ] || exit 1
     echo
 fi
 
@@ -100,7 +109,6 @@ if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
     update-cloc-stats.sh \
         "$DEPLOYMENT_DIR/_data/clocCore.yml" \
         "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-    [ $? -eq 0 ] || exit 1
 
     # commit cloc statistics
     echo "Commiting cloc statistics..."
@@ -108,10 +116,8 @@ if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
     git commit \
         --message="Update cloc statistics for $TRAVIS_TAG" \
         "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-    [ $? -eq 0 ] || exit 1
     echo
 fi
 
 # deploy
 github-deploy.sh "$TRAVIS_REPO_SLUG" "tags/$TRAVIS_TAG" "$TRAVIS_COMMIT"
-[ $? -eq 0 ] || exit 1
