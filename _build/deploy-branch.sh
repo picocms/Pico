@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PATH="$(dirname "$0")/tools:$PATH"
+
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 

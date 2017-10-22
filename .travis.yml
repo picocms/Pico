@@ -28,7 +28,7 @@ jobs:
         - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh
       script:
-        - deploy-phpdoc-branch.sh
+        - deploy-branch.sh
 
     # Release stage
     - stage: release
@@ -36,7 +36,7 @@ jobs:
         - '[ -n "$TRAVIS_TAG" ] || travis_terminate 0'
         - install.sh --release
       script:
-        - deploy-phpdoc-release.sh
+        - deploy-release.sh
       before_deploy:
         - create-release-archive.sh "pico-release-$TRAVIS_TAG.tar.gz"
       deploy:

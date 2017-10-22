@@ -13,6 +13,8 @@ if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] || [ "$DEPLOY_VERSION_BADGE" != "true
     [ "$DEPLOY_PHPDOC_RELEASES" != "true" ] && [ "$DEPLOY_VERSION_BADGE" != "true" ] && [ "$DEPLOY_VERSION_FILE" != "true" ] && [ "$DEPLOY_CLOC_STATS" != "true" ] && exit 0 || echo
 fi
 
+export PATH="$(dirname "$0")/tools:$PATH"
+
 DEPLOYMENT_ID="${TRAVIS_BRANCH//\//_}"
 DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 
