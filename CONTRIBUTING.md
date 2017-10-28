@@ -75,12 +75,12 @@ Pico's actual development happens in separate development branches. Development 
 - `enhancement/` for smaller improvements, and
 - `bugfix/` for non-trivial bug fixes.
 
-As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes which will be part of the next `PATCH` version will be merged directly into `master`.
+As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes that will be part of the next `PATCH` version will be merged directly into `master`.
 
 Build & Release process
 -----------------------
 
-We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages, a version badge and pushing both to our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) and the [`_build` directory](https://github.com/picocms/Pico/tree/master/_build) for details.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys a [PHP class documentation](http://picocms.org/phpDoc/) (powered by [phpDoc](http://phpdoc.org)) for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built release packages, a version badge, code statistics (powered by [cloc](https://github.com/AlDanial/cloc)) and updates our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) and the [`_build` directory](https://github.com/picocms/Pico/tree/master/_build) for details.
 
 As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
@@ -94,7 +94,9 @@ Version 1.0.0
 * [Removed] ...
 ```
 
-Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico::VERSION_ID` constants. If you've simultaneously developed a new version of Pico's official [default theme](https://github.com/picocms/pico-theme) and/or the [`PicoDeprecated` plugin](https://github.com/picocms/pico-deprecated), make sure to create releases for them first, otherwise automatic deployment will fail.
+Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico::VERSION_ID` constants. The versions of Pico's official [default theme](https://github.com/picocms/pico-theme) and the [`PicoDeprecated` plugin](https://github.com/picocms/pico-deprecated) both strictly follow Pico's version. Since Pico's pre-built release package contains them, you must always create a new release of them (even though nothing has changed) before creating a new Pico release.
+
+If you're pushing a new major or minor release of Pico, you should also update Pico's `composer.json` to require the latest minor releases of Pico's dependencies. Besides, don't forget to update the `@version` tags in the PHP class docs.
 
 Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](http://packagist.org/packages/picocms/pico) will be updated automatically.
 
@@ -123,7 +125,7 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 - The `type: Invalid` label is used for everything else, e.g. issues or pull requests not related to Pico, or invalid bug reports.
 
-The `status: Deferred` label might get added to any open issue or pull request to indicate that it still open and will be resolved later.
+The `status: Deferred` label might get added to any open issue or pull request to indicate that it is still unresolved and will be resolved later.
 
 Issues and pull requests, which are rather related to upstream projects (i.e. projects Pico depends on, like Twig), are additionally labeled with `info: Upstream`.
 
