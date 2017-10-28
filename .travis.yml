@@ -44,6 +44,7 @@ jobs:
         api_key: ${GITHUB_OAUTH_TOKEN}
         file: pico-release-$TRAVIS_TAG.tar.gz
         skip_cleanup: true
+        draft: true
 
   # Ignore nightly build failures
   allow_failures:
