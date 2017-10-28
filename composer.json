@@ -29,8 +29,9 @@
         "php": ">=5.3.6",
         "ext-dom": "*",
         "ext-mbstring": "*",
-        "twig/twig": "^1.18",
-        "symfony/yaml" : "^2.3",
+        "twig/twig": "^1.34",
+        "symfony/yaml" : "^2.8",
+        "erusev/parsedown": "^1.6",
         "erusev/parsedown-extra": "^0.7"
     },
     "suggest": {
