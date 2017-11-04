@@ -38,15 +38,10 @@ update-phpdoc-list.sh \
     "$TRAVIS_BRANCH" "branch" "<code>$TRAVIS_BRANCH</code> branch" "$(date +%s)"
 
 # commit phpDocs
-echo "Committing changes..."
-git add --all \
+github-commit.sh \
+    "Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
     "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
     "$DEPLOYMENT_DIR/_data/phpDoc.yml"
-git commit \
-    --message="Update phpDocumentor class docs for $TRAVIS_BRANCH branch @ $TRAVIS_COMMIT" \
-    "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID.cache" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
-    "$DEPLOYMENT_DIR/_data/phpDoc.yml"
-echo
 
 # deploy phpDocs
 github-deploy.sh "$TRAVIS_REPO_SLUG" "heads/$TRAVIS_BRANCH" "$TRAVIS_COMMIT"

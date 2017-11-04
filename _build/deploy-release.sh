@@ -72,12 +72,9 @@ if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
             "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
 
         # commit phpDocs
-        echo "Committing phpDoc changes..."
-        git add --all "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
-        git commit \
-            --message="Update phpDocumentor class docs for $TRAVIS_TAG" \
+        github-commit.sh \
+            "Update phpDocumentor class docs for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
-        echo
     fi
 fi
 
@@ -90,12 +87,9 @@ if [ "$VERSION_STABILITY" != "stable" ]; then
             "release" "$TRAVIS_TAG" "blue"
 
         # commit version badge
-        echo "Committing version badge..."
-        git add "$DEPLOYMENT_DIR/badges/pico-version.svg"
-        git commit \
-            --message="Update version badge for $TRAVIS_TAG" \
+        github-commit.sh \
+            "Update version badge for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/badges/pico-version.svg"
-        echo
     fi
 
     # update version file
@@ -105,12 +99,9 @@ if [ "$VERSION_STABILITY" != "stable" ]; then
             "$VERSION_FULL"
 
         # commit version file
-        echo "Committing version file..."
-        git add "$DEPLOYMENT_DIR/_data/version.yml"
-        git commit \
-            --message="Update version file for $TRAVIS_TAG" \
+        github-commit.sh \
+            "Update version file for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/_data/version.yml"
-        echo
     fi
 
     # update cloc statistics
@@ -120,12 +111,9 @@ if [ "$VERSION_STABILITY" != "stable" ]; then
             "$DEPLOYMENT_DIR/_data/clocRelease.yml"
 
         # commit cloc statistics
-        echo "Commiting cloc statistics..."
-        git add "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-        git commit \
-            --message="Update cloc statistics for $TRAVIS_TAG" \
+        github-commit.sh \
+            "Update cloc statistics for $TRAVIS_TAG" \
             "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
-        echo
     fi
 fi
 
