@@ -1346,7 +1346,7 @@ class Pico
             }
         } else {
             // guarantee array key existance
-            $meta = array_fill_keys(array_keys($headers), '');
+            $meta = array_fill_keys(array_values($headers), '');
             $meta['time'] = $meta['date_formatted'] = '';
         }
 
