@@ -13,7 +13,7 @@ Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
 Screenshot
 ----------
 
-![Pico Screenshot](https://picocms.github.io/screenshot.png)
+![Pico Screenshot](https://picocms.github.io/screenshots/pico-20.png)
 
 Install
 -------
