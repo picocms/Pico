@@ -63,6 +63,3 @@ before_script:
 
 script:
   - phpcs --standard=.phpcs.xml "$TRAVIS_BUILD_DIR"
-
-notifications:
-  irc: "chat.freenode.net#picocms"
