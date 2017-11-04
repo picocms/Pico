@@ -46,6 +46,9 @@ echo
 echo "Replacing 'index.php'..."
 cp vendor/picocms/pico/index.php.dist index.php
 
+echo "Adding 'config/config.yml.template'..."
+cp vendor/picocms/pico/config/config.yml.template config/config.yml.template
+
 echo "Preparing 'composer.json' for release..."
 composer require --no-update \
     "picocms/pico ^$VERSION_MILESTONE" \
