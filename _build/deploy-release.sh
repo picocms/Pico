@@ -106,14 +106,12 @@ if [ "$VERSION_STABILITY" != "stable" ]; then
 
     # update cloc statistics
     if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
-        update-cloc-stats.sh \
-            "$DEPLOYMENT_DIR/_data/clocCore.yml" \
-            "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+        update-cloc-stats.sh "$DEPLOYMENT_DIR/_data/cloc.yml"
 
         # commit cloc statistics
         github-commit.sh \
             "Update cloc statistics for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/_data/clocCore.yml" "$DEPLOYMENT_DIR/_data/clocRelease.yml"
+            "$DEPLOYMENT_DIR/_data/cloc.yml"
     fi
 fi
 
