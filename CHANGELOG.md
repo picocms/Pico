@@ -1,6 +1,9 @@
 Pico Changelog
 ==============
 
+### Version 2.0.0-beta.1
+Released: 2017-11-05
+
 ### Version 1.0.6
 Released: 2017-07-25
 
