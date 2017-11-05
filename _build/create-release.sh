@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-. "$(dirname "$0")/functions/parse-version.sh.inc"
+. "$(dirname "$0")/tools/functions/parse-version.sh.inc"
 export PATH="$(dirname "$0")/tools:$PATH"
 
 DEPLOYMENT_ID="${TRAVIS_TAG//\//_}"

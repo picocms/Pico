@@ -13,6 +13,9 @@ DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
 VERSION="$(php -r 'require_once(__DIR__ . "/lib/Pico.php"); echo Pico::VERSION;')"
 MILESTONE="Pico$([[ "$VERSION" =~ ^([0-9]+\.[0-9]+)\. ]] && echo " ${BASH_REMATCH[1]}")"
 
+echo "Deploying $TRAVIS_BRANCH branch ($MILESTONE)..."
+echo
+
 # clone repo
 github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
 

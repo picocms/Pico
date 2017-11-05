@@ -23,20 +23,13 @@ jobs:
 
     # Deployment stage
     - stage: deploy
+      sudo: required
       install:
         - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || travis_terminate 0'
-        - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
-        - install.sh
+        - '[ -n "$TRAVIS_TAG" ] || [[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
+        - install.sh --deploy
       script:
-        - deploy-branch.sh
-
-    # Release stage
-    - stage: release
-      install:
-        - '[ -n "$TRAVIS_TAG" ] || travis_terminate 0'
-        - install.sh
-      script:
-        - deploy-release.sh
+        - deploy.sh
       before_deploy:
         - create-release.sh "pico-release-$TRAVIS_TAG.tar.gz"
       deploy:
@@ -45,6 +38,8 @@ jobs:
         file: pico-release-$TRAVIS_TAG.tar.gz
         skip_cleanup: true
         draft: true
+        on:
+          tags: true
 
   # Ignore nightly build failures
   allow_failures:
