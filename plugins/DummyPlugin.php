@@ -58,6 +58,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * This event is triggered nevertheless the plugin is enabled or not.
      * It is NOT guaranteed that plugin dependencies are fulfilled!
      *
+     * @see Pico::loadPlugin()
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
@@ -73,6 +74,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico manually loads a plugin
      *
+     * @see Pico::loadPlugin()
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
@@ -89,6 +91,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered after Pico has read its configuration
      *
      * @see Pico::getConfig()
+     * @see Pico::getBaseUrl()
+     * @see Pico::getBaseThemeUrl()
+     * @see Pico::isUrlRewritingEnabled()
      *
      * @param array &$config array of config variables
      *
@@ -116,7 +121,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has discovered the content file to serve
      *
-     * @see Pico::getBaseUrl()
+     * @see Pico::resolveFilePath()
      * @see Pico::getRequestFile()
      *
      * @param string &$file absolute path to the content file to serve
@@ -157,7 +162,9 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has read the contents of the 404 file
      *
+     * @see DummyPlugin::on404ContentLoading()
      * @see Pico::getRawContent()
+     * @see Pico::is404Content()
      *
      * @param string &$rawContent raw file contents
      *
@@ -175,7 +182,9 @@ class DummyPlugin extends AbstractPicoPlugin
      * of said 404 file. Use {@see Pico::is404Content()} to check for this
      * case when necessary.
      *
+     * @see DummyPlugin::onContentLoading()
      * @see Pico::getRawContent()
+     * @see Pico::is404Content()
      *
      * @param string &$rawContent raw file contents
      *
@@ -202,6 +211,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has parsed the meta header
      *
+     * @see DummyPlugin::onMetaParsing()
      * @see Pico::getFileMeta()
      *
      * @param string[] &$meta parsed meta data
@@ -217,7 +227,8 @@ class DummyPlugin extends AbstractPicoPlugin
      * Triggered before Pico parses the pages content
      *
      * @see Pico::prepareFileContent()
-     * @see DummyPlugin::prepareFileContent()
+     * @see Pico::substituteFileContent()
+     * @see DummyPlugin::onContentPrepared()
      * @see DummyPlugin::onContentParsed()
      *
      * @return void
@@ -230,6 +241,7 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has prepared the raw file contents for parsing
      *
+     * @see DummyPlugin::onContentParsing()
      * @see Pico::parseFileContent()
      * @see DummyPlugin::onContentParsed()
      *
@@ -245,6 +257,8 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has parsed the contents of the file to serve
      *
+     * @see DummyPlugin::onContentParsing()
+     * @see DummyPlugin::onContentPrepared()
      * @see Pico::getFileContent()
      *
      * @param string &$content parsed contents (HTML) of the requested page
@@ -259,10 +273,6 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico reads all known pages
      *
-     * @see Pico::readPages()
-     * @see DummyPlugin::onSinglePageLoading()
-     * @see DummyPlugin::onSinglePageContent()
-     * @see DummyPlugin::onSinglePageLoaded()
      * @see DummyPlugin::onPagesDiscovered()
      * @see DummyPlugin::onPagesLoaded()
      *
@@ -284,8 +294,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onSinglePageContent()
      * @see DummyPlugin::onSinglePageLoaded()
-     * @see DummyPlugin::onPagesDiscovered()
-     * @see DummyPlugin::onPagesLoaded()
      *
      * @param string    $id       relative path to the content file
      * @param bool|null $skipPage set this to TRUE to remove this page from the
@@ -305,9 +313,8 @@ class DummyPlugin extends AbstractPicoPlugin
      * page is the requested page. The reason for this exception is that the
      * raw contents of this page were loaded already.
      *
+     * @see DummyPlugin::onSinglePageLoading()
      * @see DummyPlugin::onSinglePageLoaded()
-     * @see DummyPlugin::onPagesDiscovered()
-     * @see DummyPlugin::onPagesLoaded()
      *
      * @param string $id          relative path to the content file
      * @param string &$rawContent raw file contents
@@ -322,31 +329,11 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico loads a single page
      *
-     * The `$pageData` parameter consists of the following values:
+     * Please refer to {@see Pico::readPages()} for information about the
+     * structure of a single page's data.
      *
-     * | Array key      | Type   | Description                                |
-     * | -------------- | ------ | ------------------------------------------ |
-     * | id             | string | relative path to the content file          |
-     * | url            | string | URL to the page                            |
-     * | title          | string | title of the page (YAML header)            |
-     * | description    | string | description of the page (YAML header)      |
-     * | author         | string | author of the page (YAML header)           |
-     * | time           | string | timestamp derived from the Date header     |
-     * | date           | string | date of the page (YAML header)             |
-     * | date_formatted | string | formatted date of the page                 |
-     * | hidden         | bool   | this page shouldn't be visible to the user |
-     * | raw_content    | string | raw, not yet parsed contents of the page   |
-     * | meta           | string | parsed meta data of the page               |
-     * | previous_page  | &array | reference to the previous page             |
-     * | next_page      | &array | reference to the next page                 |
-     *
-     * Please note that the `previous_page` and `next_page` keys won't be
-     * available until the `onCurrentPageDiscovered` event was triggered.
-     *
-     * Set `$pageData` to NULL to remove this page from the pages array.
-     *
-     * @see DummyPlugin::onPagesDiscovered()
-     * @see DummyPlugin::onPagesLoaded()
+     * @see DummyPlugin::onSinglePageLoading()
+     * @see DummyPlugin::onSinglePageContent()
      *
      * @param array &$pageData data of the loaded page
      *
@@ -360,14 +347,15 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has discovered all known pages
      *
-     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
-     * structure of the page data. Please note that the pages array isn't
-     * sorted yet.
+     * Pico's pages array isn't sorted until the `onPagesLoaded` event is
+     * triggered. Please refer to {@see Pico::readPages()} for information
+     * about the structure of Pico's pages array and the structure of a single
+     * page's data.
      *
-     * @see Pico::sortPages()
+     * @see DummyPlugin::onPagesLoading()
      * @see DummyPlugin::onPagesLoaded()
      *
-     * @param array[] &$pages data of all known pages
+     * @param array[] &$pages list of all known pages
      *
      * @return void
      */
@@ -379,12 +367,15 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered after Pico has sorted the pages array
      *
-     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
-     * structure of the page data.
+     * Please refer to {@see Pico::readPages()} for information about the
+     * structure of Pico's pages array and the structure of a single page's
+     * data.
      *
+     * @see DummyPlugin::onPagesLoading()
+     * @see DummyPlugin::onPagesDiscovered()
      * @see Pico::getPages()
      *
-     * @param array[] &$pages data of all known pages
+     * @param array[] &$pages sorted list of all known pages
      *
      * @return void
      */
@@ -396,11 +387,11 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered when Pico discovered the current, previous and next pages
      *
-     * See {@see DummyPlugin::onSinglePageLoaded()} for details about the
-     * structure of the page data.
+     * If Pico isn't serving a regular page, but a plugin's virtual page, there
+     * will neither be a current, nor previous or next pages. Please refer to
+     * {@see Pico::readPages()} for information about the structure of a single
+     * page's data.
      *
-     * @see Pico::discoverPageSiblings()
-     * @see Pico::discoverCurrentPage()
      * @see Pico::getCurrentPage()
      * @see Pico::getPreviousPage()
      * @see Pico::getNextPage()
@@ -422,8 +413,6 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * Triggered before Pico renders the page
      *
-     * @see Pico::getTwigTemplate()
-     * @see Pico::getTwigVariables()
      * @see DummyPlugin::onPageRendered()
      *
      * @param string &$templateName  file name of the template
@@ -438,6 +427,8 @@ class DummyPlugin extends AbstractPicoPlugin
 
     /**
      * Triggered after Pico has rendered the page
+     *
+     * @see DummyPlugin::onPageRendering()
      *
      * @param string &$output contents which will be sent to the user
      *
