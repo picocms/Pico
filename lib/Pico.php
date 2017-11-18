@@ -1049,7 +1049,7 @@ class Pico
         // use REQUEST_URI (requires URL rewriting); e.g. /pico/sub/page
         if (($this->requestUrl === null) && $this->isUrlRewritingEnabled()) {
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
-            $basePath = !in_array($basePath, array('.', '/')) ? $basePath . '/' : '/';
+            $basePath = !in_array($basePath, array('.', '/'), true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
@@ -1620,8 +1620,8 @@ class Pico
         }
 
         $alphaSortClosure = function ($a, $b) use ($order) {
-            if ($a['hidden'] xor $b['hidden']) {
-                return (!!$a['hidden'] - !!$b['hidden']) * (($order === 'desc') ? -1 : 1);
+            if (!empty($a['hidden']) xor !empty($b['hidden'])) {
+                return (!empty($a['hidden']) - !empty($b['hidden'])) * (($order === 'desc') ? -1 : 1);
             }
 
             $aSortKey = (basename($a['id']) === 'index') ? dirname($a['id']) : $a['id'];
@@ -1658,7 +1658,7 @@ class Pico
         } elseif ($orderBy === 'date') {
             // sort by date
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order) {
-                if ($a['hidden'] xor $b['hidden']) {
+                if (!empty($a['hidden']) xor !empty($b['hidden'])) {
                     return $alphaSortClosure($a, $b);
                 }
 
@@ -1705,7 +1705,7 @@ class Pico
             $pageData[$precedingPageKey] = null;
             $pageData[$succeedingPageKey] = null;
 
-            if ($pageData['hidden']) {
+            if (!empty($pageData['hidden'])) {
                 continue;
             }
 
@@ -1902,7 +1902,7 @@ class Pico
         $protocol = 'http';
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
-            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1')) ? 'https' : 'http';
+            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1'), true) ? 'https' : 'http';
         } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } elseif ($_SERVER['SERVER_PORT'] == 443) {
@@ -2212,7 +2212,7 @@ class Pico
             foreach ($files as $file) {
                 // exclude hidden files/dirs starting with a .; this also excludes the special dirs . and ..
                 // exclude files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (($file[0] === '.') || in_array(substr($file, -1), array('~', '#'))) {
+                if (($file[0] === '.') || in_array(substr($file, -1), array('~', '#'), true)) {
                     continue;
                 }
 
@@ -2252,7 +2252,7 @@ class Pico
         if ($files) {
             foreach ($files as $file) {
                 // exclude dirs and files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (in_array(substr($file, -1), array('/', '~', '#'))) {
+                if (in_array(substr($file, -1), array('/', '~', '#'), true)) {
                     continue;
                 }
 
