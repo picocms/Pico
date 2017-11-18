@@ -411,6 +411,23 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
+     * Triggered after Pico built the page tree
+     *
+     * Please refer to {@see Pico::buildPageTree()} for information about
+     * the structure of Pico's page tree array.
+     *
+     * @see Pico::getPageTree()
+     *
+     * @param  array  &$pageTree page tree
+     *
+     * @return void
+     */
+    public function onPageTreeBuilt(array &$pageTree)
+    {
+        // your code
+    }
+
+    /**
      * Triggered before Pico renders the page
      *
      * @see DummyPlugin::onPageRendered()

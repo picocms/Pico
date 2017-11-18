@@ -273,6 +273,14 @@ class Pico
     protected $nextPage;
 
     /**
+     * Tree structure of known pages
+     *
+     * @see Pico::getPageTree()
+     * @var array[]|null
+     */
+    protected $pageTree;
+
+    /**
      * Twig instance used for template parsing
      *
      * @see Pico::getTwig()
@@ -458,6 +466,9 @@ class Pico
             'onCurrentPageDiscovered',
             array(&$this->currentPage, &$this->previousPage, &$this->nextPage)
         );
+
+        $this->buildPageTree();
+        $this->triggerEvent('onPageTreeBuilt', array(&$this->pageTree));
 
         // render template
         $this->twigVariables = $this->getTwigVariables();
@@ -1511,10 +1522,13 @@ class Pico
      * | meta           | string  | parsed meta data of the page               |
      * | previous_page  | &array  | reference to the previous page             |
      * | next_page      | &array  | reference to the next page                 |
+     * | tree_node      | &array  | reference to the page's tree node          |
      *
-     * Please note that the `previous_page` and `next_page` keys won't be
-     * available until the `onCurrentPageDiscovered` event was triggered
-     * ({@see Pico::discoverPageSiblings()}).
+     * Please note that the `previous_page` and `next_page` keys aren't
+     * available until the `onCurrentPageDiscovered` event is triggered
+     * ({@see Pico::discoverPageSiblings()}). The `tree_node` key isn't
+     * available until the `onPageTreeBuilt` event is triggered
+     * ({@see Pico::buildPageTree()}).
      *
      * @see Pico::sortPages()
      * @see Pico::discoverPageSiblings()
@@ -1785,6 +1799,110 @@ class Pico
     public function getNextPage()
     {
         return $this->nextPage;
+    }
+
+    /**
+     * Builds a tree structure containing all known pages
+     *
+     * Pico's page tree is a list of all the tree's branches (no matter the
+     * depth). Thus, by iterating a array element, you get the nodes of a given
+     * branch. All leaf nodes do represent a page, but inner nodes may or may
+     * not represent a page (e.g. if there's a `sub/page.md`, but neither a
+     * `sub/index.md` nor a `sub.md`, the inner node `sub`, that is the parent
+     * of the `sub/page` node, represents no page itself).
+     *
+     * A page's file path describes its node's path in the tree (e.g. the page
+     * `sub/page.md` is represented by the `sub/page` node, thus a child of the
+     * `sub` node and a element of the `sub` branch). However, the index page
+     * of a folder (e.g. `sub/index.md`), is *not* a node of the `sub` branch,
+     * but rather of the `/` branch. The page's node is not `sub/index`, but
+     * `sub`. If two pages are described by the same node (e.g. if both a
+     * `sub/index.md` and a `sub.md` exist), the index page takes precedence.
+     * Pico's main index page (i.e. `index.md`) is represented by the tree's
+     * root node `/` and a special case: it is the only node of the `` (i.e.
+     * the empty string) branch.
+     *
+     * A node is represented by an array with the keys `id`, `page` and
+     * `children`. The `id` key contains a string with the node's name. If the
+     * node represents a page, the `page` key is a reference to the page's
+     * data array. If the node is a inner node, the `children` key is a
+     * reference to its matching branch (i.e. a list of the node's children).
+     * The order of a node's children matches the order in Pico's pages array.
+     *
+     * If you want to walk the whole page tree, start with the tree's root node
+     * at `$pageTree[""]["/"]`. The root node's `children` key is a reference
+     * to the `/` branch at `$pageTree["/"]`, that is a list of the root node's
+     * direct child nodes and their siblings.
+     *
+     * You MUST NOT iterate the page tree itself (i.e. the list of the tree's
+     * branches), its order is undefined and the array will be replaced by a
+     * non-iterable data structure with Pico 3.0.
+     *
+     * @see Pico::getPageTree()
+     *
+     * @return void
+     */
+    protected function buildPageTree()
+    {
+        $this->pageTree = array();
+        foreach ($this->pages as $id => &$pageData) {
+            // main index page
+            if ($id === 'index') {
+                $this->pageTree['']['/'] = array('id' => '/', 'page' => &$pageData);
+                $pageData['tree_node'] = &$this->pageTree['']['/'];
+                continue;
+            }
+
+            // get a page's node and branch
+            $basename = basename($id);
+            $branch = dirname($id);
+
+            $isIndexPage = ($basename === 'index');
+            if ($isIndexPage) {
+                $basename = basename($branch);
+                $branch = dirname($branch);
+            }
+
+            $branch = ($branch !== '.') ? $branch : '/';
+            $node = ($branch !== '/') ? $branch . '/' . $basename : $basename;
+
+            // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists)
+            if (isset($this->pageTree[$branch][$node]['page']) && !$isIndexPage) {
+                continue;
+            }
+
+            // add node to page tree
+            $isNewBranch = !isset($this->pageTree[$branch]);
+            $this->pageTree[$branch][$node]['id'] = $node;
+            $this->pageTree[$branch][$node]['page'] = &$pageData;
+
+            $pageData['tree_node'] = &$this->pageTree[$branch][$node];
+
+            // add parent nodes to page tree, if necessary
+            while ($isNewBranch && $branch) {
+                $parentNode = $branch;
+                $parentBranch = ($branch !== '/') ? dirname($parentNode) : '';
+                $parentBranch = ($parentBranch !== '.') ? $parentBranch : '/';
+
+                $isNewBranch = !isset($this->pageTree[$parentBranch]);
+                $this->pageTree[$parentBranch][$parentNode]['id'] = $parentNode;
+                $this->pageTree[$parentBranch][$parentNode]['children'] = &$this->pageTree[$branch];
+
+                $branch = $parentBranch;
+            }
+        }
+    }
+
+    /**
+     * Returns a tree structure of known pages
+     *
+     * @see Pico::buildPageTree()
+     *
+     * @return array[]|null the tree structure of all pages
+     */
+    public function getPageTree()
+    {
+        return $this->pageTree;
     }
 
     /**
