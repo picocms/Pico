@@ -1991,14 +1991,7 @@ class Pico
     protected function getTwigTemplate()
     {
         $templateName = !empty($this->meta['template']) ? $this->meta['template'] : 'index';
-
-        if (file_exists($this->getThemesDir() . $this->getConfig('theme') . '/' . $templateName . '.twig')) {
-            $templateName .= '.twig';
-        } else {
-            $templateName .= '.html';
-        }
-
-        return $templateName;
+        return $templateName . '.twig';
     }
 
     /**
