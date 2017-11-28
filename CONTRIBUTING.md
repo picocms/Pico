@@ -123,9 +123,9 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 The `status: Deferred` label might get added to any open issue or pull request to indicate that it is still unresolved and will be resolved later. This is also true for the `info: Pinned` label: It indicates a important issue or pull request that remains open on purpose.
 
-After resolving a issue, we usually keep it open for about a week to give users some more time for feedback and further questions. This is especially true for issues with the `type: Notice`, `type: Question`, `type: Discussion` and `type: Invalid` labels. After 7 days with no interaction, [Probot](https://probot.github.io/)'s [Stale](https://probot.github.io/apps/stale/) bot (@probot-stale) adds the `info: Stale` label to the issue to ask the participants whether the issue has been resolved. If no more activity occurs, the issue will be automatically closed by @probot-stale 2 days later.
+After resolving a issue, we usually keep it open for about a week to give users some more time for feedback and further questions. This is especially true for issues with the `type: Notice`, `type: Question`, `type: Discussion` and `type: Invalid` labels. After 7 days with no interaction, [Probot](https://probot.github.io/)'s [Stale](https://github.com/apps/stale) bot adds the `info: Stale` label to the issue to ask the participants whether the issue has been resolved. If no more activity occurs, the issue will be automatically closed by Stale bot 2 days later.
 
-Issues and pull requests labeled with `info: Information Needed` indicate that we have asked one of the participants for further information and didn't receive any feedback yet. It is usually added after @probot-stale adds the `info: Stale` label to give the participants some more days to give the necessary information.
+Issues and pull requests labeled with `info: Information Needed` indicate that we have asked one of the participants for further information and didn't receive any feedback yet. It is usually added after Stale bot adds the `info: Stale` label to give the participants some more days to give the necessary information.
 
 Issues and pull requests, which are rather related to upstream projects (i.e. projects Pico depends on, like Twig), are additionally labeled with `info: Upstream`.
 
