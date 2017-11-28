@@ -1,0 +1,17 @@
+daysUntilStale: 7
+daysUntilClose: 2
+exemptLabels:
+  - "type: Bug"
+  - "type: Enhancement"
+  - "type: Feature"
+  - "type: Idea"
+  - "type: Release"
+  - "info: Pinned"
+staleLabel: "info: Stale"
+markComment: >
+  This issue has been automatically marked as stale because it has not had
+  recent activity. It will be closed in two days if no further activity
+  occurs. Thank you for your contributions! :+1:
+unmarkComment: false
+closeComment: false
+only: issues
