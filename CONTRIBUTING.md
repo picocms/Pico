@@ -105,11 +105,11 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 - The `type: Bug` label is assigned to issues or pull requests, which have been identified as bugs or security issues in Pico's core. It might get combined with the `pri: High` label, when the problem was identified as security issue, or as a so-called "show stopper" bug. In contrast, uncritical problems might get labeled with `pri: Low`. `type: Bug` issues and pull requests are usually labeled with one of the following `status` labels when being closed:
   - `status: Resolved` is used when the issue has been resolved.
-  - `status: Conflict` indicates a conflict with another issue.
-  - `status: Won't Fix` means, that the problem was identified as intended behavior.
-  - `status: Rejected` is used when the issue was rejected for another reason (e.g. when the issue wasn't reproducible).
+  - `status: Conflict` indicates a conflict with another issue or behavior of Pico, making it impossible to resolve the problem at the moment.
+  - `status: Won't Fix` means, that there is indeed a problem, but for some reason we made the decision that resolving it isn't reasonable, making it intended behavior.
+  - `status: Rejected` is used when the issue was rejected for another reason.
 
-- The `type: Enhancement` and `type: Feature` labels are used to tag pull requests, which introduce either a comparatively small enhancement, or a "big" new feature. As with the `type: Bug` label, they might get combined with the `pri: High` or `pri: Low` labels to indicate the pull request's priority. A pull request isn't necessarily mergeable when being opened, so it might get labeled with `status: Pending Merge` when development of the pull request is finished, but merging isn't intended yet. After merging or closing the pull request, it is labeled with one of the `status` labels as described above for the `type: Bug` label.
+- The `type: Enhancement` and `type: Feature` labels are used to tag pull requests, which introduce either a comparatively small enhancement, or a "big" new feature. As with the `type: Bug` label, they might get combined with the `pri: High` or `pri: Low` labels to indicate the pull request's priority. If a pull request isn't mergeable at the moment, it is labeled with `status: Work In Progress` until development of the pull request is finished. After merging or closing the pull request, it is labeled with one of the `status` labels as described above for the `type: Bug` label.
 
 - The `type: Idea` label is similar to the `type: Enhancement` and `type: Feature` labels, but is used for issues or incomplete and abandoned pull requests. It is otherwise used in the exact same way as `type: Enhancement` and `type: Feature`.
 
@@ -119,9 +119,13 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 - The `type: Duplicate` label is used when there is already another issue or pull request related to this problem or feature request. Issues labeled with `type: Duplicate` are immediately closed.
 
-- The `type: Invalid` label is used for everything else, e.g. issues or pull requests not related to Pico, or invalid bug reports.
+- The `type: Invalid` label is used for everything else, e.g. issues or pull requests not related to Pico, or invalid bug reports. This includes supposed bug reports that concern actually intended behavior.
 
-The `status: Deferred` label might get added to any open issue or pull request to indicate that it still open and will be resolved later.
+The `status: Deferred` label might get added to any open issue or pull request to indicate that it is still unresolved and will be resolved later. This is also true for the `info: Pinned` label: It indicates a important issue or pull request that remains open on purpose.
+
+After resolving a issue, we usually keep it open for about a week to give users some more time for feedback and further questions. This is especially true for issues with the `type: Notice`, `type: Question`, `type: Discussion` and `type: Invalid` labels. After 7 days with no interaction, [Probot](https://probot.github.io/)'s [Stale](https://probot.github.io/apps/stale/) bot (@probot-stale) adds the `info: Stale` label to the issue to ask the participants whether the issue has been resolved. If no more activity occurs, the issue will be automatically closed by @probot-stale 2 days later.
+
+Issues and pull requests labeled with `info: Information Needed` indicate that we have asked one of the participants for further information and didn't receive any feedback yet. It is usually added after @probot-stale adds the `info: Stale` label to give the participants some more days to give the necessary information.
 
 Issues and pull requests, which are rather related to upstream projects (i.e. projects Pico depends on, like Twig), are additionally labeled with `info: Upstream`.
 
