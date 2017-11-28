@@ -1,3 +1,4 @@
+/.github        export-ignore
 /_build         export-ignore
 /.gitattributes export-ignore
 /.gitignore     export-ignore
