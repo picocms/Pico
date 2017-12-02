@@ -49,7 +49,10 @@ jobs:
   fast-finish: true
 
 before_install:
-  - export PATH="$TRAVIS_BUILD_DIR/_build:$PATH"
+  - export PATH="$TRAVIS_BUILD_DIR/.build:$PATH"
+  - export PICO_TOOLS_DIR="$HOME/__picocms_tools"
+  - git clone --branch="$TOOLS_REPO_BRANCH" "https://github.com/$TOOLS_REPO_SLUG.git" "$PICO_TOOLS_DIR"
+  - . "$PICO_TOOLS_DIR/init/travis.sh.inc"
 
 install:
   - install.sh

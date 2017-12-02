@@ -1,4 +1,0 @@
-# Ignore temporary directories created while building/deploying Pico
-/phpdoc
-/phpdoc.cache
-/deploy-*.git

@@ -2,13 +2,7 @@
 set -e
 
 . "$(dirname "$0")/tools/functions/parse-version.sh.inc"
-export PATH="$(dirname "$0")/tools:$PATH"
-
-DEPLOYMENT_ID="${TRAVIS_TAG//\//_}"
-DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/release-$DEPLOYMENT_ID.git"
-
-[ -n "$RELEASE_REPO_SLUG" ] || export RELEASE_REPO_SLUG="$TRAVIS_REPO_SLUG"
-[ -n "$RELEASE_REPO_BRANCH" ] || export RELEASE_REPO_BRANCH="master"
+export PATH="$PICO_TOOLS_DIR:$PATH"
 
 # parameters
 ARCHIVE="$1"    # release archive file name
@@ -19,15 +13,15 @@ if [ -z "$ARCHIVE" ]; then
 fi
 
 # parse version
-if ! parse_version "$TRAVIS_TAG"; then
-    echo "Unable to create release archive: Invalid version '$TRAVIS_TAG'" >&2
+if ! parse_version "$PROJECT_REPO_TAG"; then
+    echo "Unable to create release archive: Invalid version '$PROJECT_REPO_TAG'" >&2
     exit 1
 fi
 
 # clone repo
-github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$RELEASE_REPO_SLUG.git" "$RELEASE_REPO_BRANCH"
+github-clone.sh "$PICO_BUILD_DIR" "https://github.com/$RELEASE_REPO_SLUG.git" "$RELEASE_REPO_BRANCH"
 
-cd "$DEPLOYMENT_DIR"
+cd "$PICO_BUILD_DIR"
 
 # force Pico version
 echo "Updating composer dependencies..."

@@ -32,17 +32,11 @@ if [ "$DEPLOY_FULL" != "true" ]; then
 fi
 
 . "$(dirname "$0")/tools/functions/parse-version.sh.inc"
-export PATH="$(dirname "$0")/tools:$PATH"
-
-DEPLOYMENT_ID="${TRAVIS_TAG//\//_}"
-DEPLOYMENT_DIR="$TRAVIS_BUILD_DIR/_build/deploy-$DEPLOYMENT_ID.git"
-
-[ -n "$DEPLOY_REPO_SLUG" ] || export DEPLOY_REPO_SLUG="$TRAVIS_REPO_SLUG"
-[ -n "$DEPLOY_REPO_BRANCH" ] || export DEPLOY_REPO_BRANCH="gh-pages"
+export PATH="$PICO_TOOLS_DIR:$PATH"
 
 # parse version
-if ! parse_version "$TRAVIS_TAG"; then
-    echo "Invalid version '$TRAVIS_TAG'; aborting..." >&2
+if ! parse_version "$PROJECT_REPO_TAG"; then
+    echo "Invalid version '$PROJECT_REPO_TAG'; aborting..." >&2
     exit 1
 fi
 
@@ -53,9 +47,9 @@ printf 'VERSION_ID="%s"\n' "$VERSION_ID"
 echo
 
 # clone repo
-github-clone.sh "$DEPLOYMENT_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
+github-clone.sh "$PICO_DEPLOY_DIR" "https://github.com/$DEPLOY_REPO_SLUG.git" "$DEPLOY_REPO_BRANCH"
 
-cd "$DEPLOYMENT_DIR"
+cd "$PICO_DEPLOY_DIR"
 
 # setup repo
 github-setup.sh
@@ -64,20 +58,20 @@ github-setup.sh
 if [ "$DEPLOY_PHPDOC_RELEASES" == "true" ]; then
     # generate phpDocs
     generate-phpdoc.sh \
-        "$TRAVIS_BUILD_DIR/.phpdoc.xml" \
-        "-" "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" \
-        "Pico $VERSION_MILESTONE API Documentation ($TRAVIS_TAG)"
+        "$PICO_PROJECT_DIR/.phpdoc.xml" \
+        "-" "$PICO_DEPLOY_DIR/phpDoc/$PICO_DEPLOYMENT" \
+        "Pico $VERSION_MILESTONE API Documentation (v$VERSION_FULL)"
 
-    if [ -n "$(git status --porcelain "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID")" ]; then
+    if [ -n "$(git status --porcelain "$PICO_DEPLOY_DIR/phpDoc/$PICO_DEPLOYMENT")" ]; then
         # update phpDoc list
         update-phpdoc-list.sh \
-            "$DEPLOYMENT_DIR/_data/phpDoc.yml" \
-            "$TRAVIS_TAG" "version" "Pico ${TRAVIS_TAG#v}" "$(date +%s)"
+            "$PICO_DEPLOY_DIR/_data/phpDoc.yml" \
+            "$PICO_DEPLOYMENT" "version" "Pico $VERSION_FULL" "$(date +%s)"
 
         # commit phpDocs
         github-commit.sh \
-            "Update phpDocumentor class docs for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/phpDoc/$DEPLOYMENT_ID" "$DEPLOYMENT_DIR/_data/phpDoc.yml"
+            "Update phpDocumentor class docs for v$VERSION_FULL" \
+            "$PICO_DEPLOY_DIR/phpDoc/$PICO_DEPLOYMENT" "$PICO_DEPLOY_DIR/_data/phpDoc.yml"
     fi
 fi
 
@@ -86,37 +80,37 @@ if [ "$VERSION_STABILITY" == "stable" ]; then
     # update version badge
     if [ "$DEPLOY_VERSION_BADGE" == "true" ]; then
         generate-badge.sh \
-            "$DEPLOYMENT_DIR/badges/pico-version.svg" \
-            "release" "$TRAVIS_TAG" "blue"
+            "$PICO_DEPLOY_DIR/badges/pico-version.svg" \
+            "release" "$VERSION_FULL" "blue"
 
         # commit version badge
         github-commit.sh \
-            "Update version badge for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/badges/pico-version.svg"
+            "Update version badge for v$VERSION_FULL" \
+            "$PICO_DEPLOY_DIR/badges/pico-version.svg"
     fi
 
     # update version file
     if [ "$DEPLOY_VERSION_FILE" == "true" ]; then
         update-version-file.sh \
-            "$DEPLOYMENT_DIR/_data/version.yml" \
+            "$PICO_DEPLOY_DIR/_data/version.yml" \
             "$VERSION_FULL"
 
         # commit version file
         github-commit.sh \
-            "Update version file for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/_data/version.yml"
+            "Update version file for v$VERSION_FULL" \
+            "$PICO_DEPLOY_DIR/_data/version.yml"
     fi
 
     # update cloc statistics
     if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
-        update-cloc-stats.sh "$DEPLOYMENT_DIR/_data/cloc.yml"
+        update-cloc-stats.sh "$PICO_DEPLOY_DIR/_data/cloc.yml"
 
         # commit cloc statistics
         github-commit.sh \
-            "Update cloc statistics for $TRAVIS_TAG" \
-            "$DEPLOYMENT_DIR/_data/cloc.yml"
+            "Update cloc statistics for v$VERSION_FULL" \
+            "$PICO_DEPLOY_DIR/_data/cloc.yml"
     fi
 fi
 
 # deploy
-github-deploy.sh "$TRAVIS_REPO_SLUG" "tags/$TRAVIS_TAG" "$TRAVIS_COMMIT"
+github-deploy.sh "$PROJECT_REPO_SLUG" "tags/$PROJECT_REPO_TAG" "$PROJECT_REPO_COMMIT"
