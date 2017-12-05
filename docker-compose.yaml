@@ -1,0 +1,12 @@
+version: '2'
+services:
+    pico:
+        image: library/php:5.6-alpine
+        working_dir: /usr/src/myapp
+        ports:
+            - "80:80"
+        volumes:
+            - "./:/usr/src/myapp"
+            - "/usr/src/myapp/vendor/"
+        user: root
+        command: sh -c "curl -sS https://getcomposer.org/installer | php && php composer.phar install && rm -f composer.lock composer.phar && php -S 0.0.0.0:80"
