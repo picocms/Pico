@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-. "$(dirname "$0")/tools/functions/parse-version.sh.inc"
 export PATH="$PICO_TOOLS_DIR:$PATH"
+. "$PICO_TOOLS_DIR/functions/parse-version.sh.inc"
 
 # parameters
 ARCHIVE="$1"    # release archive file name

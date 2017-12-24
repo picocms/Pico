@@ -31,8 +31,8 @@ if [ "$DEPLOY_FULL" != "true" ]; then
     echo
 fi
 
-. "$(dirname "$0")/tools/functions/parse-version.sh.inc"
 export PATH="$PICO_TOOLS_DIR:$PATH"
+. "$PICO_TOOLS_DIR/functions/parse-version.sh.inc"
 
 # parse version
 if ! parse_version "$PROJECT_REPO_TAG"; then
