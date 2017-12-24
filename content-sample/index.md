@@ -285,16 +285,16 @@ still shows no rewritten URLs, force URL rewriting by setting
 
 If you're using Nginx, you can use the following configuration to enable URL
 rewriting (lines `5` to `8`) and denying access to Pico's internal files
-(lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `5`
-and `7`) to match your installation directory. Additionally, you'll need to
+(lines `1` to `3`). You'll need to adjust the path (`/pico` on lines `1`, `2`,
+`5` and `7`) to match your installation directory. Additionally, you'll need to
 enable URL rewriting by setting `rewrite_url: true` in your
 `config/config.yml`. The Nginx configuration should provide the *bare minimum*
 you need for Pico. Nginx is a very extensive subject. If you have any trouble,
 please read through our [Nginx configuration docs][NginxConfig].
 
 ```
-location ~ /pico/(\.htaccess|\.git|config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock)) {
-    return 404;
+location ~ ^/pico/((config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock))(/|$)|(.+/)?\.(?!well-known(/|$))) {
+    try_files /pico/index.php$is_args$args;
 }
 
 location /pico/ {
