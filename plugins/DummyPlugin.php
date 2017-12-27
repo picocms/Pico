@@ -33,11 +33,27 @@ class DummyPlugin extends AbstractPicoPlugin
     /**
      * This plugin is disabled by default
      *
-     * If you want to enable your plugin by default, simply remove this class
-     * property.
+     * Usually you should remove this class property (or set it to NULL) to
+     * leave the decision whether this plugin should be enabled or disabled by
+     * default up to Pico. If all the plugin's dependenies are fulfilled (see
+     * {@see self::$dependsOn}), Pico enables the plugin by default. Otherwise
+     * the plugin is silently disabled.
+     *
+     * If this plugin should never be disabled *silently* (e.g. when dealing
+     * with security-relevant stuff like access control, or similar), set this
+     * to TRUE. If Pico can't fulfill all the plugin's dependencies, it will
+     * throw an RuntimeException.
+     *
+     * If this plugin rather does some "crazy stuff" a user should really be
+     * aware of before using it, you can set this to FALSE. The user will then
+     * have to enable the plugin manually. However, if another plugin depends
+     * on this plugin, it might get enabled silently nevertheless.
+     *
+     * No matter what, the user can always explicitly enable or disable this
+     * plugin in Pico's config.
      *
      * @see AbstractPicoPlugin::$enabled
-     * @var bool
+     * @var bool|null
      */
     protected $enabled = false;
 

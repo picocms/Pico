@@ -70,11 +70,15 @@ interface PicoPluginInterface
     public function setEnabled($enabled, $recursive = true, $auto = false);
 
     /**
-     * Returns TRUE if this plugin is enabled, FALSE otherwise
+     * Returns a boolean indicating whether this plugin is enabled or not
+     *
+     * You musn't rely on the return value when Pico's `onConfigLoaded` event
+     * wasn't triggered on all plugins yet. This method might even return NULL
+     * then. The plugin's status might change later.
      *
      * @see PicoPluginInterface::setEnabled()
      *
-     * @return bool plugin is enabled (TRUE) or disabled (FALSE)
+     * @return bool|null plugin is enabled (TRUE) or disabled (FALSE)
      */
     public function isEnabled();
 

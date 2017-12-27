@@ -38,9 +38,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @see PicoPluginInterface::isEnabled()
      * @see PicoPluginInterface::setEnabled()
-     * @var bool
+     * @var bool|null
      */
-    protected $enabled = true;
+    protected $enabled;
 
     /**
      * Boolean indicating if this plugin was ever enabled/disabled manually
@@ -99,11 +99,12 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                 if ($pluginEnabled !== null) {
                     $this->setEnabled($pluginEnabled);
                 } elseif ($this->enabled) {
+                    $this->setEnabled($this->enabled, true, true);
+                } elseif ($this->enabled === null) {
                     // make sure dependencies are already fulfilled,
                     // otherwise the plugin needs to be enabled manually
                     try {
-                        $this->checkCompatibility();
-                        $this->checkDependencies(false);
+                        $this->setEnabled(true, false, true);
                     } catch (RuntimeException $e) {
                         $this->enabled = false;
                     }

@@ -486,13 +486,17 @@ class Pico
      *
      * See {@see Pico::loadComposerPlugins()} for details about plugins loaded
      * from `vendor/pico-plugin.php` (i.e. plugins that were installed using
-     * `composer`), and {@see Pico::loadLocalPlugins()} for details about
-     * plugins installed to {@see Pico::$pluginsDir}. Pico loads plugins from
-     * the filesystem only if {@see Pico::$enableLocalPlugins} is set to TRUE
+     * composer), and {@see Pico::loadLocalPlugins()} for details about plugins
+     * installed to {@see Pico::$pluginsDir}. Pico loads plugins from the
+     * filesystem only if {@see Pico::$enableLocalPlugins} is set to TRUE
      * (this is the default).
      *
      * Pico always loads plugins from `vendor/pico-plugin.php` first and
      * ignores conflicting plugins in {@see Pico::$pluginsDir}.
+     *
+     * The official PicoDeprecated plugin must be loaded when plugins that use
+     * an older API version than Pico's API version ({@see Pico::API_VERSION})
+     * are loaded.
      *
      * Please note that Pico will change the processing order when needed to
      * incorporate plugin dependencies. See {@see Pico::sortPlugins()} for
@@ -513,14 +517,21 @@ class Pico
         if ($this->enableLocalPlugins) {
             $this->loadLocalPlugins($composerPlugins);
         }
+
+        if (!isset($this->plugins['PicoDeprecated']) && (count($this->plugins) !== count($this->nativePlugins))) {
+            throw new RuntimeException(
+                "Plugins using an older API than version " . static::API_VERSION . " found, "
+                . "but PicoDeprecated isn't loaded"
+            );
+        }
     }
 
     /**
      * Loads plugins from vendor/pico-plugin.php
      *
-     * This method loads all plugins installed using `composer` and Pico's
-     * `picocms/pico-installer` installer by reading the `pico-plugin.php` in
-     * composer's `vendor` dir.
+     * This method loads all plugins installed using composer and Pico's
+     * `picocms/composer-installer` installer by reading the `pico-plugin.php`
+     * in composer's `vendor` dir.
      *
      * @see Pico::loadPlugins()
      * @see Pico::loadLocalPlugins()
