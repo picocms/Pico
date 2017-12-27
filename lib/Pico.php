@@ -730,7 +730,7 @@ class Pico
         }
 
         // trigger onPluginManuallyLoaded event
-        // the event is also called on the newly loaded plugin, allowing you to distinguish manual and auto loading
+        // the event is also triggered on the newly loaded plugin, allowing you to distinguish manual and auto loading
         $this->triggerEvent('onPluginManuallyLoaded', array($plugin));
 
         return $plugin;
@@ -921,9 +921,8 @@ class Pico
         }
 
         if (!$this->config['timezone']) {
-            // explicitly set a default timezone to prevent a E_NOTICE
-            // when no timezone is set; the `date_default_timezone_get()`
-            // function always returns a timezone, at least UTC
+            // explicitly set a default timezone to prevent a E_NOTICE when no timezone is set;
+            // the `date_default_timezone_get()` function always returns a timezone, at least UTC
             $this->config['timezone'] = @date_default_timezone_get();
         }
         date_default_timezone_set($this->config['timezone']);
@@ -1368,7 +1367,7 @@ class Pico
             }
         } else {
             // guarantee array key existance
-            $meta = array_fill_keys(array_values($headers), '');
+            $meta = array_fill_keys($headers, '');
             $meta['time'] = $meta['date_formatted'] = '';
         }
 
@@ -1412,10 +1411,10 @@ class Pico
     }
 
     /**
-     * Applies some static preparations to the raw contents of a page,
-     * e.g. removing the meta header and replacing %...% placehodlers
+     * Applies some static preparations to the raw contents of a page
      *
-     * This method calls the {@see Pico::substituteFileContent()} method.
+     * This method removes the meta header and replaces `%...%` placeholders
+     * by calling the {@see Pico::substituteFileContent()} method.
      *
      * @see Pico::substituteFileContent()
      * @see Pico::parseFileContent()
@@ -1475,7 +1474,7 @@ class Pico
         if ($meta) {
             foreach ($meta as $metaKey => $metaValue) {
                 if (is_scalar($metaValue) || ($metaValue === null)) {
-                    $variables['%meta.' . $metaKey . '%'] = strval($metaValue);
+                    $variables['%meta.' . $metaKey . '%'] = (string) $metaValue;
                 }
             }
         }
@@ -1518,27 +1517,27 @@ class Pico
      *
      * The page data will be an array containing the following values:
      *
-     * | Array key      | Type    | Description                                |
-     * | -------------- | ------- | ------------------------------------------ |
-     * | id             | string  | relative path to the content file          |
-     * | url            | string  | URL to the page                            |
-     * | title          | string  | title of the page (YAML header)            |
-     * | description    | string  | description of the page (YAML header)      |
-     * | author         | string  | author of the page (YAML header)           |
-     * | time           | string  | timestamp derived from the Date header     |
-     * | date           | string  | date of the page (YAML header)             |
-     * | date_formatted | string  | formatted date of the page                 |
-     * | hidden         | bool    | this page shouldn't be visible to the user |
-     * | raw_content    | string  | raw, not yet parsed contents of the page   |
-     * | meta           | string  | parsed meta data of the page               |
-     * | previous_page  | &array  | reference to the previous page             |
-     * | next_page      | &array  | reference to the next page                 |
-     * | tree_node      | &array  | reference to the page's tree node          |
+     * | Array key      | Type     | Description                              |
+     * | -------------- | -------  | ---------------------------------------- |
+     * | id             | string   | relative path to the content file        |
+     * | url            | string   | URL to the page                          |
+     * | title          | string   | title of the page (YAML header)          |
+     * | description    | string   | description of the page (YAML header)    |
+     * | author         | string   | author of the page (YAML header)         |
+     * | time           | int      | timestamp derived from the Date header   |
+     * | date           | string   | date of the page (YAML header)           |
+     * | date_formatted | string   | formatted date of the page               |
+     * | hidden         | bool     | this page shouldn't be visible           |
+     * | raw_content    | string   | raw, not yet parsed contents of the page |
+     * | meta           | string[] | parsed meta data of the page             |
+     * | previous_page  | &array[] | reference to the previous page           |
+     * | next_page      | &array[] | reference to the next page               |
+     * | tree_node      | &array[] | reference to the page's tree node        |
      *
-     * Please note that the `previous_page` and `next_page` keys aren't
-     * available until the `onCurrentPageDiscovered` event is triggered
-     * ({@see Pico::discoverPageSiblings()}). The `tree_node` key isn't
-     * available until the `onPageTreeBuilt` event is triggered
+     * Please note that the `previous_page` and `next_page` keys don't
+     * exist until the `onCurrentPageDiscovered` event is triggered
+     * ({@see Pico::discoverPageSiblings()}). The `tree_node` key doesn't
+     * exit until the `onPageTreeBuilt` event is triggered
      * ({@see Pico::buildPageTree()}).
      *
      * @see Pico::sortPages()
@@ -1841,9 +1840,10 @@ class Pico
      * The order of a node's children matches the order in Pico's pages array.
      *
      * If you want to walk the whole page tree, start with the tree's root node
-     * at `$pageTree[""]["/"]`. The root node's `children` key is a reference
-     * to the `/` branch at `$pageTree["/"]`, that is a list of the root node's
-     * direct child nodes and their siblings.
+     * at `$pageTree[""]["/"]`, or rather, use `$pages["index"]["tree_node"]`.
+     * The root node's `children` key is a reference to the `/` branch at
+     * `$pageTree["/"]`, that is a list of the root node's direct child nodes
+     * and their siblings.
      *
      * You MUST NOT iterate the page tree itself (i.e. the list of the tree's
      * branches), its order is undefined and the array will be replaced by a
@@ -1921,8 +1921,8 @@ class Pico
      *
      * This method triggers the `onTwigRegistered` event when the Twig template
      * engine wasn't initiated yet. When initiating Twig, this method also
-     * registers Pico's core Twig filters `link` and `content` as well as
-     * Pico's {@see PicoTwigExtension} Twig extension.
+     * registers Pico's core Twig filter `content` as well as Pico's
+     * {@see PicoTwigExtension} Twig extension.
      *
      * @see Pico::getTwig()
      * @see http://twig.sensiolabs.org/ Twig website
@@ -2070,13 +2070,13 @@ class Pico
      * Returns the URL to a given page
      *
      * This method can be used in Twig templates by applying the `link` filter
-     * to a string representing a page identifier.
+     * to a string representing a page ID.
      *
-     * @param string       $page      identifier of the page to link to
+     * @param string       $page      ID of the page to link to
      * @param array|string $queryData either an array containing properties to
      *     create a URL-encoded query string from, or a already encoded string
-     * @param bool         $dropIndex when the last path component is "index",
-     *     then passing TRUE (default) leads to removing this path component
+     * @param bool         $dropIndex if the last path component is "index",
+     *     passing TRUE (default) leads to removing this path component
      *
      * @return string URL
      */
