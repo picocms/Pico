@@ -11,9 +11,10 @@
     <file>.</file>
 
     <!--
-        Exclude _build/ and vendor/ dirs as well as minified JavaScript files
+        Exclude .build/, .github/ and vendor/ dirs as well as minified JavaScript files
     -->
-    <exclude-pattern type="relative">^_build/</exclude-pattern>
+    <exclude-pattern type="relative">^.build/</exclude-pattern>
+    <exclude-pattern type="relative">^.github/</exclude-pattern>
     <exclude-pattern type="relative">^vendor/</exclude-pattern>
     <exclude-pattern>*.min.js</exclude-pattern>
 

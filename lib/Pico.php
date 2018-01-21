@@ -1425,7 +1425,7 @@ class Pico
      *
      * @return string prepared Markdown contents
      */
-    public function prepareFileContent($rawContent, array $meta)
+    public function prepareFileContent($rawContent, array $meta = array())
     {
         // remove meta header
         $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1549,9 +1549,7 @@ class Pico
     protected function readPages()
     {
         $contentDir = $this->getConfig('content_dir');
-        $contentDirLength = strlen($contentDir);
         $contentExt = $this->getConfig('content_ext');
-        $contentExtLength = strlen($contentExt);
 
         $this->pages = array();
         $files = $this->getFiles($contentDir, $contentExt, self::SORT_NONE);
@@ -1562,7 +1560,7 @@ class Pico
                 continue;
             }
 
-            $id = substr($file, $contentDirLength, -$contentExtLength);
+            $id = substr($file, strlen($contentDir), -strlen($contentExt));
 
             // trigger onSinglePageLoading event
             // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists) by default

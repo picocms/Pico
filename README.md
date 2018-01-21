@@ -115,6 +115,8 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 
 3. Pico's Core: The supreme discipline is to work on Pico's Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
 
+By contributing to Pico, you accept and agree to the *Developer Certificate of Origin* for your present and future contributions submitted to Pico. Please refer to the ["Developer Certificate of Origin" section in our `CONTRIBUTING.md`][ContributionGuidelinesDCO].
+
 [Packagist.org]: http://packagist.org/packages/picocms/pico
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [composer]: https://getcomposer.org/
@@ -133,6 +135,7 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 [IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
 [PullRequests]: https://github.com/picocms/Pico/pulls
 [ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
+[ContributionGuidelinesDCO]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md#developer-certificate-of-origin
 [EditInlineDocs]: https://github.com/picocms/Pico/edit/master/content-sample/index.md
 [EditUserDocs]: https://github.com/picocms/picocms.github.io/tree/master/_docs
 [EditDevDocs]: https://github.com/picocms/picocms.github.io/tree/master/_development

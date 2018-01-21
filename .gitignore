@@ -10,7 +10,12 @@ desktop.ini
 .DS_Store
 ._*
 
-# Composer
+# composer
 /composer.lock
 /composer.phar
 /vendor
+
+# phpDocumentor
+/.build/phpdoc
+/.build/phpdoc.cache
+/phpDocumentor.phar

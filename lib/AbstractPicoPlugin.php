@@ -324,7 +324,8 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * plugin's API is older than Pico's API. {@see PicoDeprecated} furthermore
      * throws a exception when it can't provide compatibility in such cases.
      * However, we still have to decide whether this plugin is compatible to
-     * newer API versions, what defaults to "no" by default.
+     * newer API versions, what requires some special (version specific)
+     * precaution and is therefore usually not the case.
      *
      * @return void
      *
