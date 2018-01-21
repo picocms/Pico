@@ -17,7 +17,7 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.0-beta.2
-Released: -
+Released: 2018-01-21
 
 ```
 * [New] Improve release & build process and move most build tools to the new
@@ -33,6 +33,7 @@ Released: -
             dependencies aren't fulfilled; use NULL to maintain old behavior
 * [Changed] ! Force themes to use `.twig` as file extension for Twig templates
 * [Changed] Improve PHP class docs
+* [Changed] Various small improvements
 ```
 
 ### Version 2.0.0-beta.1
