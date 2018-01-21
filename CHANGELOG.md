@@ -1,8 +1,168 @@
 Pico Changelog
 ==============
 
+**Note:** This changelog only provides technical information about the changes
+          introduced with a particular Pico version, and is meant to supplement
+          the actual code changes. The information in this changelog are often
+          insufficient to understand the implications of larger changes. Please
+          refer to both the UPGRADE and NEWS sections of the docs for more
+          details.
+
+**Note:** Changes breaking backwards compatibility (BC) are marked with an `!`
+          (exclamation mark). This doesn't include changes for which BC is
+          preserved by Pico's official `PicoDeprecated` plugin. If a previously
+          deprecated feature is later removed in `PicoDeprecated`, this change
+          is going to be marked as BC-breaking change in both Pico's and
+          `PicoDeprecated`'s changelog. Please note that BC-breaking changes
+          are only possible with a new major version.
+
+### Version 2.0.0-beta.2
+Released: -
+
+```
+* [New] Improve release & build process and move most build tools to the new
+        `picocms/ci-tools` repo, allowing them to be used by other projects
+* [New] Add page tree; refer to the `Pico::buildPageTree()` method for more
+        details; also see the `onPageTreeBuilt` event
+* [Changed] Update dependencies: Twig 1.35
+* [Changed] ! Improve `.htaccess` and deny access to all dot files by default
+* [Changed] ! Throw a `RuntimeException` when non-native plugins are loaded,
+            but Pico's `PicoDeprecated` plugin is not loaded
+* [Changed] ! Change `AbstractPicoPlugin::$enabled`'s behavior: setting it to
+            TRUE now leads to throwing a `RuntimeException` when the plugin's
+            dependencies aren't fulfilled; use NULL to maintain old behavior
+* [Changed] ! Force themes to use `.twig` as file extension for Twig templates
+* [Changed] Improve PHP class docs
+```
+
 ### Version 2.0.0-beta.1
 Released: 2017-11-05
+
+```
+* [New] Pico is on its way to its second major release!
+* [New] Improve Pico's release & build process
+* [New] Add "Developer Certificate of Origin" to `CONTRIBUTING.md`
+* [New] Add license & copyright header to all relevant files
+* [New] Add Pico version constants (`Pico::VERSION` and `Pico::VERSION_ID`),
+        and add a `version` Twig variable and `%version%` Markdown placeholder
+* [New] Add Pico API versioning for plugins (see `Pico::API_VERSION` constant);
+        Pico now triggers events on plugins using the latest API version only
+        ("native" plugins), `PicoDeprecated` takes care of all other plugins;
+        as a result, old plugin's always depend on `PicoDeprecated` now
+* [New] Add a theme and plugin installer for composer; Pico now additionally
+        uses the new `vendor/pico-plugin.php` file to discover plugins
+        installed by composer and loads them using composer's autoloader;
+        see the `picocms/composer-installer` repo for more details; Pico
+        loads plugins installed by composer first and ignores conflicting
+        plugins in Pico's `plugins/` dir
+* [New] Add `$enableLocalPlugins` parameter to `Pico::__construct()` to allow
+        website developers to disable local plugin discovery by scanning the
+        `plugins/` dir (i.e. load plugins from `vendor/pico-plugin.php` only)
+* [New] Add public `AbstractPicoPlugin::getPluginConfig()` method
+* [New] Add public `Pico::loadPlugin()` method and the corresponding
+        `onPluginManuallyLoaded` event
+* [New] Add public `Pico::resolveFilePath()` method (replaces the protected
+        `Pico::discoverRequestFile()` method)
+* [New] Add public `Pico::is404Content()` method
+* [New] Add public `Pico::getYamlParser()` method and the corresponding
+        `onYamlParserRegistered` event
+* [New] Add public `Pico::substituteFileContent()` method
+* [New] Add public `Pico::getPageId()` method
+* [New] Add public `Pico::getFilesGlob()` method
+* [New] Add public `Pico::getVendorDir()` method, returning Pico's installation
+        directory (i.e. `/var/www/pico/vendor/picocms/pico`); don't confuse
+        this with composer's `vendor/` dir!
+* [New] Add `$default` parameter to `Pico::getConfig()` method
+* [New] Add empty `assets/` and `content/` dirs
+* [New] #305: Add `url_param` and `form_param` Twig functions, and the public
+        `Pico::getUrlParameter()` and `Pico::getFormParameter()` methods,
+        allowing theme developers to access URL GET and HTTP POST parameters
+* [New] Add `$meta` parameter to `markdown` Twig filter
+* [New] Add `remove` fallback to `sort_by` Twig filter
+* [New] Add `theme_url` config parameter
+* [New] Add public `Pico::getBaseThemeUrl()` method
+* [New] Add `REQUEST_URI` routing method, allowing one to simply rewrite all
+        requests to `index.php` (e.g. use `FallbackResource` or `mod_rewrite`
+        in your `.htaccess` for Apache, or use `try_files` for nginx)
+* [New] #299: Add built-in 404 page as fallback when no `404.md` is found
+* [New] Allow sorting pages by arbitrary meta values
+* [New] Add `onSinglePageLoading` event, allowing one to skip a page
+* [New] Add `onSinglePageContent` event
+* [New] Add some config parameters to change Parsedown's behavior
+* [Changed] ! Disallow running the same Pico instance multiple times by
+            throwing a `RuntimeException` when calling `Pico::run()`
+* [Changed] ! #203: Load plugins from `plugins/<plugin name>/<plugin name>.php`
+            and `plugins/<plugin name>.php` only (directory and file name must
+            match case-sensitive), and throw a `RuntimeException` when Pico is
+            unable to load a plugin; also throw a `RuntimeException` when
+            superfluous files or directories in `plugins/` are found; use a
+            scope-isolated `require()` to include plugin files
+* [Changed] ! Use a plugin dependency topology to sort `Pico::$plugins`,
+            changing the execution order of plugins so that plugins, on which
+            other plugins depend, are always executed before their dependants
+* [Changed] ! Don't pass `$plugins` parameter to `onPluginsLoaded` event by
+            reference anymore; use `Pico::loadPlugin()` instead
+* [Changed] ! Leave `Pico::$pages` unsorted when a unknown sort method was
+            configured; this usually means that a plugin wants to sort it
+* [Changed] Overhaul page discovery events: add `onPagesDiscovered` event which
+            is triggered right before `Pico::$pages` is sorted and move the
+            `$currentPage`, `$previousPage` and `$nextPage` parameters of the
+            `onPagesLoaded` event to the new `onCurrentPageDiscovered` event
+* [Changed] Move the `$twig` parameter of the `onPageRendering` event to the
+            `onTwigRegistered` event, replacing the `onTwigRegistration` event
+* [Changed] Unify the `onParsedownRegistration` event by renaming it to
+            `onParsedownRegistered` and add the `$parsedown` parameter
+* [Changed] #330: Replace `config/config.php` by a modular YAML-based approach;
+            you can now use a arbitrary number of `config/*.yml` files to
+            configure Pico
+* [Changed] ! When trying to auto-detect Pico's `content` dir, Pico no longer
+            searches just for a (possibly empty) directory, but rather checks
+            whether a `index.md` exists in this directory
+* [Changed] ! Use the relative path between `index.php` and `Pico::$themesDir`
+            for Pico's theme URL (also refer to the new `theme_url` config and
+            the public `Pico::getBaseThemeUrl()` method for more details)
+* [Changed] #347: Drop the superfluous trailing "/index" from Pico's URLs
+* [Changed] Flip registered meta headers array, so that the array key is used
+            to search for a meta value and the array value is used to store the
+            found meta value (previously it was the other way round)
+* [Changed] ! Add lazy loading for `Pico::$yamlParser`, `Pico::$parsedown` and
+            `Pico::$twig`; the corresponding events are no longer part of
+            Pico's event flow and are triggered on demand
+* [Changed] ! Trigger the `onMetaHeaders` event just once; the event is no
+            longer part of Pico's event flow and is triggered on demand
+* [Changed] Don't lower meta headers on the first level of a page's meta data
+            (i.e. `SomeKey: value` is accessible using `$meta['SomeKey']`)
+* [Changed] Don't compare registered meta headers case-insensitive, require
+            matching case
+* [Changed] Allow users to explicitly set values for the `date_formatted` and
+            `time` meta headers in a page's YAML front matter
+* [Changed] Add page siblings for all pages
+* [Changed] ! Treat pages or directories that are prefixed by `_` as hidden;
+            when requesting a hidden page, Pico responds with a 404 page;
+            hidden pages are still in `Pico::$pages`, but are moved to the end
+            of the pages array when sorted alphabetically or by date
+* [Changed] ! Don't treat explicit requests to a 404 page as successful request
+* [Changed] Change method visibility of `Pico::getFiles()` to public
+* [Changed] Change method visibility of `Pico::triggerEvent()` to public;
+            at first glance this method triggers events on native plugins only,
+            however, `PicoDeprecated` takes care of triggering events for other
+            plugins, thus you can use this method to trigger (custom) events on
+            all plugins; never use it to trigger Pico core events!
+* [Changed] Move Pico's default theme to the new `picocms/pico-theme` repo; the
+            theme was completely rewritten from scratch and is a much better
+            starting point for creating your own theme; refer to the theme's
+            `CHANGELOG.md` for more details
+* [Changed] Move `PicoDeprecated` plugin to the new `picocms/pico-deprecated`
+            repo; refer to the plugin's `CHANGELOG.md` for more details
+* [Changed] Update dependencies: Twig 1.34, Symfony YAML 2.8, Parsedown 1.6
+* [Changed] Improve Pico docs and PHP class docs
+* [Changed] A vast number of small improvements and changes...
+* [Removed] ! Remove `PicoParsePagesContent` plugin
+* [Removed] ! Remove `PicoExcerpt` plugin
+* [Removed] Remove `rewrite_url` and `is_front_page` Twig variables
+* [Removed] Remove superfluous parameters of various events to reduce Pico's
+            error-proneness (plugins hopefully interfere with each other less)
+```
 
 ### Version 1.0.6
 Released: 2017-07-25
@@ -126,10 +286,6 @@ Released: 2015-11-30
 
 ### Version 1.0.0-beta.1
 Released: 2015-11-06
-
-**Note:** This changelog only provides basic information about the enormous
-          changes introduced with Pico 1.0.0-beta.1. Please refer to the
-          UGPRADE section of the docs for details.
 
 ```
 * [Security] (9e2604a) Prevent content_dir breakouts using malicious URLs
