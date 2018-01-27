@@ -293,7 +293,7 @@ you need for Pico. Nginx is a very extensive subject. If you have any trouble,
 please read through our [Nginx configuration docs][NginxConfig].
 
 ```
-location ~ ^/pico/((config|content|content-sample|lib|vendor|CHANGELOG\.md|composer\.(json|lock))(/|$)|(.+/)?\.(?!well-known(/|$))) {
+location ~ ^/pico/((config|content|vendor|composer\.(json|lock|phar))(/|$)|(.+/)?\.(?!well-known(/|$))) {
     try_files /pico/index.php$is_args$args;
 }
 
