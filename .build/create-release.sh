@@ -49,8 +49,7 @@ composer require --no-update \
     "picocms/pico-theme ^$VERSION_MILESTONE" \
     "picocms/pico-deprecated ^$VERSION_MILESTONE"
 
-echo "Removing '.git' directory and '.gitignore' file..."
-rm -f .gitignore
+echo "Removing '.git' directory..."
 rm -rf .git
 
 echo "Removing '.git' directories of dependencies..."
