@@ -17,17 +17,16 @@ and is shown as the main landing page.
 
 When you install Pico, it comes with a `content-sample` folder. Inside this
 folder is a sample website that will display until you add your own content.
-You should create your own `content` folder in Pico's root directory and place
-your files there. No configuration is required, Pico will automatically use the
-`content` folder if it exists.
+Simply add some `.md` files to your `content` folder in Pico's root directory.
+No configuration is required, Pico will automatically use the `content` folder
+as soon as you create your own `index.md`.
 
-If you create a folder within the content folder (e.g. `content/sub`) and put
-an `index.md` inside it, you can access that folder at the URL
-`http://example.com/?sub`. If you want another page within the sub folder,
-simply create a text file with the corresponding name and you will be able to
-access it (e.g. `content/sub/page.md` is accessible from the URL
-`http://example.com/?sub/page`). Below we've shown some examples of locations
-and their corresponding URLs:
+If you create a folder within the content directory (e.g. `content/sub`) and
+put an `index.md` inside it, you can access that folder at the URL
+`%base_url%?sub`. If you want another page within the sub folder, simply create
+a text file with the corresponding name and you will be able to access it
+(e.g. `content/sub/page.md` is accessible from the URL `%base_url%?sub/page`).
+Below we've shown some examples of locations and their corresponding URLs:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
@@ -71,7 +70,7 @@ As a common practice, we recommend you to separate your contents and assets
 (like images, downloads, etc.). We even deny access to your `content` directory
 by default. If you want to use some assets (e.g. a image) in one of your content
 files, you should create an `assets` folder in Pico's root directory and upload
-your assets there. You can then access them in your markdown using
+your assets there. You can then access them in your Markdown using
 <code>&#37;base_url&#37;/assets/</code> for example:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
 
@@ -87,13 +86,18 @@ attributes of the page using [YAML][] (the "YAML header"). For example:
     Title: Welcome
     Description: This description will go in the meta description tag
     Author: Joe Bloggs
-    Date: 2013/01/01
+    Date: 2001-04-25
     Robots: noindex,nofollow
     Template: index
     ---
 
-These values will be contained in the `{{ meta }}` variable in themes
-(see below).
+These values will be contained in the `{{ meta }}` variable in themes (see
+below). Meta headers sometimes have a special meaning: For instance, Pico not
+only passes through the `Date` meta header, but rather evaluates it to really
+"understand" when this page was created. This comes into play when you want to
+sort your pages not just alphabetically, but by date. Another example is the
+`Template` meta header: It controls what Twig template Pico uses to display
+this page (e.g. if you add `Template: blog`, Pico uses `blog.twig`).
 
 There are also certain variables that you can use in your text files:
 
@@ -113,6 +117,7 @@ below Plugins section for details.
 
 If you want to use Pico as a blogging software, you probably want to do
 something like the following:
+
 1. Put all your blog articles in a separate `blog` folder in your `content`
    directory. All these articles should have both a `Date` and `Template` meta
    header, the latter with e.g. `blog-post` as value (see Step 2).
@@ -126,7 +131,7 @@ something like the following:
    do something like this:
    ```
     {% for page in pages|sort_by("time")|reverse %}
-        {% if page.id starts with "blog/" %}
+        {% if page.id starts with "blog/" and not page.hidden %}
             <div class="post">
                 <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
                 <p class="date">{{ page.date_formatted }}</p>
@@ -159,22 +164,22 @@ out the default theme for an example. Pico uses [Twig][] for template
 rendering. You can select your theme by setting the `theme` option in
 `config/config.yml` to the name of your theme folder.
 
-All themes must include an `index.twig` (or `index.html`) file to define the
-HTML structure of the theme. Below are the Twig variables that are available
-to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
+All themes must include an `index.twig` file to define the HTML structure of
+the theme. Below are the Twig variables that are available to use in your
+theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 (e.g. `{{ base_url }}`) don't have a trailing slash.
 
 * `{{ config }}` - Contains the values you set in `config/config.yml`
                    (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
-* `{{ base_url }}` - The URL to your Pico site; use Twigs `link` filter to
+* `{{ base_url }}` - The URL to your Pico site; use Twig's `link` filter to
                      specify internal links (e.g. `{{ "sub/page"|link }}`),
                      this guarantees that your link works whether URL rewriting
                      is enabled or not
 * `{{ theme_dir }}` - The path to the currently active theme
 * `{{ theme_url }}` - The URL to the currently active theme
 * `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
-* `{{ meta }}` - Contains the meta values from the current page
+* `{{ meta }}` - Contains the meta values of the current page
     * `{{ meta.title }}`
     * `{{ meta.description }}`
     * `{{ meta.author }}`
@@ -183,19 +188,22 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
     * `{{ meta.time }}`
     * `{{ meta.robots }}`
     * ...
-* `{{ content }}` - The content of the current page
-                    (after it has been processed through Markdown)
+* `{{ content }}` - The content of the current page after it has been processed
+                    through Markdown
 * `{{ pages }}` - A collection of all the content pages in your site
     * `{{ page.id }}` - The relative path to the content file (unique ID)
     * `{{ page.url }}` - The URL to the page
     * `{{ page.title }}` - The title of the page (YAML header)
     * `{{ page.description }}` - The description of the page (YAML header)
     * `{{ page.author }}` - The author of the page (YAML header)
-    * `{{ page.time }}` - The timestamp derived from the `Date` header
+    * `{{ page.time }}` - The [Unix timestamp][UnixTimestamp] derived from
+                          the `Date` header
     * `{{ page.date }}` - The date of the page (YAML header)
-    * `{{ page.date_formatted }}` - The formatted date of the page
+    * `{{ page.date_formatted }}` - The formatted date of the page as specified
+                                    by the `date_format` parameter in your
+                                    `config/config.yml`
     * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page;
-                                 use Twigs `content` filter to get the parsed
+                                 use Twig's `content` filter to get the parsed
                                  contents of a page by passing its unique ID
                                  (e.g. `{{ "sub/page"|content }}`)
     * `{{ page.meta }}`- The meta values of the page
@@ -206,31 +214,40 @@ to use in your theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 Pages can be used like the following:
 
     <ul class="nav">
-        {% for page in pages %}
+        {% for page in pages if not page.hidden %}
             <li><a href="{{ page.url }}">{{ page.title }}</a></li>
         {% endfor %}
     </ul>
 
 Additional to Twigs extensive list of filters, functions and tags, Pico also
-provides some useful additional filters to make theming easier. You can parse
-any Markdown string to HTML using the `markdown` filter. Arrays can be sorted
-by one of its keys or a arbitrary deep sub-key using the `sort_by` filter
-(e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
-iterates through all pages, ordered by the `nav` meta header; please note the
-`[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
-`page.meta.nav`). You can return all values of a given key or key path of an
-array using the `map` filter (e.g. `{{ pages|map("title") }}` returns all
-page titles).
+provides some useful additional filters to make theming easier.
+
+* Pass the unique ID of a page to the `link` filter to return the page's URL
+  (e.g. `{{ "sub/page"|link }}` gets %base_url%?sub/page).
+* To get the parsed contents of a page, pass its unique ID to the `content`
+  filter (e.g. `{{ "sub/page"|content }}`).
+* You can parse any Markdown string using the `markdown` filter (e.g. you can
+  use Markdown in the `description` meta variable and later parse it in your
+  theme using `{{ meta.description|markdown }}`).
+* Arrays can be sorted by one of its keys using the `sort_by` filter
+  (e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
+  iterates through all pages, ordered by the `nav` meta header; please note the
+  `[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
+  `page.meta.nav`).
+* You can return all values of a given array key using the `map` filter
+  (e.g. `{{ pages|map("title") }}` returns all page titles).
 
 You can use different templates for different content files by specifying the
-`Template` meta header. Simply add e.g. `Template: blog-post` to a content file
-and Pico will use the `blog-post.twig` file in your theme folder to render
-the page.
+`Template` meta header. Simply add e.g. `Template: blog` to the YAML header of
+a content file and Pico will use the `blog.twig` template in your theme folder
+to display the page.
 
-You don't have to create your own theme if Pico's default theme isn't
-sufficient for you, you can use one of the great themes third-party developers
-and designers created in the past. As with plugins, you can find themes in
-[our Wiki][WikiThemes] and on [our website][OfficialThemes].
+Pico's default theme isn't really intended to be used for a productive website,
+it's rather a starting point for creating your own theme. If the default theme
+isn't sufficient for you, and you don't want to create your own theme, you can
+use one of the great themes third-party developers and designers created in the
+past. As with plugins, you can find themes in [our Wiki][WikiThemes] and on
+[our website][OfficialThemes].
 
 ### Plugins
 
@@ -246,18 +263,17 @@ Depending on the plugin you've installed, you may have to go through some more
 steps (e.g. specifying config variables), the plugin docs or `README` file will
 explain what to do.
 
-Plugins which were written to work with Pico 1.0 can be enabled and disabled
-through your `config/config.yml`. If you want to e.g. disable the `PicoExcerpt`
-plugin, add the following line to your `config/config.yml`:
-`PicoExcerpt.enabled: false`. To force the plugin to be enabled replace `false`
-with `true`.
+Plugins which were written to work with Pico 1.0 and later can be enabled and
+disabled through your `config/config.yml`. If you want to e.g. disable the
+`PicoDeprecated` plugin, add the following line to your `config/config.yml`:
+`PicoDeprecated.enabled: false`. To force the plugin to be enabled, replace
+`false` by `true`.
 
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
 about how to develop plugins at http://picocms.org/development/. If you've
-developed a plugin for Pico 0.9 or older, you probably want to upgrade it
-to the brand new plugin system introduced with Pico 1.0. Please refer to the
+developed a plugin before and want to upgrade it to Pico 2.0, refer to the
 [upgrade section of the docs][PluginUpgrade].
 
 ## Config
@@ -311,6 +327,7 @@ For more help have a look at the Pico documentation at http://picocms.org/docs.
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [YAML]: https://en.wikipedia.org/wiki/YAML
 [Twig]: http://twig.sensiolabs.org/documentation
+[UnixTimestamp]: https://en.wikipedia.org/wiki/Unix_timestamp
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [OfficialThemes]: http://picocms.org/themes/
