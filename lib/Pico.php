@@ -1857,7 +1857,8 @@ class Pico
         foreach ($this->pages as $id => &$pageData) {
             // main index page
             if ($id === 'index') {
-                $this->pageTree['']['/'] = array('id' => '/', 'page' => &$pageData);
+                $this->pageTree['']['/']['id'] = '/';
+                $this->pageTree['']['/']['page'] = &$pageData;
                 $pageData['tree_node'] = &$this->pageTree['']['/'];
                 continue;
             }
