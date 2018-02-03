@@ -223,7 +223,7 @@ Additional to Twigs extensive list of filters, functions and tags, Pico also
 provides some useful additional filters to make theming easier.
 
 * Pass the unique ID of a page to the `link` filter to return the page's URL
-  (e.g. `{{ "sub/page"|link }}` gets %base_url%?sub/page).
+  (e.g. `{{ "sub/page"|link }}` gets `%base_url%?sub/page`).
 * To get the parsed contents of a page, pass its unique ID to the `content`
   filter (e.g. `{{ "sub/page"|content }}`).
 * You can parse any Markdown string using the `markdown` filter (e.g. you can
@@ -292,12 +292,16 @@ Pico's default URLs (e.g. %base_url%/?sub/page) already are very user-friendly.
 Additionally, Pico offers you a URL rewrite feature to make URLs even more
 user-friendly (e.g. %base_url%/sub/page).
 
+#### Apache
+
 If you're using the Apache web server, URL rewriting probably already is
 enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
 you get an error message from your web server, please make sure to enable the
 [`mod_rewrite` module][ModRewrite]. Assuming the second URL works, but Pico
 still shows no rewritten URLs, force URL rewriting by setting
 `rewrite_url: true` in your `config/config.yml`.
+
+#### Nginx
 
 If you're using Nginx, you can use the following configuration to enable URL
 rewriting (lines `5` to `8`) and denying access to Pico's internal files
@@ -317,6 +321,27 @@ location /pico/ {
     index index.php;
     try_files $uri $uri/ /pico/index.php$is_args$args;
 }
+```
+
+#### Lighttpd
+
+Pico runs smoothly on Lighttpd. You can use the following configuration to
+enable URL rewriting (lines `6` to `9`) and denying access to Pico's internal
+files (lines `1` to `4`). Make sure to adjust the path (`/pico` on lines `2`,
+`3` and `7`) to match your installation directory, and let Pico know about
+available URL rewriting by setting `rewrite_url: true` in your
+`config/config.yml`. The configuration below should provide the *bare minimum*
+you need for Pico.
+
+```
+url.rewrite-once = (
+    "^/pico/(config|content|vendor|composer\.(json|lock|phar))(/|$)" => "/pico/index.php",
+    "^/pico/(.+/)?\.(?!well-known(/|$))" => "/pico/index.php"
+)
+
+url.rewrite-if-not-file = (
+    "^/pico(/|$)" => "/pico/index.php"
+)
 ```
 
 ## Documentation
