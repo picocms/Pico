@@ -89,8 +89,8 @@ class PicoTwigExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            'url_param' => new Twig_SimpleFunction('url_param', array($this->pico, 'getUrlParameter')),
-            'form_param' => new Twig_SimpleFunction('form_param', array($this->pico, 'getFormParameter'))
+            'url_param' => new Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
+            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction'))
         );
     }
 
@@ -280,5 +280,61 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         return $var;
+    }
+
+    /**
+     * Filters a URL GET parameter with a specified filter
+     *
+     * The Twig function disallows the use of the `callback` filter.
+     *
+     * @see Pico::getUrlParameter()
+     *
+     * @param string                    $name    name of the URL GET parameter
+     *     to filter
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
+     *     array to be used by the filter or a scalar default value
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the URL GET parameter doesn't exist and no default value is
+     *     given
+     */
+    public function urlParamFunction($name, $filter = '', $options = null, $flags = null)
+    {
+        if (($filter === 'callback') || ($filter === FILTER_CALLBACK)) {
+            return false;
+        }
+
+        return $this->pico->getUrlParameter($name, $filter, $options, $flags);
+    }
+
+    /**
+     * Filters a HTTP POST parameter with a specified filter
+     *
+     * The Twig function disallows the use of the `callback` filter.
+     *
+     * @see Pico::getFormParameter()
+     *
+     * @param string                    $name    name of the HTTP POST
+     *     parameter to filter
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
+     *     array to be used by the filter or a scalar default value
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the HTTP POST parameter doesn't exist and no default value
+     *     is given
+     */
+    public function formParamFunction($name, $filter = '', $options = null, $flags = null)
+    {
+        if (($filter === 'callback') || ($filter === FILTER_CALLBACK)) {
+            return false;
+        }
+
+        return $this->pico->getFormParameter($name, $filter, $options, $flags);
     }
 }
