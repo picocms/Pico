@@ -43,6 +43,11 @@ cp vendor/picocms/pico/index.php.dist index.php
 echo "Adding 'config/config.yml.template'..."
 cp vendor/picocms/pico/config/config.yml.template config/config.yml.template
 
+echo "Adding 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md'..."
+cp vendor/picocms/pico/README.md README.md
+cp vendor/picocms/pico/CONTRIBUTING.md CONTRIBUTING.md
+cp vendor/picocms/pico/CHANGELOG.md CHANGELOG.md
+
 echo "Preparing 'composer.json' for release..."
 composer require --no-update \
     "picocms/pico ^$VERSION_MILESTONE" \
