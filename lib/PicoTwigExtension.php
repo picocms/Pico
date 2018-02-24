@@ -303,7 +303,8 @@ class PicoTwigExtension extends Twig_Extension
      */
     public function urlParamFunction($name, $filter = '', $options = null, $flags = null)
     {
-        if (($filter === 'callback') || ($filter === FILTER_CALLBACK)) {
+        $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
+        if (!$filter || ($filter === FILTER_CALLBACK)) {
             return false;
         }
 
@@ -331,7 +332,8 @@ class PicoTwigExtension extends Twig_Extension
      */
     public function formParamFunction($name, $filter = '', $options = null, $flags = null)
     {
-        if (($filter === 'callback') || ($filter === FILTER_CALLBACK)) {
+        $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
+        if (!$filter || ($filter === FILTER_CALLBACK)) {
             return false;
         }
 
