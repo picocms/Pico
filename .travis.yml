@@ -32,7 +32,8 @@ jobs:
       script:
         - deploy.sh
       before_deploy:
-        - create-release.sh "$TRAVIS_BUILD_DIR/pico-release-$TRAVIS_TAG.tar.gz"
+        - '[ "$TRAVIS_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
+        - create-release.sh "pico-release-$TRAVIS_TAG.tar.gz"
       deploy:
         provider: releases
         api_key: ${GITHUB_OAUTH_TOKEN}
