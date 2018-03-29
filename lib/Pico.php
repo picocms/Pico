@@ -770,12 +770,14 @@ class Pico
         $plugins = $this->plugins;
         $nativePlugins = $this->nativePlugins;
         $sortedPlugins = array();
+        $sortedNativePlugins = array();
         $visitedPlugins = array();
 
         $visitPlugin = function ($plugin) use (
             $plugins,
             $nativePlugins,
             &$sortedPlugins,
+            &$sortedNativePlugins,
             &$visitedPlugins,
             &$visitPlugin
         ) {
@@ -802,6 +804,9 @@ class Pico
                 }
 
                 $sortedPlugins[$pluginName] = $plugin;
+                if (isset($nativePlugins[$pluginName])) {
+                    $sortedNativePlugins[$pluginName] = $plugin;
+                }
             }
         };
 
@@ -814,6 +819,7 @@ class Pico
         }
 
         $this->plugins = $sortedPlugins;
+        $this->nativePlugins = $sortedNativePlugins;
     }
 
     /**
