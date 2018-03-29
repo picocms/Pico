@@ -28,10 +28,9 @@
     "require": {
         "php": ">=5.3.6",
         "ext-dom": "*",
-        "ext-mbstring": "*",
         "twig/twig": "^1.35",
         "symfony/yaml" : "^2.8",
-        "erusev/parsedown": "^1.6",
+        "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.7"
     },
     "suggest": {

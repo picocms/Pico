@@ -35,7 +35,8 @@ content_config:
                                     #     See https://michelf.ca/projects/php-markdown/extra/ for more info
     breaks: false                   # A boolean indicating whether breaks in the markup should be reflected in the
                                     #     parsed contents of the page
-    escape: false                   # Escape HTML markup in your content files
+    escape: false                   # Escape HTML markup in your content files; don't confuse this with some sort of
+                                    #     safe mode, enabling this doesn't allow you to process untrusted user input!
     auto_urls: true                 # Automatically link URLs found in your markup
 
 ##

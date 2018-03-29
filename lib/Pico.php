@@ -1393,12 +1393,12 @@ class Pico
     }
 
     /**
-     * Returns the Parsedown Extra markdown parser
+     * Returns the Parsedown markdown parser
      *
      * This method triggers the `onParsedownRegistered` event when the
-     * Parsedown Extra parser wasn't initiated yet.
+     * Parsedown markdown parser wasn't initiated yet.
      *
-     * @return ParsedownExtra Parsedown Extra markdown parser
+     * @return Parsedown Parsedown markdown parser
      */
     public function getParsedown()
     {
