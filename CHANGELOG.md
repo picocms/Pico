@@ -16,6 +16,19 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.0-beta.3
+Released: -
+
+```
+* [Changed] Add `README.md`, `CONTRIBUTING.md` and `CHANGELOG.md` of main repo
+            to pre-bundled releases
+* [Changed] Disallow the use of the `callback` filter for the `url_param` and
+            `form_param` Twig functions
+* [Changed] Improve documentation
+* [Fixed] Fix page tree when sorting pages by arbitrary values
+* [Fixed] Fix sorting of `Pico::$nativePlugins`
+```
+
 ### Version 2.0.0-beta.2
 Released: 2018-01-21
 
