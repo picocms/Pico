@@ -17,11 +17,12 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.0-beta.3
-Released: -
+Released: 2018-04-07
 
 ```
 * [Changed] Add `README.md`, `CONTRIBUTING.md` and `CHANGELOG.md` of main repo
-            to pre-bundled releases
+            to pre-bundled releases, keep `.gitignore`
+* [Changed] Deny access to a possibly existing `composer.phar` in `.htaccess`
 * [Changed] Disallow the use of the `callback` filter for the `url_param` and
             `form_param` Twig functions
 * [Changed] Improve documentation
