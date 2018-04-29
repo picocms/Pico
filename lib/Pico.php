@@ -894,7 +894,7 @@ class Pico
         // merge $config of config/*.yml files
         $configFiles = $this->getFilesGlob($this->getConfigDir() . '*.yml');
         foreach ($configFiles as $configFile) {
-            if ($configFile !== 'config.yml') {
+            if ($configFile !== $this->getConfigDir() . 'config.yml') {
                 $this->config += $loadConfigClosure($configFile);
             }
         }
