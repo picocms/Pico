@@ -1,3 +1,13 @@
+Fork of Pico
+====
+This is a forked version of Pico. It will be customized in various ways for my purposes. Some differences:
+
+
+Changes compared to default Pico
+-------
+- Updated index.twig to skip blog posts
+- Added blog.twig and blog-post.twig to render blog posts
+
 Pico
 ====
 

@@ -26,7 +26,7 @@
                     {% for page in pages if page.title %}
                         {% if not (page.id starts with "blog/") %}
                           <li{% if page.id == current_page.id %} class="active"{% endif %}>
-                              <a href="{{ page.url }}">{{ page.title }}</a>
+                              <a href="{{ page.url }}">{{ page.id }}</a>
                           </li>
                         {% endif %}
                     {% endfor %}

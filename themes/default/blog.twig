@@ -37,6 +37,17 @@
 
     <section id="content">
         <div class="inner">
+
+            {% for page in pages|sort_by("time")|reverse %}
+                {% if page.id starts with "blog/" %}
+                    <div class="post">
+                        <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
+                        <p class="date">{{ page.date_formatted }}</p>
+                        <p class="excerpt">{{ page.description }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
             {{ content }}
         </div>
     </section>
