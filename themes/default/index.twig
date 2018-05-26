@@ -24,9 +24,11 @@
             <nav>
                 <ul>
                     {% for page in pages if page.title %}
-                        <li{% if page.id == current_page.id %} class="active"{% endif %}>
-                            <a href="{{ page.url }}">{{ page.title }}</a>
-                        </li>
+                        {% if not (page.id starts with "blog/") %}
+                          <li{% if page.id == current_page.id %} class="active"{% endif %}>
+                              <a href="{{ page.url }}">{{ page.title }}</a>
+                          </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </nav>
