@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    {% if meta.description %}
+        <meta name="description" content="{{ meta.description|striptags }}">
+    {% endif %}{% if meta.robots %}
+        <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/style.css" type="text/css" />
+    <link rel="stylesheet" href="{{ theme_url }}/fontello.css" type="text/css" />
+
+    <script src="{{ theme_url }}/scripts/modernizr-2.6.1.min.js"></script>
+</head>
+<body>
+
+    <header id="header">
+        <div class="inner clearfix">
+            <h1><a href="{{ "index"|link }}" id="logo">{{ site_title }}</a></h1>
+            <nav>
+                <ul>
+                    {% for page in pages if page.title %}
+                        {% if not (page.id starts with "blog/") %}
+                          <li{% if page.id == current_page.id %} class="active"{% endif %}>
+                              <a href="{{ page.url }}">{{ page.title }}</a>
+                          </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="content">
+        <div class="inner">
+
+            {% for page in pages|sort_by("time")|reverse %}
+                {% if page.id starts with "blog/" %}
+                    <div class="post">
+                        <h3><a href="{{ page.url }}">{{ page.title }}</a></h3>
+                        <p class="date">{{ page.date_formatted }}</p>
+                        <p class="excerpt">{{ page.description }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            {{ content }}
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="inner">
+            <div class="social">
+                {% for social in meta.social %}
+                    <a href="{{ social.url }}" title="{{ social.title }}"><span class="icon-{{ social.icon }}"></span></a>
+                {% endfor %}
+            </div>
+            <a href="http://picocms.org/">Pico</a> was made by <a href="http://gilbert.pellegrom.me">Gilbert Pellegrom</a>
+            and is maintained by <a href="https://github.com/picocms/Pico/graphs/contributors">The Pico Community</a>.
+            Released under the <a href="https://github.com/picocms/Pico/blob/master/LICENSE.md">MIT license</a>.
+        </div>
+    </footer>
+
+</body>
+</html>
