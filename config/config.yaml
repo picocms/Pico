@@ -20,7 +20,7 @@ twig_config:               #Twig settings
 date_format: '%D %T'       #Set the PHP date format as described here: http://php.net/manual/en/function.strftime.php
 pages_order_by: 'alpha'    #Order pages by "alpha" or "date"
 pages_order: 'asc'         #Order pages "asc" or "desc"
-content_dir: 'content/'    #Content directory
+#content_dir: 'content/'    #Content directory
 content_ext: '.md'         #File extension of content files to serve
 
 #TIMEZONE
