@@ -8,17 +8,14 @@
  * @version 1.0
  */
 
-use Symfony\Component\Yaml\Yaml ;
+use Symfony\Component\Yaml\Yaml;
 
 $yamlfile = $this->getConfigDir() . 'config.yaml';
 if (file_exists($yamlfile)) {
-	try {
-		$config = Yaml::Parse($yamlfile);
+        try {
+                $config = Yaml::Parse($yamlfile);
                 //echo "<pre>"; print_r($config); echo "</pre>";
-	} catch (Exception $exception) {
-		printf('ERROR!!! Unable to parse the config file: %s', $exception->getMessage());
-	}
+        } catch (Exception $exception) {
+                printf('ERROR!!! Unable to parse the config file: %s', $exception->getMessage());
+        }
 }
-
-
-
