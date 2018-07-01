@@ -6,6 +6,10 @@ echo "Installing build dependencies..."
 
 case "$1" in
     "--deploy")
+        echo "Synchronizing package index files..."
+        sudo apt-get update
+
+        echo "Installing packages..."
         sudo apt-get install -y cloc
         ;;
 esac
