@@ -23,6 +23,7 @@ Released: 2018-07-01
 * [New] Add Bountysource
 * [Changed] Improve documentation
 * [Changed] Improve release & build process
+* [Changed] Add `Pico::setConfig()` example to `index.php.dist`
 * [Fixed] Don't load `config/config.yml` multiple times
 ```
 
