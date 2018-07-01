@@ -40,9 +40,6 @@ echo
 echo "Replacing 'index.php'..."
 cp vendor/picocms/pico/index.php.dist index.php
 
-echo "Adding 'config/config.yml.template'..."
-cp vendor/picocms/pico/config/config.yml.template config/config.yml.template
-
 echo "Adding 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md'..."
 cp vendor/picocms/pico/README.md README.md
 cp vendor/picocms/pico/CONTRIBUTING.md CONTRIBUTING.md
