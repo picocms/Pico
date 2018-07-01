@@ -32,5 +32,8 @@ $pico = new Pico(
     'themes/'   // themes dir
 );
 
+// override configuration?
+//$pico->setConfig(array());
+
 // run application
 echo $pico->run();
