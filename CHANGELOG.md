@@ -16,6 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.0
+Released: -
+
+```
+* [New] Add Bountysource
+```
+
 ### Version 2.0.0-beta.3
 Released: 2018-04-07
 
