@@ -103,7 +103,9 @@ if [ "$VERSION_STABILITY" == "stable" ]; then
 
     # update cloc statistics
     if [ "$DEPLOY_CLOC_STATS" == "true" ]; then
-        update-cloc-stats.sh "$PICO_DEPLOY_DIR/_data/cloc.yml"
+        update-cloc-stats.sh \
+            "$PICO_PROJECT_DIR" \
+            "$PICO_DEPLOY_DIR/_data/cloc.yml"
 
         # commit cloc statistics
         github-commit.sh \
