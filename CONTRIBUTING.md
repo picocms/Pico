@@ -3,9 +3,9 @@ Contributing to Pico
 
 Pico aims to be a high quality Content Management System (CMS) but at the same time wants to give contributors freedom when submitting fixes or improvements.
 
-As such we want to *encourage* but not obligate you, the contributor, to follow these guidelines. The only exception to this are the guidelines elucidated in the *Prevent `merge-hell`* section.
+By contributing to Pico, you accept and agree to the *Developer Certificate of Origin* for your present and future contributions submitted to Pico. Please refer to the *Developer Certificate of Origin* section below.
 
-Having said that: we really appreciate it when you apply the guidelines in part or wholly as that will save us time which, in turn, we can spend on bugfixes and new features.
+Aside from this, we want to *encourage*, but not obligate you, the contributor, to follow the following guidelines. The only exception to this are the guidelines elucidated in the *Prevent `merge-hell`* section. Having said that: we really appreciate it when you apply the guidelines in part or wholly as that will save us time which, in turn, we can spend on bugfixes and new features.
 
 Issues
 ------
@@ -16,10 +16,83 @@ Before creating a [new Issue on GitHub](https://github.com/picocms/Pico/issues/n
 
 Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps you have taken to resolve the problem by yourself (i.e. *your own troubleshooting*).
 
-Contributing code
------------------
+Contributing
+------------
 
 Once you decide you want to contribute to *Pico's core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/development/) of our website.
+
+### Developer Certificate of Origin
+
+By contributing to Pico, you accept and agree to the following terms and conditions for your present and future contributions submitted to Pico. Except for the license granted herein to Pico and recipients of software distributed by Pico, you reserve all right, title, and interest in and to your contributions. All contributions are subject to the following DCO + license terms.
+
+```
+Developer Certificate of Origin
+Version 1.1
+
+Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
+1 Letterman Drive
+Suite D4700
+San Francisco, CA, 94129
+
+Everyone is permitted to copy and distribute verbatim copies of this
+license document, but changing it is not allowed.
+
+
+Developer's Certificate of Origin 1.1
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+```
+
+All contributions to this project are licensed under the following MIT License:
+
+```
+Copyright (c) <YEAR> <COPYRIGHT HOLDER>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+```
+
+Please note that developing a *plugin* or *theme* for Pico is *not* assumed to be a contribution to Pico itself. By developing a plugin or theme you rather create a 3rd-party project that just uses Pico. Following the spirit of open source, we want to *encourage* you to release your plugin or theme under the terms of a [OSI-approved open source license](https://opensource.org/licenses). After all, Pico is open source, too!
 
 ### Prevent `merge-hell`
 
@@ -49,7 +122,7 @@ With this command you can specify a file or folder to limit which files it will 
 
 Pico accepts the problems of having redundant documentation on different places (concretely Pico's inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure to keep them in sync.
 
-If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/picocms.github.io/tree/master/_docs/) folder of the `picocms.github.io` repo (i.e. [Pico's website](http://picocms.org/docs/)) and vice versa. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Kramdown](http://kramdown.gettalong.org/) (Pico's website) and [Redcarpet](https://github.com/vmg/redcarpet) (`README.md`) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
+If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/picocms.github.io/tree/master/_docs/) folder of the `picocms.github.io` repo (i.e. [Pico's website](http://picocms.org/docs/)) and vice versa. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Kramdown](http://kramdown.gettalong.org/) (Pico's website) and [CommonMarker](https://github.com/gjtorikian/commonmarker) (`README.md`) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
 
 Versioning
 ----------
@@ -75,12 +148,12 @@ Pico's actual development happens in separate development branches. Development 
 - `enhancement/` for smaller improvements, and
 - `bugfix/` for non-trivial bug fixes.
 
-As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes which will be part of the next `PATCH` version will be merged directly into `master`.
+As soon as development reaches a point where feedback is appreciated, a pull request is opened. After some time (very soon for bug fixes, and other improvements should have a reasonable feedback phase) the pull request is merged and the development branch will be deleted. Trivial bug fixes that will be part of the next `PATCH` version will be merged directly into `master`.
 
 Build & Release process
 -----------------------
 
-We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys [phpDoc](http://phpdoc.org) class docs for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built packages, a version badge and pushing both to our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml) and the [`_build` directory](https://github.com/picocms/Pico/tree/master/_build) for details.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys a [PHP class documentation](http://picocms.org/phpDoc/) (powered by [phpDoc](http://phpdoc.org)) for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built release packages, a version badge, code statistics (powered by [cloc](https://github.com/AlDanial/cloc)) and updates our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml), the [`picocms/ci-tools` repo](https://github.com/picocms/ci-tools) and the [`.build` directory](https://github.com/picocms/Pico/tree/master/.build) for details.
 
 As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
@@ -93,6 +166,10 @@ Version 1.0.0
 * [Fixed] ...
 * [Removed] ...
 ```
+
+Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico::VERSION_ID` constants. The versions of Pico's official [default theme](https://github.com/picocms/pico-theme) and the [`PicoDeprecated` plugin](https://github.com/picocms/pico-deprecated) both strictly follow Pico's version. Since Pico's pre-built release package contains them, you must always create a new release of them (even though nothing has changed) before creating a new Pico release.
+
+If you're pushing a new major or minor release of Pico, you should also update Pico's `composer.json` to require the latest minor releases of Pico's dependencies. Besides, don't forget to update the `@version` tags in the PHP class docs.
 
 Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](http://packagist.org/packages/picocms/pico) will be updated automatically.
 

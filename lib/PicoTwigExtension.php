@@ -1,4 +1,14 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/PicoTwigExtension.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Pico's Twig extension to implement additional filters
@@ -6,7 +16,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
+ * @version 2.0
  */
 class PicoTwigExtension extends Twig_Extension
 {
@@ -31,8 +41,9 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns the extensions instance of Pico
      *
-     * @see    Pico
-     * @return Pico the extensions instance of Pico
+     * @see Pico
+     *
+     * @return Pico the extension's instance of Pico
      */
     public function getPico()
     {
@@ -42,7 +53,8 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns the name of the extension
      *
-     * @see    Twig_ExtensionInterface::getName()
+     * @see Twig_ExtensionInterface::getName()
+     *
      * @return string the extension name
      */
     public function getName()
@@ -51,9 +63,10 @@ class PicoTwigExtension extends Twig_Extension
     }
 
     /**
-     * Returns the Twig filters markdown, map and sort_by
+     * Returns a list of Pico-specific Twig filters
      *
-     * @see    Twig_ExtensionInterface::getFilters()
+     * @see Twig_ExtensionInterface::getFilters()
+     *
      * @return Twig_SimpleFilter[] array of Pico's Twig filters
      */
     public function getFilters()
@@ -62,6 +75,22 @@ class PicoTwigExtension extends Twig_Extension
             'markdown' => new Twig_SimpleFilter('markdown', array($this, 'markdownFilter')),
             'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
             'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
+            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl'))
+        );
+    }
+
+    /**
+     * Returns a list of Pico-specific Twig functions
+     *
+     * @see Twig_ExtensionInterface::getFunctions()
+     *
+     * @return Twig_SimpleFunction[] array of Pico's Twig functions
+     */
+    public function getFunctions()
+    {
+        return array(
+            'url_param' => new Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
+            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction'))
         );
     }
 
@@ -73,19 +102,18 @@ class PicoTwigExtension extends Twig_Extension
      * Don't use it to parse the contents of a page, use the `content` filter
      * instead, what ensures the proper preparation of the contents.
      *
-     * @param  string $markdown markdown to parse
-     * @return string           parsed HTML
+     * @see Pico::substituteFileContent()
+     * @see Pico::parseFileContent()
+     *
+     * @param string $markdown markdown to parse
+     * @param array  $meta     meta data to use for %meta.*% replacement
+     *
+     * @return string parsed HTML
      */
-    public function markdownFilter($markdown)
+    public function markdownFilter($markdown, array $meta = array())
     {
-        if ($this->getPico()->getParsedown() === null) {
-            throw new LogicException(
-                'Unable to apply Twig "markdown" filter: '
-                . 'Parsedown instance wasn\'t registered yet'
-            );
-        }
-
-        return $this->getPico()->getParsedown()->text($markdown);
+        $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
+        return $this->getPico()->parseFileContent($markdown);
     }
 
     /**
@@ -94,15 +122,16 @@ class PicoTwigExtension extends Twig_Extension
      * This method is registered as the Twig `map` filter. You can use this
      * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
      *
-     * @param  array|Traversable $var        variable to map
-     * @param  mixed             $mapKeyPath key to map; either a scalar or a
+     * @param array|Traversable $var        variable to map
+     * @param mixed             $mapKeyPath key to map; either a scalar or a
      *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
      *     $item['foo']['bar'] values)
-     * @return array                         mapped values
+     *
+     * @return array mapped values
      */
     public function mapFilter($var, $mapKeyPath)
     {
-        if (!is_array($var) && (!is_object($var) || !is_a($var, 'Traversable'))) {
+        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
             throw new Twig_Error_Runtime(sprintf(
                 'The map filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
@@ -122,26 +151,27 @@ class PicoTwigExtension extends Twig_Extension
      *
      * This method is registered as the Twig `sort_by` filter. You can use this
      * filter to e.g. sort the pages array by a arbitrary meta value. Calling
-     * `{{ pages|sort_by("meta:nav"|split(":")) }}` returns all pages sorted by
-     * the meta value `nav`. Please note the `"meta:nav"|split(":")` part of
-     * the example. The sorting algorithm will never assume equality of two
-     * values, it will then fall back to the original order. The result is
+     * `{{ pages|sort_by([ "meta", "nav" ]) }}` returns all pages sorted by the
+     * meta value `nav`. The sorting algorithm will never assume equality of
+     * two values, it will then fall back to the original order. The result is
      * always sorted in ascending order, apply Twigs `reverse` filter to
      * achieve a descending order.
      *
-     * @param  array|Traversable $var         variable to sort
-     * @param  mixed             $sortKeyPath key to use for sorting; either
+     * @param array|Traversable $var         variable to sort
+     * @param mixed             $sortKeyPath key to use for sorting; either
      *     a scalar or a array interpreted as key path (i.e. ['foo', 'bar']
      *     will sort $var by $item['foo']['bar'])
-     * @param  string            $fallback    specify what to do with items
+     * @param string            $fallback    specify what to do with items
      *     which don't contain the specified sort key; use "bottom" (default)
-     *     to move those items to the end of the sorted array, "top" to rank
-     *     them first, or "keep" to keep the original order of those items
-     * @return array                          sorted array
+     *     to move these items to the end of the sorted array, "top" to rank
+     *     them first, "keep" to keep the original order, or "remove" to remove
+     *     these items
+     *
+     * @return array sorted array
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
-        if (is_object($var) && is_a($var, 'Traversable')) {
+        if (is_object($var) && ($var instanceof Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
             throw new Twig_Error_Runtime(sprintf(
@@ -149,12 +179,15 @@ class PicoTwigExtension extends Twig_Extension
                 is_object($var) ? get_class($var) : gettype($var)
             ));
         }
-        if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep')) {
-            throw new Twig_Error_Runtime('The sort_by filter only supports the "top", "bottom" and "keep" fallbacks');
+        if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep') && ($fallback !== "remove")) {
+            throw new Twig_Error_Runtime(
+                'The sort_by filter only supports the "top", "bottom", "keep" and "remove" fallbacks'
+            );
         }
 
         $twigExtension = $this;
         $varKeys = array_keys($var);
+        $removeItems = array();
         uksort($var, function ($a, $b) use ($twigExtension, $var, $varKeys, $sortKeyPath, $fallback, &$removeItems) {
             $aSortValue = $twigExtension->getKeyOfVar($var[$a], $sortKeyPath);
             $aSortValueNull = ($aSortValue === null);
@@ -162,7 +195,15 @@ class PicoTwigExtension extends Twig_Extension
             $bSortValue = $twigExtension->getKeyOfVar($var[$b], $sortKeyPath);
             $bSortValueNull = ($bSortValue === null);
 
-            if ($aSortValueNull xor $bSortValueNull) {
+            if (($fallback === 'remove') && ($aSortValueNull || $bSortValueNull)) {
+                if ($aSortValueNull) {
+                    $removeItems[$a] = $var[$a];
+                }
+                if ($bSortValueNull) {
+                    $removeItems[$b] = $var[$b];
+                }
+                return ($aSortValueNull - $bSortValueNull);
+            } elseif ($aSortValueNull xor $bSortValueNull) {
                 if ($fallback === 'top') {
                     return ($aSortValueNull - $bSortValueNull) * -1;
                 } elseif ($fallback === 'bottom') {
@@ -180,6 +221,10 @@ class PicoTwigExtension extends Twig_Extension
             return ($aIndex > $bIndex) ? 1 : -1;
         });
 
+        if ($removeItems) {
+            $var = array_diff_key($var, $removeItems);
+        }
+
         return $var;
     }
 
@@ -187,16 +232,17 @@ class PicoTwigExtension extends Twig_Extension
      * Returns the value of a variable item specified by a scalar key or a
      * arbitrary deep sub-key using a key path
      *
-     * @param  array|Traversable|ArrayAccess|object $var     base variable
-     * @param  mixed                                $keyPath scalar key or a
+     * @param array|Traversable|ArrayAccess|object $var     base variable
+     * @param mixed                                $keyPath scalar key or a
      *     array interpreted as key path (when passing e.g. ['foo', 'bar'],
      *     the method will return $var['foo']['bar']) specifying the value
-     * @return mixed                                         the requested
-     *     value or NULL when the given key or key path didn't match
+     *
+     * @return mixed the requested value or NULL when the given key or key path
+     *     didn't match
      */
     public static function getKeyOfVar($var, $keyPath)
     {
-        if (empty($keyPath)) {
+        if (!$keyPath) {
             return null;
         } elseif (!is_array($keyPath)) {
             $keyPath = array($keyPath);
@@ -204,9 +250,9 @@ class PicoTwigExtension extends Twig_Extension
 
         foreach ($keyPath as $key) {
             if (is_object($var)) {
-                if (is_a($var, 'ArrayAccess')) {
+                if ($var instanceof ArrayAccess) {
                     // use ArrayAccess, see below
-                } elseif (is_a($var, 'Traversable')) {
+                } elseif ($var instanceof Traversable) {
                     $var = iterator_to_array($var);
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
@@ -234,5 +280,63 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         return $var;
+    }
+
+    /**
+     * Filters a URL GET parameter with a specified filter
+     *
+     * The Twig function disallows the use of the `callback` filter.
+     *
+     * @see Pico::getUrlParameter()
+     *
+     * @param string                    $name    name of the URL GET parameter
+     *     to filter
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
+     *     array to be used by the filter or a scalar default value
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the URL GET parameter doesn't exist and no default value is
+     *     given
+     */
+    public function urlParamFunction($name, $filter = '', $options = null, $flags = null)
+    {
+        $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
+        if (!$filter || ($filter === FILTER_CALLBACK)) {
+            return false;
+        }
+
+        return $this->pico->getUrlParameter($name, $filter, $options, $flags);
+    }
+
+    /**
+     * Filters a HTTP POST parameter with a specified filter
+     *
+     * The Twig function disallows the use of the `callback` filter.
+     *
+     * @see Pico::getFormParameter()
+     *
+     * @param string                    $name    name of the HTTP POST
+     *     parameter to filter
+     * @param int|string                $filter  the filter to apply
+     * @param mixed|array               $options either a associative options
+     *     array to be used by the filter or a scalar default value
+     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     *     used by the filter
+     *
+     * @return mixed either the filtered data, FALSE if the filter fails, or
+     *     NULL if the HTTP POST parameter doesn't exist and no default value
+     *     is given
+     */
+    public function formParamFunction($name, $filter = '', $options = null, $flags = null)
+    {
+        $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
+        if (!$filter || ($filter === FILTER_CALLBACK)) {
+            return false;
+        }
+
+        return $this->pico->getFormParameter($name, $filter, $options, $flags);
     }
 }

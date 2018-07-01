@@ -1,29 +1,32 @@
 <?php
+/**
+ * This file is part of Pico. It's copyrighted by the contributors recorded
+ * in the version control history of the file, available from the following
+ * original location:
+ *
+ * <https://github.com/picocms/Pico/blob/master/lib/PicoPluginInterface.php>
+ *
+ * SPDX-License-Identifier: MIT
+ * License-Filename: LICENSE
+ */
 
 /**
  * Common interface for Pico plugins
  *
- * For a list of supported events see {@link DummyPlugin}; you can use
- * {@link DummyPlugin} as template for new plugins. For a list of deprecated
- * events see {@link PicoDeprecated}.
+ * For a list of supported events see {@see DummyPlugin}; you can use
+ * {@see DummyPlugin} as template for new plugins. For a list of deprecated
+ * events see {@see PicoDeprecated}.
  *
- * You SHOULD NOT use deprecated events when implementing this interface.
- * Deprecated events are triggered by the {@link PicoDeprecated} plugin, if
- * plugins which don't implement this interface are loaded. You can take
- * advantage from this behaviour if you want to do something only when old
- * plugins are loaded. Consequently the old events are never triggered when
- * your plugin is implementing this interface and no old plugins are present.
- *
- * If you're developing a new plugin, you MUST implement this interface. If
- * you're the developer of an old plugin, it is STRONGLY RECOMMENDED to use
- * the events introduced in Pico 1.0 when releasing a new version of your
- * plugin. If you want to use any of the new events, you MUST implement
- * this interface and update all other events you use.
+ * If you're developing a new plugin, you MUST both implement this interface
+ * and define the class constant `API_VERSION`. You SHOULD always use the
+ * API version of Pico's latest milestone when releasing a plugin. If you're
+ * developing a new version of an existing plugin, it is strongly recommended
+ * to update your plugin to use Pico's latest API version.
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 1.0
+ * @version 2.0
  */
 interface PicoPluginInterface
 {
@@ -37,8 +40,9 @@ interface PicoPluginInterface
     /**
      * Handles a event that was triggered by Pico
      *
-     * @param  string $eventName name of the triggered event
-     * @param  array  $params    passed parameters
+     * @param string $eventName name of the triggered event
+     * @param array  $params    passed parameters
+     *
      * @return void
      */
     public function handleEvent($eventName, array $params);
@@ -46,35 +50,44 @@ interface PicoPluginInterface
     /**
      * Enables or disables this plugin
      *
-     * @see    PicoPluginInterface::isEnabled()
-     * @see    PicoPluginInterface::isStatusChanged()
-     * @param  boolean $enabled     enable (true) or disable (false) this plugin
-     * @param  boolean $recursive   when true, enable or disable recursively
+     * @see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::isStatusChanged()
+     *
+     * @param bool $enabled   enable (TRUE) or disable (FALSE) this plugin
+     * @param bool $recursive when TRUE, enable or disable recursively.
      *     In other words, if you enable a plugin, all required plugins are
      *     enabled, too. When disabling a plugin, all depending plugins are
      *     disabled likewise. Recursive operations are only performed as long
      *     as a plugin wasn't enabled/disabled manually. This parameter is
-     *     optional and defaults to true.
-     * @param  boolean $auto        enable or disable to fulfill a dependency
-     *     This parameter is optional and defaults to false.
+     *     optional and defaults to TRUE.
+     * @param bool $auto      enable or disable to fulfill a dependency. This
+     *     parameter is optional and defaults to FALSE.
+     *
      * @return void
-     * @throws RuntimeException     thrown when a dependency fails
+     *
+     * @throws RuntimeException thrown when a dependency fails
      */
     public function setEnabled($enabled, $recursive = true, $auto = false);
 
     /**
-     * Returns true if this plugin is enabled, false otherwise
+     * Returns a boolean indicating whether this plugin is enabled or not
      *
-     * @see    PicoPluginInterface::setEnabled()
-     * @return boolean plugin is enabled (true) or disabled (false)
+     * You musn't rely on the return value when Pico's `onConfigLoaded` event
+     * wasn't triggered on all plugins yet. This method might even return NULL
+     * then. The plugin's status might change later.
+     *
+     * @see PicoPluginInterface::setEnabled()
+     *
+     * @return bool|null plugin is enabled (TRUE) or disabled (FALSE)
      */
     public function isEnabled();
 
     /**
-     * Returns true if the plugin was ever enabled/disabled manually
+     * Returns TRUE if the plugin was ever enabled/disabled manually
      *
-     * @see    PicoPluginInterface::setEnabled()
-     * @return boolean plugin is in its default state (true), false otherwise
+     * @see PicoPluginInterface::setEnabled()
+     *
+     * @return bool plugin is in its default state (TRUE), FALSE otherwise
      */
     public function isStatusChanged();
 
@@ -95,7 +108,8 @@ interface PicoPluginInterface
     /**
      * Returns the plugins instance of Pico
      *
-     * @see    Pico
+     * @see Pico
+     *
      * @return Pico the plugins instance of Pico
      */
     public function getPico();

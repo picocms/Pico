@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title><![CDATA[Pico 1.0 API Documentation]]></title>
+    <title><![CDATA[Pico API Documentation]]></title>
     <parser>
-        <target>_build/phpdoc.cache</target>
+        <target>.build/phpdoc.cache</target>
     </parser>
     <transformer>
-        <target>_build/phpdoc</target>
+        <target>.build/phpdoc</target>
     </transformer>
     <transformations>
         <template name="clean"/>
@@ -15,12 +15,13 @@
         <file>index.php</file>
         <file>index.php.dist</file>
 
-        <!-- exclude build environment -->
-        <ignore>_build/*</ignore>
+        <!-- exclude .build and .github directories -->
+        <ignore>.build/*</ignore>
+        <ignore>.github/*</ignore>
 
         <!-- exclude user config -->
         <ignore>config/*</ignore>
-        <file>config/config.php.template</file>
+        <file>config/config.yml.template</file>
 
         <!-- exclude all plugins -->
         <ignore>plugins/*</ignore>
