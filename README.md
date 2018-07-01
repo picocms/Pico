@@ -19,17 +19,17 @@ Screenshot
 Install
 -------
 
-Installing Pico is dead simple - and done in seconds! If you have access to a shell on your server (i.e. SSH access), we recommend using [composer][]. If not, use a pre-bundled release. If you don't know what "SSH access" is, head over to the pre-bundled release. 😇
+Installing Pico is dead simple - and done in seconds! If you have access to a shell on your server (i.e. SSH access), we recommend using [Composer][]. If not, use a pre-bundled release. If you don't know what "SSH access" is, head over to the pre-bundled release. 😇
 
 Pico requires PHP 5.3.6+
 
-### I want to use composer
+### I want to use Composer
 
-Starting with Pico 2.0 we recommend installing Pico using composer whenever possible. Trust us, you won't regret it when it comes to upgrading Pico! Anyway, if you don't want to use composer, or if you simply can't use composer because you don't have access to a shell on your server, don't despair, installing Pico using a pre-bundled release is still easier than everything you know!
+Starting with Pico 2.0 we recommend installing Pico using Composer whenever possible. Trust us, you won't regret it when it comes to upgrading Pico! Anyway, if you don't want to use Composer, or if you simply can't use Composer because you don't have access to a shell on your server, don't despair, installing Pico using a pre-bundled release is still easier than everything you know!
 
 ###### Step 1
 
-Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. Download composer and run it with the `create-project` option:
+Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. Download Composer and run it with the `create-project` option:
 
 ```shell
 $ curl -sSL https://getcomposer.org/installer | php
@@ -42,7 +42,7 @@ What second step? There's no second step. That's it! Open your favorite web brow
 
 ### I want to use a pre-bundled release
 
-Do you know the feeling: I want to install a new website, upload all files of my favorite CMS and run the setup script - just to find out that I forgot about creating the SQL database first? Later the setup script tells me that my file permissions are wrong. Heck, what does this even mean? Forget about it, Pico is different!
+Do you know the feeling: You want to install a new website, so you upload all files of your favorite CMS and run the setup script - just to find out that you forgot about creating the SQL database first? Later the setup script tells you that the file permissions are wrong. Heck, what does this even mean? Forget about it, Pico is different!
 
 ###### Step 1
 
@@ -54,9 +54,9 @@ Okay, here's the catch: There's no catch. That's it! Open your favorite web brow
 
 ### I'm a developer
 
-So, you're one of these amazing folks making all of this possible? We love you guys! As a developer we recommend you to clone [Pico's Git repository][PicoGit] and use composer to install its dependencies. You can find both [Pico][PicoPackagist] and [Pico's composer starter project][PicoComposerPackagist] on [Packagist.org][Packagist]. Using Pico's Git repository is different from using one of the installation methods elucidated above, because it uses Pico as the composer root package. Furthermore it gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
+So, you're one of these amazing folks making all of this possible? We love you guys! As a developer we recommend you to clone [Pico's Git repository][PicoGit] and use Composer to install its dependencies. You can find both [Pico][PicoPackagist] and [Pico's Composer starter project][PicoComposerPackagist] on [Packagist.org][Packagist]. Using Pico's Git repository is different from using one of the installation methods elucidated above, because it uses Pico as the Composer root package. Furthermore it gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
-Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository, download composer and install Pico's dependencies as follows:
+Open a shell and navigate to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html`) of your server. You can now clone Pico's Git repository, download Composer and install Pico's dependencies as follows:
 
 ```shell
 $ git clone https://github.com/picocms/Pico.git .
@@ -67,21 +67,21 @@ $ php composer.phar install
 Upgrade
 -------
 
-Do you remember when you installed Pico? It was ingeniously simple, wasn't it? Upgrading Pico is no difference! The upgrade process differs depending on whether you used [composer][] or a pre-bundled release to install Pico. Please note that you should *always* create a backup of your Pico installation before upgrading!
+Do you remember when you installed Pico? It was ingeniously simple, wasn't it? Upgrading Pico is no difference! The upgrade process differs depending on whether you used [Composer][] or a pre-bundled release to install Pico. Please note that you should *always* create a backup of your Pico installation before upgrading!
 
 Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. When we update the `PATCH` version (e.g. `2.0.0` to `2.0.1`), we made backwards-compatible bug fixes. If we change the `MINOR` version (e.g. `2.0` to `2.1`), we added functionality in a backwards-compatible manner. Upgrading Pico is dead simple in both cases. Simply head over to the appropiate Upgrade sections below.
 
 But wait, we forgot to mention what happens when we update the `MAJOR` version (e.g. `2.0` to `3.0`). In this case we made incompatible API changes. We will then provide a appropriate upgrade tutorial, so please head over to the ["Upgrade" page on our website][HelpUpgrade].
 
-### I've used composer to install Pico
+### I've used Composer to install Pico
 
-Upgrading Pico is dead simple if you've used composer to install Pico. Simply open a shell and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. You can now upgrade Pico using just a single command:
+Upgrading Pico is dead simple if you've used Composer to install Pico. Simply open a shell and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. You can now upgrade Pico using just a single command:
 
 ```shell
 $ php composer.phar update
 ```
 
-That's it! composer will automatically update Pico and all plugins and themes you've installed using composer. Please make sure to manually update all plugins and themes you've installed manually.
+That's it! Composer will automatically update Pico and all plugins and themes you've installed using Composer. Please make sure to manually update all plugins and themes you've installed manually.
 
 ### I've used a pre-bundled release to install Pico
 
@@ -93,7 +93,7 @@ That's it! Now that Pico is up-to-date, you need to update all plugins and theme
 
 ### I'm a developer
 
-As a developer you should be up-to-date already... 😉 For the sake of completeness, if you want to upgrade Pico, simply open a shell and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. Then pull the latest commits from [Pico's Git repository][PicoGit] and let composer update your dependencies:
+As a developer you should be up-to-date already... 😉 For the sake of completeness, if you want to upgrade Pico, simply open a shell and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. Then pull the latest commits from [Pico's Git repository][PicoGit] and let Composer update your dependencies:
 
 ```shell
 $ git pull
@@ -130,6 +130,8 @@ You want to contribute to Pico? We really appreciate that! You can help make Pic
 
 By contributing to Pico, you accept and agree to the *Developer Certificate of Origin* for your present and future contributions submitted to Pico. Please refer to the ["Developer Certificate of Origin" section in our `CONTRIBUTING.md`][ContributionGuidelinesDCO].
 
+You don't have time to contribute code to Pico, but still want to "stand a coffee" for the ones who do? You can contribute monetary to Pico using [Bountysource][], a crowd funding website that focuses on individual issues and feature requests. Just refer to the "Bounties and Fundraisers" section below for more info.
+
 Bounties and Fundraisers
 ------------------------
 
@@ -143,7 +145,7 @@ As a developer you can pick up a bounty by simply contributing to Pico (please r
 
 Official Pico Contributors won't claim bounties on their own behalf, Pico will never take any money out of Bountysource. All money collected by Pico is used to pledge new bounties or to support projects Pico depends on.
 
-[composer]: https://getcomposer.org/
+[Composer]: https://getcomposer.org/
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [PicoGit]: https://github.com/picocms/Pico
 [PicoPackagist]: http://packagist.org/packages/picocms/pico
