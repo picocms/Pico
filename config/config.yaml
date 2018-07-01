@@ -1,0 +1,34 @@
+#
+#WARNING !!!
+#Settings in this file are overridden by settings in config.php file!!!!
+#
+
+
+#BASIC
+site_title: 'Pico'         #Site title
+base_url: ' '              #Override base URL (e.g. http://example.com)
+rewrite_url: false         #A boolean indicating forced URL rewriting
+
+#THEME
+theme: 'default'           #Set the theme (defaults to "default")
+twig_config:               #Twig settings
+   cache: false            #To enable Twig caching change this to a path to a writable directory
+   autoescape: false       #Auto-escape Twig vars
+   debug: false            #Enable Twig debug
+
+#CONTENT
+date_format: '%D %T'       #Set the PHP date format as described here: http://php.net/manual/en/function.strftime.php
+pages_order_by: 'alpha'    #Order pages by "alpha" or "date"
+pages_order: 'asc'         #Order pages "asc" or "desc"
+#content_dir: 'content/'    #Content directory
+content_ext: '.md'         #File extension of content files to serve
+
+#TIMEZONE
+timezone: 'UTC'             #Timezone may be required by your php install
+
+#PLUGINS
+DummyPlugin.enabled: false  # Force DummyPlugin to be disabled
+
+#CUSTOM
+custom_setting: 'Hello'      #Can be accessed by {{ config.custom_setting }} in a theme
+
