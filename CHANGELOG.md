@@ -17,10 +17,13 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.0
-Released: -
+Released: 2018-07-01
 
 ```
 * [New] Add Bountysource
+* [Changed] Improve documentation
+* [Changed] Improve release & build process
+* [Fixed] Don't load `config/config.yml` multiple times
 ```
 
 ### Version 2.0.0-beta.3
