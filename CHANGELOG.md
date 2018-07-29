@@ -16,6 +16,15 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.1
+Released: 2018-07-29
+
+```
+* [Changed] Improve documentation
+* [Changed] Add missing "Formatted Date", "Time" and "Hidden" meta headers; use
+            the "Hidden" meta header to manually hide a page in the pages list
+```
+
 ### Version 2.0.0
 Released: 2018-07-01
 
