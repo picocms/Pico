@@ -41,7 +41,7 @@ jobs:
         skip_cleanup: true
         tag_name: $TRAVIS_TAG
         target_commitish: $TRAVIS_COMMIT
-        name: Version $TRAVIS_TAG
+        name: Version ${TRAVIS_TAG:1}
         draft: true
         on:
           tags: true
