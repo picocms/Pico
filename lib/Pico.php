@@ -49,14 +49,14 @@ class Pico
      *
      * @var string
      */
-    const VERSION = '2.0.0';
+    const VERSION = '2.0.1';
 
     /**
      * Pico version ID
      *
      * @var int
      */
-    const VERSION_ID = 20000;
+    const VERSION_ID = 20001;
 
     /**
      * Pico API version
