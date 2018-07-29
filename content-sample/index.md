@@ -5,8 +5,8 @@ Description: Pico is a stupidly simple, blazing fast, flat file CMS.
 
 ## Welcome to Pico
 
-Congratulations, you have successfully installed [Pico](http://picocms.org/)
-%version%. %meta.description% <!-- replaced by the above Description header -->
+Congratulations, you have successfully installed [Pico][] %version%.
+%meta.description% <!-- replaced by the above Description header -->
 
 ## Creating Content
 
@@ -15,11 +15,12 @@ database to deal with. You simply create `.md` files in the `content` folder
 and those files become your pages. For example, this file is called `index.md`
 and is shown as the main landing page.
 
-When you install Pico, it comes with a `content-sample` folder. Inside this
-folder is a sample website that will display until you add your own content.
-Simply add some `.md` files to your `content` folder in Pico's root directory.
-No configuration is required, Pico will automatically use the `content` folder
-as soon as you create your own `index.md`.
+When you install Pico, it comes with some sample contents that will display
+until you add your own content. Simply add some `.md` files to your `content`
+folder in Pico's root directory. No configuration is required, Pico will
+automatically use the `content` folder as soon as you create your own
+`index.md`. Just check out [Pico's sample contents][SampleContents] for an
+example!
 
 If you create a folder within the content directory (e.g. `content/sub`) and
 put an `index.md` inside it, you can access that folder at the URL
@@ -66,6 +67,17 @@ If a file cannot be found, the file `content/404.md` will be shown. You can add
 `404.md` files to any directory. So, for example, if you wanted to use a special
 error page for your blog, you could simply create `content/blog/404.md`.
 
+Pico strictly separates contents of your website (the Markdown files in your
+`content` directory) and how these contents should be displayed (the Twig
+templates in your `themes` directory). However, not every file in your `content`
+directory might actually be a distinct page. For example, some themes (including
+Pico's default theme) use some special "hidden" file to manage meta data (like
+`_meta.md` in Pico's sample contents). Some other themes use a `_footer.md` to
+represent the contents of the website's footer. The common point is the `_`: all
+files and directories prefixed by a `_` in your `content` directory are hidden.
+These pages can't be accessed from a web browser, Pico will show a 404 error
+page instead.
+
 As a common practice, we recommend you to separate your contents and assets
 (like images, downloads, etc.). We even deny access to your `content` directory
 by default. If you want to use some assets (e.g. a image) in one of your content
@@ -105,6 +117,7 @@ There are also certain variables that you can use in your text files:
 * <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
   can be specified using <code>&#37;base_url&#37;?sub/page</code>
 * <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
+* <code>&#37;version&#37;</code> - Pico's current version string (e.g. `2.0.0`)
 * <code>&#37;meta.&#42;&#37;</code> - Access any meta variable of the current
   page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
 
@@ -169,6 +182,7 @@ the theme. Below are the Twig variables that are available to use in your
 theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
 (e.g. `{{ base_url }}`) don't have a trailing slash.
 
+* `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
 * `{{ config }}` - Contains the values you set in `config/config.yml`
                    (e.g. `{{ config.theme }}` becomes `default`)
 * `{{ base_dir }}` - The path to your Pico root directory
@@ -178,7 +192,7 @@ theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
                      is enabled or not
 * `{{ theme_dir }}` - The path to the currently active theme
 * `{{ theme_url }}` - The URL to the currently active theme
-* `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
+* `{{ version }}` - Pico's current version string (e.g. `2.0.0`)
 * `{{ meta }}` - Contains the meta values of the current page
     * `{{ meta.title }}`
     * `{{ meta.description }}`
@@ -206,9 +220,12 @@ theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
                                  use Twig's `content` filter to get the parsed
                                  contents of a page by passing its unique ID
                                  (e.g. `{{ "sub/page"|content }}`)
-    * `{{ page.meta }}`- The meta values of the page
+    * `{{ page.meta }}`- The meta values of the page (see `{{ meta }}` above)
+    * `{{ page.previous_page }}` - The data of the respective previous page
+    * `{{ page.next_page }}` - The data of the respective next page
+    * `{{ page.tree_node }}` - The page's node in Pico's page tree
 * `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
-* `{{ current_page }}` - The data of the current page
+* `{{ current_page }}` - The data of the current page (see `{{ pages }}` above)
 * `{{ next_page }}` - The data of the next page (relative to `current_page`)
 
 Pages can be used like the following:
@@ -219,6 +236,12 @@ Pages can be used like the following:
         {% endfor %}
     </ul>
 
+Besides using the `{{ pages }}` list, you can also access pages using Pico's
+page tree. The page tree allows you to iterate through Pico's pages using a tree
+structure, so you can e.g. iterate just a page's direct children. It allows you
+to build recursive menus (like dropdowns) and to filter pages more easily. Just
+head over to Pico's [page tree documentation][FeaturesPageTree] for details.
+
 Additional to Twigs extensive list of filters, functions and tags, Pico also
 provides some useful additional filters to make theming easier.
 
@@ -228,14 +251,26 @@ provides some useful additional filters to make theming easier.
   filter (e.g. `{{ "sub/page"|content }}`).
 * You can parse any Markdown string using the `markdown` filter (e.g. you can
   use Markdown in the `description` meta variable and later parse it in your
-  theme using `{{ meta.description|markdown }}`).
+  theme using `{{ meta.description|markdown }}`). You can pass meta data as
+  parameter to replace <code>&#37;meta.&#42;&#37;</code> placeholders (e.g.
+  `{{ "Written *by %meta.author%*"|markdown(meta) }}` yields "Written by
+  *John Doe*").
 * Arrays can be sorted by one of its keys using the `sort_by` filter
   (e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
   iterates through all pages, ordered by the `nav` meta header; please note the
   `[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
-  `page.meta.nav`).
+  `page.meta.nav`). Items which couldn't be sorted are moved to the bottom of
+  the array; you can specify `bottom` (move items to bottom; default), `top`
+  (move items to top), `keep` (keep original order) or `remove` (remove items)
+  as second parameter to change this behavior.
 * You can return all values of a given array key using the `map` filter
   (e.g. `{{ pages|map("title") }}` returns all page titles).
+* Use the `url_param` and `form_param` Twig functions to access HTTP GET (i.e.
+  a URL's query string like `?some-variable=my-value`) and HTTP POST (i.e. data
+  of a submitted form) parameters. This allows you to implement things like
+  pagination, tags and categories, dynamic pages, and even more - with pure
+  Twig! Simply head over to our [introductory page for accessing HTTP
+  parameters][FeaturesHttpParams] for details.
 
 You can use different templates for different content files by specifying the
 `Template` meta header. Simply add e.g. `Template: blog` to the YAML header of
@@ -257,11 +292,17 @@ Officially tested plugins can be found at http://picocms.org/plugins/, but
 there are many awesome third-party plugins out there! A good start point for
 discovery is [our Wiki][WikiPlugins].
 
-Pico makes it very easy for you to add new features to your website. Simply
-upload the files of the plugin to the `plugins/` directory and you're done.
-Depending on the plugin you've installed, you may have to go through some more
-steps (e.g. specifying config variables), the plugin docs or `README` file will
-explain what to do.
+Pico makes it very easy for you to add new features to your website using
+plugins. Just like Pico, you can install plugins either using [Composer][]
+(e.g. `composer require phrozenbyte/pico-file-prefixes`), or manually by
+uploading the plugin's file (just for small plugins consisting of a single file,
+e.g. `PicoFilePrefixes.php`) or directory (e.g. `PicoFilePrefixes`) to your
+`plugins` directory. We always recommend you to use Composer whenever possible,
+because it makes updating both Pico and your plugins way easier. Anyway,
+depending on the plugin you want to install, you may have to go through some
+more steps (e.g. specifying config variables) to make the plugin work. Thus you
+should always check out the plugin's docs or `README.md` file to learn the
+necessary steps.
 
 Plugins which were written to work with Pico 1.0 and later can be enabled and
 disabled through your `config/config.yml`. If you want to e.g. disable the
@@ -293,7 +334,7 @@ your config, like a separate config file for your theme (`config/my_theme.yml`).
 Please note that Pico loads config files in a special way you should be aware
 of. First of all it loads the main config file `config/config.yml`, and then
 any other `*.yml` file in Pico's `config` dir in alphabetical order. The file
-order is crucial: Configiguration values which have been set already, cannot be
+order is crucial: Config values which have been set already, cannot be
 overwritten by a succeeding file. For example, if you set `site_title: Pico` in
 `config/a.yml` and `site_title: My awesome site!` in `config/b.yml`, your site
 title will be "Pico".
@@ -341,7 +382,7 @@ extensive subject. If you have any trouble, please read through our
 
 ```
 location ~ ^/pico/((config|content|vendor|composer\.(json|lock|phar))(/|$)|(.+/)?\.(?!well-known(/|$))) {
-    try_files /pico/index.php$is_args$args;
+    try_files /pico/index.php$is_args$args =404;
 }
 
 location /pico/ {
@@ -374,11 +415,16 @@ url.rewrite-if-not-file = (
 
 For more help have a look at the Pico documentation at http://picocms.org/docs.
 
+[Pico]: http://picocms.org/
+[SampleContents]: https://github.com/picocms/Pico/tree/master/content-sample
 [Markdown]: http://daringfireball.net/projects/markdown/syntax
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [YAML]: https://en.wikipedia.org/wiki/YAML
 [Twig]: http://twig.sensiolabs.org/documentation
 [UnixTimestamp]: https://en.wikipedia.org/wiki/Unix_timestamp
+[Composer]: https://getcomposer.org/
+[FeaturesHttpParams]: http://picocms.org/in-depth/features/http-params/
+[FeaturesPageTree]: http://picocms.org/in-depth/features/page-tree/
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [OfficialThemes]: http://picocms.org/themes/
