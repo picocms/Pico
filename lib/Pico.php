@@ -1278,8 +1278,11 @@ class Pico
                 'Description' => 'description',
                 'Author' => 'author',
                 'Date' => 'date',
+                'Formatted Date' => 'date_formatted',
+                'Time' => 'time',
                 'Robots' => 'robots',
-                'Template' => 'template'
+                'Template' => 'template',
+                'Hidden' => 'hidden'
             );
 
             $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
@@ -1374,7 +1377,6 @@ class Pico
         } else {
             // guarantee array key existance
             $meta = array_fill_keys($headers, '');
-            $meta['time'] = $meta['date_formatted'] = '';
         }
 
         return $meta;
@@ -1609,7 +1611,7 @@ class Pico
                 'time' => &$meta['time'],
                 'date' => &$meta['date'],
                 'date_formatted' => &$meta['date_formatted'],
-                'hidden' => (bool) preg_match('/(?:^|\/)_/', $id),
+                'hidden' => (preg_match('/(?:^|\/)_/', $id) || $meta['hidden']),
                 'raw_content' => &$rawContent,
                 'meta' => &$meta
             );
