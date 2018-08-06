@@ -17,10 +17,10 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.2
-Released: 2018-08-06
+Released: -
 
 ```
-* [Changed] Support Windows path ("\" instead of "/") on evaluateRequestUrl() method
+* [Fixed] Support Windows paths (`\` instead of `/`) in `Pico::evaluateRequestUrl()`
 ```
 
 ### Version 2.0.1
