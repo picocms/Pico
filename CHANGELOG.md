@@ -16,6 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.2
+Released: 2018-08-06
+
+```
+* [Changed] Support Windows path ("\" instead of "/") on evaluateRequestUrl() method
+```
+
 ### Version 2.0.1
 Released: 2018-07-29
 
