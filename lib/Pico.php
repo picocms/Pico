@@ -428,7 +428,9 @@ class Pico
         } else {
             $this->triggerEvent('on404ContentLoading');
 
-            header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+            $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.1';
+            header($serverProtocol . ' 404 Not Found');
+
             $this->rawContent = $this->load404Content($this->requestFile);
             $this->is404Content = true;
 
@@ -1075,7 +1077,9 @@ class Pico
 
         // use REQUEST_URI (requires URL rewriting); e.g. /pico/sub/page
         if (($this->requestUrl === null) && $this->isUrlRewritingEnabled()) {
-            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
+
+            $basePath = dirname($scriptName);
             $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
@@ -1085,7 +1089,7 @@ class Pico
                 if ($requestUri && (($queryStringPos = strpos($requestUri, '?')) !== false)) {
                     $requestUri = substr($requestUri, 0, $queryStringPos);
                 }
-                if ($requestUri && ($requestUri !== basename($_SERVER['SCRIPT_NAME']))) {
+                if ($requestUri && ($requestUri !== basename($scriptName))) {
                     $this->requestUrl = rtrim(rawurldecode($requestUri), '/');
                 }
             }
@@ -2028,25 +2032,46 @@ class Pico
             return $baseUrl;
         }
 
+        $host = 'localhost';
+        if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+            $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+        } elseif (!empty($_SERVER['HTTP_HOST'])) {
+            $host = $_SERVER['HTTP_HOST'];
+        } elseif (!empty($_SERVER['SERVER_NAME'])) {
+            $host = $_SERVER['SERVER_NAME'];
+        }
+
+        $port = 80;
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
+            $port = (int) $_SERVER['HTTP_X_FORWARDED_PORT'];
+        } elseif (!empty($_SERVER['SERVER_PORT'])) {
+            $port = (int) $_SERVER['SERVER_PORT'];
+        }
+
+        $hostPortPosition = ($host[0] === '[') ? strpos($host, ':', strrpos($host, ']')) : strrpos($host, ':');
+        if ($hostPortPosition !== false) {
+            $host = substr($host, 0, $hostPortPosition);
+            $port = (int) substr($host, $hostPortPosition + 1);
+        }
+
         $protocol = 'http';
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
             $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1'), true) ? 'https' : 'http';
         } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
-        } elseif ($_SERVER['SERVER_PORT'] == 443) {
+        } elseif ($port === 443) {
             $protocol = 'https';
         }
 
-        $host = $_SERVER['SERVER_NAME'];
-        if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
-            $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-        } elseif (!empty($_SERVER['HTTP_HOST'])) {
-            $host = $_SERVER['HTTP_HOST'];
+        $basePath = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '/';
+        $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+
+        if ((($protocol === 'http') && ($port !== 80)) || (($protocol === 'https') && ($port !== 443))) {
+            $host = $host . ':' . $port;
         }
 
-        $this->config['base_url'] = $protocol . "://" . $host . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\') . '/';
-
+        $this->config['base_url'] = $protocol . "://" . $host . $basePath;
         return $this->config['base_url'];
     }
 
@@ -2171,14 +2196,18 @@ class Pico
             return $themeUrl;
         }
 
-        $basePath = dirname($_SERVER['SCRIPT_FILENAME']) . '/';
-        $basePathLength = strlen($basePath);
-        if (substr($this->getThemesDir(), 0, $basePathLength) === $basePath) {
-            $this->config['theme_url'] = $this->getBaseUrl() . substr($this->getThemesDir(), $basePathLength);
-        } else {
-            $this->config['theme_url'] = $this->getBaseUrl() . basename($this->getThemesDir()) . '/';
+        if (isset($_SERVER['SCRIPT_FILENAME']) && ($_SERVER['SCRIPT_FILENAME'] !== 'index.php')) {
+            $basePath = dirname($_SERVER['SCRIPT_FILENAME']);
+            $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+            $basePathLength = strlen($basePath);
+
+            if (substr($this->getThemesDir(), 0, $basePathLength) === $basePath) {
+                $this->config['theme_url'] = $this->getBaseUrl() . substr($this->getThemesDir(), $basePathLength);
+                return $this->config['theme_url'];
+            }
         }
 
+        $this->config['theme_url'] = $this->getBaseUrl() . basename($this->getThemesDir()) . '/';
         return $this->config['theme_url'];
     }
 

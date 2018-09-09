@@ -16,6 +16,14 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.3
+Released: -
+
+```
+* [Fixed] Support alternative server ports in `Pico::getBaseUrl()`
+* [Changed] Don't require server environment variables to be configured
+```
+
 ### Version 2.0.2
 Released: 2018-08-12
 
