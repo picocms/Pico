@@ -46,7 +46,8 @@ Do you know the feeling: You want to install a new website, so you upload all fi
 
 ###### Step 1
 
-[Download the latest Pico release][LatestRelease] and upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server.
+[Download the latest Pico release][LatestRelease] and upload all files to the `httpdocs` directory (e.g. `/var/www/html`) of your server. Alternatively you can create a new directory called `picocms` in `httpdocs` directory (e.g. resulting path `/var/www/html/picocms`) and upload all files there. Then copy index.php to the httpdocs directory (e.g. there: `/var/www/html/index.php`)
+
 
 ###### Step 2
 
