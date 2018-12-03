@@ -17,11 +17,15 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.3
-Released: -
+Released: 2018-12-03
 
 ```
 * [Fixed] Support alternative server ports in `Pico::getBaseUrl()`
 * [Changed] Don't require server environment variables to be configured
+* [Changed] Improve release & build process
+* [Changed] Improve documentation
+* [Changed] Improve PHP class docs
+* [Changed] Various small improvements
 ```
 
 ### Version 2.0.2
