@@ -1094,6 +1094,10 @@ class Pico
                 }
             }
         }
+
+        if ($this->requestUrl === null) {
+            $this->requestUrl = '';
+        }
     }
 
     /**
@@ -2048,7 +2052,7 @@ class Pico
             $port = (int) $_SERVER['SERVER_PORT'];
         }
 
-        $hostPortPosition = ($host[0] === '[') ? strpos($host, ':', strrpos($host, ']')) : strrpos($host, ':');
+        $hostPortPosition = ($host[0] === '[') ? strpos($host, ':', strrpos($host, ']') ?: 0) : strrpos($host, ':');
         if ($hostPortPosition !== false) {
             $host = substr($host, 0, $hostPortPosition);
             $port = (int) substr($host, $hostPortPosition + 1);
@@ -2136,6 +2140,8 @@ class Pico
 
         if ($queryData) {
             $queryData = ($this->isUrlRewritingEnabled() || !$page) ? '?' . $queryData : '&' . $queryData;
+        } else {
+            $queryData = '';
         }
 
         if (!$page) {
