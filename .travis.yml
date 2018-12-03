@@ -24,10 +24,9 @@ jobs:
 
     # Deployment stage
     - stage: deploy
+      if: (type == "push") AND ((tag IS present) OR (branch IN env(DEPLOY_PHPDOC_BRANCHES)))
       sudo: required
       install:
-        - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || travis_terminate 0'
-        - '[ -n "$TRAVIS_TAG" ] || [[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh --deploy
       script:
         - deploy.sh
