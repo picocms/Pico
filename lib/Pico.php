@@ -228,7 +228,7 @@ class Pico
      * Parsedown Extra instance used for markdown parsing
      *
      * @see Pico::getParsedown()
-     * @var ParsedownExtra|null
+     * @var Parsedown|null
      */
     protected $parsedown;
 
@@ -1322,10 +1322,10 @@ class Pico
      *
      * Meta data MUST start on the first line of the file, either opened and
      * closed by `---` or C-style block comments (deprecated). The headers are
-     * parsed by the YAML component of the Symfony project, keys are lowered.
-     * If you're a plugin developer, you MUST register new headers during the
-     * `onMetaHeaders` event first. The implicit availability of headers is
-     * for users and pure (!) theme developers ONLY.
+     * parsed by the YAML component of the Symfony project. If you're a plugin
+     * developer, you MUST register new headers during the `onMetaHeaders`
+     * event first. The implicit availability of headers is for users and
+     * pure (!) theme developers ONLY.
      *
      * @see Pico::getFileMeta()
      *
@@ -2108,11 +2108,11 @@ class Pico
      * This method can be used in Twig templates by applying the `link` filter
      * to a string representing a page ID.
      *
-     * @param string       $page      ID of the page to link to
-     * @param array|string $queryData either an array containing properties to
+     * @param string            $page      ID of the page to link to
+     * @param array|string|null $queryData either an array of properties to
      *     create a URL-encoded query string from, or a already encoded string
-     * @param bool         $dropIndex if the last path component is "index",
-     *     passing TRUE (default) leads to removing this path component
+     * @param bool              $dropIndex if the last path component is
+     *     "index", passing TRUE (default) will remove this path component
      *
      * @return string URL
      */
