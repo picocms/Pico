@@ -39,8 +39,6 @@ jobs:
         api_key: ${GITHUB_OAUTH_TOKEN}
         file: pico-release-$TRAVIS_TAG.tar.gz
         skip_cleanup: true
-        tag_name: $TRAVIS_TAG
-        target_commitish: $TRAVIS_COMMIT
         name: Version ${TRAVIS_TAG:1}
         draft: true
         on:
