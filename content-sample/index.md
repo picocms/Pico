@@ -111,6 +111,14 @@ sort your pages not just alphabetically, but by date. Another example is the
 `Template` meta header: It controls what Twig template Pico uses to display
 this page (e.g. if you add `Template: blog`, Pico uses `blog.twig`).
 
+In an attempt to separate contents and styling, we recommend you to not use
+inline CSS in your Markdown files. You should rather add appropriate CSS
+classes to your theme. For example, you might want to add some CSS classes to
+your theme to rule how much of the available space a image should use (e.g.
+`img.small { width: 80%; }`). You can then use these CSS classes in your
+Markdown files, for example:
+<code>!\[Image Title\](&#37;base_url&#37;/assets/image.png) {.small}</code>
+
 There are also certain variables that you can use in your text files:
 
 * <code>&#37;site_title&#37;</code> - The title of your Pico site
@@ -241,6 +249,12 @@ page tree. The page tree allows you to iterate through Pico's pages using a tree
 structure, so you can e.g. iterate just a page's direct children. It allows you
 to build recursive menus (like dropdowns) and to filter pages more easily. Just
 head over to Pico's [page tree documentation][FeaturesPageTree] for details.
+
+To call assets from your theme, use `{{ theme_url }}`. For instance, to include
+the CSS file `themes/my_theme/example.css`, add
+`<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />`
+to your `index.twig`. This works for arbitrary files in your theme's folder,
+including images and JavaScript files.
 
 Additional to Twigs extensive list of filters, functions and tags, Pico also
 provides some useful additional filters to make theming easier.
