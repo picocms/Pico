@@ -16,6 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.4
+Released: -
+
+```
+* [Changed] Improve documentation
+```
+
 ### Version 2.0.3
 Released: 2018-12-03
 
