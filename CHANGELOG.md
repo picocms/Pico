@@ -16,6 +16,25 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.4
+Released: -
+
+```
+* [Changed] Improve documentation
+```
+
+### Version 2.0.3
+Released: 2018-12-03
+
+```
+* [Fixed] Support alternative server ports in `Pico::getBaseUrl()`
+* [Changed] Don't require server environment variables to be configured
+* [Changed] Improve release & build process
+* [Changed] Improve documentation
+* [Changed] Improve PHP class docs
+* [Changed] Various small improvements
+```
+
 ### Version 2.0.2
 Released: 2018-08-12
 

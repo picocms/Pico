@@ -72,7 +72,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @see AbstractPicoPlugin::checkDependants()
      * @see PicoPluginInterface::getDependants()
-     * @var object[]
+     * @var object[]|null
      */
     private $dependants;
 

@@ -111,6 +111,14 @@ sort your pages not just alphabetically, but by date. Another example is the
 `Template` meta header: It controls what Twig template Pico uses to display
 this page (e.g. if you add `Template: blog`, Pico uses `blog.twig`).
 
+In an attempt to separate contents and styling, we recommend you to not use
+inline CSS in your Markdown files. You should rather add appropriate CSS
+classes to your theme. For example, you might want to add some CSS classes to
+your theme to rule how much of the available space a image should use (e.g.
+`img.small { width: 80%; }`). You can then use these CSS classes in your
+Markdown files, for example:
+<code>!\[Image Title\](&#37;base_url&#37;/assets/image.png) {.small}</code>
+
 There are also certain variables that you can use in your text files:
 
 * <code>&#37;site_title&#37;</code> - The title of your Pico site
@@ -132,16 +140,15 @@ If you want to use Pico as a blogging software, you probably want to do
 something like the following:
 
 1. Put all your blog articles in a separate `blog` folder in your `content`
-   directory. All these articles should have both a `Date` and `Template` meta
-   header, the latter with e.g. `blog-post` as value (see Step 2).
-2. Create a new Twig template called `blog-post.twig` (this must match the
-   `Template` meta header from Step 1) in your theme directory. This template
-   probably isn't very different from your default `index.twig`, it specifies
-   how your article pages will look like.
-3. Create a `blog.md` in your `content` folder and set its `Template` meta
-   header to e.g. `blog`. Also create a `blog.twig` in your theme directory.
-   This template will show a list of your articles, so you probably want to
-   do something like this:
+   directory. All these articles should have a `Date` meta header.
+2. Create a `blog.md` or `blog/index.md` in your `content` directory. Add
+   `Template: blog-index` to the YAML header of this page. It will later show a
+   list of all your blog articles (see step 3).
+3. Create the new Twig template `blog-index.twig` (the file name must match the
+   `Template` meta header from Step 2) in your theme directory. This template
+   probably isn't very different from your default `index.twig` (i.e. copy
+   `index.twig`), it will create a list of all your blog articles. Add the
+   following Twig snippet to `blog-index.twig` near `{{ content }}`:
    ```
     {% for page in pages|sort_by("time")|reverse %}
         {% if page.id starts with "blog/" and not page.hidden %}
@@ -153,10 +160,6 @@ something like the following:
         {% endif %}
     {% endfor %}
    ```
-4. Make sure to exclude blog articles from your page navigation. You can achieve
-   this by adding `{% if not (page.id starts with "blog/") %}...{% endif %}`
-   to the navigation loop (`{% for page in pages %}...{% endfor %}`) in your
-   theme's `index.twig`.
 
 ## Customization
 
@@ -241,6 +244,12 @@ page tree. The page tree allows you to iterate through Pico's pages using a tree
 structure, so you can e.g. iterate just a page's direct children. It allows you
 to build recursive menus (like dropdowns) and to filter pages more easily. Just
 head over to Pico's [page tree documentation][FeaturesPageTree] for details.
+
+To call assets from your theme, use `{{ theme_url }}`. For instance, to include
+the CSS file `themes/my_theme/example.css`, add
+`<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />`
+to your `index.twig`. This works for arbitrary files in your theme's folder,
+including images and JavaScript files.
 
 Additional to Twigs extensive list of filters, functions and tags, Pico also
 provides some useful additional filters to make theming easier.
