@@ -2054,8 +2054,8 @@ class Pico
 
         $hostPortPosition = ($host[0] === '[') ? strpos($host, ':', strrpos($host, ']') ?: 0) : strrpos($host, ':');
         if ($hostPortPosition !== false) {
-			$port = (int) substr($host, $hostPortPosition + 1);
-			$host = substr($host, 0, $hostPortPosition);
+		$port = (int) substr($host, $hostPortPosition + 1);
+		$host = substr($host, 0, $hostPortPosition);
         }
 
         $protocol = 'http';
