@@ -20,6 +20,7 @@ Pico Changelog
 Released: -
 
 ```
+* [Fixed] Get current port from current host in 'Pico::getBaseUrl()'
 * [Changed] Improve documentation
 ```
 
