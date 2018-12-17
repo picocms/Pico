@@ -17,9 +17,10 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.0.4
-Released: -
+Released: 2018-12-17
 
 ```
+* [Fixed] Proberly handle hostnames with ports in `Pico::getBaseUrl()`
 * [Changed] Improve documentation
 ```
 
