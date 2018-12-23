@@ -166,7 +166,7 @@ If you're a developer, please refer to the "Contributing" section below and our 
 
 #### You still need help or experience a problem with Pico?
 
-When the docs can't answer your question, you can get help by joining us on [#picocms on Freenode IRC](https://webchat.freenode.net/?channels=%23picocms). When you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
+When the docs can't answer your question, you can get help by joining us on [#picocms on Freenode IRC][Freenode] ([logs][FreenodeLogs]). When you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
 
 **Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps you have taken to resolve the problem by yourself (i.e. *your own troubleshooting*).
 
@@ -221,6 +221,8 @@ Official Pico Contributors won't claim bounties on their own behalf, Pico will n
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [Issues]: https://github.com/picocms/Pico/issues
 [IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
+[Freenode]: https://webchat.freenode.net/?channels=%23picocms
+[FreenodeLogs]: http://picocms.org/irc-logs
 [PullRequests]: https://github.com/picocms/Pico/pulls
 [PullRequestsWebsite]: https://github.com/picocms/picocms.github.io/pulls
 [ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
