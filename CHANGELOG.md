@@ -16,6 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.0.5
+Released: -
+
+```
+* [New] Add PHP 7.3 tests
+```
+
 ### Version 2.0.4
 Released: 2018-12-17
 
