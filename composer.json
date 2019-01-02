@@ -30,8 +30,8 @@
         "ext-dom": "*",
         "twig/twig": "^1.35",
         "symfony/yaml" : "^2.8",
-        "erusev/parsedown": "^1.7",
-        "erusev/parsedown-extra": "^0.7"
+        "erusev/parsedown": "^1.8|1.8.0@beta",
+        "erusev/parsedown-extra": "^0.8|0.8.0@beta"
     },
     "suggest": {
         "picocms/pico-theme": "Pico requires a theme to actually display the contents of your website. This is Pico's official default theme.",
