@@ -48,5 +48,10 @@
             "PicoPluginInterface": "lib/",
             "AbstractPicoPlugin": "lib/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
     }
 }
