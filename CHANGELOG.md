@@ -23,6 +23,7 @@ Released: 2019-01-03
 * [New] Add PHP 7.3 tests
 * [New] Add `2.0.x-dev` alias for master branch to `composer.json`
 * [Changed] Update to Parsedown Extra 0.8 and Parsedown 1.8 (both still beta)
+* [Changed] Improve release & build process
 ```
 
 ### Version 2.0.4
