@@ -16,11 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
-### Version 2.0.5
-Released: -
+### Version 2.0.5-beta.1
+Released: 2019-01-03
 
 ```
 * [New] Add PHP 7.3 tests
+* [New] Add `2.0.x-dev` alias for master branch to `composer.json`
+* [Changed] Update to Parsedown Extra 0.8 and Parsedown 1.8 (both still beta)
 ```
 
 ### Version 2.0.4
