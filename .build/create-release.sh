@@ -31,6 +31,13 @@ composer require --no-update \
     "picocms/pico-deprecated $VERSION_FULL@$VERSION_STABILITY"
 echo
 
+# set minimum stability
+if [ "$VERSION_STABILITY" != "stable" ]; then
+    echo "Setting minimum stability to '$VERSION_STABILITY'..."
+    composer config "minimum-stability" "$VERSION_STABILITY"
+    composer config "prefer-stable" "true"
+fi
+
 # install dependencies
 echo "Running \`composer install\`..."
 composer install --no-suggest --prefer-dist --no-dev --optimize-autoloader
