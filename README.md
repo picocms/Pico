@@ -7,54 +7,61 @@ Pico
 [![Freenode IRC Webchat](https://picocms.github.io/badges/pico-chat.svg)](https://webchat.freenode.net/?channels=%23picocms)
 [![Open Bounties on Bountysource](https://www.bountysource.com/badge/team?team_id=198139&style=bounties_received)](https://www.bountysource.com/teams/picocms)
 
-Pico is a stupidly simple, blazing fast, flat file CMS.
+Pico jest prostym do bólu, niewymagającym żadnej bazy danych, doświadczenia w stronach internetowych ani znajomości HTML'a CMS'em (systemem zarządzania treścią) o otwartym kodzie źródłowym.
 
-Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
+Pełna wersja dokumentacji, zarówno dla użytkowników, jak i programistów, dostępna jest aktualnie tylko w języku angielskim na oficjalnej stronie projektu: http://picocms.org (bezpośredni link do wiki dla użytkownika: http://picocms.org/docs)
 
 Screenshot
 ----------
 
-![Pico Screenshot](https://picocms.github.io/screenshots/pico-20.png)
+![Pico Screenshot](http://nepose.rf.gd/pico-po-polsku.png)
 
-Install
--------
+Instalacja na serwerze (hostingu)
+----------------------
 
-Installing Pico is dead simple - and done in seconds! If you have access to a shell on your server (i.e. SSH access), we recommend using [Composer][]. If not, use a pre-bundled release. If you don't know what "SSH access" is, head over to the pre-bundled release. 😇
+Instalacja Pico na serwerze jest naprawdę łatwa, szybka i przyjemna. Jeśli masz dostęp do terminala na serwerze (np. przez protokół SSH), zalecamy użycie aplikacji Composer. Jeśli nie wiesz, co to jest SSH bądź nie masz takiego dostępu, skorzystaj z uprzednio przygotowanej wersji. 😇
 
-Pico requires PHP 5.3.6+
+Jedyne, czego Pico wymaga do działania, to dostęp do PHP w wersji 5.6.3 lub wyższej.
 
-### I want to use Composer
+### Chcę skorzystać z aplikacji Composer
 
-Starting with Pico 2.0 we recommend installing Pico using Composer whenever possible. Trust us, you won't regret it when it comes to upgrading Pico! Anyway, if you don't want to use Composer, or if you simply can't use Composer because you don't have access to a shell on your server, don't despair, installing Pico using a pre-bundled release is still easier than everything you know!
+Zalecamy używanie Composera wszędzie tam, gdzie jest to tylko możliwe, ponieważ przy użyciu tej metody łatwiej Ci będzie później zaktualizować CMS'a do nowszej wersji. Oczywiście nic nie tracisz, używając gotowego pakietu.
 
-###### Step 1
+###### Krok 1.
 
-Open a shell and navigate to the `httpdocs` directory (e.g. `/var/www/html`) of your server. Download Composer and run it with the `create-project` option to install it to the desired directory (e.g. `/var/www/html/pico`):
+Otwórz terminal, podłącz się do serwera przez SSH i przejdź do katalogu, w którym musisz postawić stronę (na przykład `/var/www/html`, najczęściej ma on nazwę `htdocs`, `public_html` albo `html`) na Twoim serwerze. Zainstaluj na swoim serwerze Composera i pobierz najnowszą wersję Pico:
 
 ```shell
 $ curl -sSL https://getcomposer.org/installer | php
 $ php composer.phar create-project picocms/pico-composer pico
 ```
 
-###### Step 2
+###### Krok 2
 
-What second step? There's no second step. That's it! Open your favorite web browser and navigate to your brand new, stupidly simple, blazing fast, flat file CMS! Pico's sample contents will explain how to create your own contents. 😊
+Jaki drugi krok? To koniec instalacji! Drugim krokiem jest wejście na Twoją stronę i sprawdzenie, czy poprawnie wyświetla się domyślna strona główna. Zapoznaj się z tą stroną, żeby się dowiedzieć, jak wygląda tworzenie kontentu na Pico CMS. 😊
 
-### I want to use a pre-bundled release
+### Chcę pobrać najnowszą wersję jako archiwum
 
-Do you know the feeling: You want to install a new website, so you upload all files of your favorite CMS and run the setup script - just to find out that you forgot about creating the SQL database first? Later the setup script tells you that the file permissions are wrong. Heck, what does this even mean? Forget about it, Pico is different!
+Znasz to uczucie? Chcesz stworzyć fajną i ciekawą wizytówkę w Internecie, więc sięgasz po jakiegoś renomowanego CMS'a, jak na przykład WordPressa albo Joomlę. Ściągasz wszystkie pliki i wrzucasz je na serwer, potem się dowiadując, że musisz utworzyć bazę danych MySQL. Następnie wyskoczy Ci komunikat o konieczności zmiany uprawnień wybranych plików...
+Zapomnij o tym. Pico działa zupełnie inaczej!
 
-###### Step 1
+###### Krok 1.
 
-[Download the latest Pico release][LatestRelease] and upload all files to the desired install directory of Pico within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server.
+[Pobierz najnowszą wersję Pico][LatestRelease] i wrzuć ją do katalogu z plikami strony (`htdocs` itp.) na serwer. Rozpakuj tam ją.
 
-###### Step 2
+###### Krok 2.
 
-Okay, here's the catch: There's no catch. That's it! Open your favorite web browser and navigate to your brand new, stupidly simple, blazing fast, flat file CMS! Pico's sample contents will explain how to create your own contents. 😊
+Co to jest *krok drugi*? To jest wszystko! Zostało Ci tylko wejść na stronę i sprawdzić, czy wyświetla się domyślna strona początkowa. Zapoznaj się z nią uważnie, żeby się dowiedzieć, jak tworzyć kontent w Pico.
 
-### I'm a developer
+### Jestem programistą
 
-So, you're one of these amazing folks making all of this possible? We love you guys! As a developer we recommend you to clone [Pico's Git repository][PicoGit] as well as the Git repositories of [Pico's default theme][PicoThemeGit] and the [`PicoDeprecated` plugin][PicoDeprecatedGit]. You can set up your workspace using [Pico's Composer starter project][PicoComposerGit] and include all of Pico's components using local packages.
+Aaa! Więc jesteś jedną z tych osób, która wie, jak technicznie działa CMS i mogłaby wspomóc nasz projekt? Kochamy Was! Pico jest systemem o otwartym kodzie źródłowym, więc każdy może dołożyć przysłowiową cegiełkę do systemu. Żeby zapoznać się z kodem źródłowym oraz możliwościami Pico, możesz skopiować na swój komputer trzy repozytoria składające się na ten system:
+
+* [główne repozytorium][PicoGit], 
+* [domyślny szablon tego CMS'a][PicoThemeGit],
+* [wtyczkę `PicoDeprecated`][PicoDeprecatedGit], umożliwiającą zgodność najnowszej wersji CMS'a z wtyczkami i szablonami pisanymi pod starsze wersje.
+
+Możesz przygotować również [Pico's Composer starter project][PicoComposerGit] and include all of Pico's components using local packages.
 
 Using Pico's Git repositories is different from using one of the installation methods elucidated above. It gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
 
@@ -153,22 +160,22 @@ $ git -C components/pico-deprecated pull
 $ php composer.phar --working-dir=workspace update
 ```
 
-Getting Help
-------------
+Pomoc
+-----
 
-#### Getting Help as a user
+#### Dla użytkownika
 
-If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 1.0 to Pico 2.0. You can find officially supported [plugins][OfficialPlugins] and [themes][OfficialThemes] on our website. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes][WikiThemes] pages respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
+Jeśli po zainstalowaniu Pico coś nie jest jeszcze dla Ciebie jasne, możesz się zapoznać ze specjalnie przygotowaną [dokumentacją dla początkujących][HelpUserDocs] (jej część jest w języku angielskim). Zapoznaj się z [tym poradnikiem][HelpUpgrade], jeśli potrzebujesz zaktualizować Pico do wersji 2.0. Na oficjalnej stronie CMS'a możesz znaleźć oficjalne i wyróżnione [wtyczki][OfficialPlugins] oraz [szablony][OfficialThemes]. Dużo większy wybór możesz znaleźć na liście [wtyczek][WikiPlugins] i [szablonów][WikiThemes] przygotowanych przez społeczność projektu. Ty też możesz coś zrobić - zerknij na [wiki projektu na GitHubie][Wiki] oraz na akapit poniżej.
 
-#### Getting Help as a developer
+#### Dla programisty i designera
 
-If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [developer docs on our website][HelpDevDocs].
+Jeśli jesteś programistą, webdesignerem, osobą mogącą wesprzeć projekt, jesteś kimś, kogo bardzo potrzebujemy! Zapoznaj się z [zasadami udziału w projekcie][ContributionGuidelines] oraz z [dokumentacją dla programistów][HelpDevDocs] (po angielsku, ale chyba Ci to nie straszne ;) ). Pico używa [Twiga](https://twig.symfony.com) do renderowania strony z szablonów. Jest to bardzo prosty w użyciu silnik używający PHP, więc łatwo Ci będzie przeportować praktycznie dowolny szablon - wystarczy zastąpić te części, które mogą się zmieniać na stronie odpowiednimi zmiennymi Twiga.
 
-#### You still need help or experience a problem with Pico?
+#### Masz jeszcze jakieś pytanie, problem, pomysł?
 
-When the docs can't answer your question, you can get help by joining us on [#picocms on Freenode IRC][Freenode] ([logs][FreenodeLogs]). When you're experiencing problems with Pico, please don't hesitate to create a new [Issue][Issues] on GitHub. Concerning problems with plugins or themes, please refer to the website of the developer of this plugin or theme.
+Jeśli nie znalazłeś/aś szukanej przez Ciebie odpowiedzi w dokumentacji, nie wahaj się spytać o nią na [oficjalnym kanale IRC #picocms][Freenode] ([logi][FreenodeLogs]). Możesz także rozpocząć [dyskusję na GitHubie][Issues] lub przyłączyć się do już istniejącej. W razie problemów z wtyczkami bądź szablonami odwołaj się do jego/jej twórcy.
 
-**Before creating a new Issue,** please make sure the problem wasn't reported yet using [GitHubs search engine][IssuesSearch]. Please describe your issue as clear as possible and always include the *Pico version* you're using. Provided that you're using *plugins*, include a list of them too. We need information about the *actual and expected behavior*, the *steps to reproduce* the problem, and what steps you have taken to resolve the problem by yourself (i.e. *your own troubleshooting*).
+**Przed rozpoczęciem dyskusji na GitHubie** upewnij się, że już ktoś o to nie zapytał, używając [wyszukiwarki][IssuesSearch]. Zawsze opisuj swój problem tak dokładnie, jak tylko potrafisz, podając jak najwięcej szczegółów. Oczywistą koniecznością będzie podanie używanej wersji Pico, powiedz także, jakich wtyczek i jakiego szablonu używasz. Musimy wiedzieć, *w jakim stanie obecnie jest problem*, w jaki sposób *my możemy go odtworzyć u siebie* oraz co próbowałeś robić samemu, żeby go naprawić.
 
 Contributing
 ------------
