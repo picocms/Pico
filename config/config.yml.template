@@ -1,17 +1,17 @@
 ##
-# Basic
+# Podstawowe ustawienia
 #
-site_title: Pico                    # The title of your website
-base_url: ~                         # Pico will try to guess its base URL, if this fails, override it here
-                                    #     Example: http://example.com/pico/
-rewrite_url: ~                      # A boolean (true or false) indicating whether URL rewriting is forced
-timezone: UTC                       # Your PHP installation might require you to manually specify a timezone
+site_title: Pico                    # Tytuł Twojej strony.
+base_url: ~                         # Pico spróbuje samemu odczytać adres swojej instalacji. Jeśli powstanie błąd, możesz go tutaj wpisać.
+                                    # Przykład: https://example.com/pico
+rewrite_url: ~                      # Opcja true/false, opcjonalnie wskazująca, czy wymuszać użycie mod_rewrite
+timezone: UTC                       # PHP może wymagać deklaracji strefy czasowej
 
 ##
-# Theme
+# Szablon
 #
-theme: default                      # The name of your custom theme
-theme_url: ~                        # Pico will try to guess the URL to the themes dir of your installation
+theme: default                      # Nazwa Twojego szablonu (taka sama, jak folderu, w którym się znajduje)
+theme_url: ~                        # Pico spróbuje samemu odczytać adres, pod którym znajdują się pliki szablonu
                                     #     If this fails, override it here. Example: http://example.com/pico/themes/
 theme_config:
     widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
