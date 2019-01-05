@@ -12,27 +12,26 @@ timezone: UTC                       # PHP może wymagać deklaracji strefy czaso
 #
 theme: default                      # Nazwa Twojego szablonu (taka sama, jak folderu, w którym się znajduje)
 theme_url: ~                        # Pico spróbuje samemu odczytać adres, pod którym znajdują się pliki szablonu
-                                    #     If this fails, override it here. Example: http://example.com/pico/themes/
+                                    # W razie błędu możesz go tutaj wpisać. Przykład: http://example.com/themes/default
 theme_config:
-    widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
+    widescreen: false               # Dla domyślnego szablonu: TRUE/FALSE - używaj trybu większej szerokości treści.
 twig_config:
-    cache: false                    # Enable Twig template caching by specifying a path to a writable directory
+    cache: false                    # Włącz funkcję cache dla Twiga (TRUE/FALSE)
     autoescape: false               # Let Twig escape variables by default
-    debug: false                    # Enable Twig's debugging mode
+    debug: false                    # Tryb debugowania Twiga (TRUE/FALSE)
 
 ##
-# Content
+# Kontent na stronie
 #
-date_format: %D %T                  # Pico's default date format
-                                    #     See http://php.net/manual/en/function.strftime.php for more info
-pages_order_by_meta: author         # Sort pages by meta value "author" (set "pages_order_by" to "meta")
-pages_order_by: alpha               # Change how Pico sorts pages ("alpha" for alphabetical order, "date", or "meta")
+date_format: %D %T                  # Domyślny format wyświetlania dat (zobacz http://php.net/manual/en/function.strftime.php)
+pages_order_by_meta: author         # Po jakim meta tagu Pico ma sortować strony? (działa tylko, gdy "pages_order_by" jest ustawione na "meta")
+pages_order_by: alpha               # Jak Pico ma sortować strony w menu? ("alpha" dla kolejności alfabetycznej, "date" - data, lub "meta" - zobacz wyżej)
 pages_order: asc                    # Sort pages in ascending ("asc") or descending ("desc") order
 content_dir: content/               # The path to Pico's content directory
 content_ext: .md                    # The file extension of your Markdown files
 content_config:
-    extra: true                     # Use the Parsedown Extra parser to support extended markup
-                                    #     See https://michelf.ca/projects/php-markdown/extra/ for more info
+    extra: true                     # Włącz możliwość używania Parsedown Extra - ulepszonej składni Markdowna
+                                    #  https://michelf.ca/projects/php-markdown/extra/
     breaks: false                   # A boolean indicating whether breaks in the markup should be reflected in the
                                     #     parsed contents of the page
     escape: false                   # Escape HTML markup in your content files; don't confuse this with some sort of
@@ -40,11 +39,14 @@ content_config:
     auto_urls: true                 # Automatically link URLs found in your markup
 
 ##
-# Plugins
+# Wtyczki
 #
-DummyPlugin.enabled: false          # Force the plugin "DummyPlugin" to be disabled
+DummyPlugin.enabled: false          # Wymuś włączenie/wyłączenie wtyczki "DummyPlugin" w CMSie
 
 ##
-# Custom
+# Własne ustawienia
 #
-my_custom_setting: Hello World!     # You can access custom settings in themes using {{ config.my_custom_setting }}
+moje_wlasne_ustawienie: Pico jest super
+my_own_setting_in_English: Pico is great  # Tutaj masz przykłady własnych ustawień. Są one dostępne w Twigu jako
+                                          # {{ config.moje_wlasne_ustawienie }} / {{ config.my_own_setting_in_English }}.
+                                          # Oczywiście możesz dodawać własne wyrażenia :)
