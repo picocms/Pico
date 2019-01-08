@@ -61,18 +61,20 @@ Aaa! Więc jesteś jedną z tych osób, która wie, jak technicznie działa CMS 
 * [domyślny szablon tego CMS'a][PicoThemeGit],
 * [wtyczkę `PicoDeprecated`][PicoDeprecatedGit], umożliwiającą zgodność najnowszej wersji CMS'a z wtyczkami i szablonami pisanymi pod starsze wersje.
 
-Możesz przygotować również [Pico's Composer starter project][PicoComposerGit] and include all of Pico's components using local packages.
+Możesz przygotować sobie również również [projekt Pico w aplikacji Composer][PicoComposerGit] i dołączyć do niego brakujące elementy, używając lokalnych pakietów. 
 
-Using Pico's Git repositories is different from using one of the installation methods elucidated above. It gives you the current development version of Pico, what is likely *unstable* and *not ready for production use*!
+Pamiętaj o tym, że na GitHubie (w sensie to repozytorium) jest aktualizowane na bieżąco. Oznacza to, że to tutaj dokonują się w pierwszej kolejności poprawki, z których dopiero składa się aktualizacje. Może to wywoływać bugi, więc pamiętaj - Pico z GitHuba jest niestabilne.
 
-1. Open a shell and navigate to the desired directory of Pico's development workspace within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. Download and extract Pico's Composer starter project into the `workspace` directory:
+1. Otwórz terminal i przejdź do katalogu, w którym docelowo będzie się znajdowało deweloperskie wydanie Pico. Powinieneś/Powinnaś ustawić go jako katalog serwowania strony internetowej przez Twój server (np. w Apache zmień adres w opcji *DocumentRoot* albo dodaj swój folder do innego portu). Przykładowa lokalizacja: `/var/www/picocms-dev`.
+
+2. Pobierz i rozpakuj gotową paczkę z projektem startowym w Composerze do docelowego katalogu. W tym przykładzie dodatkowo zmieniamy nazwę podkatalogu, do którego projekt został rozpakowany na *workspace*, więc docelowym katalogiem Twojej pracy zostanie `/var/www/picocms-dev/workspace`:
 
     ```shell
     $ curl -sSL https://github.com/picocms/pico-composer/archive/master.tar.gz | tar xz
     $ mv pico-composer-master workspace
     ```
 
-2. Clone the Git repositories of all Pico components (Pico's core, Pico's default theme and the `PicoDeprecated` plugin) into the `components` directory:
+3. Będąc w katalogu wyżej od `workspace` (w przykładzie `/var/www/picocms-dev`), utwórz w nim dodatkowy podkatalog `components` i sklonuj do niego (w sensie `components`) repozytoria trzech podstawowych składników Pico:
 
     ```shell
     $ mkdir components
@@ -81,7 +83,7 @@ Using Pico's Git repositories is different from using one of the installation me
     $ git clone https://github.com/picocms/pico-deprecated.git components/pico-deprecated
     ```
 
-3. Instruct Composer to use the local Git repositories as replacement for the `picocms/pico` (Pico's core), `picocms/pico-theme` (Pico's default theme) and `picocms/pico-deprecated` (the `PicoDeprecated` plugin) packages. Update the `composer.json` of your development workspace (i.e. `workspace/composer.json`) accordingly:
+4. W Twoim katalogu pracy znajduje się plik `composer.json`. Zaktualizuj go tak, żeby użył uprzednio sklonowanych przez Ciebie repozytoriów zamiast pobierać stabilne wersje z serwerów. Tutaj masz przykład gotowej zmiany:
 
     ```json
     {
@@ -111,47 +113,50 @@ Using Pico's Git repositories is different from using one of the installation me
     }
     ```
 
-4. Download Composer and run it with the `install` option:
+Pamiętaj, że repozytoria oznaczają odpowiednio: `pico` - główne repozytorium Pico, `pico-theme` - domyślny szablon i `pico-deprecated` - wtyczka PicoDeprecated.
+
+4. Zainstaluj aplikację Composer i za jej pomocą skończ przygotowywanie katalogu komendą `install`:
 
     ```shell
     $ curl -sSL https://getcomposer.org/installer | php
     $ php composer.phar --working-dir=workspace install
     ```
 
-You can now open your web browser and navigate to Pico's development workspace. All changes you make to Pico's components will automatically be reflected in the development workspace.
+Możesz teraz otworzyć swoją przeglądarkę (pamiętając o tym, jak skonfigurowałeś swój serwer). Powinienieś teraz zobaczyć stronę domyślną Pico. Wszystkie zmiany, które przeprowadzisz w częściach tego systemu, będziesz mógł natychmiast zaobserwować na ekranie.
 
-By the way, you can also find all of Pico's components on [Packagist.org][Packagist]: [Pico's core][PicoPackagist], [Pico's default theme][PicoThemePackagist], the [`PicoDeprecated` plugin][PicoDeprecatedPackagist] and [Pico's Composer starter project][PicoComposerPackagist].
+Wszystkie komponenty Pico możesz znaleźć również w serwisie [Packagist.org][Packagist]: [główne jądro][PicoPackagist], [domyślny szablon][PicoThemePackagist], [wtyczka `PicoDeprecated`][PicoDeprecatedPackagist] i [startowy projekt w Composerze][PicoComposerPackagist].
 
-Upgrade
--------
+Aktualizacja systemu
+--------------------
 
-Do you remember when you installed Pico? It was ingeniously simple, wasn't it? Upgrading Pico is no difference! The upgrade process differs depending on whether you used [Composer][] or a pre-bundled release to install Pico. Please note that you should *always* create a backup of your Pico installation before upgrading!
+Pamiętasz moment, gdy instalowałeś Pico? Łatwo było, co nie? Aktualizację się robi bardzo podobnie. Proces aktualizacji różni się przebiegiem w zależności od metody pierwszej installacji. Niezależnie od tego czynnika, *zawsze* warto przygotować sobie kopię zapasową treści Twojej strony.
 
-Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. When we update the `PATCH` version (e.g. `2.0.0` to `2.0.1`), we made backwards-compatible bug fixes. If we change the `MINOR` version (e.g. `2.0` to `2.1`), we added functionality in a backwards-compatible manner. Upgrading Pico is dead simple in both cases. Simply head over to the appropiate Upgrade sections below.
+Pico korzysta z [semantycznego wersjonowania][SemVer] (standard w wersji 2.0.0), a co za tym idzie, numeracja kolejnych wersji CMS'a odbywa się w schemacie `MAJOR`.`MINOR`.`PATCH`. Gdy aktualizacja zmienia numerek `PATCH` (np. `2.0.0` -> `2.0.1`), oznacza to, że zawiera ona głównie poprawki błędów. Natomiast gdy zmienionym numerkiem jest `MINOR` (np. `2.0.5` -> `2.1.0`), dodaje ona ważniejsze zmiany, które jednak nie powinny zaburzać wstecznej kompatybilności ze starszymi wydaniami.
 
-But wait, we forgot to mention what happens when we update the `MAJOR` version (e.g. `2.0` to `3.0`). In this case we made incompatible API changes. We will then provide a appropriate upgrade tutorial, so please head over to the ["Upgrade" page on our website][HelpUpgrade].
+Ostatnią możliwą sytuacją jest zmiana numerka `MINOR` (np. `2.0` -> `3.0`), co oznacza wprowadzenie bardzo ważnych nowości, które mogą (zwykle są) niekompatybilne z poprzednimi odsłonami API. W takiej sytuacji udostępnimy Wam dodatkowe informacje o aktualizacji oraz poradniki co i jak, więc spokojnie ;) Udaj się wtedy do [sekcji "Upgrade" na stronie Pico][HelpUpgrade]
 
-### I've used Composer to install Pico
+### Używałem/am Composera
 
-Upgrading Pico is dead simple if you've used Composer to install Pico. Simply open a shell and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. You can now upgrade Pico using just a single command:
+Pamiętasz, gdy było napisane, że zalecamy używać Composera do zainstalowania Pico? Dzięki temu możesz zaktualizować CMS'a jedną komendą w terminalu, wykonaną w katalogu, w którym znajduje się Twoja strona internetowa:
 
 ```shell
 $ php composer.phar update
 ```
 
-That's it! Composer will automatically update Pico and all plugins and themes you've installed using Composer. Please make sure to manually update all plugins and themes you've installed manually.
+Composer dokona automatycznej aktualizacji wszystkich tematów, wtyczek oraz oczywiście jądra Pico. **Ważna rzecz**: wszystkie tematy i wtyczki ręcznie wgrywane do systemu nie zostaną zaktualizowane, musisz tego dokonać samemu (w razie potrzeby).
 
-### I've used a pre-bundled release to install Pico
+### Używałem/am gotowego wydania (paczki do wgrania na serwer)
 
-Okay, installing Pico was easy, but upgrading Pico is going to be hard, isn't it? I'm affraid I have to disappoint you... It's just as simple as installing Pico!
+Nie martw się, nie będziesz miał/miała trudniejszej drogi do zaktualizowania Pico!
 
-First you'll have to delete the `vendor` directory of your Pico installation (e.g. if you've installed Pico to `/var/www/html/pico`, delete `/var/www/html/pico/vendor`). Then [download the latest Pico release][LatestRelease] and upload all files to your existing Pico installation directory. You will be prompted whether you want to overwrite files like `index.php`, `.htaccess`, ... - simply hit "Yes".
+Na początku usuń subfolder `vendor` z katalogu, w którym zainstalowany jest Pico (przykładowo, gdy Pico znajduje się w `/var/www/html`, usuń `/var/www/html/vendor`). Następnie [pobierz najnowszą gotową paczkę] i skopiuj wszystkie pliki z niej do katalogu z zainstalowaną starszą wersją. Zgódź się na nadpisanie plików (np. `index.php`, `.htaccess` itd.). Automatycznie skopiuje to także cały folder `vendor` i zaktualizuje biblioteki używane przez system.
 
-That's it! Now that Pico is up-to-date, you need to update all plugins and themes you've installed.
+To już wszystko - wejdź na swoją stronę i sprawdź, czy otwiera się poprawnie.
 
-### I'm a developer
+### Jestem programistą / webdesignerem
 
-As a developer you should know how to stay up-to-date... 😉 For the sake of completeness, if you want to upgrade Pico, simply open a shell and navigate to Pico's development workspace (e.g. `/var/www/html/pico`). Then pull the latest commits from the Git repositories of [Pico's core][PicoGit], [Pico's default theme][PicoThemeGit] and the [`PicoDeprecated` plugin][PicoDeprecatedGit]. Let Composer update your dependencies and you're ready to go.
+Jako programista powinieneś/powinnaś wiedzieć, jak być ze wszystkim na bieżąco... ;)
+Jeśli utworzyłeś sobie miejsce pracy z repozytoriów i projektu startowego na Composerze, dokonaj w katalogach ze sklonowanymi repozytoriami Gita aktualizacji do najnowszej wersji. Następnie zaktualizuj projekt za pomocą Composera. Już, to wszystko.
 
 ```shell
 $ git -C components/pico pull
@@ -177,18 +182,18 @@ Jeśli nie znalazłeś/aś szukanej przez Ciebie odpowiedzi w dokumentacji, nie 
 
 **Przed rozpoczęciem dyskusji na GitHubie** upewnij się, że już ktoś o to nie zapytał, używając [wyszukiwarki][IssuesSearch]. Zawsze opisuj swój problem tak dokładnie, jak tylko potrafisz, podając jak najwięcej szczegółów. Oczywistą koniecznością będzie podanie używanej wersji Pico, powiedz także, jakich wtyczek i jakiego szablonu używasz. Musimy wiedzieć, *w jakim stanie obecnie jest problem*, w jaki sposób *my możemy go odtworzyć u siebie* oraz co próbowałeś robić samemu, żeby go naprawić.
 
-Contributing
-------------
+Udział w projekcie
+------------------
 
-You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
+Chciałbyś/Chciałabyś włożyć swoją cegiełkę w rozwój Pico? Jesteś dokładnie tą osobą, której potrzebujemy! Możesz nam pomóc przez [zmiany kodu źródłowego][PullRequests] i [zgłaszanie problemów][Issues]. Prosimy jednak o zapoznanie się z [zasadami udziału w projekcie][ContributionGuidelines]. Możesz działać w tych sektorach:
 
-1. Plugins & Themes: You're a plugin developer or theme designer? We love you guys! You can find tons of information about how to develop plugins and themes at http://picocms.org/development/. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes][WikiThemes] page. You may also [Submit][] it to our website, where it'll be displayed on the official [plugin][OfficialPlugins] or [theme][OfficialThemes] pages!
+1. Wtyczki i tematy: Potrafisz napisać wtyczkę i/lub przeportować szablon do Pico, a może nawet stworzyć coś samemu? Czeka na Ciebie potężne wsparcie na specjalnej wiki dla deweloperów: http://picocms.org/development (po angielsku). Jeśli już coś stworzyłeś, możesz to dodać do [wiki dla użytkowników]. Stworzone są tam dwie sekcje: [dla wtyczek][WikiPlugins] i [dla szablonów stron][WikiThemes]. Możesz nawet [zaproponować ją do dodania strony projektu][]. Jeśli społeczność projektu zaakceptuje Twoją propozycję, będziesz mógł zobaczyć ją na oficjalnej stronie, odpowiednio [dla wtyczek][OfficialPlugins] bądź [szablonów stron][OfficialThemes]!
 
-2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork our website's Git repository from https://github.com/picocms/picocms.github.io, change the Markdown files and open a [pull request][PullRequestsWebsite].
+2. Dokumentacja: Jeśli masz już doświadczenie w używaniu Pico, możesz przekuć je w dokumentację dla innych. Zarówno [domyślna strona dla świeżo zainstalowanego CMS'a][EditInlineDocs], jak i [wiki użytkownika][EditUserDocs], a także [wiki dewelopera][EditDevDocs] są hostowane na GitHubie, więc możesz śmiało skopiować repozytorium naszej strony: https://github.com/picocms/picocms.github.io, dokonać swoich zmian i otworzyć [nowy pull request][PullRequestsWebsite].
 
-3. Pico's Core: The supreme discipline is to work on Pico's Core. Your contribution should help *every* Pico user to have a better experience with Pico. If this is the case, fork Pico from https://github.com/picocms/Pico and open a [pull request][PullRequests]. We look forward to your contribution!
+3. Jądro systemu: Tutaj sprawa zaczyna być poważna. Ważne jest to, że Twoja zmiana powinna pomagać *każdemu* użytkownikowi Pico w użyciu tego systemu. Jeśli ten warunek się u Ciebie sprawdza, po prostu sklonuj [repozytorium Pico](https://github.com/picocms/Pico) i otwórz [pull request][PullRequests].
 
-By contributing to Pico, you accept and agree to the *Developer Certificate of Origin* for your present and future contributions submitted to Pico. Please refer to the ["Developer Certificate of Origin" section in our `CONTRIBUTING.md`][ContributionGuidelinesDCO].
+Każda pomoc w projekcie jest mile widziana! :) Pamiętaj o zapoznaniu się z zasadami uczestnictwa w projekcie, zwłaszcza z sekcją [*Developer Certificate of Origin*][ContributionGuidelinesDCO].
 
 You don't have time to contribute code to Pico, but still want to "stand a coffee" for the ones who do? You can contribute monetary to Pico using [Bountysource][], a crowd funding website that focuses on individual issues and feature requests. Just refer to the "Bounties and Fundraisers" section below for more info.
 
