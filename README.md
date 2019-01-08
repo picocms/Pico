@@ -195,20 +195,16 @@ Chciałbyś/Chciałabyś włożyć swoją cegiełkę w rozwój Pico? Jesteś dok
 
 Każda pomoc w projekcie jest mile widziana! :) Pamiętaj o zapoznaniu się z zasadami uczestnictwa w projekcie, zwłaszcza z sekcją [*Developer Certificate of Origin*][ContributionGuidelinesDCO].
 
-You don't have time to contribute code to Pico, but still want to "stand a coffee" for the ones who do? You can contribute monetary to Pico using [Bountysource][], a crowd funding website that focuses on individual issues and feature requests. Just refer to the "Bounties and Fundraisers" section below for more info.
+Nie masz czasu, żeby wspierać nas w pisaniu kodu źródłowego, jednak chciałbyś nam jakkolwiek pomóc? Możesz dokonać tego pieniężnie, używając crowdfundingowej strony [Bountysource][]. Po więcej informacji zerknij poniżej.
 
-Bounties and Fundraisers
-------------------------
+Wsparcie pieniężne i zlecenia
+-----------------------------
 
-Pico uses [Bountysource][] to allow monetary contributions to the project. Bountysource is a crowd funding website that focuses on individual issues and feature requests in Open Source projects using micropayment. Users, or "Backers", can pledge money for fixing a specific issue, implementing new features, or developing a new plugin or theme. Open source software developers, or "Bounty Hunters", can then pick up and solve these tasks to earn the money.
+Pico używa strony [Bountysource], dzięki której możecie wpłacać środki na działanie projektu i wysyłać nam Wasze prośby w formie "zleceń". Użytkownicy mogą w specjalnej sekcji dotyczącej naszego systemu otworzyć prośbę o naprawienie jakiegoś problemu czy napisanie pluginu bądź szablonu. Programiści mogą wybierać sobie zadania, będąc w stałym kontakcie z osobą, która je otworzyła, i je wykonać, przy okazji zarabiając troszkę pieniędzy. Oczywiście taka zapłata nie zastąpi im pełnowymiarowej pracy. Można to raczej ująć jako coś w stylu "postawienia kawy", przy okazji zbliżając do siebie osób używających danych funkcji oraz osób programujących te funkcje. Programiści dodatkowo mogą bliżej poznać potrzeby użytkowników i użyteczność Pico z ich perspektywy. Istnieje także możliwość wpłacenia pieniędzy na sam projekt, co także nas miło wesprze.
 
-Obviously this won't allow a developer to replace a full time job, it's rather aiming to "stand a coffee". However, it helps bringing users and developers closer together, and shows developers what users want and how much they care about certain things. Nevertheless you can still donate money to the project itself, as an easy way to say "Thank You" and to support Pico.
+Jeśli chciałbyś zaangażować kogoś do [naprawienia usterki w systemie][Issues] bądź dodania nowej funkcji, możesz [dodać nowe zlecenie][Bountysource] w Bountysource lub odwołać się do już istniejącego. Jako programista nie musisz być oficjalnym deweloperem Pico. Jak już widzisz, nasz projekt jest otwarty dla wszystkich - każdy może wybrać sobie zlecenie ;)
 
-If you want to encourage developers to [fix a specific issue][Issues] or implement a feature, simply [pledge a new bounty][Bountysource] or back an existing one.
-
-As a developer you can pick up a bounty by simply contributing to Pico (please refer to the "Contributing" section above). You don't have to be a official Pico Contributor! Pico is a Open Source project, anyone can open [pull requests][PullRequests] and claim bounties.
-
-Official Pico Contributors won't claim bounties on their own behalf, Pico will never take any money out of Bountysource. All money collected by Pico is used to pledge new bounties or to support projects Pico depends on.
+Osoby oficjalnie biorące udział w projekcie nigdy nie wezmą pieniędzy zebranych na rzecz Pico dla siebie. Deklarujemy, że wszystkie pieniądze zebrane w ramach Bountysource są wykorzystywane do wspierania projektów, na których Pico polega oraz na tworzenie nowych zleceń.
 
 [Composer]: https://getcomposer.org/
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
