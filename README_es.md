@@ -158,11 +158,11 @@ Obtener ayuda
 
 #### Obtener ayuda como usuario
 
-Si desea comenzar a utilizar Pico, consulte la [documentación del usuario][HelpUserDocs] (¡la está leyendo en este momento!). Por favor, lea las [notas de actualización][HelpUpgrade] si desea actualizar de Pico 1.0 a Pico 2.0. Puede encontrar los [complementos][OfficialPlugins] y [temas][OfficialThemes] oficiales y compatibles aquí en nuestro sitio web. Además, podrá encontrar una variedad de complementos y temas en nuestra [Wiki][] en sus respectivas páginas de  [complementos][WikiPlugins] y [temas][WikiThemes]. Si desea crear su propio complemento o tema, consulte la sección  ["Obtener ayuda como desarrollador"][HelpDevOverview] a continuación.
+Si desea comenzar a utilizar Pico, consulte la [documentación del usuario][HelpUserDocs] (¡la está leyendo en este momento!). Por favor, lea las [notas de actualización][HelpUpgrade] si desea actualizar de Pico 1.0 a Pico 2.0. Puede encontrar los [complementos][OfficialPlugins] y [temas][OfficialThemes] oficiales y compatibles aquí en nuestro sitio web. Además, podrá encontrar una variedad de complementos y temas en nuestra [Wiki][] en sus respectivas páginas de  [complementos][WikiPlugins] y [temas][WikiThemes]. Si desea crear su propio complemento o tema, consulte la sección  "Obtener ayuda como desarrollador a continuación.
 
 #### Obtener ayuda como desarrollador
 
-Si es un desarrollador, consulte la sección ["Contribuciones"][HelpDevContribute] más adelante y nuestras [pautas para contribuir][ContributionGuidelines]. Para comenzar a crear un complemento o tema, lea la [documentación del desarrollador][HelpDevDocs] en nuestro sitio web.
+Si es un desarrollador, consulte la sección "Contribuciones" más adelante y nuestras [pautas para contribuir][ContributionGuidelines]. Para comenzar a crear un complemento o tema, lea la [documentación del desarrollador][HelpDevDocs] en nuestro sitio web.
 
 #### ¿Todavía necesita ayuda o alguna experiencia en algún problema con Pico?
 
