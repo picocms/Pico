@@ -72,7 +72,7 @@ En la parte superior de estos archivos, puede colocar un bloque de comentarios y
     ---
 
 Estos valores estarán contenidos en la variable `{{ meta }}` de los temas (vea más abajo). Los encabezados meta a veces tienen un significado especial, por ejemplo: Pico no solo pasa el encabezado meta `Date` (fecha), sino que lo evalúa para "entender" realmente cuando fue que se creó esta página. Esto entra en juego cuando se desea ordenar las páginas no solo alfabéticamente, sino también por fecha. Otro ejemplo es el encabezado meta `Template` (plantilla): el mismo controla qué plantilla Twig utilizará Pico para visualizar esta página (por ejemplo: si añade `Template:blog`, entonces Pico usará `blog.twig`).
-	
+​	
 También hay otras variables que puedes usar en tus archivos de texto:
 
 * <code>&#37;site_title&#37;</code> - El título de tu sitio
@@ -159,7 +159,7 @@ Las páginas se pueden utilizar de la siguiente forma:
 
 Además de utilizar la lista `{{ pages }}`, también puede acceder a las mismas usando el árbol de páginas de Pico. El árbol de páginas le permite recorrer en iteración las páginas del sitio utilizando una estructura de árbol, por lo que puede, por ejemplo, iterar directamente con sólo las páginas hijas. También le permite construir menús recursivos y filtrar páginas más fácilmente. Para ello, consulte la [documentación del árbol de páginas de Pico][FeaturesPageTree] para más detalles.
 
-Para llamar a los recursos (assets) desde su tema, utilice `{{theme_url}}`. Por ejemplo, para incluir un archivo CSS `themes/my_theme/example.css`, añada `<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />` a su `index.twig`. Esto funciona para cualquier archivo dentro de la carpeta de su tema, incluyendo imágenes y archivos JavaScript.
+Para llamar a los recursos (*assets*) desde su tema, utilice `{{theme_url}}`. Por ejemplo, para incluir un archivo CSS `themes/my_theme/example.css`, añada `<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />` a su `index.twig`. Esto funciona para cualquier archivo dentro de la carpeta de su tema, incluyendo imágenes y archivos JavaScript.
 
 Además de la extensa lista de filtros, funciones y etiquetas de Twigs, Pico también proporciona filtros adicionales y útiles para facilitar la tematización.
 
@@ -168,7 +168,7 @@ Además de la extensa lista de filtros, funciones y etiquetas de Twigs, Pico tam
 * Pasar cualquier cadena de texto de Markdown usando el filtro `markdown` (por ejemplo: podría utilizar Markdown en la variable meta `description` y luego pasarla a su tema con `{{ meta.description|markdown }}`). Así mismo puede pasar los metadatos como parámetros para reemplazar los marcadores `%meta.*%` (por ejemplo: `{{ "Escrito *por %meta.author%*"|markdown(meta) }}` producirá "Escrito por *John Doe*").
 * Las matrices (arrays) se pueden ordenar por una de sus claves utilizando el filtro `sort_by` filter (por ejemplo: `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}` hace una iteración a través de todas las páginas, ordenándolas por el encabezado meta `nav`; tenga en cuenta que la parte `[ 'meta', 'nav' ]` del ejemplo, le indica a Pico que ordene por `page.meta.nav`). Los elementos que no se pudieron ordenar se mueven a la parte inferior de la matriz; puede especificar `bottom` (mover los elementos a la parte inferior; valor predeterminado), `top` (mover los elementos a la parte superior), `keep` (mantener el orden sin cambios) o `remove` (eliminar los elementos) como el segundo parámetro para cambiar este comportamiento.
 * Devolver todos los valores claves de la matriz dada utilizando el filtro `map` (por ejemplo: `{{ pages|map("title") }}` devuelve todos los títulos de las páginas).
-* Use las funciones `url_param` and `form_param` de Twig para acceder a los parámetros HTTP GET (es decir, a una cadena de texto de consulta a una URL como `?some-variable=my-value`) y HTTP POST (los datos de un formulario enviado). Esto le permite implementar funcionalidades como la paginación, etiquetas y categorías, páginas dinámicas y mucho más, ¡todo con Twig puro! Sencillamente diríjase a nuesra [página de introducción a los parámetros de acceso HTTP][FeaturesHttpParams] para más detalles.
+* Use las funciones `url_param` and `form_param` de Twig para acceder a los parámetros HTTP GET (es decir, a una cadena de texto de consulta a una URL como `?some-variable=my-value`) y HTTP POST (los datos de un formulario enviado). Esto le permite implementar funcionalidades como la paginación, etiquetas y categorías, páginas dinámicas y mucho más, ¡todo con Twig puro! Sencillamente diríjase a nuestra [página de introducción a los parámetros de acceso HTTP][FeaturesHttpParams] para más detalles.
 
 Puede utilizar diferentes plantillas para diferentes archivos de contenido especificando en la mismas el encabezado meta `Template`. Para ello, añada por ejemplo `Template: blog` al encabezado YAML de un archivo de contenido y Pico usará la plantilla `blog.twig` de su carpeta de temas para mostrar la página.
 

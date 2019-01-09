@@ -27,16 +27,16 @@ Pico requiere PHP 5.3.6+
 
 Comenzando con Pico 2.0, recomendamos instalarlo utilizando Composer siempre que le sea posible. ¡Confíe en nosotros, no se arrepentirá cuando se trate de actualizar Pico! De todos modos, si no desea utilizar Composer, o simplemente no puede usarlo, no se desespere, la instalación de Pico con una versión empaquetada es todavía ¡más fácil que todo lo que conoce!
 
-##### Paso 1
+###### Paso 1
 
-Abra un intérprete de órdenes y navegue hasta el directorio `httpdocs` (p. ej.: `/var/www/html`) de su servidor. Descargue Composer y ejecútelo con la opción `create-project` para instalarlo en la carpeta deseada (p. ej.: `/var/www/html/pico`):
+Abra un intérprete de órdenes (shell) y navegue hasta el directorio `httpdocs` (p. ej.: `/var/www/html`) de su servidor. Descargue Composer y ejecútelo con la opción `create-project` para instalarlo en la carpeta deseada (p. ej.: `/var/www/html/pico`):
 
 ```shell
 $ curl -sSL https://getcomposer.org/installer | php
 $ php composer.phar create-project picocms/pico-composer .
 ```
 
-##### Paso 2
+###### Paso 2
 
 ¿Cuál es el segundo paso? Pues, no hay un segundo paso. ¡Eso es todo! Abra su navegador web favorito y navegue a su nuevo, estúpidamente sencillo, asombroso y rápido ¡CMS de archivos planos! Los contenidos predeterminados de Pico le explicarán cómo crear sus propios contenidos.
 
@@ -44,17 +44,17 @@ $ php composer.phar create-project picocms/pico-composer .
 
 ¿Conoce esa sensación de que quiere instalar un nuevo sitio web, así que sube todos los archivos de su CMS favorito y al ejecutar el código de configuración, descubre que se le olvidó crear la base de datos SQL primero? Más tarde, dicho código de configuración le dice que los permisos de los archivos son incorrectos. Demonios, ¿qué significa esto? Pues olvídelo, ¡Pico es diferente!
 
-#### Paso 1
+###### Paso 1
 
 [Descargue la última versión de Pico][LatestRelease] y suba todos los archivos al directorio de instalación deseado dentro de  `httpdocs` (p. ej.:  `/var/www/html/pico`) de su servidor.
 
-#### Paso 2
+###### Paso 2
 
 Bien, aquí está la trampa: no hay trampa. ¡Eso es todo! Abra su navegador web favorito y navegue a su nuevo ¡CMS de archivos sencillos, estúpidamente simple y brillantemente rápido! Los contenidos predeterminados de Pico le explicarán cómo crear los suyos  propios.
 
 ### Soy un desarrollador
 
-Entonces, ¿eres una de esas personas increíbles que hacen todo esto posible? ¡Pues, los amamos chicos! Como desarrollador, le recomendamos que clone el [repositorio Git de Pico][PicoGit], así como los repositorios de el [tema predefinido de Pico][PicoThemeGit] y el [complemento `PicoDeprecated`][PicoDeprecatedGit]. Puede configurar su espacio de trabajo utilizando el  [proyecto inicial de Composer para Pico][PicoComposerGit] e incluir todos los componenetes de Pico usando paquetes locales.
+Entonces, ¿eres una de esas personas increíbles que hacen todo esto posible? ¡Pues, los amamos chicos! Como desarrollador, le recomendamos que clone el [repositorio Git de Pico][PicoGit], así como los repositorios de el [tema predefinido de Pico][PicoThemeGit] y el [complemento `PicoDeprecated`][PicoDeprecatedGit]. Puede configurar su espacio de trabajo utilizando el  [proyecto inicial de Composer para Pico][PicoComposerGit] e incluir todos los componentes de Pico usando paquetes locales.
 
 Usar el repositorio Git de Pico es diferente a los métodos de instalación explicados anteriormente. El mismo le ofrece la versión de desarrollo actual de Pico, ¡lo que probablemente sea *inestable* y *no esté listo para su uso en producción*!
 
@@ -103,12 +103,14 @@ Usar el repositorio Git de Pico es diferente a los métodos de instalación explic
         }
     }
     ```
+
 4. Descargue Composer e instálelo con la opción `install`:
 
     ```shell
     $ curl -sSL https://getcomposer.org/installer | php
     $ php composer.phar --working-dir=workspace install
     ```
+
 Ahora puede abrir su navegador web y navegar al espacio de trabajo de desarrollo de Pico. Todos los cambios que realice en los componentes de Pico se reflejarán automáticamente en este espacio de trabajo.
 
 Por cierto, puede también encontrar todos los componentes de Pico en [Packagist.org][Packagist]: [el núcleo de Pico][PicoPackagist], [el tema predefinido][PicoThemePackagist], el [complemento `PicoDeprecated`][PicoDeprecatedPackagist] y el [proyecto inicial de Composer para Pico][PicoComposerPackagist].
@@ -120,8 +122,7 @@ Actualizar
 
 Pico sigue las [Versiones Semánticas 2.0][SemVer] y utiliza números de versión como `MAJOR`.`MINOR`.`PATCH`. Cuando actualizamos la versión `PATCH` (como de `2.0.0` a `2.0.1`), realizamos correcciones de errores compatibles con versiones anteriores. Si cambiamos la versión `MINOR` (como de `2.0` a `2.1`), hemos agregado una funcionalidad de manera compatible también con las versiones anteriores. La actualización de Pico es completamente sencilla en ambos casos. Solo necesita ir a la sección de actualización apropiada a continuación.
 
-Pero espere, olvidamos mencionarle lo que sucede cuando actualizamos la versión `MAJOR` (p. ej.: de `2.0` a `3.0`). En este caso realizamos cambios de la API incompatibles. Por lo que le proporcionaremos un tutorial de actualización apropiado, así que diríjase a la [página "Actualizar"][HelpUpgrade].
-
+Pero espere, olvidamos mencionarle lo que sucede cuando actualizamos la versión `MAJOR` (p. ej.: de `2.0` a `3.0`). En este caso realizamos cambios incompatibles en la API. Por lo que le proporcionaremos un tutorial de actualización apropiado, así que diríjase a la [página "Actualizar" de nuestro sitio][HelpUpgrade].
 
 ### He usado Composer para instalar Pico
 
@@ -174,15 +175,15 @@ Contribuir
 
 ¿Quiere contribuir con Pico? ¡Realmente lo apreciamos! Puede ayudar a mejorar Pico [contribuyendo con código][PullRequests] o [reportando problemas][Issues], pero tome nota de nuestras [pautas para contribuir][ContributionGuidelines]. En general, puede contribuir en tres áreas diferentes:
 
-1. Complementos y temas: ¿Eres un desarrollador de complementos o un diseñador de temas? ¡Los amamos chicos! Puede encontrar toneladas de información sobre cómo desarrollar complementos y temas en [{{ site.github.url }}/development/][PluginDocs]. Si ha creado un complemento o tema, por favor, agréguelo a nuestra [Wiki][Wiki], o en la página de [complementos][WikiPlugins] o [temas][WikiThemes]. Puede también [enviarlo][] a nuestro sitio web, ¡donde se mostrará en la página oficial de [complementos][OfficialPlugins] o [temas][OfficialThemes]!.
+1. Complementos y temas: ¿Eres un desarrollador de complementos o un diseñador de temas? ¡Los amamos chicos! Puede encontrar toneladas de información sobre cómo desarrollar complementos y temas en http://picocms.org/development/. Si ha creado un complemento o tema, por favor, agréguelo a nuestra [Wiki][Wiki], o en la página de [complementos][WikiPlugins] o [temas][WikiThemes]. Puede también [enviarlo][Submit] a nuestro sitio web, ¡donde se mostrará en la página oficial de [complementos][OfficialPlugins] o [temas][OfficialThemes]!.
 
-2. Documentación: Siempre apreciamos a las personas que mejoran nuestra documentación. Puede mejorar los [documentos del usuario en línea][EditInlineDocs] o los [documentos más extensos del usuario en nuestro sitio web][EditUserDocs]. Puede también mejorar la [documentación para los desarrolladores de plugins y temas][EditDevDocs]. Sencillamente haga una bifurcación del repositorio Git desde [{{ site.gh_pages_url }}][GitHubWebsite], haga las modificaciones deseadas a los archivos Markdown y abra una [solicitud de fusión][PullRequestsWebsite].
+2. Documentación: Siempre apreciamos a las personas que mejoran nuestra documentación. Puede mejorar los [documentos del usuario en línea][EditInlineDocs] o los mas extensos [documentos del usuario en nuestro sitio web][EditUserDocs]. Puede también mejorar la [documentación para los desarrolladores de plugins y temas][EditDevDocs]. Sencillamente haga una bifurcación del repositorio Git desde https://github.com/picocms/picocms.github.io, haga las modificaciones deseadas a los archivos Markdown y abra una [solicitud de fusión][PullRequestsWebsite].
 
-3. El núcleo de Pico: la disciplina suprema es trabajar en el núcleo de Pico. Su contribución debería ayudar a *cada* usuario de Pico a tener una mejor experiencia con él. Si este es el caso, bifurque Pico desde [{{ site.gh_project_url }}][GitHub] y abra una [solicitud de fusión][PullRequestsWebsite]. ¡Esperamos sus contribuciones!
+3. El núcleo de Pico: la disciplina suprema es trabajar en el núcleo de Pico. Su contribución debería ayudar a *cada* usuario de Pico a tener una mejor experiencia con él. Si este es el caso, bifurque Pico desde https://github.com/picocms/Pico y abra una [solicitud de fusión][PullRequestsWebsite]. ¡Esperamos sus contribuciones!
 
 Al contribuir con Pico, usted acepta y está de acuerdo con el *Certificado de origen del desarrollador* para sus contribuciones presentes y futuras que se envíen a Pico. Por favor, consulte la sección ["Certificado de origen del desarrollador" en nuestro `CONTRIBUTING.md`][ContributionGuidelinesDCO].
 
-¿No tiene tiempo para contribuir con Pico, pero todavía desea "invitar a un café" a aquellos que lo hacen? Pues, puede contribuir monetariamente con Pico  utilizando Bountysource][], un sitio web de financiación colectiva que se centra en problemas concretos y solicitudes de funcionalidades. Para obtener más información, consulte la sección ["Recompensas y recaudadores de fondos"] a continuación.
+¿No tiene tiempo para contribuir con Pico, pero todavía desea "invitar a un café" a aquellos que lo hacen? Pues, puede contribuir monetariamente con Pico utilizando [Bountysource][], un sitio web de financiación colectiva que se centra en problemas concretos y solicitudes de funcionalidades. Para obtener más información, consulte la sección "Recompensas y recaudadores de fondos" a continuación.
 
 Recompensas y recaudadores de fondos
 ------------------------
@@ -191,18 +192,23 @@ Pico utiliza [Bountysource][] para permitir las contribuciones monetarias al pro
 
 Obviamente, este no es un trabajo a tiempo completo, es más bien como "invitar a un café". Sin embargo, ayuda a acercar a los usuarios y los desarrolladores, y les muestra a éstos lo que los usuarios quieren y cuánto les importan ciertas cosas. No obstante, puede todavía donar dinero para el proyecto en sí, como una forma de decir "Gracias" y apoyar a Pico.
 
-Si desea animar a los desarrolldadores a [resolver un problema en específico][Issues] o implementar una funcionalidad, sencillamente prometa una nueva recompensa o respalde una existente.
+Si desea animar a los desarrolladores a [resolver un problema en específico][Issues] o implementar una funcionalidad, sencillamente prometa una nueva recompensa o respalde una existente.
 
-Como desarrollador, puede obtener una recompensa sencillamente contribuyendo con Pico (por favor, consulte la sección "Contribuir" más arriba). ¡No tiene que ser un colaborador oficial de Pico! Pico es un proyecto de código abierto, cualquiera puede abrir  [solicitudes de fusión][PullRequests] y reclamar sus recompensas.
+Como desarrollador, puede obtener una recompensa sencillamente contribuyendo con Pico (por favor, consulte la sección "Contribuir" más arriba). ¡No tiene que ser un colaborador oficial de Pico! Pico es un proyecto de código abierto, cualquiera puede abrir [solicitudes de fusión][PullRequests] y reclamar sus recompensas.
 
 Los contribuyentes oficiales de Pico no harán ningún reclamo de recompensas en su propio nombre, Pico nunca tomará dinero alguno de Bountysource. Todos los dineros recolectados por Pico se usarán para promover nuevas recompesas o para apoyar a los projectos de los cuales depende.
 
 [Composer]: https://getcomposer.org/
 [LatestRelease]: https://github.com/picocms/Pico/releases/latest
 [PicoGit]: https://github.com/picocms/Pico
-[PicoPackagist]: http://packagist.org/packages/picocms/pico
-[PicoComposerPackagist]: http://packagist.org/packages/picocms/pico-composer
-[Packagist]: http://packagist.org/
+[PicoThemeGit]: https://github.com/picocms/pico-theme
+[PicoDeprecatedGit]: https://github.com/picocms/pico-deprecated
+[PicoComposerGit]: https://github.com/picocms/pico-composer
+[Packagist]: https://packagist.org/
+[PicoPackagist]: https://packagist.org/packages/picocms/pico
+[PicoThemePackagist]: https://packagist.org/packages/picocms/pico-theme
+[PicoDeprecatedPackagist]: https://packagist.org/packages/picocms/pico-deprecated
+[PicoComposerPackagist]: https://packagist.org/packages/picocms/pico-composer
 [SemVer]: http://semver.org
 [HelpUpgrade]: http://picocms.org/in-depth/upgrade/
 [HelpUserDocs]: http://picocms.org/docs/
@@ -215,6 +221,8 @@ Los contribuyentes oficiales de Pico no harán ningún reclamo de recompensas en s
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [Issues]: https://github.com/picocms/Pico/issues
 [IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
+[Freenode]: https://webchat.freenode.net/?channels=%23picocms
+[FreenodeLogs]: http://picocms.org/irc-logs
 [PullRequests]: https://github.com/picocms/Pico/pulls
 [PullRequestsWebsite]: https://github.com/picocms/picocms.github.io/pulls
 [ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
