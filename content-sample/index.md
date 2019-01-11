@@ -1,39 +1,40 @@
 ---
-Title: Welcome
-Description: Pico is a stupidly simple, blazing fast, flat file CMS.
+Title: Witaj w Pico
+Description: Pico jest prostym do bólu, niewymagającym żadnej bazy danych, doświadczenia w stronach internetowych ani znajomości HTML'a CMS'em (systemem zarządzania treścią).
 ---
 
-## Welcome to Pico
+## Witaj w Pico
 
-Congratulations, you have successfully installed [Pico][] %version%.
-%meta.description% <!-- replaced by the above Description header -->
+Gratulujemy, właśnie zainstalowałeś [Pico][] %version%.
+%meta.description%
 
-## Creating Content
+## Tworzenie kontentu
 
-Pico is a flat file CMS. This means there is no administration backend or
-database to deal with. You simply create `.md` files in the `content` folder
-and those files become your pages. For example, this file is called `index.md`
-and is shown as the main landing page.
+Pico jest CMS'em typu *flat file*. Oznacza to, że nie potrzebuje on do działania
+żadnej bazy danych ani panelu administratora. Tworzenie nowych stron polega na
+dodawaniu plików `.md` (Markdown) do folderu `content`, które będą wypełnione
+metadanymi oraz treścią docelową. Przykładowo, plik odpowiadający za wyświetlanie
+strony domyślnej nazywa się `index.md`, dlatego jest wyświetlany jako strona główna.
 
-When you install Pico, it comes with some sample contents that will display
-until you add your own content. Simply add some `.md` files to your `content`
-folder in Pico's root directory. No configuration is required, Pico will
-automatically use the `content` folder as soon as you create your own
-`index.md`. Just check out [Pico's sample contents][SampleContents] for an
-example!
+Pico tuż po instalacji posiada kilka zapisanych stron, które wyświetlają się
+zamiast Twojego kontentu. Gdy tylko dodasz jakiś plik `.md` do folderu `content`,
+treść ta zniknie, a zamiast niej witryna zacznie być generowana z plików znajdujących
+się w `content`. Jeśli będziesz potrzebował pomocy w tworzeniu strony z Pico, możesz
+się wzorować na [treści plików `.md` domyślnych stron][SampleContents].
 
-If you create a folder within the content directory (e.g. `content/sub`) and
-put an `index.md` inside it, you can access that folder at the URL
-`%base_url%?sub`. If you want another page within the sub folder, simply create
-a text file with the corresponding name and you will be able to access it
-(e.g. `content/sub/page.md` is accessible from the URL `%base_url%?sub/page`).
-Below we've shown some examples of locations and their corresponding URLs:
+Gdy utworzysz folder w katalogu z kontentem (np. `content/sub`) i dodasz do niego
+plik `index.md`, będziesz mógł otworzyć wygenerowaną przez niego stronę pod adresem
+`%base_url%?sub`. Jeśli chcesz zmienić adres URL na jakiś inny, np. `%base_url%?sub/page`,
+wystarczy, że w katalogu `sub` utworzysz plik `page.md` i wypełnisz go treścią.
+Tak samo robi się dla każdej innej strony - wystarczy, że utworzysz plik (w razie
+potrzeby także katalogi) z odpowiadającymi adresowi nazwami. Zobacz kilka przykładów
+poniżej:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
         <tr>
-            <th style="width: 50%;">Physical Location</th>
-            <th style="width: 50%;">URL</th>
+            <th style="width: 50%;">Lokalizacja na serwerze</th>
+            <th style="width: 50%;">Adres URL</th>
         </tr>
     </thead>
     <tbody>
@@ -50,14 +51,14 @@ Below we've shown some examples of locations and their corresponding URLs:
             <td><a href="%base_url%?sub">?sub</a> (same as above)</td>
         </tr>
         <tr>
-            <td>content/sub/page.md</td>
-            <td><a href="%base_url%?sub/page">?sub/page</a></td>
+            <td>content/jakisurl/alamakota.md</td>
+            <td><a href="%base_url%?jakisurl/alamakota">?jakisurl/alamakota</a> (nie istnieje, to tylko taki przykład)</td>
         </tr>
         <tr>
-            <td>content/a/very/long/url.md</td>
+            <td>content/a/stasiek/ma/psa.md</td>
             <td>
-              <a href="%base_url%?a/very/long/url">?a/very/long/url</a>
-              (doesn't exist)
+              <a href="%base_url%?a/stasiek/ma/psa">?a/stasiek/ma/psa</a>
+              (również nie istnieje)
             </td>
         </tr>
     </tbody>
