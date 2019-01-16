@@ -57,7 +57,7 @@ Co to jest *krok drugi*? To jest wszystko! Zostało Ci tylko wejść na stronę 
 
 Aaa! Więc jesteś jedną z tych osób, która wie, jak technicznie działa CMS i mogłaby wspomóc nasz projekt? Kochamy Was! Pico jest systemem o otwartym kodzie źródłowym, więc każdy może dołożyć przysłowiową cegiełkę do systemu. Żeby zapoznać się z kodem źródłowym oraz możliwościami Pico, możesz skopiować na swój komputer trzy repozytoria składające się na ten system:
 
-* [główne repozytorium][PicoGit], 
+* [główne repozytorium][PicoGit] (to repozytorium), 
 * [domyślny szablon tego CMS'a][PicoThemeGit],
 * [wtyczkę `PicoDeprecated`][PicoDeprecatedGit], umożliwiającą zgodność najnowszej wersji CMS'a z wtyczkami i szablonami pisanymi pod starsze wersje.
 
