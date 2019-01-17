@@ -11,10 +11,10 @@ Pico jest prostym do bólu, niewymagającym żadnej bazy danych, doświadczenia 
 
 Pełna wersja dokumentacji, zarówno dla użytkowników, jak i programistów, dostępna jest aktualnie tylko w języku angielskim na oficjalnej stronie projektu: http://picocms.org (bezpośredni link do wiki dla użytkownika: http://picocms.org/docs)
 
-Screenshot
-----------
+Screenshot (po angielsku)
+-------------------------
 
-![Pico Screenshot](http://nepose.rf.gd/pico-po-polsku.png)
+![Pico Screenshot](https://camo.githubusercontent.com/403f120dd230e421ae5fb0dfe79a5cac98374736/68747470733a2f2f7069636f636d732e6769746875622e696f2f73637265656e73686f74732f7069636f2d32302e706e67)
 
 Instalacja na serwerze (hostingu)
 ----------------------
