@@ -64,92 +64,105 @@ poniżej:
     </tbody>
 </table>
 
-If a file cannot be found, the file `content/404.md` will be shown. You can add
-`404.md` files to any directory. So, for example, if you wanted to use a special
-error page for your blog, you could simply create `content/blog/404.md`.
+Jeśli jakiś plik nie będzie mógł zostać odnaleziony, zamiast niego zostanie pokazana
+strona 404, którą możesz zdefiniować w pliku `content/404.md`. Możesz dodatkowo dodać
+różne pliki `404.md` do zmiany treści tej strony dla poszczególnych podkatalogów.
+Przykładowo, gdybyś chciał(a), żeby blog wyświetlał inną stronę 404, a blog ma adres
+`%base_url%/?blog`, utwórz dla niej plik `content/blog/404.md`.
 
-Pico strictly separates contents of your website (the Markdown files in your
-`content` directory) and how these contents should be displayed (the Twig
-templates in your `themes` directory). However, not every file in your `content`
-directory might actually be a distinct page. For example, some themes (including
-Pico's default theme) use some special "hidden" file to manage meta data (like
-`_meta.md` in Pico's sample contents). Some other themes use a `_footer.md` to
-represent the contents of the website's footer. The common point is the `_`: all
-files and directories prefixed by a `_` in your `content` directory are hidden.
-These pages can't be accessed from a web browser, Pico will show a 404 error
-page instead.
+Pico osobno renderuje kontent Twojej strony (pliki `.md` w katalogu `content`)
+oraz **szablony**, czyli pliki określające, jak Twoja strona ma wyglądać (pliki
+w katalogu `themes`). Nie każdy plik w katalogu `content` pełni jednak funkcję
+definiującą daną stronę w Twojej witrynie. Przykładowo niektóre szablony (jak
+ten domyślny) pozwalają tworzyć tzw. **ukryte strony**. Są to fragmenty kodu w Markdownie,
+które mogą być metadanymi albo na przykład definiować strony w pasku nawigacji. Domyślna
+strona Pico posiada plik `_meta.md` określający wygląd dolnej stopki strony w domyślnym temacie.
+Ważny tutaj jest znak `_` przed "właściwą nazwą", ponieważ to on blokuje renderowanie strony,
+gdy przeglądarka zostanie o to zapytana. Przykładowo, gdybyś do swojej strony dodał(a)
+plik `content/_alajednakmapsa.md`, a następnie spróbował(a) otworzyć stronę
+`%base_url%?alajednakmapsa`, zamiast niej pojawi się błąd 404.
 
-As a common practice, we recommend you to separate your contents and assets
-(like images, downloads, etc.). We even deny access to your `content` directory
-by default. If you want to use some assets (e.g. a image) in one of your content
-files, you should create an `assets` folder in Pico's root directory and upload
-your assets there. You can then access them in your Markdown using
+Dobą praktyką jest oddzielenie kontentu na stronie i wszelkich dodatków, jak na przykład
+zdjęć i filmów do osadzenia na stronie czy plików do pobrania. Domyślnie Pico zabrania
+dostępu do folderu `content` przez przeglądarkę. Jeśli chciałbyś/chciałabyś dodać jakiś
+plik tego typu na swój serwer, zalecamy Ci, żebyś użył(a) w tym celu folderu `assets`.
+Jest on niesprawdzany przez Pico, więc tam możesz spokojnie trzymać, co chcesz. Jeśli
+katalog nie istnieje, utwórz go samemu. Możesz dodać wszystko z `assets` do Markdowna, 
+jak w tym przykładzie:
 <code>&#37;base_url&#37;/assets/</code> for example:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
 
-### Text File Markup
 
-Text files are marked up using [Markdown][] and [Markdown Extra][MarkdownExtra].
-They can also contain regular HTML.
+### Pisanie treści na stronie
 
-At the top of text files you can place a block comment and specify certain meta
-attributes of the page using [YAML][] (the "YAML header"). For example:
+Pliki tworzące treść strony używają składni [Markdown][] i [Markdown Extra][MarkdownExtra].
+Możesz do nich dodawać także zwykły kod HTML albo w razie potrzeby używać jednego i drugiego 
+łącznie.
+Na początku tych plików możesz dodać blok komentarza, w którym określisz metadane strony
+(np. tytuł, opis, słowa kluczowe). Później będzie on nazwany "YAML header'em". Przykładowy
+header (nazwy danych muszą być po angielsku):
 
     ---
-    Title: Welcome
-    Description: This description will go in the meta description tag
+    Title: Tytuł Twojej strony internetowej
+    Description: To, co tu wpiszesz, zostanie wyświetlone w <meta name="description" ... />
     Author: Joe Bloggs
     Date: 2001-04-25
     Robots: noindex,nofollow
     Template: index
     ---
 
-These values will be contained in the `{{ meta }}` variable in themes (see
-below). Meta headers sometimes have a special meaning: For instance, Pico not
-only passes through the `Date` meta header, but rather evaluates it to really
-"understand" when this page was created. This comes into play when you want to
-sort your pages not just alphabetically, but by date. Another example is the
-`Template` meta header: It controls what Twig template Pico uses to display
-this page (e.g. if you add `Template: blog`, Pico uses `blog.twig`).
+Te wartości będą później dostępne do użytku w szablonach przez zmienną `{{ meta }}`
+(zobacz więcej poniżej). Czasami metadane mogą mieć znaczenie dodatkowe, przykładem
+może być tutaj dana `Date` - Pico używa jej nie tylko do dodania do sekcji `<head>`
+gotowej strony, lecz także sprawdza za jej pomocą, kiedy strona została utworzona.
+Może Ci się to przydać, gdy będziesz chciał(a) posortować strony według daty utworzenia
+(np. przy tworzeniu bloga). Kolejnym przykładem jest metadana `Template`, której
+zadaniem jest sprawdzanie, którego szablonu z templatki Pico ma użyć do renderowania
+strony (przykładowo, wpisując `Template: blog`, Pico będzie szukał szablonu `blog.twig`
+w używanym templacie).
 
-In an attempt to separate contents and styling, we recommend you to not use
-inline CSS in your Markdown files. You should rather add appropriate CSS
-classes to your theme. For example, you might want to add some CSS classes to
-your theme to rule how much of the available space a image should use (e.g.
-`img.small { width: 80%; }`). You can then use these CSS classes in your
-Markdown files, for example:
+Następną zalecaną przez nas dobrą praktyką jest niewstawianie CSS'a bezpośrednio do
+plików Markdowna. Zamiast tego dodaj potrzebne style do szablonów w templacie. Przykładowo,
+przypuśćmy, że potrzebujesz ustawić następującą regułę CSS: `img.small { width: 80%; }`.
+Możesz ją dodać do szablonu, a następnie wywołać ją w pliku `.md`, jak tutaj:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png) {.small}</code>
 
-There are also certain variables that you can use in your text files:
+Pico oferuje Ci także kilka zmiennych, których możesz używać w plikach Markdowna w celu
+uniknięcia zbędnego powtarzania rzeczy takich jak:
 
-* <code>&#37;site_title&#37;</code> - The title of your Pico site
-* <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
-  can be specified using <code>&#37;base_url&#37;?sub/page</code>
-* <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
-* <code>&#37;version&#37;</code> - Pico's current version string (e.g. `2.0.0`)
-* <code>&#37;meta.&#42;&#37;</code> - Access any meta variable of the current
-  page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+* <code>&#37;site_title&#37;</code> - Tytuł Twojej strony;
+* <code>&#37;base_url&#37;</code> - Adres Twojej strony; linki do poszczególnych
+stron mogą być wywołane za pomocą <code>&#37;base_url&#37;?przykladowy/link</code>;
+* <code>&#37;theme_url&#37;</code> - Adres do plików używanej przez Twoją stronę templatki;
+* <code>&#37;version&#37;</code> - Obecna wersja systemu (np. `2.0.5-beta.1`);
+* <code>&#37;meta.&#42;&#37;</code> - Wywołuje wartości z YAML header'a, np. 
+<code>&#37;meta.author&#37;</code> spowoduje wypisane `Joe Bloggs`.
 
-### Blogging
+### Blogowanie
 
-Pico is not blogging software - but makes it very easy for you to use it as a
-blog. You can find many plugins out there implementing typical blogging
-features like authentication, tagging, pagination and social plugins. See the
-below Plugins section for details.
+Pico nie jest pisany z myślą o blogowaniu, lecz bardzo łatwo jest wprowadzić
+taką funkcjonalność, jeśli tylko tego potrzebujesz. Możesz znaleźć potrzebne
+Ci wtyczki, jeśli czegoś Ci będzie brakowało, jak na przykład tagowania,
+uwierzytelniania czy paginacji. Więcej informacji znajdziesz w sekcji Wtyczki
+poniżej.
 
-If you want to use Pico as a blogging software, you probably want to do
-something like the following:
+Chcąc używać Pico jako systemu także (bądź głównie) do prowadzenia bloga,
+najłatwiej Ci będzie podążać za tym poradnikiem:
 
-1. Put all your blog articles in a separate `blog` folder in your `content`
-   directory. All these articles should have a `Date` meta header.
-2. Create a `blog.md` or `blog/index.md` in your `content` directory. Add
-   `Template: blog-index` to the YAML header of this page. It will later show a
-   list of all your blog articles (see step 3).
-3. Create the new Twig template `blog-index.twig` (the file name must match the
-   `Template` meta header from Step 2) in your theme directory. This template
-   probably isn't very different from your default `index.twig` (i.e. copy
-   `index.twig`), it will create a list of all your blog articles. Add the
-   following Twig snippet to `blog-index.twig` near `{{ content }}`:
+1. Umieść wszystkie Twoje artykuły w oddzielnym folderze `blog` w katalogu
+`content`. Wszystkie artykuły powinny mieć metadaną `Date`.
+2. Utwórz stronę dla bloga, która stanie się swego rodzaju placeholderem
+do czytania postów. Najlepiej oczywiście będzie, gdy będzie miała ona adres
+`%base_url%?blog/`, więc utwórz plik o nazwie `blog.md` albo `blog/index.md`
+(oba będą się odwoływały do tego adresu, lecz nie mogą istnieć jednocześnie). 
+Dodaj do tej strony metadaną `Template: blog-index`.
+3. Utwórz nowy szablon Twiga o nazwie `blog-index.twig` (jak już pewnie widzisz,
+nazwa musi się zgadzać z metadaną `Template` z pliku) tam, gdzie znajduje
+się Twoja templatka. Nie będzie on zbytnio się różnił od głównego szablonu
+`index.twig` (możesz przykładowo skopiować index, nadać kopii nazwę `blog-index.twig`
+i wprowadzić w kopii Twoje zmiany). Przed zmienną `{{ content }}` dodaj
+w pliku `blog-index.twig` ten kawałek kodu Twiga:
+
    ```
     {% for page in pages|sort_by("time")|reverse %}
         {% if page.id starts with "blog/" and not page.hidden %}
@@ -162,25 +175,30 @@ something like the following:
     {% endfor %}
    ```
 
-## Customization
+## Modyfikowanie
 
-Pico is highly customizable in two different ways: On the one hand you can
-change Pico's appearance by using themes, on the other hand you can add new
-functionality by using plugins. Doing the former includes changing Pico's HTML,
-CSS and JavaScript, the latter mostly consists of PHP programming.
+Pico może być łatwo modyfikowany dwoma sposobami: z jednej strony możesz
+zmienić wygląd swojej strony przez tematy, z drugiej możesz dodać
+nowe funkcje do samego CMS'a przez wtyczki. To pierwsze wiąże się
+z używaniem języków webowych, jak HTML, CSS czy JS, a to drugie opiera
+się głównie na PHP.
 
-This is all Greek to you? Don't worry, you don't have to spend time on these
-techie talk - it's very easy to use one of the great themes or plugins others
-developed and released to the public. Please refer to the next sections for
-details.
+Nie rozumiesz o co chodzi? Nie martw się, czeka na Ciebie katalog uprzednio
+przygotowanych templatek i wtyczek. Więcej informacji znajduje się
+w kolejnym rozdziale.
 
-### Themes
+### Szablony i templatki / tematy
 
-You can create themes for your Pico installation in the `themes` folder. Check
-out the default theme for an example. Pico uses [Twig][] for template
-rendering. You can select your theme by setting the `theme` option in
-`config/config.yml` to the name of your theme folder.
+Możesz dodawać i tworzyć tematy dla systemu Pico w folderze `themes`. Jako
+przykład możesz wykorzystać kod domyślnego tematu. Pico używa [Twiga][Twig] do
+renderowania gotowej witryny. W celu wskazania tematu, którego chcesz używać na
+swojej stronie, użyj opcji `theme` w pliku `config/config.yml`, ustawiając
+jej wartość na nazwę Twojego szablonu.
 
+Wszystkie tematy muszą zawierać co najmniej jeden *szablon* - plik definiujący
+strukturę strony i jej kod HTML. Obowiązkowym szablonem jest `index.twig`,
+używany jako podstawowy. Oczywiście templatki mogą także zawierać więcej niż
+jeden szablon, np. wspomniany w powyższej sekcji `blog-index.twig`.
 All themes must include an `index.twig` file to define the HTML structure of
 the theme. Below are the Twig variables that are available to use in your
 theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
