@@ -44,11 +44,12 @@ poniżej:
         </tr>
         <tr>
             <td>content/sub.md</td>
-            <td><del>?sub</del> (not accessible, see below)</td>
+            <td><del>?sub</del> (strona nie zostanie wyświetlona, jeśli równocześnie utworzysz plik `content/sub/index.md`)</td>
         </tr>
         <tr>
             <td>content/sub/index.md</td>
-            <td><a href="%base_url%?sub">?sub</a> (same as above)</td>
+            <td><a href="%base_url%?sub">?sub</a> (zobacz przypadek powyżej, w przypadku równoczesnego istnienia obu plików priorytet
+dzierży link `content/sub/index.md`)</td>
         </tr>
         <tr>
             <td>content/jakisurl/alamakota.md</td>
@@ -313,97 +314,86 @@ albo na [listę najlepszych dodatków][OfficialThemes].
 
 #### Dla użytkowników
 
-Officially tested plugins can be found at http://picocms.org/plugins/, but
-there are many awesome third-party plugins out there! A good start point for
-discovery is [our Wiki][WikiPlugins].
+Promowane wtyczki są umieszczone na podstronie [http://picocms.org/plugins](http://picocms.org/plugins), 
+a pozostałe, choć równie interesujące, są wymienione w ogólnodostępnej [wiki][WikiPlugins].
 
-Pico makes it very easy for you to add new features to your website using
-plugins. Just like Pico, you can install plugins either using [Composer][]
-(e.g. `composer require phrozenbyte/pico-file-prefixes`), or manually by
-uploading the plugin's file (just for small plugins consisting of a single file,
-e.g. `PicoFilePrefixes.php`) or directory (e.g. `PicoFilePrefixes`) to your
-`plugins` directory. We always recommend you to use Composer whenever possible,
-because it makes updating both Pico and your plugins way easier. Anyway,
-depending on the plugin you want to install, you may have to go through some
-more steps (e.g. specifying config variables) to make the plugin work. Thus you
-should always check out the plugin's docs or `README.md` file to learn the
-necessary steps.
+Instalacja wtyczek do Pico jest bardzo łatwa. Możesz użyć w tym celu [Composera][Composer], 
+podobnie jak do samego CMS'a (jak np. `composer require phrozenbyte/pico-file-prefixes`) 
+albo wgrać pliki wtyczki do folderu `plugins/` (jak np. pojedynczego pliku `PicoFilePrefixes.php` 
+albo katalogu `PicoFilePrefixes`). Zalecamy używanie Composera wszędzie tam, gdzie tylko to możliwe, 
+ponieważ później pozwoli Ci to na dokonanie aktualizacji za pomocą jednej komendy. Pamiętaj o tym, 
+że niektóre wtyczki mogą wymagać dodatkowej konfiguracji, przykładowo dodania nowych zmiennych do 
+pliku `config.yml`. W tym celu zapoznaj się z tzw. załącznikiem *readme* (w wolnym tłumaczeniu 
+*przeczytaj mnie*, zanim mnie zainstalujesz).
 
-Plugins which were written to work with Pico 1.0 and later can be enabled and
-disabled through your `config/config.yml`. If you want to e.g. disable the
-`PicoDeprecated` plugin, add the following line to your `config/config.yml`:
-`PicoDeprecated.enabled: false`. To force the plugin to be enabled, replace
-`false` by `true`.
+Wtyczki przeznaczone do używania z Pico 1.0 oraz nowszymi obsługują instrukcję włączenia/wyłączenia 
+w konfiguracji CMS'a. Przykładowo, jeśli chciałbyś wymusić wyłączenie wtyczki `PicoDeprecated`, 
+dodaj zmienną `PicoDeprecated.enabled: false` (fałsz) do `config/config.yml`, natomiast jeśli 
+go włączyć, ustaw wartość na `true` (prawda).
 
-#### Plugins for developers
+#### Pisanie nowych wtyczek
 
-You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/development/. If you've
-developed a plugin before and want to upgrade it to Pico 2.0, refer to the
-[upgrade section of the docs][PluginUpgrade].
+Dla programistów zainteresowanych napisaniem nowej wtyczki udostępniamy przydatną dokumentację 
+na stronie http://picocms.org/development (po angielsku). Jeśli natomiast chciałbyś/chciałabyś 
+zaktualizować swoją wtyczkę w celu kompatybilności z wersją 2 i nowszą, [odwołaj się do tej 
+strony][PluginUpgrade].
 
-## Config
+## Konfiguracja
 
-Configuring Pico really is stupidly simple: Just create a `config/config.yml`
-to override the default Pico settings (and add your own custom settings). Take
-a look at the `config/config.yml.template` for a brief overview of the
-available settings and their defaults. To override a setting, simply copy the
-line from `config/config.yml.template` to `config/config.yml` and set your
-custom value.
+Konfiguracja systemu również spełnia kryterium *prostoty do bólu*, wymagając jedynie utworzenia 
+podstawowego pliku `config/config.yml` (i oczywiście wypełnienia go zawartością). W celu zrozumienia 
+zasad obsługi tego pliku przygotowaliśmy dla Ciebie szablon w pliku `config/config.yml.template`. 
+Na początek możesz po prostu zmienić jego nazwę na `config/config.yml`, a następnie edytować według Twoich potrzeb.
 
-But we didn't stop there. Rather than having just a single config file, you can
-use a arbitrary number of config files. Simply create a `.yml` file in Pico's
-`config` dir and you're good to go. This allows you to add some structure to
-your config, like a separate config file for your theme (`config/my_theme.yml`).
+W razie potrzeby możesz również rozłożyć swoją konfigurację na kilka plików. Każdy plik konfiguracji 
+musi mieć rozszerzenie `.yml` oraz być poprawnym według języka YAML. Za pomocą tej funkcjonalności 
+możesz np. dodać oddzielną konfigurację dla swojego motywu (`config/moj_motyw.yml`).
 
-Please note that Pico loads config files in a special way you should be aware
-of. First of all it loads the main config file `config/config.yml`, and then
-any other `*.yml` file in Pico's `config` dir in alphabetical order. The file
-order is crucial: Config values which have been set already, cannot be
-overwritten by a succeeding file. For example, if you set `site_title: Pico` in
-`config/a.yml` and `site_title: My awesome site!` in `config/b.yml`, your site
-title will be "Pico".
+Ważne jest to, że w pierwszej kolejności ładowany jest plik `config.yml`, a następnie wszystkie 
+pozostałe **w alfabetycznej kolejności**. Dodatkowo zmienne, które już raz zostały ustawione, nie mogą 
+być zmienione w kolejnym pliku. Biorąc za żywy przykład sytuację z poprzedniego akapitu, gdybyś 
+w `config.yml` dodał(a) wpis `site_title: Moja strona internetowa`, a w `moj_motyw.yml` - `site_title: 
+Moja lepsza strona internetowa`, tytułem strony pozostanie `Moja strona internetowa`.
 
-Since YAML files are plain text files, users might read your Pico config by
-navigating to `%base_url%/config/config.yml`. This is no problem in the first
-place, but might get a problem if you use plugins that require you to store
-security-relevant data in the config (like credentials). Thus you should
-*always* make sure to configure your webserver to deny access to Pico's
-`config` dir. Just refer to the "URL Rewriting" section below. By following the
-instructions, you will not just enable URL rewriting, but also deny access to
-Pico's `config` dir.
+Pliki YAML są zwykłymi plikami tekstowymi, toteż użytkownicy mogą mieć możliwość przeczytania 
+ich zawartości poprzez odwiedzenie linku `%base_url%/config/config.yml`. Na początku pewnie 
+nie będzie to dla Ciebie zbytnim problemem, jednak może się nim stać, gdy jakieś wtyczki bądź 
+Ty sam będziesz chciał(a) przechowywać w nich hasła, loginy bądź inne poufne dane. W tym celu 
+razem z Pico dostarczana jest odpowiednia konfiguracja serwera w pliku *.htaccess*, co jednak 
+wymaga włączonego modułu rewrite. Po więcej informacji sięgnij do sekcji poniżej. Funkcja ta 
+nie tylko włączy na Twojej stronie ładniejszą składnię URL'i, ale również zabroni odczytywania 
+surowych danych z poziomu przeglądarki.
 
-### URL Rewriting
+### Moduł rewrite
 
-Pico's default URLs (e.g. %base_url%/?sub/page) already are very user-friendly.
-Additionally, Pico offers you a URL rewrite feature to make URLs even more
-user-friendly (e.g. %base_url%/sub/page). Below you'll find some basic info
-about how to configure your webserver proberly to enable URL rewriting.
+Domyślna składnia adresu URL (np. %base_url%/?ala/ma/kota) od razu ma na celu bycie przyjazną, 
+jednak Pico dodatkowo wspiera moduł rewrite serwera, za pomocą którego adresy przyjmą postać 
+bez jakichkolwiek pytajników (powyższy przykład zmieni się w %base_url%/ala/ma/kota). Poniżej 
+znajdziesz poradniki, jak włączyć na swoim serwerze rewriting.
 
 #### Apache
 
-If you're using the Apache web server, URL rewriting probably already is
-enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
-URL rewriting doesn't work (you're getting `404 Not Found` error messages from
-Apache), please make sure to enable the [`mod_rewrite` module][ModRewrite] and
-to enable `.htaccess` overrides. You might have to set the
-[`AllowOverride` directive][AllowOverride] to `AllowOverride All` in your
-virtual host config file or global `httpd.conf`/`apache.conf`. Assuming
-rewritten URLs work, but Pico still shows no rewritten URLs, force URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. If you
-rather get a `500 Internal Server Error` no matter what you do, try removing
-the `Options` directive from Pico's `.htaccess` file (it's the last line).
+Jeśli używasz serwera Apache (co jest wysoce prawdopodobne, gdyż jest to najczęściej 
+wybierany serwer przez hostingodawców), powinieneś już mieć odgórnie włączoną funkcję 
+rewritingu. Sprawdź samemu, [klikając w ten link](%base_url%/sub/page). Jeśli wyskakuje 
+Ci błąd 404, co oznacza, że rewriting jest wyłączony, upewnij się, że 
+[dyrektywa `AllowOverride`][AllowOverride] ma wartość `AllowOverride All`, a 
+[moduł `mod_rewrite`][ModRewrite] jest włączony. Zakładając, że serwer jest skonfigurowany 
+poprawnie, ale z jakiegoś powodu rewriting ciągle nie działa, możesz spróbować ustawienia 
+zmiennej `rewrite_url` na wartość `true` w pliku `config.yml`. Jeśli natomiast otrzymujesz 
+błąd `500 Internal Server Error`, spróbuj usunąć ostatnią linijkę z pliku `.htaccess` 
+(dyrektywę `Options`).
 
 #### Nginx
 
-If you're using Nginx, you can use the following config to enable URL rewriting
-(lines `5` to `8`) and denying access to Pico's internal files (lines `1` to
-`3`). You'll need to adjust the path (`/pico` on lines `1`, `2`, `5` and `7`)
-to match your installation directory. Additionally, you'll need to enable URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. The Nginx
-config should provide the *bare minimum* you need for Pico. Nginx is a very
-extensive subject. If you have any trouble, please read through our
-[Nginx config docs][NginxConfig].
+Jeśli używasz Nginx'a, możesz użyć podanego tutaj snippetu kodu do włączenia
+funkcji rewritingu (linie `5` do `8`) oraz zabronienia dostępu do
+surowych danych Twojej strony (`1` do `3`). W liniach `1`, `2`, `5` i `7` musisz
+zmienić ciąg znaków `/pico` na ścieżkę dostępu do Twojej strony. Dodatkowo musisz
+ustawić zmienną `rewrite_url` na `true` w pliku konfiguracji. Poniższa konfiguracja
+powinna Ci wystarczyć do włączenia tych funkcji, jeśli jednak cały czas napotykasz
+jakieś problemy, możesz odnieść się do [naszych instrukcji nt. oprogramowania
+Nginx][NginxConfig].
 
 ```
 location ~ ^/pico/((config|content|vendor|composer\.(json|lock|phar))(/|$)|(.+/)?\.(?!well-known(/|$))) {
@@ -418,12 +408,9 @@ location /pico/ {
 
 #### Lighttpd
 
-Pico runs smoothly on Lighttpd. You can use the following config to enable URL
-rewriting (lines `6` to `9`) and denying access to Pico's internal files (lines
-`1` to `4`). Make sure to adjust the path (`/pico` on lines `2`, `3` and `7`)
-to match your installation directory, and let Pico know about available URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. The
-config below should provide the *bare minimum* you need for Pico.
+Możesz użyć tego kodu do włączenia obu funkcjonalności, oczywiście - podobnie
+jak w przypadku Nginx'a - pamiętając o dostosowaniu ścieżki do serwera (`/pico`
+w liniach `2`, `3` i `7`) oraz ustawieniu zmiennej `rewrite_url: true`.
 
 ```
 url.rewrite-once = (
@@ -436,9 +423,9 @@ url.rewrite-if-not-file = (
 )
 ```
 
-## Documentation
+## Dokumentacja
 
-For more help have a look at the Pico documentation at http://picocms.org/docs.
+Po więcej informacji zajrzyj do oficjalnej dokumentacji Pico na stronie http://picocms.org/docs.
 
 [Pico]: http://picocms.org/
 [SampleContents]: https://github.com/picocms/Pico/tree/master/content-sample
