@@ -14,7 +14,7 @@ theme: default                      # Nazwa Twojego szablonu (taka sama, jak fol
 theme_url: ~                        # Pico spróbuje samemu odczytać adres, pod którym znajdują się pliki szablonu
                                     # W razie błędu możesz go tutaj wpisać. Przykład: http://example.com/themes/default
 theme_config:
-    widescreen: false               # Dla domyślnego szablonu: TRUE/FALSE - używaj trybu większej szerokości treści.
+    widescreen: false               # Dla domyślnego szablonu: TRUE/FALSE - wyświetlaj stronę na całej szerokosci ekranu.
 twig_config:
     cache: false                    # Włącz funkcję cache dla Twiga (TRUE/FALSE)
     autoescape: false               # Let Twig escape variables by default
@@ -24,19 +24,19 @@ twig_config:
 # Kontent na stronie
 #
 date_format: %D %T                  # Domyślny format wyświetlania dat (zobacz http://php.net/manual/en/function.strftime.php)
-pages_order_by_meta: author         # Po jakim meta tagu Pico ma sortować strony? (działa tylko, gdy "pages_order_by" jest ustawione na "meta")
-pages_order_by: alpha               # Jak Pico ma sortować strony w menu? ("alpha" dla kolejności alfabetycznej, "date" - data, lub "meta" - zobacz wyżej)
-pages_order: asc                    # Sort pages in ascending ("asc") or descending ("desc") order
-content_dir: content/               # The path to Pico's content directory
-content_ext: .md                    # The file extension of your Markdown files
+pages_order_by_meta: author         # Według jakiego metatagu Pico ma sortować strony? (działa tylko, gdy pages_order_by = "alpha").
+pages_order_by: alpha               # Według jakiego kryterium Pico ma sortować strony w menu? ("alpha" dla kolejności alfabetycznej, "date" - data, lub "meta" - metatagi, zobacz wyżej)
+pages_order: asc                    # "asc" - sortuj strony rosnąco, "desc" - malejąco
+content_dir: content/               # Ścieżka do katalogu z plikami Markdowna do renderowania stron (domyślnie "content").
+content_ext: .md                    # Rozszerzenie plików Markdowna (zwykle zmiana tego ustawienia jest niezalecana)
 content_config:
     extra: true                     # Włącz możliwość używania Parsedown Extra - ulepszonej składni Markdowna
                                     #  https://michelf.ca/projects/php-markdown/extra/
-    breaks: false                   # A boolean indicating whether breaks in the markup should be reflected in the
-                                    #     parsed contents of the page
+    breaks: false                   # TRUE/FALSE - przenoś entery i tabulatory z plików Markdowna do gotowej strony podczas procesu renderowania
+                                    #
     escape: false                   # Escape HTML markup in your content files; don't confuse this with some sort of
                                     #     safe mode, enabling this doesn't allow you to process untrusted user input!
-    auto_urls: true                 # Automatically link URLs found in your markup
+    auto_urls: true                 # Automatycznie zamieniaj adresy URL znalezione w plikach Markdowna na odnośniki na stronie
 
 ##
 # Wtyczki

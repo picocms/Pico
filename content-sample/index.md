@@ -187,70 +187,64 @@ Nie rozumiesz o co chodzi? Nie martw się, czeka na Ciebie katalog uprzednio
 przygotowanych templatek i wtyczek. Więcej informacji znajduje się
 w kolejnym rozdziale.
 
-### Szablony i templatki / tematy
+### Szablony i motywy
 
-Możesz dodawać i tworzyć tematy dla systemu Pico w folderze `themes`. Jako
-przykład możesz wykorzystać kod domyślnego tematu. Pico używa [Twiga][Twig] do
-renderowania gotowej witryny. W celu wskazania tematu, którego chcesz używać na
+Możesz dodawać i tworzyć motywy dla systemu Pico w folderze `themes`. Jako
+przykład możesz wykorzystać kod domyślnego motywu. Pico używa [Twiga][Twig] do
+renderowania gotowej witryny. W celu wskazania motywu, którego chcesz używać na
 swojej stronie, użyj opcji `theme` w pliku `config/config.yml`, ustawiając
 jej wartość na nazwę Twojego szablonu.
 
 Wszystkie tematy muszą zawierać co najmniej jeden *szablon* - plik definiujący
 strukturę strony i jej kod HTML. Obowiązkowym szablonem jest `index.twig`,
-używany jako podstawowy. Oczywiście templatki mogą także zawierać więcej niż
-jeden szablon, np. wspomniany w powyższej sekcji `blog-index.twig`.
-All themes must include an `index.twig` file to define the HTML structure of
-the theme. Below are the Twig variables that are available to use in your
-theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
-(e.g. `{{ base_url }}`) don't have a trailing slash.
+używany jako podstawowy. Oczywiście motywy mogą także zawierać więcej niż
+jeden szablon, np. wspomniany w powyższej sekcji `blog-index.twig`. Ważną
+uwagą jest to, że wszystkie ścieżki i URLe w Pico (np. `{{ base_dir }}`)
+nie zawierają końcowego slasha `/`. Tworząc szablon do użycia z motywem w Pico,
+możesz korzystać z następujących zmiennych Twiga:
 
-* `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
-* `{{ config }}` - Contains the values you set in `config/config.yml`
-                   (e.g. `{{ config.theme }}` becomes `default`)
-* `{{ base_dir }}` - The path to your Pico root directory
-* `{{ base_url }}` - The URL to your Pico site; use Twig's `link` filter to
-                     specify internal links (e.g. `{{ "sub/page"|link }}`),
-                     this guarantees that your link works whether URL rewriting
-                     is enabled or not
-* `{{ theme_dir }}` - The path to the currently active theme
-* `{{ theme_url }}` - The URL to the currently active theme
-* `{{ version }}` - Pico's current version string (e.g. `2.0.0`)
-* `{{ meta }}` - Contains the meta values of the current page
-    * `{{ meta.title }}`
-    * `{{ meta.description }}`
+* `{{ site_title }}` - Nazwa Twojej strony (wartość z `config/config.yml`.
+* `{{ config }}` - Tablica zawierająca wszystkie wartości z pliku `config/config.yml`,
+	           np. `{{ config.theme }}` przyjmie wartość `default`.
+* `{{ base_dir }}` - Ścieżka do Twojej instalacji Pico
+* `{{ base_url }}` - Adres URL, pod którym jest dostępna Twoja instalacja Pico;
+	             możesz użyć filtra `link` do zdefiniowania linków do innych
+	             stron, np. `{{ "sub/page"|link }}`. Filtr `link` będzie działał
+		     niezależnie od stanu modułu rewrite.
+* `{{ theme_dir }}` - Ścieżka do aktualnie używanego tematu.
+* `{{ theme_url }}` - Adres URL do aktualnie używanego tematu.
+* `{{ version }}` - Obecna wersja Pico (np. `2.0.0`)
+* `{{ meta }}` - Tablica zawierająca wartości z nagłówka YAML aktualnie renderowanej strony:
+    * `{{ meta.title }}` zawiera wartość `Title` z YAML header'a
+    * `{{ meta.description }}` zawiera wartość `Description`
     * `{{ meta.author }}`
     * `{{ meta.date }}`
     * `{{ meta.date_formatted }}`
     * `{{ meta.time }}`
     * `{{ meta.robots }}`
-    * ...
-* `{{ content }}` - The content of the current page after it has been processed
-                    through Markdown
-* `{{ pages }}` - A collection of all the content pages in your site
-    * `{{ page.id }}` - The relative path to the content file (unique ID)
-    * `{{ page.url }}` - The URL to the page
-    * `{{ page.title }}` - The title of the page (YAML header)
-    * `{{ page.description }}` - The description of the page (YAML header)
-    * `{{ page.author }}` - The author of the page (YAML header)
-    * `{{ page.time }}` - The [Unix timestamp][UnixTimestamp] derived from
-                          the `Date` header
-    * `{{ page.date }}` - The date of the page (YAML header)
-    * `{{ page.date_formatted }}` - The formatted date of the page as specified
-                                    by the `date_format` parameter in your
-                                    `config/config.yml`
-    * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page;
-                                 use Twig's `content` filter to get the parsed
-                                 contents of a page by passing its unique ID
-                                 (e.g. `{{ "sub/page"|content }}`)
-    * `{{ page.meta }}`- The meta values of the page (see `{{ meta }}` above)
-    * `{{ page.previous_page }}` - The data of the respective previous page
-    * `{{ page.next_page }}` - The data of the respective next page
-    * `{{ page.tree_node }}` - The page's node in Pico's page tree
-* `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
-* `{{ current_page }}` - The data of the current page (see `{{ pages }}` above)
-* `{{ next_page }}` - The data of the next page (relative to `current_page`)
+    * i tak dalej...
+* `{{ content }}` - Zmienna zawierająca kontent strony uprzednio przeparsowanej przez filtr Markdowna.
+* `{{ pages }}` - Tablica zawierająca informacje o wszystkich stronach wykrytych przez Pico:
+    * `{{ page.id }}` - Identyfikator strony (URL bez adresu hosta i początkowego slasha)
+    * `{{ page.url }}` - Adres URL strony
+    * `{{ page.title }}` - Tytuł strony z nagłówka YAML
+    * `{{ page.description }}` - Opis strony
+    * `{{ page.author }}` - Autor strony
+    * `{{ page.time }}` - [Czas uniksowy][UnixTimestamp] wyliczony na podstawie zmiennej `Date` z nagłówka YAML
+    * `{{ page.date }}` - Data utworzenia strony, tak jak powyżej wykryta ze zmiennej `Date`
+    * `{{ page.date_formatted }}` - Data strony przeparsowana w sposób określony przez opcję `date_format` w pliku konfiguracyjnym
+    * `{{ page.raw_content }}` - Kontent danego pliku, jeszcze nie przeparsowany przez filtr Markdowna;
+                                 możesz użyć filtru `content` do włączenia parsera Markdowna dla podanej strony
+                                 (np. `{{ "sub/page"|content }}`)
+    * `{{ page.meta }}`- Podtablica zawierająca metadane stron (zobacz tablicę `{{ meta }}` dla porównania
+    * `{{ page.previous_page }}` - Informacje o poprzedniej stronie według numeracji Pico
+    * `{{ page.next_page }}` - Informacje o następnej stronie według numeracji Pico
+    * `{{ page.tree_node }}` - Tablica zawierająca wszystkie strony wykryte przez Pico ułożone hierarchicznie, niczym drzewo
+* `{{ current_page }}` - Tablica zawierająca wszystkie informacje o obecnej stronie (dostępne wartości z `{{ pages }}`, zapoznaj się z tym po więcej informacji)
+* `{{ prev_page }}` - Tablica zawierająca informacje o poprzedniej stronie (podobnie, jak `{{ current_page }}`)
+* `{{ next_page }}` - Tablica z informacjami o następnej stronie (tak samo, jak `{{ prev_page }}`)
 
-Pages can be used like the following:
+Zmienne Twiga i dostęp do układu stron według numeracji Pico mogą zostać wykorzystane na przykład do ich wylistowania:
 
     <ul class="nav">
         {% for page in pages if not page.hidden %}
@@ -258,63 +252,66 @@ Pages can be used like the following:
         {% endfor %}
     </ul>
 
-Besides using the `{{ pages }}` list, you can also access pages using Pico's
-page tree. The page tree allows you to iterate through Pico's pages using a tree
-structure, so you can e.g. iterate just a page's direct children. It allows you
-to build recursive menus (like dropdowns) and to filter pages more easily. Just
-head over to Pico's [page tree documentation][FeaturesPageTree] for details.
+Oprócz używania tablicy `{{ pages }}`, możesz również skorzystać z *drzewa
+stron* Pico. Jest to tablica zawierająca wszystkie strony ułożone hierarchicznie,
+niczym drzewo, co pozwoli Ci przykładowo na wylistowanie stron będących *dziećmi*
+strony `sub` czy budowanie rekursywnych menu, jak np. list drop-down. Po więcej
+informacji o tej funkcji sięgnij do [dokumentacji funkcji page tree][FeaturesPageTree].
 
-To call assets from your theme, use `{{ theme_url }}`. For instance, to include
-the CSS file `themes/my_theme/example.css`, add
-`<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />`
-to your `index.twig`. This works for arbitrary files in your theme's folder,
-including images and JavaScript files.
+W celu dodania do Twojej strony dodatków zawartych w Twoim temacie, możesz
+użyć zmiennej Twiga `{{ theme_url }}`. Przypuszczając, że chcesz dodać arkusz
+CSS `themes/moj_temat/przykladowy_arkusz.css`, dodaj
+`<link rel="stylesheet" href="{{ theme_url }}/przykladowy_arkusz.css" type="text/css" />`
+do Twojego szablonu, np. `index.twig`. Funkcja ta będzie działała dla wszystkich plików
+zawartych w katalogu z aktualnie używanym tematem.
 
-Additional to Twigs extensive list of filters, functions and tags, Pico also
-provides some useful additional filters to make theming easier.
+Kolejną funkcjonalnością w szablonach oprócz dostępnych filtrów Twiga są filtry
+oferowane przez Pico:
 
-* Pass the unique ID of a page to the `link` filter to return the page's URL
-  (e.g. `{{ "sub/page"|link }}` gets `%base_url%?sub/page`).
-* To get the parsed contents of a page, pass its unique ID to the `content`
-  filter (e.g. `{{ "sub/page"|content }}`).
-* You can parse any Markdown string using the `markdown` filter (e.g. you can
-  use Markdown in the `description` meta variable and later parse it in your
-  theme using `{{ meta.description|markdown }}`). You can pass meta data as
-  parameter to replace <code>&#37;meta.&#42;&#37;</code> placeholders (e.g.
-  `{{ "Written *by %meta.author%*"|markdown(meta) }}` yields "Written by
-  *John Doe*").
-* Arrays can be sorted by one of its keys using the `sort_by` filter
-  (e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
-  iterates through all pages, ordered by the `nav` meta header; please note the
-  `[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
-  `page.meta.nav`). Items which couldn't be sorted are moved to the bottom of
-  the array; you can specify `bottom` (move items to bottom; default), `top`
-  (move items to top), `keep` (keep original order) or `remove` (remove items)
-  as second parameter to change this behavior.
-* You can return all values of a given array key using the `map` filter
-  (e.g. `{{ pages|map("title") }}` returns all page titles).
-* Use the `url_param` and `form_param` Twig functions to access HTTP GET (i.e.
-  a URL's query string like `?some-variable=my-value`) and HTTP POST (i.e. data
-  of a submitted form) parameters. This allows you to implement things like
-  pagination, tags and categories, dynamic pages, and even more - with pure
-  Twig! Simply head over to our [introductory page for accessing HTTP
-  parameters][FeaturesHttpParams] for details.
+* Filtr `link` wywołuje adres URL żądanej przez Ciebie strony (np. `{{ "sub/page"|link }}`
+  doda do Twojej strony `%base_url%?sub/page`).
+* Filtr `content` przepuszcza żądaną przez Ciebie stronę przez filtr Markdowna
+  (np. `{{ "sub/page"|content }}` wywoła kontent z pliku `content/sub/page.md`).
+* Filtr `markdown` zamienia dowolny ciąg znaków Markdowna na kod HTML. Przykładowo,
+  możesz sformatować nagłówek `Description` danej strony i dodać go do Twojego szablonu
+  za pomocą zmiennej `{{ meta.description|markdown }}`. Możesz także dodać ogół
+  metadanych jako parametr zamiast wyrażenia <code>&#37;meta.&#42;&#37;</code> (tutaj
+  też przykład, `{{ "Utworzone *przez %meta.author%*"|markdown(meta) }}` wypluje
+  "Utworzone przez *John Doe*".
+* Filtr `sort_by` sortuje zmienne w tablicach według jednego albo więcej z ich kluczy
+  (np. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}` posortuje
+  wszystkie strony według informacji `nav` z nagłówka YAML; zwróć uwagę na użytą składnię
+  parametru, w przykładzie jest to `[ 'meta', 'nav' ]`, co wskazuje na `page.meta.nav`).
+  Pozycje niemożliwe do posortowania, np. z powodu braku zmiennej `nav`, zostaną umieszczone
+  na dole listy. Możesz to jednak zmienić za pomocą drugiego parametru filtra; oprócz
+  `bottom` (dół, domyślne) możesz także użyć `top` (góra, tutaj na początku listy), `keep`
+  (zachowaj oryginalną kolejność) albo `remove` (usuń strony niemożliwe do posortowania).
+* Filtr `map` zwróci wszystkie wartości danej zmiennej ze wszystkich stron (np. 
+  `{{ pages|map("title") }}` zwróci wszystkie tytuły stron znajdujących się w tablicy `pages`.
+* Oprócz tych filtrów Twig udostępnia również funkcje `url_param` i `form_param`. Pozwalają one
+  na użycie odpowiednio metod GET (tutaj np. query string jak `?jakas-zmienna=wartosc`)
+  i POST (np. wysłanie informacji z formularza). Za pomocą tej funkcji możesz wprowadzić do
+  swojej strony dynamiczne elementy, jak np. kategorie, paginację czy tagi. Po więcej informacji
+  na ten temat [sięgnij do odpowiedniego działu ze strony Pico][FeaturesHttpParams].
 
-You can use different templates for different content files by specifying the
-`Template` meta header. Simply add e.g. `Template: blog` to the YAML header of
-a content file and Pico will use the `blog.twig` template in your theme folder
-to display the page.
+Budując lub edytując daną stronę w Twojej witrynie, możesz dodać do odpowiadającego jej pliku
+kontentu zmienną `Template` w nagłówku YAML. Odpowiada ona za przypisanie danej stronie szablonu
+oferowanego przez dany motyw. Przykładowo, dodając do pliku `content/blog.md` zmienną
+`Template: blog`, gdy użytkownik wejdzie na adres `%base_url%/?blog`, ujrzy stronę wygenerowaną
+za pomocą szablonu `blog.twig`. Nazwa zmiennej `Template` musi odpowiadać nazwie któregoś
+z szablonów, w przeciwnym wypadku spowoduje to błąd 500.
 
-Pico's default theme isn't really intended to be used for a productive website,
-it's rather a starting point for creating your own theme. If the default theme
-isn't sufficient for you, and you don't want to create your own theme, you can
-use one of the great themes third-party developers and designers created in the
-past. As with plugins, you can find themes in [our Wiki][WikiThemes] and on
-[our website][OfficialThemes].
+Domyślny motyw oferowany przez Pico nie jest przeznaczony do budowania docelowych witryn,
+lecz ma na celu bycie swego rodzaju bazą do modyfikacji, co Ci pozwoli na budowę prawdziwej
+strony. Jeśli ani on, ani potrzeba wcześniej wspomnianej modyfikacji nie odpowiada Twoim
+możliwościom bądź chęciom, możesz skorzystać z biblioteki motywów przygotowanych przez
+chętnych programistów i webdesignerów. Wystarczy, że wejdziesz na [wiki Pico][WikiThemes]
+albo na [listę najlepszych dodatków][OfficialThemes].
 
-### Plugins
 
-#### Plugins for users
+### Wtyczki
+
+#### Dla użytkowników
 
 Officially tested plugins can be found at http://picocms.org/plugins/, but
 there are many awesome third-party plugins out there! A good start point for
