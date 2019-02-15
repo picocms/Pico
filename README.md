@@ -63,7 +63,7 @@ Aaa! Więc jesteś jedną z tych osób, która wie, jak technicznie działa CMS 
 
 Możesz przygotować sobie również również [projekt Pico w aplikacji Composer][PicoComposerGit] i dołączyć do niego brakujące elementy, używając lokalnych pakietów. 
 
-Ważną rzeczą jest to, że to repozytorium **jest aktualizowane na bieżąco**. Oznacza to, że "poprawki" składające się na kolejne aktualizacje są tutaj bieżąco wrzucane, a całe repozytorium jest traktowane jako swego rodzaju platforma do testów oraz baza dla programistów chcących współtworzyć projekt. Repozytorium nie jest przeznaczone do użytku jako instalacja CMS'a na serwerze dla użytkowników końcowych.
+Ważną rzeczą jest to, że to repozytorium **jest aktualizowane na bieżąco**. Oznacza to, że "poprawki" składające się na kolejne aktualizacje są w pierwszej kolejności udostępniane tutaj, a całe repozytorium jest traktowane jako swego rodzaju platforma do testów oraz baza dla programistów chcących współtworzyć projekt. Repozytorium nie jest przeznaczone do użytku jako instalacja CMS'a na serwerze dla użytkowników końcowych.
 
 1. Otwórz terminal i przejdź do katalogu, w którym docelowo będzie się znajdowało deweloperskie wydanie Pico. Powinieneś/Powinnaś ustawić go jako katalog serwowania strony internetowej przez Twój server (np. w Apache zmień adres w opcji *DocumentRoot* albo dodaj swój folder do innego portu). Przykładowa lokalizacja: `/var/www/picocms-dev`.
 
