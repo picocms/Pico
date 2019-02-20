@@ -14,7 +14,7 @@ Visitate il sito http://picocms.org/ e date un'occhiata a http://picocms.org/abo
 Schermata
 ----------
 
-[Pico Screenshot](https://picocms.github.io/screenshots/pico-20.png)
+![Pico Screenshot](https://picocms.github.io/screenshots/pico-20.png)
 
 Installazione
 -------
@@ -46,7 +46,7 @@ Conoscete la sensazione: Vuoi installare un nuovo sito web, quindi carichi tutti
 
 ###### Passo 1
 
-Scarica l'ultima versione di Pico][LatestRelease] e carica tutti i file nella cartella di installazione di Pico desiderata all'interno della cartella `httpdocs` (ad esempio `/var/wwwww/html/pico`) del tuo server.
+Scarica l'ultima versione di [Pico][LatestRelease] e carica tutti i file nella cartella di installazione di Pico desiderata all'interno della cartella `httpdocs` (ad esempio `/var/wwwww/html/pico`) del tuo server.
 
 ###### Passo 2
 
@@ -104,7 +104,7 @@ L'uso dei repository Git di Pico è diverso dall'uso di uno dei metodi di instal
     }
     ```
 
-4. 4. Scaricare Composer ed eseguirlo con l'opzione `install`:
+4. Scaricare Composer ed eseguirlo con l'opzione `install`:
 
 ```shell
     $ curl -sSL https://getcomposer.org/installer | php
@@ -213,7 +213,7 @@ I Contributori Ufficiali Pico non rivendicheranno i premi per conto proprio, Pic
 [HelpUpgrade]: http://picocms.org/in-depth/upgrade/
 [HelpUserDocs]: http://picocms.org/docs/
 [HelpDevDocs]: http://picocms.org/development/
-[Submit]: http://picocms.org/in-depth/submission_guidelines
+[Inviarlo]: http://picocms.org/in-depth/submission_guidelines
 [OfficialPlugins]: http://picocms.org/plugins/
 [OfficialThemes]: http://picocms.org/themes/
 [Wiki]: https://github.com/picocms/Pico/wiki
