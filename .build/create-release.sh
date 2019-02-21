@@ -36,6 +36,7 @@ if [ "$VERSION_STABILITY" != "stable" ]; then
     echo "Setting minimum stability to '$VERSION_STABILITY'..."
     composer config "minimum-stability" "$VERSION_STABILITY"
     composer config "prefer-stable" "true"
+    echo
 fi
 
 # install dependencies
