@@ -20,8 +20,8 @@ jobs:
     - php: 7.2
     - php: 7.3
     - php: nightly
-    - php: hhvm
-    - php: hhvm-nightly
+    - php: hhvm-3.27 # until Sep 2019
+    - php: hhvm-3.30 # until Nov 2019
 
     # Deployment stage
     - stage: deploy
@@ -48,7 +48,6 @@ jobs:
   # Ignore nightly build failures
   allow_failures:
     - php: nightly
-    - php: hhvm-nightly
   fast-finish: true
 
 before_install:
