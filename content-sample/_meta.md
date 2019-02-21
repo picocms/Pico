@@ -1,12 +1,12 @@
 ---
 social:
-    - title: Visit us on GitHub
+    - title: Repozytorium Pico na GitHubie
       url: https://github.com/picocms/Pico
       icon: octocat
-    - title: Join us on Freenode IRC Webchat
+    - title: Jesteśmy dostępni na kanale IRC #picocms (Freenode)
       url: https://webchat.freenode.net/?channels=%23picocms
       icon: chat
-    - title: Help us by creating/collecting bounties and pledging to fundraisers
+    - title: Wspomóż nas w serwisie Bountysource, tworząc i/albo rozwiązując zadania
       url: https://www.bountysource.com/teams/picocms
       icon: dollar
 ---

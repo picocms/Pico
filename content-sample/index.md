@@ -1,39 +1,40 @@
 ---
-Title: Welcome
-Description: Pico is a stupidly simple, blazing fast, flat file CMS.
+Title: Witaj w Pico
+Description: Pico jest prostym do bólu, niewymagającym żadnej bazy danych, doświadczenia w stronach internetowych ani znajomości HTML'a CMS'em (systemem zarządzania treścią).
 ---
 
-## Welcome to Pico
+## Witaj w Pico
 
-Congratulations, you have successfully installed [Pico][] %version%.
-%meta.description% <!-- replaced by the above Description header -->
+Gratulujemy, właśnie zainstalowałeś [Pico][] %version%.
+%meta.description%
 
-## Creating Content
+## Tworzenie kontentu
 
-Pico is a flat file CMS. This means there is no administration backend or
-database to deal with. You simply create `.md` files in the `content` folder
-and those files become your pages. For example, this file is called `index.md`
-and is shown as the main landing page.
+Pico jest CMS'em typu *flat file*. Oznacza to, że nie potrzebuje on do działania
+żadnej bazy danych ani panelu administratora. Tworzenie nowych stron polega na
+dodawaniu plików `.md` (Markdown) do folderu `content`, które będą wypełnione
+metadanymi oraz treścią docelową. Przykładowo, plik odpowiadający za wyświetlanie
+strony domyślnej nazywa się `index.md`, dlatego jest wyświetlany jako strona główna.
 
-When you install Pico, it comes with some sample contents that will display
-until you add your own content. Simply add some `.md` files to your `content`
-folder in Pico's root directory. No configuration is required, Pico will
-automatically use the `content` folder as soon as you create your own
-`index.md`. Just check out [Pico's sample contents][SampleContents] for an
-example!
+Pico tuż po instalacji posiada kilka zapisanych stron, które wyświetlają się
+zamiast Twojego kontentu. Gdy tylko dodasz jakiś plik `.md` do folderu `content`,
+treść ta zniknie, a zamiast niej witryna zacznie być generowana z plików znajdujących
+się w `content`. Jeśli będziesz potrzebował pomocy w tworzeniu strony z Pico, możesz
+się wzorować na [treści plików `.md` domyślnych stron][SampleContents].
 
-If you create a folder within the content directory (e.g. `content/sub`) and
-put an `index.md` inside it, you can access that folder at the URL
-`%base_url%?sub`. If you want another page within the sub folder, simply create
-a text file with the corresponding name and you will be able to access it
-(e.g. `content/sub/page.md` is accessible from the URL `%base_url%?sub/page`).
-Below we've shown some examples of locations and their corresponding URLs:
+Gdy utworzysz folder w katalogu z kontentem (np. `content/sub`) i dodasz do niego
+plik `index.md`, będziesz mógł otworzyć wygenerowaną przez niego stronę pod adresem
+`%base_url%?sub`. Jeśli chcesz zmienić adres URL na jakiś inny, np. `%base_url%?sub/page`,
+wystarczy, że w katalogu `sub` utworzysz plik `page.md` i wypełnisz go treścią.
+Tak samo robi się dla każdej innej strony - wystarczy, że utworzysz plik (w razie
+potrzeby także katalogi) z odpowiadającymi adresowi nazwami. Zobacz kilka przykładów
+poniżej:
 
 <table style="width: 100%; max-width: 40em;">
     <thead>
         <tr>
-            <th style="width: 50%;">Physical Location</th>
-            <th style="width: 50%;">URL</th>
+            <th style="width: 50%;">Lokalizacja na serwerze</th>
+            <th style="width: 50%;">Adres URL</th>
         </tr>
     </thead>
     <tbody>
@@ -43,112 +44,126 @@ Below we've shown some examples of locations and their corresponding URLs:
         </tr>
         <tr>
             <td>content/sub.md</td>
-            <td><del>?sub</del> (not accessible, see below)</td>
+            <td><del>?sub</del> (strona nie zostanie wyświetlona, jeśli równocześnie utworzysz plik `content/sub/index.md`)</td>
         </tr>
         <tr>
             <td>content/sub/index.md</td>
-            <td><a href="%base_url%?sub">?sub</a> (same as above)</td>
+            <td><a href="%base_url%?sub">?sub</a> (zobacz przypadek powyżej, w przypadku równoczesnego istnienia obu plików priorytet
+dzierży link `content/sub/index.md`)</td>
         </tr>
         <tr>
-            <td>content/sub/page.md</td>
-            <td><a href="%base_url%?sub/page">?sub/page</a></td>
+            <td>content/jakisurl/alamakota.md</td>
+            <td><a href="%base_url%?jakisurl/alamakota">?jakisurl/alamakota</a> (nie istnieje, to tylko taki przykład)</td>
         </tr>
         <tr>
-            <td>content/a/very/long/url.md</td>
+            <td>content/a/stasiek/ma/psa.md</td>
             <td>
-              <a href="%base_url%?a/very/long/url">?a/very/long/url</a>
-              (doesn't exist)
+              <a href="%base_url%?a/stasiek/ma/psa">?a/stasiek/ma/psa</a>
+              (również nie istnieje)
             </td>
         </tr>
     </tbody>
 </table>
 
-If a file cannot be found, the file `content/404.md` will be shown. You can add
-`404.md` files to any directory. So, for example, if you wanted to use a special
-error page for your blog, you could simply create `content/blog/404.md`.
+Jeśli jakiś plik nie będzie mógł zostać odnaleziony, zamiast niego zostanie pokazana
+strona 404, którą możesz zdefiniować w pliku `content/404.md`. Możesz dodatkowo dodać
+różne pliki `404.md` do zmiany treści tej strony dla poszczególnych podkatalogów.
+Przykładowo, gdybyś chciał(a), żeby blog wyświetlał inną stronę 404, a blog ma adres
+`%base_url%/?blog`, utwórz dla niej plik `content/blog/404.md`.
 
-Pico strictly separates contents of your website (the Markdown files in your
-`content` directory) and how these contents should be displayed (the Twig
-templates in your `themes` directory). However, not every file in your `content`
-directory might actually be a distinct page. For example, some themes (including
-Pico's default theme) use some special "hidden" file to manage meta data (like
-`_meta.md` in Pico's sample contents). Some other themes use a `_footer.md` to
-represent the contents of the website's footer. The common point is the `_`: all
-files and directories prefixed by a `_` in your `content` directory are hidden.
-These pages can't be accessed from a web browser, Pico will show a 404 error
-page instead.
+Pico osobno renderuje kontent Twojej strony (pliki `.md` w katalogu `content`)
+oraz **szablony**, czyli pliki określające, jak Twoja strona ma wyglądać (pliki
+w katalogu `themes`). Nie każdy plik w katalogu `content` pełni jednak funkcję
+definiującą daną stronę w Twojej witrynie. Przykładowo niektóre szablony (jak
+ten domyślny) pozwalają tworzyć tzw. **ukryte strony**. Są to fragmenty kodu w Markdownie,
+które mogą być metadanymi albo na przykład definiować strony w pasku nawigacji. Domyślna
+strona Pico posiada plik `_meta.md` określający wygląd dolnej stopki strony w domyślnym temacie.
+Ważny tutaj jest znak `_` przed "właściwą nazwą", ponieważ to on blokuje renderowanie strony,
+gdy przeglądarka zostanie o to zapytana. Przykładowo, gdybyś do swojej strony dodał(a)
+plik `content/_alajednakmapsa.md`, a następnie spróbował(a) otworzyć stronę
+`%base_url%?alajednakmapsa`, zamiast niej pojawi się błąd 404.
 
-As a common practice, we recommend you to separate your contents and assets
-(like images, downloads, etc.). We even deny access to your `content` directory
-by default. If you want to use some assets (e.g. a image) in one of your content
-files, you should create an `assets` folder in Pico's root directory and upload
-your assets there. You can then access them in your Markdown using
+Dobą praktyką jest oddzielenie kontentu na stronie i wszelkich dodatków, jak na przykład
+zdjęć i filmów do osadzenia na stronie czy plików do pobrania. Domyślnie Pico zabrania
+dostępu do folderu `content` przez przeglądarkę. Jeśli chciałbyś/chciałabyś dodać jakiś
+plik tego typu na swój serwer, zalecamy Ci, żebyś użył(a) w tym celu folderu `assets`.
+Jest on niesprawdzany przez Pico, więc tam możesz spokojnie trzymać, co chcesz. Jeśli
+katalog nie istnieje, utwórz go samemu. Możesz dodać wszystko z `assets` do Markdowna, 
+jak w tym przykładzie:
 <code>&#37;base_url&#37;/assets/</code> for example:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png)</code>
 
-### Text File Markup
 
-Text files are marked up using [Markdown][] and [Markdown Extra][MarkdownExtra].
-They can also contain regular HTML.
+### Pisanie treści na stronie
 
-At the top of text files you can place a block comment and specify certain meta
-attributes of the page using [YAML][] (the "YAML header"). For example:
+Pliki tworzące treść strony używają składni [Markdown][] i [Markdown Extra][MarkdownExtra].
+Możesz do nich dodawać także zwykły kod HTML albo w razie potrzeby używać jednego i drugiego 
+łącznie.
+Na początku tych plików możesz dodać blok komentarza, w którym określisz metadane strony
+(np. tytuł, opis, słowa kluczowe). Później będzie on nazwany "YAML header'em". Przykładowy
+header (nazwy danych muszą być po angielsku):
 
     ---
-    Title: Welcome
-    Description: This description will go in the meta description tag
+    Title: Tytuł Twojej strony internetowej
+    Description: To, co tu wpiszesz, zostanie wyświetlone w <meta name="description" ... />
     Author: Joe Bloggs
     Date: 2001-04-25
     Robots: noindex,nofollow
     Template: index
     ---
 
-These values will be contained in the `{{ meta }}` variable in themes (see
-below). Meta headers sometimes have a special meaning: For instance, Pico not
-only passes through the `Date` meta header, but rather evaluates it to really
-"understand" when this page was created. This comes into play when you want to
-sort your pages not just alphabetically, but by date. Another example is the
-`Template` meta header: It controls what Twig template Pico uses to display
-this page (e.g. if you add `Template: blog`, Pico uses `blog.twig`).
+Te wartości będą później dostępne do użytku w szablonach przez zmienną `{{ meta }}`
+(zobacz więcej poniżej). Czasami metadane mogą mieć znaczenie dodatkowe, przykładem
+może być tutaj dana `Date` - Pico używa jej nie tylko do dodania do sekcji `<head>`
+gotowej strony, lecz także sprawdza za jej pomocą, kiedy strona została utworzona.
+Może Ci się to przydać, gdy będziesz chciał(a) posortować strony według daty utworzenia
+(np. przy tworzeniu bloga). Kolejnym przykładem jest metadana `Template`, której
+zadaniem jest sprawdzanie, którego szablonu z templatki Pico ma użyć do renderowania
+strony (przykładowo, wpisując `Template: blog`, Pico będzie szukał szablonu `blog.twig`
+w używanym templacie).
 
-In an attempt to separate contents and styling, we recommend you to not use
-inline CSS in your Markdown files. You should rather add appropriate CSS
-classes to your theme. For example, you might want to add some CSS classes to
-your theme to rule how much of the available space a image should use (e.g.
-`img.small { width: 80%; }`). You can then use these CSS classes in your
-Markdown files, for example:
+Następną zalecaną przez nas dobrą praktyką jest niewstawianie CSS'a bezpośrednio do
+plików Markdowna. Zamiast tego dodaj potrzebne style do szablonów w templacie. Przykładowo,
+przypuśćmy, że potrzebujesz ustawić następującą regułę CSS: `img.small { width: 80%; }`.
+Możesz ją dodać do szablonu, a następnie wywołać ją w pliku `.md`, jak tutaj:
 <code>!\[Image Title\](&#37;base_url&#37;/assets/image.png) {.small}</code>
 
-There are also certain variables that you can use in your text files:
+Pico oferuje Ci także kilka zmiennych, których możesz używać w plikach Markdowna w celu
+uniknięcia zbędnego powtarzania rzeczy takich jak:
 
-* <code>&#37;site_title&#37;</code> - The title of your Pico site
-* <code>&#37;base_url&#37;</code> - The URL to your Pico site; internal links
-  can be specified using <code>&#37;base_url&#37;?sub/page</code>
-* <code>&#37;theme_url&#37;</code> - The URL to the currently used theme
-* <code>&#37;version&#37;</code> - Pico's current version string (e.g. `2.0.0`)
-* <code>&#37;meta.&#42;&#37;</code> - Access any meta variable of the current
-  page, e.g. <code>&#37;meta.author&#37;</code> is replaced with `Joe Bloggs`
+* <code>&#37;site_title&#37;</code> - Tytuł Twojej strony;
+* <code>&#37;base_url&#37;</code> - Adres Twojej strony; linki do poszczególnych
+stron mogą być wywołane za pomocą <code>&#37;base_url&#37;?przykladowy/link</code>;
+* <code>&#37;theme_url&#37;</code> - Adres do plików używanej przez Twoją stronę templatki;
+* <code>&#37;version&#37;</code> - Obecna wersja systemu (np. `2.0.5-beta.1`);
+* <code>&#37;meta.&#42;&#37;</code> - Wywołuje wartości z YAML header'a, np. 
+<code>&#37;meta.author&#37;</code> spowoduje wypisane `Joe Bloggs`.
 
-### Blogging
+### Blogowanie
 
-Pico is not blogging software - but makes it very easy for you to use it as a
-blog. You can find many plugins out there implementing typical blogging
-features like authentication, tagging, pagination and social plugins. See the
-below Plugins section for details.
+Pico nie jest pisany z myślą o blogowaniu, lecz bardzo łatwo jest wprowadzić
+taką funkcjonalność, jeśli tylko tego potrzebujesz. Możesz znaleźć potrzebne
+Ci wtyczki, jeśli czegoś Ci będzie brakowało, jak na przykład tagowania,
+uwierzytelniania czy paginacji. Więcej informacji znajdziesz w sekcji Wtyczki
+poniżej.
 
-If you want to use Pico as a blogging software, you probably want to do
-something like the following:
+Chcąc używać Pico jako systemu także (bądź głównie) do prowadzenia bloga,
+najłatwiej Ci będzie podążać za tym poradnikiem:
 
-1. Put all your blog articles in a separate `blog` folder in your `content`
-   directory. All these articles should have a `Date` meta header.
-2. Create a `blog.md` or `blog/index.md` in your `content` directory. Add
-   `Template: blog-index` to the YAML header of this page. It will later show a
-   list of all your blog articles (see step 3).
-3. Create the new Twig template `blog-index.twig` (the file name must match the
-   `Template` meta header from Step 2) in your theme directory. This template
-   probably isn't very different from your default `index.twig` (i.e. copy
-   `index.twig`), it will create a list of all your blog articles. Add the
-   following Twig snippet to `blog-index.twig` near `{{ content }}`:
+1. Umieść wszystkie Twoje artykuły w oddzielnym folderze `blog` w katalogu
+`content`. Wszystkie artykuły powinny mieć metadaną `Date`.
+2. Utwórz stronę dla bloga, która stanie się swego rodzaju placeholderem
+do czytania postów. Najlepiej oczywiście będzie, gdy będzie miała ona adres
+`%base_url%?blog/`, więc utwórz plik o nazwie `blog.md` albo `blog/index.md`
+(oba będą się odwoływały do tego adresu, lecz nie mogą istnieć jednocześnie). 
+Dodaj do tej strony metadaną `Template: blog-index`.
+3. Utwórz nowy szablon Twiga o nazwie `blog-index.twig` (jak już pewnie widzisz,
+nazwa musi się zgadzać z metadaną `Template` z pliku) tam, gdzie znajduje
+się Twoja templatka. Nie będzie on zbytnio się różnił od głównego szablonu
+`index.twig` (możesz przykładowo skopiować index, nadać kopii nazwę `blog-index.twig`
+i wprowadzić w kopii Twoje zmiany). Przed zmienną `{{ content }}` dodaj
+w pliku `blog-index.twig` ten kawałek kodu Twiga:
+
    ```
     {% for page in pages|sort_by("time")|reverse %}
         {% if page.id starts with "blog/" and not page.hidden %}
@@ -161,77 +176,76 @@ something like the following:
     {% endfor %}
    ```
 
-## Customization
+## Modyfikowanie
 
-Pico is highly customizable in two different ways: On the one hand you can
-change Pico's appearance by using themes, on the other hand you can add new
-functionality by using plugins. Doing the former includes changing Pico's HTML,
-CSS and JavaScript, the latter mostly consists of PHP programming.
+Pico może być łatwo modyfikowany dwoma sposobami: z jednej strony możesz
+zmienić wygląd swojej strony przez tematy, z drugiej możesz dodać
+nowe funkcje do samego CMS'a przez wtyczki. To pierwsze wiąże się
+z używaniem języków webowych, jak HTML, CSS czy JS, a to drugie opiera
+się głównie na PHP.
 
-This is all Greek to you? Don't worry, you don't have to spend time on these
-techie talk - it's very easy to use one of the great themes or plugins others
-developed and released to the public. Please refer to the next sections for
-details.
+Nie rozumiesz o co chodzi? Nie martw się, czeka na Ciebie katalog uprzednio
+przygotowanych templatek i wtyczek. Więcej informacji znajduje się
+w kolejnym rozdziale.
 
-### Themes
+### Szablony i motywy
 
-You can create themes for your Pico installation in the `themes` folder. Check
-out the default theme for an example. Pico uses [Twig][] for template
-rendering. You can select your theme by setting the `theme` option in
-`config/config.yml` to the name of your theme folder.
+Możesz dodawać i tworzyć motywy dla systemu Pico w folderze `themes`. Jako
+przykład możesz wykorzystać kod domyślnego motywu. Pico używa [Twiga][Twig] do
+renderowania gotowej witryny. W celu wskazania motywu, którego chcesz używać na
+swojej stronie, użyj opcji `theme` w pliku `config/config.yml`, ustawiając
+jej wartość na nazwę Twojego szablonu.
 
-All themes must include an `index.twig` file to define the HTML structure of
-the theme. Below are the Twig variables that are available to use in your
-theme. Please note that paths (e.g. `{{ base_dir }}`) and URLs
-(e.g. `{{ base_url }}`) don't have a trailing slash.
+Wszystkie tematy muszą zawierać co najmniej jeden *szablon* - plik definiujący
+strukturę strony i jej kod HTML. Obowiązkowym szablonem jest `index.twig`,
+używany jako podstawowy. Oczywiście motywy mogą także zawierać więcej niż
+jeden szablon, np. wspomniany w powyższej sekcji `blog-index.twig`. Ważną
+uwagą jest to, że wszystkie ścieżki i URLe w Pico (np. `{{ base_dir }}`)
+nie zawierają końcowego slasha `/`. Tworząc szablon do użycia z motywem w Pico,
+możesz korzystać z następujących zmiennych Twiga:
 
-* `{{ site_title }}` - Shortcut to the site title (see `config/config.yml`)
-* `{{ config }}` - Contains the values you set in `config/config.yml`
-                   (e.g. `{{ config.theme }}` becomes `default`)
-* `{{ base_dir }}` - The path to your Pico root directory
-* `{{ base_url }}` - The URL to your Pico site; use Twig's `link` filter to
-                     specify internal links (e.g. `{{ "sub/page"|link }}`),
-                     this guarantees that your link works whether URL rewriting
-                     is enabled or not
-* `{{ theme_dir }}` - The path to the currently active theme
-* `{{ theme_url }}` - The URL to the currently active theme
-* `{{ version }}` - Pico's current version string (e.g. `2.0.0`)
-* `{{ meta }}` - Contains the meta values of the current page
-    * `{{ meta.title }}`
-    * `{{ meta.description }}`
+* `{{ site_title }}` - Nazwa Twojej strony (wartość z `config/config.yml`.
+* `{{ config }}` - Tablica zawierająca wszystkie wartości z pliku `config/config.yml`,
+	           np. `{{ config.theme }}` przyjmie wartość `default`.
+* `{{ base_dir }}` - Ścieżka do Twojej instalacji Pico
+* `{{ base_url }}` - Adres URL, pod którym jest dostępna Twoja instalacja Pico;
+	             możesz użyć filtra `link` do zdefiniowania linków do innych
+	             stron, np. `{{ "sub/page"|link }}`. Filtr `link` będzie działał
+		     niezależnie od stanu modułu rewrite.
+* `{{ theme_dir }}` - Ścieżka do aktualnie używanego tematu.
+* `{{ theme_url }}` - Adres URL do aktualnie używanego tematu.
+* `{{ version }}` - Obecna wersja Pico (np. `2.0.0`)
+* `{{ meta }}` - Tablica zawierająca wartości z nagłówka YAML aktualnie renderowanej strony:
+    * `{{ meta.title }}` zawiera wartość `Title` z YAML header'a
+    * `{{ meta.description }}` zawiera wartość `Description`
     * `{{ meta.author }}`
     * `{{ meta.date }}`
     * `{{ meta.date_formatted }}`
     * `{{ meta.time }}`
     * `{{ meta.robots }}`
-    * ...
-* `{{ content }}` - The content of the current page after it has been processed
-                    through Markdown
-* `{{ pages }}` - A collection of all the content pages in your site
-    * `{{ page.id }}` - The relative path to the content file (unique ID)
-    * `{{ page.url }}` - The URL to the page
-    * `{{ page.title }}` - The title of the page (YAML header)
-    * `{{ page.description }}` - The description of the page (YAML header)
-    * `{{ page.author }}` - The author of the page (YAML header)
-    * `{{ page.time }}` - The [Unix timestamp][UnixTimestamp] derived from
-                          the `Date` header
-    * `{{ page.date }}` - The date of the page (YAML header)
-    * `{{ page.date_formatted }}` - The formatted date of the page as specified
-                                    by the `date_format` parameter in your
-                                    `config/config.yml`
-    * `{{ page.raw_content }}` - The raw, not yet parsed contents of the page;
-                                 use Twig's `content` filter to get the parsed
-                                 contents of a page by passing its unique ID
-                                 (e.g. `{{ "sub/page"|content }}`)
-    * `{{ page.meta }}`- The meta values of the page (see `{{ meta }}` above)
-    * `{{ page.previous_page }}` - The data of the respective previous page
-    * `{{ page.next_page }}` - The data of the respective next page
-    * `{{ page.tree_node }}` - The page's node in Pico's page tree
-* `{{ prev_page }}` - The data of the previous page (relative to `current_page`)
-* `{{ current_page }}` - The data of the current page (see `{{ pages }}` above)
-* `{{ next_page }}` - The data of the next page (relative to `current_page`)
+    * i tak dalej...
+* `{{ content }}` - Zmienna zawierająca kontent strony uprzednio przeparsowanej przez filtr Markdowna.
+* `{{ pages }}` - Tablica zawierająca informacje o wszystkich stronach wykrytych przez Pico:
+    * `{{ page.id }}` - Identyfikator strony (URL bez adresu hosta i początkowego slasha)
+    * `{{ page.url }}` - Adres URL strony
+    * `{{ page.title }}` - Tytuł strony z nagłówka YAML
+    * `{{ page.description }}` - Opis strony
+    * `{{ page.author }}` - Autor strony
+    * `{{ page.time }}` - [Czas uniksowy][UnixTimestamp] wyliczony na podstawie zmiennej `Date` z nagłówka YAML
+    * `{{ page.date }}` - Data utworzenia strony, tak jak powyżej wykryta ze zmiennej `Date`
+    * `{{ page.date_formatted }}` - Data strony przeparsowana w sposób określony przez opcję `date_format` w pliku konfiguracyjnym
+    * `{{ page.raw_content }}` - Kontent danego pliku, jeszcze nie przeparsowany przez filtr Markdowna;
+                                 możesz użyć filtru `content` do włączenia parsera Markdowna dla podanej strony
+                                 (np. `{{ "sub/page"|content }}`)
+    * `{{ page.meta }}`- Podtablica zawierająca metadane stron (zobacz tablicę `{{ meta }}` dla porównania
+    * `{{ page.previous_page }}` - Informacje o poprzedniej stronie według numeracji Pico
+    * `{{ page.next_page }}` - Informacje o następnej stronie według numeracji Pico
+    * `{{ page.tree_node }}` - Tablica zawierająca wszystkie strony wykryte przez Pico ułożone hierarchicznie, niczym drzewo
+* `{{ current_page }}` - Tablica zawierająca wszystkie informacje o obecnej stronie (dostępne wartości z `{{ pages }}`, zapoznaj się z tym po więcej informacji)
+* `{{ prev_page }}` - Tablica zawierająca informacje o poprzedniej stronie (podobnie, jak `{{ current_page }}`)
+* `{{ next_page }}` - Tablica z informacjami o następnej stronie (tak samo, jak `{{ prev_page }}`)
 
-Pages can be used like the following:
+Zmienne Twiga i dostęp do układu stron według numeracji Pico mogą zostać wykorzystane na przykład do ich wylistowania:
 
     <ul class="nav">
         {% for page in pages if not page.hidden %}
@@ -239,155 +253,147 @@ Pages can be used like the following:
         {% endfor %}
     </ul>
 
-Besides using the `{{ pages }}` list, you can also access pages using Pico's
-page tree. The page tree allows you to iterate through Pico's pages using a tree
-structure, so you can e.g. iterate just a page's direct children. It allows you
-to build recursive menus (like dropdowns) and to filter pages more easily. Just
-head over to Pico's [page tree documentation][FeaturesPageTree] for details.
+Oprócz używania tablicy `{{ pages }}`, możesz również skorzystać z *drzewa
+stron* Pico. Jest to tablica zawierająca wszystkie strony ułożone hierarchicznie,
+niczym drzewo, co pozwoli Ci przykładowo na wylistowanie stron będących *dziećmi*
+strony `sub` czy budowanie rekursywnych menu, jak np. list drop-down. Po więcej
+informacji o tej funkcji sięgnij do [dokumentacji funkcji page tree][FeaturesPageTree].
 
-To call assets from your theme, use `{{ theme_url }}`. For instance, to include
-the CSS file `themes/my_theme/example.css`, add
-`<link rel="stylesheet" href="{{ theme_url }}/example.css" type="text/css" />`
-to your `index.twig`. This works for arbitrary files in your theme's folder,
-including images and JavaScript files.
+W celu dodania do Twojej strony dodatków zawartych w Twoim temacie, możesz
+użyć zmiennej Twiga `{{ theme_url }}`. Przypuszczając, że chcesz dodać arkusz
+CSS `themes/moj_temat/przykladowy_arkusz.css`, dodaj
+`<link rel="stylesheet" href="{{ theme_url }}/przykladowy_arkusz.css" type="text/css" />`
+do Twojego szablonu, np. `index.twig`. Funkcja ta będzie działała dla wszystkich plików
+zawartych w katalogu z aktualnie używanym tematem.
 
-Additional to Twigs extensive list of filters, functions and tags, Pico also
-provides some useful additional filters to make theming easier.
+Kolejną funkcjonalnością w szablonach oprócz dostępnych filtrów Twiga są filtry
+oferowane przez Pico:
 
-* Pass the unique ID of a page to the `link` filter to return the page's URL
-  (e.g. `{{ "sub/page"|link }}` gets `%base_url%?sub/page`).
-* To get the parsed contents of a page, pass its unique ID to the `content`
-  filter (e.g. `{{ "sub/page"|content }}`).
-* You can parse any Markdown string using the `markdown` filter (e.g. you can
-  use Markdown in the `description` meta variable and later parse it in your
-  theme using `{{ meta.description|markdown }}`). You can pass meta data as
-  parameter to replace <code>&#37;meta.&#42;&#37;</code> placeholders (e.g.
-  `{{ "Written *by %meta.author%*"|markdown(meta) }}` yields "Written by
-  *John Doe*").
-* Arrays can be sorted by one of its keys using the `sort_by` filter
-  (e.g. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}`
-  iterates through all pages, ordered by the `nav` meta header; please note the
-  `[ 'meta', 'nav' ]` part of the example, it instructs Pico to sort by
-  `page.meta.nav`). Items which couldn't be sorted are moved to the bottom of
-  the array; you can specify `bottom` (move items to bottom; default), `top`
-  (move items to top), `keep` (keep original order) or `remove` (remove items)
-  as second parameter to change this behavior.
-* You can return all values of a given array key using the `map` filter
-  (e.g. `{{ pages|map("title") }}` returns all page titles).
-* Use the `url_param` and `form_param` Twig functions to access HTTP GET (i.e.
-  a URL's query string like `?some-variable=my-value`) and HTTP POST (i.e. data
-  of a submitted form) parameters. This allows you to implement things like
-  pagination, tags and categories, dynamic pages, and even more - with pure
-  Twig! Simply head over to our [introductory page for accessing HTTP
-  parameters][FeaturesHttpParams] for details.
+* Filtr `link` wywołuje adres URL żądanej przez Ciebie strony (np. `{{ "sub/page"|link }}`
+  doda do Twojej strony `%base_url%?sub/page`).
+* Filtr `content` przepuszcza żądaną przez Ciebie stronę przez filtr Markdowna
+  (np. `{{ "sub/page"|content }}` wywoła kontent z pliku `content/sub/page.md`).
+* Filtr `markdown` zamienia dowolny ciąg znaków Markdowna na kod HTML. Przykładowo,
+  możesz sformatować nagłówek `Description` danej strony i dodać go do Twojego szablonu
+  za pomocą zmiennej `{{ meta.description|markdown }}`. Możesz także dodać ogół
+  metadanych jako parametr zamiast wyrażenia <code>&#37;meta.&#42;&#37;</code> (tutaj
+  też przykład, `{{ "Utworzone *przez %meta.author%*"|markdown(meta) }}` wypluje
+  "Utworzone przez *John Doe*".
+* Filtr `sort_by` sortuje zmienne w tablicach według jednego albo więcej z ich kluczy
+  (np. `{% for page in pages|sort_by([ 'meta', 'nav' ]) %}...{% endfor %}` posortuje
+  wszystkie strony według informacji `nav` z nagłówka YAML; zwróć uwagę na użytą składnię
+  parametru, w przykładzie jest to `[ 'meta', 'nav' ]`, co wskazuje na `page.meta.nav`).
+  Pozycje niemożliwe do posortowania, np. z powodu braku zmiennej `nav`, zostaną umieszczone
+  na dole listy. Możesz to jednak zmienić za pomocą drugiego parametru filtra; oprócz
+  `bottom` (dół, domyślne) możesz także użyć `top` (góra, tutaj na początku listy), `keep`
+  (zachowaj oryginalną kolejność) albo `remove` (usuń strony niemożliwe do posortowania).
+* Filtr `map` zwróci wszystkie wartości danej zmiennej ze wszystkich stron (np. 
+  `{{ pages|map("title") }}` zwróci wszystkie tytuły stron znajdujących się w tablicy `pages`.
+* Oprócz tych filtrów Twig udostępnia również funkcje `url_param` i `form_param`. Pozwalają one
+  na użycie odpowiednio metod GET (tutaj np. query string jak `?jakas-zmienna=wartosc`)
+  i POST (np. wysłanie informacji z formularza). Za pomocą tej funkcji możesz wprowadzić do
+  swojej strony dynamiczne elementy, jak np. kategorie, paginację czy tagi. Po więcej informacji
+  na ten temat [sięgnij do odpowiedniego działu ze strony Pico][FeaturesHttpParams].
 
-You can use different templates for different content files by specifying the
-`Template` meta header. Simply add e.g. `Template: blog` to the YAML header of
-a content file and Pico will use the `blog.twig` template in your theme folder
-to display the page.
+Budując lub edytując daną stronę w Twojej witrynie, możesz dodać do odpowiadającego jej pliku
+kontentu zmienną `Template` w nagłówku YAML. Odpowiada ona za przypisanie danej stronie szablonu
+oferowanego przez dany motyw. Przykładowo, dodając do pliku `content/blog.md` zmienną
+`Template: blog`, gdy użytkownik wejdzie na adres `%base_url%/?blog`, ujrzy stronę wygenerowaną
+za pomocą szablonu `blog.twig`. Nazwa zmiennej `Template` musi odpowiadać nazwie któregoś
+z szablonów, w przeciwnym wypadku spowoduje to błąd 500.
 
-Pico's default theme isn't really intended to be used for a productive website,
-it's rather a starting point for creating your own theme. If the default theme
-isn't sufficient for you, and you don't want to create your own theme, you can
-use one of the great themes third-party developers and designers created in the
-past. As with plugins, you can find themes in [our Wiki][WikiThemes] and on
-[our website][OfficialThemes].
+Domyślny motyw oferowany przez Pico nie jest przeznaczony do budowania docelowych witryn,
+lecz ma na celu bycie swego rodzaju bazą do modyfikacji, co Ci pozwoli na budowę prawdziwej
+strony. Jeśli ani on, ani potrzeba wcześniej wspomnianej modyfikacji nie odpowiada Twoim
+możliwościom bądź chęciom, możesz skorzystać z biblioteki motywów przygotowanych przez
+chętnych programistów i webdesignerów. Wystarczy, że wejdziesz na [wiki Pico][WikiThemes]
+albo na [listę najlepszych dodatków][OfficialThemes].
 
-### Plugins
 
-#### Plugins for users
+### Wtyczki
 
-Officially tested plugins can be found at http://picocms.org/plugins/, but
-there are many awesome third-party plugins out there! A good start point for
-discovery is [our Wiki][WikiPlugins].
+#### Dla użytkowników
 
-Pico makes it very easy for you to add new features to your website using
-plugins. Just like Pico, you can install plugins either using [Composer][]
-(e.g. `composer require phrozenbyte/pico-file-prefixes`), or manually by
-uploading the plugin's file (just for small plugins consisting of a single file,
-e.g. `PicoFilePrefixes.php`) or directory (e.g. `PicoFilePrefixes`) to your
-`plugins` directory. We always recommend you to use Composer whenever possible,
-because it makes updating both Pico and your plugins way easier. Anyway,
-depending on the plugin you want to install, you may have to go through some
-more steps (e.g. specifying config variables) to make the plugin work. Thus you
-should always check out the plugin's docs or `README.md` file to learn the
-necessary steps.
+Promowane wtyczki są umieszczone na podstronie [http://picocms.org/plugins](http://picocms.org/plugins), 
+a pozostałe, choć równie interesujące, są wymienione w ogólnodostępnej [wiki][WikiPlugins].
 
-Plugins which were written to work with Pico 1.0 and later can be enabled and
-disabled through your `config/config.yml`. If you want to e.g. disable the
-`PicoDeprecated` plugin, add the following line to your `config/config.yml`:
-`PicoDeprecated.enabled: false`. To force the plugin to be enabled, replace
-`false` by `true`.
+Instalacja wtyczek do Pico jest bardzo łatwa. Możesz użyć w tym celu [Composera][Composer], 
+podobnie jak do samego CMS'a (jak np. `composer require phrozenbyte/pico-file-prefixes`) 
+albo wgrać pliki wtyczki do folderu `plugins/` (jak np. pojedynczego pliku `PicoFilePrefixes.php` 
+albo katalogu `PicoFilePrefixes`). Zalecamy używanie Composera wszędzie tam, gdzie tylko to możliwe, 
+ponieważ później pozwoli Ci to na dokonanie aktualizacji za pomocą jednej komendy. Pamiętaj o tym, 
+że niektóre wtyczki mogą wymagać dodatkowej konfiguracji, przykładowo dodania nowych zmiennych do 
+pliku `config.yml`. W tym celu zapoznaj się z tzw. załącznikiem *readme* (w wolnym tłumaczeniu 
+*przeczytaj mnie*, zanim mnie zainstalujesz).
 
-#### Plugins for developers
+Wtyczki przeznaczone do używania z Pico 1.0 oraz nowszymi obsługują instrukcję włączenia/wyłączenia 
+w konfiguracji CMS'a. Przykładowo, jeśli chciałbyś wymusić wyłączenie wtyczki `PicoDeprecated`, 
+dodaj zmienną `PicoDeprecated.enabled: false` (fałsz) do `config/config.yml`, natomiast jeśli 
+go włączyć, ustaw wartość na `true` (prawda).
 
-You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/development/. If you've
-developed a plugin before and want to upgrade it to Pico 2.0, refer to the
-[upgrade section of the docs][PluginUpgrade].
+#### Pisanie nowych wtyczek
 
-## Config
+Dla programistów zainteresowanych napisaniem nowej wtyczki udostępniamy przydatną dokumentację 
+na stronie http://picocms.org/development (po angielsku). Jeśli natomiast chciałbyś/chciałabyś 
+zaktualizować swoją wtyczkę w celu kompatybilności z wersją 2 i nowszą, [odwołaj się do tej 
+strony][PluginUpgrade].
 
-Configuring Pico really is stupidly simple: Just create a `config/config.yml`
-to override the default Pico settings (and add your own custom settings). Take
-a look at the `config/config.yml.template` for a brief overview of the
-available settings and their defaults. To override a setting, simply copy the
-line from `config/config.yml.template` to `config/config.yml` and set your
-custom value.
+## Konfiguracja
 
-But we didn't stop there. Rather than having just a single config file, you can
-use a arbitrary number of config files. Simply create a `.yml` file in Pico's
-`config` dir and you're good to go. This allows you to add some structure to
-your config, like a separate config file for your theme (`config/my_theme.yml`).
+Konfiguracja systemu również spełnia kryterium *prostoty do bólu*, wymagając jedynie utworzenia 
+podstawowego pliku `config/config.yml` (i oczywiście wypełnienia go zawartością). W celu zrozumienia 
+zasad obsługi tego pliku przygotowaliśmy dla Ciebie szablon w pliku `config/config.yml.template`. 
+Na początek możesz po prostu zmienić jego nazwę na `config/config.yml`, a następnie edytować według Twoich potrzeb.
 
-Please note that Pico loads config files in a special way you should be aware
-of. First of all it loads the main config file `config/config.yml`, and then
-any other `*.yml` file in Pico's `config` dir in alphabetical order. The file
-order is crucial: Config values which have been set already, cannot be
-overwritten by a succeeding file. For example, if you set `site_title: Pico` in
-`config/a.yml` and `site_title: My awesome site!` in `config/b.yml`, your site
-title will be "Pico".
+W razie potrzeby możesz również rozłożyć swoją konfigurację na kilka plików. Każdy plik konfiguracji 
+musi mieć rozszerzenie `.yml` oraz być poprawnym według języka YAML. Za pomocą tej funkcjonalności 
+możesz np. dodać oddzielną konfigurację dla swojego motywu (`config/moj_motyw.yml`).
 
-Since YAML files are plain text files, users might read your Pico config by
-navigating to `%base_url%/config/config.yml`. This is no problem in the first
-place, but might get a problem if you use plugins that require you to store
-security-relevant data in the config (like credentials). Thus you should
-*always* make sure to configure your webserver to deny access to Pico's
-`config` dir. Just refer to the "URL Rewriting" section below. By following the
-instructions, you will not just enable URL rewriting, but also deny access to
-Pico's `config` dir.
+Ważne jest to, że w pierwszej kolejności ładowany jest plik `config.yml`, a następnie wszystkie 
+pozostałe **w alfabetycznej kolejności**. Dodatkowo zmienne, które już raz zostały ustawione, nie mogą 
+być zmienione w kolejnym pliku. Biorąc za żywy przykład sytuację z poprzedniego akapitu, gdybyś 
+w `config.yml` dodał(a) wpis `site_title: Moja strona internetowa`, a w `moj_motyw.yml` - `site_title: 
+Moja lepsza strona internetowa`, tytułem strony pozostanie `Moja strona internetowa`.
 
-### URL Rewriting
+Pliki YAML są zwykłymi plikami tekstowymi, toteż użytkownicy mogą mieć możliwość przeczytania 
+ich zawartości poprzez odwiedzenie linku `%base_url%/config/config.yml`. Na początku pewnie 
+nie będzie to dla Ciebie zbytnim problemem, jednak może się nim stać, gdy jakieś wtyczki bądź 
+Ty sam będziesz chciał(a) przechowywać w nich hasła, loginy bądź inne poufne dane. W tym celu 
+razem z Pico dostarczana jest odpowiednia konfiguracja serwera w pliku *.htaccess*, co jednak 
+wymaga włączonego modułu rewrite. Po więcej informacji sięgnij do sekcji poniżej. Funkcja ta 
+nie tylko włączy na Twojej stronie ładniejszą składnię URL'i, ale również zabroni odczytywania 
+surowych danych z poziomu przeglądarki.
 
-Pico's default URLs (e.g. %base_url%/?sub/page) already are very user-friendly.
-Additionally, Pico offers you a URL rewrite feature to make URLs even more
-user-friendly (e.g. %base_url%/sub/page). Below you'll find some basic info
-about how to configure your webserver proberly to enable URL rewriting.
+### Moduł rewrite
+
+Domyślna składnia adresu URL (np. %base_url%/?ala/ma/kota) od razu ma na celu bycie przyjazną, 
+jednak Pico dodatkowo wspiera moduł rewrite serwera, za pomocą którego adresy przyjmą postać 
+bez jakichkolwiek pytajników (powyższy przykład zmieni się w %base_url%/ala/ma/kota). Poniżej 
+znajdziesz poradniki, jak włączyć na swoim serwerze rewriting.
 
 #### Apache
 
-If you're using the Apache web server, URL rewriting probably already is
-enabled - try it yourself, click on the [second URL](%base_url%/sub/page). If
-URL rewriting doesn't work (you're getting `404 Not Found` error messages from
-Apache), please make sure to enable the [`mod_rewrite` module][ModRewrite] and
-to enable `.htaccess` overrides. You might have to set the
-[`AllowOverride` directive][AllowOverride] to `AllowOverride All` in your
-virtual host config file or global `httpd.conf`/`apache.conf`. Assuming
-rewritten URLs work, but Pico still shows no rewritten URLs, force URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. If you
-rather get a `500 Internal Server Error` no matter what you do, try removing
-the `Options` directive from Pico's `.htaccess` file (it's the last line).
+Jeśli używasz serwera Apache (co jest wysoce prawdopodobne, gdyż jest to najczęściej 
+wybierany serwer przez hostingodawców), powinieneś już mieć odgórnie włączoną funkcję 
+rewritingu. Sprawdź samemu, [klikając w ten link](%base_url%/sub/page). Jeśli wyskakuje 
+Ci błąd 404, co oznacza, że rewriting jest wyłączony, upewnij się, że 
+[dyrektywa `AllowOverride`][AllowOverride] ma wartość `AllowOverride All`, a 
+[moduł `mod_rewrite`][ModRewrite] jest włączony. Zakładając, że serwer jest skonfigurowany 
+poprawnie, ale z jakiegoś powodu rewriting ciągle nie działa, możesz spróbować ustawienia 
+zmiennej `rewrite_url` na wartość `true` w pliku `config.yml`. Jeśli natomiast otrzymujesz 
+błąd `500 Internal Server Error`, spróbuj usunąć ostatnią linijkę z pliku `.htaccess` 
+(dyrektywę `Options`).
 
 #### Nginx
 
-If you're using Nginx, you can use the following config to enable URL rewriting
-(lines `5` to `8`) and denying access to Pico's internal files (lines `1` to
-`3`). You'll need to adjust the path (`/pico` on lines `1`, `2`, `5` and `7`)
-to match your installation directory. Additionally, you'll need to enable URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. The Nginx
-config should provide the *bare minimum* you need for Pico. Nginx is a very
-extensive subject. If you have any trouble, please read through our
-[Nginx config docs][NginxConfig].
+Jeśli używasz Nginx'a, możesz użyć podanego tutaj snippetu kodu do włączenia
+funkcji rewritingu (linie `5` do `8`) oraz zabronienia dostępu do
+surowych danych Twojej strony (`1` do `3`). W liniach `1`, `2`, `5` i `7` musisz
+zmienić ciąg znaków `/pico` na ścieżkę dostępu do Twojej strony. Dodatkowo musisz
+ustawić zmienną `rewrite_url` na `true` w pliku konfiguracji. Poniższa konfiguracja
+powinna Ci wystarczyć do włączenia tych funkcji, jeśli jednak cały czas napotykasz
+jakieś problemy, możesz odnieść się do [naszych instrukcji nt. oprogramowania
+Nginx][NginxConfig].
 
 ```
 location ~ ^/pico/((config|content|vendor|composer\.(json|lock|phar))(/|$)|(.+/)?\.(?!well-known(/|$))) {
@@ -402,12 +408,9 @@ location /pico/ {
 
 #### Lighttpd
 
-Pico runs smoothly on Lighttpd. You can use the following config to enable URL
-rewriting (lines `6` to `9`) and denying access to Pico's internal files (lines
-`1` to `4`). Make sure to adjust the path (`/pico` on lines `2`, `3` and `7`)
-to match your installation directory, and let Pico know about available URL
-rewriting by setting `rewrite_url: true` in your `config/config.yml`. The
-config below should provide the *bare minimum* you need for Pico.
+Możesz użyć tego kodu do włączenia obu funkcjonalności, oczywiście - podobnie
+jak w przypadku Nginx'a - pamiętając o dostosowaniu ścieżki do serwera (`/pico`
+w liniach `2`, `3` i `7`) oraz ustawieniu zmiennej `rewrite_url: true`.
 
 ```
 url.rewrite-once = (
@@ -420,9 +423,9 @@ url.rewrite-if-not-file = (
 )
 ```
 
-## Documentation
+## Dokumentacja
 
-For more help have a look at the Pico documentation at http://picocms.org/docs.
+Po więcej informacji zajrzyj do oficjalnej dokumentacji Pico na stronie http://picocms.org/docs.
 
 [Pico]: http://picocms.org/
 [SampleContents]: https://github.com/picocms/Pico/tree/master/content-sample
