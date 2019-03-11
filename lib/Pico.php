@@ -1495,6 +1495,13 @@ class Pico
             }
         }
 
+        // replace %config.*%
+        foreach ($this->config as $configKey => $configValue) {
+            if (is_scalar($configValue) || ($configValue === null)) {
+                $variables['%config.' . $configKey . '%'] = (string) $configValue;
+            }
+        }
+
         return str_replace(array_keys($variables), $variables, $markdown);
     }
 
