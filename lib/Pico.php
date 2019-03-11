@@ -2009,7 +2009,7 @@ class Pico
             'meta' => $this->meta,
             'content' => $this->content,
             'pages' => $this->pages,
-            'prev_page' => $this->previousPage,
+            'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
             'version' => static::VERSION
