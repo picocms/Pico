@@ -948,6 +948,10 @@ class Pico
             $this->config['twig_config'] = $defaultTwigConfig;
         } else {
             $this->config['twig_config'] += $defaultTwigConfig;
+
+            if ($this->config['twig_config']['cache']) {
+                $this->config['twig_config']['cache'] = $this->getAbsolutePath($this->config['twig_config']['cache']);
+            }
         }
 
         if (!$this->config['content_dir']) {
@@ -2439,21 +2443,28 @@ class Pico
      *
      * This method also guarantees a trailing slash.
      *
-     * @param string $path relative or absolute path
+     * @param string $path     relative or absolute path
+     * @param string $basePath treat relative paths relative to the given path;
+     *     defaults to Pico::$rootDir
      *
      * @return string absolute path
      */
-    public function getAbsolutePath($path)
+    public function getAbsolutePath($path, $basePath = null)
     {
+        if ($basePath === null) {
+            $basePath = $this->getRootDir();
+        }
+
         if (DIRECTORY_SEPARATOR === '\\') {
             if (preg_match('/^(?>[a-zA-Z]:\\\\|\\\\\\\\)/', $path) !== 1) {
-                $path = $this->getRootDir() . $path;
+                $path = $basePath . $path;
             }
         } else {
             if ($path[0] !== '/') {
-                $path = $this->getRootDir() . $path;
+                $path = $basePath . $path;
             }
         }
+
         return rtrim($path, '/\\') . '/';
     }
 
