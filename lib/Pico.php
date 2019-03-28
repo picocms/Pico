@@ -943,7 +943,14 @@ class Pico
             $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
         }
 
-        $defaultTwigConfig = array('cache' => false, 'autoescape' => false, 'debug' => false);
+        $defaultTwigConfig = array(
+            'autoescape' => false,
+            'strict_variables' => false,
+            'debug' => null,
+            'cache' => false,
+            'auto_reload' => null
+        );
+
         if (!is_array($this->config['twig_config'])) {
             $this->config['twig_config'] = $defaultTwigConfig;
         } else {
