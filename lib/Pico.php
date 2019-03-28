@@ -906,6 +906,7 @@ class Pico
             'site_title' => 'Pico',
             'base_url' => '',
             'rewrite_url' => null,
+            'debug' => null,
             'timezone' => null,
             'theme' => 'default',
             'theme_url' => null,
@@ -926,6 +927,10 @@ class Pico
 
         if ($this->config['rewrite_url'] === null) {
             $this->config['rewrite_url'] = $this->isUrlRewritingEnabled();
+        }
+
+        if ($this->config['debug'] === null) {
+            $this->config['debug'] = $this->isDebugModeEnabled();
         }
 
         if (!$this->config['timezone']) {
@@ -958,6 +963,9 @@ class Pico
 
             if ($this->config['twig_config']['cache']) {
                 $this->config['twig_config']['cache'] = $this->getAbsolutePath($this->config['twig_config']['cache']);
+            }
+            if ($this->config['twig_config']['debug'] === null) {
+                $this->config['twig_config']['debug'] = $this->isDebugModeEnabled();
             }
         }
 
@@ -2118,6 +2126,29 @@ class Pico
         }
 
         return $this->config['rewrite_url'];
+    }
+
+    /**
+     * Returns TRUE if Pico's debug mode is enabled
+     *
+     * @return bool TRUE if Pico's debug mode is enabled, FALSE otherwise
+     */
+    public function isDebugModeEnabled()
+    {
+        $debugModeEnabled = $this->getConfig('debug');
+        if ($debugModeEnabled !== null) {
+            return $debugModeEnabled;
+        }
+
+        if (isset($_SERVER['PICO_DEBUG'])) {
+            $this->config['debug'] = (bool) $_SERVER['PICO_DEBUG'];
+        } elseif (isset($_SERVER['REDIRECT_PICO_DEBUG'])) {
+            $this->config['debug'] = (bool) $_SERVER['REDIRECT_PICO_DEBUG'];
+        } else {
+            $this->config['debug'] = false;
+        }
+
+        return $this->config['debug'];
     }
 
     /**
