@@ -1155,39 +1155,22 @@ class Pico
         if (!$requestUrl) {
             return $contentDir . 'index' . $contentExt;
         } else {
-            // prevent content_dir breakouts
-            $requestUrl = str_replace('\\', '/', $requestUrl);
-            $requestUrlParts = explode('/', $requestUrl);
-
-            $requestFileParts = array();
-            foreach ($requestUrlParts as $requestUrlPart) {
-                if (($requestUrlPart === '') || ($requestUrlPart === '.')) {
-                    continue;
-                } elseif ($requestUrlPart === '..') {
-                    array_pop($requestFileParts);
-                    continue;
-                }
-
-                $requestFileParts[] = $requestUrlPart;
-            }
-
-            if (!$requestFileParts) {
-                return $contentDir . 'index' . $contentExt;
-            }
+            // normalize path and prevent content_dir breakouts
+            $requestFile = $this->getNormalizedPath($requestUrl, false, false);
 
             // discover the content file to serve
-            // Note: $requestFileParts neither contains a trailing nor a leading slash
-            $requestFile = $contentDir . implode('/', $requestFileParts);
-            if (is_dir($requestFile)) {
+            if (!$requestFile) {
+                return $contentDir . 'index' . $contentExt;
+            } elseif (is_dir($contentDir . $requestFile)) {
                 // if no index file is found, try a accordingly named file in the previous dir
                 // if this file doesn't exist either, show the 404 page, but assume the index
                 // file as being requested (maintains backward compatibility to Pico < 1.0)
-                $indexFile = $requestFile . '/index' . $contentExt;
-                if (file_exists($indexFile) || !file_exists($requestFile . $contentExt)) {
+                $indexFile = $contentDir . $requestFile . '/index' . $contentExt;
+                if (file_exists($indexFile) || !file_exists($contentDir . $requestFile . $contentExt)) {
                     return $indexFile;
                 }
             }
-            return $requestFile . $contentExt;
+            return $contentDir . $requestFile . $contentExt;
         }
     }
 
@@ -2504,6 +2487,61 @@ class Pico
         }
 
         return rtrim($path, '/\\') . '/';
+    }
+
+    /**
+     * Normalizes a path by taking care of '', '.' and '..' parts
+     *
+     * @param string $path               path to normalize
+     * @param bool   $allowsAbsolutePath whether absolute paths are allowed
+     * @param bool   $endSlash           whether to add a trailing slash to the
+     *     normalized path or not (defaults to TRUE)
+     *
+     * @return string normalized path
+     *
+     * @throws UnexpectedValueException thrown when a absolute path is passed
+     *     although absolute paths aren't allowed
+     */
+    public function getNormalizedPath($path, $allowsAbsolutePath = false, $endSlash = true)
+    {
+        $absolutePath = '';
+        if (DIRECTORY_SEPARATOR === '\\') {
+            if (preg_match('/^(?>[a-zA-Z]:\\\\|\\\\\\\\)/', $path, $pathMatches) === 1) {
+                $absolutePath = $pathMatches[0];
+                $path = substr($path, strlen($absolutePath));
+            }
+        } else {
+            if ($path[0] === '/') {
+                $absolutePath = '/';
+                $path = substr($path, 1);
+            }
+        }
+
+        if ($absolutePath && !$allowsAbsolutePath) {
+            throw new UnexpectedValueException(
+                'Argument 1 passed to ' . __METHOD__ . ' must be a relative path, absolute path "' . $path . '" given'
+            );
+        }
+
+        $path = str_replace('\\', '/', $path);
+        $pathParts = explode('/', $path);
+
+        $resultParts = array();
+        foreach ($pathParts as $pathPart) {
+            if (($pathPart === '') || ($pathPart === '.')) {
+                continue;
+            } elseif ($pathPart === '..') {
+                array_pop($resultParts);
+                continue;
+            }
+            $resultParts[] = $pathPart;
+        }
+
+        if (!$resultParts) {
+            return $absolutePath ?: '/';
+        }
+
+        return $absolutePath . implode('/', $resultParts) . ($endSlash ? '/' : '');
     }
 
     /**
