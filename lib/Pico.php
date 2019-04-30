@@ -2260,6 +2260,8 @@ class Pico
      */
     public function getUrlFromPath($absolutePath)
     {
+        $absolutePath = str_replace('\\', '/', $absolutePath);
+
         $basePath = '';
         if (isset($_SERVER['SCRIPT_FILENAME']) && strrpos($_SERVER['SCRIPT_FILENAME'], '/')) {
             $basePath = dirname($_SERVER['SCRIPT_FILENAME']);
