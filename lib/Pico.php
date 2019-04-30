@@ -2029,12 +2029,10 @@ class Pico
     {
         return array(
             'config' => $this->getConfig(),
-            'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'plugins_url' => rtrim($this->getConfig('plugins_url'), '/'),
             'themes_url' => rtrim($this->getConfig('themes_url'), '/'),
             'assets_url' => rtrim($this->getConfig('assets_url'), '/'),
-            'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
             'theme_url' => $this->getConfig('themes_url') . $this->getConfig('theme'),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
