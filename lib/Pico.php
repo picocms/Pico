@@ -941,11 +941,9 @@ class Pico
         date_default_timezone_set($this->config['timezone']);
 
         if (!$this->config['theme_url']) {
-            $this->config['theme_url'] = $this->getBaseThemeUrl();
-        } elseif (preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $this->config['theme_url'])) {
-            $this->config['theme_url'] = rtrim($this->config['theme_url'], '/') . '/';
+            $this->config['theme_url'] = $this->getUrlFromPath($this->getThemesDir());
         } else {
-            $this->config['theme_url'] = $this->getBaseUrl() . rtrim($this->config['theme_url'], '/') . '/';
+            $this->config['thems_url'] = $this->getAbsoluteUrl($this->config['theme_url']);
         }
 
         $defaultTwigConfig = array(
@@ -1486,7 +1484,7 @@ class Pico
         $variables['%base_url%'] = rtrim($this->getBaseUrl(), '/');
 
         // replace %theme_url%
-        $variables['%theme_url%'] = $this->getBaseThemeUrl() . $this->getConfig('theme');
+        $variables['%theme_url%'] = $this->getConfig('theme_url') . $this->getConfig('theme');
 
         // replace %meta.*%
         if ($meta) {
@@ -2006,7 +2004,7 @@ class Pico
             'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
-            'theme_url' => $this->getBaseThemeUrl() . $this->getConfig('theme'),
+            'theme_url' => $this->getConfig('theme_url') . $this->getConfig('theme'),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
             'content' => $this->content,
@@ -2212,41 +2210,46 @@ class Pico
     }
 
     /**
-     * Returns the URL of the themes folder of this Pico instance
+     * Returns the URL of a given absolute path within this Pico instance
      *
-     * We assume that the themes folder is a arbitrary deep sub folder of the
+     * We assume that the given path is a arbitrary deep sub folder of the
      * script's base path (i.e. the directory {@path "index.php"} is in resp.
-     * the `httpdocs` directory). Usually the script's base path is identical
-     * to {@see Pico::$rootDir}, but this may aberrate when Pico got installed
-     * as a composer dependency. However, ultimately it allows us to use
-     * {@see Pico::getBaseUrl()} as origin of the theme URL. Otherwise Pico
-     * falls back to the basename of {@see Pico::$themesDir} (i.e. assuming
-     * that `Pico::$themesDir` is `foo/bar/baz`, the base URL of the themes
-     * folder will be `baz/`; this ensures BC to Pico < 2.0). Pico's base URL
-     * always gets prepended appropriately.
+     * the `httpdocs` directory). If this isn't the case, we check whether it's
+     * a sub folder of {@see Pico::$rootDir} (what is often identical to the
+     * script's base path). If this isn't the case either, we fall back to
+     * the basename of the given folder. This whole process ultimately allows
+     * us to use {@see Pico::getBaseUrl()} as origin for the URL.
      *
-     * @return string the URL of the themes folder
+     * This method is used to guess Pico's `plugins_url`, `themes_url` and
+     * `assets_url`. However, guessing might fail, requiring a manual config.
+     *
+     * @param $absolutePath
+     *
+     * @return string the URL of the given folder
      */
-    public function getBaseThemeUrl()
+    public function getUrlFromPath($absolutePath)
     {
-        $themeUrl = $this->getConfig('theme_url');
-        if ($themeUrl) {
-            return $themeUrl;
-        }
-
-        if (isset($_SERVER['SCRIPT_FILENAME']) && ($_SERVER['SCRIPT_FILENAME'] !== 'index.php')) {
+        $basePath = '';
+        if (isset($_SERVER['SCRIPT_FILENAME']) && strrpos($_SERVER['SCRIPT_FILENAME'], '/')) {
             $basePath = dirname($_SERVER['SCRIPT_FILENAME']);
             $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
-            if (substr($this->getThemesDir(), 0, $basePathLength) === $basePath) {
-                $this->config['theme_url'] = $this->getBaseUrl() . substr($this->getThemesDir(), $basePathLength);
-                return $this->config['theme_url'];
+            if ((substr($absolutePath, 0, $basePathLength) === $basePath) && ($basePath !== '/')) {
+                return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
             }
         }
 
-        $this->config['theme_url'] = $this->getBaseUrl() . basename($this->getThemesDir()) . '/';
-        return $this->config['theme_url'];
+        if ($basePath !== $this->getRootDir()) {
+            $basePath = $this->getRootDir();
+            $basePathLength = strlen($basePath);
+
+            if (substr($absolutePath, 0, $basePathLength) === $basePath) {
+                return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
+            }
+        }
+
+        return $this->getBaseUrl() . basename($absolutePath) . '/';
     }
 
     /**
@@ -2542,6 +2545,33 @@ class Pico
         }
 
         return $absolutePath . implode('/', $resultParts) . ($endSlash ? '/' : '');
+    }
+
+    /**
+     * Makes a relative URL absolute to Pico's base URL
+     *
+     * Please note that URLs starting with a slash are considered absolute URLs
+     * even though they don't include a scheme and host.
+     *
+     * @param string $url      relative or absolute URL
+     * @param string $baseUrl  treat relative URLs relative to the given URL;
+     *     defaults to Pico::getBaseUrl()
+     * @param bool $endSlash   whether to add a trailing slash to the absolute
+     *     URL or not (defaults to TRUE)
+     *
+     * @return string absolute URL
+     */
+    public function getAbsoluteUrl($url, $baseUrl = null, $endSlash = true)
+    {
+        if ($baseUrl === null) {
+            $baseUrl = $this->getBaseUrl();
+        }
+
+        if (($url[0] !== '/') && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
+            $url = $baseUrl . $url;
+        }
+
+        return rtrim($url, '/') . ($endSlash ? '/' : '');
     }
 
     /**

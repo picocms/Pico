@@ -108,7 +108,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::getConfig()
      * @see Pico::getBaseUrl()
-     * @see Pico::getBaseThemeUrl()
      * @see Pico::isUrlRewritingEnabled()
      *
      * @param array &$config array of config variables
