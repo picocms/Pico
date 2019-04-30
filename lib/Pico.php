@@ -541,6 +541,8 @@ class Pico
      * @param string[] $pluginBlacklist class names of plugins not to load
      *
      * @return string[] installer names of the loaded plugins
+     *
+     * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadComposerPlugins(array $pluginBlacklist = array())
     {
@@ -703,7 +705,7 @@ class Pico
      *
      * @return PicoPluginInterface instance of the loaded plugin
      *
-     * @throws RuntimeException thrown when a plugin couldn't be loaded
+     * @throws RuntimeException thrown when the plugin couldn't be loaded
      */
     public function loadPlugin($plugin)
     {
@@ -904,7 +906,7 @@ class Pico
         // merge default config
         $this->config += array(
             'site_title' => 'Pico',
-            'base_url' => '',
+            'base_url' => null,
             'rewrite_url' => null,
             'debug' => null,
             'timezone' => null,
@@ -912,6 +914,7 @@ class Pico
             'theme_url' => null,
             'twig_config' => null,
             'date_format' => '%D %T',
+            'pages_order_by_meta' => 'author',
             'pages_order_by' => 'alpha',
             'pages_order' => 'asc',
             'content_dir' => null,
@@ -1992,8 +1995,7 @@ class Pico
     /**
      * Returns the variables passed to the template
      *
-     * URLs and paths (namely `base_dir`, `base_url`, `theme_dir` and
-     * `theme_url`) don't add a trailing slash for historic reasons.
+     * URLs and paths don't add a trailing slash for historic reasons.
      *
      * @return array template variables
      */
@@ -2145,6 +2147,8 @@ class Pico
      *     "index", passing TRUE (default) will remove this path component
      *
      * @return string URL
+     *
+     * @throws InvalidArgumentException thrown when invalid arguments got passed
      */
     public function getPageUrl($page, $queryData = null, $dropIndex = true)
     {
@@ -2152,7 +2156,7 @@ class Pico
             $queryData = http_build_query($queryData, '', '&');
         } elseif (($queryData !== null) && !is_string($queryData)) {
             throw new InvalidArgumentException(
-                'Argument 2 passed to ' . get_called_class() . '::getPageUrl() must be of the type array or string, '
+                'Argument 2 passed to ' . __METHOD__ . ' must be of the type array or string, '
                 . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
             );
         }
@@ -2465,15 +2469,15 @@ class Pico
     /**
      * Makes a relative path absolute to Pico's root dir
      *
-     * This method also guarantees a trailing slash.
-     *
      * @param string $path     relative or absolute path
      * @param string $basePath treat relative paths relative to the given path;
      *     defaults to Pico::$rootDir
+     * @param bool   $endSlash whether to add a trailing slash to the absolute
+     *     path or not (defaults to TRUE)
      *
      * @return string absolute path
      */
-    public function getAbsolutePath($path, $basePath = null)
+    public function getAbsolutePath($path, $basePath = null, $endSlash = true)
     {
         if ($basePath === null) {
             $basePath = $this->getRootDir();
@@ -2489,7 +2493,7 @@ class Pico
             }
         }
 
-        return rtrim($path, '/\\') . '/';
+        return rtrim($path, '/\\') . ($endSlash ? '/' : '');
     }
 
     /**
