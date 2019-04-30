@@ -12,7 +12,7 @@ timezone: UTC                       # Your PHP installation might require you to
 # Theme
 #
 theme: default                      # The name of your custom theme
-theme_url: ~                        # Pico will try to guess the URL to the themes dir of your installation;
+themes_url: ~                       # Pico will try to guess the URL to the themes dir of your installation;
                                     #     If this fails, override it here. Example: https://example.com/pico/themes/
 theme_config:
     widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
@@ -41,10 +41,15 @@ content_config:
     escape: false                   # Escape HTML markup in your content files; don't confuse this with some sort of
                                     #     safe mode, enabling this doesn't allow you to process untrusted user input!
     auto_urls: true                 # Automatically link URLs found in your markup
+assets_dir: assets/                 # The path to Pico's assets directory
+assets_url: ~                       # Pico will try to guess the URL to the assets dir of your installation;
+                                    #     If this fails, override it here. Example: https://example.com/pico/assets/
 
 ##
 # Plugins
 #
+plugins_url: ~                      # Pico will try to guess the URL to the plugins dir of your installation;
+                                    #     If this fails, override it here. Example: https://example.com/pico/plugins/
 DummyPlugin.enabled: false          # Force the plugin "DummyPlugin" to be disabled
 
 ##

@@ -910,8 +910,9 @@ class Pico
             'rewrite_url' => null,
             'debug' => null,
             'timezone' => null,
+            'plugins_url' => null,
             'theme' => 'default',
-            'theme_url' => null,
+            'themes_url' => null,
             'twig_config' => null,
             'date_format' => '%D %T',
             'pages_order_by_meta' => 'author',
@@ -919,7 +920,9 @@ class Pico
             'pages_order' => 'asc',
             'content_dir' => null,
             'content_ext' => '.md',
-            'content_config' => null
+            'content_config' => null,
+            'assets_dir' => 'assets/',
+            'assets_url' => null
         );
 
         if (!$this->config['base_url']) {
@@ -943,10 +946,16 @@ class Pico
         }
         date_default_timezone_set($this->config['timezone']);
 
-        if (!$this->config['theme_url']) {
-            $this->config['theme_url'] = $this->getUrlFromPath($this->getThemesDir());
+        if (!$this->config['plugins_url']) {
+            $this->config['plugins_url'] = $this->getUrlFromPath($this->getPluginsDir());
         } else {
-            $this->config['thems_url'] = $this->getAbsoluteUrl($this->config['theme_url']);
+            $this->config['plugins_url'] = $this->getAbsoluteUrl($this->config['plugins_url']);
+        }
+
+        if (!$this->config['themes_url']) {
+            $this->config['themes_url'] = $this->getUrlFromPath($this->getThemesDir());
+        } else {
+            $this->config['themes_url'] = $this->getAbsoluteUrl($this->config['themes_url']);
         }
 
         $defaultTwigConfig = array(
@@ -988,6 +997,18 @@ class Pico
             $this->config['content_config'] = $defaultContentConfig;
         } else {
             $this->config['content_config'] += $defaultContentConfig;
+        }
+
+        if (!$this->config['assets_dir']) {
+            $this->config['assets_dir'] = $this->getRootDir() . 'assets/';
+        } else {
+            $this->config['assets_dir'] = $this->getAbsolutePath($this->config['assets_dir']);
+        }
+
+        if (!$this->config['assets_url']) {
+            $this->config['assets_url'] = $this->getUrlFromPath($this->config['assets_dir']);
+        } else {
+            $this->config['assets_url'] = $this->getAbsoluteUrl($this->config['assets_url']);
         }
     }
 
@@ -1486,8 +1507,13 @@ class Pico
         }
         $variables['%base_url%'] = rtrim($this->getBaseUrl(), '/');
 
+        // replace %plugins_url%, %themes_url% and %assets_url%
+        $variables['%plugins_url%'] = rtrim($this->getConfig('plugins_url'), '/');
+        $variables['%themes_url%'] = rtrim($this->getConfig('themes_url'), '/');
+        $variables['%assets_url%'] = rtrim($this->getConfig('assets_url'), '/');
+
         // replace %theme_url%
-        $variables['%theme_url%'] = $this->getConfig('theme_url') . $this->getConfig('theme');
+        $variables['%theme_url%'] = $this->getConfig('themes_url') . $this->getConfig('theme');
 
         // replace %meta.*%
         if ($meta) {
@@ -2005,8 +2031,11 @@ class Pico
             'config' => $this->getConfig(),
             'base_dir' => rtrim($this->getRootDir(), '/'),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
+            'plugins_url' => rtrim($this->getConfig('plugins_url'), '/'),
+            'themes_url' => rtrim($this->getConfig('themes_url'), '/'),
+            'assets_url' => rtrim($this->getConfig('assets_url'), '/'),
             'theme_dir' => $this->getThemesDir() . $this->getConfig('theme'),
-            'theme_url' => $this->getConfig('theme_url') . $this->getConfig('theme'),
+            'theme_url' => $this->getConfig('themes_url') . $this->getConfig('theme'),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
             'content' => $this->content,
