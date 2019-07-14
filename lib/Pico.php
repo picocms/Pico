@@ -2241,6 +2241,18 @@ class Pico
     }
 
     /**
+     * Returns the URL of the themes folder of this Pico instance
+     *
+     * @deprecated 3.0.0
+     *
+     * @return string
+     */
+    public function getBaseThemeUrl()
+    {
+        return $this->getConfig('themes_url');
+    }
+
+    /**
      * Returns the URL of a given absolute path within this Pico instance
      *
      * We assume that the given path is a arbitrary deep sub folder of the
