@@ -28,7 +28,7 @@
     "require": {
         "php": ">=5.3.6",
         "ext-dom": "*",
-        "twig/twig": "^1.35",
+        "twig/twig": "^1.36",
         "symfony/yaml" : "^2.8",
         "erusev/parsedown": "~1.8.0|1.8.0@beta",
         "erusev/parsedown-extra": "~0.8.0|0.8.0@beta"
@@ -39,8 +39,8 @@
         "picocms/composer-installer": "This Composer plugin is responsible for installing Pico plugins and themes using the Composer package manager."
     },
     "require-dev" : {
-        "phpdocumentor/phpdocumentor": "^2.8",
-        "squizlabs/php_codesniffer": "^2.4"
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "squizlabs/php_codesniffer": "^2.9"
     },
     "autoload": {
         "psr-0": {
