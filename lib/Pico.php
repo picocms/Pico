@@ -910,7 +910,6 @@ class Pico
             'rewrite_url' => null,
             'debug' => null,
             'timezone' => null,
-            'plugins_url' => null,
             'theme' => 'default',
             'themes_url' => null,
             'twig_config' => null,
@@ -922,7 +921,8 @@ class Pico
             'content_ext' => '.md',
             'content_config' => null,
             'assets_dir' => 'assets/',
-            'assets_url' => null
+            'assets_url' => null,
+            'plugins_url' => null
         );
 
         if (!$this->config['base_url']) {

@@ -6,7 +6,7 @@ base_url: ~                         # Pico will try to guess its base URL, if th
                                     #     Example: https://example.com/pico/
 rewrite_url: ~                      # A boolean (true or false) indicating whether URL rewriting is forced
 debug: ~                            # Set this to true to enable Pico's debug mode
-timezone: UTC                       # Your PHP installation might require you to manually specify a timezone
+timezone: ~                         # Your PHP installation might require you to manually specify a timezone
 
 ##
 # Theme
@@ -19,7 +19,7 @@ theme_config:
 twig_config:
     autoescape: false               # Let Twig escape variables by default
     strict_variables: false         # If set to true, Twig will bail out when unset variables are being used
-    debug: false                    # Enable Twig's debug mode
+    debug: ~                        # Enable Twig's debug mode
     cache: false                    # Enable Twig template caching by specifying a path to a writable directory
     auto_reload: ~                  # Recompile Twig templates whenever the source code changes
 
