@@ -2241,6 +2241,36 @@ class Pico
     }
 
     /**
+     * Substitutes URL placeholders (e.g. %base_url%)
+     *
+     * This method is registered as the `url` Twig filter and often used to
+     * allow users to specify absolute URLs in meta data utilizing the known
+     * URL placeholders `%base_url%`, `%plugins_url%`, `%themes_url%`,
+     * `%assets_url%` and `%theme_url%`.
+     *
+     * Don't confuse this with the `link` Twig filter, which takes a page ID as
+     * parameter. However, you can indeed use this method to create page URLs,
+     * e.g. `{{ "%base_url%?sub/page"|url }}`.
+     *
+     * @param string $url URL with placeholders
+     *
+     * @return string URL with replaced placeholders
+     */
+    public function substituteUrl($url)
+    {
+        $variables = array(
+            '%base_url%?' => $this->getBaseUrl() . (!$this->isUrlRewritingEnabled() ? '?' : ''),
+            '%base_url%' => rtrim($this->getBaseUrl(), '/'),
+            '%plugins_url%' => rtrim($this->getConfig('plugins_url'), '/'),
+            '%themes_url%' => rtrim($this->getConfig('themes_url'), '/'),
+            '%assets_url%' => rtrim($this->getConfig('assets_url'), '/'),
+            '%theme_url%' => $this->getConfig('themes_url') . $this->getTheme()
+        );
+
+        return str_replace(array_keys($variables), $variables, $url);
+    }
+
+    /**
      * Returns the URL of the themes folder of this Pico instance
      *
      * @see Pico::getUrlFromPath()
