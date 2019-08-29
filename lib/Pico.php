@@ -2243,6 +2243,8 @@ class Pico
     /**
      * Returns the URL of the themes folder of this Pico instance
      *
+     * @see Pico::getUrlFromPath()
+     *
      * @deprecated 3.0.0
      *
      * @return string
@@ -2266,7 +2268,7 @@ class Pico
      * This method is used to guess Pico's `plugins_url`, `themes_url` and
      * `assets_url`. However, guessing might fail, requiring a manual config.
      *
-     * @param $absolutePath
+     * @param string $absolutePath the absolute path to interpret
      *
      * @return string the URL of the given folder
      */
