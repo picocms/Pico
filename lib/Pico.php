@@ -423,7 +423,7 @@ class Pico
         $this->triggerEvent('onContentLoading');
 
         $hiddenFileRegex = '/(?:^|\/)(?:_|404' . preg_quote($this->getConfig('content_ext'), '/') . '$)/';
-        if (file_exists($this->requestFile) && !preg_match($hiddenFileRegex, $this->requestFile)) {
+        if (is_file($this->requestFile) && !preg_match($hiddenFileRegex, $this->requestFile)) {
             $this->rawContent = $this->loadFileContent($this->requestFile);
         } else {
             $this->triggerEvent('on404ContentLoading');
@@ -547,10 +547,10 @@ class Pico
     protected function loadComposerPlugins(array $pluginBlacklist = array())
     {
         $composerPlugins = array();
-        if (file_exists($this->getVendorDir() . 'vendor/pico-plugin.php')) {
+        if (is_file($this->getVendorDir() . 'vendor/pico-plugin.php')) {
             // composer root package
             $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: array();
-        } elseif (file_exists($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
+        } elseif (is_file($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
             // composer dependency package
             $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
         }
@@ -637,7 +637,7 @@ class Pico
                 $className = preg_replace('/^[0-9]+-/', '', $file);
                 $pluginFile = $file . '/' . $className . '.php';
 
-                if (!file_exists($this->getPluginsDir() . $pluginFile)) {
+                if (!is_file($this->getPluginsDir() . $pluginFile)) {
                     throw new RuntimeException(
                         "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
                     );
@@ -891,7 +891,7 @@ class Pico
 
         // load main config file (config/config.yml)
         $this->config = is_array($this->config) ? $this->config : array();
-        if (file_exists($this->getConfigDir() . 'config.yml')) {
+        if (is_file($this->getConfigDir() . 'config.yml')) {
             $this->config += $loadConfigClosure($this->getConfigDir() . 'config.yml');
         }
 
@@ -1188,7 +1188,7 @@ class Pico
                 // if this file doesn't exist either, show the 404 page, but assume the index
                 // file as being requested (maintains backward compatibility to Pico < 1.0)
                 $indexFile = $contentDir . $requestFile . '/index' . $contentExt;
-                if (file_exists($indexFile) || !file_exists($contentDir . $requestFile . $contentExt)) {
+                if (is_file($indexFile) || !is_file($contentDir . $requestFile . $contentExt)) {
                     return $indexFile;
                 }
             }
@@ -1247,11 +1247,11 @@ class Pico
                 $errorFileDir = dirname($errorFileDir);
                 $errorFile = $errorFileDir . '/404' . $contentExt;
 
-                if (file_exists($contentDir . $errorFile)) {
+                if (is_file($contentDir . $errorFile)) {
                     return $this->loadFileContent($contentDir . $errorFile);
                 }
             }
-        } elseif (file_exists($contentDir . '404' . $contentExt)) {
+        } elseif (is_file($contentDir . '404' . $contentExt)) {
             // provided that the requested file is not in the regular
             // content directory, fallback to Pico's global `404.md`
             return $this->loadFileContent($contentDir . '404' . $contentExt);
