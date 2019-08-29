@@ -5,10 +5,15 @@ export PATH="$PICO_TOOLS_DIR:$PATH"
 . "$PICO_TOOLS_DIR/functions/parse-version.sh.inc"
 
 # parameters
-ARCHIVE="$1"    # release archive file name
+ARCHIVE_DIR="$1"        # directory to create release archives in
+ARCHIVE_FILENAME="$2"   # release archive file name (without file extension)
 
-if [ -z "$ARCHIVE" ]; then
-    echo "Unable to create release archive: No file name specified" >&2
+if [ -z "$ARCHIVE_DIR" ] || [ "$(realpath "$ARCHIVE_DIR")" == "$(realpath "$PICO_BUILD_DIR")" ]; then
+    echo "Unable to create release archives: Invalid release archive target dir '$ARCHIVE_DIR'" >&2
+    exit 1
+fi
+if [ -z "$ARCHIVE_FILENAME" ]; then
+    echo "Unable to create release archives: No release archive file name given" >&2
     exit 1
 fi
 
@@ -69,14 +74,24 @@ find plugins/ -type d -path 'plugins/*/.git' -print0 | xargs -0 rm -rf
 
 echo
 
-# create release archive
-echo "Creating release archive '$ARCHIVE'..."
+# create release archives
+echo "Creating release archive '$ARCHIVE.tar.gz'..."
 
-if [ -e "$ARCHIVE" ]; then
-    echo "Unable to create release archive: File exists" >&2
+if [ -e "$ARCHIVE_DIR/$ARCHIVE.tar.gz" ]; then
+    echo "Unable to create release archive: File '$ARCHIVE.tar.gz' exists" >&2
     exit 1
 fi
 
 find . -mindepth 1 -maxdepth 1 -printf '%f\0' \
-    | xargs -0 -- tar -czf "$ARCHIVE" --
+    | xargs -0 -- tar -czf "$ARCHIVE_DIR/$ARCHIVE.tar.gz" --
+echo
+
+echo "Creating release archive '$ARCHIVE.zip'..."
+
+if [ -e "$ARCHIVE_DIR/$ARCHIVE.zip" ]; then
+    echo "Unable to create release archive: File '$ARCHIVE.zip' exists" >&2
+    exit 1
+fi
+
+zip -q -r "$ARCHIVE_DIR/$ARCHIVE.zip" .
 echo

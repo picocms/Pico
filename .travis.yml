@@ -34,11 +34,13 @@ jobs:
         - deploy.sh
       before_deploy:
         - '[ "$TRAVIS_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
-        - create-release.sh "$TRAVIS_BUILD_DIR/pico-release-$TRAVIS_TAG.tar.gz"
+        - create-release.sh "$TRAVIS_BUILD_DIR" "pico-release-$TRAVIS_TAG"
       deploy:
         provider: releases
         api_key: ${GITHUB_OAUTH_TOKEN}
-        file: pico-release-$TRAVIS_TAG.tar.gz
+        file:
+          - pico-release-$TRAVIS_TAG.tar.gz
+          - pico-release-$TRAVIS_TAG.zip
         skip_cleanup: true
         name: Version ${TRAVIS_TAG:1}
         draft: true
