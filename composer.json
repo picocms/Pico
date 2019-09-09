@@ -38,10 +38,6 @@
         "picocms/pico-deprecated": "PicoDeprecated's purpose is to maintain backward compatibility to older versions of Pico.",
         "picocms/composer-installer": "This Composer plugin is responsible for installing Pico plugins and themes using the Composer package manager."
     },
-    "require-dev" : {
-        "phpdocumentor/phpdocumentor": "^2.9",
-        "squizlabs/php_codesniffer": "^2.9"
-    },
     "autoload": {
         "psr-0": {
             "Pico": "lib/",

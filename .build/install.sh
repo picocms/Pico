@@ -9,10 +9,30 @@ case "$1" in
         echo "Synchronizing package index files..."
         sudo apt-get update
 
-        echo "Installing packages..."
+        echo "Installing cloc..."
         sudo apt-get install -y cloc
+
+        echo "Installing phpDocumentor..."
+        curl --location --output "$PICO_TOOLS_DIR/phpdoc" \
+            "https://github.com/phpDocumentor/phpDocumentor2/releases/latest/download/phpDocumentor.phar"
+        chmod +x "$PICO_TOOLS_DIR/phpdoc"
         ;;
 esac
+
+echo "Installing PHP_CodeSniffer..."
+if [ "$(php -r 'echo PHP_VERSION_ID;')" -ge 50400 ]; then
+    PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/"
+else
+    PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.9.2/"
+fi
+
+curl --location --output "$PICO_TOOLS_DIR/phpcs" \
+    "$PHPCS_DOWNLOAD/phpcs.phar"
+chmod +x "$PICO_TOOLS_DIR/phpcs"
+
+curl --location --output "$PICO_TOOLS_DIR/phpcbf" \
+    "$PHPCS_DOWNLOAD/phpcbf.phar"
+chmod +x "$PICO_TOOLS_DIR/phpcbf"
 
 echo
 
