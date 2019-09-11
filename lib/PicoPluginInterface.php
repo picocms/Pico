@@ -31,13 +31,6 @@
 interface PicoPluginInterface
 {
     /**
-     * Constructs a new instance of a Pico plugin
-     *
-     * @param Pico $pico current instance of Pico
-     */
-    public function __construct(Pico $pico);
-
-    /**
      * Handles a event that was triggered by Pico
      *
      * @param string $eventName name of the triggered event

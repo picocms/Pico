@@ -77,7 +77,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     private $dependants;
 
     /**
-     * @see PicoPluginInterface::__construct()
+     * Constructs a new instance of a Pico plugin
+     *
+     * @param Pico $pico current instance of Pico
      */
     public function __construct(Pico $pico)
     {
