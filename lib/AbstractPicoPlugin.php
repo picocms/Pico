@@ -87,7 +87,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::handleEvent()
+     * {@inheritDoc}
      */
     public function handleEvent($eventName, array $params)
     {
@@ -122,7 +122,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::setEnabled()
+     * {@inheritDoc}
      */
     public function setEnabled($enabled, $recursive = true, $auto = false)
     {
@@ -138,7 +138,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::isEnabled()
+     * {@inheritDoc}
      */
     public function isEnabled()
     {
@@ -146,7 +146,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::isStatusChanged()
+     * {@inheritDoc}
      */
     public function isStatusChanged()
     {
@@ -154,7 +154,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::getPico()
+     * {@inheritDoc}
      */
     public function getPico()
     {
@@ -250,7 +250,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::getDependencies()
+     * {@inheritDoc}
      */
     public function getDependencies()
     {
@@ -295,7 +295,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     }
 
     /**
-     * @see PicoPluginInterface::getDependants()
+     * {@inheritDoc}
      */
     public function getDependants()
     {
