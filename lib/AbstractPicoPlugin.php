@@ -31,7 +31,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getPico()
      * @var Pico
      */
-    private $pico;
+    protected $pico;
 
     /**
      * Boolean indicating if this plugin is enabled (TRUE) or disabled (FALSE)
@@ -184,7 +184,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      */
     public function getPluginConfig($configName = null, $default = null)
     {
-        $pluginConfig = $this->getConfig(get_called_class(), array());
+        $pluginConfig = $this->getPico()->getConfig(get_called_class(), array());
 
         if ($configName === null) {
             return $pluginConfig;
@@ -196,7 +196,9 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * Passes all not satisfiable method calls to Pico
      *
-     * @see Pico
+     * @see PicoPluginInterface::getPico()
+     *
+     * @deprecated 3.0.0
      *
      * @param string $methodName name of the method to call
      * @param array  $params     parameters to pass
@@ -228,7 +230,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     {
         foreach ($this->getDependencies() as $pluginName) {
             try {
-                $plugin = $this->getPlugin($pluginName);
+                $plugin = $this->getPico()->getPlugin($pluginName);
             } catch (RuntimeException $e) {
                 throw new RuntimeException(
                     "Unable to enable plugin '" . get_called_class() . "': "
@@ -309,7 +311,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     {
         if ($this->dependants === null) {
             $this->dependants = array();
-            foreach ($this->getPlugins() as $pluginName => $plugin) {
+            foreach ($this->getPico()->getPlugins() as $pluginName => $plugin) {
                 // only plugins which implement PicoPluginInterface support dependencies
                 if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
