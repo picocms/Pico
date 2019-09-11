@@ -93,30 +93,38 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     {
         // plugins can be enabled/disabled using the config
         if ($eventName === 'onConfigLoaded') {
-            $pluginEnabled = $this->getConfig(get_called_class() . '.enabled');
-            if ($pluginEnabled !== null) {
-                $this->setEnabled($pluginEnabled);
-            } else {
-                $pluginEnabled = $this->getPluginConfig('enabled');
-                if ($pluginEnabled !== null) {
-                    $this->setEnabled($pluginEnabled);
-                } elseif ($this->enabled) {
-                    $this->setEnabled($this->enabled, true, true);
-                } elseif ($this->enabled === null) {
-                    // make sure dependencies are already fulfilled,
-                    // otherwise the plugin needs to be enabled manually
-                    try {
-                        $this->setEnabled(true, false, true);
-                    } catch (RuntimeException $e) {
-                        $this->enabled = false;
-                    }
-                }
-            }
+            $this->configEnabled();
         }
 
         if ($this->isEnabled() || ($eventName === 'onPluginsLoaded')) {
             if (method_exists($this, $eventName)) {
                 call_user_func_array(array($this, $eventName), $params);
+            }
+        }
+    }
+
+    /**
+     * Enables or disables this plugin depending on Pico's config
+     */
+    protected function configEnabled()
+    {
+        $pluginEnabled = $this->getPico()->getConfig(get_called_class() . '.enabled');
+        if ($pluginEnabled !== null) {
+            $this->setEnabled($pluginEnabled);
+        } else {
+            $pluginEnabled = $this->getPluginConfig('enabled');
+            if ($pluginEnabled !== null) {
+                $this->setEnabled($pluginEnabled);
+            } elseif ($this->enabled) {
+                $this->setEnabled(true, true, true);
+            } elseif ($this->enabled === null) {
+                // make sure dependencies are already fulfilled,
+                // otherwise the plugin needs to be enabled manually
+                try {
+                    $this->setEnabled(true, false, true);
+                } catch (RuntimeException $e) {
+                    $this->enabled = false;
+                }
             }
         }
     }
