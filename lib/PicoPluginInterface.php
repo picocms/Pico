@@ -95,11 +95,11 @@ interface PicoPluginInterface
     public function getDependants();
 
     /**
-     * Returns the plugins instance of Pico
+     * Returns the plugin's instance of Pico
      *
      * @see Pico
      *
-     * @return Pico the plugins instance of Pico
+     * @return Pico the plugin's instance of Pico
      */
     public function getPico();
 }

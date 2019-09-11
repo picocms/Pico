@@ -74,7 +74,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getDependants()
      * @var object[]|null
      */
-    private $dependants;
+    protected $dependants;
 
     /**
      * Constructs a new instance of a Pico plugin
@@ -330,7 +330,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * Pico automatically adds a dependency to {@see PicoDeprecated} when the
      * plugin's API is older than Pico's API. {@see PicoDeprecated} furthermore
-     * throws a exception when it can't provide compatibility in such cases.
+     * throws a exception if it can't provide compatibility in such cases.
      * However, we still have to decide whether this plugin is compatible to
      * newer API versions, what requires some special (version specific)
      * precaution and is therefore usually not the case.

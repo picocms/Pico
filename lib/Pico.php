@@ -212,7 +212,7 @@ class Pico
      * List of known meta headers
      *
      * @see Pico::getMetaHeaders()
-     * @var string[]|null
+     * @var array<string,string>|null
      */
     protected $metaHeaders;
 
@@ -710,7 +710,7 @@ class Pico
             if (class_exists($className)) {
                 $plugin = new $className($this);
             } else {
-                throw new RuntimeException("Unable to load plugin '" . $className . "':  Class not found");
+                throw new RuntimeException("Unable to load plugin '" . $className . "': Class not found");
             }
         }
 
@@ -858,7 +858,7 @@ class Pico
     }
 
     /**
-     * Loads the config.yml and any other *.yml from Pico::$configDir
+     * Loads config.yml and any other *.yml from Pico::$configDir
      *
      * After loading {@path "config/config.yml"}, Pico proceeds with any other
      * existing `config/*.yml` file in alphabetical order. The file order is
@@ -1641,7 +1641,7 @@ class Pico
                 'time' => &$meta['time'],
                 'date' => &$meta['date'],
                 'date_formatted' => &$meta['date_formatted'],
-                'hidden' => (preg_match('/(?:^|\/)_/', $id) || $meta['hidden']),
+                'hidden' => ($meta['hidden'] || preg_match('/(?:^|\/)_/', $id)),
                 'raw_content' => &$rawContent,
                 'meta' => &$meta
             );
