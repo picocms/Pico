@@ -508,8 +508,6 @@ class Pico
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
-     * @return void
-     *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadPlugins()
@@ -609,8 +607,6 @@ class Pico
      * @see Pico::loadComposerPlugins()
      *
      * @param string[] $pluginBlacklist class names of plugins not to load
-     *
-     * @return void
      *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
@@ -766,8 +762,6 @@ class Pico
      *     Marc J. Schmidt's Topological Sort / Dependency resolver in PHP
      * @see https://github.com/marcj/topsort.php/blob/1.1.0/src/Implementations/ArraySort.php
      *     \MJS\TopSort\Implementations\ArraySort class
-     *
-     * @return void
      */
     protected function sortPlugins()
     {
@@ -876,8 +870,6 @@ class Pico
      *
      * @see Pico::setConfig()
      * @see Pico::getConfig()
-     *
-     * @return void
      */
     protected function loadConfig()
     {
@@ -1028,8 +1020,6 @@ class Pico
      *
      * @param array $config array with config variables
      *
-     * @return void
-     *
      * @throws LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config)
@@ -1102,8 +1092,6 @@ class Pico
      * `/pico/?someBooleanParam=` or `/pico/?index&someBooleanParam` instead.
      *
      * @see Pico::getRequestUrl()
-     *
-     * @return void
      */
     protected function evaluateRequestUrl()
     {
@@ -1595,8 +1583,6 @@ class Pico
      * @see Pico::sortPages()
      * @see Pico::discoverPageSiblings()
      * @see Pico::getPages()
-     *
-     * @return void
      */
     protected function readPages()
     {
@@ -1680,8 +1666,6 @@ class Pico
      *
      * @see Pico::readPages()
      * @see Pico::getPages()
-     *
-     * @return void
      */
     protected function sortPages()
     {
@@ -1761,8 +1745,6 @@ class Pico
      *
      * @see Pico::readPages()
      * @see Pico::getPages()
-     *
-     * @return void
      */
     protected function discoverPageSiblings()
     {
@@ -1812,8 +1794,6 @@ class Pico
      * @see Pico::getCurrentPage()
      * @see Pico::getPreviousPage()
      * @see Pico::getNextPage()
-     *
-     * @return void
      */
     protected function discoverCurrentPage()
     {
@@ -1900,8 +1880,6 @@ class Pico
      * non-iterable data structure with Pico 3.0.
      *
      * @see Pico::getPageTree()
-     *
-     * @return void
      */
     protected function buildPageTree()
     {
@@ -2668,8 +2646,6 @@ class Pico
      *
      * @param string $eventName name of the event to trigger
      * @param array  $params    optional parameters to pass
-     *
-     * @return void
      */
     public function triggerEvent($eventName, array $params = array())
     {

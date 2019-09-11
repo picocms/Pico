@@ -79,8 +79,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getPlugins()
      *
      * @param object[] $plugins loaded plugin instances
-     *
-     * @return void
      */
     public function onPluginsLoaded(array $plugins)
     {
@@ -95,8 +93,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getPlugins()
      *
      * @param object $plugin loaded plugin instance
-     *
-     * @return void
      */
     public function onPluginManuallyLoaded($plugin)
     {
@@ -111,8 +107,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::isUrlRewritingEnabled()
      *
      * @param array &$config array of config variables
-     *
-     * @return void
      */
     public function onConfigLoaded(array &$config)
     {
@@ -125,8 +119,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getRequestUrl()
      *
      * @param string &$url part of the URL describing the requested contents
-     *
-     * @return void
      */
     public function onRequestUrl(&$url)
     {
@@ -140,8 +132,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getRequestFile()
      *
      * @param string &$file absolute path to the content file to serve
-     *
-     * @return void
      */
     public function onRequestFile(&$file)
     {
@@ -153,8 +143,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::loadFileContent()
      * @see DummyPlugin::onContentLoaded()
-     *
-     * @return void
      */
     public function onContentLoading()
     {
@@ -166,8 +154,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::load404Content()
      * @see DummyPlugin::on404ContentLoaded()
-     *
-     * @return void
      */
     public function on404ContentLoading()
     {
@@ -182,8 +168,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::is404Content()
      *
      * @param string &$rawContent raw file contents
-     *
-     * @return void
      */
     public function on404ContentLoaded(&$rawContent)
     {
@@ -202,8 +186,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::is404Content()
      *
      * @param string &$rawContent raw file contents
-     *
-     * @return void
      */
     public function onContentLoaded(&$rawContent)
     {
@@ -215,8 +197,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::parseFileMeta()
      * @see DummyPlugin::onMetaParsed()
-     *
-     * @return void
      */
     public function onMetaParsing()
     {
@@ -230,8 +210,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getFileMeta()
      *
      * @param string[] &$meta parsed meta data
-     *
-     * @return void
      */
     public function onMetaParsed(array &$meta)
     {
@@ -245,8 +223,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::substituteFileContent()
      * @see DummyPlugin::onContentPrepared()
      * @see DummyPlugin::onContentParsed()
-     *
-     * @return void
      */
     public function onContentParsing()
     {
@@ -261,8 +237,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onContentParsed()
      *
      * @param string &$markdown Markdown contents of the requested page
-     *
-     * @return void
      */
     public function onContentPrepared(&$markdown)
     {
@@ -277,8 +251,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getFileContent()
      *
      * @param string &$content parsed contents (HTML) of the requested page
-     *
-     * @return void
      */
     public function onContentParsed(&$content)
     {
@@ -290,8 +262,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see DummyPlugin::onPagesDiscovered()
      * @see DummyPlugin::onPagesLoaded()
-     *
-     * @return void
      */
     public function onPagesLoading()
     {
@@ -313,8 +283,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string    $id       relative path to the content file
      * @param bool|null $skipPage set this to TRUE to remove this page from the
      *     pages array, otherwise leave it unchanged
-     *
-     * @return void
      */
     public function onSinglePageLoading($id, &$skipPage)
     {
@@ -333,8 +301,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string $id          relative path to the content file
      * @param string &$rawContent raw file contents
-     *
-     * @return void
      */
     public function onSinglePageContent($id, &$rawContent)
     {
@@ -351,8 +317,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onSinglePageContent()
      *
      * @param array &$pageData data of the loaded page
-     *
-     * @return void
      */
     public function onSinglePageLoaded(array &$pageData)
     {
@@ -371,8 +335,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onPagesLoaded()
      *
      * @param array[] &$pages list of all known pages
-     *
-     * @return void
      */
     public function onPagesDiscovered(array &$pages)
     {
@@ -391,8 +353,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getPages()
      *
      * @param array[] &$pages sorted list of all known pages
-     *
-     * @return void
      */
     public function onPagesLoaded(array &$pages)
     {
@@ -414,8 +374,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param array|null &$currentPage  data of the page being served
      * @param array|null &$previousPage data of the previous page
      * @param array|null &$nextPage     data of the next page
-     *
-     * @return void
      */
     public function onCurrentPageDiscovered(
         array &$currentPage = null,
@@ -434,8 +392,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getPageTree()
      *
      * @param  array  &$pageTree page tree
-     *
-     * @return void
      */
     public function onPageTreeBuilt(array &$pageTree)
     {
@@ -449,8 +405,6 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$templateName  file name of the template
      * @param array  &$twigVariables template variables
-     *
-     * @return void
      */
     public function onPageRendering(&$templateName, array &$twigVariables)
     {
@@ -463,8 +417,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onPageRendering()
      *
      * @param string &$output contents which will be sent to the user
-     *
-     * @return void
      */
     public function onPageRendered(&$output)
     {
@@ -479,8 +431,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string[] &$headers list of known meta header fields; the array
      *     key specifies the YAML key to search for, the array value is later
      *     used to access the found value
-     *
-     * @return void
      */
     public function onMetaHeaders(array &$headers)
     {
@@ -493,8 +443,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getYamlParser()
      *
      * @param \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
-     *
-     * @return void
      */
     public function onYamlParserRegistered(\Symfony\Component\Yaml\Parser &$yamlParser)
     {
@@ -507,8 +455,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getParsedown()
      *
      * @param Parsedown &$parsedown Parsedown instance
-     *
-     * @return void
      */
     public function onParsedownRegistered(Parsedown &$parsedown)
     {
@@ -521,8 +467,6 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::getTwig()
      *
      * @param Twig_Environment &$twig Twig instance
-     *
-     * @return void
      */
     public function onTwigRegistered(Twig_Environment &$twig)
     {

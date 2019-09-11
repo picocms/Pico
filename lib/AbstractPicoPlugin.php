@@ -212,8 +212,6 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @param bool $recursive enable required plugins automatically
      *
-     * @return void
-     *
      * @throws RuntimeException thrown when a dependency fails
      */
     protected function checkDependencies($recursive)
@@ -263,8 +261,6 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getDependants()
      *
      * @param bool $recursive disabled dependant plugins automatically
-     *
-     * @return void
      *
      * @throws RuntimeException thrown when a dependency fails
      */
@@ -326,8 +322,6 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * However, we still have to decide whether this plugin is compatible to
      * newer API versions, what requires some special (version specific)
      * precaution and is therefore usually not the case.
-     *
-     * @return void
      *
      * @throws RuntimeException thrown when the plugin's and Pico's API aren't
      *     compatible

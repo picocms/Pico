@@ -42,8 +42,6 @@ interface PicoPluginInterface
      *
      * @param string $eventName name of the triggered event
      * @param array  $params    passed parameters
-     *
-     * @return void
      */
     public function handleEvent($eventName, array $params);
 
@@ -62,8 +60,6 @@ interface PicoPluginInterface
      *     optional and defaults to TRUE.
      * @param bool $auto      enable or disable to fulfill a dependency. This
      *     parameter is optional and defaults to FALSE.
-     *
-     * @return void
      *
      * @throws RuntimeException thrown when a dependency fails
      */
