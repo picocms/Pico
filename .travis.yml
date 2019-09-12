@@ -25,6 +25,7 @@ jobs:
 
     # Deployment stage
     - stage: deploy
+      php: 5.6
       sudo: required
       install:
         - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || travis_terminate 0'
