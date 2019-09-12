@@ -2253,7 +2253,7 @@ class Pico
      *
      * @see Pico::getUrlFromPath()
      *
-     * @deprecated 3.0.0
+     * @deprecated 2.1.0
      *
      * @return string
      */

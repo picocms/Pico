@@ -198,7 +198,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @see PicoPluginInterface::getPico()
      *
-     * @deprecated 3.0.0
+     * @deprecated 2.1.0
      *
      * @param string $methodName name of the method to call
      * @param array  $params     parameters to pass
