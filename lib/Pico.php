@@ -63,7 +63,7 @@ class Pico
      *
      * @var int
      */
-    const API_VERSION = 2;
+    const API_VERSION = 3;
 
     /**
      * Sort files in alphabetical ascending order
