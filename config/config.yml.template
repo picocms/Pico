@@ -14,7 +14,7 @@ theme: default                      # The name of your custom theme
 theme_url: ~                        # Pico will try to guess the URL to the themes dir of your installation
                                     #     If this fails, override it here. Example: http://example.com/pico/themes/
 theme_config:
-    widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
+    widescreen: false               # Default theme: Use more horizontal space (i.e. make the site container wider)
 twig_config:
     cache: false                    # Enable Twig template caching by specifying a path to a writable directory
     autoescape: false               # Let Twig escape variables by default
