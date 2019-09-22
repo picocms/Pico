@@ -169,6 +169,29 @@ class Pico
     protected $config;
 
     /**
+     * Theme in use
+     *
+     * @see Pico::getTheme()
+     * @var string
+     */
+    protected $theme;
+
+    /**
+     * API version of the current theme
+     *
+     * @see Pico::getThemeApiVersion()
+     * @var int
+     */
+    protected $themeApiVersion;
+
+    /**
+     * Additional meta headers of the current theme
+     *
+     * @var array<string,string>|null
+     */
+    protected $themeMetaHeaders;
+
+    /**
      * Part of the URL describing the requested contents
      *
      * @see Pico::getRequestUrl()
@@ -410,6 +433,16 @@ class Pico
         if (!is_dir($this->getConfig('content_dir'))) {
             throw new RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
         }
+
+        // load theme
+        $this->theme = $this->config['theme'];
+        $this->triggerEvent('onThemeLoading', array(&$this->theme));
+
+        $this->loadTheme();
+        $this->triggerEvent(
+            'onThemeLoaded',
+            array($this->theme, $this->themeApiVersion, &$this->config['theme_config'])
+        );
 
         // evaluate request url
         $this->evaluateRequestUrl();
@@ -903,6 +936,8 @@ class Pico
             'debug' => null,
             'timezone' => null,
             'theme' => 'default',
+            'theme_config' => null,
+            'theme_meta' => null,
             'themes_url' => null,
             'twig_config' => null,
             'date_format' => '%D %T',
@@ -948,27 +983,6 @@ class Pico
             $this->config['themes_url'] = $this->getUrlFromPath($this->getThemesDir());
         } else {
             $this->config['themes_url'] = $this->getAbsoluteUrl($this->config['themes_url']);
-        }
-
-        $defaultTwigConfig = array(
-            'autoescape' => false,
-            'strict_variables' => false,
-            'debug' => null,
-            'cache' => false,
-            'auto_reload' => null
-        );
-
-        if (!is_array($this->config['twig_config'])) {
-            $this->config['twig_config'] = $defaultTwigConfig;
-        } else {
-            $this->config['twig_config'] += $defaultTwigConfig;
-
-            if ($this->config['twig_config']['cache']) {
-                $this->config['twig_config']['cache'] = $this->getAbsolutePath($this->config['twig_config']['cache']);
-            }
-            if ($this->config['twig_config']['debug'] === null) {
-                $this->config['twig_config']['debug'] = $this->isDebugModeEnabled();
-            }
         }
 
         if (!$this->config['content_dir']) {
@@ -1054,6 +1068,113 @@ class Pico
         } else {
             return $this->config;
         }
+    }
+
+    /**
+     * Loads a theme's config file (pico-theme.yml)
+     *
+     * @see Pico::getTheme()
+     * @see Pico::getThemeApiVersion()
+     */
+    protected function loadTheme()
+    {
+        $themeConfig = array();
+
+        // load theme config from pico-theme.yml
+        $themeConfigFile = $this->getThemesDir() . $this->getTheme() . '/pico-theme.yml';
+        if (is_file($themeConfigFile)) {
+            $yamlParser = $this->getYamlParser();
+            $loadConfigClosure = function ($configFile) use ($yamlParser) {
+                $yaml = file_get_contents($configFile);
+                $config = $yamlParser->parse($yaml);
+                return is_array($config) ? $config : array();
+            };
+
+            $themeConfig = $loadConfigClosure($themeConfigFile);
+        }
+
+        $themeConfig += array(
+            'api_version' => null,
+            'meta' => array(),
+            'twig_config' => array()
+        );
+
+        // theme API version
+        if (preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
+            $this->themeApiVersion = (int) $themeConfig['api_version'];
+        } else {
+            $this->themeApiVersion = 0;
+        }
+
+        unset($themeConfig['api_version']);
+
+        // twig config
+        $themeTwigConfig = array('autoescape' => 'html', 'strict_variables' => false, 'charset' => 'utf-8');
+        foreach ($themeTwigConfig as $key => $_) {
+            if (isset($themeConfig['twig_config'][$key])) {
+                $themeTwigConfig[$key] = $themeConfig['twig_config'][$key];
+            }
+        }
+
+        unset($themeConfig['twig_config']);
+
+        $defaultTwigConfig = array('debug' => null, 'cache' => false, 'auto_reload' => null);
+        $this->config['twig_config'] = array_merge($defaultTwigConfig, $themeTwigConfig, $this->config['twig_config']);
+
+        if ($this->config['twig_config']['autoescape'] === true) {
+            $this->config['twig_config']['autoescape'] = 'html';
+        }
+        if ($this->config['twig_config']['cache']) {
+            $this->config['twig_config']['cache'] = $this->getAbsolutePath($this->config['twig_config']['cache']);
+        }
+        if ($this->config['twig_config']['debug'] === null) {
+            $this->config['twig_config']['debug'] = $this->isDebugModeEnabled();
+        }
+
+        // meta headers
+        $this->themeMetaHeaders = is_array($themeConfig['meta']) ? $themeConfig['meta'] : array();
+        unset($themeConfig['meta']);
+
+        // theme config
+        if (!is_array($this->config['theme_config'])) {
+            $this->config['theme_config'] = $themeConfig;
+        } else {
+            $this->config['theme_config'] += $themeConfig;
+        }
+
+        // check for theme compatibility
+        if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < static::API_VERSION)) {
+            throw new RuntimeException(
+                'Current theme "' . $this->theme . '" uses API version ' . $this->themeApiVersion . ', but Pico '
+                . 'provides API version ' . static::API_VERSION . ' and PicoDeprecated isn\'t loaded'
+            );
+        }
+    }
+
+    /**
+     * Returns the name of the current theme
+     *
+     * @see Pico::loadTheme()
+     * @see Pico::getThemeApiVersion()
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Returns the API version of the current theme
+     *
+     * @see Pico::loadTheme()
+     * @see Pico::getTheme()
+     *
+     * @return int
+     */
+    public function getThemeApiVersion()
+    {
+        return $this->themeApiVersion;
     }
 
     /**
@@ -1305,6 +1426,10 @@ class Pico
                 'Hidden' => 'hidden'
             );
 
+            if ($this->themeMetaHeaders) {
+                $this->metaHeaders += $this->themeMetaHeaders;
+            }
+
             $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
         }
 
@@ -1501,7 +1626,7 @@ class Pico
         $variables['%assets_url%'] = rtrim($this->getConfig('assets_url'), '/');
 
         // replace %theme_url%
-        $variables['%theme_url%'] = $this->getConfig('themes_url') . $this->getConfig('theme');
+        $variables['%theme_url%'] = $this->getConfig('themes_url') . $this->getTheme();
 
         // replace %meta.*%
         if ($meta) {
@@ -1964,7 +2089,7 @@ class Pico
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getConfig('theme'));
+            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
             $this->twig = new Twig_Environment($twigLoader, $twigConfig);
             $this->twig->addExtension(new PicoTwigExtension($this));
 
@@ -2011,7 +2136,7 @@ class Pico
             'plugins_url' => rtrim($this->getConfig('plugins_url'), '/'),
             'themes_url' => rtrim($this->getConfig('themes_url'), '/'),
             'assets_url' => rtrim($this->getConfig('assets_url'), '/'),
-            'theme_url' => $this->getConfig('themes_url') . $this->getConfig('theme'),
+            'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
             'content' => $this->content,

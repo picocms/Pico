@@ -114,6 +114,35 @@ class DummyPlugin extends AbstractPicoPlugin
     }
 
     /**
+     * Triggered before Pico loads its theme
+     *
+     * @see Pico::loadTheme()
+     * @see DummyPlugin::onThemeLoaded()
+     *
+     * @param string $theme name of current theme
+     */
+    public function onThemeLoading(&$theme)
+    {
+        // your code
+    }
+
+    /**
+     * Triggered after Pico loaded its theme
+     *
+     * @see DummyPlugin::onThemeLoading()
+     * @see Pico::getTheme()
+     * @see Pico::getThemeApiVersion()
+     *
+     * @param string $theme           name of current theme
+     * @param int    $themeApiVersion API version of the theme
+     * @param array  $themeConfig     config array of the theme
+     */
+    public function onThemeLoaded($theme, $themeApiVersion, array &$themeConfig)
+    {
+        // your code
+    }
+
+    /**
      * Triggered after Pico has evaluated the request URL
      *
      * @see Pico::getRequestUrl()

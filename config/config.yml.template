@@ -17,8 +17,9 @@ themes_url: ~                       # Pico will try to guess the URL to the them
 theme_config:                       # Additional theme-specific config
     widescreen: false               # Default theme: Use more horicontal space (i.e. make the site container wider)
 twig_config:                        # Twig template engine config
-    autoescape: false               # Let Twig escape variables by default
+    autoescape: html                # Let Twig escape variables by default
     strict_variables: false         # If set to true, Twig will bail out when unset variables are being used
+    charset: utf-8                  # The charset used by Twig templates
     debug: ~                        # Enable Twig's debug mode
     cache: false                    # Enable Twig template caching by specifying a path to a writable directory
     auto_reload: ~                  # Recompile Twig templates whenever the source code changes
