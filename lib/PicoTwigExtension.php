@@ -130,6 +130,8 @@ class PicoTwigExtension extends Twig_Extension
      *     $item['foo']['bar'] values)
      *
      * @return array mapped values
+     *
+     * @throws Twig_Error_Runtime
      */
     public function mapFilter($var, $mapKeyPath)
     {
@@ -170,6 +172,8 @@ class PicoTwigExtension extends Twig_Extension
      *     these items
      *
      * @return array sorted array
+     *
+     * @throws Twig_Error_Runtime
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {

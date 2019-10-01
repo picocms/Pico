@@ -119,7 +119,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::loadTheme()
      * @see DummyPlugin::onThemeLoaded()
      *
-     * @param string $theme name of current theme
+     * @param string &$theme name of current theme
      */
     public function onThemeLoading(&$theme)
     {
@@ -135,7 +135,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string $theme           name of current theme
      * @param int    $themeApiVersion API version of the theme
-     * @param array  $themeConfig     config array of the theme
+     * @param array  &$themeConfig    config array of the theme
      */
     public function onThemeLoaded($theme, $themeApiVersion, array &$themeConfig)
     {
