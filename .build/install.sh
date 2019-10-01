@@ -3,19 +3,23 @@ set -e
 
 # setup build system
 echo "Installing build dependencies..."
+echo
 
 case "$1" in
     "--deploy")
         echo "Synchronizing package index files..."
         sudo apt-get update
+        echo
 
         echo "Installing cloc..."
         sudo apt-get install -y cloc
+        echo
 
         echo "Installing phpDocumentor..."
         curl --location --output "$PICO_TOOLS_DIR/phpdoc" \
             "https://github.com/phpDocumentor/phpDocumentor2/releases/latest/download/phpDocumentor.phar"
         chmod +x "$PICO_TOOLS_DIR/phpdoc"
+        echo
         ;;
 esac
 
