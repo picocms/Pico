@@ -54,6 +54,10 @@ Below we've shown some examples of locations and their corresponding URLs:
             <td><a href="%base_url%?sub/page">?sub/page</a></td>
         </tr>
         <tr>
+            <td>content/theme.md</td>
+            <td><a href="%base_url%?theme">?theme</a> (hidden in menu)</td>
+        </tr>
+        <tr>
             <td>content/a/very/long/url.md</td>
             <td>
               <a href="%base_url%?a/very/long/url">?a/very/long/url</a>
