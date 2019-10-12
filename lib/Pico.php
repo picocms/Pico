@@ -1100,7 +1100,7 @@ class Pico
         );
 
         // theme API version
-        if (preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
+        if (is_int($themeConfig['api_version']) || preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
             $this->themeApiVersion = (int) $themeConfig['api_version'];
         } else {
             $this->themeApiVersion = 0;
