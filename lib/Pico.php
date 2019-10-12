@@ -2582,11 +2582,10 @@ class Pico
     public function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
     {
         $directory = rtrim($directory, '/');
+        $fileExtensionLength = strlen($fileExtension);
         $result = array();
 
-        // scandir() reads files in alphabetical order
         $files = scandir($directory, $order);
-        $fileExtensionLength = strlen($fileExtension);
         if ($files !== false) {
             foreach ($files as $file) {
                 // exclude hidden files/dirs starting with a .; this also excludes the special dirs . and ..
@@ -2675,9 +2674,9 @@ class Pico
     /**
      * Normalizes a path by taking care of '', '.' and '..' parts
      *
-     * @param string $path               path to normalize
-     * @param bool   $allowsAbsolutePath whether absolute paths are allowed
-     * @param bool   $endSlash           whether to add a trailing slash to the
+     * @param string $path              path to normalize
+     * @param bool   $allowAbsolutePath whether absolute paths are allowed
+     * @param bool   $endSlash          whether to add a trailing slash to the
      *     normalized path or not (defaults to TRUE)
      *
      * @return string normalized path
@@ -2685,7 +2684,7 @@ class Pico
      * @throws UnexpectedValueException thrown when a absolute path is passed
      *     although absolute paths aren't allowed
      */
-    public function getNormalizedPath($path, $allowsAbsolutePath = false, $endSlash = true)
+    public function getNormalizedPath($path, $allowAbsolutePath = false, $endSlash = true)
     {
         $absolutePath = '';
         if (DIRECTORY_SEPARATOR === '\\') {
@@ -2700,7 +2699,7 @@ class Pico
             }
         }
 
-        if ($absolutePath && !$allowsAbsolutePath) {
+        if ($absolutePath && !$allowAbsolutePath) {
             throw new UnexpectedValueException(
                 'Argument 1 passed to ' . __METHOD__ . ' must be a relative path, absolute path "' . $path . '" given'
             );
@@ -2743,12 +2742,8 @@ class Pico
      */
     public function getAbsoluteUrl($url, $baseUrl = null, $endSlash = true)
     {
-        if ($baseUrl === null) {
-            $baseUrl = $this->getBaseUrl();
-        }
-
         if (($url[0] !== '/') && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
-            $url = $baseUrl . $url;
+            $url = (($baseUrl !== null) ? $baseUrl : $this->getBaseUrl()) . $url;
         }
 
         return rtrim($url, '/') . ($endSlash ? '/' : '');
