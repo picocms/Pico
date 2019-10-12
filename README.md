@@ -136,7 +136,7 @@ That's it! Composer will automatically update Pico and all plugins and themes yo
 
 ### I've used a pre-bundled release to install Pico
 
-Okay, installing Pico was easy, but upgrading Pico is going to be hard, isn't it? I'm affraid I have to disappoint you... It's just as simple as installing Pico!
+Okay, installing Pico was easy, but upgrading Pico is going to be hard, isn't it? I'm afraid I have to disappoint you. It's just as simple as installing Pico!
 
 First you'll have to delete the `vendor` directory of your Pico installation (e.g. if you've installed Pico to `/var/www/html/pico`, delete `/var/www/html/pico/vendor`). Then [download the latest Pico release][LatestRelease] and upload all files to your existing Pico installation directory. You will be prompted whether you want to overwrite files like `index.php`, `.htaccess`, ... - simply hit "Yes".
 
