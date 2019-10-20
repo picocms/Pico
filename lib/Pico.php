@@ -1477,7 +1477,7 @@ class Pico
     public function parseFileMeta($rawContent, array $headers)
     {
         $meta = array();
-        $pattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
+        $pattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
             $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: array();
@@ -1581,7 +1581,7 @@ class Pico
     public function prepareFileContent($rawContent, array $meta = array())
     {
         // remove meta header
-        $metaHeaderPattern = "/^(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
+        $metaHeaderPattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         $markdown = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
