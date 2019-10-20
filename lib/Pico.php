@@ -1083,14 +1083,9 @@ class Pico
         // load theme config from pico-theme.yml
         $themeConfigFile = $this->getThemesDir() . $this->getTheme() . '/pico-theme.yml';
         if (is_file($themeConfigFile)) {
-            $yamlParser = $this->getYamlParser();
-            $loadConfigClosure = function ($configFile) use ($yamlParser) {
-                $yaml = file_get_contents($configFile);
-                $config = $yamlParser->parse($yaml);
-                return is_array($config) ? $config : array();
-            };
-
-            $themeConfig = $loadConfigClosure($themeConfigFile);
+            $themeConfigYaml = file_get_contents($themeConfigFile);
+            $themeConfig = $this->getYamlParser()->parse($themeConfigYaml);
+            $themeConfig = is_array($themeConfig) ? $themeConfig : array();
         }
 
         $themeConfig += array(
@@ -1119,6 +1114,7 @@ class Pico
         unset($themeConfig['twig_config']);
 
         $defaultTwigConfig = array('debug' => null, 'cache' => false, 'auto_reload' => null);
+        $this->config['twig_config'] = is_array($this->config['twig_config']) ? $this->config['twig_config'] : array();
         $this->config['twig_config'] = array_merge($defaultTwigConfig, $themeTwigConfig, $this->config['twig_config']);
 
         if ($this->config['twig_config']['autoescape'] === true) {
