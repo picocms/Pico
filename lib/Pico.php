@@ -1650,13 +1650,15 @@ class Pico
      * @see Pico::substituteFileContent()
      * @see Pico::getFileContent()
      *
-     * @param string $markdown Markdown contents of a page
+     * @param string $markdown   Markdown contents of a page
+     * @param bool   $singleLine whether to parse just a single line of markup
      *
      * @return string parsed contents (HTML)
      */
-    public function parseFileContent($markdown)
+    public function parseFileContent($markdown, $singleLine = false)
     {
-        return $this->getParsedown()->text($markdown);
+        $markdownParser = $this->getParsedown();
+        return !$singleLine ? $markdownParser->text($markdown) : $markdownParser->line($markdown);
     }
 
     /**
