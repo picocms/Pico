@@ -2098,17 +2098,21 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new Twig_SimpleFilter('content', function ($page) use ($pico, &$pages) {
-                if (isset($pages[$page])) {
-                    $pageData = &$pages[$page];
-                    if (!isset($pageData['content'])) {
-                        $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
-                        $pageData['content'] = $pico->parseFileContent($pageData['content']);
+            $this->twig->addFilter(new Twig_SimpleFilter(
+                'content',
+                function ($page) use ($pico, &$pages) {
+                    if (isset($pages[$page])) {
+                        $pageData = &$pages[$page];
+                        if (!isset($pageData['content'])) {
+                            $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                            $pageData['content'] = $pico->parseFileContent($pageData['content']);
+                        }
+                        return $pageData['content'];
                     }
-                    return $pageData['content'];
-                }
-                return null;
-            }));
+                    return null;
+                },
+                array('is_safe' => array('html'))
+            ));
 
             // trigger onTwigRegistration event
             $this->triggerEvent('onTwigRegistered', array(&$this->twig));
