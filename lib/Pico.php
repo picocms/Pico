@@ -2141,7 +2141,7 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => $this->content,
+            'content' => new Twig_Markup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
