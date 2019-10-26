@@ -2106,8 +2106,8 @@ class Pico
                     if (isset($pages[$page])) {
                         $pageData = &$pages[$page];
                         if (!isset($pageData['content'])) {
-                            $pageData['content'] = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
-                            $pageData['content'] = $pico->parseFileContent($pageData['content']);
+                            $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                            $pageData['content'] = $pico->parseFileContent($markdown);
                         }
                         return $pageData['content'];
                     }
