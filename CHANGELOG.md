@@ -16,6 +16,61 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.0-beta.1
+Released: -
+
+```
+* [New] Add `assets_dir`, `assets_url` and `plugins_url` config params
+* [New] Add `%config.*%` Markdown placeholders for scalar config params and the
+        `%assets_url%`, `%themes_url%` and `%plugins_url%` placeholders
+* [New] Add `content-sample/theme.md` for theme testing purposes
+* [New] Introduce API versioning for themes and support theme-specific configs
+        using the new `pico-theme.yml` in a theme's directory; `pico-theme.yml`
+        allows a theme to influence Pico's Twig config, to register known meta
+        headers and to provide defaults for theme config params
+* [New] Add `assets_url`, `themes_url` and `plugins_url` Twig variables
+* [New] Add `pages` Twig function to deal with Pico's page tree; this function
+        replaces the raw usage of Pico's `pages` array in themes
+* [New] Add `url` Twig filter to replace URL placeholders (e.g. `%base_url%`)
+        in strings using the new `Pico::substituteUrl()` method
+* [New] Add `onThemeLoading` and `onThemeLoaded` events
+* [New] Add `debug` config param and the `Pico::isDebugModeEnabled()` method,
+        cehcking the `PICO_DEBUG` environment variable, to enable debugging
+* [New] Add new `Pico::getNormalizedPath()` method to normalize a path; this
+        method should be used to prevent content dir breakouts when dealing
+        with paths provided by user input
+* [New] Add new `Pico::getUrlFromPath()` method to guess a URL from a file path
+* [New] Add new `Pico::getAbsoluteUrl()` method to make a relative URL absolute
+* [New] #505: Create pre-built `.zip` release archives
+* [Fixed] #461: Proberly handle content files with a UTF-8 BOM
+* [Changed] Introduce API version 3
+* [Changed] Rename `theme_url` config param to `themes_url`; the `theme_url`
+            Twig variable and Markdown placeholder are kept unchanged
+* [Changed] Update to Parsedown Extra 0.8 and Parsedown 1.8 (both still beta)
+* [Changed] Enable Twig's `autoescape` feature by default; outputting a
+            variable now causes Twig to escape HTML markup; Pico's `content`
+            variable is a notable exception, as it is marked as being HTML safe
+* [Changed] Rename `prev_page` Twig variable to `previous_page`
+* [Changed] Mark `markdown` and `content` Twig filters as being HTML safe
+* [Changed] Add `$singleLine` param to `markdown` Twig filter as well as the
+            `Pico::parseFileContent()` method to parse just a single line of
+            Markdown input
+* [Changed] Add `AbstractPicoPlugin::configEnabled()` method to check whether
+            a plugin should be enabled or disabled based on Pico's config
+* [Changed] Deprecate the use of `AbstractPicoPlugin::__call()`, use
+            `PicoPluginInterface::getPico()` instead
+* [Changed] Update to Twig 1.36 as last version supporting PHP 5.3, use a
+            Composer-based installation to use a newer Twig version
+* [Changed] Add `$basePath` and `$endSlash` params to `Pico::getAbsolutePath()`
+* [Changed] Deprecate `Pico::getBaseThemeUrl()`
+* [Changed] Replace various `file_exists` calls with proper `is_file` calls
+* [Changed] Improve release & build process
+* [Changed] Improve PHP class docs
+* [Changed] Various small improvements
+* [Removed] Remove superfluous `base_dir` and `theme_dir` Twig variables
+* [Removed] Remove `PicoPluginInterface::__construct()`
+```
+
 ### Version 2.0.5-beta.1
 Released: 2019-01-03
 
