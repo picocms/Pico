@@ -32,7 +32,7 @@
         "symfony/yaml" : "^2.8",
         "erusev/parsedown": "^1.8|1.8.0@beta",
         "erusev/parsedown-extra": "^0.8|0.8.0@beta",
-        "symphony/polyfill-mbstring": "^1.12"
+        "symfony/polyfill-mbstring": "^1.12"
     },
     "suggest": {
         "picocms/pico-theme": "Pico requires a theme to actually display the contents of your website. This is Pico's official default theme.",
