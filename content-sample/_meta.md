@@ -1,5 +1,5 @@
 ---
-social:
+Social:
     - title: Visit us on GitHub
       url: https://github.com/picocms/Pico
       icon: octocat
