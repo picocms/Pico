@@ -45,7 +45,7 @@ jobs:
         - '[ "$PROJECT_REPO_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
         - deploy-release.sh
       before_deploy:
-        - release.sh
+        - release.sh "$PROJECT_REPO_TAG"
       deploy:
         provider: releases
         api_key: ${GITHUB_OAUTH_TOKEN}

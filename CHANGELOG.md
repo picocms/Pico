@@ -64,7 +64,7 @@ Released: -
 * [Changed] Add `$basePath` and `$endSlash` params to `Pico::getAbsolutePath()`
 * [Changed] Deprecate `Pico::getBaseThemeUrl()`
 * [Changed] Replace various `file_exists` calls with proper `is_file` calls
-* [Changed] Improve release & build process
+* [Changed] Refactor release & build system
 * [Changed] Improve PHP class docs
 * [Changed] Various small improvements
 * [Removed] Remove superfluous `base_dir` and `theme_dir` Twig variables
