@@ -49,7 +49,7 @@ class Pico
      *
      * @var string
      */
-    const VERSION = '2.1.0-nightly';
+    const VERSION = '2.1.0-beta.1';
 
     /**
      * Pico version ID
