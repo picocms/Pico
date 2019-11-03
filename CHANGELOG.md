@@ -17,7 +17,7 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.1.0-beta.1
-Released: -
+Released: 2019-11-03
 
 ```
 * [New] Add `assets_dir`, `assets_url` and `plugins_url` config params
