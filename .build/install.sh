@@ -1,55 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
+[ -n "$PICO_BUILD_ENV" ] || { echo "No Pico build environment specified" >&2; exit 1; }
+
 # setup build system
-echo "Installing build dependencies..."
-echo
-
-case "$1" in
-    "--deploy")
-        echo "Synchronizing package index files..."
-        sudo apt-get update
-        echo
-
-        echo "Installing cloc..."
-        sudo apt-get install -y cloc
-        echo
-
-        echo "Installing phpDocumentor..."
-        curl --location --output "$PICO_TOOLS_DIR/phpdoc" \
-            "https://github.com/phpDocumentor/phpDocumentor2/releases/latest/download/phpDocumentor.phar"
-        chmod +x "$PICO_TOOLS_DIR/phpdoc"
-        echo
-        ;;
-esac
-
-echo "Installing PHP_CodeSniffer..."
-if [ "$(php -r 'echo PHP_VERSION_ID;')" -ge 50400 ]; then
-    PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/latest/download/"
-else
-    PHPCS_DOWNLOAD="https://github.com/squizlabs/PHP_CodeSniffer/releases/download/2.9.2/"
-fi
-
-curl --location --output "$PICO_TOOLS_DIR/phpcs" \
-    "$PHPCS_DOWNLOAD/phpcs.phar"
-chmod +x "$PICO_TOOLS_DIR/phpcs"
-
-curl --location --output "$PICO_TOOLS_DIR/phpcbf" \
-    "$PHPCS_DOWNLOAD/phpcbf.phar"
-chmod +x "$PICO_TOOLS_DIR/phpcbf"
-
-echo
-
-# setup composer
-echo "Setup Composer..."
-
-# let composer use our GITHUB_OAUTH_TOKEN
-if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
-    composer config --global github-oauth.github.com "$GITHUB_OAUTH_TOKEN"
-fi
+BUILD_REQUIREMENTS=( --phpcs )
+[ "$1" != "--deploy" ] || BUILD_REQUIREMENTS+=( --cloc --phpdoc )
+"$PICO_TOOLS_DIR/setup/$PICO_BUILD_ENV.sh" "${BUILD_REQUIREMENTS[@]}"
 
 # set COMPOSER_ROOT_VERSION when necessary
 if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PROJECT_REPO_BRANCH" ]; then
+    echo "Setting up Composer..."
+
     PICO_VERSION_PATTERN="$(php -r "
         \$json = json_decode(file_get_contents('$PICO_PROJECT_DIR/composer.json'), true);
         if (\$json !== null) {
@@ -69,9 +31,9 @@ if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PROJECT_REPO_BRANCH" ]; then
     if [ -n "$PICO_VERSION_PATTERN" ]; then
         export COMPOSER_ROOT_VERSION="$PICO_VERSION_PATTERN"
     fi
-fi
 
-echo
+    echo
+fi
 
 # install dependencies
 echo "Running \`composer install\`$([ -n "$COMPOSER_ROOT_VERSION" ] && echo -n " ($COMPOSER_ROOT_VERSION)")..."

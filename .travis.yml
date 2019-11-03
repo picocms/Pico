@@ -23,48 +23,52 @@ jobs:
     - php: hhvm-3.27 # until Sep 2019
     - php: hhvm-3.30 # until Nov 2019
 
-    # Deployment stage
-    - stage: deploy
-      php: 5.3
-      dist: precise
+    # Branch deployment stage
+    - stage: deploy-branch
+      if: type == "push" && tag IS blank
+      php: 5.6
       sudo: required
       install:
-        - '[ "$TRAVIS_PULL_REQUEST" == "false" ] || travis_terminate 0'
-        - '[ -n "$TRAVIS_TAG" ] || [[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
+        - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh --deploy
       script:
-        - deploy.sh
+        - deploy-branch.sh
+
+    # Release deployment stage
+    - stage: deploy-release
+      if: tag IS present
+      php: 5.3
+      dist: precise
+      install:
+        - install.sh --deploy
+      script:
+        - '[ "$PROJECT_REPO_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
+        - deploy-release.sh
       before_deploy:
-        - '[ "$TRAVIS_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
-        - create-release.sh "$TRAVIS_BUILD_DIR" "pico-release-$TRAVIS_TAG"
+        - release.sh
       deploy:
         provider: releases
         api_key: ${GITHUB_OAUTH_TOKEN}
         file:
-          - pico-release-$TRAVIS_TAG.tar.gz
-          - pico-release-$TRAVIS_TAG.zip
+          - pico-release-$PROJECT_REPO_TAG.tar.gz
+          - pico-release-$PROJECT_REPO_TAG.zip
         skip_cleanup: true
-        name: Version ${TRAVIS_TAG:1}
+        name: Version ${PROJECT_REPO_TAG:1}
         draft: true
-        on:
-          tags: true
 
   # Ignore nightly build failures
   allow_failures:
     - php: nightly
-  fast-finish: true
+  fast_finish: true
 
 before_install:
-  - export PATH="$TRAVIS_BUILD_DIR/.build:$PATH"
   - export PICO_TOOLS_DIR="$HOME/__picocms_tools"
   - git clone --branch="$TOOLS_REPO_BRANCH" "https://github.com/$TOOLS_REPO_SLUG.git" "$PICO_TOOLS_DIR"
   - . "$PICO_TOOLS_DIR/init/travis.sh.inc"
+  - . "$PICO_PROJECT_DIR/.build/init.sh.inc"
 
 install:
   - install.sh
 
-before_script:
-  - export PATH="$TRAVIS_BUILD_DIR/vendor/bin:$PATH"
-
 script:
-  - phpcs --standard=.phpcs.xml "$TRAVIS_BUILD_DIR"
+  - phpcs --standard=.phpcs.xml "$PICO_PROJECT_DIR"

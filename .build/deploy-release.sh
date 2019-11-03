@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+[ -n "$PICO_BUILD_ENV" ] || { echo "No Pico build environment specified" >&2; exit 1; }
+
 DEPLOY_FULL="true"
 if [ "$DEPLOY_PHPDOC_RELEASES" != "true" ]; then
     echo "Skipping phpDoc release deployment because it has been disabled"
@@ -31,10 +33,9 @@ if [ "$DEPLOY_FULL" != "true" ]; then
     echo
 fi
 
-export PATH="$PICO_TOOLS_DIR:$PATH"
+# parse version
 . "$PICO_TOOLS_DIR/functions/parse-version.sh.inc"
 
-# parse version
 if ! parse_version "$PROJECT_REPO_TAG"; then
     echo "Invalid version '$PROJECT_REPO_TAG'; aborting..." >&2
     exit 1
