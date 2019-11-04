@@ -55,6 +55,8 @@ jobs:
         skip_cleanup: true
         name: Version ${PROJECT_REPO_TAG:1}
         draft: true
+        on:
+          tags: true
 
   # Ignore nightly build failures
   allow_failures:
