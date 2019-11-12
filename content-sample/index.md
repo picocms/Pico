@@ -87,7 +87,7 @@ As a common practice, we recommend you to separate your contents and assets
 by default. If you want to use some assets (e.g. a image) in one of your content
 files, use Pico's `assets` folder. You can then access them in your Markdown
 using the <code>&#37;assets_url&#37;</code> placeholder, for example:
-<code>!\[Image Title\](&#37;assets_url&#37;/assets/image.png)</code>
+<code>!\[Image Title\](&#37;assets_url&#37;/image.png)</code>
 
 ### Text File Markup
 
@@ -230,7 +230,8 @@ that URLs (e.g. `{{ base_url }}`) never include a trailing slash.
     * ...
 * `{{ content }}` - The content of the current page after it has been processed
                     through Markdown
-* `{{ prev_page }}` - The data of the previous page, relative to `current_page`
+* `{{ previous_page }}` - The data of the previous page, relative to
+                          `current_page`
 * `{{ current_page }}` - The data of the current page; refer to the "Pages"
                          section below for details
 * `{{ next_page }}` - The data of the next page, relative to `current_page`
