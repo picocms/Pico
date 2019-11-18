@@ -21,7 +21,7 @@ Install
 
 Installing Pico is dead simple - and done in seconds! If you have access to a shell on your server (i.e. SSH access), we recommend using [Composer][]. If not, use a pre-bundled release. If you don't know what "SSH access" is, head over to the pre-bundled release. 😇
 
-Pico requires PHP 5.3.6+
+Pico requires PHP 5.3.6+ and the PHP extensions `dom` and `mbstring` to be enabled.
 
 ### I want to use Composer
 
