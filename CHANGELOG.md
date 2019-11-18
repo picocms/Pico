@@ -20,6 +20,7 @@ Pico Changelog
 Released: 2019-11-03
 
 ```
+* [New] Introduce API version 3
 * [New] Add `assets_dir`, `assets_url` and `plugins_url` config params
 * [New] Add `%config.*%` Markdown placeholders for scalar config params and the
         `%assets_url%`, `%themes_url%` and `%plugins_url%` placeholders
@@ -35,7 +36,7 @@ Released: 2019-11-03
         in strings using the new `Pico::substituteUrl()` method
 * [New] Add `onThemeLoading` and `onThemeLoaded` events
 * [New] Add `debug` config param and the `Pico::isDebugModeEnabled()` method,
-        cehcking the `PICO_DEBUG` environment variable, to enable debugging
+        checking the `PICO_DEBUG` environment variable, to enable debugging
 * [New] Add new `Pico::getNormalizedPath()` method to normalize a path; this
         method should be used to prevent content dir breakouts when dealing
         with paths provided by user input
@@ -43,7 +44,6 @@ Released: 2019-11-03
 * [New] Add new `Pico::getAbsoluteUrl()` method to make a relative URL absolute
 * [New] #505: Create pre-built `.zip` release archives
 * [Fixed] #461: Proberly handle content files with a UTF-8 BOM
-* [Changed] Introduce API version 3
 * [Changed] Rename `theme_url` config param to `themes_url`; the `theme_url`
             Twig variable and Markdown placeholder are kept unchanged
 * [Changed] Update to Parsedown Extra 0.8 and Parsedown 1.8 (both still beta)
@@ -51,7 +51,8 @@ Released: 2019-11-03
             variable now causes Twig to escape HTML markup; Pico's `content`
             variable is a notable exception, as it is marked as being HTML safe
 * [Changed] Rename `prev_page` Twig variable to `previous_page`
-* [Changed] Mark `markdown` and `content` Twig filters as being HTML safe
+* [Changed] Mark `markdown` and `content` Twig filters as well as the `content`
+            variable as being HTML safe
 * [Changed] Add `$singleLine` param to `markdown` Twig filter as well as the
             `Pico::parseFileContent()` method to parse just a single line of
             Markdown input
@@ -65,7 +66,7 @@ Released: 2019-11-03
 * [Changed] Deprecate `Pico::getBaseThemeUrl()`
 * [Changed] Replace various `file_exists` calls with proper `is_file` calls
 * [Changed] Refactor release & build system
-* [Changed] Improve PHP class docs
+* [Changed] Improve Pico docs and PHP class docs
 * [Changed] Various small improvements
 * [Removed] Remove superfluous `base_dir` and `theme_dir` Twig variables
 * [Removed] Remove `PicoPluginInterface::__construct()`
