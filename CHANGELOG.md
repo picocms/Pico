@@ -16,6 +16,16 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.0
+Released: -
+
+```
+* [Changed] Add Pico's official logo and tagline to `content-sample/_meta.md`
+* [Changed] Improve `content-sample/theme.md` to show Pico's official logo and
+            the usage of the new image utility classes of Pico's default theme
+* [Changed] Improve Pico docs and PHPDoc class docs
+```
+
 ### Version 2.1.0-beta.1
 Released: 2019-11-03
 
@@ -66,7 +76,7 @@ Released: 2019-11-03
 * [Changed] Deprecate `Pico::getBaseThemeUrl()`
 * [Changed] Replace various `file_exists` calls with proper `is_file` calls
 * [Changed] Refactor release & build system
-* [Changed] Improve Pico docs and PHP class docs
+* [Changed] Improve Pico docs and PHPDoc class docs
 * [Changed] Various small improvements
 * [Removed] Remove superfluous `base_dir` and `theme_dir` Twig variables
 * [Removed] Remove `PicoPluginInterface::__construct()`
