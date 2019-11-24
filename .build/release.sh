@@ -50,6 +50,11 @@ composer require --no-update \
     "picocms/pico-deprecated $DEPENDENCY_VERSION"
 echo
 
+# force minimum stability <= beta due to Parsedown 1.8 currently being in beta
+if [ "$VERSION_STABILITY" == "stable" ] || [ "$VERSION_STABILITY" == "rc" ]; then
+    VERSION_STABILITY="beta"
+fi
+
 # set minimum stability
 if [ "$VERSION_STABILITY" != "stable" ]; then
     echo "Setting minimum stability to '$VERSION_STABILITY'..."
