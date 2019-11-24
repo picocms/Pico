@@ -27,7 +27,6 @@ jobs:
     - stage: deploy-branch
       if: type == "push" && tag IS blank
       php: 5.6
-      sudo: required
       install:
         - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh --deploy
