@@ -300,11 +300,21 @@ Check out the following code snippet:
     </section>
 
 The `pages()` function is very powerful and also allows you to return not just
-a page's child pages by passing the `depth`, `depthOffset` and `offset` params.
-For example, if you pass `pages(depthOffset=-1)`, the list will also include
-Pico's main index page (i.e. `content/index.md`). This one is commonly used to
-create a theme's main navigation. If you want to learn more, head over to
-Pico's complete [`pages()` function documentation][FeaturesPagesFunction].
+a page's child pages by passing the `depth` and `depthOffset` params. For
+example, if you pass `pages(depthOffset=-1)`, the list will also include Pico's
+main index page (i.e. `content/index.md`). This one is commonly used to create
+a theme's main navigation. If you want to learn more, head over to Pico's
+complete [`pages()` function documentation][FeaturesPagesFunction].
+
+If you want to access the data of a particular page, use Pico's `pages`
+variable. Just take `content/_meta.md` in Pico's sample contents for an
+example: `content/_meta.md` contains some meta data you might want to use in
+your theme. If you want to output the page's `tagline` meta value, use
+`{{ pages["_meta"].meta.logo }}`. Don't ever try to use Pico's `pages` variable
+as an replacement for Pico's `pages()` function. Its usage looks very similar,
+it will kinda work and you might even see it being used in old themes, but be
+warned: It slows down Pico. Always use Pico's `pages()` function when iterating
+Pico's page list (e.g. `{% for page in pages() %}…{% endfor %}`).
 
 #### Twig filters and functions
 
