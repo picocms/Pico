@@ -17,7 +17,7 @@ Pico Changelog
           are only possible with a new major version.
 
 ### Version 2.1.0
-Released: -
+Released: 2019-11-24
 
 ```
 * [Changed] Add Pico's official logo and tagline to `content-sample/_meta.md`
