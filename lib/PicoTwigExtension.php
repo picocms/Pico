@@ -16,7 +16,7 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 2.0
+ * @version 2.1
  */
 class PicoTwigExtension extends Twig_Extension
 {
@@ -72,10 +72,15 @@ class PicoTwigExtension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'markdown' => new Twig_SimpleFilter('markdown', array($this, 'markdownFilter')),
+            'markdown' => new Twig_SimpleFilter(
+                'markdown',
+                array($this, 'markdownFilter'),
+                array('is_safe' => array('html'))
+            ),
             'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
             'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
-            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl'))
+            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl')),
+            'url' => new Twig_SimpleFilter('url', array($this->pico, 'substituteUrl'))
         );
     }
 
@@ -90,7 +95,8 @@ class PicoTwigExtension extends Twig_Extension
     {
         return array(
             'url_param' => new Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
-            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction'))
+            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction')),
+            'pages' => new Twig_SimpleFunction('pages', array($this, 'pagesFunction'))
         );
     }
 
@@ -105,15 +111,16 @@ class PicoTwigExtension extends Twig_Extension
      * @see Pico::substituteFileContent()
      * @see Pico::parseFileContent()
      *
-     * @param string $markdown markdown to parse
-     * @param array  $meta     meta data to use for %meta.*% replacement
+     * @param string $markdown   markdown to parse
+     * @param array  $meta       meta data to use for %meta.*% replacement
+     * @param bool   $singleLine whether to parse just a single line of markup
      *
      * @return string parsed HTML
      */
-    public function markdownFilter($markdown, array $meta = array())
+    public function markdownFilter($markdown, array $meta = array(), $singleLine = false)
     {
         $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
-        return $this->getPico()->parseFileContent($markdown);
+        return $this->getPico()->parseFileContent($markdown, $singleLine);
     }
 
     /**
@@ -128,6 +135,8 @@ class PicoTwigExtension extends Twig_Extension
      *     $item['foo']['bar'] values)
      *
      * @return array mapped values
+     *
+     * @throws Twig_Error_Runtime
      */
     public function mapFilter($var, $mapKeyPath)
     {
@@ -168,6 +177,8 @@ class PicoTwigExtension extends Twig_Extension
      *     these items
      *
      * @return array sorted array
+     *
+     * @throws Twig_Error_Runtime
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
@@ -338,5 +349,139 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         return $this->pico->getFormParameter($name, $filter, $options, $flags);
+    }
+
+    /**
+     * Returns all pages within a particular branch of Pico's page tree
+     *
+     * This function should be used most of the time when dealing with Pico's
+     * pages array, as it allows one to easily traverse Pico's pages tree
+     * ({@see Pico::getPageTree()}) to retrieve a subset of Pico's pages array
+     * in a very convenient and performant way.
+     *
+     * The function's default parameters are `$start = ""`, `$depth = 0`,
+     * `$depthOffset = 0` and `$offset = 1`. A positive `$offset` is equivalent
+     * to `$depth = $depth + $offset`, `$depthOffset = $depthOffset + $offset`
+     * and `$offset = 0`.
+     *
+     * Consequently the default `$start = ""`, `$depth = 0`, `$depthOffset = 0`
+     * and `$offset = 1` is equivalent to `$depth = 1`, `$depthOffset = 1` and
+     * `$offset = 0`. `$start = ""` instruct the function to start from the
+     * root node (i.e. the node of Pico's main index page at `index.md`).
+     * `$depth` tells the function what pages to return. In this example,
+     * `$depth = 1` matches the start node (i.e. the zeroth generation) and all
+     * its descendant pages until the first generation (i.e. the start node's
+     * children). `$depthOffset` instructs the function to exclude some of the
+     * older generations. `$depthOffset = 1` specifically tells the function
+     * to exclude the zeroth generation, so that the function returns all of
+     * Pico's main index page's direct child pages (like `sub/index.md` and
+     * `page.md`, but not `sub/page.md`) only.
+     *
+     * Passing `$depthOffset = -1` only is the same as passing `$start = ""`,
+     * `$depth = 1`, `$depthOffset = 0` and `$offset = 0`. The only difference
+     * is that `$depthOffset` won't exclude the zeroth generation, so that the
+     * function returns Pico's main index page as well as all of its direct
+     * child pages.
+     *
+     * Passing `$depth = 0`, `$depthOffset = -2` and `$offset = 2` is the same
+     * as passing `$depth = 2`, `$depthOffset = 0` and `$offset = 0`. Both will
+     * return the zeroth, first and second generation of pages. For Pico's main
+     * index page this would be `index.md` (0th gen), `sub/index.md` (1st gen),
+     * `sub/page.md` (2nd gen) and `page.md` (1st gen). If you want to return
+     * 2nd gen pages only, pass `$offset = 2` only (with implicit `$depth = 0`
+     * and `$depthOffset = 0` it's the same as `$depth = 2`, `$depthOffset = 2`
+     * and `$offset = 0`).
+     *
+     * Instead of an integer you can also pass `$depth = null`. This is the
+     * same as passing an infinitely large number as `$depth`, so that this
+     * function simply returns all descendant pages. Consequently passing
+     * `$start = ""`, `$depth = null`, `$depthOffset = 0` and `$offset = 0`
+     * returns Pico's full pages array.
+     *
+     * If `$depth` is negative after taking `$offset` into consideration, the
+     * function will throw a {@see Twig_Error_Runtime} exception, since this
+     * would simply make no sense and is likely an error. Passing a negative
+     * `$depthOffset` is equivalent to passing `$depthOffset = 0`.
+     *
+     * But what about a negative `$offset`? Passing `$offset = -1` instructs
+     * the function not to start from the given `$start` node, but its parent
+     * node. Consequently `$offset = -2` instructs the function to use the
+     * `$start` node's grandparent node. Obviously this won't make any sense
+     * for Pico's root node, but just image `$start = "sub/index"`. Passing
+     * this together with `$offset = -1` is equivalent to `$start = ""` and
+     * `$offset = 0`.
+     *
+     * @param string   $start       name of the node to start from
+     * @param int|null $depth       return pages until the given maximum depth;
+     *     pass NULL to return all descendant pages; defaults to 0
+     * @param int      $depthOffset start returning pages from the given
+     *     minimum depth; defaults to 0
+     * @param int      $offset      ascend (positive) or descend (negative) the
+     *     given number of branches before returning pages; defaults to 1
+     *
+     * @return array[] the data of the matched pages
+     *
+     * @throws Twig_Error_Runtime
+     */
+    public function pagesFunction($start = '', $depth = 0, $depthOffset = 0, $offset = 1)
+    {
+        $start = (string) $start;
+        if (basename($start) === 'index') {
+            $start = dirname($start);
+        }
+
+        for (; $offset < 0; $offset++) {
+            if (in_array($start, array('', '.', '/'), true)) {
+                $offset = 0;
+                break;
+            }
+
+            $start = dirname($start);
+        }
+
+        $depth = ($depth !== null) ? $depth + $offset : null;
+        $depthOffset = $depthOffset + $offset;
+
+        if (($depth !== null) && ($depth < 0)) {
+            throw new Twig_Error_Runtime('The pages function doesn\'t support negative depths');
+        }
+
+        $pageTree = $this->getPico()->getPageTree();
+        if (in_array($start, array('', '.', '/'), true)) {
+            if (($depth === null) && ($depthOffset <= 0)) {
+                return $this->getPico()->getPages();
+            }
+
+            $startNode = isset($pageTree['']['/']) ? $pageTree['']['/'] : null;
+        } else {
+            $branch = dirname($start);
+            $branch = ($branch !== '.') ? $branch : '/';
+            $node = (($branch !== '/') ? $branch . '/' : '') . basename($start);
+            $startNode = isset($pageTree[$branch][$node]) ? $pageTree[$branch][$node] : null;
+        }
+
+        if (!$startNode) {
+            return array();
+        }
+
+        $getPagesClosure = function ($nodes, $depth, $depthOffset) use (&$getPagesClosure) {
+            $pages = array();
+            foreach ($nodes as $node) {
+                if (isset($node['page']) && ($depthOffset <= 0)) {
+                    $pages[$node['page']['id']] = &$node['page'];
+                }
+                if (isset($node['children']) && ($depth > 0)) {
+                    $pages += $getPagesClosure($node['children'], $depth - 1, $depthOffset - 1);
+                }
+            }
+
+            return $pages;
+        };
+
+        return $getPagesClosure(
+            array($startNode),
+            ($depth !== null) ? $depth : INF,
+            $depthOffset
+        );
     }
 }

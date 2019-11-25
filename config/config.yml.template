@@ -2,46 +2,55 @@
 # Basic
 #
 site_title: Pico                    # The title of your website
-base_url: ~                         # Pico will try to guess its base URL, if this fails, override it here
-                                    #     Example: http://example.com/pico/
+base_url: ~                         # Pico will try to guess its base URL, if this fails, override it here;
+                                    #     Example: https://example.com/pico/
 rewrite_url: ~                      # A boolean (true or false) indicating whether URL rewriting is forced
-timezone: UTC                       # Your PHP installation might require you to manually specify a timezone
+debug: ~                            # Set this to true to enable Pico's debug mode
+timezone: ~                         # Your PHP installation might require you to manually specify a timezone
 
 ##
 # Theme
 #
 theme: default                      # The name of your custom theme
-theme_url: ~                        # Pico will try to guess the URL to the themes dir of your installation
-                                    #     If this fails, override it here. Example: http://example.com/pico/themes/
-theme_config:
+themes_url: ~                       # Pico will try to guess the URL to the themes dir of your installation;
+                                    #     If this fails, override it here. Example: https://example.com/pico/themes/
+theme_config:                       # Additional theme-specific config
     widescreen: false               # Default theme: Use more horizontal space (i.e. make the site container wider)
-twig_config:
+twig_config:                        # Twig template engine config
+    autoescape: html                # Let Twig escape variables by default
+    strict_variables: false         # If set to true, Twig will bail out when unset variables are being used
+    charset: utf-8                  # The charset used by Twig templates
+    debug: ~                        # Enable Twig's debug mode
     cache: false                    # Enable Twig template caching by specifying a path to a writable directory
-    autoescape: false               # Let Twig escape variables by default
-    debug: false                    # Enable Twig's debugging mode
+    auto_reload: ~                  # Recompile Twig templates whenever the source code changes
 
 ##
 # Content
 #
-date_format: %D %T                  # Pico's default date format
-                                    #     See http://php.net/manual/en/function.strftime.php for more info
+date_format: %D %T                  # Pico's default date format;
+                                    #     See https://php.net/manual/en/function.strftime.php for more info
 pages_order_by_meta: author         # Sort pages by meta value "author" (set "pages_order_by" to "meta")
 pages_order_by: alpha               # Change how Pico sorts pages ("alpha" for alphabetical order, "date", or "meta")
 pages_order: asc                    # Sort pages in ascending ("asc") or descending ("desc") order
-content_dir: content/               # The path to Pico's content directory
+content_dir: ~                      # The path to Pico's content directory
 content_ext: .md                    # The file extension of your Markdown files
-content_config:
-    extra: true                     # Use the Parsedown Extra parser to support extended markup
+content_config:                     # Parsedown Markdown parser config
+    extra: true                     # Use the Parsedown Extra parser to support extended markup;
                                     #     See https://michelf.ca/projects/php-markdown/extra/ for more info
     breaks: false                   # A boolean indicating whether breaks in the markup should be reflected in the
                                     #     parsed contents of the page
     escape: false                   # Escape HTML markup in your content files; don't confuse this with some sort of
                                     #     safe mode, enabling this doesn't allow you to process untrusted user input!
     auto_urls: true                 # Automatically link URLs found in your markup
+assets_dir: assets/                 # The path to Pico's assets directory
+assets_url: ~                       # Pico will try to guess the URL to the assets dir of your installation;
+                                    #     If this fails, override it here. Example: https://example.com/pico/assets/
 
 ##
 # Plugins
 #
+plugins_url: ~                      # Pico will try to guess the URL to the plugins dir of your installation;
+                                    #     If this fails, override it here. Example: https://example.com/pico/plugins/
 DummyPlugin.enabled: false          # Force the plugin "DummyPlugin" to be disabled
 
 ##

@@ -12,6 +12,11 @@
             "role": "Project Founder"
         },
         {
+            "name": "Daniel Rudolf",
+            "email": "picocms.org@daniel-rudolf.de",
+            "role": "Lead Developer"
+        },
+        {
             "name": "The Pico Community",
             "homepage": "http://picocms.org/"
         },
@@ -27,20 +32,15 @@
     },
     "require": {
         "php": ">=5.3.6",
-        "ext-dom": "*",
-        "twig/twig": "^1.35",
+        "twig/twig": "^1.36",
         "symfony/yaml" : "^2.8",
-        "erusev/parsedown": "^1.8|1.8.0@beta",
-        "erusev/parsedown-extra": "^0.8|0.8.0@beta"
+        "erusev/parsedown": "~1.8.0|1.8.0@beta",
+        "erusev/parsedown-extra": "~0.8.0|0.8.0@beta"
     },
     "suggest": {
         "picocms/pico-theme": "Pico requires a theme to actually display the contents of your website. This is Pico's official default theme.",
         "picocms/pico-deprecated": "PicoDeprecated's purpose is to maintain backward compatibility to older versions of Pico.",
         "picocms/composer-installer": "This Composer plugin is responsible for installing Pico plugins and themes using the Composer package manager."
-    },
-    "require-dev" : {
-        "phpdocumentor/phpdocumentor": "^2.8",
-        "squizlabs/php_codesniffer": "^2.4"
     },
     "autoload": {
         "psr-0": {
@@ -51,7 +51,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "2.0.x-dev",
+            "dev-pico-2.1": "2.1.x-dev"
         }
     }
 }

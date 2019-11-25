@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-export PATH="$PICO_TOOLS_DIR:$PATH"
+[ -n "$PICO_BUILD_ENV" ] || { echo "No Pico build environment specified" >&2; exit 1; }
 
 # get current Pico milestone
 VERSION="$(php -r "require_once('$PICO_PROJECT_DIR/lib/Pico.php'); echo Pico::VERSION;")"

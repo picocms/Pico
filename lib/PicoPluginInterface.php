@@ -26,24 +26,15 @@
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 2.0
+ * @version 2.1
  */
 interface PicoPluginInterface
 {
-    /**
-     * Constructs a new instance of a Pico plugin
-     *
-     * @param Pico $pico current instance of Pico
-     */
-    public function __construct(Pico $pico);
-
     /**
      * Handles a event that was triggered by Pico
      *
      * @param string $eventName name of the triggered event
      * @param array  $params    passed parameters
-     *
-     * @return void
      */
     public function handleEvent($eventName, array $params);
 
@@ -62,8 +53,6 @@ interface PicoPluginInterface
      *     optional and defaults to TRUE.
      * @param bool $auto      enable or disable to fulfill a dependency. This
      *     parameter is optional and defaults to FALSE.
-     *
-     * @return void
      *
      * @throws RuntimeException thrown when a dependency fails
      */
@@ -106,11 +95,11 @@ interface PicoPluginInterface
     public function getDependants();
 
     /**
-     * Returns the plugins instance of Pico
+     * Returns the plugin's instance of Pico
      *
      * @see Pico
      *
-     * @return Pico the plugins instance of Pico
+     * @return Pico the plugin's instance of Pico
      */
     public function getPico();
 }

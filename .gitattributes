@@ -1,5 +1,5 @@
-/.github            export-ignore
 /.build             export-ignore
+/.github            export-ignore
 /assets/.gitignore  export-ignore
 /config/.gitignore  export-ignore
 /content/.gitignore export-ignore

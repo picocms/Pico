@@ -1,31 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
+[ -n "$PICO_BUILD_ENV" ] || { echo "No Pico build environment specified" >&2; exit 1; }
+
 # setup build system
-echo "Installing build dependencies..."
-
-case "$1" in
-    "--deploy")
-        echo "Synchronizing package index files..."
-        sudo apt-get update
-
-        echo "Installing packages..."
-        sudo apt-get install -y cloc
-        ;;
-esac
-
-echo
-
-# setup composer
-echo "Setup Composer..."
-
-# let composer use our GITHUB_OAUTH_TOKEN
-if [ -n "$GITHUB_OAUTH_TOKEN" ]; then
-    composer config --global github-oauth.github.com "$GITHUB_OAUTH_TOKEN"
-fi
+BUILD_REQUIREMENTS=( --phpcs )
+[ "$1" != "--deploy" ] || BUILD_REQUIREMENTS+=( --cloc --phpdoc )
+"$PICO_TOOLS_DIR/setup/$PICO_BUILD_ENV.sh" "${BUILD_REQUIREMENTS[@]}"
 
 # set COMPOSER_ROOT_VERSION when necessary
 if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PROJECT_REPO_BRANCH" ]; then
+    echo "Setting up Composer..."
+
     PICO_VERSION_PATTERN="$(php -r "
         \$json = json_decode(file_get_contents('$PICO_PROJECT_DIR/composer.json'), true);
         if (\$json !== null) {
@@ -45,9 +31,9 @@ if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PROJECT_REPO_BRANCH" ]; then
     if [ -n "$PICO_VERSION_PATTERN" ]; then
         export COMPOSER_ROOT_VERSION="$PICO_VERSION_PATTERN"
     fi
-fi
 
-echo
+    echo
+fi
 
 # install dependencies
 echo "Running \`composer install\`$([ -n "$COMPOSER_ROOT_VERSION" ] && echo -n " ($COMPOSER_ROOT_VERSION)")..."
