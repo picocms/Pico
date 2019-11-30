@@ -19,6 +19,7 @@ jobs:
     - php: 7.1
     - php: 7.2
     - php: 7.3
+    - php: 7.4
     - php: nightly
     - php: hhvm-3.27 # until Sep 2019
     - php: hhvm-3.30 # until Nov 2019
