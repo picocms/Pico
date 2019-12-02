@@ -52,6 +52,29 @@ Do you know the feeling: You want to install a new website, so you upload all fi
 
 Okay, here's the catch: There's no catch. That's it! Open your favorite web browser and navigate to your brand new, stupidly simple, blazing fast, flat file CMS! Pico's sample contents will explain how to create your own contents. 😊
 
+### I want to manage my website using a Git repository
+
+Git is a very powerful distributed version-control system - and it can be used to establish a nice workflow around your Pico website. Using a Git repository for your website aids content creation and deployment, including collaborative editing and version control. If you want to manage your website in a Git repository, you use a Composer-based installation.
+
+1. Fork [Pico's Composer starter project][PicoComposerGit] using [GitHub's fork button][HelpFork]. If you don't want to use GitHub you aren't required to, you can choose whatever Git server you want. Forking manually just requires some extra steps: First clone the Git repository locally, add your Git server as a remote and push the repository to this new remote.
+
+2. Clone your fork locally and add your contents and assets. You can edit Pico's `composer.json` to include 3rd-party plugins and themes, or simply add your own plugins and themes to Pico's `plugins` resp. `themes` directories. Don't forget to commit your changes and push them to your Git server.
+
+3. Open a shell on your webserver and navigate to the `httpdocs` directory (e.g. `/var/www/html`). Download Composer, clone your Git repository to the desired directory (e.g. `/var/www/html/pico`) and install Pico's dependencies using Composer's `install` option:
+
+    ```shell
+    $ curl -sSL https://getcomposer.org/installer | php
+    $ git clone https://github.com/<YOUR_USERNAME>/<YOUR_REPOSITORY> pico
+    $ php composer.phar --working-dir=pico install
+    ```
+
+4. If you update your website's contents, simply commit your changes and push them to your Git server. Open a shell on your webserver and navigate to Pico's install directory within the `httpdocs` directory (e.g. `/var/www/html/pico`) of your server. Pull all changes from your Git server and update Pico's dependencies using Composer's `update` option:
+
+    ```shell
+    $ git pull
+    $ php composer.phar update
+    ```
+
 ### I'm a developer
 
 So, you're one of these amazing folks making all of this possible? We love you guys! As a developer we recommend you to clone [Pico's Git repository][PicoGit] as well as the Git repositories of [Pico's default theme][PicoThemeGit] and the [`PicoDeprecated` plugin][PicoDeprecatedGit]. You can set up your workspace using [Pico's Composer starter project][PicoComposerGit] and include all of Pico's components using local packages.
@@ -210,6 +233,7 @@ Official Pico Contributors won't claim bounties on their own behalf, Pico will n
 [PicoDeprecatedPackagist]: https://packagist.org/packages/picocms/pico-deprecated
 [PicoComposerPackagist]: https://packagist.org/packages/picocms/pico-composer
 [SemVer]: http://semver.org
+[HelpFork]: https://help.github.com/en/github/getting-started-with-github/fork-a-repo
 [HelpUpgrade]: http://picocms.org/in-depth/upgrade/
 [HelpUserDocs]: http://picocms.org/docs/
 [HelpDevDocs]: http://picocms.org/development/
