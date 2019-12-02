@@ -1,4 +1,4 @@
-dist: trusty
+dist: bionic
 sudo: false
 
 language: php
@@ -13,14 +13,19 @@ jobs:
     - php: 5.3
       dist: precise
     - php: 5.4
+      dist: trusty
     - php: 5.5
+      dist: trusty
     - php: 5.6
+      dist: xenial
     - php: 7.0
+      dist: xenial
     - php: 7.1
     - php: 7.2
     - php: 7.3
     - php: 7.4
     - php: nightly
+    - php: hhvm-3.24 # until Dec 2018
     - php: hhvm-3.27 # until Sep 2019
     - php: hhvm-3.30 # until Nov 2019
 
