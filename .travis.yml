@@ -32,7 +32,8 @@ jobs:
     # Branch deployment stage
     - stage: deploy-branch
       if: type == "push" && tag IS blank
-      php: 5.6
+      php: 5.3
+      dist: precise
       install:
         - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh --deploy
