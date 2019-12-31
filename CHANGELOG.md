@@ -16,6 +16,16 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.1
+Released: 2019-12-31
+
+```
+* [Fixed] Require Parsedown 1.8.0-beta-7 and Parsedown Extra 0.8.0-beta-1 due
+          to changes in Parsedown and Parsedown Extra breaking BC beyond repair
+* [Changed] #523: Check for hidden pages based on page ID instead of full paths
+* [Changed] Improve Pico docs
+```
+
 ### Version 2.1.0
 Released: 2019-11-24
 
