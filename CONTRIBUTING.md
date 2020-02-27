@@ -68,7 +68,7 @@ By making a contribution to this project, I certify that:
 All contributions to this project are licensed under the following MIT License:
 
 ```
-Copyright (c) <YEAR> <COPYRIGHT HOLDER>
+Copyright (c) 2020 Pico Development Team
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
