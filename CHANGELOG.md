@@ -16,6 +16,17 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 3.0.0-alpha.1
+Released: 2020-03-29
+
+```
+* [New] Kick-start development of Pico 3.0
+* [Changed] Require PHP 7.0.8+
+* [Changed] Update dependencies: Twig 2.12, Symfony YAML 3.4, Parsedown 1.7.4
+            and Parsedown Extra 0.8.1; this is just an interim step, we'll
+            update to Twig 3.0+ and Symfony YAML 5.0+ later
+```
+
 ### Version 2.1.1
 Released: 2019-12-31
 
