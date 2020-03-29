@@ -31,7 +31,7 @@
         "source": "https://github.com/picocms/Pico"
     },
     "require": {
-        "php": "^7.0.8",
+        "php": ">=7.0.8",
         "twig/twig": "^2.12",
         "symfony/yaml" : "^3.4",
         "erusev/parsedown": "1.7.4",
