@@ -31,11 +31,11 @@
         "source": "https://github.com/picocms/Pico"
     },
     "require": {
-        "php": ">=5.3.6",
-        "twig/twig": "^1.36",
-        "symfony/yaml" : "^2.8",
-        "erusev/parsedown": "1.8.0-beta-7",
-        "erusev/parsedown-extra": "0.8.0-beta-1"
+        "php": "^7.0.8",
+        "twig/twig": "^2.12",
+        "symfony/yaml" : "^3.4",
+        "erusev/parsedown": "1.7.4",
+        "erusev/parsedown-extra": "0.8.1"
     },
     "suggest": {
         "picocms/pico-theme": "Pico requires a theme to actually display the contents of your website. This is Pico's official default theme.",
