@@ -16,6 +16,8 @@
  * License-Filename: LICENSE
  */
 
+namespace picocms\Pico;
+
 /**
  * Pico
  *
@@ -147,7 +149,7 @@ class Pico
     /**
      * List of loaded plugins using the current API version
      *
-     * @var PicoPluginInterface[]
+     * @var PluginInterface[]
      */
     protected $nativePlugins = array();
 
@@ -251,7 +253,7 @@ class Pico
      * Parsedown Extra instance used for markdown parsing
      *
      * @see Pico::getParsedown()
-     * @var Parsedown|null
+     * @var \Parsedown|null
      */
     protected $parsedown;
 
@@ -307,7 +309,7 @@ class Pico
      * Twig instance used for template parsing
      *
      * @see Pico::getTwig()
-     * @var Twig_Environment|null
+     * @var \Twig_Environment|null
      */
     protected $twig;
 
@@ -408,13 +410,13 @@ class Pico
      *
      * @return string rendered Pico contents
      *
-     * @throws Exception thrown when a irrecoverable error occurs
+     * @throws \Exception thrown when a irrecoverable error occurs
      */
     public function run()
     {
         // check lock
         if ($this->locked) {
-            throw new LogicException('You cannot run the same Pico instance multiple times');
+            throw new \LogicException('You cannot run the same Pico instance multiple times');
         }
 
         // lock Pico
@@ -431,7 +433,7 @@ class Pico
 
         // check content dir
         if (!is_dir($this->getConfig('content_dir'))) {
-            throw new RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
+            throw new \RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
         }
 
         // load theme
@@ -542,7 +544,7 @@ class Pico
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
-     * @throws RuntimeException thrown when a plugin couldn't be loaded
+     * @throws \RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadPlugins()
     {
@@ -553,7 +555,7 @@ class Pico
         }
 
         if (!isset($this->plugins['PicoDeprecated']) && (count($this->plugins) !== count($this->nativePlugins))) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 "Plugins using an older API than version " . static::API_VERSION . " found, "
                 . "but PicoDeprecated isn't loaded"
             );
@@ -574,7 +576,7 @@ class Pico
      *
      * @return string[] installer names of the loaded plugins
      *
-     * @throws RuntimeException thrown when a plugin couldn't be loaded
+     * @throws \RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadComposerPlugins(array $pluginBlacklist = array())
     {
@@ -601,8 +603,8 @@ class Pico
                     continue;
                 }
 
-                if (!($plugin instanceof PicoPluginInterface)) {
-                    throw new RuntimeException(
+                if (!($plugin instanceof PluginInterface)) {
+                    throw new \RuntimeException(
                         "Unable to load plugin '" . $className . "' via 'vendor/pico-plugin.php': "
                         . "Plugins installed by composer must implement 'PicoPluginInterface'"
                     );
@@ -642,7 +644,7 @@ class Pico
      *
      * @param string[] $pluginBlacklist class names of plugins not to load
      *
-     * @throws RuntimeException thrown when a plugin couldn't be loaded
+     * @throws \RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadLocalPlugins(array $pluginBlacklist = array())
     {
@@ -668,7 +670,7 @@ class Pico
                 $pluginFile = $file . '/' . $className . '.php';
 
                 if (!is_file($this->getPluginsDir() . $pluginFile)) {
-                    throw new RuntimeException(
+                    throw new \RuntimeException(
                         "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
                     );
                 }
@@ -676,7 +678,7 @@ class Pico
                 $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
                 $pluginFile = $file;
             } else {
-                throw new RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
+                throw new \RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
             }
 
             if (isset($this->plugins[$className]) || isset($pluginBlacklist[$className])) {
@@ -692,13 +694,13 @@ class Pico
 
                 $this->plugins[$className] = $plugin;
 
-                if ($plugin instanceof PicoPluginInterface) {
+                if ($plugin instanceof PluginInterface) {
                     if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
                         $this->nativePlugins[$className] = $plugin;
                     }
                 }
             } else {
-                throw new RuntimeException(
+                throw new \RuntimeException(
                     "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': Plugin class not found"
                 );
             }
@@ -708,11 +710,11 @@ class Pico
     /**
      * Manually loads a plugin
      *
-     * Manually loaded plugins MUST implement {@see PicoPluginInterface}. They
-     * are simply appended to the plugins array without any additional checks,
-     * so you might get unexpected results, depending on *when* you're loading
-     * a plugin. You SHOULD NOT load plugins after a event has been triggered
-     * by Pico. In-depth knowledge of Pico's inner workings is strongly advised
+     * Manually loaded plugins MUST implement {@see PluginInterface}. They are
+     * simply appended to the plugins array without any additional checks, so
+     * you might get unexpected results, depending on *when* you're loading a
+     * plugin. You SHOULD NOT load plugins after a event has been triggered by
+     * Pico. In-depth knowledge of Pico's inner workings is strongly advised
      * otherwise, and you MUST NOT rely on {@see PicoDeprecated} to maintain
      * backward compatibility in such cases.
      *
@@ -730,12 +732,12 @@ class Pico
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
-     * @param PicoPluginInterface|string $plugin either the class name of a
-     *     plugin to instantiate or a plugin instance
+     * @param PluginInterface|string $plugin either the class name of a plugin
+     *     to instantiate or a plugin instance
      *
-     * @return PicoPluginInterface instance of the loaded plugin
+     * @return PluginInterface instance of the loaded plugin
      *
-     * @throws RuntimeException thrown when the plugin couldn't be loaded
+     * @throws \RuntimeException thrown when the plugin couldn't be loaded
      */
     public function loadPlugin($plugin)
     {
@@ -744,14 +746,14 @@ class Pico
             if (class_exists($className)) {
                 $plugin = new $className($this);
             } else {
-                throw new RuntimeException("Unable to load plugin '" . $className . "': Class not found");
+                throw new \RuntimeException("Unable to load plugin '" . $className . "': Class not found");
             }
         }
 
         $className = get_class($plugin);
 
-        if (!($plugin instanceof PicoPluginInterface)) {
-            throw new RuntimeException(
+        if (!($plugin instanceof PluginInterface)) {
+            throw new \RuntimeException(
                 "Unable to load plugin '" . $className . "': "
                 . "Manually loaded plugins must implement 'PicoPluginInterface'"
             );
@@ -820,7 +822,7 @@ class Pico
                 $visitedPlugins[$pluginName] = true;
 
                 $dependencies = array();
-                if ($plugin instanceof PicoPluginInterface) {
+                if ($plugin instanceof PluginInterface) {
                     $dependencies = $plugin->getDependencies();
                 }
                 if (!isset($nativePlugins[$pluginName])) {
@@ -857,8 +859,8 @@ class Pico
     /**
      * Returns the instance of a named plugin
      *
-     * Plugins SHOULD implement {@see PicoPluginInterface}, but you MUST NOT
-     * rely on it. For more information see {@see PicoPluginInterface}.
+     * Plugins SHOULD implement {@see PluginInterface}, but you MUST NOT rely
+     * on it. For more information see {@see PluginInterface}.
      *
      * @see Pico::loadPlugins()
      * @see Pico::getPlugins()
@@ -867,7 +869,7 @@ class Pico
      *
      * @return object instance of the plugin
      *
-     * @throws RuntimeException thrown when the plugin wasn't found
+     * @throws \RuntimeException thrown when the plugin wasn't found
      */
     public function getPlugin($pluginName)
     {
@@ -875,7 +877,7 @@ class Pico
             return $this->plugins[$pluginName];
         }
 
-        throw new RuntimeException("Missing plugin '" . $pluginName . "'");
+        throw new \RuntimeException("Missing plugin '" . $pluginName . "'");
     }
 
     /**
@@ -1035,12 +1037,12 @@ class Pico
      *
      * @param array $config array with config variables
      *
-     * @throws LogicException thrown if Pico already started processing
+     * @throws \LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config)
     {
         if ($this->locked) {
-            throw new LogicException("You cannot modify Pico's config after processing has started");
+            throw new \LogicException("You cannot modify Pico's config after processing has started");
         }
 
         $this->config = $config;
@@ -1141,7 +1143,7 @@ class Pico
 
         // check for theme compatibility
         if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < static::API_VERSION)) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 'Current theme "' . $this->theme . '" uses API version ' . $this->themeApiVersion . ', but Pico '
                 . 'provides API version ' . static::API_VERSION . ' and PicoDeprecated isn\'t loaded'
             );
@@ -1542,12 +1544,12 @@ class Pico
      * This method triggers the `onParsedownRegistered` event when the
      * Parsedown markdown parser wasn't initiated yet.
      *
-     * @return Parsedown Parsedown markdown parser
+     * @return \Parsedown Parsedown markdown parser
      */
     public function getParsedown()
     {
         if ($this->parsedown === null) {
-            $className = $this->config['content_config']['extra'] ? 'ParsedownExtra' : 'Parsedown';
+            $className = $this->config['content_config']['extra'] ? '\ParsedownExtra' : '\Parsedown';
             $this->parsedown = new $className();
 
             $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
@@ -2075,25 +2077,25 @@ class Pico
      * This method triggers the `onTwigRegistered` event when the Twig template
      * engine wasn't initiated yet. When initiating Twig, this method also
      * registers Pico's core Twig filter `content` as well as Pico's
-     * {@see PicoTwigExtension} Twig extension.
+     * {@see TwigExtension} Twig extension.
      *
      * @see Pico::getTwig()
      * @see http://twig.sensiolabs.org/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
-     * @return Twig_Environment|null Twig template engine
+     * @return \Twig_Environment|null Twig template engine
      */
     public function getTwig()
     {
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
-            $this->twig = new Twig_Environment($twigLoader, $twigConfig);
-            $this->twig->addExtension(new PicoTwigExtension($this));
+            $twigLoader = new \Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
+            $this->twig = new \Twig_Environment($twigLoader, $twigConfig);
+            $this->twig->addExtension(new TwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
-                $this->twig->addExtension(new Twig_Extension_Debug());
+                $this->twig->addExtension(new \Twig_Extension_Debug());
             }
 
             // register content filter
@@ -2101,7 +2103,7 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new Twig_SimpleFilter(
+            $this->twig->addFilter(new \Twig_SimpleFilter(
                 'content',
                 function ($page) use ($pico, &$pages) {
                     if (isset($pages[$page])) {
@@ -2142,7 +2144,7 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => new Twig_Markup($this->content, 'UTF-8'),
+            'content' => new \Twig_Markup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
@@ -2281,14 +2283,14 @@ class Pico
      *
      * @return string URL
      *
-     * @throws InvalidArgumentException thrown when invalid arguments got passed
+     * @throws \InvalidArgumentException thrown when invalid arguments got passed
      */
     public function getPageUrl($page, $queryData = null, $dropIndex = true)
     {
         if (is_array($queryData)) {
             $queryData = http_build_query($queryData, '', '&');
         } elseif (($queryData !== null) && !is_string($queryData)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Argument 2 passed to ' . __METHOD__ . ' must be of the type array or string, '
                 . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
             );
@@ -2682,7 +2684,7 @@ class Pico
      *
      * @return string normalized path
      *
-     * @throws UnexpectedValueException thrown when a absolute path is passed
+     * @throws \UnexpectedValueException thrown when a absolute path is passed
      *     although absolute paths aren't allowed
      */
     public function getNormalizedPath($path, $allowAbsolutePath = false, $endSlash = true)
@@ -2701,7 +2703,7 @@ class Pico
         }
 
         if ($absolutePath && !$allowAbsolutePath) {
-            throw new UnexpectedValueException(
+            throw new \UnexpectedValueException(
                 'Argument 1 passed to ' . __METHOD__ . ' must be a relative path, absolute path "' . $path . '" given'
             );
         }
@@ -2736,7 +2738,7 @@ class Pico
      * @param string $url      relative or absolute URL
      * @param string $baseUrl  treat relative URLs relative to the given URL;
      *     defaults to Pico::getBaseUrl()
-     * @param bool $endSlash   whether to add a trailing slash to the absolute
+     * @param bool   $endSlash whether to add a trailing slash to the absolute
      *     URL or not (defaults to TRUE)
      *
      * @return string absolute URL
@@ -2761,8 +2763,8 @@ class Pico
      *
      * You MUST NOT trigger events of Pico's core with a plugin!
      *
-     * @see PicoPluginInterface
-     * @see AbstractPicoPlugin
+     * @see PluginInterface
+     * @see AbstractPlugin
      * @see DummyPlugin
      *
      * @param string $eventName name of the event to trigger

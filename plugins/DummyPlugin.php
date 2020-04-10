@@ -10,6 +10,9 @@
  * License-Filename: LICENSE
  */
 
+use picocms\Pico\AbstractPlugin;
+use picocms\Pico\Pico;
+
 /**
  * Pico dummy plugin - a template for plugins
  *
@@ -21,7 +24,7 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-class DummyPlugin extends AbstractPicoPlugin
+class DummyPlugin extends AbstractPlugin
 {
     /**
      * API version used by this plugin
@@ -52,7 +55,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * No matter what, the user can always explicitly enable or disable this
      * plugin in Pico's config.
      *
-     * @see AbstractPicoPlugin::$enabled
+     * @see AbstractPlugin::$enabled
      * @var bool|null
      */
     protected $enabled = false;
@@ -63,7 +66,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * If your plugin doesn't depend on any other plugin, remove this class
      * property.
      *
-     * @see AbstractPicoPlugin::$dependsOn
+     * @see AbstractPlugin::$dependsOn
      * @var string[]
      */
     protected $dependsOn = array();

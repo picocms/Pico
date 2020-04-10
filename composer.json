@@ -43,10 +43,8 @@
         "picocms/composer-installer": "This Composer plugin is responsible for installing Pico plugins and themes using the Composer package manager."
     },
     "autoload": {
-        "psr-0": {
-            "Pico": "lib/",
-            "PicoPluginInterface": "lib/",
-            "AbstractPicoPlugin": "lib/"
+        "psr-4": {
+            "picocms\\Pico\\": "lib/"
         }
     },
     "extra": {

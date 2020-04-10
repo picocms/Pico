@@ -10,6 +10,8 @@
  * License-Filename: LICENSE
  */
 
+namespace picocms\Pico;
+
 /**
  * Pico's Twig extension to implement additional filters
  *
@@ -18,12 +20,12 @@
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-class PicoTwigExtension extends Twig_Extension
+class TwigExtension extends \Twig_Extension
 {
     /**
      * Current instance of Pico
      *
-     * @see PicoTwigExtension::getPico()
+     * @see TwigExtension::getPico()
      * @var Pico
      */
     private $pico;
@@ -67,20 +69,20 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @see Twig_ExtensionInterface::getFilters()
      *
-     * @return Twig_SimpleFilter[] array of Pico's Twig filters
+     * @return \Twig_SimpleFilter[] array of Pico's Twig filters
      */
     public function getFilters()
     {
         return array(
-            'markdown' => new Twig_SimpleFilter(
+            'markdown' => new \Twig_SimpleFilter(
                 'markdown',
                 array($this, 'markdownFilter'),
                 array('is_safe' => array('html'))
             ),
-            'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
-            'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
-            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl')),
-            'url' => new Twig_SimpleFilter('url', array($this->pico, 'substituteUrl'))
+            'map' => new \Twig_SimpleFilter('map', array($this, 'mapFilter')),
+            'sort_by' => new \Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
+            'link' => new \Twig_SimpleFilter('link', array($this->pico, 'getPageUrl')),
+            'url' => new \Twig_SimpleFilter('url', array($this->pico, 'substituteUrl'))
         );
     }
 
@@ -89,14 +91,14 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @see Twig_ExtensionInterface::getFunctions()
      *
-     * @return Twig_SimpleFunction[] array of Pico's Twig functions
+     * @return \Twig_SimpleFunction[] array of Pico's Twig functions
      */
     public function getFunctions()
     {
         return array(
-            'url_param' => new Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
-            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction')),
-            'pages' => new Twig_SimpleFunction('pages', array($this, 'pagesFunction'))
+            'url_param' => new \Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
+            'form_param' => new \Twig_SimpleFunction('form_param', array($this, 'formParamFunction')),
+            'pages' => new \Twig_SimpleFunction('pages', array($this, 'pagesFunction'))
         );
     }
 
@@ -129,19 +131,19 @@ class PicoTwigExtension extends Twig_Extension
      * This method is registered as the Twig `map` filter. You can use this
      * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
      *
-     * @param array|Traversable $var        variable to map
-     * @param mixed             $mapKeyPath key to map; either a scalar or a
+     * @param array|\Traversable $var        variable to map
+     * @param mixed              $mapKeyPath key to map; either a scalar or a
      *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
      *     $item['foo']['bar'] values)
      *
      * @return array mapped values
      *
-     * @throws Twig_Error_Runtime
+     * @throws \Twig_Error_Runtime
      */
     public function mapFilter($var, $mapKeyPath)
     {
-        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
-            throw new Twig_Error_Runtime(sprintf(
+        if (!is_array($var) && (!is_object($var) || !($var instanceof \Traversable))) {
+            throw new \Twig_Error_Runtime(sprintf(
                 'The map filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
             ));
@@ -166,11 +168,11 @@ class PicoTwigExtension extends Twig_Extension
      * always sorted in ascending order, apply Twigs `reverse` filter to
      * achieve a descending order.
      *
-     * @param array|Traversable $var         variable to sort
-     * @param mixed             $sortKeyPath key to use for sorting; either
+     * @param array|\Traversable $var         variable to sort
+     * @param mixed              $sortKeyPath key to use for sorting; either
      *     a scalar or a array interpreted as key path (i.e. ['foo', 'bar']
      *     will sort $var by $item['foo']['bar'])
-     * @param string            $fallback    specify what to do with items
+     * @param string             $fallback    specify what to do with items
      *     which don't contain the specified sort key; use "bottom" (default)
      *     to move these items to the end of the sorted array, "top" to rank
      *     them first, "keep" to keep the original order, or "remove" to remove
@@ -178,20 +180,20 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @return array sorted array
      *
-     * @throws Twig_Error_Runtime
+     * @throws \Twig_Error_Runtime
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
-        if (is_object($var) && ($var instanceof Traversable)) {
+        if (is_object($var) && ($var instanceof \Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
-            throw new Twig_Error_Runtime(sprintf(
+            throw new \Twig_Error_Runtime(sprintf(
                 'The sort_by filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
             ));
         }
         if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep') && ($fallback !== "remove")) {
-            throw new Twig_Error_Runtime(
+            throw new \Twig_Error_Runtime(
                 'The sort_by filter only supports the "top", "bottom", "keep" and "remove" fallbacks'
             );
         }
@@ -243,10 +245,10 @@ class PicoTwigExtension extends Twig_Extension
      * Returns the value of a variable item specified by a scalar key or a
      * arbitrary deep sub-key using a key path
      *
-     * @param array|Traversable|ArrayAccess|object $var     base variable
-     * @param mixed                                $keyPath scalar key or a
-     *     array interpreted as key path (when passing e.g. ['foo', 'bar'],
-     *     the method will return $var['foo']['bar']) specifying the value
+     * @param array|\Traversable|\ArrayAccess|object $var     base variable
+     * @param mixed                                  $keyPath scalar key or a
+     *     array interpreted as key path (when passing e.g. ['foo', 'bar'], the
+     *     method will return $var['foo']['bar']) specifying the value
      *
      * @return mixed the requested value or NULL when the given key or key path
      *     didn't match
@@ -261,9 +263,9 @@ class PicoTwigExtension extends Twig_Extension
 
         foreach ($keyPath as $key) {
             if (is_object($var)) {
-                if ($var instanceof ArrayAccess) {
+                if ($var instanceof \ArrayAccess) {
                     // use ArrayAccess, see below
-                } elseif ($var instanceof Traversable) {
+                } elseif ($var instanceof \Traversable) {
                     $var = iterator_to_array($var);
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
@@ -272,7 +274,7 @@ class PicoTwigExtension extends Twig_Extension
                     try {
                         $var = call_user_func(array($var, 'get' . ucfirst($key)));
                         continue;
-                    } catch (BadMethodCallException $e) {
+                    } catch (\BadMethodCallException $e) {
                         return null;
                     }
                 } else {
@@ -421,7 +423,7 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @return array[] the data of the matched pages
      *
-     * @throws Twig_Error_Runtime
+     * @throws \Twig_Error_Runtime
      */
     public function pagesFunction($start = '', $depth = 0, $depthOffset = 0, $offset = 1)
     {
@@ -443,7 +445,7 @@ class PicoTwigExtension extends Twig_Extension
         $depthOffset = $depthOffset + $offset;
 
         if (($depth !== null) && ($depth < 0)) {
-            throw new Twig_Error_Runtime('The pages function doesn\'t support negative depths');
+            throw new \Twig_Error_Runtime('The pages function doesn\'t support negative depths');
         }
 
         $pageTree = $this->getPico()->getPageTree();
