@@ -16,6 +16,13 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.2
+Released: 2020-04-10
+
+```
+* [Fixed] Fix DummyPlugin declaring API version 3
+```
+
 ### Version 2.1.1
 Released: 2019-12-31
 
