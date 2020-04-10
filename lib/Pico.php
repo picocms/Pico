@@ -18,6 +18,13 @@
 
 namespace picocms\Pico;
 
+use Symfony\Component\Yaml\Parser as YamlParser;
+use Twig\Environment as TwigEnvironment;
+use Twig\Extension\DebugExtension as TwigDebugExtension;
+use Twig\Loader\FilesystemLoader as TwigFilesystemLoader;
+use Twig\Markup as TwigMarkup;
+use Twig\TwigFilter;
+
 /**
  * Pico
  *
@@ -229,7 +236,7 @@ class Pico
      * Symfony YAML instance used for meta header parsing
      *
      * @see Pico::getYamlParser()
-     * @var \Symfony\Component\Yaml\Parser|null
+     * @var YamlParser|null
      */
     protected $yamlParser;
 
@@ -309,7 +316,7 @@ class Pico
      * Twig instance used for template parsing
      *
      * @see Pico::getTwig()
-     * @var \Twig_Environment|null
+     * @var TwigEnvironment|null
      */
     protected $twig;
 
@@ -1438,12 +1445,12 @@ class Pico
      * This method triggers the `onYamlParserRegistered` event when the Symfony
      * YAML parser wasn't initiated yet.
      *
-     * @return \Symfony\Component\Yaml\Parser Symfony YAML parser
+     * @return YamlParser Symfony YAML parser
      */
     public function getYamlParser()
     {
         if ($this->yamlParser === null) {
-            $this->yamlParser = new \Symfony\Component\Yaml\Parser();
+            $this->yamlParser = new YamlParser();
             $this->triggerEvent('onYamlParserRegistered', [ &$this->yamlParser ]);
         }
 
@@ -2080,19 +2087,19 @@ class Pico
      * @see http://twig.sensiolabs.org/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
-     * @return \Twig_Environment|null Twig template engine
+     * @return TwigEnvironment|null Twig template engine
      */
     public function getTwig()
     {
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new \Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
-            $this->twig = new \Twig_Environment($twigLoader, $twigConfig);
+            $twigLoader = new TwigFilesystemLoader($this->getThemesDir() . $this->getTheme());
+            $this->twig = new TwigEnvironment($twigLoader, $twigConfig);
             $this->twig->addExtension(new TwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
-                $this->twig->addExtension(new \Twig_Extension_Debug());
+                $this->twig->addExtension(new TwigDebugExtension());
             }
 
             // register content filter
@@ -2100,7 +2107,7 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new \Twig_SimpleFilter(
+            $this->twig->addFilter(new TwigFilter(
                 'content',
                 function ($page) use ($pico, &$pages) {
                     if (isset($pages[$page])) {
@@ -2141,7 +2148,7 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => new \Twig_Markup($this->content, 'UTF-8'),
+            'content' => new TwigMarkup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,

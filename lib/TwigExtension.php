@@ -12,6 +12,11 @@
 
 namespace picocms\Pico;
 
+use Twig\Error\RuntimeError as TwigRuntimeError;
+use Twig\Extension\AbstractExtension as AbstractTwigExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+
 /**
  * Pico's Twig extension to implement additional filters
  *
@@ -20,7 +25,7 @@ namespace picocms\Pico;
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-class TwigExtension extends \Twig_Extension
+class TwigExtension extends AbstractTwigExtension
 {
     /**
      * Current instance of Pico
@@ -69,20 +74,20 @@ class TwigExtension extends \Twig_Extension
      *
      * @see Twig_ExtensionInterface::getFilters()
      *
-     * @return \Twig_SimpleFilter[] array of Pico's Twig filters
+     * @return TwigFilter[] array of Pico's Twig filters
      */
     public function getFilters()
     {
         return [
-            'markdown' => new \Twig_SimpleFilter(
+            'markdown' => new TwigFilter(
                 'markdown',
                 [ $this, 'markdownFilter' ],
                 [ 'is_safe' => [ 'html' ] ]
             ),
-            'map' => new \Twig_SimpleFilter('map', [ $this, 'mapFilter' ]),
-            'sort_by' => new \Twig_SimpleFilter('sort_by', [ $this, 'sortByFilter' ]),
-            'link' => new \Twig_SimpleFilter('link', [ $this->pico, 'getPageUrl' ]),
-            'url' => new \Twig_SimpleFilter('url', [ $this->pico, 'substituteUrl' ]),
+            'map' => new TwigFilter('map', [ $this, 'mapFilter' ]),
+            'sort_by' => new TwigFilter('sort_by', [ $this, 'sortByFilter' ]),
+            'link' => new TwigFilter('link', [ $this->pico, 'getPageUrl' ]),
+            'url' => new TwigFilter('url', [ $this->pico, 'substituteUrl' ]),
         ];
     }
 
@@ -91,14 +96,14 @@ class TwigExtension extends \Twig_Extension
      *
      * @see Twig_ExtensionInterface::getFunctions()
      *
-     * @return \Twig_SimpleFunction[] array of Pico's Twig functions
+     * @return TwigFunction[] array of Pico's Twig functions
      */
     public function getFunctions()
     {
         return [
-            'url_param' => new \Twig_SimpleFunction('url_param', [ $this, 'urlParamFunction' ]),
-            'form_param' => new \Twig_SimpleFunction('form_param', [ $this, 'formParamFunction' ]),
-            'pages' => new \Twig_SimpleFunction('pages', [ $this, 'pagesFunction' ]),
+            'url_param' => new TwigFunction('url_param', [ $this, 'urlParamFunction' ]),
+            'form_param' => new TwigFunction('form_param', [ $this, 'formParamFunction' ]),
+            'pages' => new TwigFunction('pages', [ $this, 'pagesFunction' ]),
         ];
     }
 
@@ -138,12 +143,12 @@ class TwigExtension extends \Twig_Extension
      *
      * @return array mapped values
      *
-     * @throws \Twig_Error_Runtime
+     * @throws TwigRuntimeError
      */
     public function mapFilter($var, $mapKeyPath)
     {
         if (!is_array($var) && (!is_object($var) || !($var instanceof \Traversable))) {
-            throw new \Twig_Error_Runtime(sprintf(
+            throw new TwigRuntimeError(sprintf(
                 'The map filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
             ));
@@ -180,20 +185,20 @@ class TwigExtension extends \Twig_Extension
      *
      * @return array sorted array
      *
-     * @throws \Twig_Error_Runtime
+     * @throws TwigRuntimeError
      */
     public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
     {
         if (is_object($var) && ($var instanceof \Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
-            throw new \Twig_Error_Runtime(sprintf(
+            throw new TwigRuntimeError(sprintf(
                 'The sort_by filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
             ));
         }
         if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep') && ($fallback !== "remove")) {
-            throw new \Twig_Error_Runtime(
+            throw new TwigRuntimeError(
                 'The sort_by filter only supports the "top", "bottom", "keep" and "remove" fallbacks'
             );
         }
@@ -423,7 +428,7 @@ class TwigExtension extends \Twig_Extension
      *
      * @return array[] the data of the matched pages
      *
-     * @throws \Twig_Error_Runtime
+     * @throws TwigRuntimeError
      */
     public function pagesFunction($start = '', $depth = 0, $depthOffset = 0, $offset = 1)
     {
@@ -445,7 +450,7 @@ class TwigExtension extends \Twig_Extension
         $depthOffset = $depthOffset + $offset;
 
         if (($depth !== null) && ($depth < 0)) {
-            throw new \Twig_Error_Runtime('The pages function doesn\'t support negative depths');
+            throw new TwigRuntimeError('The pages function doesn\'t support negative depths');
         }
 
         $pageTree = $this->getPico()->getPageTree();
