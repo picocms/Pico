@@ -1085,6 +1085,12 @@ class Pico
      */
     protected function loadTheme()
     {
+        if (!is_dir($this->getThemesDir() . $this->getTheme())) {
+            throw new \RuntimeException(
+                'Couldn\'t load theme "' . $this->theme . '": No such theme directory'
+            );
+        }
+
         $themeConfig = [];
 
         // load theme config from pico-theme.yml
