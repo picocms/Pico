@@ -73,17 +73,17 @@ class TwigExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
+        return [
             'markdown' => new \Twig_SimpleFilter(
                 'markdown',
-                array($this, 'markdownFilter'),
-                array('is_safe' => array('html'))
+                [ $this, 'markdownFilter' ],
+                [ 'is_safe' => [ 'html' ] ]
             ),
-            'map' => new \Twig_SimpleFilter('map', array($this, 'mapFilter')),
-            'sort_by' => new \Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
-            'link' => new \Twig_SimpleFilter('link', array($this->pico, 'getPageUrl')),
-            'url' => new \Twig_SimpleFilter('url', array($this->pico, 'substituteUrl'))
-        );
+            'map' => new \Twig_SimpleFilter('map', [ $this, 'mapFilter' ]),
+            'sort_by' => new \Twig_SimpleFilter('sort_by', [ $this, 'sortByFilter' ]),
+            'link' => new \Twig_SimpleFilter('link', [ $this->pico, 'getPageUrl' ]),
+            'url' => new \Twig_SimpleFilter('url', [ $this->pico, 'substituteUrl' ]),
+        ];
     }
 
     /**
@@ -95,11 +95,11 @@ class TwigExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'url_param' => new \Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
-            'form_param' => new \Twig_SimpleFunction('form_param', array($this, 'formParamFunction')),
-            'pages' => new \Twig_SimpleFunction('pages', array($this, 'pagesFunction'))
-        );
+        return [
+            'url_param' => new \Twig_SimpleFunction('url_param', [ $this, 'urlParamFunction' ]),
+            'form_param' => new \Twig_SimpleFunction('form_param', [ $this, 'formParamFunction' ]),
+            'pages' => new \Twig_SimpleFunction('pages', [ $this, 'pagesFunction' ]),
+        ];
     }
 
     /**
@@ -119,7 +119,7 @@ class TwigExtension extends \Twig_Extension
      *
      * @return string parsed HTML
      */
-    public function markdownFilter($markdown, array $meta = array(), $singleLine = false)
+    public function markdownFilter($markdown, array $meta = [], $singleLine = false)
     {
         $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
         return $this->getPico()->parseFileContent($markdown, $singleLine);
@@ -149,7 +149,7 @@ class TwigExtension extends \Twig_Extension
             ));
         }
 
-        $result = array();
+        $result = [];
         foreach ($var as $key => $value) {
             $mapValue = $this->getKeyOfVar($value, $mapKeyPath);
             $result[$key] = ($mapValue !== null) ? $mapValue : $value;
@@ -200,7 +200,7 @@ class TwigExtension extends \Twig_Extension
 
         $twigExtension = $this;
         $varKeys = array_keys($var);
-        $removeItems = array();
+        $removeItems = [];
         uksort($var, function ($a, $b) use ($twigExtension, $var, $varKeys, $sortKeyPath, $fallback, &$removeItems) {
             $aSortValue = $twigExtension->getKeyOfVar($var[$a], $sortKeyPath);
             $aSortValueNull = ($aSortValue === null);
@@ -258,7 +258,7 @@ class TwigExtension extends \Twig_Extension
         if (!$keyPath) {
             return null;
         } elseif (!is_array($keyPath)) {
-            $keyPath = array($keyPath);
+            $keyPath = [ $keyPath ];
         }
 
         foreach ($keyPath as $key) {
@@ -270,9 +270,9 @@ class TwigExtension extends \Twig_Extension
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
                     continue;
-                } elseif (is_callable(array($var, 'get' . ucfirst($key)))) {
+                } elseif (is_callable([ $var, 'get' . ucfirst($key) ])) {
                     try {
-                        $var = call_user_func(array($var, 'get' . ucfirst($key)));
+                        $var = call_user_func([ $var, 'get' . ucfirst($key) ]);
                         continue;
                     } catch (\BadMethodCallException $e) {
                         return null;
@@ -433,7 +433,7 @@ class TwigExtension extends \Twig_Extension
         }
 
         for (; $offset < 0; $offset++) {
-            if (in_array($start, array('', '.', '/'), true)) {
+            if (in_array($start, [ '', '.', '/' ], true)) {
                 $offset = 0;
                 break;
             }
@@ -449,7 +449,7 @@ class TwigExtension extends \Twig_Extension
         }
 
         $pageTree = $this->getPico()->getPageTree();
-        if (in_array($start, array('', '.', '/'), true)) {
+        if (in_array($start, [ '', '.', '/' ], true)) {
             if (($depth === null) && ($depthOffset <= 0)) {
                 return $this->getPico()->getPages();
             }
@@ -463,11 +463,11 @@ class TwigExtension extends \Twig_Extension
         }
 
         if (!$startNode) {
-            return array();
+            return [];
         }
 
         $getPagesClosure = function ($nodes, $depth, $depthOffset) use (&$getPagesClosure) {
-            $pages = array();
+            $pages = [];
             foreach ($nodes as $node) {
                 if (isset($node['page']) && ($depthOffset <= 0)) {
                     $pages[$node['page']['id']] = &$node['page'];
@@ -481,7 +481,7 @@ class TwigExtension extends \Twig_Extension
         };
 
         return $getPagesClosure(
-            array($startNode),
+            [ $startNode ],
             ($depth !== null) ? $depth : INF,
             $depthOffset
         );

@@ -67,7 +67,7 @@ abstract class AbstractPlugin implements PluginInterface
      * @see PluginInterface::getDependencies()
      * @var string[]
      */
-    protected $dependsOn = array();
+    protected $dependsOn = [];
 
     /**
      * List of plugin which depend on this plugin
@@ -100,7 +100,7 @@ abstract class AbstractPlugin implements PluginInterface
 
         if ($this->isEnabled() || ($eventName === 'onPluginsLoaded')) {
             if (method_exists($this, $eventName)) {
-                call_user_func_array(array($this, $eventName), $params);
+                call_user_func_array([ $this, $eventName ], $params);
             }
         }
     }
@@ -186,7 +186,7 @@ abstract class AbstractPlugin implements PluginInterface
      */
     public function getPluginConfig($configName = null, $default = null)
     {
-        $pluginConfig = $this->getPico()->getConfig(get_called_class(), array());
+        $pluginConfig = $this->getPico()->getConfig(get_called_class(), []);
 
         if ($configName === null) {
             return $pluginConfig;
@@ -210,7 +210,7 @@ abstract class AbstractPlugin implements PluginInterface
     public function __call($methodName, array $params)
     {
         if (method_exists($this->getPico(), $methodName)) {
-            return call_user_func_array(array($this->getPico(), $methodName), $params);
+            return call_user_func_array([ $this->getPico(), $methodName ], $params);
         }
 
         throw new \BadMethodCallException(
@@ -312,7 +312,7 @@ abstract class AbstractPlugin implements PluginInterface
     public function getDependants()
     {
         if ($this->dependants === null) {
-            $this->dependants = array();
+            $this->dependants = [];
             foreach ($this->getPico()->getPlugins() as $pluginName => $plugin) {
                 // only plugins which implement PicoPluginInterface support dependencies
                 if ($plugin instanceof PluginInterface) {

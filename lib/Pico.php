@@ -51,21 +51,21 @@ class Pico
      *
      * @var string
      */
-    const VERSION = '3.0.0-alpha.1';
+    public const VERSION = '3.0.0-alpha.1';
 
     /**
      * Pico version ID
      *
      * @var int
      */
-    const VERSION_ID = 30000;
+    public const VERSION_ID = 30000;
 
     /**
      * Pico API version
      *
      * @var int
      */
-    const API_VERSION = 3;
+    public const API_VERSION = 3;
 
     /**
      * Sort files in alphabetical ascending order
@@ -73,7 +73,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_ASC = 0;
+    public const SORT_ASC = 0;
 
     /**
      * Sort files in alphabetical descending order
@@ -81,7 +81,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_DESC = 1;
+    public const SORT_DESC = 1;
 
     /**
      * Don't sort files
@@ -89,7 +89,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_NONE = 2;
+    public const SORT_NONE = 2;
 
     /**
      * Root directory of this Pico instance
@@ -144,14 +144,14 @@ class Pico
      * @see Pico::getPlugins()
      * @var object[]
      */
-    protected $plugins = array();
+    protected $plugins = [];
 
     /**
      * List of loaded plugins using the current API version
      *
      * @var PluginInterface[]
      */
-    protected $nativePlugins = array();
+    protected $nativePlugins = [];
 
     /**
      * Boolean indicating whether Pico loads plugins from the filesystem
@@ -425,11 +425,11 @@ class Pico
         // load plugins
         $this->loadPlugins();
         $this->sortPlugins();
-        $this->triggerEvent('onPluginsLoaded', array($this->plugins));
+        $this->triggerEvent('onPluginsLoaded', [ $this->plugins ]);
 
         // load config
         $this->loadConfig();
-        $this->triggerEvent('onConfigLoaded', array(&$this->config));
+        $this->triggerEvent('onConfigLoaded', [ &$this->config ]);
 
         // check content dir
         if (!is_dir($this->getConfig('content_dir'))) {
@@ -438,21 +438,18 @@ class Pico
 
         // load theme
         $this->theme = $this->config['theme'];
-        $this->triggerEvent('onThemeLoading', array(&$this->theme));
+        $this->triggerEvent('onThemeLoading', [ &$this->theme ]);
 
         $this->loadTheme();
-        $this->triggerEvent(
-            'onThemeLoaded',
-            array($this->theme, $this->themeApiVersion, &$this->config['theme_config'])
-        );
+        $this->triggerEvent('onThemeLoaded', [ $this->theme, $this->themeApiVersion, &$this->config['theme_config'] ]);
 
         // evaluate request url
         $this->evaluateRequestUrl();
-        $this->triggerEvent('onRequestUrl', array(&$this->requestUrl));
+        $this->triggerEvent('onRequestUrl', [ &$this->requestUrl ]);
 
         // discover requested file
         $this->requestFile = $this->resolveFilePath($this->requestUrl);
-        $this->triggerEvent('onRequestFile', array(&$this->requestFile));
+        $this->triggerEvent('onRequestFile', [ &$this->requestFile ]);
 
         // load raw file content
         $this->triggerEvent('onContentLoading');
@@ -470,51 +467,51 @@ class Pico
             $this->rawContent = $this->load404Content($this->requestFile);
             $this->is404Content = true;
 
-            $this->triggerEvent('on404ContentLoaded', array(&$this->rawContent));
+            $this->triggerEvent('on404ContentLoaded', [ &$this->rawContent ]);
         }
 
-        $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
+        $this->triggerEvent('onContentLoaded', [ &$this->rawContent ]);
 
         // parse file meta
         $this->triggerEvent('onMetaParsing');
         $this->meta = $this->parseFileMeta($this->rawContent, $this->getMetaHeaders());
-        $this->triggerEvent('onMetaParsed', array(&$this->meta));
+        $this->triggerEvent('onMetaParsed', [ &$this->meta ]);
 
         // parse file content
         $this->triggerEvent('onContentParsing');
 
         $markdown = $this->prepareFileContent($this->rawContent, $this->meta);
-        $this->triggerEvent('onContentPrepared', array(&$markdown));
+        $this->triggerEvent('onContentPrepared', [ &$markdown ]);
 
         $this->content = $this->parseFileContent($markdown);
-        $this->triggerEvent('onContentParsed', array(&$this->content));
+        $this->triggerEvent('onContentParsed', [ &$this->content ]);
 
         // read pages
         $this->triggerEvent('onPagesLoading');
 
         $this->readPages();
-        $this->triggerEvent('onPagesDiscovered', array(&$this->pages));
+        $this->triggerEvent('onPagesDiscovered', [ &$this->pages ]);
 
         $this->sortPages();
-        $this->triggerEvent('onPagesLoaded', array(&$this->pages));
+        $this->triggerEvent('onPagesLoaded', [ &$this->pages ]);
 
         $this->discoverPageSiblings();
         $this->discoverCurrentPage();
         $this->triggerEvent(
             'onCurrentPageDiscovered',
-            array(&$this->currentPage, &$this->previousPage, &$this->nextPage)
+            [ &$this->currentPage, &$this->previousPage, &$this->nextPage ]
         );
 
         $this->buildPageTree();
-        $this->triggerEvent('onPageTreeBuilt', array(&$this->pageTree));
+        $this->triggerEvent('onPageTreeBuilt', [ &$this->pageTree ]);
 
         // render template
         $this->twigVariables = $this->getTwigVariables();
         $this->twigTemplate = $this->getTwigTemplate();
-        $this->triggerEvent('onPageRendering', array(&$this->twigTemplate, &$this->twigVariables));
+        $this->triggerEvent('onPageRendering', [ &$this->twigTemplate, &$this->twigVariables ]);
 
         $output = $this->getTwig()->render($this->twigTemplate, $this->twigVariables);
-        $this->triggerEvent('onPageRendered', array(&$output));
+        $this->triggerEvent('onPageRendered', [ &$output ]);
 
         return $output;
     }
@@ -578,20 +575,20 @@ class Pico
      *
      * @throws \RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadComposerPlugins(array $pluginBlacklist = array())
+    protected function loadComposerPlugins(array $pluginBlacklist = [])
     {
-        $composerPlugins = array();
+        $composerPlugins = [];
         if (is_file($this->getVendorDir() . 'vendor/pico-plugin.php')) {
             // composer root package
-            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: array();
+            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: [];
         } elseif (is_file($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
             // composer dependency package
-            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
+            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: [];
         }
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
-        $loadedPlugins = array();
+        $loadedPlugins = [];
         foreach ($composerPlugins as $package => $pluginData) {
             $loadedPlugins[] = $pluginData['installerName'];
 
@@ -646,7 +643,7 @@ class Pico
      *
      * @throws \RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadLocalPlugins(array $pluginBlacklist = array())
+    protected function loadLocalPlugins(array $pluginBlacklist = [])
     {
         // scope isolated require()
         $includeClosure = function ($pluginFile) {
@@ -658,7 +655,7 @@ class Pico
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
-        $files = scandir($this->getPluginsDir()) ?: array();
+        $files = scandir($this->getPluginsDir()) ?: [];
         foreach ($files as $file) {
             if ($file[0] === '.') {
                 continue;
@@ -767,7 +764,7 @@ class Pico
 
         // trigger onPluginManuallyLoaded event
         // the event is also triggered on the newly loaded plugin, allowing you to distinguish manual and auto loading
-        $this->triggerEvent('onPluginManuallyLoaded', array($plugin));
+        $this->triggerEvent('onPluginManuallyLoaded', [ $plugin ]);
 
         return $plugin;
     }
@@ -803,9 +800,9 @@ class Pico
     {
         $plugins = $this->plugins;
         $nativePlugins = $this->nativePlugins;
-        $sortedPlugins = array();
-        $sortedNativePlugins = array();
-        $visitedPlugins = array();
+        $sortedPlugins = [];
+        $sortedNativePlugins = [];
+        $visitedPlugins = [];
 
         $visitPlugin = function ($plugin) use (
             $plugins,
@@ -821,7 +818,7 @@ class Pico
             if (!isset($visitedPlugins[$pluginName])) {
                 $visitedPlugins[$pluginName] = true;
 
-                $dependencies = array();
+                $dependencies = [];
                 if ($plugin instanceof PluginInterface) {
                     $dependencies = $plugin->getDependencies();
                 }
@@ -914,11 +911,11 @@ class Pico
         $loadConfigClosure = function ($configFile) use ($yamlParser) {
             $yaml = file_get_contents($configFile);
             $config = $yamlParser->parse($yaml);
-            return is_array($config) ? $config : array();
+            return is_array($config) ? $config : [];
         };
 
         // load main config file (config/config.yml)
-        $this->config = is_array($this->config) ? $this->config : array();
+        $this->config = is_array($this->config) ? $this->config : [];
         if (is_file($this->getConfigDir() . 'config.yml')) {
             $this->config += $loadConfigClosure($this->getConfigDir() . 'config.yml');
         }
@@ -932,7 +929,7 @@ class Pico
         }
 
         // merge default config
-        $this->config += array(
+        $this->config += [
             'site_title' => 'Pico',
             'base_url' => null,
             'rewrite_url' => null,
@@ -952,8 +949,8 @@ class Pico
             'content_config' => null,
             'assets_dir' => 'assets/',
             'assets_url' => null,
-            'plugins_url' => null
-        );
+            'plugins_url' => null,
+        ];
 
         if (!$this->config['base_url']) {
             $this->config['base_url'] = $this->getBaseUrl();
@@ -1001,7 +998,7 @@ class Pico
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
 
-        $defaultContentConfig = array('extra' => true, 'breaks' => false, 'escape' => false, 'auto_urls' => true);
+        $defaultContentConfig = [ 'extra' => true, 'breaks' => false, 'escape' => false, 'auto_urls' => true ];
         if (!is_array($this->config['content_config'])) {
             $this->config['content_config'] = $defaultContentConfig;
         } else {
@@ -1081,21 +1078,21 @@ class Pico
      */
     protected function loadTheme()
     {
-        $themeConfig = array();
+        $themeConfig = [];
 
         // load theme config from pico-theme.yml
         $themeConfigFile = $this->getThemesDir() . $this->getTheme() . '/pico-theme.yml';
         if (is_file($themeConfigFile)) {
             $themeConfigYaml = file_get_contents($themeConfigFile);
             $themeConfig = $this->getYamlParser()->parse($themeConfigYaml);
-            $themeConfig = is_array($themeConfig) ? $themeConfig : array();
+            $themeConfig = is_array($themeConfig) ? $themeConfig : [];
         }
 
-        $themeConfig += array(
+        $themeConfig += [
             'api_version' => null,
-            'meta' => array(),
-            'twig_config' => array()
-        );
+            'meta' => [],
+            'twig_config' => [],
+        ];
 
         // theme API version
         if (is_int($themeConfig['api_version']) || preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
@@ -1107,7 +1104,7 @@ class Pico
         unset($themeConfig['api_version']);
 
         // twig config
-        $themeTwigConfig = array('autoescape' => 'html', 'strict_variables' => false, 'charset' => 'utf-8');
+        $themeTwigConfig = [ 'autoescape' => 'html', 'strict_variables' => false, 'charset' => 'utf-8' ];
         foreach ($themeTwigConfig as $key => $_) {
             if (isset($themeConfig['twig_config'][$key])) {
                 $themeTwigConfig[$key] = $themeConfig['twig_config'][$key];
@@ -1116,8 +1113,8 @@ class Pico
 
         unset($themeConfig['twig_config']);
 
-        $defaultTwigConfig = array('debug' => null, 'cache' => false, 'auto_reload' => null);
-        $this->config['twig_config'] = is_array($this->config['twig_config']) ? $this->config['twig_config'] : array();
+        $defaultTwigConfig = [ 'debug' => null, 'cache' => false, 'auto_reload' => null ];
+        $this->config['twig_config'] = is_array($this->config['twig_config']) ? $this->config['twig_config'] : [];
         $this->config['twig_config'] = array_merge($defaultTwigConfig, $themeTwigConfig, $this->config['twig_config']);
 
         if ($this->config['twig_config']['autoescape'] === true) {
@@ -1131,7 +1128,7 @@ class Pico
         }
 
         // meta headers
-        $this->themeMetaHeaders = is_array($themeConfig['meta']) ? $themeConfig['meta'] : array();
+        $this->themeMetaHeaders = is_array($themeConfig['meta']) ? $themeConfig['meta'] : [];
         unset($themeConfig['meta']);
 
         // theme config
@@ -1229,7 +1226,7 @@ class Pico
             $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
 
             $basePath = dirname($scriptName);
-            $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+            $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
@@ -1413,7 +1410,7 @@ class Pico
     public function getMetaHeaders()
     {
         if ($this->metaHeaders === null) {
-            $this->metaHeaders = array(
+            $this->metaHeaders = [
                 'Title' => 'title',
                 'Description' => 'description',
                 'Author' => 'author',
@@ -1422,14 +1419,14 @@ class Pico
                 'Time' => 'time',
                 'Robots' => 'robots',
                 'Template' => 'template',
-                'Hidden' => 'hidden'
-            );
+                'Hidden' => 'hidden',
+            ];
 
             if ($this->themeMetaHeaders) {
                 $this->metaHeaders += $this->themeMetaHeaders;
             }
 
-            $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
+            $this->triggerEvent('onMetaHeaders', [ &$this->metaHeaders ]);
         }
 
         return $this->metaHeaders;
@@ -1447,7 +1444,7 @@ class Pico
     {
         if ($this->yamlParser === null) {
             $this->yamlParser = new \Symfony\Component\Yaml\Parser();
-            $this->triggerEvent('onYamlParserRegistered', array(&$this->yamlParser));
+            $this->triggerEvent('onYamlParserRegistered', [ &$this->yamlParser ]);
         }
 
         return $this->yamlParser;
@@ -1475,12 +1472,12 @@ class Pico
      */
     public function parseFileMeta($rawContent, array $headers)
     {
-        $meta = array();
+        $meta = [];
         $pattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
-            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: array();
-            $meta = is_array($meta) ? $meta : array('title' => $meta);
+            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: [];
+            $meta = is_array($meta) ? $meta : [ 'title' => $meta ];
 
             foreach ($headers as $name => $key) {
                 if (isset($meta[$name])) {
@@ -1556,7 +1553,7 @@ class Pico
             $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
             $this->parsedown->setUrlsLinked((bool) $this->config['content_config']['auto_urls']);
 
-            $this->triggerEvent('onParsedownRegistered', array(&$this->parsedown));
+            $this->triggerEvent('onParsedownRegistered', [ &$this->parsedown ]);
         }
 
         return $this->parsedown;
@@ -1577,7 +1574,7 @@ class Pico
      *
      * @return string prepared Markdown contents
      */
-    public function prepareFileContent($rawContent, array $meta = array())
+    public function prepareFileContent($rawContent, array $meta = [])
     {
         // remove meta header
         $metaHeaderPattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1598,9 +1595,9 @@ class Pico
      *
      * @return string substituted Markdown contents
      */
-    public function substituteFileContent($markdown, array $meta = array())
+    public function substituteFileContent($markdown, array $meta = [])
     {
-        $variables = array();
+        $variables = [];
 
         // replace %version%
         $variables['%version%'] = static::VERSION;
@@ -1715,7 +1712,7 @@ class Pico
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
 
-        $this->pages = array();
+        $this->pages = [];
         $files = $this->getFiles($contentDir, $contentExt, self::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
@@ -1730,7 +1727,7 @@ class Pico
             // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists) by default
             $conflictFile = $contentDir . $id . '/index' . $contentExt;
             $skipFile = in_array($conflictFile, $files, true) ?: null;
-            $this->triggerEvent('onSinglePageLoading', array($id, &$skipFile));
+            $this->triggerEvent('onSinglePageLoading', [ $id, &$skipFile ]);
 
             if ($skipFile) {
                 continue;
@@ -1741,7 +1738,7 @@ class Pico
                 $rawContent = $this->loadFileContent($file);
 
                 // trigger onSinglePageContent event
-                $this->triggerEvent('onSinglePageContent', array($id, &$rawContent));
+                $this->triggerEvent('onSinglePageContent', [ $id, &$rawContent ]);
 
                 $headers = $this->getMetaHeaders();
                 try {
@@ -1758,7 +1755,7 @@ class Pico
             // build page data
             // title, description, author and date are assumed to be pretty basic data
             // everything else is accessible through $page['meta']
-            $page = array(
+            $page = [
                 'id' => $id,
                 'url' => $url,
                 'title' => &$meta['title'],
@@ -1769,8 +1766,8 @@ class Pico
                 'date_formatted' => &$meta['date_formatted'],
                 'hidden' => ($meta['hidden'] || preg_match('/(?:^|\/)_/', $id)),
                 'raw_content' => &$rawContent,
-                'meta' => &$meta
-            );
+                'meta' => &$meta,
+            ];
 
             if ($file === $this->requestFile) {
                 $page['content'] = &$this->content;
@@ -1779,7 +1776,7 @@ class Pico
             unset($rawContent, $meta);
 
             // trigger onSinglePageLoaded event
-            $this->triggerEvent('onSinglePageLoaded', array(&$page));
+            $this->triggerEvent('onSinglePageLoaded', [ &$page ]);
 
             if ($page !== null) {
                 $this->pages[$id] = $page;
@@ -2009,7 +2006,7 @@ class Pico
      */
     protected function buildPageTree()
     {
-        $this->pageTree = array();
+        $this->pageTree = [];
         foreach ($this->pages as $id => &$pageData) {
             // main index page
             if ($id === 'index') {
@@ -2116,11 +2113,11 @@ class Pico
                     }
                     return null;
                 },
-                array('is_safe' => array('html'))
+                [ 'is_safe' => [ 'html' ] ]
             ));
 
             // trigger onTwigRegistration event
-            $this->triggerEvent('onTwigRegistered', array(&$this->twig));
+            $this->triggerEvent('onTwigRegistered', [ &$this->twig ]);
         }
 
         return $this->twig;
@@ -2135,7 +2132,7 @@ class Pico
      */
     protected function getTwigVariables()
     {
-        return array(
+        return [
             'config' => $this->getConfig(),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'plugins_url' => rtrim($this->getConfig('plugins_url'), '/'),
@@ -2149,8 +2146,8 @@ class Pico
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'version' => static::VERSION
-        );
+            'version' => static::VERSION,
+        ];
     }
 
     /**
@@ -2205,7 +2202,7 @@ class Pico
         $protocol = 'http';
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
-            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1'), true) ? 'https' : 'http';
+            $protocol = in_array($secureProxyHeader, [ 'https', 'on', 'ssl', '1' ], true) ? 'https' : 'http';
         } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } elseif ($port === 443) {
@@ -2213,7 +2210,7 @@ class Pico
         }
 
         $basePath = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '/';
-        $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+        $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
 
         if ((($protocol === 'http') && ($port !== 80)) || (($protocol === 'https') && ($port !== 443))) {
             $host = $host . ':' . $port;
@@ -2364,14 +2361,14 @@ class Pico
      */
     public function substituteUrl($url)
     {
-        $variables = array(
+        $variables = [
             '%base_url%?' => $this->getBaseUrl() . (!$this->isUrlRewritingEnabled() ? '?' : ''),
             '%base_url%' => rtrim($this->getBaseUrl(), '/'),
             '%plugins_url%' => rtrim($this->getConfig('plugins_url'), '/'),
             '%themes_url%' => rtrim($this->getConfig('themes_url'), '/'),
             '%assets_url%' => rtrim($this->getConfig('assets_url'), '/'),
-            '%theme_url%' => $this->getConfig('themes_url') . $this->getTheme()
-        );
+            '%theme_url%' => $this->getConfig('themes_url') . $this->getTheme(),
+        ];
 
         return str_replace(array_keys($variables), $variables, $url);
     }
@@ -2415,7 +2412,7 @@ class Pico
         $basePath = '';
         if (isset($_SERVER['SCRIPT_FILENAME']) && strrpos($_SERVER['SCRIPT_FILENAME'], '/')) {
             $basePath = dirname($_SERVER['SCRIPT_FILENAME']);
-            $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+            $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
             if ((substr($absolutePath, 0, $basePathLength) === $basePath) && ($basePath !== '/')) {
@@ -2539,7 +2536,7 @@ class Pico
             $defaultValue = isset($options['default']) ? $options['default'] : null;
         } elseif ($options !== null) {
             $defaultValue = $options;
-            $options = array('default' => $defaultValue);
+            $options = [ 'default' => $defaultValue ];
         }
 
         if ($variable === null) {
@@ -2551,7 +2548,7 @@ class Pico
             return false;
         }
 
-        $filterOptions = array('options' => $options, 'flags' => 0);
+        $filterOptions = [ 'options' => $options, 'flags' => 0 ];
         foreach ((array) $flags as $flag) {
             if (is_numeric($flag)) {
                 $filterOptions['flags'] |= (int) $flag;
@@ -2586,14 +2583,14 @@ class Pico
     {
         $directory = rtrim($directory, '/');
         $fileExtensionLength = strlen($fileExtension);
-        $result = array();
+        $result = [];
 
         $files = scandir($directory, $order);
         if ($files !== false) {
             foreach ($files as $file) {
                 // exclude hidden files/dirs starting with a .; this also excludes the special dirs . and ..
                 // exclude files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (($file[0] === '.') || in_array(substr($file, -1), array('~', '#'), true)) {
+                if (($file[0] === '.') || in_array(substr($file, -1), [ '~', '#' ], true)) {
                     continue;
                 }
 
@@ -2626,14 +2623,14 @@ class Pico
      */
     public function getFilesGlob($pattern, $order = self::SORT_ASC)
     {
-        $result = array();
+        $result = [];
         $sortFlag = ($order === self::SORT_NONE) ? GLOB_NOSORT : 0;
 
         $files = glob($pattern, GLOB_MARK | $sortFlag);
         if ($files) {
             foreach ($files as $file) {
                 // exclude dirs and files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (in_array(substr($file, -1), array('/', '~', '#'), true)) {
+                if (in_array(substr($file, -1), [ '/', '~', '#' ], true)) {
                     continue;
                 }
 
@@ -2711,7 +2708,7 @@ class Pico
         $path = str_replace('\\', '/', $path);
         $pathParts = explode('/', $path);
 
-        $resultParts = array();
+        $resultParts = [];
         foreach ($pathParts as $pathPart) {
             if (($pathPart === '') || ($pathPart === '.')) {
                 continue;
@@ -2770,7 +2767,7 @@ class Pico
      * @param string $eventName name of the event to trigger
      * @param array  $params    optional parameters to pass
      */
-    public function triggerEvent($eventName, array $params = array())
+    public function triggerEvent($eventName, array $params = [])
     {
         foreach ($this->nativePlugins as $plugin) {
             $plugin->handleEvent($eventName, $params);

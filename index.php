@@ -34,7 +34,7 @@ $pico = new \picocms\Pico\Pico(
 );
 
 // override configuration?
-//$pico->setConfig(array());
+//$pico->setConfig([]);
 
 // run application
 echo $pico->run();
