@@ -31,7 +31,7 @@ class DummyPlugin extends AbstractPlugin
      *
      * @var int
      */
-    const API_VERSION = 2;
+    const API_VERSION = 3;
 
     /**
      * This plugin is disabled by default

@@ -27,6 +27,13 @@ Released: 2020-03-29
             update to Twig 3.0+ and Symfony YAML 5.0+ later
 ```
 
+### Version 2.1.2
+Released: 2020-04-10
+
+```
+* [Fixed] Fix DummyPlugin declaring API version 3
+```
+
 ### Version 2.1.1
 Released: 2019-12-31
 
