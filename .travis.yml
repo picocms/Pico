@@ -1,3 +1,4 @@
+os: linux
 dist: bionic
 sudo: false
 
@@ -10,21 +11,15 @@ cache:
 jobs:
   include:
     # Test stage
-    - php: 7.0
-      dist: xenial
-    - php: 7.1
     - php: 7.2
     - php: 7.3
     - php: 7.4
     - php: nightly
-    - php: hhvm-3.27 # until Sep 2019
-    - php: hhvm-3.30 # until Nov 2019
 
     # Branch deployment stage
     - stage: deploy-branch
       if: type == "push" && tag IS blank
-      php: 7.0
-      dist: xenial
+      php: 7.2
       install:
         - '[[ ",$DEPLOY_PHPDOC_BRANCHES," == *,"$TRAVIS_BRANCH",* ]] || travis_terminate 0'
         - install.sh --deploy
@@ -34,8 +29,7 @@ jobs:
     # Release deployment stage
     - stage: deploy-release
       if: tag IS present
-      php: 7.0
-      dist: xenial
+      php: 7.2
       install:
         - install.sh --deploy
       script:
