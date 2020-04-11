@@ -12,6 +12,7 @@
 
 use picocms\Pico\AbstractPlugin;
 use picocms\Pico\Pico;
+use Twig\Environment as TwigEnvironment;
 
 /**
  * Pico dummy plugin - a template for plugins
@@ -31,7 +32,7 @@ class DummyPlugin extends AbstractPlugin
      *
      * @var int
      */
-    const API_VERSION = 3;
+    public const API_VERSION = 3;
 
     /**
      * This plugin is disabled by default
@@ -39,8 +40,8 @@ class DummyPlugin extends AbstractPlugin
      * Usually you should remove this class property (or set it to NULL) to
      * leave the decision whether this plugin should be enabled or disabled by
      * default up to Pico. If all the plugin's dependenies are fulfilled (see
-     * {@see DummyPlugin::$dependsOn}), Pico enables the plugin by default.
-     * Otherwise the plugin is silently disabled.
+     * {@see self::$dependsOn}), Pico enables the plugin by default. Otherwise
+     * the plugin is silently disabled.
      *
      * If this plugin should never be disabled *silently* (e.g. when dealing
      * with security-relevant stuff like access control, or similar), set this
@@ -498,9 +499,9 @@ class DummyPlugin extends AbstractPlugin
      *
      * @see Pico::getTwig()
      *
-     * @param Twig_Environment &$twig Twig instance
+     * @param TwigEnvironment &$twig Twig instance
      */
-    public function onTwigRegistered(Twig_Environment &$twig)
+    public function onTwigRegistered(TwigEnvironment &$twig)
     {
         // your code
     }

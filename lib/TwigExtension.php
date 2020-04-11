@@ -14,6 +14,7 @@ namespace picocms\Pico;
 
 use Twig\Error\RuntimeError as TwigRuntimeError;
 use Twig\Extension\AbstractExtension as AbstractTwigExtension;
+use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -60,7 +61,7 @@ class TwigExtension extends AbstractTwigExtension
     /**
      * Returns the name of the extension
      *
-     * @see Twig_ExtensionInterface::getName()
+     * @see TwigExtensionInterface::getName()
      *
      * @return string the extension name
      */
@@ -72,7 +73,7 @@ class TwigExtension extends AbstractTwigExtension
     /**
      * Returns a list of Pico-specific Twig filters
      *
-     * @see Twig_ExtensionInterface::getFilters()
+     * @see TwigExtensionInterface::getFilters()
      *
      * @return TwigFilter[] array of Pico's Twig filters
      */
@@ -94,7 +95,7 @@ class TwigExtension extends AbstractTwigExtension
     /**
      * Returns a list of Pico-specific Twig functions
      *
-     * @see Twig_ExtensionInterface::getFunctions()
+     * @see TwigExtensionInterface::getFunctions()
      *
      * @return TwigFunction[] array of Pico's Twig functions
      */
@@ -406,7 +407,7 @@ class TwigExtension extends AbstractTwigExtension
      * returns Pico's full pages array.
      *
      * If `$depth` is negative after taking `$offset` into consideration, the
-     * function will throw a {@see Twig_Error_Runtime} exception, since this
+     * function will throw a {@see TwigRuntimeError} exception, since this
      * would simply make no sense and is likely an error. Passing a negative
      * `$depthOffset` is equivalent to passing `$depthOffset = 0`.
      *

@@ -1559,8 +1559,11 @@ class Pico
     public function getParsedown()
     {
         if ($this->parsedown === null) {
-            $className = $this->config['content_config']['extra'] ? '\ParsedownExtra' : '\Parsedown';
-            $this->parsedown = new $className();
+            if ($this->config['content_config']['extra']) {
+                $this->parsedown = new \ParsedownExtra();
+            } else {
+                $this->parsedown = new \Parsedown();
+            }
 
             $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
             $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
