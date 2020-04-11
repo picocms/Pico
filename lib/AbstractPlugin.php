@@ -196,30 +196,6 @@ abstract class AbstractPlugin implements PluginInterface
     }
 
     /**
-     * Passes all not satisfiable method calls to Pico
-     *
-     * @see PluginInterface::getPico()
-     *
-     * @deprecated 2.1.0
-     *
-     * @param string $methodName name of the method to call
-     * @param array  $params     parameters to pass
-     *
-     * @return mixed return value of the called method
-     */
-    public function __call($methodName, array $params)
-    {
-        if (method_exists($this->getPico(), $methodName)) {
-            return call_user_func_array([ $this->getPico(), $methodName ], $params);
-        }
-
-        throw new \BadMethodCallException(
-            'Call to undefined method ' . get_class($this->getPico()) . '::' . $methodName . '() '
-            . 'through ' . get_called_class() . '::__call()'
-        );
-    }
-
-    /**
      * Enables all plugins which this plugin depends on
      *
      * @see PluginInterface::getDependencies()
