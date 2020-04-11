@@ -4,7 +4,7 @@ set -e
 [ -n "$PICO_BUILD_ENV" ] || { echo "No Pico build environment specified" >&2; exit 1; }
 
 # get current Pico milestone
-VERSION="$(php -r "require_once('$PICO_PROJECT_DIR/lib/Pico.php'); echo Pico::VERSION;")"
+VERSION="$(php -r "require_once('$PICO_PROJECT_DIR/lib/Pico.php'); echo picocms\Pico\Pico::VERSION;")"
 MILESTONE="Pico$([[ "$VERSION" =~ ^([0-9]+\.[0-9]+)\. ]] && echo " ${BASH_REMATCH[1]}")"
 
 echo "Deploying $PROJECT_REPO_BRANCH branch ($MILESTONE)..."

@@ -24,7 +24,7 @@ if [ -z "$COMPOSER_ROOT_VERSION" ] && [ -n "$PROJECT_REPO_BRANCH" ]; then
     if [ -z "$PICO_VERSION_PATTERN" ]; then
         PICO_VERSION_PATTERN="$(php -r "
             require_once('$PICO_PROJECT_DIR/lib/Pico.php');
-            echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
+            echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', picocms\Pico\Pico::VERSION);
         ")"
     fi
 

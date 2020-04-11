@@ -33,7 +33,7 @@ jobs:
       install:
         - install.sh --deploy
       script:
-        - '[ "$PROJECT_REPO_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo Pico::VERSION;")" ]'
+        - '[ "$PROJECT_REPO_TAG" == "v$(php -r "require_once(\"lib/Pico.php\"); echo picocms\Pico\Pico::VERSION;")" ]'
         - deploy-release.sh
       before_deploy:
         - release.sh "$PROJECT_REPO_TAG"
