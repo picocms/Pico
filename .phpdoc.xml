@@ -10,24 +10,19 @@
         <cache>.build/phpdoc.cache</cache>
     </paths>
     <version number="3.0.0">
-        <folder>latest</folder>
         <api>
             <source dsn=".">
                 <path>.</path>
             </source>
-            <output>private</output>
             <ignore hidden="true" symlinks="true">
-                <path>.build/*</path>
-                <path>.github/*</path>
-                <path>config/*</path>
-                <path>plugins/**/*</path>
-                <path>themes/**/*</path>
-                <path>vendor/*</path>
+                <path>.build/**/*</path>
+                <path>vendor/**/*</path>
             </ignore>
             <extensions>
                 <extension>php</extension>
                 <extension>php.dist</extension>
             </extensions>
+            <visibility>public</visibility>
             <include-source>true</include-source>
             <default-package-name>Pico</default-package-name>
         </api>
