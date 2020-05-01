@@ -678,7 +678,7 @@ class Pico
                         "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
                     );
                 }
-            } elseif (substr($file, -4) === '.php') {
+            } elseif (substr_compare($file, '.php', -4) === 0) {
                 $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
                 $pluginFile = $file;
             } else {
@@ -1243,7 +1243,7 @@ class Pico
             $basePathLength = strlen($basePath);
 
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-            if ($requestUri && (substr($requestUri, 0, $basePathLength) === $basePath)) {
+            if ($requestUri && (substr_compare($requestUri, $basePath, 0, $basePathLength) === 0)) {
                 $requestUri = substr($requestUri, $basePathLength);
                 if ($requestUri && (($queryStringPos = strpos($requestUri, '?')) !== false)) {
                     $requestUri = substr($requestUri, 0, $queryStringPos);
@@ -1358,7 +1358,7 @@ class Pico
         $contentDirLength = strlen($contentDir);
         $contentExt = $this->getConfig('content_ext');
 
-        if (substr($file, 0, $contentDirLength) === $contentDir) {
+        if (substr_compare($file, $contentDir, 0, $contentDirLength) === 0) {
             $errorFileDir = substr($file, $contentDirLength);
 
             while ($errorFileDir !== '.') {
@@ -2314,7 +2314,7 @@ class Pico
             if ($page === 'index') {
                 $page = '';
             } elseif (($pagePathLength = strrpos($page, '/')) !== false) {
-                if (substr($page, $pagePathLength + 1) === 'index') {
+                if (substr_compare($page, 'index', $pagePathLength + 1) === 0) {
                     $page = substr($page, 0, $pagePathLength);
                 }
             }
@@ -2346,13 +2346,13 @@ class Pico
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
-        if (substr($path, 0, $contentDirLength) !== $contentDir) {
+        if (substr_compare($path, $contentDir, 0, $contentDirLength) !== 0) {
             return null;
         }
 
         $contentExt = $this->getConfig('content_ext');
         $contentExtLength = strlen($contentExt);
-        if (substr($path, -$contentExtLength) !== $contentExt) {
+        if (substr_compare($path, $contentExt, -$contentExtLength) !== 0) {
             return null;
         }
 
@@ -2417,7 +2417,7 @@ class Pico
             $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
-            if ((substr($absolutePath, 0, $basePathLength) === $basePath) && ($basePath !== '/')) {
+            if ((substr_compare($absolutePath, $basePath, 0, $basePathLength) === 0) && ($basePath !== '/')) {
                 return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
             }
         }
@@ -2426,7 +2426,7 @@ class Pico
             $basePath = $this->getRootDir();
             $basePathLength = strlen($basePath);
 
-            if (substr($absolutePath, 0, $basePathLength) === $basePath) {
+            if (substr_compare($absolutePath, $basePath, 0, $basePathLength) === 0) {
                 return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
             }
         }
@@ -2599,7 +2599,7 @@ class Pico
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
                     $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
-                } elseif (!$fileExtension || (substr($file, -$fileExtensionLength) === $fileExtension)) {
+                } elseif (!$fileExtension || (substr_compare($file, $fileExtension, -$fileExtensionLength) === 0)) {
                     $result[] = $directory . '/' . $file;
                 }
             }
