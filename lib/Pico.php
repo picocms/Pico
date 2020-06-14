@@ -936,6 +936,7 @@ class Pico
             'rewrite_url' => null,
             'debug' => null,
             'timezone' => null,
+            'locale' => null,
             'theme' => 'default',
             'theme_config' => null,
             'theme_meta' => null,
@@ -973,6 +974,10 @@ class Pico
             $this->config['timezone'] = @date_default_timezone_get();
         }
         date_default_timezone_set($this->config['timezone']);
+
+        if ($this->config['locale'] !== null) {
+            setlocale(LC_ALL, $this->config['locale']);
+        }
 
         if (!$this->config['plugins_url']) {
             $this->config['plugins_url'] = $this->getUrlFromPath($this->getPluginsDir());
