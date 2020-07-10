@@ -16,6 +16,14 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.3
+Released: 2020-07-10
+
+```
+* [New] Add `locale` option to `config/config.yml`
+* [Changed] Improve Pico docs
+```
+
 ### Version 2.1.2
 Released: 2020-04-10
 
