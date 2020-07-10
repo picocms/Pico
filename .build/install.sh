@@ -5,7 +5,7 @@ set -e
 
 # setup build system
 BUILD_REQUIREMENTS=( --phpcs )
-[ "$1" != "--deploy" ] || BUILD_REQUIREMENTS+=( --cloc --phpdoc )
+[ "$1" != "--deploy" ] || BUILD_REQUIREMENTS+=( --cloc --phpdoc3 )
 "$PICO_TOOLS_DIR/setup/$PICO_BUILD_ENV.sh" "${BUILD_REQUIREMENTS[@]}"
 
 # set COMPOSER_ROOT_VERSION when necessary
