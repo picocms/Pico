@@ -1673,7 +1673,7 @@ class Pico
     public function parseFileContent($markdown, $singleLine = false)
     {
         $markdownParser = $this->getParsedown();
-        return !$singleLine ? $markdownParser->text($markdown) : $markdownParser->line($markdown);
+        return !$singleLine ? @$markdownParser->text($markdown) : @$markdownParser->line($markdown);
     }
 
     /**
