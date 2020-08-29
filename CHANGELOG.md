@@ -16,6 +16,15 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 2.1.4
+Released: 2020-08-29
+
+```
+* [Changed] Silence PHP errors in Parsedown
+* [Fixed] #560: Improve charset guessing for formatted date strings using
+          `strftime()` (Pico always uses UTF-8, but `strftime()` might not)
+```
+
 ### Version 2.1.3
 Released: 2020-07-10
 
