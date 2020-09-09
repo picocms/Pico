@@ -1518,8 +1518,17 @@ class Pico
             }
 
             if (empty($meta['date_formatted'])) {
-                $dateFormat = $this->getConfig('date_format');
-                $meta['date_formatted'] = $meta['time'] ? utf8_encode(strftime($dateFormat, $meta['time'])) : '';
+                if ($meta['time']) {
+                    $encodingList = mb_detect_order();
+                    if ($encodingList === array('ASCII', 'UTF-8')) {
+                        $encodingList[] = 'Windows-1252';
+                    }
+
+                    $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
+                    $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
+                } else {
+                    $meta['date_formatted'] = '';
+                }
             }
         } else {
             // guarantee array key existance
