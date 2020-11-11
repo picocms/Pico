@@ -192,7 +192,7 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 - The `type: Release` label is used in the exact same way as `type: Feature` and indicates the primary pull request of a new Pico release (please refer to the *Branching* and *Build & Release process* sections above).
 
-- The `type: Notice`, `type: Question` and `type: Discussion` labels are used to indicate "fyi" issues, issues opened by users or developers asking questions, and issues with disucssions about arbitrary topics related to Pico. They are neither combined with `pri` labels, nor with `status` labels.
+- The `type: Notice`, `type: Support` and `type: Discussion` labels are used to indicate "fyi" issues, support-related issues (e.g. issues opened by users or developers asking questions), and issues with disucssions about arbitrary topics related to Pico. They are neither combined with `pri` labels, nor with `status` labels.
 
 - The `type: Duplicate` label is used when there is already another issue or pull request related to this problem or feature request. Issues labeled with `type: Duplicate` are immediately closed.
 
@@ -200,7 +200,7 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
 
 The `status: Deferred` label might get added to any open issue or pull request to indicate that it is still unresolved and will be resolved later. This is also true for the `info: Pinned` label: It indicates a important issue or pull request that remains open on purpose.
 
-After resolving a issue, we usually keep it open for about a week to give users some more time for feedback and further questions. This is especially true for issues with the `type: Notice`, `type: Question`, `type: Discussion` and `type: Invalid` labels. After 7 days with no interaction, [Probot](https://probot.github.io/)'s [Stale](https://github.com/apps/stale) bot adds the `info: Stale` label to the issue to ask the participants whether the issue has been resolved. If no more activity occurs, the issue will be automatically closed by Stale bot 2 days later.
+After resolving a issue, we usually keep it open for about a week to give users some more time for feedback and further questions. This is especially true for issues with the `type: Notice`, `type: Support`, `type: Discussion` and `type: Invalid` labels. After 7 days with no interaction, [Probot](https://probot.github.io/)'s [Stale](https://github.com/apps/stale) bot adds the `info: Stale` label to the issue to ask the participants whether the issue has been resolved. If no more activity occurs, the issue will be automatically closed by Stale bot 2 days later.
 
 Issues and pull requests labeled with `info: Information Needed` indicate that we have asked one of the participants for further information and didn't receive any feedback yet. It is usually added after Stale bot adds the `info: Stale` label to give the participants some more days to give the necessary information.
 
