@@ -16,6 +16,14 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 3.0.0-alpha.2
+Released: 2020-12-24
+
+```
+* [Changed] Merge all fixes of Pico v2.1.2 to v2.1.4
+* [Fixed] #575: Update Symfony YAML v3.4 to support PHP 8.0+
+```
+
 ### Version 2.1.4
 Released: 2020-08-29
 
