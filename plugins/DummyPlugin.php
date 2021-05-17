@@ -55,7 +55,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see AbstractPicoPlugin::$enabled
      * @var bool|null
      */
-    protected $enabled = false;
+    protected ?bool $enabled = false;
 
     /**
      * This plugin depends on ...

@@ -95,7 +95,7 @@ class Pico
      * @see Pico::getRootDir()
      * @var string
      */
-    protected $rootDir;
+    protected string $rootDir;
 
     /**
      * Vendor directory of this Pico instance
@@ -103,7 +103,7 @@ class Pico
      * @see Pico::getVendorDir()
      * @var string
      */
-    protected $vendorDir;
+    protected string $vendorDir;
 
     /**
      * Config directory of this Pico instance
@@ -111,7 +111,7 @@ class Pico
      * @see Pico::getConfigDir()
      * @var string
      */
-    protected $configDir;
+    protected string $configDir;
 
     /**
      * Plugins directory of this Pico instance
@@ -119,7 +119,7 @@ class Pico
      * @see Pico::getPluginsDir()
      * @var string
      */
-    protected $pluginsDir;
+    protected string $pluginsDir;
 
     /**
      * Themes directory of this Pico instance
@@ -127,14 +127,14 @@ class Pico
      * @see Pico::getThemesDir()
      * @var string
      */
-    protected $themesDir;
+    protected string $themesDir;
 
     /**
      * Boolean indicating whether Pico started processing yet
      *
      * @var bool
      */
-    protected $locked = false;
+    protected bool $locked = false;
 
     /**
      * List of loaded plugins
@@ -142,14 +142,14 @@ class Pico
      * @see Pico::getPlugins()
      * @var object[]
      */
-    protected $plugins = array();
+    protected array $plugins = array();
 
     /**
      * List of loaded plugins using the current API version
      *
      * @var PicoPluginInterface[]
      */
-    protected $nativePlugins = array();
+    protected array $nativePlugins = array();
 
     /**
      * Boolean indicating whether Pico loads plugins from the filesystem
@@ -158,7 +158,7 @@ class Pico
      * @see Pico::loadLocalPlugins()
      * @var bool
      */
-    protected $enableLocalPlugins = true;
+    protected bool $enableLocalPlugins = true;
 
     /**
      * Current configuration of this Pico instance
@@ -166,7 +166,7 @@ class Pico
      * @see Pico::getConfig()
      * @var array|null
      */
-    protected $config;
+    protected ?array $config;
 
     /**
      * Theme in use
@@ -174,7 +174,7 @@ class Pico
      * @see Pico::getTheme()
      * @var string
      */
-    protected $theme;
+    protected string $theme;
 
     /**
      * API version of the current theme
@@ -182,14 +182,14 @@ class Pico
      * @see Pico::getThemeApiVersion()
      * @var int
      */
-    protected $themeApiVersion;
+    protected int $themeApiVersion;
 
     /**
      * Additional meta headers of the current theme
      *
      * @var array<string,string>|null
      */
-    protected $themeMetaHeaders;
+    protected ?array $themeMetaHeaders;
 
     /**
      * Part of the URL describing the requested contents
@@ -197,7 +197,7 @@ class Pico
      * @see Pico::getRequestUrl()
      * @var string|null
      */
-    protected $requestUrl;
+    protected ?string $requestUrl;
 
     /**
      * Absolute path to the content file being served
@@ -205,7 +205,7 @@ class Pico
      * @see Pico::getRequestFile()
      * @var string|null
      */
-    protected $requestFile;
+    protected ?string $requestFile;
 
     /**
      * Raw, not yet parsed contents to serve
@@ -213,7 +213,7 @@ class Pico
      * @see Pico::getRawContent()
      * @var string|null
      */
-    protected $rawContent;
+    protected ?string $rawContent;
 
     /**
      * Boolean indicating whether Pico is serving a 404 page
@@ -221,7 +221,7 @@ class Pico
      * @see Pico::is404Content()
      * @var bool
      */
-    protected $is404Content = false;
+    protected bool $is404Content = false;
 
     /**
      * Symfony YAML instance used for meta header parsing
@@ -229,7 +229,7 @@ class Pico
      * @see Pico::getYamlParser()
      * @var \Symfony\Component\Yaml\Parser|null
      */
-    protected $yamlParser;
+    protected ?\Symfony\Component\Yaml\Parser $yamlParser;
 
     /**
      * List of known meta headers
@@ -237,7 +237,7 @@ class Pico
      * @see Pico::getMetaHeaders()
      * @var array<string,string>|null
      */
-    protected $metaHeaders;
+    protected ?array $metaHeaders;
 
     /**
      * Meta data of the page to serve
@@ -245,7 +245,7 @@ class Pico
      * @see Pico::getFileMeta()
      * @var array|null
      */
-    protected $meta;
+    protected ?array $meta;
 
     /**
      * Parsedown Extra instance used for markdown parsing
@@ -253,7 +253,7 @@ class Pico
      * @see Pico::getParsedown()
      * @var Parsedown|null
      */
-    protected $parsedown;
+    protected ?Parsedown $parsedown;
 
     /**
      * Parsed content being served
@@ -261,7 +261,7 @@ class Pico
      * @see Pico::getFileContent()
      * @var string|null
      */
-    protected $content;
+    protected ?string $content;
 
     /**
      * List of known pages
@@ -269,7 +269,7 @@ class Pico
      * @see Pico::getPages()
      * @var array[]|null
      */
-    protected $pages;
+    protected ?array $pages;
 
     /**
      * Data of the page being served
@@ -277,7 +277,7 @@ class Pico
      * @see Pico::getCurrentPage()
      * @var array|null
      */
-    protected $currentPage;
+    protected ?array $currentPage;
 
     /**
      * Data of the previous page relative to the page being served
@@ -285,7 +285,7 @@ class Pico
      * @see Pico::getPreviousPage()
      * @var array|null
      */
-    protected $previousPage;
+    protected ?array $previousPage;
 
     /**
      * Data of the next page relative to the page being served
@@ -293,7 +293,7 @@ class Pico
      * @see Pico::getNextPage()
      * @var array|null
      */
-    protected $nextPage;
+    protected ?array $nextPage;
 
     /**
      * Tree structure of known pages
@@ -301,7 +301,7 @@ class Pico
      * @see Pico::getPageTree()
      * @var array[]|null
      */
-    protected $pageTree;
+    protected ?array $pageTree;
 
     /**
      * Twig instance used for template parsing
@@ -309,7 +309,7 @@ class Pico
      * @see Pico::getTwig()
      * @var Twig_Environment|null
      */
-    protected $twig;
+    protected ?Twig_Environment $twig;
 
     /**
      * Variables passed to the twig template
@@ -317,7 +317,7 @@ class Pico
      * @see Pico::getTwigVariables()
      * @var array|null
      */
-    protected $twigVariables;
+    protected ?array $twigVariables;
 
     /**
      * Name of the Twig template to render
@@ -325,7 +325,7 @@ class Pico
      * @see Pico::getTwigTemplate()
      * @var string|null
      */
-    protected $twigTemplate;
+    protected ?string $twigTemplate;
 
     /**
      * Constructs a new Pico instance
@@ -336,10 +336,10 @@ class Pico
      * @param string $configDir          config dir of this Pico instance
      * @param string $pluginsDir         plugins dir of this Pico instance
      * @param string $themesDir          themes dir of this Pico instance
-     * @param bool   $enableLocalPlugins enables (TRUE; default) or disables
+     * @param bool $enableLocalPlugins enables (TRUE; default) or disables
      *     (FALSE) loading plugins from the filesystem
      */
-    public function __construct($rootDir, $configDir, $pluginsDir, $themesDir, $enableLocalPlugins = true)
+    public function __construct(string $rootDir, string $configDir, string $pluginsDir, string $themesDir, bool $enableLocalPlugins = true)
     {
         $this->rootDir = rtrim($rootDir, '/\\') . '/';
         $this->vendorDir = dirname(__DIR__) . '/';
@@ -354,7 +354,7 @@ class Pico
      *
      * @return string root directory path
      */
-    public function getRootDir()
+    public function getRootDir(): string
     {
         return $this->rootDir;
     }
@@ -364,7 +364,7 @@ class Pico
      *
      * @return string vendor directory path
      */
-    public function getVendorDir()
+    public function getVendorDir(): string
     {
         return $this->vendorDir;
     }
@@ -374,7 +374,7 @@ class Pico
      *
      * @return string config directory path
      */
-    public function getConfigDir()
+    public function getConfigDir(): string
     {
         return $this->configDir;
     }
@@ -384,7 +384,7 @@ class Pico
      *
      * @return string plugins directory path
      */
-    public function getPluginsDir()
+    public function getPluginsDir(): string
     {
         return $this->pluginsDir;
     }
@@ -394,7 +394,7 @@ class Pico
      *
      * @return string themes directory path
      */
-    public function getThemesDir()
+    public function getThemesDir(): string
     {
         return $this->themesDir;
     }
@@ -410,7 +410,7 @@ class Pico
      *
      * @throws Exception thrown when a irrecoverable error occurs
      */
-    public function run()
+    public function run(): string
     {
         // check lock
         if ($this->locked) {
@@ -576,16 +576,12 @@ class Pico
      *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadComposerPlugins(array $pluginBlacklist = array())
+    protected function loadComposerPlugins(array $pluginBlacklist = array()): array
     {
-        $composerPlugins = array();
-        if (is_file($this->getVendorDir() . 'vendor/pico-plugin.php')) {
-            // composer root package
-            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: array();
-        } elseif (is_file($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
-            // composer dependency package
-            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
-        }
+
+        $route_vendor_pico = (is_file($this->getVendorDir() . 'vendor/pico-plugin.php'))? 'vendor/pico-plugin.php' : '../../../vendor/pico-plugin.php';
+
+        $composerPlugins = require($this->getVendorDir() . $route_vendor_pico) ?: array();
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
@@ -737,7 +733,7 @@ class Pico
      *
      * @throws RuntimeException thrown when the plugin couldn't be loaded
      */
-    public function loadPlugin($plugin)
+    public function loadPlugin(PicoPluginInterface|string $plugin): PicoPluginInterface
     {
         if (!is_object($plugin)) {
             $className = (string) $plugin;
@@ -860,16 +856,16 @@ class Pico
      * Plugins SHOULD implement {@see PicoPluginInterface}, but you MUST NOT
      * rely on it. For more information see {@see PicoPluginInterface}.
      *
-     * @see Pico::loadPlugins()
-     * @see Pico::getPlugins()
-     *
      * @param string $pluginName name of the plugin
      *
      * @return object instance of the plugin
      *
      * @throws RuntimeException thrown when the plugin wasn't found
+     *@see Pico::getPlugins()
+     *
+     * @see Pico::loadPlugins()
      */
-    public function getPlugin($pluginName)
+    public function getPlugin(string $pluginName): object
     {
         if (isset($this->plugins[$pluginName])) {
             return $this->plugins[$pluginName];
@@ -1055,22 +1051,22 @@ class Pico
      * Returns either the value of the specified config variable or
      * the config array
      *
-     * @see Pico::setConfig()
-     * @see Pico::loadConfig()
-     *
-     * @param string $configName optional name of a config variable
-     * @param mixed  $default    optional default value to return when the
+     * @param string|null $configName optional name of a config variable
+     * @param mixed|null $default    optional default value to return when the
      *     named config variable doesn't exist
      *
      * @return mixed if no name of a config variable has been supplied, the
      *     config array is returned; otherwise it returns either the value of
      *     the named config variable, or, if the named config variable doesn't
      *     exist, the provided default value or NULL
+     *@see Pico::loadConfig()
+     *
+     * @see Pico::setConfig()
      */
-    public function getConfig($configName = null, $default = null)
+    public function getConfig(string $configName = null, mixed $default = null): mixed
     {
         if ($configName !== null) {
-            return isset($this->config[$configName]) ? $this->config[$configName] : $default;
+            return $this->config[$configName] ?? $default;
         } else {
             return $this->config;
         }
@@ -1161,7 +1157,7 @@ class Pico
      *
      * @return string
      */
-    public function getTheme()
+    public function getTheme(): string
     {
         return $this->theme;
     }
@@ -1174,7 +1170,7 @@ class Pico
      *
      * @return int
      */
-    public function getThemeApiVersion()
+    public function getThemeApiVersion(): int
     {
         return $this->themeApiVersion;
     }
@@ -1219,23 +1215,23 @@ class Pico
     protected function evaluateRequestUrl()
     {
         // use QUERY_STRING; e.g. /pico/?sub/page
-        $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        $pathComponent = $_SERVER['QUERY_STRING'] ?? '';
         if ($pathComponent) {
             $pathComponent = strstr($pathComponent, '&', true) ?: $pathComponent;
-            if (strpos($pathComponent, '=') === false) {
+            if (!str_contains($pathComponent, '=')) {
                 $this->requestUrl = trim(rawurldecode($pathComponent), '/');
             }
         }
 
         // use REQUEST_URI (requires URL rewriting); e.g. /pico/sub/page
         if (($this->requestUrl === null) && $this->isUrlRewritingEnabled()) {
-            $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
+            $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 
             $basePath = dirname($scriptName);
             $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
-            $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+            $requestUri = $_SERVER['REQUEST_URI'] ?? '';
             if ($requestUri && (substr($requestUri, 0, $basePathLength) === $basePath)) {
                 $requestUri = substr($requestUri, $basePathLength);
                 if ($requestUri && (($queryStringPos = strpos($requestUri, '?')) !== false)) {
@@ -1259,7 +1255,7 @@ class Pico
      *
      * @return string|null request URL
      */
-    public function getRequestUrl()
+    public function getRequestUrl(): ?string
     {
         return $this->requestUrl;
     }
@@ -1274,13 +1270,13 @@ class Pico
      * RECOMMENDED to use PHP's `open_basedir` feature - always, not just
      * with Pico!
      *
-     * @see Pico::getRequestFile()
-     *
      * @param string $requestUrl path name (likely from a URL) to resolve
      *
      * @return string path to the resolved content file
+     *@see Pico::getRequestFile()
+     *
      */
-    public function resolveFilePath($requestUrl)
+    public function resolveFilePath(string $requestUrl): string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
@@ -1314,7 +1310,7 @@ class Pico
      *
      * @return string|null file pat
      */
-    public function getRequestFile()
+    public function getRequestFile(): ?string
     {
         return $this->requestFile;
     }
@@ -1322,13 +1318,13 @@ class Pico
     /**
      * Returns the raw contents of a file
      *
-     * @see Pico::getRawContent()
-     *
      * @param string $file file path
      *
      * @return string raw contents of the file
+     *@see Pico::getRawContent()
+     *
      */
-    public function loadFileContent($file)
+    public function loadFileContent(string $file): string
     {
         return file_get_contents($file);
     }
@@ -1339,13 +1335,13 @@ class Pico
      *
      * If no suitable `404.md` is found, fallback to a built-in error message.
      *
-     * @see Pico::getRawContent()
-     *
      * @param string $file path to requested (but not existing) file
      *
      * @return string raw contents of the 404 file
+     *@see Pico::getRawContent()
+     *
      */
-    public function load404Content($file)
+    public function load404Content(string $file): string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
@@ -1369,13 +1365,12 @@ class Pico
         }
 
         // fallback to built-in error message
-        $rawErrorContent = "---\n"
+        return "---\n"
             . "Title: Error 404\n"
             . "Robots: noindex,nofollow\n"
             . "---\n\n"
             . "# Error 404\n\n"
             . "Woops. Looks like this page doesn't exist.\n";
-        return $rawErrorContent;
     }
 
     /**
@@ -1386,7 +1381,7 @@ class Pico
      *
      * @return string|null raw contents
      */
-    public function getRawContent()
+    public function getRawContent(): ?string
     {
         return $this->rawContent;
     }
@@ -1398,7 +1393,7 @@ class Pico
      *
      * @return bool TRUE if Pico is serving a 404 page, FALSE otherwise
      */
-    public function is404Content()
+    public function is404Content(): bool
     {
         return $this->is404Content;
     }
@@ -1413,7 +1408,7 @@ class Pico
      *     key to search for, the array value is later used to access the
      *     found value
      */
-    public function getMetaHeaders()
+    public function getMetaHeaders(): ?array
     {
         if ($this->metaHeaders === null) {
             $this->metaHeaders = array(
@@ -1446,7 +1441,7 @@ class Pico
      *
      * @return \Symfony\Component\Yaml\Parser Symfony YAML parser
      */
-    public function getYamlParser()
+    public function getYamlParser(): ?\Symfony\Component\Yaml\Parser
     {
         if ($this->yamlParser === null) {
             $this->yamlParser = new \Symfony\Component\Yaml\Parser();
@@ -1466,17 +1461,17 @@ class Pico
      * event first. The implicit availability of headers is for users and
      * pure (!) theme developers ONLY.
      *
-     * @see Pico::getFileMeta()
-     *
      * @param string   $rawContent the raw file contents
-     * @param string[] $headers    known meta headers
+          * @param string[] $headers    known meta headers
      *
      * @return array parsed meta data
      *
      * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
      *     meta data is invalid
+     *@see Pico::getFileMeta()
+     *
      */
-    public function parseFileMeta($rawContent, array $headers)
+    public function parseFileMeta(string $rawContent, array $headers): array
     {
         $meta = array();
         $pattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1545,7 +1540,7 @@ class Pico
      *
      * @return array|null parsed meta data
      */
-    public function getFileMeta()
+    public function getFileMeta(): ?array
     {
         return $this->meta;
     }
@@ -1556,9 +1551,9 @@ class Pico
      * This method triggers the `onParsedownRegistered` event when the
      * Parsedown markdown parser wasn't initiated yet.
      *
-     * @return Parsedown Parsedown markdown parser
+     * @return Parsedown|ParsedownExtra|null Parsedown markdown parser
      */
-    public function getParsedown()
+    public function getParsedown(): Parsedown|ParsedownExtra|null
     {
         if ($this->parsedown === null) {
             $className = $this->config['content_config']['extra'] ? 'ParsedownExtra' : 'Parsedown';
@@ -1580,16 +1575,16 @@ class Pico
      * This method removes the meta header and replaces `%...%` placeholders
      * by calling the {@see Pico::substituteFileContent()} method.
      *
-     * @see Pico::substituteFileContent()
-     * @see Pico::parseFileContent()
-     * @see Pico::getFileContent()
-     *
      * @param string $rawContent raw contents of a page
      * @param array  $meta       meta data to use for %meta.*% replacement
      *
-     * @return string prepared Markdown contents
+          * @return string prepared Markdown contents
+     *@see Pico::substituteFileContent()
+     * @see Pico::parseFileContent()
+     * @see Pico::getFileContent()
+     *
      */
-    public function prepareFileContent($rawContent, array $meta = array())
+    public function prepareFileContent(string $rawContent, array $meta = array()): string
     {
         // remove meta header
         $metaHeaderPattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1597,9 +1592,7 @@ class Pico
         $markdown = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace placeholders
-        $markdown = $this->substituteFileContent($markdown, $meta);
-
-        return $markdown;
+        return $this->substituteFileContent($markdown, $meta);
     }
 
     /**
@@ -1610,7 +1603,7 @@ class Pico
      *
      * @return string substituted Markdown contents
      */
-    public function substituteFileContent($markdown, array $meta = array())
+    public function substituteFileContent(string $markdown, array $meta = array()): string
     {
         $variables = array();
 
@@ -1661,16 +1654,16 @@ class Pico
     /**
      * Parses the contents of a page using ParsedownExtra
      *
-     * @see Pico::prepareFileContent()
+     * @param string $markdown   Markdown contents of a page
+     * @param bool $singleLine whether to parse just a single line of markup
+          *
+     * @return string parsed contents (HTML)
+     *@see Pico::prepareFileContent()
      * @see Pico::substituteFileContent()
      * @see Pico::getFileContent()
      *
-     * @param string $markdown   Markdown contents of a page
-     * @param bool   $singleLine whether to parse just a single line of markup
-     *
-     * @return string parsed contents (HTML)
      */
-    public function parseFileContent($markdown, $singleLine = false)
+    public function parseFileContent(string $markdown, bool $singleLine = false): string
     {
         $markdownParser = $this->getParsedown();
         return !$singleLine ? @$markdownParser->text($markdown) : @$markdownParser->line($markdown);
@@ -1685,7 +1678,7 @@ class Pico
      *
      * @return string|null parsed contents
      */
-    public function getFileContent()
+    public function getFileContent(): ?string
     {
         return $this->content;
     }
@@ -1831,10 +1824,10 @@ class Pico
             // sort by arbitrary meta value
             $orderByMeta = $this->getConfig('pages_order_by_meta');
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order, $orderByMeta) {
-                $aSortValue = isset($a['meta'][$orderByMeta]) ? $a['meta'][$orderByMeta] : null;
+                $aSortValue = $a['meta'][$orderByMeta] ?? null;
                 $aSortValueNull = ($aSortValue === null);
 
-                $bSortValue = isset($b['meta'][$orderByMeta]) ? $b['meta'][$orderByMeta] : null;
+                $bSortValue = $b['meta'][$orderByMeta] ?? null;
                 $bSortValueNull = ($bSortValue === null);
 
                 $cmp = 0;
@@ -1920,7 +1913,7 @@ class Pico
      *
      * @return array[]|null the data of all pages
      */
-    public function getPages()
+    public function getPages(): ?array
     {
         return $this->pages;
     }
@@ -1950,7 +1943,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getCurrentPage()
+    public function getCurrentPage(): ?array
     {
         return $this->currentPage;
     }
@@ -1962,7 +1955,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getPreviousPage()
+    public function getPreviousPage(): ?array
     {
         return $this->previousPage;
     }
@@ -1974,7 +1967,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getNextPage()
+    public function getNextPage(): ?array
     {
         return $this->nextPage;
     }
@@ -2078,7 +2071,7 @@ class Pico
      *
      * @return array[]|null the tree structure of all pages
      */
-    public function getPageTree()
+    public function getPageTree(): ?array
     {
         return $this->pageTree;
     }
@@ -2097,7 +2090,7 @@ class Pico
      *
      * @return Twig_Environment|null Twig template engine
      */
-    public function getTwig()
+    public function getTwig(): ?Twig_Environment
     {
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
@@ -2145,7 +2138,7 @@ class Pico
      *
      * @return array template variables
      */
-    protected function getTwigVariables()
+    protected function getTwigVariables(): array
     {
         return array(
             'config' => $this->getConfig(),
@@ -2170,7 +2163,7 @@ class Pico
      *
      * @return string template name
      */
-    protected function getTwigTemplate()
+    protected function getTwigTemplate(): string
     {
         $templateName = !empty($this->meta['template']) ? $this->meta['template'] : 'index';
         return $templateName . '.twig';
@@ -2185,7 +2178,7 @@ class Pico
      *
      * @return string the base url
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         $baseUrl = $this->getConfig('base_url');
         if ($baseUrl) {
@@ -2240,7 +2233,7 @@ class Pico
      *
      * @return bool TRUE if URL rewriting is enabled, FALSE otherwise
      */
-    public function isUrlRewritingEnabled()
+    public function isUrlRewritingEnabled(): bool
     {
         $urlRewritingEnabled = $this->getConfig('rewrite_url');
         if ($urlRewritingEnabled !== null) {
@@ -2263,7 +2256,7 @@ class Pico
      *
      * @return bool TRUE if Pico's debug mode is enabled, FALSE otherwise
      */
-    public function isDebugModeEnabled()
+    public function isDebugModeEnabled(): bool
     {
         $debugModeEnabled = $this->getConfig('debug');
         if ($debugModeEnabled !== null) {
@@ -2287,17 +2280,17 @@ class Pico
      * This method can be used in Twig templates by applying the `link` filter
      * to a string representing a page ID.
      *
-     * @param string            $page      ID of the page to link to
+     * @param string $page      ID of the page to link to
      * @param array|string|null $queryData either an array of properties to
      *     create a URL-encoded query string from, or a already encoded string
-     * @param bool              $dropIndex if the last path component is
+     * @param bool $dropIndex if the last path component is
      *     "index", passing TRUE (default) will remove this path component
      *
      * @return string URL
      *
      * @throws InvalidArgumentException thrown when invalid arguments got passed
      */
-    public function getPageUrl($page, $queryData = null, $dropIndex = true)
+    public function getPageUrl(string $page, array|string $queryData = null, bool $dropIndex = true): string
     {
         if (is_array($queryData)) {
             $queryData = http_build_query($queryData, '', '&');
@@ -2341,7 +2334,7 @@ class Pico
      *
      * @return string|null either the corresponding page ID or NULL
      */
-    public function getPageId($path)
+    public function getPageId(string $path): ?string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
@@ -2374,7 +2367,7 @@ class Pico
      *
      * @return string URL with replaced placeholders
      */
-    public function substituteUrl($url)
+    public function substituteUrl(string $url): string
     {
         $variables = array(
             '%base_url%?' => $this->getBaseUrl() . (!$this->isUrlRewritingEnabled() ? '?' : ''),
@@ -2397,7 +2390,7 @@ class Pico
      *
      * @return string
      */
-    public function getBaseThemeUrl()
+    public function getBaseThemeUrl(): string
     {
         return $this->getConfig('themes_url');
     }
@@ -2420,7 +2413,7 @@ class Pico
      *
      * @return string the URL of the given folder
      */
-    public function getUrlFromPath($absolutePath)
+    public function getUrlFromPath(string $absolutePath): string
     {
         $absolutePath = str_replace('\\', '/', $absolutePath);
 
@@ -2454,21 +2447,21 @@ class Pico
      * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `url_param` function.
      *
-     * @see Pico::filterVariable()
-     *
      * @param string                    $name    name of the URL GET parameter
      *     to filter
-     * @param int|string                $filter  the filter to apply
-     * @param mixed|array               $options either a associative options
+     * @param int|string $filter  the filter to apply
+     * @param mixed|null $options either a associative options
      *     array to be used by the filter or a scalar default value
-     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     * @param int|string|int[]|string[]|null $flags   flags and flag strings to be
      *     used by the filter
      *
      * @return mixed either the filtered data, FALSE if the filter fails, or
      *     NULL if the URL GET parameter doesn't exist and no default value is
      *     given
+     *@see Pico::filterVariable()
+     *
      */
-    public function getUrlParameter($name, $filter = '', $options = null, $flags = null)
+    public function getUrlParameter(string $name, int|string $filter = '', mixed $options = null, array|int|string $flags = null): mixed
     {
         $variable = (isset($_GET[$name]) && is_scalar($_GET[$name])) ? $_GET[$name] : null;
         return $this->filterVariable($variable, $filter, $options, $flags);
@@ -2481,21 +2474,21 @@ class Pico
      * {@see Pico::filterVariable()} for a detailed description. It can be
      * used in Twig templates by calling the `form_param` function.
      *
-     * @see Pico::filterVariable()
-     *
      * @param string                    $name    name of the HTTP POST
      *     parameter to filter
-     * @param int|string                $filter  the filter to apply
-     * @param mixed|array               $options either a associative options
+     * @param int|string $filter  the filter to apply
+     * @param mixed|null $options either a associative options
      *     array to be used by the filter or a scalar default value
-     * @param int|string|int[]|string[] $flags   flags and flag strings to be
+     * @param int|string|int[]|string[]|null $flags   flags and flag strings to be
      *     used by the filter
      *
      * @return mixed either the filtered data, FALSE if the filter fails, or
      *     NULL if the HTTP POST parameter doesn't exist and no default value
      *     is given
+     *@see Pico::filterVariable()
+     *
      */
-    public function getFormParameter($name, $filter = '', $options = null, $flags = null)
+    public function getFormParameter(string $name, int|string $filter = '', mixed $options = null, array|int|string $flags = null): mixed
     {
         $variable = (isset($_POST[$name]) && is_scalar($_POST[$name])) ? $_POST[$name] : null;
         return $this->filterVariable($variable, $filter, $options, $flags);
@@ -2526,13 +2519,13 @@ class Pico
      *     Sanitize filters
      *
      * @param mixed                     $variable value to filter
-     * @param int|string                $filter   ID (int) or name (string) of
+     * @param int|string $filter   ID (int) or name (string) of
      *     the filter to apply; if omitted, the method will return FALSE
-     * @param mixed|array               $options  either a associative array
+     * @param mixed|null $options  either a associative array
      *     of options to be used by the filter (e.g. `array('default' => 42)`),
      *     or a scalar default value that will be returned when the passed
      *     value is NULL (optional)
-     * @param int|string|int[]|string[] $flags    either a bitwise disjunction
+     * @param int|string|int[]|string[]|null $flags    either a bitwise disjunction
      *     of flags or a string with the significant part of a flag constant
      *     (the constant name is the result of "FILTER_FLAG_" and the given
      *     string in ASCII-only uppercase); you may also pass an array of flags
@@ -2544,11 +2537,11 @@ class Pico
      *     returns the sanitized value; if no value (i.e. NULL) was given, the
      *     method always returns either the provided default value or NULL
      */
-    protected function filterVariable($variable, $filter = '', $options = null, $flags = null)
+    protected function filterVariable(mixed $variable, int|string $filter = '', mixed $options = null, array|int|string $flags = null): mixed
     {
         $defaultValue = null;
         if (is_array($options)) {
-            $defaultValue = isset($options['default']) ? $options['default'] : null;
+            $defaultValue = $options['default'] ?? null;
         } elseif ($options !== null) {
             $defaultValue = $options;
             $options = array('default' => $defaultValue);
@@ -2587,14 +2580,14 @@ class Pico
      * @param string $directory     start directory
      * @param string $fileExtension return files with the given file extension
      *     only (optional)
-     * @param int    $order         specify whether and how files should be
+     * @param int $order         specify whether and how files should be
      *     sorted; use Pico::SORT_ASC for a alphabetical ascending order (this
      *     is the default behaviour), Pico::SORT_DESC for a descending order
      *     or Pico::SORT_NONE to leave the result unsorted
      *
      * @return array list of found files
      */
-    public function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
+    public function getFiles(string $directory, string $fileExtension = '', int $order = self::SORT_ASC): array
     {
         $directory = rtrim($directory, '/');
         $fileExtensionLength = strlen($fileExtension);
@@ -2636,7 +2629,7 @@ class Pico
      *
      * @return array list of found files
      */
-    public function getFilesGlob($pattern, $order = self::SORT_ASC)
+    public function getFilesGlob(string $pattern, int $order = self::SORT_ASC): array
     {
         $result = array();
         $sortFlag = ($order === self::SORT_NONE) ? GLOB_NOSORT : 0;
@@ -2659,15 +2652,15 @@ class Pico
     /**
      * Makes a relative path absolute to Pico's root dir
      *
-     * @param string $path     relative or absolute path
-     * @param string $basePath treat relative paths relative to the given path;
+     * @param string $path relative or absolute path
+     * @param string|null $basePath treat relative paths relative to the given path;
      *     defaults to Pico::$rootDir
-     * @param bool   $endSlash whether to add a trailing slash to the absolute
+     * @param bool $endSlash whether to add a trailing slash to the absolute
      *     path or not (defaults to TRUE)
      *
      * @return string absolute path
      */
-    public function getAbsolutePath($path, $basePath = null, $endSlash = true)
+    public function getAbsolutePath(string $path, string $basePath = null, bool $endSlash = true): string
     {
         if ($basePath === null) {
             $basePath = $this->getRootDir();
@@ -2699,7 +2692,7 @@ class Pico
      * @throws UnexpectedValueException thrown when a absolute path is passed
      *     although absolute paths aren't allowed
      */
-    public function getNormalizedPath($path, $allowAbsolutePath = false, $endSlash = true)
+    public function getNormalizedPath(string $path, bool $allowAbsolutePath = false, bool $endSlash = true): string
     {
         $absolutePath = '';
         if (DIRECTORY_SEPARATOR === '\\') {
@@ -2748,14 +2741,14 @@ class Pico
      * even though they don't include a scheme and host.
      *
      * @param string $url      relative or absolute URL
-     * @param string $baseUrl  treat relative URLs relative to the given URL;
+     * @param string|null $baseUrl  treat relative URLs relative to the given URL;
      *     defaults to Pico::getBaseUrl()
      * @param bool $endSlash   whether to add a trailing slash to the absolute
      *     URL or not (defaults to TRUE)
      *
      * @return string absolute URL
      */
-    public function getAbsoluteUrl($url, $baseUrl = null, $endSlash = true)
+    public function getAbsoluteUrl(string $url, string $baseUrl = null, bool $endSlash = true): string
     {
         if (($url[0] !== '/') && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
             $url = (($baseUrl !== null) ? $baseUrl : $this->getBaseUrl()) . $url;
@@ -2775,14 +2768,14 @@ class Pico
      *
      * You MUST NOT trigger events of Pico's core with a plugin!
      *
-     * @see PicoPluginInterface
-     * @see AbstractPicoPlugin
-     * @see DummyPlugin
-     *
      * @param string $eventName name of the event to trigger
      * @param array  $params    optional parameters to pass
+     *@see DummyPlugin
+     *
+     * @see PicoPluginInterface
+     * @see AbstractPicoPlugin
      */
-    public function triggerEvent($eventName, array $params = array())
+    public function triggerEvent(string $eventName, array $params = array())
     {
         foreach ($this->nativePlugins as $plugin) {
             $plugin->handleEvent($eventName, $params);

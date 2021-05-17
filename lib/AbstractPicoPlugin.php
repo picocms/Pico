@@ -31,7 +31,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getPico()
      * @var Pico
      */
-    protected $pico;
+    protected Pico $pico;
 
     /**
      * Boolean indicating if this plugin is enabled (TRUE) or disabled (FALSE)
@@ -40,7 +40,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::setEnabled()
      * @var bool|null
      */
-    protected $enabled;
+    protected ?bool $enabled;
 
     /**
      * Boolean indicating if this plugin was ever enabled/disabled manually
@@ -48,7 +48,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::isStatusChanged()
      * @var bool
      */
-    protected $statusChanged = false;
+    protected bool $statusChanged = false;
 
     /**
      * Boolean indicating whether this plugin matches Pico's API version
@@ -56,7 +56,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see AbstractPicoPlugin::checkCompatibility()
      * @var bool|null
      */
-    protected $nativePlugin;
+    protected ?bool $nativePlugin;
 
     /**
      * List of plugins which this plugin depends on
@@ -65,7 +65,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getDependencies()
      * @var string[]
      */
-    protected $dependsOn = array();
+    protected array $dependsOn = array();
 
     /**
      * List of plugin which depend on this plugin
@@ -74,7 +74,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * @see PicoPluginInterface::getDependants()
      * @var object[]|null
      */
-    protected $dependants;
+    protected ?array $dependants;
 
     /**
      * Constructs a new instance of a Pico plugin
@@ -89,7 +89,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function handleEvent($eventName, array $params)
+    public function handleEvent(string $eventName, array $params)
     {
         // plugins can be enabled/disabled using the config
         if ($eventName === 'onConfigLoaded') {
@@ -132,10 +132,10 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function setEnabled($enabled, $recursive = true, $auto = false)
+    public function setEnabled(bool $enabled, bool $recursive = true, bool $auto = false)
     {
-        $this->statusChanged = (!$this->statusChanged) ? !$auto : true;
-        $this->enabled = (bool) $enabled;
+        $this->statusChanged = !(!$this->statusChanged) || !$auto;
+        $this->enabled = $enabled;
 
         if ($enabled) {
             $this->checkCompatibility();
@@ -148,7 +148,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function isEnabled()
+    public function isEnabled(): bool|null
     {
         return $this->enabled;
     }
@@ -156,7 +156,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function isStatusChanged()
+    public function isStatusChanged(): bool
     {
         return $this->statusChanged;
     }
@@ -164,7 +164,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function getPico()
+    public function getPico(): Pico
     {
         return $this->pico;
     }
@@ -262,21 +262,21 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function getDependencies()
+    public function getDependencies(): array
     {
-        return (array) $this->dependsOn;
+        return $this->dependsOn;
     }
 
     /**
      * Disables all plugins which depend on this plugin
      *
-     * @see PicoPluginInterface::getDependants()
-     *
      * @param bool $recursive disabled dependant plugins automatically
      *
      * @throws RuntimeException thrown when a dependency fails
+     * @see PicoPluginInterface::getDependants()
+     *
      */
-    protected function checkDependants($recursive)
+    protected function checkDependants(bool $recursive)
     {
         $dependants = $this->getDependants();
         if ($dependants) {
@@ -307,7 +307,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
     /**
      * {@inheritDoc}
      */
-    public function getDependants()
+    public function getDependants(): array
     {
         if ($this->dependants === null) {
             $this->dependants = array();

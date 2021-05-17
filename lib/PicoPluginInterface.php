@@ -36,13 +36,10 @@ interface PicoPluginInterface
      * @param string $eventName name of the triggered event
      * @param array  $params    passed parameters
      */
-    public function handleEvent($eventName, array $params);
+    public function handleEvent(string $eventName, array $params);
 
     /**
      * Enables or disables this plugin
-     *
-     * @see PicoPluginInterface::isEnabled()
-     * @see PicoPluginInterface::isStatusChanged()
      *
      * @param bool $enabled   enable (TRUE) or disable (FALSE) this plugin
      * @param bool $recursive when TRUE, enable or disable recursively.
@@ -55,8 +52,11 @@ interface PicoPluginInterface
      *     parameter is optional and defaults to FALSE.
      *
      * @throws RuntimeException thrown when a dependency fails
+     *@see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::isStatusChanged()
+     *
      */
-    public function setEnabled($enabled, $recursive = true, $auto = false);
+    public function setEnabled(bool $enabled, bool $recursive = true, bool $auto = false);
 
     /**
      * Returns a boolean indicating whether this plugin is enabled or not
@@ -69,7 +69,7 @@ interface PicoPluginInterface
      *
      * @return bool|null plugin is enabled (TRUE) or disabled (FALSE)
      */
-    public function isEnabled();
+    public function isEnabled(): ?bool;
 
     /**
      * Returns TRUE if the plugin was ever enabled/disabled manually
@@ -78,21 +78,21 @@ interface PicoPluginInterface
      *
      * @return bool plugin is in its default state (TRUE), FALSE otherwise
      */
-    public function isStatusChanged();
+    public function isStatusChanged(): bool;
 
     /**
      * Returns a list of names of plugins required by this plugin
      *
      * @return string[] required plugins
      */
-    public function getDependencies();
+    public function getDependencies(): array;
 
     /**
      * Returns a list of plugins which depend on this plugin
      *
      * @return object[] dependant plugins
      */
-    public function getDependants();
+    public function getDependants(): array;
 
     /**
      * Returns the plugin's instance of Pico
@@ -101,5 +101,5 @@ interface PicoPluginInterface
      *
      * @return Pico the plugin's instance of Pico
      */
-    public function getPico();
+    public function getPico(): Pico;
 }
