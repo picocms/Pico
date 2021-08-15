@@ -190,8 +190,7 @@ uses [Twig][] for template rendering. You can select your theme by setting the
 productive website, it's rather a starting point for creating your own theme.
 If the default theme isn't sufficient for you, and you don't want to create
 your own theme, you can use one of the great themes third-party developers and
-designers created in the past. As with plugins, you can find themes in
-[our Wiki][WikiThemes] and on [our website][OfficialThemes].
+designers created in the past. As with plugins, you can find themes on [our website][OfficialThemes].
 
 All themes must include an `index.twig` file to define the HTML structure of
 the theme, and a `pico-theme.yml` to set the necessary config parameters. Just
@@ -486,24 +485,23 @@ url.rewrite-if-not-file = (
 
 ## Documentation
 
-For more help have a look at the Pico documentation at http://picocms.org/docs.
+For more help have a look at the Pico documentation at https://picocms.org/docs/.
 
-[Pico]: http://picocms.org/
+[Pico]: https://picocms.org/
 [PicoTheme]: https://github.com/picocms/pico-theme
 [SampleContents]: https://github.com/picocms/Pico/tree/master/content-sample
-[Markdown]: http://daringfireball.net/projects/markdown/syntax
+[Markdown]: https://daringfireball.net/projects/markdown/syntax
 [MarkdownExtra]: https://michelf.ca/projects/php-markdown/extra/
 [YAML]: https://en.wikipedia.org/wiki/YAML
-[Twig]: http://twig.sensiolabs.org/documentation
-[UnixTimestamp]: https://en.wikipedia.org/wiki/Unix_timestamp
+[Twig]: https://twig.symfony.com/doc/
+[UnixTimestamp]: https://en.wikipedia.org/wiki/Unix_time
 [Composer]: https://getcomposer.org/
-[FeaturesHttpParams]: http://picocms.org/in-depth/features/http-params/
-[FeaturesPageTree]: http://picocms.org/in-depth/features/page-tree/
-[FeaturesPagesFunction]: http://picocms.org/in-depth/features/pages-function/
-[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
+[FeaturesHttpParams]: https://picocms.org/in-depth/features/http-params/
+[FeaturesPageTree]: https://picocms.org/in-depth/features/page-tree/
+[FeaturesPagesFunction]: https://picocms.org/in-depth/features/pages-function/
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[OfficialThemes]: http://picocms.org/themes/
-[PluginUpgrade]: http://picocms.org/development/#upgrade
+[OfficialThemes]: https://picocms.org/themes/
+[PluginUpgrade]: https://picocms.org/development/#migrating-plugins
 [ModRewrite]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [AllowOverride]: https://httpd.apache.org/docs/current/mod/core.html#allowoverride
-[NginxConfig]: http://picocms.org/in-depth/nginx/
+[NginxConfig]: https://picocms.org/in-depth/nginx/
