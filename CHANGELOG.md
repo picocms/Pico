@@ -27,6 +27,23 @@ Released: 2020-03-29
             update to Twig 3.0+ and Symfony YAML 5.0+ later
 ```
 
+### Version 2.1.4
+Released: 2020-08-29
+
+```
+* [Changed] Silence PHP errors in Parsedown
+* [Fixed] #560: Improve charset guessing for formatted date strings using
+          `strftime()` (Pico always uses UTF-8, but `strftime()` might not)
+```
+
+### Version 2.1.3
+Released: 2020-07-10
+
+```
+* [New] Add `locale` option to `config/config.yml`
+* [Changed] Improve Pico docs
+```
+
 ### Version 2.1.2
 Released: 2020-04-10
 

@@ -940,6 +940,7 @@ class Pico
             'rewrite_url' => null,
             'debug' => null,
             'timezone' => null,
+            'locale' => null,
             'theme' => 'default',
             'theme_config' => null,
             'theme_meta' => null,
@@ -977,6 +978,10 @@ class Pico
             $this->config['timezone'] = @date_default_timezone_get();
         }
         date_default_timezone_set($this->config['timezone']);
+
+        if ($this->config['locale'] !== null) {
+            setlocale(LC_ALL, $this->config['locale']);
+        }
 
         if (!$this->config['plugins_url']) {
             $this->config['plugins_url'] = $this->getUrlFromPath($this->getPluginsDir());
@@ -1523,8 +1528,17 @@ class Pico
             }
 
             if (empty($meta['date_formatted'])) {
-                $dateFormat = $this->getConfig('date_format');
-                $meta['date_formatted'] = $meta['time'] ? utf8_encode(strftime($dateFormat, $meta['time'])) : '';
+                if ($meta['time']) {
+                    $encodingList = mb_detect_order();
+                    if ($encodingList === array('ASCII', 'UTF-8')) {
+                        $encodingList[] = 'Windows-1252';
+                    }
+
+                    $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
+                    $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
+                } else {
+                    $meta['date_formatted'] = '';
+                }
             }
         } else {
             // guarantee array key existance
@@ -1688,7 +1702,7 @@ class Pico
     public function parseFileContent($markdown, $singleLine = false)
     {
         $markdownParser = $this->getParsedown();
-        return !$singleLine ? $markdownParser->text($markdown) : $markdownParser->line($markdown);
+        return !$singleLine ? @$markdownParser->text($markdown) : @$markdownParser->line($markdown);
     }
 
     /**
