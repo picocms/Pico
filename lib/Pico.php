@@ -487,7 +487,7 @@ class Pico
         // parse file content
         $this->triggerEvent('onContentParsing');
 
-        $markdown = $this->prepareFileContent($this->rawContent, $this->meta);
+        $markdown = $this->prepareFileContent($this->rawContent, $this->meta, $requestedPageId);
         $this->triggerEvent('onContentPrepared', [ &$markdown ]);
 
         $this->content = $this->parseFileContent($markdown);
@@ -1585,12 +1585,14 @@ class Pico
      * @see Pico::parseFileContent()
      * @see Pico::getFileContent()
      *
-     * @param string $rawContent raw contents of a page
-     * @param array  $meta       meta data to use for %meta.*% replacement
+     * @param string      $rawContent raw contents of a page
+     * @param array       $meta       meta data to use for %meta.*% replacement
+     * @param string|null $pageId     unique ID of the page for %page_*%
+     *     replacement, might be NULL
      *
      * @return string prepared Markdown contents
      */
-    public function prepareFileContent($rawContent, array $meta = [])
+    public function prepareFileContent($rawContent, array $meta = [], $pageId = null)
     {
         // remove meta header
         $metaHeaderPattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1598,7 +1600,7 @@ class Pico
         $markdown = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace placeholders
-        $markdown = $this->substituteFileContent($markdown, $meta);
+        $markdown = $this->substituteFileContent($markdown, $meta, $pageId);
 
         return $markdown;
     }
@@ -1606,12 +1608,14 @@ class Pico
     /**
      * Replaces all %...% placeholders in a page's contents
      *
-     * @param string $markdown Markdown contents of a page
-     * @param array  $meta     meta data to use for %meta.*% replacement
+     * @param string      $markdown Markdown contents of a page
+     * @param array       $meta     meta data to use for %meta.*% replacement
+     * @param string|null $pageId   unique ID of the page for %page_*%
+     *     replacement, might be NULL
      *
      * @return string substituted Markdown contents
      */
-    public function substituteFileContent($markdown, array $meta = [])
+    public function substituteFileContent($markdown, array $meta = [], $pageId = null)
     {
         $variables = [];
 
@@ -1639,6 +1643,18 @@ class Pico
 
         // replace %theme_url%
         $variables['%theme_url%'] = $this->getConfig('themes_url') . $this->getTheme();
+
+        // replace %page_id%, %page_url% and %page_path%
+        if ($pageId !== null) {
+            $pageUrl = ($pageId !== 'index') ? ((basename($pageId) !== 'index') ? $pageId : dirname($pageId)) : '';
+
+            $pagePath = dirname($pageId);
+            $pagePath = !in_array($pagePath, [ '', '.', '/', '\\' ], true) ? $pagePath : '';
+
+            $variables['%page_id%'] = $pageId;
+            $variables['%page_url%'] = $pageUrl;
+            $variables['%page_path%'] = $pagePath;
+        }
 
         // replace %meta.*%
         if ($meta) {
@@ -2122,7 +2138,7 @@ class Pico
                     if (isset($pages[$page])) {
                         $pageData = &$pages[$page];
                         if (!isset($pageData['content'])) {
-                            $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                            $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta'], $page);
                             $pageData['content'] = $pico->parseFileContent($markdown);
                         }
                         return $pageData['content'];
