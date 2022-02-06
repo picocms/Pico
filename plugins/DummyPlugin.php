@@ -32,7 +32,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @var int
      */
-    public const API_VERSION = 3;
+    public const API_VERSION = 4;
 
     /**
      * This plugin is disabled by default
