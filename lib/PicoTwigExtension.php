@@ -78,11 +78,7 @@ class PicoTwigExtension extends AbstractTwigExtension
     public function getFilters()
     {
         return [
-            'markdown' => new TwigFilter(
-                'markdown',
-                [ $this, 'markdownFilter' ],
-                [ 'is_safe' => [ 'html' ] ]
-            ),
+            'markdown' => new TwigFilter('markdown', [ $this, 'markdownFilter' ], [ 'is_safe' => [ 'html' ] ]),
             'map' => new TwigFilter('map', [ $this, 'mapFilter' ]),
             'sort_by' => new TwigFilter('sort_by', [ $this, 'sortByFilter' ]),
             'link' => new TwigFilter('link', [ $this->pico, 'getPageUrl' ]),
