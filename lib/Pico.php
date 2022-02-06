@@ -2374,6 +2374,20 @@ class Pico
     }
 
     /**
+     * Returns the URL of the themes folder of this Pico instance
+     *
+     * @see Pico::getUrlFromPath()
+     *
+     * @deprecated 2.1.0
+     *
+     * @return string
+     */
+    public function getBaseThemeUrl()
+    {
+        return $this->getConfig('themes_url');
+    }
+
+    /**
      * Substitutes URL placeholders (e.g. %base_url%)
      *
      * This method is registered as the `url` Twig filter and often used to
