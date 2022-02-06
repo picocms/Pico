@@ -11,6 +11,22 @@ Pico is a stupidly simple, blazing fast, flat file CMS.
 
 Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
 
+---
+
+### PHP 8.0+ Users
+
+Seeing an `Unparenthesized a ? b : c ? d : e is not supported.` error?
+
+Pico currently has issues with PHP versions newer than 8.0.  This is due to Pico's dependencies, and not Pico itself.  There's currently an "alpha" build of Pico you can download as a [Pre-Bundled Release](https://github.com/picocms/Pico/releases/tag/v3.0.0-alpha.2) that solves this issue.
+
+This "alpha" is **perfectly safe** to use in production, as the *only* changes are **updated dependencies and version number strings**.  If you're curious, you can confirm this by [comparing the changes](https://github.com/picocms/Pico/compare/pico-3.0-alpha) between branches.
+
+More work was intended to be done on this branch, hence the "3.0" label, but it hasn't happened yet.  There's an [on-going discussion](https://github.com/picocms/Pico/issues/608) about getting just these updated dependencies merged in as an official update (either Pico 2.2 or 3.0) as soon as possible.
+
+Sorry for the inconvenience, and thanks to all Pico users for your patience on the matter. ❤️
+
+---
+
 Screenshot
 ----------
 
