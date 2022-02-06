@@ -16,7 +16,7 @@ echo
 if [ -z "$VERSION" ]; then
     PICO_VERSION="$(php -r "
         require_once('$PICO_PROJECT_DIR/lib/Pico.php');
-        echo preg_replace('/-(?:dev|n|nightly)(?:[.-]?[0-9]+)?(?:[.-]dev)?$/', '', picocms\Pico\Pico::VERSION);
+        echo preg_replace('/-(?:dev|n|nightly)(?:[.-]?[0-9]+)?(?:[.-]dev)?$/', '', Pico::VERSION);
     ")"
 
     VERSION="v$PICO_VERSION-dev+${PROJECT_REPO_BRANCH:-master}"

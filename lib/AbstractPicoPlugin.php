@@ -10,27 +10,25 @@
  * License-Filename: LICENSE
  */
 
-namespace picocms\Pico;
-
 /**
  * Abstract class to extend from when implementing a Pico plugin
  *
- * Please refer to {@see PluginInterface} for more information about how to
+ * Please refer to {@see PicoPluginInterface} for more information about how to
  * develop a plugin for Pico.
  *
- * @see PluginInterface
+ * @see PicoPluginInterface
  *
  * @author  Daniel Rudolf
  * @link    http://picocms.org
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-abstract class AbstractPlugin implements PluginInterface
+abstract class AbstractPicoPlugin implements PicoPluginInterface
 {
     /**
      * Current instance of Pico
      *
-     * @see PluginInterface::getPico()
+     * @see PicoPluginInterface::getPico()
      * @var Pico
      */
     protected $pico;
@@ -38,8 +36,8 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * Boolean indicating if this plugin is enabled (TRUE) or disabled (FALSE)
      *
-     * @see PluginInterface::isEnabled()
-     * @see PluginInterface::setEnabled()
+     * @see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::setEnabled()
      * @var bool|null
      */
     protected $enabled;
@@ -47,7 +45,7 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * Boolean indicating if this plugin was ever enabled/disabled manually
      *
-     * @see PluginInterface::isStatusChanged()
+     * @see PicoPluginInterface::isStatusChanged()
      * @var bool
      */
     protected $statusChanged = false;
@@ -55,7 +53,7 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * Boolean indicating whether this plugin matches Pico's API version
      *
-     * @see AbstractPlugin::checkCompatibility()
+     * @see AbstractPicoPlugin::checkCompatibility()
      * @var bool|null
      */
     protected $nativePlugin;
@@ -63,8 +61,8 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * List of plugins which this plugin depends on
      *
-     * @see AbstractPlugin::checkDependencies()
-     * @see PluginInterface::getDependencies()
+     * @see AbstractPicoPlugin::checkDependencies()
+     * @see PicoPluginInterface::getDependencies()
      * @var string[]
      */
     protected $dependsOn = [];
@@ -72,8 +70,8 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * List of plugin which depend on this plugin
      *
-     * @see AbstractPlugin::checkDependants()
-     * @see PluginInterface::getDependants()
+     * @see AbstractPicoPlugin::checkDependants()
+     * @see PicoPluginInterface::getDependants()
      * @var object[]|null
      */
     protected $dependants;
@@ -198,7 +196,7 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * Enables all plugins which this plugin depends on
      *
-     * @see PluginInterface::getDependencies()
+     * @see PicoPluginInterface::getDependencies()
      *
      * @param bool $recursive enable required plugins automatically
      *
@@ -217,7 +215,7 @@ abstract class AbstractPlugin implements PluginInterface
             }
 
             // plugins which don't implement PicoPluginInterface are always enabled
-            if (($plugin instanceof PluginInterface) && !$plugin->isEnabled()) {
+            if (($plugin instanceof PicoPluginInterface) && !$plugin->isEnabled()) {
                 if ($recursive) {
                     if (!$plugin->isStatusChanged()) {
                         $plugin->setEnabled(true, true, true);
@@ -248,7 +246,7 @@ abstract class AbstractPlugin implements PluginInterface
     /**
      * Disables all plugins which depend on this plugin
      *
-     * @see PluginInterface::getDependants()
+     * @see PicoPluginInterface::getDependants()
      *
      * @param bool $recursive disabled dependant plugins automatically
      *
@@ -291,7 +289,7 @@ abstract class AbstractPlugin implements PluginInterface
             $this->dependants = [];
             foreach ($this->getPico()->getPlugins() as $pluginName => $plugin) {
                 // only plugins which implement PicoPluginInterface support dependencies
-                if ($plugin instanceof PluginInterface) {
+                if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
                     if (in_array(get_called_class(), $dependencies)) {
                         $this->dependants[$pluginName] = $plugin;

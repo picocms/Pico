@@ -10,8 +10,6 @@
  * License-Filename: LICENSE
  */
 
-namespace picocms\Pico;
-
 use Twig\Error\RuntimeError as TwigRuntimeError;
 use Twig\Extension\AbstractExtension as AbstractTwigExtension;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
@@ -26,12 +24,12 @@ use Twig\TwigFunction;
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-class TwigExtension extends AbstractTwigExtension
+class PicoTwigExtension extends AbstractTwigExtension
 {
     /**
      * Current instance of Pico
      *
-     * @see TwigExtension::getPico()
+     * @see PicoTwigExtension::getPico()
      * @var Pico
      */
     private $pico;

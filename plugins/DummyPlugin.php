@@ -10,7 +10,7 @@
  * License-Filename: LICENSE
  */
 
-use picocms\Pico\AbstractPlugin;
+use picocms\Pico\AbstractPicoPlugin;
 use picocms\Pico\Pico;
 use Twig\Environment as TwigEnvironment;
 
@@ -25,7 +25,7 @@ use Twig\Environment as TwigEnvironment;
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-class DummyPlugin extends AbstractPlugin
+class DummyPlugin extends AbstractPicoPlugin
 {
     /**
      * API version used by this plugin
@@ -56,7 +56,7 @@ class DummyPlugin extends AbstractPlugin
      * No matter what, the user can always explicitly enable or disable this
      * plugin in Pico's config.
      *
-     * @see AbstractPlugin::$enabled
+     * @see AbstractPicoPlugin::$enabled
      * @var bool|null
      */
     protected $enabled = false;
@@ -67,7 +67,7 @@ class DummyPlugin extends AbstractPlugin
      * If your plugin doesn't depend on any other plugin, remove this class
      * property.
      *
-     * @see AbstractPlugin::$dependsOn
+     * @see AbstractPicoPlugin::$dependsOn
      * @var string[]
      */
     protected $dependsOn = array();

@@ -25,7 +25,7 @@ if (!extension_loaded('mbstring')) {
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // instance Pico
-$pico = new \picocms\Pico\Pico(
+$pico = new Pico(
     __DIR__,    // root dir
     'config/',  // config dir
     'plugins/', // plugins dir

@@ -44,7 +44,7 @@
     },
     "autoload": {
         "psr-4": {
-            "picocms\\Pico\\": "lib/"
+            "": "lib/"
         }
     },
     "extra": {

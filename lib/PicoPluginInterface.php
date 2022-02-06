@@ -10,8 +10,6 @@
  * License-Filename: LICENSE
  */
 
-namespace picocms\Pico;
-
 /**
  * Common interface for Pico plugins
  *
@@ -30,7 +28,7 @@ namespace picocms\Pico;
  * @license http://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
-interface PluginInterface
+interface PicoPluginInterface
 {
     /**
      * Handles a event that was triggered by Pico
@@ -43,8 +41,8 @@ interface PluginInterface
     /**
      * Enables or disables this plugin
      *
-     * @see PluginInterface::isEnabled()
-     * @see PluginInterface::isStatusChanged()
+     * @see PicoPluginInterface::isEnabled()
+     * @see PicoPluginInterface::isStatusChanged()
      *
      * @param bool $enabled   enable (TRUE) or disable (FALSE) this plugin
      * @param bool $recursive when TRUE, enable or disable recursively.
@@ -67,7 +65,7 @@ interface PluginInterface
      * wasn't triggered on all plugins yet. This method might even return NULL
      * then. The plugin's status might change later.
      *
-     * @see PluginInterface::setEnabled()
+     * @see PicoPluginInterface::setEnabled()
      *
      * @return bool|null plugin is enabled (TRUE) or disabled (FALSE)
      */
@@ -76,7 +74,7 @@ interface PluginInterface
     /**
      * Returns TRUE if the plugin was ever enabled/disabled manually
      *
-     * @see PluginInterface::setEnabled()
+     * @see PicoPluginInterface::setEnabled()
      *
      * @return bool plugin is in its default state (TRUE), FALSE otherwise
      */

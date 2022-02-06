@@ -16,8 +16,6 @@
  * License-Filename: LICENSE
  */
 
-namespace picocms\Pico;
-
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Twig\Environment as TwigEnvironment;
 use Twig\Extension\DebugExtension as TwigDebugExtension;
@@ -156,7 +154,7 @@ class Pico
     /**
      * List of loaded plugins using the current API version
      *
-     * @var PluginInterface[]
+     * @var PicoPluginInterface[]
      */
     protected $nativePlugins = [];
 
@@ -607,7 +605,7 @@ class Pico
                     continue;
                 }
 
-                if (!($plugin instanceof PluginInterface)) {
+                if (!($plugin instanceof PicoPluginInterface)) {
                     throw new \RuntimeException(
                         "Unable to load plugin '" . $className . "' via 'vendor/pico-plugin.php': "
                         . "Plugins installed by composer must implement 'PicoPluginInterface'"
@@ -698,7 +696,7 @@ class Pico
 
                 $this->plugins[$className] = $plugin;
 
-                if ($plugin instanceof PluginInterface) {
+                if ($plugin instanceof PicoPluginInterface) {
                     if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
                         $this->nativePlugins[$className] = $plugin;
                     }
@@ -714,11 +712,11 @@ class Pico
     /**
      * Manually loads a plugin
      *
-     * Manually loaded plugins MUST implement {@see PluginInterface}. They are
-     * simply appended to the plugins array without any additional checks, so
-     * you might get unexpected results, depending on *when* you're loading a
-     * plugin. You SHOULD NOT load plugins after a event has been triggered by
-     * Pico. In-depth knowledge of Pico's inner workings is strongly advised
+     * Manually loaded plugins MUST implement {@see PicoPluginInterface}. They
+     * are simply appended to the plugins array without any additional checks,
+     * so you might get unexpected results, depending on *when* you're loading
+     * a plugin. You SHOULD NOT load plugins after a event has been triggered
+     * by Pico. In-depth knowledge of Pico's inner workings is strongly advised
      * otherwise, and you MUST NOT rely on {@see PicoDeprecated} to maintain
      * backward compatibility in such cases.
      *
@@ -736,10 +734,10 @@ class Pico
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
-     * @param PluginInterface|string $plugin either the class name of a plugin
-     *     to instantiate or a plugin instance
+     * @param PicoPluginInterface|string $plugin either the class name of a
+     *     plugin to instantiate or a plugin instance
      *
-     * @return PluginInterface instance of the loaded plugin
+     * @return PicoPluginInterface instance of the loaded plugin
      *
      * @throws \RuntimeException thrown when the plugin couldn't be loaded
      */
@@ -756,7 +754,7 @@ class Pico
 
         $className = get_class($plugin);
 
-        if (!($plugin instanceof PluginInterface)) {
+        if (!($plugin instanceof PicoPluginInterface)) {
             throw new \RuntimeException(
                 "Unable to load plugin '" . $className . "': "
                 . "Manually loaded plugins must implement 'PicoPluginInterface'"
@@ -826,7 +824,7 @@ class Pico
                 $visitedPlugins[$pluginName] = true;
 
                 $dependencies = [];
-                if ($plugin instanceof PluginInterface) {
+                if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
                 }
                 if (!isset($nativePlugins[$pluginName])) {
@@ -863,8 +861,8 @@ class Pico
     /**
      * Returns the instance of a named plugin
      *
-     * Plugins SHOULD implement {@see PluginInterface}, but you MUST NOT rely
-     * on it. For more information see {@see PluginInterface}.
+     * Plugins SHOULD implement {@see PicoPluginInterface}, but you MUST NOT
+     * rely on it. For more information see {@see PicoPluginInterface}.
      *
      * @see Pico::loadPlugins()
      * @see Pico::getPlugins()
@@ -2106,7 +2104,7 @@ class Pico
      * This method triggers the `onTwigRegistered` event when the Twig template
      * engine wasn't initiated yet. When initiating Twig, this method also
      * registers Pico's core Twig filter `content` as well as Pico's
-     * {@see TwigExtension} Twig extension.
+     * {@see PicoTwigExtension} Twig extension.
      *
      * @see Pico::getTwig()
      * @see http://twig.sensiolabs.org/ Twig website
@@ -2121,7 +2119,7 @@ class Pico
 
             $twigLoader = new TwigFilesystemLoader($this->getThemesDir() . $this->getTheme());
             $this->twig = new TwigEnvironment($twigLoader, $twigConfig);
-            $this->twig->addExtension(new TwigExtension($this));
+            $this->twig->addExtension(new PicoTwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
                 $this->twig->addExtension(new TwigDebugExtension());
@@ -2778,8 +2776,8 @@ class Pico
      *
      * You MUST NOT trigger events of Pico's core with a plugin!
      *
-     * @see PluginInterface
-     * @see AbstractPlugin
+     * @see PicoPluginInterface
+     * @see AbstractPicoPlugin
      * @see DummyPlugin
      *
      * @param string $eventName name of the event to trigger
