@@ -1534,7 +1534,10 @@ class Pico
                         $encodingList[] = 'Windows-1252';
                     }
 
+                    // phpcs:disable Generic.PHP.DeprecatedFunctions
                     $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
+                    // phpcs:enable
+
                     $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
                 } else {
                     $meta['date_formatted'] = '';
