@@ -2,14 +2,9 @@ name: Test Pico CMS
 
 on:
     push:
-        branches:
-            - master
-            - pico-3.0
+        branches: [ 'master' ]
         tags: [ 'v*.*.*' ]
-    pull_request:
-        branches:
-            - master
-            - pico-3.0
+    pull_request: {}
 
 jobs:
     test:
