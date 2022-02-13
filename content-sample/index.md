@@ -360,7 +360,7 @@ even easier.
 
 #### Plugins for users
 
-Officially tested plugins can be found at http://picocms.org/plugins/, but
+Officially tested plugins can be found at https://picocms.org/plugins/, but
 there are many awesome third-party plugins out there! A good start point for
 discovery is [our Wiki][WikiPlugins].
 
@@ -385,7 +385,7 @@ disabled through your `config/config.yml`. If you want to e.g. disable the
 #### Plugins for developers
 
 You're a plugin developer? We love you guys! You can find tons of information
-about how to develop plugins at http://picocms.org/development/. If you've
+about how to develop plugins at https://picocms.org/development/. If you've
 developed a plugin before and want to upgrade it to Pico 2.0, refer to the
 [upgrade section of the docs][PluginUpgrade].
 

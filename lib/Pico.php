@@ -41,12 +41,12 @@ use Twig\TwigFilter;
  * - Open Source: Pico is completely free and open source,
  *   released under the MIT license.
  *
- * See <http://picocms.org/> for more info.
+ * See <https://picocms.org/> for more info.
  *
  * @author  Gilbert Pellegrom
  * @author  Daniel Rudolf
- * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT The MIT License
+ * @link    https://picocms.org
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
 class Pico
@@ -2121,7 +2121,7 @@ class Pico
      * {@see PicoTwigExtension} Twig extension.
      *
      * @see Pico::getTwig()
-     * @see http://twig.sensiolabs.org/ Twig website
+     * @see https://twig.symfony.com/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
      * @return TwigEnvironment|null Twig template engine

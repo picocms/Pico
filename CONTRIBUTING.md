@@ -19,7 +19,7 @@ Please describe your issue as clear as possible and always include the *Pico ver
 Contributing
 ------------
 
-Once you decide you want to contribute to *Pico's core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](http://picocms.org/development/) of our website.
+Once you decide you want to contribute to *Pico's core* (which we really appreciate!) you can fork the project from https://github.com/picocms/Pico. If you're interested in developing a *plugin* or *theme* for Pico, please refer to the [development section](https://picocms.org/development/) of our website.
 
 ### Developer Certificate of Origin
 
@@ -108,7 +108,7 @@ Please keep in mind that pull requests should be small (i.e. one feature per req
 
 ### Coding Standards
 
-Pico uses the [PSR-2 Coding Standard](http://www.php-fig.org/psr/psr-2/) as defined by the [PHP Framework Interoperability Group (PHP-FIG)](http://www.php-fig.org/).
+Pico uses the [PSR-2 Coding Standard](https://www.php-fig.org/psr/psr-2/) as defined by the [PHP Framework Interoperability Group (PHP-FIG)](https://www.php-fig.org/).
 
 For historical reasons we don't use formal namespaces. Markdown files in the `content-sample` folder (the inline documentation) must follow a hard limit of 80 characters line length.
 
@@ -122,18 +122,18 @@ With this command you can specify a file or folder to limit which files it will 
 
 Pico accepts the problems of having redundant documentation on different places (concretely Pico's inline user docs, the `README.md` and the website) for the sake of a better user experience. When updating the docs, please make sure to keep them in sync.
 
-If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/picocms.github.io/tree/master/_docs/) folder of the `picocms.github.io` repo (i.e. [Pico's website](http://picocms.org/docs/)) and vice versa. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Kramdown](http://kramdown.gettalong.org/) (Pico's website) and [CommonMarker](https://github.com/gjtorikian/commonmarker) (`README.md`) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
+If you update the [`README.md`](https://github.com/picocms/Pico/blob/master/README.md) or [`content-sample/index.md`](https://github.com/picocms/Pico/blob/master/content-sample/index.md), please make sure to update the corresponding files in the [`_docs`](https://github.com/picocms/picocms.github.io/tree/master/_docs/) folder of the `picocms.github.io` repo (i.e. [Pico's website](https://picocms.org/docs/)) and vice versa. Unfortunately this involves three (!) different markdown parsers. If you're experiencing problems, use Pico's [`erusev/parsedown-extra`](https://github.com/erusev/parsedown-extra) as a reference. You can try to make the contents compatible to [Kramdown](https://kramdown.gettalong.org/) (Pico's website) and [CommonMarker](https://github.com/gjtorikian/commonmarker) (`README.md`) by yourself, otherwise please address the issues in your pull request message and we'll take care of it.
 
 Versioning
 ----------
 
-Pico follows [Semantic Versioning 2.0](http://semver.org) and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. We will increment the:
+Pico follows [Semantic Versioning 2.0](https://semver.org) and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. We will increment the:
 
 - `MAJOR` version when we make incompatible API changes,
 - `MINOR` version when we add functionality in a backwards-compatible manner, and
 - `PATCH` version when we make backwards-compatible bug fixes.
 
-For more information please refer to the http://semver.org website.
+For more information please refer to the https://semver.org website.
 
 Branching
 ---------
@@ -153,7 +153,7 @@ As soon as development reaches a point where feedback is appreciated, a pull req
 Build & Release process
 -----------------------
 
-We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys a [PHP class documentation](http://picocms.org/phpDoc/) (powered by [phpDoc](http://phpdoc.org)) for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built release packages, a version badge, code statistics (powered by [cloc](https://github.com/AlDanial/cloc)) and updates our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml), the [`picocms/ci-tools` repo](https://github.com/picocms/ci-tools) and the [`.build` directory](https://github.com/picocms/Pico/tree/master/.build) for details.
+We're using [Travis CI](https://travis-ci.com) to automate the build & release process of Pico. It generates and deploys a [PHP class documentation](https://picocms.org/phpDoc/) (powered by [phpDoc](https://phpdoc.org)) for new releases and on every commit to the `master` branch. Travis also prepares new releases by generating Pico's pre-built release packages, a version badge, code statistics (powered by [cloc](https://github.com/AlDanial/cloc)) and updates our website (the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io)). Please refer to our [`.travis.yml`](https://github.com/picocms/Pico/blob/master/.travis.yml), the [`picocms/ci-tools` repo](https://github.com/picocms/ci-tools) and the [`.build` directory](https://github.com/picocms/Pico/tree/master/.build) for details.
 
 As insinuated above, it is important that each commit to `master` is deployable. Once development of a new Pico release is finished, trigger Pico's build & release process by pushing a new Git tag. This tag should reference a (usually empty) commit on `master`, which message should adhere to the following template:
 
@@ -171,7 +171,7 @@ Before pushing a new Git tag, make sure to update the `Pico::VERSION` and `Pico:
 
 If you're pushing a new major or minor release of Pico, you should also update Pico's `composer.json` to require the latest minor releases of Pico's dependencies. Besides, don't forget to update the `@version` tags in the PHP class docs.
 
-Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](http://packagist.org/packages/picocms/pico) will be updated automatically.
+Travis CI will draft the new [release on GitHub](https://github.com/picocms/Pico/releases) automatically, but will require you to manually amend the descriptions formatting. The latest Pico version is always available at https://github.com/picocms/Pico/releases/latest, so please make sure to publish this URL rather than version-specific URLs. [Packagist](https://packagist.org/packages/picocms/pico) will be updated automatically.
 
 Labeling of Issues & Pull Requests
 ----------------------------------
@@ -206,4 +206,4 @@ Issues and pull requests labeled with `info: Information Needed` indicate that w
 
 Issues and pull requests, which are rather related to upstream projects (i.e. projects Pico depends on, like Twig), are additionally labeled with `info: Upstream`.
 
-When a issue or pull request isn't directly related to Pico's core, but the project as a whole, it is labeled with `info: Meta`. Issues labeled with `info: Website` are related to [Pico's website](http://picocms.org), however, in this case it is usually expedient to move the issue to the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io) instead. The same applies to the `info: Pico CMS for Nextcloud` label; these issues are related to [Pico CMS for Nextcloud](https://apps.nextcloud.com/apps/cms_pico).
+When a issue or pull request isn't directly related to Pico's core, but the project as a whole, it is labeled with `info: Meta`. Issues labeled with `info: Website` are related to [Pico's website](https://picocms.org), however, in this case it is usually expedient to move the issue to the [`picocms.github.io` repo](https://github.com/picocms/picocms.github.io) instead. The same applies to the `info: Pico CMS for Nextcloud` label; these issues are related to [Pico CMS for Nextcloud](https://apps.nextcloud.com/apps/cms_pico).

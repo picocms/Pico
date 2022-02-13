@@ -21,8 +21,8 @@ use Twig\Environment as TwigEnvironment;
  * Simply remove the events you don't need and add your own logic.
  *
  * @author  Daniel Rudolf
- * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT The MIT License
+ * @link    https://picocms.org
+ * @license https://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
 class DummyPlugin extends AbstractPicoPlugin

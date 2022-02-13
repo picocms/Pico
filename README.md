@@ -9,7 +9,7 @@ Pico
 
 Pico is a stupidly simple, blazing fast, flat file CMS.
 
-Visit us at http://picocms.org/ and see http://picocms.org/about/ for more info.
+Visit us at https://picocms.org/ and see https://picocms.org/about/ for more info.
 
 Screenshot
 ----------
@@ -198,7 +198,7 @@ Contributing
 
 You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
-1. Plugins & Themes: You're a plugin developer or theme designer? We love you folks! You can find tons of information about how to develop plugins and themes at http://picocms.org/development/. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes][WikiThemes] page. You may also [Submit][] it to our website, where it'll be displayed on the official [plugin][OfficialPlugins] or [theme][OfficialThemes] pages!
+1. Plugins & Themes: You're a plugin developer or theme designer? We love you folks! You can find tons of information about how to develop plugins and themes at https://picocms.org/development/. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes][WikiThemes] page. You may also [Submit][] it to our website, where it'll be displayed on the official [plugin][OfficialPlugins] or [theme][OfficialThemes] pages!
 
 2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork our website's Git repository from https://github.com/picocms/picocms.github.io, change the Markdown files and open a [pull request][PullRequestsWebsite].
 
@@ -232,21 +232,21 @@ Official Pico Contributors won't claim bounties on their own behalf, Pico will n
 [PicoThemePackagist]: https://packagist.org/packages/picocms/pico-theme
 [PicoDeprecatedPackagist]: https://packagist.org/packages/picocms/pico-deprecated
 [PicoComposerPackagist]: https://packagist.org/packages/picocms/pico-composer
-[SemVer]: http://semver.org
+[SemVer]: https://semver.org
 [HelpFork]: https://help.github.com/en/github/getting-started-with-github/fork-a-repo
-[HelpUpgrade]: http://picocms.org/in-depth/upgrade/
-[HelpUserDocs]: http://picocms.org/docs/
-[HelpDevDocs]: http://picocms.org/development/
-[Submit]: http://picocms.org/in-depth/submission_guidelines
-[OfficialPlugins]: http://picocms.org/plugins/
-[OfficialThemes]: http://picocms.org/themes/
+[HelpUpgrade]: https://picocms.org/in-depth/upgrade/
+[HelpUserDocs]: https://picocms.org/docs/
+[HelpDevDocs]: https://picocms.org/development/
+[Submit]: https://picocms.org/in-depth/submission_guidelines
+[OfficialPlugins]: https://picocms.org/plugins/
+[OfficialThemes]: https://picocms.org/themes/
 [Wiki]: https://github.com/picocms/Pico/wiki
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
 [WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [Issues]: https://github.com/picocms/Pico/issues
 [IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
 [LiberaChat]: https://web.libera.chat/#picocms
-[LiberaChatLogs]: http://picocms.org/irc-logs
+[LiberaChatLogs]: https://picocms.org/irc-logs
 [PullRequests]: https://github.com/picocms/Pico/pulls
 [PullRequestsWebsite]: https://github.com/picocms/picocms.github.io/pulls
 [ContributionGuidelines]: https://github.com/picocms/Pico/blob/master/CONTRIBUTING.md
