@@ -34,59 +34,11 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Setup PHP ${{ env.PHP_VERSION }}
-              uses: shivammathur/setup-php@v2
+            - name: Install Pico CMS
+              uses: ./.github/actions/install
               with:
                   php-version: ${{ env.PHP_VERSION }}
-                  tools: composer, phpcs
-
-            - name: Read Pico version
-              run: |
-                  PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
-                  echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
-
-            - name: Setup Composer
-              if: ${{ github.ref_type == 'branch' }}
-              run: |
-                  COMPOSER_ROOT_VERSION=
-
-                  COMPOSER_BRANCH_ALIAS="$(php -r "
-                      \$json = json_decode(file_get_contents('./composer.json'), true);
-                      if (\$json !== null) {
-                          if (isset(\$json['extra']['branch-alias']['dev-$GITHUB_REF_NAME'])) {
-                              echo 'dev-$GITHUB_REF_NAME';
-                          }
-                      }
-                  ")"
-
-                  if [ -z "$COMPOSER_BRANCH_ALIAS" ]; then
-                      PICO_VERSION_PATTERN="$(php -r "
-                          require_once('./lib/Pico.php');
-                          echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
-                      ")"
-                  fi
-
-                  if [ -n "$PICO_VERSION_PATTERN" ]; then
-                      COMPOSER_ROOT_VERSION="$PICO_VERSION_PATTERN"
-                      echo "COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION" | tee -a "$GITHUB_ENV"
-                  fi
-
-            - name: Get Composer cache directory
-              run: |
-                  COMPOSER_CACHE_DIR="$(composer config cache-dir)"
-                  echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
-
-            - name: Restore Composer cache
-              uses: actions/cache@v2
-              with:
-                  path: ${{ env.COMPOSER_CACHE_DIR }}
-                  key: ${{ runner.os }}-composer-php${{ matrix.PHP_VERSION }}
-                  restore-keys: |
-                      ${{ runner.os }}-composer-
-
-            - name: Install Composer dependencies
-              run: |
-                  composer install
+                  php-tools: phpcs
 
             - name: Run PHP_CodeSniffer
               run: |
