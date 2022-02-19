@@ -12,47 +12,47 @@ inputs:
 runs:
     using: "composite"
     steps:
-        - name: Setup PHP ${{ inputs.php-version }}
-          uses: shivammathur/setup-php@v2
-          with:
-              php-version: ${{ inputs.php-version }}
-              tools: composer, ${{ inputs.php-tools }}
+        -   name: Setup PHP ${{ inputs.php-version }}
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: ${{ inputs.php-version }}
+                tools: composer, ${{ inputs.php-tools }}
 
-        - name: Read Pico version
-          shell: bash
-          run: |
-              PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
-              echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
+        -   name: Read Pico version
+            shell: bash
+            run: |
+                PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
+                echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
 
-        - name: Setup Composer
-          if: ${{ github.ref_type == 'branch' }}
-          shell: bash
-          run: |
-              COMPOSER_ROOT_VERSION=
+        -   name: Setup Composer
+            if: ${{ github.ref_type == 'branch' }}
+            shell: bash
+            run: |
+                COMPOSER_ROOT_VERSION=
 
-              if [ -z "$(composer config extra.branch-alias."dev-$GITHUB_REF_NAME")" ]; then
-                  COMPOSER_ROOT_VERSION="$(php -r "
-                      require('./lib/Pico.php');
-                      echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
-                  ")"
-                  echo "COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION" | tee -a "$GITHUB_ENV"
-              fi
+                if [ -z "$(composer config extra.branch-alias."dev-$GITHUB_REF_NAME")" ]; then
+                    COMPOSER_ROOT_VERSION="$(php -r "
+                        require('./lib/Pico.php');
+                        echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
+                    ")"
+                    echo "COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION" | tee -a "$GITHUB_ENV"
+                fi
 
-        - name: Get Composer cache directory
-          shell: bash
-          run: |
-              COMPOSER_CACHE_DIR="$(composer config cache-dir)"
-              echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
+        -   name: Get Composer cache directory
+            shell: bash
+            run: |
+                COMPOSER_CACHE_DIR="$(composer config cache-dir)"
+                echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
 
-        - name: Restore Composer cache
-          uses: actions/cache@v2
-          with:
-              path: ${{ env.COMPOSER_CACHE_DIR }}
-              key: ${{ runner.os }}-composer-php${{ inputs.php-version }}
-              restore-keys: |
-                  ${{ runner.os }}-composer-
+        -   name: Restore Composer cache
+            uses: actions/cache@v2
+            with:
+                path: ${{ env.COMPOSER_CACHE_DIR }}
+                key: ${{ runner.os }}-composer-php${{ inputs.php-version }}
+                restore-keys: |
+                    ${{ runner.os }}-composer-
 
-        - name: Install Composer dependencies
-          shell: bash
-          run: |
-              composer install
+        -   name: Install Composer dependencies
+            shell: bash
+            run: |
+                composer install

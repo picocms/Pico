@@ -31,15 +31,15 @@ jobs:
             PHP_VERSION: ${{ matrix.PHP_VERSION }}
 
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+            -   name: Checkout repository
+                uses: actions/checkout@v2
 
-            - name: Install Pico CMS
-              uses: ./.github/actions/install
-              with:
-                  php-version: ${{ env.PHP_VERSION }}
-                  php-tools: phpcs
+            -   name: Install Pico CMS
+                uses: ./.github/actions/install
+                with:
+                    php-version: ${{ env.PHP_VERSION }}
+                    php-tools: phpcs
 
-            - name: Run PHP_CodeSniffer
-              run: |
-                  phpcs --standard=.phpcs.xml
+            -   name: Run PHP_CodeSniffer
+                run: |
+                    phpcs --standard=.phpcs.xml
