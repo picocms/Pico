@@ -30,7 +30,7 @@ runs:
             run: |
                 COMPOSER_ROOT_VERSION=
 
-                if [ -z "$(composer config extra.branch-alias."dev-$GITHUB_REF_NAME")" ]; then
+                if [ -z "$(composer config extra.branch-alias."dev-${GITHUB_HEAD_REF:-GITHUB_REF_NAME}" 2> /dev/null)" ]; then
                     COMPOSER_ROOT_VERSION="$(php -r "
                         require('./lib/Pico.php');
                         echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
