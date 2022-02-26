@@ -2,6 +2,10 @@ name: Install Pico CMS
 description: Install Pico CMS to the current working directory
 
 inputs:
+    path:
+        description: Install Pico CMS in directory.
+        required: false
+        default: .
     php-version:
         description: PHP version to setup.
         required: true
@@ -20,6 +24,7 @@ runs:
 
         -   name: Read Pico version
             shell: bash
+            working-directory: ${{ inputs.path }}
             run: |
                 PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
                 echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
@@ -27,6 +32,7 @@ runs:
         -   name: Setup Composer
             if: ${{ github.ref_type == 'branch' }}
             shell: bash
+            working-directory: ${{ inputs.path }}
             run: |
                 COMPOSER_ROOT_VERSION=
 
@@ -40,8 +46,9 @@ runs:
 
         -   name: Get Composer cache directory
             shell: bash
+            working-directory: ${{ inputs.path }}
             run: |
-                COMPOSER_CACHE_DIR="$(composer config cache-dir)"
+                COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"
                 echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
 
         -   name: Restore Composer cache
@@ -54,5 +61,6 @@ runs:
 
         -   name: Install Composer dependencies
             shell: bash
+            working-directory: ${{ inputs.path }}
             run: |
                 composer install

@@ -1,0 +1,97 @@
+name: Git branch deployment
+
+on:
+    push:
+        branches:
+            - 'master'
+            - 'pico-3.0'
+
+env:
+    WEBSITE_REPO_SLUG: picocms/picocms.github.io
+    WEBSITE_REPO_BRANCH: master
+    CI_TOOLS_SETUP: https://raw.githubusercontent.com/picocms/ci-tools/master/setup.sh
+
+jobs:
+    website:
+        name: Update website for branch updates
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        env:
+            PHP_VERSION: '7.4'
+            BUILD_DIR: ./build
+            WEBSITE_DIR: ./website
+
+        steps:
+            -   name: Setup CI tools
+                run: |
+                    . <(curl -fsS -L "$CI_TOOLS_SETUP")
+                    echo "CI_TOOLS_PATH=$CI_TOOLS_PATH" | tee -a "$GITHUB_ENV"
+
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+                with:
+                    path: ${{ env.BUILD_DIR }}
+
+            -   name: Install Pico CMS
+                uses: ./build/.github/actions/install
+                with:
+                    path: ${{ env.BUILD_DIR }}
+                    php-version: ${{ env.PHP_VERSION }}
+                    php-tools: phpdoc
+
+            -   name: Read Pico milestone
+                working-directory: ${{ env.BUILD_DIR }}
+                run: |
+                    PICO_VERSION_MILESTONE="$(php -r 'require("./lib/Pico.php"); preg_match("/^([0-9]+\.[0-9]+)\./", Pico::VERSION, $m); echo $m[1];')"
+                    echo "PICO_VERSION_MILESTONE=$PICO_VERSION_MILESTONE" | tee -a "$GITHUB_ENV"
+
+            -   name: Checkout website repository
+                uses: actions/checkout@v2
+                with:
+                    repository: ${{ env.WEBSITE_REPO_SLUG }}
+                    ref: ${{ env.WEBSITE_REPO_BRANCH }}
+                    path: ${{ env.WEBSITE_DIR }}
+
+            #
+            # Update phpDoc class docs
+            #
+
+            -   name: Update phpDoc class docs
+                run: |
+                    "$CI_TOOLS_PATH/generate-phpdoc.sh" \
+                        "$BUILD_DIR/.phpdoc.xml" \
+                        "$WEBSITE_DIR/phpDoc/$GITHUB_REF_NAME" \
+                        "$WEBSITE_DIR/phpDoc/$GITHUB_REF_NAME.cache" \
+                        "Pico $PICO_VERSION_MILESTONE API Documentation ($GITHUB_REF_NAME branch)"
+
+            -   name: Check for phpDoc class docs updates
+                run: |
+                    PHPDOC_UPDATED="$([ -n "$(git -C "$WEBSITE_DIR" status --porcelain "phpDoc/$GITHUB_REF_NAME.cache")" ] && echo "yes" || echo "no")"
+                    echo "PHPDOC_UPDATED=$PHPDOC_UPDATED" | tee -a "$GITHUB_ENV"
+
+            -   name: Update phpDoc class docs list
+                if: ${{ env.PHPDOC_UPDATED == 'yes' }}
+                run: |
+                    "$CI_TOOLS_PATH/update-phpdoc-list.sh" \
+                        "$WEBSITE_DIR/_data/phpDoc.yml" \
+                        "$GITHUB_REF_NAME" "branch" \
+                        "<code>$GITHUB_REF_NAME</code> branch" "$(date +%s)"
+
+            -   name: Commit phpDoc class docs updates
+                if: ${{ env.PHPDOC_UPDATED == 'yes' }}
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    repository: ${{ env.WEBSITE_DIR }}
+                    file_pattern: >-
+                        phpDoc/${{ github.ref_name }}
+                        phpDoc/${{ github.ref_name }}.cache
+                        _data/phpDoc.yml
+                    commit_user_name: Pico CMS Bot
+                    commit_user_email: bot@picocms.org
+                    commit_message: >-
+                        Update phpDocumentor class docs
+                        for ${{ github.ref_name }} branch
+                        @ ${{ github.sha }}
