@@ -40,6 +40,11 @@ jobs:
                     php-version: ${{ env.PHP_VERSION }}
                     php-tools: phpcs
 
+            -   name: Check Pico version
+                if: ${{ github.ref_type == 'tag' }}
+                run: |
+                    [ "$GITHUB_REF_NAME" == "v$PICO_VERSION" ]
+
             -   name: Run PHP_CodeSniffer
                 run: |
                     phpcs --standard=.phpcs.xml
