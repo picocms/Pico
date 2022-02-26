@@ -16,6 +16,7 @@
             </source>
             <ignore hidden="true" symlinks="true">
                 <path>.build/**/*</path>
+                <path>.github/**/*</path>
                 <path>vendor/**/*</path>
             </ignore>
             <extensions>
