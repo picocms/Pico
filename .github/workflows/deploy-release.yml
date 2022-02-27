@@ -204,6 +204,10 @@ jobs:
                     php-version: ${{ env.PHP_VERSION }}
                     tools: composer
 
+            -   name: Setup Composer auth
+                run: |
+                    composer config --global github-oauth.github.com "${{ github.token }}"
+
             -   name: Get Composer cache directory
                 run: |
                     COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"

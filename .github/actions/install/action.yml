@@ -29,7 +29,13 @@ runs:
                 PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
                 echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
 
-        -   name: Setup Composer
+        -   name: Setup Composer auth
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                composer config --global github-oauth.github.com "${{ github.token }}"
+
+        -   name: Setup Composer root version
             if: ${{ github.ref_type == 'branch' }}
             shell: bash
             working-directory: ${{ inputs.path }}
