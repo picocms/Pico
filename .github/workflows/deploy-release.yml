@@ -1,0 +1,248 @@
+name: Git tag deployment
+
+on:
+    push:
+        tags: [ 'v*.*.*' ]
+
+env:
+    WEBSITE_REPO_SLUG: picocms/picocms.github.io
+    WEBSITE_REPO_BRANCH: master
+    CI_TOOLS_SETUP: https://raw.githubusercontent.com/picocms/ci-tools/master/setup.sh
+
+jobs:
+    test:
+        name: Test Pico CMS
+        uses: ./.github/workflows/test.yml
+
+    website:
+        name: Update website for new releases
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        needs: test
+
+        env:
+            PHP_VERSION: '7.4'
+            BUILD_DIR: ./build
+            WEBSITE_DIR: ./website
+            CLOC_SOURCE: https://github.com/AlDanial/cloc/releases/download/1.92/cloc-1.92.pl
+
+        steps:
+            -   name: Setup CI tools
+                run: |
+                    . <(curl -fsS -L "$CI_TOOLS_SETUP")
+                    echo "CI_TOOLS_PATH=$CI_TOOLS_PATH" | tee -a "$GITHUB_ENV"
+
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+                with:
+                    path: ${{ env.BUILD_DIR }}
+
+            -   name: Install Pico CMS
+                uses: ./build/.github/actions/install
+                with:
+                    path: ${{ env.BUILD_DIR }}
+                    php-version: ${{ env.PHP_VERSION }}
+                    php-tools: phpdoc
+
+            -   name: Parse Pico version
+                run: |
+                    . "$CI_TOOLS_PATH/parse_version.inc.sh"
+
+                    if ! parse_version "$GITHUB_REF_NAME"; then
+                        echo "Invalid version string: $GITHUB_REF_NAME" >&2
+                        exit 1
+                    fi
+
+                    printf '%s=%s\n' \
+                        "PICO_VERSION_FULL" "$VERSION_FULL" \
+                        "PICO_VERSION_STABILITY" "$VERSION_STABILITY" \
+                        "PICO_VERSION_MILESTONE" "$VERSION_MILESTONE" \
+                        | tee -a "$GITHUB_ENV"
+
+            -   name: Checkout website repository
+                uses: actions/checkout@v2
+                with:
+                    repository: ${{ env.WEBSITE_REPO_SLUG }}
+                    ref: ${{ env.WEBSITE_REPO_BRANCH }}
+                    path: ${{ env.WEBSITE_DIR }}
+
+            #
+            # Update phpDoc class docs
+            #
+
+            -   name: Update phpDoc class docs
+                run: |
+                    "$CI_TOOLS_PATH/generate-phpdoc.sh" \
+                        "$BUILD_DIR/.phpdoc.xml" \
+                        "$WEBSITE_DIR/phpDoc/$GITHUB_REF_NAME" \
+                        "$WEBSITE_DIR/phpDoc/$GITHUB_REF_NAME/cache" \
+                        "Pico $PICO_VERSION_MILESTONE API Documentation ($GITHUB_REF_NAME)"
+
+            -   name: Update phpDoc class docs list
+                run: |
+                    "$CI_TOOLS_PATH/update-phpdoc-list.sh" \
+                        "$WEBSITE_DIR/_data/phpDoc.yml" \
+                        "$GITHUB_REF_NAME" "version" \
+                        "Pico $PICO_VERSION_FULL" "$(date +%s)"
+
+            -   name: Commit phpDoc class docs updates
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    repository: ${{ env.WEBSITE_DIR }}
+                    file_pattern: >-
+                        phpDoc/${{ github.ref_name }}
+                        _data/phpDoc.yml
+                    commit_user_name: Pico CMS Bot
+                    commit_user_email: bot@picocms.org
+                    commit_message: >-
+                        Update phpDocumentor class docs
+                        for ${{ github.ref_name }}
+
+            #
+            # Update version badge
+            #
+
+            -   name: Generate version badge
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                run: |
+                    "$CI_TOOLS_PATH/generate-badge.sh" \
+                        "$WEBSITE_DIR/badges/pico-version.svg" \
+                        "release" "$PICO_VERSION_FULL" "blue"
+
+            -   name: Commit version badge
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    repository: ${{ env.WEBSITE_DIR }}
+                    file_pattern: >-
+                        badges/pico-version.svg
+                    commit_user_name: Pico CMS Bot
+                    commit_user_email: bot@picocms.org
+                    commit_message: >-
+                        Update version badge for ${{ github.ref_name }}
+
+            #
+            # Update version file
+            #
+
+            -   name: Update version file
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                run: |
+                    "$CI_TOOLS_PATH/update-version-file.sh" \
+                        "$WEBSITE_DIR/_data/version.yml" \
+                        "$PICO_VERSION_FULL"
+
+            -   name: Commit version file
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    repository: ${{ env.WEBSITE_DIR }}
+                    file_pattern: >-
+                        _data/version.yml
+                    commit_user_name: Pico CMS Bot
+                    commit_user_email: bot@picocms.org
+                    commit_message: >-
+                        Update version file for ${{ github.ref_name }}
+
+            #
+            # Update cloc statistics
+            #
+
+            -   name: Install cloc
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                run: |
+                    sudo curl -fsS -L -o "/usr/local/bin/cloc" "$CLOC_SOURCE"
+                    sudo chmod +x "/usr/local/bin/cloc"
+
+            -   name: Update cloc statistics
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                run: |
+                    "$CI_TOOLS_PATH/update-cloc-stats.sh" \
+                        "$WEBSITE_DIR/_data/cloc.yml" \
+                        "$BUILD_DIR/lib" \
+                        "$BUILD_DIR/index.php"
+
+            -   name: Commit cloc statistics
+                if: ${{ env.PICO_VERSION_STABILITY == 'stable' }}
+                uses: stefanzweifel/git-auto-commit-action@v4
+                with:
+                    repository: ${{ env.WEBSITE_DIR }}
+                    file_pattern: >-
+                        _data/cloc.yml
+                    commit_user_name: Pico CMS Bot
+                    commit_user_email: bot@picocms.org
+                    commit_message: >-
+                        Update cloc statistics for ${{ github.ref_name }}
+
+    deploy:
+        name: Create Pico release
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        needs: test
+
+        env:
+            PHP_VERSION: '7.2'
+
+        steps:
+            -   name: Setup CI tools
+                run: |
+                    . <(curl -fsS -L "$CI_TOOLS_SETUP")
+                    echo "CI_TOOLS_PATH=$CI_TOOLS_PATH" | tee -a "$GITHUB_ENV"
+
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP ${{ env.PHP_VERSION }}
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ env.PHP_VERSION }}
+                    tools: composer
+
+            -   name: Get Composer cache directory
+                run: |
+                    COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"
+                    echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
+
+            -   name: Restore Composer cache
+                uses: actions/cache@v2
+                with:
+                    path: ${{ env.COMPOSER_CACHE_DIR }}
+                    key: ${{ runner.os }}-composer-php${{ env.PHP_VERSION }}
+                    restore-keys: |
+                        ${{ runner.os }}-composer-
+
+            -   name: Parse Pico version
+                run: |
+                    . "$CI_TOOLS_PATH/parse_version.inc.sh"
+
+                    if ! parse_version "$GITHUB_REF_NAME"; then
+                        echo "Invalid version string: $GITHUB_REF_NAME" >&2
+                        exit 1
+                    fi
+
+                    printf '%s=%s\n' \
+                        "PICO_VERSION_FULL" "$VERSION_FULL" \
+                        "PICO_VERSION_STABILITY" "$VERSION_STABILITY" \
+                        | tee -a "$GITHUB_ENV"
+
+            -   name: Build Pico and create release archives
+                run: |
+                    make build version="$GITHUB_REF_NAME"
+
+            -   name: Create GitHub release and upload release archives
+                uses: softprops/action-gh-release@v1
+                with:
+                    name: Version ${{ env.PICO_VERSION_FULL }}
+                    body: >-
+                        Pico ${{ github.ref_name }}
+                    prerelease: ${{ env.PICO_VERSION_STABILITY != 'stable' }}
+                    draft: true
+                    files: |
+                        pico-release-${{ github.ref_name }}.tar.gz
+                        pico-release-${{ github.ref_name }}.zip
