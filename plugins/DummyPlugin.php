@@ -10,8 +10,6 @@
  * License-Filename: LICENSE
  */
 
-use picocms\Pico\AbstractPicoPlugin;
-use picocms\Pico\Pico;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Twig\Environment as TwigEnvironment;
 
