@@ -56,7 +56,7 @@ interface PicoPluginInterface
      * @param bool $auto      enable or disable to fulfill a dependency. This
      *     parameter is optional and defaults to FALSE.
      *
-     * @throws \RuntimeException thrown when a dependency fails
+     * @throws RuntimeException thrown when a dependency fails
      */
     public function setEnabled($enabled, $recursive = true, $auto = false);
 

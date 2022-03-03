@@ -133,8 +133,8 @@ class PicoTwigExtension extends AbstractTwigExtension
      * This method is registered as the Twig `map` filter. You can use this
      * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
      *
-     * @param array|\Traversable $var        variable to map
-     * @param mixed              $mapKeyPath key to map; either a scalar or a
+     * @param array|Traversable $var        variable to map
+     * @param mixed             $mapKeyPath key to map; either a scalar or a
      *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
      *     $item['foo']['bar'] values)
      *
@@ -144,7 +144,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      */
     public function mapFilter($var, $mapKeyPath): array
     {
-        if (!is_array($var) && (!is_object($var) || !($var instanceof \Traversable))) {
+        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
             throw new TwigRuntimeError(sprintf(
                 'The map filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
@@ -170,11 +170,11 @@ class PicoTwigExtension extends AbstractTwigExtension
      * always sorted in ascending order, apply Twigs `reverse` filter to
      * achieve a descending order.
      *
-     * @param array|\Traversable $var         variable to sort
-     * @param mixed              $sortKeyPath key to use for sorting; either
+     * @param array|Traversable $var         variable to sort
+     * @param mixed             $sortKeyPath key to use for sorting; either
      *     a scalar or a array interpreted as key path (i.e. ['foo', 'bar']
      *     will sort $var by $item['foo']['bar'])
-     * @param string             $fallback    specify what to do with items
+     * @param string            $fallback    specify what to do with items
      *     which don't contain the specified sort key; use "bottom" (default)
      *     to move these items to the end of the sorted array, "top" to rank
      *     them first, "keep" to keep the original order, or "remove" to remove
@@ -186,7 +186,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      */
     public function sortByFilter($var, $sortKeyPath, string $fallback = 'bottom'): array
     {
-        if (is_object($var) && ($var instanceof \Traversable)) {
+        if (is_object($var) && ($var instanceof Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
             throw new TwigRuntimeError(sprintf(
@@ -247,8 +247,8 @@ class PicoTwigExtension extends AbstractTwigExtension
      * Returns the value of a variable item specified by a scalar key or a
      * arbitrary deep sub-key using a key path
      *
-     * @param array|\Traversable|\ArrayAccess|object $var     base variable
-     * @param mixed                                  $keyPath scalar key or a
+     * @param array|Traversable|ArrayAccess|object $var     base variable
+     * @param mixed                                $keyPath scalar key or a
      *     array interpreted as key path (when passing e.g. ['foo', 'bar'], the
      *     method will return $var['foo']['bar']) specifying the value
      *
@@ -265,9 +265,9 @@ class PicoTwigExtension extends AbstractTwigExtension
 
         foreach ($keyPath as $key) {
             if (is_object($var)) {
-                if ($var instanceof \ArrayAccess) {
+                if ($var instanceof ArrayAccess) {
                     // use ArrayAccess, see below
-                } elseif ($var instanceof \Traversable) {
+                } elseif ($var instanceof Traversable) {
                     $var = iterator_to_array($var);
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
@@ -276,7 +276,7 @@ class PicoTwigExtension extends AbstractTwigExtension
                     try {
                         $var = call_user_func([ $var, 'get' . ucfirst($key) ]);
                         continue;
-                    } catch (\BadMethodCallException $e) {
+                    } catch (BadMethodCallException $e) {
                         return null;
                     }
                 } else {

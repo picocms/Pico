@@ -18,6 +18,7 @@
 
 declare(strict_types=1);
 
+use Symfony\Component\Yaml\Exception\ParseException as YamlParseException;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Twig\Environment as TwigEnvironment;
 use Twig\Extension\DebugExtension as TwigDebugExtension;
@@ -260,7 +261,7 @@ class Pico
      * Parsedown Extra instance used for markdown parsing
      *
      * @see Pico::getParsedown()
-     * @var \Parsedown|null
+     * @var Parsedown|null
      */
     protected $parsedown;
 
@@ -422,13 +423,13 @@ class Pico
      *
      * @return string rendered Pico contents
      *
-     * @throws \Exception thrown when a irrecoverable error occurs
+     * @throws Exception thrown when a irrecoverable error occurs
      */
     public function run(): string
     {
         // check lock
         if ($this->locked) {
-            throw new \LogicException('You cannot run the same Pico instance multiple times');
+            throw new LogicException('You cannot run the same Pico instance multiple times');
         }
 
         // lock Pico
@@ -445,7 +446,7 @@ class Pico
 
         // check content dir
         if (!is_dir($this->getConfig('content_dir'))) {
-            throw new \RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
+            throw new RuntimeException('Invalid content directory "' . $this->getConfig('content_dir') . '"');
         }
 
         // load theme
@@ -553,7 +554,7 @@ class Pico
      * @see Pico::getPlugin()
      * @see Pico::getPlugins()
      *
-     * @throws \RuntimeException thrown when a plugin couldn't be loaded
+     * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadPlugins(): void
     {
@@ -564,7 +565,7 @@ class Pico
         }
 
         if (!isset($this->plugins['PicoDeprecated']) && (count($this->plugins) !== count($this->nativePlugins))) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 "Plugins using an older API than version " . static::API_VERSION . " found, "
                 . "but PicoDeprecated isn't loaded"
             );
@@ -585,7 +586,7 @@ class Pico
      *
      * @return string[] installer names of the loaded plugins
      *
-     * @throws \RuntimeException thrown when a plugin couldn't be loaded
+     * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadComposerPlugins(array $pluginBlacklist = []): array
     {
@@ -613,7 +614,7 @@ class Pico
                 }
 
                 if (!($plugin instanceof PicoPluginInterface)) {
-                    throw new \RuntimeException(
+                    throw new RuntimeException(
                         "Unable to load plugin '" . $className . "' via 'vendor/pico-plugin.php': "
                         . "Plugins installed by composer must implement 'PicoPluginInterface'"
                     );
@@ -653,7 +654,7 @@ class Pico
      *
      * @param string[] $pluginBlacklist class names of plugins not to load
      *
-     * @throws \RuntimeException thrown when a plugin couldn't be loaded
+     * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
     protected function loadLocalPlugins(array $pluginBlacklist = []): void
     {
@@ -679,7 +680,7 @@ class Pico
                 $pluginFile = $file . '/' . $className . '.php';
 
                 if (!is_file($this->getPluginsDir() . $pluginFile)) {
-                    throw new \RuntimeException(
+                    throw new RuntimeException(
                         "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
                     );
                 }
@@ -687,7 +688,7 @@ class Pico
                 $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
                 $pluginFile = $file;
             } else {
-                throw new \RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
+                throw new RuntimeException("Unable to load plugin from '" . $file . "': Not a valid plugin file");
             }
 
             if (isset($this->plugins[$className]) || isset($pluginBlacklist[$className])) {
@@ -709,7 +710,7 @@ class Pico
                     }
                 }
             } else {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': Plugin class not found"
                 );
             }
@@ -746,7 +747,7 @@ class Pico
      *
      * @return PicoPluginInterface instance of the loaded plugin
      *
-     * @throws \RuntimeException thrown when the plugin couldn't be loaded
+     * @throws RuntimeException thrown when the plugin couldn't be loaded
      */
     public function loadPlugin($plugin): PicoPluginInterface
     {
@@ -755,14 +756,14 @@ class Pico
             if (class_exists($className)) {
                 $plugin = new $className($this);
             } else {
-                throw new \RuntimeException("Unable to load plugin '" . $className . "': Class not found");
+                throw new RuntimeException("Unable to load plugin '" . $className . "': Class not found");
             }
         }
 
         $className = get_class($plugin);
 
         if (!($plugin instanceof PicoPluginInterface)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 "Unable to load plugin '" . $className . "': "
                 . "Manually loaded plugins must implement 'PicoPluginInterface'"
             );
@@ -878,7 +879,7 @@ class Pico
      *
      * @return object instance of the plugin
      *
-     * @throws \RuntimeException thrown when the plugin wasn't found
+     * @throws RuntimeException thrown when the plugin wasn't found
      */
     public function getPlugin(string $pluginName): object
     {
@@ -886,7 +887,7 @@ class Pico
             return $this->plugins[$pluginName];
         }
 
-        throw new \RuntimeException("Missing plugin '" . $pluginName . "'");
+        throw new RuntimeException("Missing plugin '" . $pluginName . "'");
     }
 
     /**
@@ -1051,12 +1052,12 @@ class Pico
      *
      * @param array $config array with config variables
      *
-     * @throws \LogicException thrown if Pico already started processing
+     * @throws LogicException thrown if Pico already started processing
      */
     public function setConfig(array $config): void
     {
         if ($this->locked) {
-            throw new \LogicException("You cannot modify Pico's config after processing has started");
+            throw new LogicException("You cannot modify Pico's config after processing has started");
         }
 
         $this->config = $config;
@@ -1096,7 +1097,7 @@ class Pico
     protected function loadTheme(): void
     {
         if (!is_dir($this->getThemesDir() . $this->getTheme())) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 'Couldn\'t load theme "' . $this->theme . '": No such theme directory'
             );
         }
@@ -1163,7 +1164,7 @@ class Pico
 
         // check for theme compatibility
         if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < static::API_VERSION)) {
-            throw new \RuntimeException(
+            throw new RuntimeException(
                 'Current theme "' . $this->theme . '" uses API version ' . $this->themeApiVersion . ', but Pico '
                 . 'provides API version ' . static::API_VERSION . ' and PicoDeprecated isn\'t loaded'
             );
@@ -1490,8 +1491,7 @@ class Pico
      *
      * @return array parsed meta data
      *
-     * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
-     *     meta data is invalid
+     * @throws YamlParseException thrown when the meta data is invalid
      */
     public function parseFileMeta(string $rawContent, array $headers): array
     {
@@ -1576,15 +1576,15 @@ class Pico
      * This method triggers the `onParsedownRegistered` event when the
      * Parsedown markdown parser wasn't initiated yet.
      *
-     * @return \Parsedown Parsedown markdown parser
+     * @return Parsedown Parsedown markdown parser
      */
-    public function getParsedown(): \Parsedown
+    public function getParsedown(): Parsedown
     {
         if ($this->parsedown === null) {
             if ($this->config['content_config']['extra']) {
-                $this->parsedown = new \ParsedownExtra();
+                $this->parsedown = new ParsedownExtra();
             } else {
-                $this->parsedown = new \Parsedown();
+                $this->parsedown = new Parsedown();
             }
 
             $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
@@ -1797,7 +1797,7 @@ class Pico
                 $headers = $this->getMetaHeaders();
                 try {
                     $meta = $this->parseFileMeta($rawContent, $headers);
-                } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+                } catch (YamlParseException $e) {
                     $meta = $this->parseFileMeta('', $headers);
                     $meta['YAML_ParseError'] = $e->getMessage();
                 }
@@ -2334,14 +2334,14 @@ class Pico
      *
      * @return string URL
      *
-     * @throws \InvalidArgumentException thrown when invalid arguments got passed
+     * @throws InvalidArgumentException thrown when invalid arguments got passed
      */
     public function getPageUrl(string $page, $queryData = null, bool $dropIndex = true): string
     {
         if (is_array($queryData)) {
             $queryData = http_build_query($queryData, '', '&');
         } elseif (($queryData !== null) && !is_string($queryData)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Argument 2 passed to ' . __METHOD__ . ' must be of the type array or string, '
                 . (is_object($queryData) ? get_class($queryData) : gettype($queryData)) . ' given'
             );
@@ -2735,7 +2735,7 @@ class Pico
      *
      * @return string normalized path
      *
-     * @throws \UnexpectedValueException thrown when a absolute path is passed
+     * @throws UnexpectedValueException thrown when a absolute path is passed
      *     although absolute paths aren't allowed
      */
     public function getNormalizedPath(string $path, bool $allowAbsolutePath = false, bool $endSlash = true): string
@@ -2754,7 +2754,7 @@ class Pico
         }
 
         if ($absolutePath && !$allowAbsolutePath) {
-            throw new \UnexpectedValueException(
+            throw new UnexpectedValueException(
                 'Argument 1 passed to ' . __METHOD__ . ' must be a relative path, absolute path "' . $path . '" given'
             );
         }

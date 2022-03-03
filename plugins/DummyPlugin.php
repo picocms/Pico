@@ -12,6 +12,7 @@
 
 use picocms\Pico\AbstractPicoPlugin;
 use picocms\Pico\Pico;
+use Symfony\Component\Yaml\Parser as YamlParser;
 use Twig\Environment as TwigEnvironment;
 
 /**
@@ -475,9 +476,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::getYamlParser()
      *
-     * @param \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
+     * @param YamlParser &$yamlParser YAML parser instance
      */
-    public function onYamlParserRegistered(\Symfony\Component\Yaml\Parser &$yamlParser)
+    public function onYamlParserRegistered(YamlParser &$yamlParser)
     {
         // your code
     }

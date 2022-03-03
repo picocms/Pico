@@ -124,7 +124,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                 // otherwise the plugin needs to be enabled manually
                 try {
                     $this->setEnabled(true, false, true);
-                } catch (\RuntimeException $e) {
+                } catch (RuntimeException $e) {
                     $this->enabled = false;
                 }
             }
@@ -226,15 +226,15 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @param bool $recursive enable required plugins automatically
      *
-     * @throws \RuntimeException thrown when a dependency fails
+     * @throws RuntimeException thrown when a dependency fails
      */
     protected function checkDependencies($recursive)
     {
         foreach ($this->getDependencies() as $pluginName) {
             try {
                 $plugin = $this->getPico()->getPlugin($pluginName);
-            } catch (\RuntimeException $e) {
-                throw new \RuntimeException(
+            } catch (RuntimeException $e) {
+                throw new RuntimeException(
                     "Unable to enable plugin '" . get_called_class() . "': "
                     . "Required plugin '" . $pluginName . "' not found"
                 );
@@ -246,13 +246,13 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                     if (!$plugin->isStatusChanged()) {
                         $plugin->setEnabled(true, true, true);
                     } else {
-                        throw new \RuntimeException(
+                        throw new RuntimeException(
                             "Unable to enable plugin '" . get_called_class() . "': "
                             . "Required plugin '" . $pluginName . "' was disabled manually"
                         );
                     }
                 } else {
-                    throw new \RuntimeException(
+                    throw new RuntimeException(
                         "Unable to enable plugin '" . get_called_class() . "': "
                         . "Required plugin '" . $pluginName . "' is disabled"
                     );
@@ -276,7 +276,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      *
      * @param bool $recursive disabled dependant plugins automatically
      *
-     * @throws \RuntimeException thrown when a dependency fails
+     * @throws RuntimeException thrown when a dependency fails
      */
     protected function checkDependants($recursive)
     {
@@ -288,7 +288,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
                         if (!$plugin->isStatusChanged()) {
                             $plugin->setEnabled(false, true, true);
                         } else {
-                            throw new \RuntimeException(
+                            throw new RuntimeException(
                                 "Unable to disable plugin '" . get_called_class() . "': "
                                 . "Required by manually enabled plugin '" . $pluginName . "'"
                             );
@@ -298,7 +298,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
             } else {
                 $dependantsList = 'plugin' . ((count($dependants) > 1) ? 's' : '') . ' '
                     . "'" . implode("', '", array_keys($dependants)) . "'";
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     "Unable to disable plugin '" . get_called_class() . "': "
                     . "Required by " . $dependantsList
                 );
@@ -337,7 +337,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
      * newer API versions, what requires some special (version specific)
      * precaution and is therefore usually not the case.
      *
-     * @throws \RuntimeException thrown when the plugin's and Pico's API aren't
+     * @throws RuntimeException thrown when the plugin's and Pico's API aren't
      *     compatible
      */
     protected function checkCompatibility()
@@ -350,7 +350,7 @@ abstract class AbstractPicoPlugin implements PicoPluginInterface
             $this->nativePlugin = ($pluginApiVersion === $picoApiVersion);
 
             if (!$this->nativePlugin && ($pluginApiVersion > $picoApiVersion)) {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     "Unable to enable plugin '" . get_called_class() . "': The plugin's API (version "
                     . $pluginApiVersion . ") isn't compatible with Pico's API (version " . $picoApiVersion . ")"
                 );
