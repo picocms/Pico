@@ -1788,7 +1788,7 @@ class Pico
             }
 
             $url = $this->getPageUrl($id);
-            if ($file !== $this->requestFile) {
+            if (($file !== $this->requestFile) || $this->is404Content) {
                 $rawContent = $this->loadFileContent($file);
 
                 // trigger onSinglePageContent event
@@ -1823,7 +1823,7 @@ class Pico
                 'meta' => &$meta,
             ];
 
-            if ($file === $this->requestFile) {
+            if (($file === $this->requestFile) && !$this->is404Content) {
                 $page['content'] = &$this->content;
             }
 
