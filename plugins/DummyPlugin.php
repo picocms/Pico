@@ -10,6 +10,8 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Twig\Environment as TwigEnvironment;
 
@@ -97,7 +99,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param object $plugin loaded plugin instance
      */
-    public function onPluginManuallyLoaded($plugin)
+    public function onPluginManuallyLoaded(object $plugin)
     {
         // your code
     }
@@ -124,7 +126,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$theme name of current theme
      */
-    public function onThemeLoading(&$theme)
+    public function onThemeLoading(string &$theme)
     {
         // your code
     }
@@ -140,7 +142,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param int    $themeApiVersion API version of the theme
      * @param array  &$themeConfig    config array of the theme
      */
-    public function onThemeLoaded($theme, $themeApiVersion, array &$themeConfig)
+    public function onThemeLoaded(string $theme, int $themeApiVersion, array &$themeConfig)
     {
         // your code
     }
@@ -152,7 +154,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$url part of the URL describing the requested contents
      */
-    public function onRequestUrl(&$url)
+    public function onRequestUrl(string &$url)
     {
         // your code
     }
@@ -165,7 +167,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$file absolute path to the content file to serve
      */
-    public function onRequestFile(&$file)
+    public function onRequestFile(string &$file)
     {
         // your code
     }
@@ -201,7 +203,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$rawContent raw file contents
      */
-    public function on404ContentLoaded(&$rawContent)
+    public function on404ContentLoaded(string &$rawContent)
     {
         // your code
     }
@@ -219,7 +221,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$rawContent raw file contents
      */
-    public function onContentLoaded(&$rawContent)
+    public function onContentLoaded(string &$rawContent)
     {
         // your code
     }
@@ -270,7 +272,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$markdown Markdown contents of the requested page
      */
-    public function onContentPrepared(&$markdown)
+    public function onContentPrepared(string &$markdown)
     {
         // your code
     }
@@ -284,7 +286,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$content parsed contents (HTML) of the requested page
      */
-    public function onContentParsed(&$content)
+    public function onContentParsed(string &$content)
     {
         // your code
     }
@@ -316,7 +318,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param bool|null $skipPage set this to TRUE to remove this page from the
      *     pages array, otherwise leave it unchanged
      */
-    public function onSinglePageLoading($id, &$skipPage)
+    public function onSinglePageLoading(string $id, ?bool &$skipPage)
     {
         // your code
     }
@@ -334,7 +336,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string $id          relative path to the content file
      * @param string &$rawContent raw file contents
      */
-    public function onSinglePageContent($id, &$rawContent)
+    public function onSinglePageContent(string $id, string &$rawContent)
     {
         // your code
     }
@@ -438,7 +440,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string &$templateName  file name of the template
      * @param array  &$twigVariables template variables
      */
-    public function onPageRendering(&$templateName, array &$twigVariables)
+    public function onPageRendering(string &$templateName, array &$twigVariables)
     {
         // your code
     }
@@ -450,7 +452,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$output contents which will be sent to the user
      */
-    public function onPageRendered(&$output)
+    public function onPageRendered(string &$output)
     {
         // your code
     }
