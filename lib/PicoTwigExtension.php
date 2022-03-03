@@ -10,6 +10,8 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
 use Twig\Error\RuntimeError as TwigRuntimeError;
 use Twig\Extension\AbstractExtension as AbstractTwigExtension;
 use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
@@ -51,7 +53,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @return Pico the extension's instance of Pico
      */
-    public function getPico()
+    public function getPico(): Pico
     {
         return $this->pico;
     }
@@ -63,7 +65,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @return string the extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'PicoTwigExtension';
     }
@@ -75,7 +77,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @return TwigFilter[] array of Pico's Twig filters
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             'markdown' => new TwigFilter('markdown', [ $this, 'markdownFilter' ], [ 'is_safe' => [ 'html' ] ]),
@@ -93,7 +95,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @return TwigFunction[] array of Pico's Twig functions
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             'url_param' => new TwigFunction('url_param', [ $this, 'urlParamFunction' ]),
@@ -119,7 +121,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @return string parsed HTML
      */
-    public function markdownFilter($markdown, array $meta = [], $singleLine = false)
+    public function markdownFilter(string $markdown, array $meta = [], bool $singleLine = false): string
     {
         $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
         return $this->getPico()->parseFileContent($markdown, $singleLine);
@@ -140,7 +142,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @throws TwigRuntimeError
      */
-    public function mapFilter($var, $mapKeyPath)
+    public function mapFilter($var, $mapKeyPath): array
     {
         if (!is_array($var) && (!is_object($var) || !($var instanceof \Traversable))) {
             throw new TwigRuntimeError(sprintf(
@@ -182,7 +184,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @throws TwigRuntimeError
      */
-    public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
+    public function sortByFilter($var, $sortKeyPath, string $fallback = 'bottom'): array
     {
         if (is_object($var) && ($var instanceof \Traversable)) {
             $var = iterator_to_array($var, true);
@@ -314,7 +316,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *     NULL if the URL GET parameter doesn't exist and no default value is
      *     given
      */
-    public function urlParamFunction($name, $filter = '', $options = null, $flags = null)
+    public function urlParamFunction(string $name, $filter = '', $options = null, $flags = null)
     {
         $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
         if (!$filter || ($filter === FILTER_CALLBACK)) {
@@ -343,7 +345,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *     NULL if the HTTP POST parameter doesn't exist and no default value
      *     is given
      */
-    public function formParamFunction($name, $filter = '', $options = null, $flags = null)
+    public function formParamFunction(string $name, $filter = '', $options = null, $flags = null)
     {
         $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
         if (!$filter || ($filter === FILTER_CALLBACK)) {
@@ -425,7 +427,7 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @throws TwigRuntimeError
      */
-    public function pagesFunction($start = '', $depth = 0, $depthOffset = 0, $offset = 1)
+    public function pagesFunction(string $start = '', ?int $depth = 0, int $depthOffset = 0, int $offset = 1): array
     {
         $start = (string) $start;
         if (basename($start) === 'index') {

@@ -10,6 +10,8 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
 /**
  * Common interface for Pico plugins
  *

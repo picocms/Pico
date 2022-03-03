@@ -10,6 +10,8 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
 /**
  * Abstract class to extend from when implementing a Pico plugin
  *
