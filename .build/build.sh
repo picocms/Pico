@@ -263,6 +263,7 @@ echo "Building Pico $BUILD_VERSION ($VERSION)..."
 [ -z "$NOCLEAN" ] || echo "Build directory: $BUILD_DIR"
 echo
 
+# prepare dev versions of components
 if [ "$VERSION_STABILITY" == "dev" ]; then
     # copy dev version of Pico
     echo "Creating clean working tree copy of '$BUILD_PROJECT'..."
@@ -327,11 +328,11 @@ if [ "$VERSION_STABILITY" == "dev" ]; then
     echo
 fi
 
+# download Composer starter project
 if [ "$VERSION_STABILITY" != "dev" ] || [ -z "$PICO_COMPOSER_DIR" ]; then
     PICO_COMPOSER_VERSION="$DEPENDENCY_VERSION"
     [[ "$PICO_COMPOSER_VERSION" == "dev-"* ]] || PICO_COMPOSER_VERSION="$VERSION_MAJOR.$VERSION_MINOR"
 
-    # download Composer starter project
     echo "Setting up Pico's Composer starter project (version '$PICO_COMPOSER_VERSION')..."
     "$COMPOSER" create-project --no-install "$PICO_COMPOSER_PROJECT" \
         "$BUILD_DIR/$PICO_COMPOSER_NAME" \
@@ -342,7 +343,7 @@ fi
 # switch to build dir...
 cd "$BUILD_DIR/$PICO_COMPOSER_NAME"
 
-# inject local copy of Pico
+# inject local component copies
 if [ "$VERSION_STABILITY" == "dev" ]; then
     function composer_repo_config {
         jq -nc --arg PACKAGE "$1" --arg VERSION "$2" --arg URL "$3" \
@@ -412,6 +413,7 @@ find plugins/ -type d -path 'plugins/*/.git' -print0 | xargs -0 rm -rf
 echo "Removing 'index.php' and 'index.php.dist' from 'vendor/$BUILD_PROJECT'"
 rm -f "vendor/$BUILD_PROJECT/index.php"
 rm -f "vendor/$BUILD_PROJECT/index.php.dist"
+
 echo
 
 # restore composer.json

@@ -22,13 +22,6 @@ runs:
                 php-version: ${{ inputs.php-version }}
                 tools: composer, ${{ inputs.php-tools }}
 
-        -   name: Read Pico version
-            shell: bash
-            working-directory: ${{ inputs.path }}
-            run: |
-                PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
-                echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
-
         -   name: Setup Composer auth
             shell: bash
             working-directory: ${{ inputs.path }}
@@ -75,3 +68,10 @@ runs:
             working-directory: ${{ inputs.path }}
             run: |
                 composer install
+
+        -   name: Read Pico version
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
+                echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
