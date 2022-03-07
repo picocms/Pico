@@ -51,8 +51,8 @@ runs:
                 COMPOSER_ROOT_VERSION=
 
                 COMPOSER_ROOT_VERSION="$(composer config \
-                    extra.branch-alias."dev-${GITHUB_HEAD_REF:-GITHUB_REF_NAME}" \
-                    2> /dev/null)"
+                    extra.branch-alias."dev-${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" \
+                    2> /dev/null || true)"
 
                 if [ -z "$COMPOSER_ROOT_VERSION" ]; then
                     COMPOSER_ROOT_VERSION="$(php -r "
