@@ -14,6 +14,7 @@
 
 version?=
 nocheck?=false
+publish=false
 
 php?=php
 composer?=composer
@@ -37,15 +38,18 @@ clean-export:
 build: export PHP=$(php)
 build: export COMPOSER=$(composer)
 build:
-	./.build/build.sh$(if $(filter true,$(nocheck)), --no-check,)$(if $(version), "$(version)",)
+	./.build/build.sh$(if $(filter true,$(publish)), --publish,)$(if $(filter true,$(nocheck)), --no-check,)$(if $(version), "$(version)",)
 
 export:
 	git archive --prefix "$(app_name)/" -o "./$(export)" HEAD
+
+publish: publish=true
+publish: build
 
 composer:
 	$(composer) install --optimize-autoloader --no-dev
 
 .PHONY: all \
 	clean clean-build clean-export \
-	build export \
+	build export publish \
 	composer

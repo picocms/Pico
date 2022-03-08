@@ -32,6 +32,9 @@ elif ! which "$COMPOSER" > /dev/null; then
 elif ! which "git" > /dev/null; then
     echo "Missing script dependency: git" >&2
     exit 1
+elif ! which "gh" > /dev/null; then
+    echo "Missing script dependency: gh" >&2
+    exit 1
 elif ! which "rsync" > /dev/null; then
     echo "Missing script dependency: rsync" >&2
     exit 1
@@ -57,8 +60,11 @@ PICO_DEPRECATED_NAME="pico-deprecated"
 PICO_DEPRECATED_PROJECT="picocms/pico-deprecated"
 PICO_DEPRECATED_DIR=
 
+PHP_VERSION="7.2"
+
 # options
 VERSION=
+PUBLISH=
 NOCHECK=
 NOCLEAN=
 
@@ -73,6 +79,7 @@ while [ $# -gt 0 ]; do
         echo "  --help                  display this help and exit"
         echo
         echo "Application options:"
+        echo "  --publish               create GitHub release and upload artifacts"
         echo "  --pico-composer PATH    path to a local copy of '$PICO_COMPOSER_PROJECT'"
         echo "  --pico-theme PATH       path to a local copy of '$PICO_THEME_PROJECT'"
         echo "  --pico-deprecated PATH  path to a local copy of '$PICO_DEPRECATED_PROJECT'"
@@ -83,6 +90,9 @@ while [ $# -gt 0 ]; do
         echo "that this script will perform a large number of strict sanity checks before"
         echo "building a new non-development version of Pico. VERSION must start with 'v'."
         exit 0
+    elif [ "$1" == "--publish" ]; then
+        PUBLISH="y"
+        shift
     elif [ "$1" == "--no-check" ]; then
         NOCHECK="y"
         shift
@@ -223,6 +233,7 @@ if [ "$VERSION_STABILITY" != "dev" ]; then
     GIT_LOCAL_TAG="$(git rev-parse --verify "refs/tags/$VERSION" 2> /dev/null || true)"
     GIT_REMOTE="$(git 'for-each-ref' --format='%(upstream:remotename)' "$(git symbolic-ref -q HEAD)")"
     GIT_REMOTE_TAG="$(git ls-remote "${GIT_REMOTE:-origin}" "refs/tags/$VERSION" 2> /dev/null | cut -f 1 || true)"
+    PHP_VERSION_LOCAL="$("$PHP" -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;')"
 
     if [ "$VERSION" != "$BUILD_VERSION" ]; then
         echo "Unable to build Pico: Building $VERSION, but Pico indicates $BUILD_VERSION" >&2
@@ -242,13 +253,19 @@ if [ "$VERSION_STABILITY" != "dev" ]; then
     elif [ "$GIT_LOCAL_TAG" != "$GIT_REMOTE_TAG" ]; then
         echo "Unable to build Pico: Building $VERSION, but the matching local and remote Git tags differ" >&2
         exit 1
+    elif [ "$PHP_VERSION_LOCAL" != "$PHP_VERSION" ]; then
+        echo "Unable to build Pico: Refusing to build Pico with PHP $PHP_VERSION_LOCAL, expecting PHP $PHP_VERSION" >&2
+        exit 1
     elif [ -n "$PICO_COMPOSER_DIR" ] || [ -n "$PICO_THEME_DIR" ] || [ -n "$PICO_DEPRECATED_DIR" ]; then
         echo "Unable to build Pico: Refusing to build a non-dev version with local dependencies" >&2
         exit 1
     fi
-elif [ -z "$NOCHECK" ]; then
-    if [[ "$VERSION" != "$BUILD_VERSION"* ]]; then
+else
+    if [ -z "$NOCHECK" ] && [[ "$VERSION" != "$BUILD_VERSION"* ]]; then
         echo "Unable to build Pico: Building $VERSION, but Pico indicates $BUILD_VERSION" >&2
+        exit 1
+    elif [ -n "$PUBLISH" ]; then
+        echo "Unable to build Pico: Refusing to publish a dev version" >&2
         exit 1
     fi
 fi
@@ -446,3 +463,24 @@ find . -mindepth 1 -maxdepth 1 -printf '%f\0' \
 
 echo "Creating release archive '$ARCHIVE_FILENAME.zip'..."
 zip -q -r "$APP_DIR/$ARCHIVE_FILENAME.zip" .
+
+echo
+
+# publish release
+if [ -n "$PUBLISH" ]; then
+    # switch to app dir
+    cd "$APP_DIR"
+
+    # create GitHub release and upload release archives
+    echo "Creating GitHub release and uploading release archives..."
+
+    GITHUB_PRERELEASE=
+    [ "$VERSION_STABILITY" == "stable" ] || GITHUB_PRERELEASE="--prerelease"
+
+    gh release create "$VERSION" \
+        --title "Version $VERSION_FULL" \
+        --generate-notes \
+        "$GITHUB_PRERELEASE" \
+        "$APP_DIR/$ARCHIVE_FILENAME.tar.gz" \
+        "$APP_DIR/$ARCHIVE_FILENAME.zip"
+fi

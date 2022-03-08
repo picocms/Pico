@@ -1,8 +1,8 @@
-name: Git tag deployment
+name: Git release deployment
 
 on:
-    push:
-        tags: [ 'v*.*.*' ]
+    release:
+        types: [ 'published' ]
 
 env:
     WEBSITE_REPO_SLUG: picocms/picocms.github.io
@@ -10,18 +10,12 @@ env:
     CI_TOOLS_SETUP: https://raw.githubusercontent.com/picocms/ci-tools/master/setup.sh
 
 jobs:
-    test:
-        name: Test Pico CMS
-        uses: ./.github/workflows/test.yml
-
     website:
         name: Update website for new releases
 
         runs-on: ubuntu-latest
         permissions:
             contents: write
-
-        needs: test
 
         env:
             PHP_VERSION: '7.4'
@@ -176,77 +170,3 @@ jobs:
                     commit_user_email: bot@picocms.org
                     commit_message: >-
                         Update cloc statistics for ${{ github.ref_name }}
-
-    deploy:
-        name: Create Pico release
-
-        runs-on: ubuntu-latest
-        permissions:
-            contents: write
-
-        needs: test
-
-        env:
-            PHP_VERSION: '7.2'
-
-        steps:
-            -   name: Setup CI tools
-                run: |
-                    . <(curl -fsS -L "$CI_TOOLS_SETUP")
-                    echo "CI_TOOLS_PATH=$CI_TOOLS_PATH" | tee -a "$GITHUB_ENV"
-
-            -   name: Checkout repository
-                uses: actions/checkout@v2
-
-            -   name: Setup PHP ${{ env.PHP_VERSION }}
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ env.PHP_VERSION }}
-                    tools: composer
-
-            -   name: Setup Composer auth
-                run: |
-                    composer config --global github-oauth.github.com "${{ github.token }}"
-
-            -   name: Get Composer cache directory
-                run: |
-                    COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"
-                    echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
-
-            -   name: Restore Composer cache
-                uses: actions/cache@v2
-                with:
-                    path: ${{ env.COMPOSER_CACHE_DIR }}
-                    key: ${{ runner.os }}-composer-php${{ env.PHP_VERSION }}
-                    restore-keys: |
-                        ${{ runner.os }}-composer-
-
-            -   name: Parse Pico version
-                run: |
-                    . "$CI_TOOLS_PATH/parse_version.inc.sh"
-
-                    if ! parse_version "$GITHUB_REF_NAME"; then
-                        echo "Invalid version string: $GITHUB_REF_NAME" >&2
-                        exit 1
-                    fi
-
-                    printf '%s=%s\n' \
-                        "PICO_VERSION_FULL" "$VERSION_FULL" \
-                        "PICO_VERSION_STABILITY" "$VERSION_STABILITY" \
-                        | tee -a "$GITHUB_ENV"
-
-            -   name: Build Pico and create release archives
-                run: |
-                    make build version="$GITHUB_REF_NAME"
-
-            -   name: Create GitHub release and upload release archives
-                uses: softprops/action-gh-release@v1
-                with:
-                    name: Version ${{ env.PICO_VERSION_FULL }}
-                    body: >-
-                        Pico ${{ github.ref_name }}
-                    prerelease: ${{ env.PICO_VERSION_STABILITY != 'stable' }}
-                    draft: true
-                    files: |
-                        pico-release-${{ github.ref_name }}.tar.gz
-                        pico-release-${{ github.ref_name }}.zip

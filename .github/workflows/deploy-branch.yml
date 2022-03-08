@@ -12,10 +12,6 @@ env:
     CI_TOOLS_SETUP: https://raw.githubusercontent.com/picocms/ci-tools/master/setup.sh
 
 jobs:
-    test:
-        name: Test Pico CMS
-        uses: ./.github/workflows/test.yml
-
     website:
         name: Update website for branch updates
 
