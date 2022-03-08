@@ -29,6 +29,15 @@ use Twig\TwigFilter;
 /**
  * Pico
  *
+ * ```
+ *      ______  __
+ *     / __  / /_/
+ *    / /_/ / __  ____  ____
+ *   / ____/ / / / __/ / __ \
+ *  / /     / / / /__ / /_/ /
+ * /_/     /_/  \___/ \____/
+ * ```
+ *
  * Pico is a stupidly simple, blazing fast, flat file CMS.
  *
  * - Stupidly Simple: Pico makes creating and maintaining a
