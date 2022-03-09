@@ -575,7 +575,7 @@ class Pico
 
         if (!isset($this->plugins['PicoDeprecated']) && (count($this->plugins) !== count($this->nativePlugins))) {
             throw new RuntimeException(
-                "Plugins using an older API than version " . static::API_VERSION . " found, "
+                "Plugins using an older API than version " . self::API_VERSION . " found, "
                 . "but PicoDeprecated isn't loaded"
             );
         }
@@ -631,7 +631,7 @@ class Pico
 
                 $this->plugins[$className] = $plugin;
 
-                if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+                if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
                     $this->nativePlugins[$className] = $plugin;
                 }
             }
@@ -668,12 +668,9 @@ class Pico
     protected function loadLocalPlugins(array $pluginBlacklist = []): void
     {
         // scope isolated require()
-        $includeClosure = function ($pluginFile) {
+        $includeClosure = static function ($pluginFile) {
             require($pluginFile);
         };
-        if (PHP_VERSION_ID >= 50400) {
-            $includeClosure = $includeClosure->bindTo(null);
-        }
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
@@ -714,7 +711,7 @@ class Pico
                 $this->plugins[$className] = $plugin;
 
                 if ($plugin instanceof PicoPluginInterface) {
-                    if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+                    if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
                         $this->nativePlugins[$className] = $plugin;
                     }
                 }
@@ -780,7 +777,7 @@ class Pico
 
         $this->plugins[$className] = $plugin;
 
-        if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+        if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
             $this->nativePlugins[$className] = $plugin;
         }
 
@@ -1172,10 +1169,10 @@ class Pico
         }
 
         // check for theme compatibility
-        if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < static::API_VERSION)) {
+        if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < self::API_VERSION)) {
             throw new RuntimeException(
                 'Current theme "' . $this->theme . '" uses API version ' . $this->themeApiVersion . ', but Pico '
-                . 'provides API version ' . static::API_VERSION . ' and PicoDeprecated isn\'t loaded'
+                . 'provides API version ' . self::API_VERSION . ' and PicoDeprecated isn\'t loaded'
             );
         }
     }
@@ -1651,7 +1648,7 @@ class Pico
         $variables = [];
 
         // replace %version%
-        $variables['%version%'] = static::VERSION;
+        $variables['%version%'] = self::VERSION;
 
         // replace %site_title%
         $variables['%site_title%'] = $this->getConfig('site_title');
@@ -2209,7 +2206,7 @@ class Pico
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'version' => static::VERSION,
+            'version' => self::VERSION,
         ];
     }
 
