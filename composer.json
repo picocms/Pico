@@ -33,8 +33,8 @@
     "require": {
         "php": ">=7.2.5",
         "ext-mbstring": "*",
-        "twig/twig": "^3.0",
-        "symfony/yaml" : "^5.0",
+        "twig/twig": "^3.3.8",
+        "symfony/yaml" : "^5.4.3",
         "erusev/parsedown": "1.7.4",
         "erusev/parsedown-extra": "0.8.1"
     },
