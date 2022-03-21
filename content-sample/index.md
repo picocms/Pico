@@ -347,8 +347,6 @@ even easier.
   the array; you can specify `bottom` (move items to bottom; default), `top`
   (move items to top), `keep` (keep original order) or `remove` (remove items)
   as second parameter to change this behavior.
-* You can return all values of a given array key using the `map` filter
-  (e.g. `{{ pages|map("title") }}` returns all page titles).
 * Use the `url_param` and `form_param` Twig functions to access HTTP GET (i.e.
   a URL's query string like `?some-variable=my-value`) and HTTP POST (i.e. data
   of a submitted form) parameters. This allows you to implement things like
