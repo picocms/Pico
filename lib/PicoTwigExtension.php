@@ -81,7 +81,6 @@ class PicoTwigExtension extends AbstractTwigExtension
     {
         return [
             'markdown' => new TwigFilter('markdown', [ $this, 'markdownFilter' ], [ 'is_safe' => [ 'html' ] ]),
-            'map' => new TwigFilter('map', [ $this, 'mapFilter' ]),
             'sort_by' => new TwigFilter('sort_by', [ $this, 'sortByFilter' ]),
             'link' => new TwigFilter('link', [ $this->pico, 'getPageUrl' ]),
             'url' => new TwigFilter('url', [ $this->pico, 'substituteUrl' ]),
@@ -125,38 +124,6 @@ class PicoTwigExtension extends AbstractTwigExtension
     {
         $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
         return $this->getPico()->parseFileContent($markdown, $singleLine);
-    }
-
-    /**
-     * Returns a array with the values of the given key or key path
-     *
-     * This method is registered as the Twig `map` filter. You can use this
-     * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
-     *
-     * @param array|Traversable $var        variable to map
-     * @param mixed             $mapKeyPath key to map; either a scalar or a
-     *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
-     *     $item['foo']['bar'] values)
-     *
-     * @return array mapped values
-     *
-     * @throws TwigRuntimeError
-     */
-    public function mapFilter($var, $mapKeyPath): array
-    {
-        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
-            throw new TwigRuntimeError(sprintf(
-                'The map filter only works with arrays or "Traversable", got "%s"',
-                is_object($var) ? get_class($var) : gettype($var)
-            ));
-        }
-
-        $result = [];
-        foreach ($var as $key => $value) {
-            $mapValue = $this->getKeyOfVar($value, $mapKeyPath);
-            $result[$key] = ($mapValue !== null) ? $mapValue : $value;
-        }
-        return $result;
     }
 
     /**

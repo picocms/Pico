@@ -54,6 +54,8 @@ Released: -
 * [Fixed] #602: Fix contents and meta data of meta pages (pages starting with
           an `_`) getting replaced by the 404 page when being requested
 * [Fixed] Add a proper error message for a missing theme directory
+* [Removed] ! Remove Pico's `map` Twig filter; it conflicts with Twig's `map`
+            filter and can be replaced by Twig's `column` or `map` filter
 ```
 
 ### Version 3.0.0-alpha.2
