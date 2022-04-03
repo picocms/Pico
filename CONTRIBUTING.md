@@ -110,7 +110,7 @@ Please keep in mind that pull requests should be small (i.e. one feature per req
 
 Pico uses the [PSR-2 Coding Standard](https://www.php-fig.org/psr/psr-2/) as defined by the [PHP Framework Interoperability Group (PHP-FIG)](https://www.php-fig.org/).
 
-For historical reasons we don't use formal namespaces. Markdown files in the `content-sample` folder (the inline documentation) must follow a hard limit of 80 characters line length.
+For historical reasons we don't use formal namespaces.
 
 It is recommended to check your code using [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) using Pico's `.phpcs.xml` standard. Use the following command:
 
