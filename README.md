@@ -143,7 +143,7 @@ Upgrade
 
 Do you remember when you installed Pico? It was ingeniously simple, wasn't it? Upgrading Pico is no difference! The upgrade process differs depending on whether you used [Composer][] or a pre-bundled release to install Pico. Please note that you should *always* create a backup of your Pico installation before upgrading!
 
-Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. When we update the `PATCH` version (e.g. `2.0.0` to `2.0.1`), we made backwards-compatible bug fixes. If we change the `MINOR` version (e.g. `2.0` to `2.1`), we added functionality in a backwards-compatible manner. Upgrading Pico is dead simple in both cases. Simply head over to the appropiate Upgrade sections below.
+Pico follows [Semantic Versioning 2.0][SemVer] and uses version numbers like `MAJOR`.`MINOR`.`PATCH`. When we update the `PATCH` version (e.g. `2.0.0` to `2.0.1`), we made backwards-compatible bug fixes. If we change the `MINOR` version (e.g. `2.0` to `2.1`), we added functionality in a backwards-compatible manner. Upgrading Pico is dead simple in both cases. Simply head over to the appropriate Upgrade sections below.
 
 But wait, we forgot to mention what happens when we update the `MAJOR` version (e.g. `2.0` to `3.0`). In this case we made incompatible API changes. We will then provide a appropriate upgrade tutorial, so please head over to the ["Upgrade" page on our website][HelpUpgrade].
 
@@ -181,11 +181,11 @@ Getting Help
 
 #### Getting Help as a user
 
-If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade from Pico 1.0 to Pico 2.0. You can find officially supported [plugins][OfficialPlugins] and [themes][OfficialThemes] on our website. A greater choice of third-party plugins and themes can be found in our [Wiki][] on the [plugins][WikiPlugins] or [themes][WikiThemes] pages respectively. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
+If you want to get started using Pico, please refer to our [user docs][HelpUserDocs]. Please read the [upgrade notes][HelpUpgrade] if you want to upgrade to a new Pico version. You can find officially supported [plugins][OfficialPlugins] and [themes][OfficialThemes] on our website. A greater choice of third-party plugins can be found in our [Wiki][WikiPlugins]. If you want to create your own plugin or theme, please refer to the "Getting Help as a developer" section below.
 
 #### Getting Help as a developer
 
-If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, please read the [developer docs on our website][HelpDevDocs].
+If you're a developer, please refer to the "Contributing" section below and our [contribution guidelines][ContributionGuidelines]. To get you started with creating a plugin or theme, check out Pico's [`DummyPlugin`][PicoDummyPlugin], and [Pico's default theme][PicoThemeGit].
 
 #### You still need help or experience a problem with Pico?
 
@@ -198,7 +198,7 @@ Contributing
 
 You want to contribute to Pico? We really appreciate that! You can help make Pico better by [contributing code][PullRequests] or [reporting issues][Issues], but please take note of our [contribution guidelines][ContributionGuidelines]. In general you can contribute in three different areas:
 
-1. Plugins & Themes: You're a plugin developer or theme designer? We love you folks! You can find tons of information about how to develop plugins and themes at https://picocms.org/development/. If you have created a plugin or theme, please add it to our [Wiki][], either on the [plugins][WikiPlugins] or [themes][WikiThemes] page. You may also [Submit][] it to our website, where it'll be displayed on the official [plugin][OfficialPlugins] or [theme][OfficialThemes] pages!
+1. Plugins & Themes: You're a plugin developer or theme designer? We love you folks! To get you started with creating a plugin or theme, check out Pico's [`DummyPlugin`][PicoDummyPlugin], and [Pico's default theme][PicoThemeGit]. If you have created a plugin or theme, please add it to our [Wiki][] and [Submit][] it to our website, where it'll be displayed on the official [plugin][OfficialPlugins] or [theme][OfficialThemes] pages!
 
 2. Documentation: We always appreciate people improving our documentation. You can either improve the [inline user docs][EditInlineDocs] or the more extensive [user docs on our website][EditUserDocs]. You can also improve the [docs for plugin and theme developers][EditDevDocs]. Simply fork our website's Git repository from https://github.com/picocms/picocms.github.io, change the Markdown files and open a [pull request][PullRequestsWebsite].
 
@@ -227,6 +227,7 @@ Official Pico Contributors won't claim bounties on their own behalf, Pico will n
 [PicoThemeGit]: https://github.com/picocms/pico-theme
 [PicoDeprecatedGit]: https://github.com/picocms/pico-deprecated
 [PicoComposerGit]: https://github.com/picocms/pico-composer
+[PicoDummyPlugin]: https://github.com/picocms/Pico/blob/master/plugins/DummyPlugin.php
 [Packagist]: https://packagist.org/
 [PicoPackagist]: https://packagist.org/packages/picocms/pico
 [PicoThemePackagist]: https://packagist.org/packages/picocms/pico-theme
@@ -242,7 +243,6 @@ Official Pico Contributors won't claim bounties on their own behalf, Pico will n
 [OfficialThemes]: https://picocms.org/themes/
 [Wiki]: https://github.com/picocms/Pico/wiki
 [WikiPlugins]: https://github.com/picocms/Pico/wiki/Pico-Plugins
-[WikiThemes]: https://github.com/picocms/Pico/wiki/Pico-Themes
 [Issues]: https://github.com/picocms/Pico/issues
 [IssuesSearch]: https://github.com/picocms/Pico/search?type=Issues
 [LiberaChat]: https://web.libera.chat/#picocms
