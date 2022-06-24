@@ -1524,7 +1524,7 @@ class Pico
                         $encodingList[] = 'Windows-1252';
                     }
 
-                    $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
+                    $rawFormattedDate = date($this->getConfig('date_format'), $meta['time']);
                     $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
                 } else {
                     $meta['date_formatted'] = '';
