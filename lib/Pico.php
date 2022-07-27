@@ -2092,7 +2092,7 @@ class Pico
      * {@see PicoTwigExtension} Twig extension.
      *
      * @see Pico::getTwig()
-     * @see http://twig.sensiolabs.org/ Twig website
+     * @see https://twig.symfony.com/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
      * @return Twig_Environment|null Twig template engine
