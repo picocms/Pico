@@ -115,15 +115,15 @@ class PicoTwigExtension extends AbstractTwigExtension
      * @see Pico::substituteFileContent()
      * @see Pico::parseFileContent()
      *
-     * @param string $markdown   markdown to parse
-     * @param array  $meta       meta data to use for %meta.*% replacement
-     * @param bool   $singleLine whether to parse just a single line of markup
+     * @param string|null $markdown   markdown to parse
+     * @param array       $meta       meta data to use for %meta.*% replacement
+     * @param bool        $singleLine whether to parse a single line of markup
      *
      * @return string parsed HTML
      */
-    public function markdownFilter(string $markdown, array $meta = [], bool $singleLine = false): string
+    public function markdownFilter(?string $markdown, array $meta = [], bool $singleLine = false): string
     {
-        $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
+        $markdown = $this->getPico()->substituteFileContent($markdown ?? '', $meta);
         return $this->getPico()->parseFileContent($markdown, $singleLine);
     }
 
