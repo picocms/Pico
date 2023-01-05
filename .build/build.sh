@@ -464,10 +464,10 @@ find . -mindepth 1 -maxdepth 1 -printf '%f\0' \
 echo "Creating release archive '$ARCHIVE_FILENAME.zip'..."
 zip -q -r "$APP_DIR/$ARCHIVE_FILENAME.zip" .
 
-echo
-
 # publish release
 if [ -n "$PUBLISH" ]; then
+    echo
+
     # switch to app dir
     cd "$APP_DIR"
 

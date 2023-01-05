@@ -188,7 +188,7 @@ Issues and pull requests labeled with `info: Feedback Needed` indicate that feed
   - `status: Resolved` is used when the issue has been resolved (used with issues only).
   - `status: Conflict` indicates a conflict with another issue or behavior of Pico, making it impossible to resolve the problem at the moment.
   - `status: Won't Fix` means, that there is indeed a problem, but for some reason we made the decision that resolving it isn't reasonable, making it intended behavior.
-  - `status: Rejected` is used when the issue was rejected for another reason.
+  - `status: Rejected` is used when the issue was rejected for another reason (used with issues only).
 
 - The `type: Enhancement` and `type: Feature` labels are used to tag pull requests, which introduce either a comparatively small enhancement, or a "big" new feature. As with the `type: Bug` label, they might get combined with the `pri: High` or `pri: Low` labels to indicate the pull request's priority. They might also be labeled with `status: Work In Progress`. After merging or closing the pull request, it is labeled with one of the `status` labels as described above for the `type: Bug` label.
 

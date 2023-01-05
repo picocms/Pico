@@ -370,7 +370,7 @@ class Pico
         $this->configDir = $this->getAbsolutePath($configDir);
         $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
         $this->themesDir = $this->getAbsolutePath($themesDir);
-        $this->enableLocalPlugins = (bool) $enableLocalPlugins;
+        $this->enableLocalPlugins = $enableLocalPlugins;
     }
 
     /**
@@ -2450,7 +2450,7 @@ class Pico
     /**
      * Returns the URL of a given absolute path within this Pico instance
      *
-     * We assume that the given path is a arbitrary deep sub folder of the
+     * We assume that the given path is an arbitrary deep sub folder of the
      * script's base path (i.e. the directory {@path "index.php"} is in resp.
      * the `httpdocs` directory). If this isn't the case, we check whether it's
      * a sub folder of {@see Pico::$rootDir} (what is often identical to the
@@ -2741,7 +2741,7 @@ class Pico
      *
      * @return string normalized path
      *
-     * @throws UnexpectedValueException thrown when a absolute path is passed
+     * @throws UnexpectedValueException thrown when an absolute path is passed
      *     although absolute paths aren't allowed
      */
     public function getNormalizedPath(string $path, bool $allowAbsolutePath = false, bool $endSlash = true): string
