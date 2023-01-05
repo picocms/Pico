@@ -99,6 +99,7 @@ class PicoTwigExtension extends AbstractTwigExtension
         return [
             'url_param' => new TwigFunction('url_param', [ $this, 'urlParamFunction' ]),
             'form_param' => new TwigFunction('form_param', [ $this, 'formParamFunction' ]),
+            'page' => new TwigFunction('page', [ $this, 'pageFunction' ]),
             'pages' => new TwigFunction('pages', [ $this, 'pagesFunction' ]),
         ];
     }
@@ -320,6 +321,19 @@ class PicoTwigExtension extends AbstractTwigExtension
         }
 
         return $this->pico->getFormParameter($name, $filter, $options, $flags);
+    }
+
+    /**
+     * Returns the data of a single page
+     *
+     * @param string $id identifier of the page to return
+     *
+     * @return array|null the data of the page, or NULL
+     */
+    public function pageFunction(string $id): ?array
+    {
+        $pages = $this->getPico()->getPages();
+        return $pages[$id] ?? null;
     }
 
     /**
