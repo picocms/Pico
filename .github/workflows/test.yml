@@ -6,7 +6,7 @@ on:
             - 'master'
             - 'pico-3.0'
         tags: [ 'v*.*.*' ]
-    pull_request: {}
+    workflow_call: {}
 
 jobs:
     test:
