@@ -75,16 +75,21 @@ class PicoTwigExtension extends AbstractTwigExtension
      *
      * @see TwigExtensionInterface::getFilters()
      *
-     * @return TwigFilter[] array of Pico's Twig filters
+     * @return \Twig\TwigFilter[] array of Pico's Twig filters
      */
     public function getFilters(): array
     {
-        return [
-            'markdown' => new TwigFilter('markdown', [ $this, 'markdownFilter' ], [ 'is_safe' => [ 'html' ] ]),
-            'sort_by' => new TwigFilter('sort_by', [ $this, 'sortByFilter' ]),
-            'link' => new TwigFilter('link', [ $this->pico, 'getPageUrl' ]),
-            'url' => new TwigFilter('url', [ $this->pico, 'substituteUrl' ]),
-        ];
+        return array(
+            'markdown' => new \Twig\TwigFilter(
+                'markdown',
+                array($this, 'markdownFilter'),
+                array('is_safe' => array('html'))
+            ),
+            'map' => new \Twig\TwigFilter('map', array($this, 'mapFilter')),
+            'sort_by' => new \Twig\TwigFilter('sort_by', array($this, 'sortByFilter')),
+            'link' => new \Twig\TwigFilter('link', array($this->pico, 'getPageUrl')),
+            'url' => new \Twig\TwigFilter('url', array($this->pico, 'substituteUrl'))
+        );
     }
 
     /**

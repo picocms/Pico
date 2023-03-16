@@ -2147,12 +2147,12 @@ class Pico
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new TwigFilesystemLoader($this->getThemesDir() . $this->getTheme());
-            $this->twig = new TwigEnvironment($twigLoader, $twigConfig);
+            $twigLoader = new \Twig\Loader\FilesystemLoader($this->getThemesDir() . $this->getTheme());
+            $this->twig = new \Twig\Environment($twigLoader, $twigConfig);
             $this->twig->addExtension(new PicoTwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
-                $this->twig->addExtension(new TwigDebugExtension());
+                $this->twig->addExtension(new Twig\Extension\DebugExtension());
             }
 
             // register content filter
@@ -2160,7 +2160,7 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new TwigFilter(
+            $this->twig->addFilter(new \Twig\TwigFilter(
                 'content',
                 function ($page) use ($pico, &$pages) {
                     if (isset($pages[$page])) {
@@ -2201,7 +2201,7 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => new TwigMarkup($this->content, 'UTF-8'),
+            'content' => new \Twig\Markup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,

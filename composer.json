@@ -31,7 +31,7 @@
         "source": "https://github.com/picocms/Pico"
     },
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.2.5||^8.0",
         "ext-mbstring": "*",
         "twig/twig": "^3.3.8",
         "symfony/yaml" : "^5.4.3",
@@ -55,6 +55,16 @@
         "branch-alias": {
             "dev-master": "2.1.x-dev",
             "dev-pico-3.0": "3.0.x-dev"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "7.2.5"
+        },
+        "platform-check": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "picocms/composer-installer": true
         }
     }
 }
