@@ -61,6 +61,12 @@ use Twig\TwigFilter;
  * @license https://opensource.org/licenses/MIT The MIT License
  * @version 3.0
  */
+
+use Erusev\Parsedown\Configurables\Breaks;
+use Erusev\Parsedown\Parsedown;
+use Erusev\Parsedown\State;
+use Erusev\ParsedownExtra\ParsedownExtra;
+
 class Pico
 {
     /**
@@ -1587,15 +1593,13 @@ class Pico
     public function getParsedown(): Parsedown
     {
         if ($this->parsedown === null) {
-            if ($this->config['content_config']['extra']) {
-                $this->parsedown = new ParsedownExtra();
-            } else {
-                $this->parsedown = new Parsedown();
+            $state = new State([
+                new Breaks((bool) $this->config['content_config']['breaks'])
+            ]);
+            if ($this->config['content_config']['extra']){
+                $state = new ParsedownExtra($state);
             }
-
-            $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
-            $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
-            $this->parsedown->setUrlsLinked((bool) $this->config['content_config']['auto_urls']);
+            $this->parsedown = new Parsedown($state);
 
             $this->triggerEvent('onParsedownRegistered', [ &$this->parsedown ]);
         }
@@ -1711,14 +1715,14 @@ class Pico
      * @see Pico::getFileContent()
      *
      * @param string $markdown   Markdown contents of a page
-     * @param bool   $singleLine whether to parse just a single line of markup
+     * @param bool   $singleLine whether to parse just a single line of markup (deprecated because not needed and not used)
      *
      * @return string parsed contents (HTML)
      */
     public function parseFileContent(string $markdown, bool $singleLine = false): string
     {
         $markdownParser = $this->getParsedown();
-        return !$singleLine ? @$markdownParser->text($markdown) : @$markdownParser->line($markdown);
+        return @$markdownParser->toHtml($markdown);
     }
 
     /**
