@@ -675,7 +675,7 @@ class Pico
     {
         // scope isolated require()
         $includeClosure = static function ($pluginFile) {
-            require($pluginFile);
+            require_once($pluginFile);
         };
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
