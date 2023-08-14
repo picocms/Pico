@@ -1771,6 +1771,8 @@ class Pico
     {
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
+        $contentDirLen = strlen($contentDir);
+        $contentExtLen = strlen($contentExt);
 
         $this->pages = [];
         $files = $this->getFiles($contentDir, $contentExt, self::SORT_NONE);
@@ -1781,7 +1783,7 @@ class Pico
                 continue;
             }
 
-            $id = substr($file, strlen($contentDir), -strlen($contentExt));
+            $id = substr($file, $contentDirLen, -$contentExtLen);
 
             // trigger onSinglePageLoading event
             // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists) by default
