@@ -2122,7 +2122,9 @@ class Pico
                         $pageData = &$pages[$page];
                         if (!isset($pageData['content'])) {
                             $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                            $this->triggerEvent('onContentPrepared', array(&$markdown));
                             $pageData['content'] = $pico->parseFileContent($markdown);
+                            $this->triggerEvent('onContentParsed', array(&$pageData['content']));
                         }
                         return $pageData['content'];
                     }
