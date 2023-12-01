@@ -1877,22 +1877,18 @@ class Pico
         if ($orderBy === 'meta') {
             // sort by arbitrary meta value
             $orderByMeta = $this->getConfig('pages_order_by_meta');
-            // Split the configuration value into an array of keys to allow sorting by nested meta values.
             $orderByMetaKeys = explode('.', $orderByMeta);
 
             uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order, $orderByMetaKeys) {
-                $aMeta = $a['meta'];
-                $bMeta = $b['meta'];
-                // Iterate through the meta keys to drill down into nested arrays for the final sort value.
+                $aSortValue = $a['meta'];
+                $bSortValue = $b['meta'];
+                
                 foreach ($orderByMetaKeys as $key) {
-                    $aMeta = isset($aMeta[$key]) ? $aMeta[$key] : null;
-                    $bMeta = isset($bMeta[$key]) ? $bMeta[$key] : null;
+                    $aSortValue = isset($aSortValue[$key]) ? $aSortValue[$key] : null;
+                    $bSortValue = isset($bSortValue[$key]) ? $bSortValue[$key] : null;
                 }
 
-                $aSortValue = $aMeta;
                 $aSortValueNull = ($aSortValue === null);
-
-                $bSortValue = $bMeta;
                 $bSortValueNull = ($bSortValue === null);
 
                 $cmp = 0;
