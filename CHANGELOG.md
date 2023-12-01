@@ -32,6 +32,7 @@ Released: -
         now receive the (optional) `$pageId` argument for the new `%page_*%`
         Markdown placeholders
 * [New] Add `page()` Twig function to access a page's data
+* [New] Enhance `pages_order_by_meta` functionality to allow sorting by nested meta values using '.' notation (e.g., 'author.info')
 * [Changed] ! Pico now requires PHP 7.2.5 or later (this includes full PHP 8
             support, also see #528, #534, #608)
 * [Changed] ! Pico now depends on Twig 3.3, skipping Twig 2.x altogether; this
