@@ -30,8 +30,8 @@ twig_config:                        # Twig template engine config
 #
 date_format: "%D %T"                # Pico's default date format;
                                     #     See https://php.net/manual/en/function.strftime.php for more info
-pages_order_by_meta: author         # Sort pages by meta value "author" (set "pages_order_by" to "meta"); use '.' for nested meta keys (e.g., 'author.info')
-pages_order_by: alpha               # Change how Pico sorts pages ("alpha" for alphabetical order, "date", or "meta")
+pages_order_by_meta: author         # Sort pages by meta value "author" (set "pages_order_by" to "meta")
+                                    #     Use '.' notation for nested meta keys (e.g. 'author.info')
 pages_order: asc                    # Sort pages in ascending ("asc") or descending ("desc") order
 content_dir: ~                      # The path to Pico's content directory
 content_ext: .md                    # The file extension of your Markdown files
