@@ -1450,6 +1450,7 @@ class Pico
                 'Robots' => 'robots',
                 'Template' => 'template',
                 'Hidden' => 'hidden',
+                'Lang' => 'lang',
             ];
 
             if ($this->themeMetaHeaders) {
@@ -1827,6 +1828,7 @@ class Pico
                 'date' => &$meta['date'],
                 'date_formatted' => &$meta['date_formatted'],
                 'hidden' => ($meta['hidden'] || preg_match('/(?:^|\/)_/', $id)),
+                'lang' => &$meta['lang'],
                 'raw_content' => &$rawContent,
                 'meta' => &$meta,
             ];
