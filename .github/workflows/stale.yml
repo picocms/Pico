@@ -1,28 +1,33 @@
-name: "Mark or close stale issues and PRs"
+name: Mark or close stale issues and PRs
+
 on:
-  schedule:
-    - cron: "0 12 * * *"
+    schedule:
+        - cron: "0 */6 * * *"
 
 jobs:
-  stale:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/stale@v3
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          days-before-stale: 7
-          days-before-close: 2
-          stale-issue-message: >
-            This issue has been automatically marked as stale because it has not had
-            recent activity. It will be closed in two days if no further activity
-            occurs. Thank you for your contributions! :+1:
-          stale-pr-message: >
-            This pull request has been automatically marked as stale because it has not had
-            recent activity. It will be closed in two days if no further activity
-            occurs. Thank you for your contributions! :+1:
-          stale-pr-label: "info: Stale"
-          stale-issue-label: "info: Stale"
-          exempt-issue-labels: "type: Bug,type: Enhancement,type: Feature,type: Idea,type: Release,info: Pinned"
-          exempt-pr-labels: "type: Bug,type: Enhancement,type: Feature,type: Idea,type: Release,info: Pinned"
-          remove-stale-when-updated: true
+    stale:
+        name: Mark or close stale issues and PRs
 
+        runs-on: ubuntu-latest
+        permissions:
+            issues: write
+            pull-requests: write
+
+        steps:
+            -   uses: actions/stale@v3
+                with:
+                    days-before-stale: 7
+                    days-before-close: 2
+                    stale-issue-message: >
+                        This issue has been automatically marked as stale because it has not had
+                        recent activity. It will be closed in two days if no further activity
+                        occurs. Thank you for your contributions! :+1:
+                    stale-pr-message: >
+                        This pull request has been automatically marked as stale because it has not had
+                        recent activity. It will be closed in two days if no further activity
+                        occurs. Thank you for your contributions! :+1:
+                    stale-pr-label: "info: Stale"
+                    stale-issue-label: "info: Stale"
+                    exempt-issue-labels: "type: Bug,type: Enhancement,type: Feature,type: Idea,type: Release,info: Pinned"
+                    exempt-pr-labels: "type: Bug,type: Enhancement,type: Feature,type: Idea,type: Release,info: Pinned"
+                    remove-stale-when-updated: true

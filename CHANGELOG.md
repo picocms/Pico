@@ -16,6 +16,59 @@ Pico Changelog
           `PicoDeprecated`'s changelog. Please note that BC-breaking changes
           are only possible with a new major version.
 
+### Version 3.0.0-beta.1
+Released: -
+
+```
+* [New] Pico 3.0 is a major release, but comes with relatively small changes
+        to Pico's core; its major change are updated dependencies (see below)
+* [New] Introduce API version 4 (with barely noticable changes, see below)
+* [New] Add new continous integration (CI) pipeline using GitHub Actions
+* [New] Add new build script and Makefile to simplify Pico's build and release
+        process; see `CONTRIBUTING.md` for details
+* [New] Add `%page_id%`, `%page_url%` and `%page_path%` Markdown placeholders
+        to replace the current page's ID, URL, and containing directory resp.
+* [New] `Pico::prepareFileContent()` and `Pico::substituteFileContent()` both
+        now receive the (optional) `$pageId` argument for the new `%page_*%`
+        Markdown placeholders
+* [New] Add `page()` Twig function to access a page's data
+* [New] Enhance `pages_order_by_meta` functionality to allow sorting by 
+            nested meta values using '.' notation (e.g., 'author.info')
+* [Changed] ! Pico now requires PHP 7.2.5 or later (this includes full PHP 8
+            support, also see #528, #534, #608)
+* [Changed] ! Pico now depends on Twig 3.3, skipping Twig 2.x altogether; this
+            is a BC-breaking change, as Twig 2.x and 3.x changed and removed
+            some commonly used features; check out Twig's changelog and
+            deprecation notices for details
+* [Changed] ! Pico now depends on Symfony YAML 5.4, skipping various milestones
+            in between; this is a BC-breaking change, because Symfony YAML
+            changed its behaviour multiple times in between; check out Symfony
+            YAML's changelog for details
+* [Changed] ! Pico downgrades to Parsedown 1.7.4 and Parsedown Extra 0.8.1;
+            this is a BC-breaking change in theory, but shouldn't have much of
+            an impact in real-life scenarios
+* [Changed] #603: Pico's `markdown` Twig filter now raises an error if an
+            invalid variable type (e.g. an array) is passed
+* [Changed] Enable PHP strict typing for Pico's internal classes; Pico's
+            `PicoPluginInterface` interface and `AbstractPicoPlugin` class
+            don't use strict typing to maintain BC, but you can (and should)
+            enable it for your plugin (see `DummyPlugin` for an example)
+* [Changed] Various other code improvements due to the upgrade to PHP 7.2
+* [Fixed] #602: Fix contents and meta data of meta pages (pages starting with
+          an `_`) getting replaced by the 404 page when being requested
+* [Fixed] Add a proper error message for a missing theme directory
+* [Removed] ! Remove Pico's `map` Twig filter; it conflicts with Twig's `map`
+            filter and can be replaced by Twig's `column` or `map` filter
+```
+
+### Version 3.0.0-alpha.2
+Released: 2020-12-24
+
+```
+* [Changed] Merge all fixes of Pico v2.1.2 to v2.1.4
+* [Fixed] #575: Update Symfony YAML v3.4 to support PHP 8.0+
+```
+
 ### Version 2.1.4
 Released: 2020-08-29
 
@@ -38,6 +91,17 @@ Released: 2020-04-10
 
 ```
 * [Fixed] Fix DummyPlugin declaring API version 3
+```
+
+### Version 3.0.0-alpha.1
+Released: 2020-03-29
+
+```
+* [New] Kick-start development of Pico 3.0
+* [Changed] Require PHP 7.0.8+
+* [Changed] Update dependencies: Twig 2.12, Symfony YAML 3.4, Parsedown 1.7.4
+            and Parsedown Extra 0.8.1; this is just an interim step, we'll
+            update to Twig 3.0+ and Symfony YAML 5.0+ later
 ```
 
 ### Version 2.1.1

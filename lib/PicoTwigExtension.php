@@ -10,15 +10,23 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
+use Twig\Error\RuntimeError as TwigRuntimeError;
+use Twig\Extension\AbstractExtension as AbstractTwigExtension;
+use Twig\Extension\ExtensionInterface as TwigExtensionInterface;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+
 /**
  * Pico's Twig extension to implement additional filters
  *
  * @author  Daniel Rudolf
- * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT The MIT License
- * @version 2.1
+ * @link    https://picocms.org
+ * @license https://opensource.org/licenses/MIT The MIT License
+ * @version 3.0
  */
-class PicoTwigExtension extends Twig_Extension
+class PicoTwigExtension extends AbstractTwigExtension
 {
     /**
      * Current instance of Pico
@@ -45,7 +53,7 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @return Pico the extension's instance of Pico
      */
-    public function getPico()
+    public function getPico(): Pico
     {
         return $this->pico;
     }
@@ -53,11 +61,11 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns the name of the extension
      *
-     * @see Twig_ExtensionInterface::getName()
+     * @see TwigExtensionInterface::getName()
      *
      * @return string the extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'PicoTwigExtension';
     }
@@ -65,39 +73,35 @@ class PicoTwigExtension extends Twig_Extension
     /**
      * Returns a list of Pico-specific Twig filters
      *
-     * @see Twig_ExtensionInterface::getFilters()
+     * @see TwigExtensionInterface::getFilters()
      *
-     * @return Twig_SimpleFilter[] array of Pico's Twig filters
+     * @return TwigFilter[] array of Pico's Twig filters
      */
-    public function getFilters()
+    public function getFilters(): array
     {
-        return array(
-            'markdown' => new Twig_SimpleFilter(
-                'markdown',
-                array($this, 'markdownFilter'),
-                array('is_safe' => array('html'))
-            ),
-            'map' => new Twig_SimpleFilter('map', array($this, 'mapFilter')),
-            'sort_by' => new Twig_SimpleFilter('sort_by', array($this, 'sortByFilter')),
-            'link' => new Twig_SimpleFilter('link', array($this->pico, 'getPageUrl')),
-            'url' => new Twig_SimpleFilter('url', array($this->pico, 'substituteUrl'))
-        );
+        return [
+            'markdown' => new TwigFilter('markdown', [ $this, 'markdownFilter' ], [ 'is_safe' => [ 'html' ] ]),
+            'sort_by' => new TwigFilter('sort_by', [ $this, 'sortByFilter' ]),
+            'link' => new TwigFilter('link', [ $this->pico, 'getPageUrl' ]),
+            'url' => new TwigFilter('url', [ $this->pico, 'substituteUrl' ]),
+        ];
     }
 
     /**
      * Returns a list of Pico-specific Twig functions
      *
-     * @see Twig_ExtensionInterface::getFunctions()
+     * @see TwigExtensionInterface::getFunctions()
      *
-     * @return Twig_SimpleFunction[] array of Pico's Twig functions
+     * @return TwigFunction[] array of Pico's Twig functions
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            'url_param' => new Twig_SimpleFunction('url_param', array($this, 'urlParamFunction')),
-            'form_param' => new Twig_SimpleFunction('form_param', array($this, 'formParamFunction')),
-            'pages' => new Twig_SimpleFunction('pages', array($this, 'pagesFunction'))
-        );
+        return [
+            'url_param' => new TwigFunction('url_param', [ $this, 'urlParamFunction' ]),
+            'form_param' => new TwigFunction('form_param', [ $this, 'formParamFunction' ]),
+            'page' => new TwigFunction('page', [ $this, 'pageFunction' ]),
+            'pages' => new TwigFunction('pages', [ $this, 'pagesFunction' ]),
+        ];
     }
 
     /**
@@ -111,48 +115,16 @@ class PicoTwigExtension extends Twig_Extension
      * @see Pico::substituteFileContent()
      * @see Pico::parseFileContent()
      *
-     * @param string $markdown   markdown to parse
-     * @param array  $meta       meta data to use for %meta.*% replacement
-     * @param bool   $singleLine whether to parse just a single line of markup
+     * @param string|null $markdown   markdown to parse
+     * @param array       $meta       meta data to use for %meta.*% replacement
+     * @param bool        $singleLine whether to parse a single line of markup
      *
      * @return string parsed HTML
      */
-    public function markdownFilter($markdown, array $meta = array(), $singleLine = false)
+    public function markdownFilter(?string $markdown, array $meta = [], bool $singleLine = false): string
     {
-        $markdown = $this->getPico()->substituteFileContent($markdown, $meta);
+        $markdown = $this->getPico()->substituteFileContent($markdown ?? '', $meta);
         return $this->getPico()->parseFileContent($markdown, $singleLine);
-    }
-
-    /**
-     * Returns a array with the values of the given key or key path
-     *
-     * This method is registered as the Twig `map` filter. You can use this
-     * filter to e.g. get all page titles (`{{ pages|map("title") }}`).
-     *
-     * @param array|Traversable $var        variable to map
-     * @param mixed             $mapKeyPath key to map; either a scalar or a
-     *     array interpreted as key path (i.e. ['foo', 'bar'] will return all
-     *     $item['foo']['bar'] values)
-     *
-     * @return array mapped values
-     *
-     * @throws Twig_Error_Runtime
-     */
-    public function mapFilter($var, $mapKeyPath)
-    {
-        if (!is_array($var) && (!is_object($var) || !($var instanceof Traversable))) {
-            throw new Twig_Error_Runtime(sprintf(
-                'The map filter only works with arrays or "Traversable", got "%s"',
-                is_object($var) ? get_class($var) : gettype($var)
-            ));
-        }
-
-        $result = array();
-        foreach ($var as $key => $value) {
-            $mapValue = $this->getKeyOfVar($value, $mapKeyPath);
-            $result[$key] = ($mapValue !== null) ? $mapValue : $value;
-        }
-        return $result;
     }
 
     /**
@@ -178,27 +150,27 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @return array sorted array
      *
-     * @throws Twig_Error_Runtime
+     * @throws TwigRuntimeError
      */
-    public function sortByFilter($var, $sortKeyPath, $fallback = 'bottom')
+    public function sortByFilter($var, $sortKeyPath, string $fallback = 'bottom'): array
     {
         if (is_object($var) && ($var instanceof Traversable)) {
             $var = iterator_to_array($var, true);
         } elseif (!is_array($var)) {
-            throw new Twig_Error_Runtime(sprintf(
+            throw new TwigRuntimeError(sprintf(
                 'The sort_by filter only works with arrays or "Traversable", got "%s"',
                 is_object($var) ? get_class($var) : gettype($var)
             ));
         }
         if (($fallback !== 'top') && ($fallback !== 'bottom') && ($fallback !== 'keep') && ($fallback !== "remove")) {
-            throw new Twig_Error_Runtime(
+            throw new TwigRuntimeError(
                 'The sort_by filter only supports the "top", "bottom", "keep" and "remove" fallbacks'
             );
         }
 
         $twigExtension = $this;
         $varKeys = array_keys($var);
-        $removeItems = array();
+        $removeItems = [];
         uksort($var, function ($a, $b) use ($twigExtension, $var, $varKeys, $sortKeyPath, $fallback, &$removeItems) {
             $aSortValue = $twigExtension->getKeyOfVar($var[$a], $sortKeyPath);
             $aSortValueNull = ($aSortValue === null);
@@ -245,8 +217,8 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @param array|Traversable|ArrayAccess|object $var     base variable
      * @param mixed                                $keyPath scalar key or a
-     *     array interpreted as key path (when passing e.g. ['foo', 'bar'],
-     *     the method will return $var['foo']['bar']) specifying the value
+     *     array interpreted as key path (when passing e.g. ['foo', 'bar'], the
+     *     method will return $var['foo']['bar']) specifying the value
      *
      * @return mixed the requested value or NULL when the given key or key path
      *     didn't match
@@ -256,7 +228,7 @@ class PicoTwigExtension extends Twig_Extension
         if (!$keyPath) {
             return null;
         } elseif (!is_array($keyPath)) {
-            $keyPath = array($keyPath);
+            $keyPath = [ $keyPath ];
         }
 
         foreach ($keyPath as $key) {
@@ -268,9 +240,9 @@ class PicoTwigExtension extends Twig_Extension
                 } elseif (isset($var->{$key})) {
                     $var = $var->{$key};
                     continue;
-                } elseif (is_callable(array($var, 'get' . ucfirst($key)))) {
+                } elseif (is_callable([ $var, 'get' . ucfirst($key) ])) {
                     try {
-                        $var = call_user_func(array($var, 'get' . ucfirst($key)));
+                        $var = call_user_func([ $var, 'get' . ucfirst($key) ]);
                         continue;
                     } catch (BadMethodCallException $e) {
                         return null;
@@ -312,7 +284,7 @@ class PicoTwigExtension extends Twig_Extension
      *     NULL if the URL GET parameter doesn't exist and no default value is
      *     given
      */
-    public function urlParamFunction($name, $filter = '', $options = null, $flags = null)
+    public function urlParamFunction(string $name, $filter = '', $options = null, $flags = null)
     {
         $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
         if (!$filter || ($filter === FILTER_CALLBACK)) {
@@ -341,7 +313,7 @@ class PicoTwigExtension extends Twig_Extension
      *     NULL if the HTTP POST parameter doesn't exist and no default value
      *     is given
      */
-    public function formParamFunction($name, $filter = '', $options = null, $flags = null)
+    public function formParamFunction(string $name, $filter = '', $options = null, $flags = null)
     {
         $filter = $filter ? (is_string($filter) ? filter_id($filter) : (int) $filter) : false;
         if (!$filter || ($filter === FILTER_CALLBACK)) {
@@ -349,6 +321,19 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         return $this->pico->getFormParameter($name, $filter, $options, $flags);
+    }
+
+    /**
+     * Returns the data of a single page
+     *
+     * @param string $id identifier of the page to return
+     *
+     * @return array|null the data of the page, or NULL
+     */
+    public function pageFunction(string $id): ?array
+    {
+        $pages = $this->getPico()->getPages();
+        return $pages[$id] ?? null;
     }
 
     /**
@@ -399,7 +384,7 @@ class PicoTwigExtension extends Twig_Extension
      * returns Pico's full pages array.
      *
      * If `$depth` is negative after taking `$offset` into consideration, the
-     * function will throw a {@see Twig_Error_Runtime} exception, since this
+     * function will throw a {@see TwigRuntimeError} exception, since this
      * would simply make no sense and is likely an error. Passing a negative
      * `$depthOffset` is equivalent to passing `$depthOffset = 0`.
      *
@@ -421,9 +406,9 @@ class PicoTwigExtension extends Twig_Extension
      *
      * @return array[] the data of the matched pages
      *
-     * @throws Twig_Error_Runtime
+     * @throws TwigRuntimeError
      */
-    public function pagesFunction($start = '', $depth = 0, $depthOffset = 0, $offset = 1)
+    public function pagesFunction(string $start = '', ?int $depth = 0, int $depthOffset = 0, int $offset = 1): array
     {
         $start = (string) $start;
         if (basename($start) === 'index') {
@@ -431,7 +416,7 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         for (; $offset < 0; $offset++) {
-            if (in_array($start, array('', '.', '/'), true)) {
+            if (in_array($start, [ '', '.', '/' ], true)) {
                 $offset = 0;
                 break;
             }
@@ -443,11 +428,11 @@ class PicoTwigExtension extends Twig_Extension
         $depthOffset = $depthOffset + $offset;
 
         if (($depth !== null) && ($depth < 0)) {
-            throw new Twig_Error_Runtime('The pages function doesn\'t support negative depths');
+            throw new TwigRuntimeError('The pages function doesn\'t support negative depths');
         }
 
         $pageTree = $this->getPico()->getPageTree();
-        if (in_array($start, array('', '.', '/'), true)) {
+        if (in_array($start, [ '', '.', '/' ], true)) {
             if (($depth === null) && ($depthOffset <= 0)) {
                 return $this->getPico()->getPages();
             }
@@ -461,11 +446,11 @@ class PicoTwigExtension extends Twig_Extension
         }
 
         if (!$startNode) {
-            return array();
+            return [];
         }
 
         $getPagesClosure = function ($nodes, $depth, $depthOffset) use (&$getPagesClosure) {
-            $pages = array();
+            $pages = [];
             foreach ($nodes as $node) {
                 if (isset($node['page']) && ($depthOffset <= 0)) {
                     $pages[$node['page']['id']] = &$node['page'];
@@ -479,7 +464,7 @@ class PicoTwigExtension extends Twig_Extension
         };
 
         return $getPagesClosure(
-            array($startNode),
+            [ $startNode ],
             ($depth !== null) ? $depth : INF,
             $depthOffset
         );

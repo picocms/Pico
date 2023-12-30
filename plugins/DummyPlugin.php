@@ -10,6 +10,11 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
+use Symfony\Component\Yaml\Parser as YamlParser;
+use Twig\Environment as TwigEnvironment;
+
 /**
  * Pico dummy plugin - a template for plugins
  *
@@ -17,9 +22,9 @@
  * Simply remove the events you don't need and add your own logic.
  *
  * @author  Daniel Rudolf
- * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT The MIT License
- * @version 2.1
+ * @link    https://picocms.org
+ * @license https://opensource.org/licenses/MIT The MIT License
+ * @version 3.0
  */
 class DummyPlugin extends AbstractPicoPlugin
 {
@@ -28,7 +33,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @var int
      */
-    const API_VERSION = 3;
+    public const API_VERSION = 4;
 
     /**
      * This plugin is disabled by default
@@ -36,8 +41,8 @@ class DummyPlugin extends AbstractPicoPlugin
      * Usually you should remove this class property (or set it to NULL) to
      * leave the decision whether this plugin should be enabled or disabled by
      * default up to Pico. If all the plugin's dependenies are fulfilled (see
-     * {@see DummyPlugin::$dependsOn}), Pico enables the plugin by default.
-     * Otherwise the plugin is silently disabled.
+     * {@see self::$dependsOn}), Pico enables the plugin by default. Otherwise
+     * the plugin is silently disabled.
      *
      * If this plugin should never be disabled *silently* (e.g. when dealing
      * with security-relevant stuff like access control, or similar), set this
@@ -80,7 +85,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param object[] $plugins loaded plugin instances
      */
-    public function onPluginsLoaded(array $plugins)
+    public function onPluginsLoaded(array $plugins): void
     {
         // your code
     }
@@ -94,7 +99,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param object $plugin loaded plugin instance
      */
-    public function onPluginManuallyLoaded($plugin)
+    public function onPluginManuallyLoaded(object $plugin): void
     {
         // your code
     }
@@ -108,7 +113,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param array &$config array of config variables
      */
-    public function onConfigLoaded(array &$config)
+    public function onConfigLoaded(array &$config): void
     {
         // your code
     }
@@ -121,7 +126,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$theme name of current theme
      */
-    public function onThemeLoading(&$theme)
+    public function onThemeLoading(string &$theme): void
     {
         // your code
     }
@@ -137,7 +142,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param int    $themeApiVersion API version of the theme
      * @param array  &$themeConfig    config array of the theme
      */
-    public function onThemeLoaded($theme, $themeApiVersion, array &$themeConfig)
+    public function onThemeLoaded(string $theme, int $themeApiVersion, array &$themeConfig): void
     {
         // your code
     }
@@ -149,7 +154,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$url part of the URL describing the requested contents
      */
-    public function onRequestUrl(&$url)
+    public function onRequestUrl(string &$url): void
     {
         // your code
     }
@@ -162,7 +167,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$file absolute path to the content file to serve
      */
-    public function onRequestFile(&$file)
+    public function onRequestFile(string &$file): void
     {
         // your code
     }
@@ -173,7 +178,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::loadFileContent()
      * @see DummyPlugin::onContentLoaded()
      */
-    public function onContentLoading()
+    public function onContentLoading(): void
     {
         // your code
     }
@@ -184,7 +189,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::load404Content()
      * @see DummyPlugin::on404ContentLoaded()
      */
-    public function on404ContentLoading()
+    public function on404ContentLoading(): void
     {
         // your code
     }
@@ -198,7 +203,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$rawContent raw file contents
      */
-    public function on404ContentLoaded(&$rawContent)
+    public function on404ContentLoaded(string &$rawContent): void
     {
         // your code
     }
@@ -216,7 +221,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$rawContent raw file contents
      */
-    public function onContentLoaded(&$rawContent)
+    public function onContentLoaded(string &$rawContent): void
     {
         // your code
     }
@@ -227,7 +232,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see Pico::parseFileMeta()
      * @see DummyPlugin::onMetaParsed()
      */
-    public function onMetaParsing()
+    public function onMetaParsing(): void
     {
         // your code
     }
@@ -240,7 +245,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string[] &$meta parsed meta data
      */
-    public function onMetaParsed(array &$meta)
+    public function onMetaParsed(array &$meta): void
     {
         // your code
     }
@@ -253,7 +258,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onContentPrepared()
      * @see DummyPlugin::onContentParsed()
      */
-    public function onContentParsing()
+    public function onContentParsing(): void
     {
         // your code
     }
@@ -267,7 +272,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$markdown Markdown contents of the requested page
      */
-    public function onContentPrepared(&$markdown)
+    public function onContentPrepared(string &$markdown): void
     {
         // your code
     }
@@ -281,7 +286,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$content parsed contents (HTML) of the requested page
      */
-    public function onContentParsed(&$content)
+    public function onContentParsed(string &$content): void
     {
         // your code
     }
@@ -292,7 +297,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @see DummyPlugin::onPagesDiscovered()
      * @see DummyPlugin::onPagesLoaded()
      */
-    public function onPagesLoading()
+    public function onPagesLoading(): void
     {
         // your code
     }
@@ -313,7 +318,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param bool|null $skipPage set this to TRUE to remove this page from the
      *     pages array, otherwise leave it unchanged
      */
-    public function onSinglePageLoading($id, &$skipPage)
+    public function onSinglePageLoading(string $id, ?bool &$skipPage): void
     {
         // your code
     }
@@ -331,7 +336,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string $id          relative path to the content file
      * @param string &$rawContent raw file contents
      */
-    public function onSinglePageContent($id, &$rawContent)
+    public function onSinglePageContent(string $id, string &$rawContent): void
     {
         // your code
     }
@@ -347,7 +352,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param array &$pageData data of the loaded page
      */
-    public function onSinglePageLoaded(array &$pageData)
+    public function onSinglePageLoaded(array &$pageData): void
     {
         // your code
     }
@@ -365,7 +370,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param array[] &$pages list of all known pages
      */
-    public function onPagesDiscovered(array &$pages)
+    public function onPagesDiscovered(array &$pages): void
     {
         // your code
     }
@@ -383,7 +388,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param array[] &$pages sorted list of all known pages
      */
-    public function onPagesLoaded(array &$pages)
+    public function onPagesLoaded(array &$pages): void
     {
         // your code
     }
@@ -408,7 +413,7 @@ class DummyPlugin extends AbstractPicoPlugin
         array &$currentPage = null,
         array &$previousPage = null,
         array &$nextPage = null
-    ) {
+    ): void {
         // your code
     }
 
@@ -422,7 +427,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param  array  &$pageTree page tree
      */
-    public function onPageTreeBuilt(array &$pageTree)
+    public function onPageTreeBuilt(array &$pageTree): void
     {
         // your code
     }
@@ -435,7 +440,7 @@ class DummyPlugin extends AbstractPicoPlugin
      * @param string &$templateName  file name of the template
      * @param array  &$twigVariables template variables
      */
-    public function onPageRendering(&$templateName, array &$twigVariables)
+    public function onPageRendering(string &$templateName, array &$twigVariables): void
     {
         // your code
     }
@@ -447,7 +452,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param string &$output contents which will be sent to the user
      */
-    public function onPageRendered(&$output)
+    public function onPageRendered(string &$output): void
     {
         // your code
     }
@@ -461,7 +466,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *     key specifies the YAML key to search for, the array value is later
      *     used to access the found value
      */
-    public function onMetaHeaders(array &$headers)
+    public function onMetaHeaders(array &$headers): void
     {
         // your code
     }
@@ -471,9 +476,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::getYamlParser()
      *
-     * @param \Symfony\Component\Yaml\Parser &$yamlParser YAML parser instance
+     * @param YamlParser &$yamlParser YAML parser instance
      */
-    public function onYamlParserRegistered(\Symfony\Component\Yaml\Parser &$yamlParser)
+    public function onYamlParserRegistered(YamlParser &$yamlParser): void
     {
         // your code
     }
@@ -485,7 +490,7 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @param Parsedown &$parsedown Parsedown instance
      */
-    public function onParsedownRegistered(Parsedown &$parsedown)
+    public function onParsedownRegistered(Parsedown &$parsedown): void
     {
         // your code
     }
@@ -495,9 +500,9 @@ class DummyPlugin extends AbstractPicoPlugin
      *
      * @see Pico::getTwig()
      *
-     * @param Twig_Environment &$twig Twig instance
+     * @param TwigEnvironment &$twig Twig instance
      */
-    public function onTwigRegistered(Twig_Environment &$twig)
+    public function onTwigRegistered(TwigEnvironment &$twig): void
     {
         // your code
     }

@@ -9,4 +9,3 @@
 /.gitignore         export-ignore
 /.phpcs.xml         export-ignore
 /.phpdoc.xml        export-ignore
-/.travis.yml        export-ignore

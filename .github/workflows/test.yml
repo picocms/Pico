@@ -1,0 +1,52 @@
+name: Test Pico CMS
+
+on:
+    push:
+        branches:
+            - 'master'
+            - 'pico-3.0'
+        tags: [ 'v*.*.*' ]
+    workflow_call: {}
+
+jobs:
+    test:
+        name: PHP ${{ matrix.PHP_VERSION }}
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        strategy:
+            matrix:
+                PHP_VERSION:
+                    - '7.2'
+                    - '7.3'
+                    - '7.4'
+                    - '8.0'
+                    - '8.1'
+                    - 'nightly'
+            fail-fast: false
+
+        continue-on-error: ${{ matrix.PHP_VERSION == 'nightly' }}
+
+        env:
+            PHP_VERSION: ${{ matrix.PHP_VERSION }}
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v2
+
+            -   name: Install Pico CMS
+                uses: ./.github/actions/install
+                with:
+                    php-version: ${{ env.PHP_VERSION }}
+                    php-tools: phpcs
+
+            -   name: Check Pico version
+                if: ${{ github.ref_type == 'tag' }}
+                run: |
+                    [ "$GITHUB_REF_NAME" == "v$PICO_VERSION" ]
+
+            -   name: Run PHP_CodeSniffer
+                run: |
+                    phpcs --standard=.phpcs.xml

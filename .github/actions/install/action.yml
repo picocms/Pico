@@ -1,0 +1,77 @@
+name: Install Pico CMS
+description: Install Pico CMS to the current working directory
+
+inputs:
+    path:
+        description: Install Pico CMS in directory.
+        required: false
+        default: .
+    php-version:
+        description: PHP version to setup.
+        required: true
+    php-tools:
+        description: Setup additional PHP tools.
+        required: false
+
+runs:
+    using: "composite"
+    steps:
+        -   name: Setup PHP ${{ inputs.php-version }}
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: ${{ inputs.php-version }}
+                tools: composer, ${{ inputs.php-tools }}
+
+        -   name: Setup Composer auth
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                composer config --global github-oauth.github.com "${{ github.token }}"
+
+        -   name: Get Composer cache directory
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"
+                echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
+
+        -   name: Restore Composer cache
+            uses: actions/cache@v2
+            with:
+                path: ${{ env.COMPOSER_CACHE_DIR }}
+                key: ${{ runner.os }}-composer-php${{ inputs.php-version }}
+                restore-keys: |
+                    ${{ runner.os }}-composer-
+
+        -   name: Setup Composer root version
+            if: ${{ github.ref_type == 'branch' }}
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                COMPOSER_ROOT_VERSION=
+
+                COMPOSER_ROOT_VERSION="$(composer config \
+                    extra.branch-alias."dev-${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" \
+                    2> /dev/null || true)"
+
+                if [ -z "$COMPOSER_ROOT_VERSION" ]; then
+                    COMPOSER_ROOT_VERSION="$(php -r "
+                        require('./lib/Pico.php');
+                        echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
+                    ")"
+                fi
+
+                echo "COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION" | tee -a "$GITHUB_ENV"
+
+        -   name: Install Composer dependencies
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                composer install
+
+        -   name: Read Pico version
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
+                echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
