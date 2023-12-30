@@ -1940,7 +1940,7 @@ class Pico
      */
     protected function discoverPageSiblings(): void
     {
-        if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
+        if (($this->getConfig('pages_order_by') === 'date') && ($this->getConfig('pages_order') === 'desc')) {
             $precedingPageKey = 'next_page';
             $succeedingPageKey = 'previous_page';
         } else {
