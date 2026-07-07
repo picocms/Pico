@@ -10,8 +10,8 @@ jobs:
       - uses: actions/stale@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          days-before-stale: 7
-          days-before-close: 2
+          days-before-stale: 14
+          days-before-close: 7
           days-before-pr-stale: 30
           days-before-pr-close: -1
           stale-issue-message: >
