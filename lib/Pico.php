@@ -307,7 +307,7 @@ class Pico
      * Twig instance used for template parsing
      *
      * @see Pico::getTwig()
-     * @var Twig_Environment|null
+     * @var \TwigEnvironment|null
      */
     protected $twig;
 
@@ -2095,19 +2095,19 @@ class Pico
      * @see https://twig.symfony.com/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
-     * @return Twig_Environment|null Twig template engine
+     * @return \TwigEnvironment|null Twig template engine
      */
     public function getTwig()
     {
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
-            $this->twig = new Twig_Environment($twigLoader, $twigConfig);
+            $twigLoader = new \Twig\Loader\FilesystemLoader($this->getThemesDir() . $this->getTheme());
+            $this->twig = new \Twig\Environment($twigLoader, $twigConfig);
             $this->twig->addExtension(new PicoTwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
-                $this->twig->addExtension(new Twig_Extension_Debug());
+                $this->twig->addExtension(new \Twig\Extension\DebugExtension());
             }
 
             // register content filter
@@ -2115,7 +2115,7 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new Twig_SimpleFilter(
+            $this->twig->addFilter(new \Twig\TwigFilter(
                 'content',
                 function ($page) use ($pico, &$pages) {
                     if (isset($pages[$page])) {
@@ -2156,7 +2156,7 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => new Twig_Markup($this->content, 'UTF-8'),
+            'content' => new \Twig\Markup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
