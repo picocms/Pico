@@ -1,0 +1,44 @@
+name: Setup Pico CMS build environment
+description: Sets up the PHP build environment to install Pico CMS.
+
+inputs:
+    path:
+        description: Pico CMS source directory.
+        required: false
+        default: .
+    php-version:
+        description: PHP version to install.
+        required: true
+    php-tools:
+        description: Install additional PHP tools.
+        required: false
+
+runs:
+    using: "composite"
+    steps:
+        -   name: Setup PHP ${{ inputs.php-version }}
+            uses: shivammathur/setup-php@v2
+            with:
+                php-version: ${{ inputs.php-version }}
+                tools: composer, ${{ inputs.php-tools }}
+
+        -   name: Setup Composer auth
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                composer config --global github-oauth.github.com "${{ github.token }}"
+
+        -   name: Get Composer cache directory
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                COMPOSER_CACHE_DIR="$(composer config --global cache-dir)"
+                echo "COMPOSER_CACHE_DIR=$COMPOSER_CACHE_DIR" | tee -a "$GITHUB_ENV"
+
+        -   name: Restore Composer cache
+            uses: actions/cache@v5
+            with:
+                path: ${{ env.COMPOSER_CACHE_DIR }}
+                key: ${{ runner.os }}-composer-php${{ inputs.php-version }}
+                restore-keys: |
+                    ${{ runner.os }}-composer-

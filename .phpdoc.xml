@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<phpdocumentor>
-    <title><![CDATA[Pico API Documentation]]></title>
-    <parser>
-        <target>.build/phpdoc.cache</target>
-    </parser>
-    <transformer>
-        <target>.build/phpdoc</target>
-    </transformer>
-    <transformations>
-        <template name="clean"/>
-    </transformations>
-    <files>
-        <directory>.</directory>
-        <file>index.php</file>
-        <file>index.php.dist</file>
-
-        <!-- exclude .build and .github directories -->
-        <ignore>.build/*</ignore>
-        <ignore>.github/*</ignore>
-
-        <!-- exclude user config -->
-        <ignore>config/*</ignore>
-        <file>config/config.yml.template</file>
-
-        <!-- exclude all plugins -->
-        <ignore>plugins/*</ignore>
-        <file>plugins/DummyPlugin.php</file>
-
-        <!-- exclude vendor dir -->
-        <ignore>vendor/*</ignore>
-    </files>
+<phpdocumentor
+        configVersion="3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://www.phpdoc.org"
+        xsi:noNamespaceSchemaLocation="data/xsd/phpdoc.xsd"
+>
+    <paths>
+        <output>.build/phpdoc</output>
+        <cache>.build/phpdoc.cache</cache>
+    </paths>
+    <version number="3.0.0">
+        <api>
+            <source dsn=".">
+                <path>.</path>
+            </source>
+            <ignore hidden="true" symlinks="true">
+                <path>.build/**/*</path>
+                <path>.github/**/*</path>
+                <path>vendor/**/*</path>
+            </ignore>
+            <extensions>
+                <extension>php</extension>
+                <extension>php.dist</extension>
+            </extensions>
+            <visibility>public</visibility>
+            <include-source>true</include-source>
+            <default-package-name>Pico</default-package-name>
+        </api>
+    </version>
+    <template name="default"/>
 </phpdocumentor>

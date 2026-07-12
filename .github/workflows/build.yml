@@ -1,0 +1,51 @@
+name: Build Pico CMS
+
+on:
+    push:
+        branches:
+            - 'master'
+            - 'pico-3.0'
+        tags: [ 'v*.*.*' ]
+    workflow_call: {}
+
+jobs:
+    build:
+        name: Build Pico CMS
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        env:
+            PHP_VERSION: '7.2'
+
+        steps:
+            -   name: Checkout repository
+                uses: actions/checkout@v6
+
+            -   name: Setup Pico CMS build environment
+                uses: ./.github/actions/setup
+                with:
+                    php-version: ${{ env.PHP_VERSION }}
+
+            -   name: Prepare Pico release
+                if: ${{ github.ref_type == 'tag' }}
+                env:
+                    PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+                run: |
+                    echo "PICO_VERSION=$GITHUB_REF_NAME" | tee -a "$GITHUB_ENV"
+                    echo "PICO_PUBLISH=${PERSONAL_ACCESS_TOKEN:+y}" | tee -a "$GITHUB_ENV"
+                    echo "GH_TOKEN=${PERSONAL_ACCESS_TOKEN:-}" | tee -a "$GITHUB_ENV"
+
+            -   name: Build Pico release packages
+                run: |
+                    ./.build/build.sh ${PICO_PUBLISH:+--publish} ${PICO_VERSION:-}
+
+            -   name: Upload Pico release packages
+                uses: actions/upload-artifact@v4
+                with:
+                    name: pico-release
+                    path: |
+                        pico-release-*.tar.gz
+                        pico-release-*.zip
+                    compression-level: 0
