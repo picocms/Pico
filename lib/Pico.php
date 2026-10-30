@@ -972,6 +972,41 @@ class Pico
             'plugins_url' => null,
         ];
 
+        // normalize string options; YAML users may explicitly set e.g.
+        // `pages_order: ~`, what yields NULL and would break strict typed
+        // internal functions (e.g. `strtolower()`) on PHP 8
+        $stringConfigKeys = [
+            'site_title',
+            'theme',
+            'date_format',
+            'pages_order_by_meta',
+            'pages_order_by',
+            'pages_order',
+            'content_ext',
+            'assets_dir',
+        ];
+        foreach ($stringConfigKeys as $configKey) {
+            if (is_scalar($this->config[$configKey])) {
+                $this->config[$configKey] = (string) $this->config[$configKey];
+            } else {
+                $this->config[$configKey] = '';
+            }
+        }
+        $defaultStringConfig = [
+            'site_title' => 'Pico',
+            'theme' => 'default',
+            'date_format' => '%D %T',
+            'pages_order_by_meta' => 'author',
+            'pages_order_by' => 'alpha',
+            'pages_order' => 'asc',
+            'content_ext' => '.md',
+        ];
+        foreach ($defaultStringConfig as $configKey => $defaultValue) {
+            if ($this->config[$configKey] === '') {
+                $this->config[$configKey] = $defaultValue;
+            }
+        }
+
         if (!$this->config['base_url']) {
             $this->config['base_url'] = $this->getBaseUrl();
         } else {
@@ -1125,8 +1160,9 @@ class Pico
         ];
 
         // theme API version
-        if (is_int($themeConfig['api_version']) || preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
-            $this->themeApiVersion = (int) $themeConfig['api_version'];
+        $themeApiVersion = $themeConfig['api_version'];
+        if (is_int($themeApiVersion) || (is_string($themeApiVersion) && preg_match('/^[0-9]+$/', $themeApiVersion))) {
+            $this->themeApiVersion = (int) $themeApiVersion;
         } else {
             $this->themeApiVersion = 0;
         }
@@ -1530,28 +1566,36 @@ class Pico
                     $meta['date'] = '';
                 }
 
+                // normalize non-scalar values (e.g. an array passed by mistake) to
+                // avoid type errors of PHP's string and date functions
+                $meta['date'] = is_scalar($meta['date']) ? (string) $meta['date'] : '';
+                $meta['time'] = is_scalar($meta['time']) ? $meta['time'] : '';
+
                 if (empty($meta['time'])) {
                     $meta['time'] = strtotime($meta['date']) ?: '';
-                } elseif (empty($meta['date'])) {
-                    $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
-                    $meta['date'] = date($rawDateFormat, $meta['time']);
+                } else {
+                    $meta['time'] = is_numeric($meta['time']) ? (int) $meta['time'] : strtotime($meta['time']);
+                    $meta['time'] = $meta['time'] ?: '';
+
+                    if (empty($meta['date']) && $meta['time']) {
+                        $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
+                        $meta['date'] = date($rawDateFormat, $meta['time']);
+                    }
                 }
             } else {
                 $meta['date'] = $meta['time'] = '';
             }
 
+            if ($meta['date_formatted'] && !is_scalar($meta['date_formatted'])) {
+                $meta['date_formatted'] = '';
+            }
+
             if (empty($meta['date_formatted'])) {
                 if ($meta['time']) {
-                    $encodingList = mb_detect_order();
-                    if ($encodingList === array('ASCII', 'UTF-8')) {
-                        $encodingList[] = 'Windows-1252';
-                    }
-
-                    // phpcs:disable Generic.PHP.DeprecatedFunctions
-                    $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
-                    // phpcs:enable
-
-                    $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
+                    $meta['date_formatted'] = $this->formatDate(
+                        (string) $this->getConfig('date_format'),
+                        (int) $meta['time']
+                    );
                 } else {
                     $meta['date_formatted'] = '';
                 }
@@ -1562,6 +1606,234 @@ class Pico
         }
 
         return $meta;
+    }
+
+    /**
+     * Formats a timestamp using a `strftime()` compatible format string
+     *
+     * PHP 8.1 deprecated `strftime()` and PHP 9 is going to remove it, thus
+     * Pico formats dates on its own. The format string follows the semantics
+     * of `strftime()` (and the C library function it wraps), so that existing
+     * `date_format` config values keep working. Locale-dependent names (e.g.
+     * `%a`, `%A`, `%b`, `%B` and `%p`) are taken from the locale set with
+     * Pico's `locale` config option, provided that PHP's `intl` extension is
+     * available; otherwise Pico falls back to the C locale (i.e. English).
+     *
+     * @see Pico::parseFileMeta()
+     * @see https://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html
+     *
+     * @param string $format    `strftime()` compatible format string
+     * @param int    $timestamp timestamp to format
+     *
+     * @return string formatted date
+     */
+    public function formatDate(string $format, int $timestamp): string
+    {
+        $dateTime = (new DateTimeImmutable('@' . $timestamp))
+            ->setTimezone(new DateTimeZone(date_default_timezone_get()));
+
+        $result = '';
+        $formatLength = strlen($format);
+        for ($i = 0; $i < $formatLength; $i++) {
+            if ($format[$i] !== '%') {
+                $result .= $format[$i];
+                continue;
+            }
+
+            $i++;
+            if ($i >= $formatLength) {
+                $result .= '%';
+                break;
+            }
+
+            // skip alternate representation modifiers (e.g. "%Ec" or "%Od")
+            if (($format[$i] === 'E') || ($format[$i] === 'O')) {
+                $i++;
+                if ($i >= $formatLength) {
+                    break;
+                }
+            }
+
+            $result .= $this->formatDateDirective($format[$i], $dateTime, $timestamp);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Formats a single `strftime()` conversion specification
+     *
+     * @see Pico::formatDate()
+     *
+     * @param string            $directive conversion specifier (e.g. "Y")
+     * @param DateTimeImmutable $dateTime  date to format
+     * @param int               $timestamp timestamp of the date to format
+     *
+     * @return string formatted conversion specification
+     */
+    protected function formatDateDirective(string $directive, DateTimeImmutable $dateTime, int $timestamp): string
+    {
+        switch ($directive) {
+            case 'a':
+                return $this->formatDateLocaleName('ccc', $dateTime, $dateTime->format('D'));
+            case 'A':
+                return $this->formatDateLocaleName('cccc', $dateTime, $dateTime->format('l'));
+            case 'b':
+            case 'h':
+                return $this->formatDateLocaleName('LLL', $dateTime, $dateTime->format('M'));
+            case 'B':
+                return $this->formatDateLocaleName('LLLL', $dateTime, $dateTime->format('F'));
+            case 'c':
+                return $this->formatDate('%a %b %e %H:%M:%S %Y', $timestamp);
+            case 'C':
+                return sprintf('%02d', intdiv((int) $dateTime->format('Y'), 100));
+            case 'd':
+                return $dateTime->format('d');
+            case 'D':
+                return $dateTime->format('m/d/y');
+            case 'e':
+                return sprintf('%2d', (int) $dateTime->format('j'));
+            case 'F':
+                return $dateTime->format('Y-m-d');
+            case 'g':
+                return substr($dateTime->format('o'), -2);
+            case 'G':
+                return $dateTime->format('o');
+            case 'H':
+                return $dateTime->format('H');
+            case 'I':
+                return $dateTime->format('h');
+            case 'j':
+                return sprintf('%03d', ((int) $dateTime->format('z')) + 1);
+            case 'k':
+                return sprintf('%2d', (int) $dateTime->format('G'));
+            case 'l':
+                return sprintf('%2d', (int) $dateTime->format('g'));
+            case 'm':
+                return $dateTime->format('m');
+            case 'M':
+                return $dateTime->format('i');
+            case 'n':
+                return "\n";
+            case 'p':
+                return $this->formatDateLocaleName('a', $dateTime, $dateTime->format('A'));
+            case 'P':
+                return strtolower($this->formatDateLocaleName('a', $dateTime, $dateTime->format('A')));
+            case 'r':
+                return $this->formatDate('%I:%M:%S %p', $timestamp);
+            case 'R':
+                return $dateTime->format('H:i');
+            case 's':
+                return (string) $timestamp;
+            case 'S':
+                return $dateTime->format('s');
+            case 't':
+                return "\t";
+            case 'T':
+                return $dateTime->format('H:i:s');
+            case 'u':
+                return $dateTime->format('N');
+            case 'U':
+                return sprintf('%02d', $this->getWeekNumber($dateTime, false));
+            case 'V':
+                return $dateTime->format('W');
+            case 'w':
+                return $dateTime->format('w');
+            case 'W':
+                return sprintf('%02d', $this->getWeekNumber($dateTime, true));
+            case 'x':
+                return $dateTime->format('m/d/y');
+            case 'X':
+                return $dateTime->format('H:i:s');
+            case 'y':
+                return $dateTime->format('y');
+            case 'Y':
+                return $dateTime->format('Y');
+            case 'z':
+                return $dateTime->format('O');
+            case 'Z':
+                return $dateTime->format('T');
+            case '%':
+                return '%';
+            default:
+                return '%' . $directive;
+        }
+    }
+
+    /**
+     * Calculates a week number according to `strftime()`'s `%U` and `%W`
+     * conversion specifications
+     *
+     * `%U` counts the weeks of the year with Sunday as the first day of the
+     * week, `%W` uses Monday instead. Both count the days before the first
+     * Sunday resp. Monday as week 0.
+     *
+     * @see Pico::formatDateDirective()
+     *
+     * @param DateTimeImmutable $dateTime  date to calculate the week number for
+     * @param bool              $mondayFirst whether weeks start on Monday
+     *
+     * @return int week number
+     */
+    protected function getWeekNumber(DateTimeImmutable $dateTime, bool $mondayFirst): int
+    {
+        $dayOfYear = (int) $dateTime->format('z');
+        $weekDay = (int) $dateTime->format('w');
+        if ($mondayFirst) {
+            $weekDay = ($weekDay + 6) % 7;
+        }
+
+        return intdiv($dayOfYear + 7 - $weekDay, 7);
+    }
+
+    /**
+     * Returns a locale-dependent date name (e.g. month names)
+     *
+     * This method uses PHP's `intl` extension and the locale set with Pico's
+     * `locale` config option, if available. It returns the given fallback
+     * value otherwise.
+     *
+     * @see Pico::formatDateDirective()
+     *
+     * @param string            $pattern  ICU date pattern to format
+     * @param DateTimeImmutable $dateTime date to format
+     * @param string            $fallback value to return if `intl` is missing
+     *
+     * @return string formatted date name
+     */
+    protected function formatDateLocaleName(string $pattern, DateTimeImmutable $dateTime, string $fallback): string
+    {
+        static $formatters = [];
+
+        if (!class_exists('IntlDateFormatter')) {
+            return $fallback;
+        }
+
+        // the C locale (i.e. the default) provides English names only, thus
+        // we can simply use the fallback value in this case
+        $locale = setlocale(LC_TIME, '0');
+        if (!$locale || preg_match('/^(?:C|POSIX)(?:\..*)?$/', $locale)) {
+            return $fallback;
+        }
+
+        $cacheKey = $locale . "\0" . $pattern;
+        if (!isset($formatters[$cacheKey])) {
+            try {
+                $formatters[$cacheKey] = new IntlDateFormatter(
+                    $locale,
+                    IntlDateFormatter::NONE,
+                    IntlDateFormatter::NONE,
+                    $dateTime->getTimezone()->getName(),
+                    IntlDateFormatter::GREGORIAN,
+                    $pattern
+                );
+            } catch (Exception $e) {
+                return $fallback;
+            }
+        }
+
+        $formattedDate = $formatters[$cacheKey]->format($dateTime);
+        return ($formattedDate !== false) ? $formattedDate : $fallback;
     }
 
     /**
@@ -2732,7 +3004,7 @@ class Pico
                 $path = $basePath . $path;
             }
         } else {
-            if ($path[0] !== '/') {
+            if (($path === '') || ($path[0] !== '/')) {
                 $path = $basePath . $path;
             }
         }
@@ -2762,7 +3034,7 @@ class Pico
                 $path = substr($path, strlen($absolutePath));
             }
         } else {
-            if ($path[0] === '/') {
+            if (($path !== '') && ($path[0] === '/')) {
                 $absolutePath = '/';
                 $path = substr($path, 1);
             }
@@ -2811,7 +3083,7 @@ class Pico
      */
     public function getAbsoluteUrl(string $url, ?string $baseUrl = null, bool $endSlash = true): string
     {
-        if (($url[0] !== '/') && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
+        if ((($url === '') || ($url[0] !== '/')) && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
             $url = (($baseUrl !== null) ? $baseUrl : $this->getBaseUrl()) . $url;
         }
 

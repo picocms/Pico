@@ -54,9 +54,18 @@ Released: -
             don't use strict typing to maintain BC, but you can (and should)
             enable it for your plugin (see `DummyPlugin` for an example)
 * [Changed] Various other code improvements due to the upgrade to PHP 7.2
+* [Changed] Pico now formats dates on its own instead of using `strftime()`,
+            which is deprecated as of PHP 8.1 and is going to be removed with
+            PHP 9; the `date_format` option still uses `strftime()`'s
+            conversion specifications; locale-dependent names (e.g. `%A`)
+            require PHP's `intl` extension and Pico's `locale` option and
+            fall back to English names otherwise
 * [Fixed] #602: Fix contents and meta data of meta pages (pages starting with
           an `_`) getting replaced by the 404 page when being requested
 * [Fixed] Add a proper error message for a missing theme directory
+* [Fixed] Fix PHP 8 `TypeError` and `ValueError` errors caused by `NULL` or
+          non-scalar values of various config options (e.g. `pages_order: ~`,
+          `date_format: ~` or `theme: ~`) and meta headers (e.g. `Date`)
 * [Removed] ! Remove Pico's `map` Twig filter; it conflicts with Twig's `map`
             filter and can be replaced by Twig's `column` or `map` filter
 ```
