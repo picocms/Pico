@@ -1,0 +1,27 @@
+name: Test Pico CMS pull request
+
+on:
+    pull_request: {}
+
+jobs:
+    test:
+        name: Test Pico CMS
+        uses: ./.github/workflows/test.yml
+
+    bouncer:
+        name: Bouncer
+
+        needs: test
+        if: ${{ always() }}
+
+        runs-on: ubuntu-latest
+        permissions: {}
+
+        steps:
+            - name: Check build matrix status
+              if: ${{ needs.test.result != 'success' }}
+              run: |
+                  :
+                  echo "Some tests of Pico CMS failed." >&2
+                  echo "Please check the GitHub workflow logs for details." >&2
+                  exit 1

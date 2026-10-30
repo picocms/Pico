@@ -15,9 +15,6 @@ desktop.ini
 /vendor
 
 # Build system
-/.build/build
-/.build/deploy
-/.build/ci-tools
 /pico-release-*.tar.gz
 /pico-release-*.zip
 

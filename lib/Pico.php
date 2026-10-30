@@ -16,8 +16,27 @@
  * License-Filename: LICENSE
  */
 
+declare(strict_types=1);
+
+use Symfony\Component\Yaml\Exception\ParseException as YamlParseException;
+use Symfony\Component\Yaml\Parser as YamlParser;
+use Twig\Environment as TwigEnvironment;
+use Twig\Extension\DebugExtension as TwigDebugExtension;
+use Twig\Loader\FilesystemLoader as TwigFilesystemLoader;
+use Twig\Markup as TwigMarkup;
+use Twig\TwigFilter;
+
 /**
  * Pico
+ *
+ * ```
+ *      ______  __
+ *     / __  / /_/
+ *    / /_/ / __  ____  ____
+ *   / ____/ / / / __/ / __ \
+ *  / /     / / / /__ / /_/ /
+ * /_/     /_/  \___/ \____/
+ * ```
  *
  * Pico is a stupidly simple, blazing fast, flat file CMS.
  *
@@ -34,13 +53,13 @@
  * - Open Source: Pico is completely free and open source,
  *   released under the MIT license.
  *
- * See <http://picocms.org/> for more info.
+ * See <https://picocms.org/> for more info.
  *
  * @author  Gilbert Pellegrom
  * @author  Daniel Rudolf
- * @link    http://picocms.org
- * @license http://opensource.org/licenses/MIT The MIT License
- * @version 2.1
+ * @link    https://picocms.org
+ * @license https://opensource.org/licenses/MIT The MIT License
+ * @version 3.0
  */
 class Pico
 {
@@ -49,21 +68,21 @@ class Pico
      *
      * @var string
      */
-    const VERSION = '2.1.4';
+    public const VERSION = '3.0.0-dev';
 
     /**
      * Pico version ID
      *
      * @var int
      */
-    const VERSION_ID = 20104;
+    public const VERSION_ID = 30000;
 
     /**
      * Pico API version
      *
      * @var int
      */
-    const API_VERSION = 3;
+    public const API_VERSION = 4;
 
     /**
      * Sort files in alphabetical ascending order
@@ -71,7 +90,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_ASC = 0;
+    public const SORT_ASC = 0;
 
     /**
      * Sort files in alphabetical descending order
@@ -79,7 +98,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_DESC = 1;
+    public const SORT_DESC = 1;
 
     /**
      * Don't sort files
@@ -87,7 +106,7 @@ class Pico
      * @see Pico::getFiles()
      * @var int
      */
-    const SORT_NONE = 2;
+    public const SORT_NONE = 2;
 
     /**
      * Root directory of this Pico instance
@@ -142,14 +161,14 @@ class Pico
      * @see Pico::getPlugins()
      * @var object[]
      */
-    protected $plugins = array();
+    protected $plugins = [];
 
     /**
      * List of loaded plugins using the current API version
      *
      * @var PicoPluginInterface[]
      */
-    protected $nativePlugins = array();
+    protected $nativePlugins = [];
 
     /**
      * Boolean indicating whether Pico loads plugins from the filesystem
@@ -227,7 +246,7 @@ class Pico
      * Symfony YAML instance used for meta header parsing
      *
      * @see Pico::getYamlParser()
-     * @var \Symfony\Component\Yaml\Parser|null
+     * @var YamlParser|null
      */
     protected $yamlParser;
 
@@ -307,7 +326,7 @@ class Pico
      * Twig instance used for template parsing
      *
      * @see Pico::getTwig()
-     * @var Twig_Environment|null
+     * @var TwigEnvironment|null
      */
     protected $twig;
 
@@ -339,14 +358,19 @@ class Pico
      * @param bool   $enableLocalPlugins enables (TRUE; default) or disables
      *     (FALSE) loading plugins from the filesystem
      */
-    public function __construct($rootDir, $configDir, $pluginsDir, $themesDir, $enableLocalPlugins = true)
-    {
+    public function __construct(
+        string $rootDir,
+        string $configDir,
+        string $pluginsDir,
+        string $themesDir,
+        bool $enableLocalPlugins = true
+    ) {
         $this->rootDir = rtrim($rootDir, '/\\') . '/';
         $this->vendorDir = dirname(__DIR__) . '/';
         $this->configDir = $this->getAbsolutePath($configDir);
         $this->pluginsDir = $this->getAbsolutePath($pluginsDir);
         $this->themesDir = $this->getAbsolutePath($themesDir);
-        $this->enableLocalPlugins = (bool) $enableLocalPlugins;
+        $this->enableLocalPlugins = $enableLocalPlugins;
     }
 
     /**
@@ -354,7 +378,7 @@ class Pico
      *
      * @return string root directory path
      */
-    public function getRootDir()
+    public function getRootDir(): string
     {
         return $this->rootDir;
     }
@@ -364,7 +388,7 @@ class Pico
      *
      * @return string vendor directory path
      */
-    public function getVendorDir()
+    public function getVendorDir(): string
     {
         return $this->vendorDir;
     }
@@ -374,7 +398,7 @@ class Pico
      *
      * @return string config directory path
      */
-    public function getConfigDir()
+    public function getConfigDir(): string
     {
         return $this->configDir;
     }
@@ -384,7 +408,7 @@ class Pico
      *
      * @return string plugins directory path
      */
-    public function getPluginsDir()
+    public function getPluginsDir(): string
     {
         return $this->pluginsDir;
     }
@@ -394,7 +418,7 @@ class Pico
      *
      * @return string themes directory path
      */
-    public function getThemesDir()
+    public function getThemesDir(): string
     {
         return $this->themesDir;
     }
@@ -410,7 +434,7 @@ class Pico
      *
      * @throws Exception thrown when a irrecoverable error occurs
      */
-    public function run()
+    public function run(): string
     {
         // check lock
         if ($this->locked) {
@@ -423,11 +447,11 @@ class Pico
         // load plugins
         $this->loadPlugins();
         $this->sortPlugins();
-        $this->triggerEvent('onPluginsLoaded', array($this->plugins));
+        $this->triggerEvent('onPluginsLoaded', [ $this->plugins ]);
 
         // load config
         $this->loadConfig();
-        $this->triggerEvent('onConfigLoaded', array(&$this->config));
+        $this->triggerEvent('onConfigLoaded', [ &$this->config ]);
 
         // check content dir
         if (!is_dir($this->getConfig('content_dir'))) {
@@ -436,21 +460,18 @@ class Pico
 
         // load theme
         $this->theme = $this->config['theme'];
-        $this->triggerEvent('onThemeLoading', array(&$this->theme));
+        $this->triggerEvent('onThemeLoading', [ &$this->theme ]);
 
         $this->loadTheme();
-        $this->triggerEvent(
-            'onThemeLoaded',
-            array($this->theme, $this->themeApiVersion, &$this->config['theme_config'])
-        );
+        $this->triggerEvent('onThemeLoaded', [ $this->theme, $this->themeApiVersion, &$this->config['theme_config'] ]);
 
         // evaluate request url
         $this->evaluateRequestUrl();
-        $this->triggerEvent('onRequestUrl', array(&$this->requestUrl));
+        $this->triggerEvent('onRequestUrl', [ &$this->requestUrl ]);
 
         // discover requested file
         $this->requestFile = $this->resolveFilePath($this->requestUrl);
-        $this->triggerEvent('onRequestFile', array(&$this->requestFile));
+        $this->triggerEvent('onRequestFile', [ &$this->requestFile ]);
 
         // load raw file content
         $this->triggerEvent('onContentLoading');
@@ -468,51 +489,51 @@ class Pico
             $this->rawContent = $this->load404Content($this->requestFile);
             $this->is404Content = true;
 
-            $this->triggerEvent('on404ContentLoaded', array(&$this->rawContent));
+            $this->triggerEvent('on404ContentLoaded', [ &$this->rawContent ]);
         }
 
-        $this->triggerEvent('onContentLoaded', array(&$this->rawContent));
+        $this->triggerEvent('onContentLoaded', [ &$this->rawContent ]);
 
         // parse file meta
         $this->triggerEvent('onMetaParsing');
         $this->meta = $this->parseFileMeta($this->rawContent, $this->getMetaHeaders());
-        $this->triggerEvent('onMetaParsed', array(&$this->meta));
+        $this->triggerEvent('onMetaParsed', [ &$this->meta ]);
 
         // parse file content
         $this->triggerEvent('onContentParsing');
 
-        $markdown = $this->prepareFileContent($this->rawContent, $this->meta);
-        $this->triggerEvent('onContentPrepared', array(&$markdown));
+        $markdown = $this->prepareFileContent($this->rawContent, $this->meta, $requestedPageId);
+        $this->triggerEvent('onContentPrepared', [ &$markdown ]);
 
         $this->content = $this->parseFileContent($markdown);
-        $this->triggerEvent('onContentParsed', array(&$this->content));
+        $this->triggerEvent('onContentParsed', [ &$this->content ]);
 
         // read pages
         $this->triggerEvent('onPagesLoading');
 
         $this->readPages();
-        $this->triggerEvent('onPagesDiscovered', array(&$this->pages));
+        $this->triggerEvent('onPagesDiscovered', [ &$this->pages ]);
 
         $this->sortPages();
-        $this->triggerEvent('onPagesLoaded', array(&$this->pages));
+        $this->triggerEvent('onPagesLoaded', [ &$this->pages ]);
 
         $this->discoverPageSiblings();
         $this->discoverCurrentPage();
         $this->triggerEvent(
             'onCurrentPageDiscovered',
-            array(&$this->currentPage, &$this->previousPage, &$this->nextPage)
+            [ &$this->currentPage, &$this->previousPage, &$this->nextPage ]
         );
 
         $this->buildPageTree();
-        $this->triggerEvent('onPageTreeBuilt', array(&$this->pageTree));
+        $this->triggerEvent('onPageTreeBuilt', [ &$this->pageTree ]);
 
         // render template
         $this->twigVariables = $this->getTwigVariables();
         $this->twigTemplate = $this->getTwigTemplate();
-        $this->triggerEvent('onPageRendering', array(&$this->twigTemplate, &$this->twigVariables));
+        $this->triggerEvent('onPageRendering', [ &$this->twigTemplate, &$this->twigVariables ]);
 
         $output = $this->getTwig()->render($this->twigTemplate, $this->twigVariables);
-        $this->triggerEvent('onPageRendered', array(&$output));
+        $this->triggerEvent('onPageRendered', [ &$output ]);
 
         return $output;
     }
@@ -544,7 +565,7 @@ class Pico
      *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadPlugins()
+    protected function loadPlugins(): void
     {
         $composerPlugins = $this->loadComposerPlugins();
 
@@ -554,7 +575,7 @@ class Pico
 
         if (!isset($this->plugins['PicoDeprecated']) && (count($this->plugins) !== count($this->nativePlugins))) {
             throw new RuntimeException(
-                "Plugins using an older API than version " . static::API_VERSION . " found, "
+                "Plugins using an older API than version " . self::API_VERSION . " found, "
                 . "but PicoDeprecated isn't loaded"
             );
         }
@@ -576,20 +597,20 @@ class Pico
      *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadComposerPlugins(array $pluginBlacklist = array())
+    protected function loadComposerPlugins(array $pluginBlacklist = []): array
     {
-        $composerPlugins = array();
+        $composerPlugins = [];
         if (is_file($this->getVendorDir() . 'vendor/pico-plugin.php')) {
             // composer root package
-            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: array();
+            $composerPlugins = require($this->getVendorDir() . 'vendor/pico-plugin.php') ?: [];
         } elseif (is_file($this->getVendorDir() . '../../../vendor/pico-plugin.php')) {
             // composer dependency package
-            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: array();
+            $composerPlugins = require($this->getVendorDir() . '../../../vendor/pico-plugin.php') ?: [];
         }
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
-        $loadedPlugins = array();
+        $loadedPlugins = [];
         foreach ($composerPlugins as $package => $pluginData) {
             $loadedPlugins[] = $pluginData['installerName'];
 
@@ -610,7 +631,7 @@ class Pico
 
                 $this->plugins[$className] = $plugin;
 
-                if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+                if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
                     $this->nativePlugins[$className] = $plugin;
                 }
             }
@@ -644,19 +665,16 @@ class Pico
      *
      * @throws RuntimeException thrown when a plugin couldn't be loaded
      */
-    protected function loadLocalPlugins(array $pluginBlacklist = array())
+    protected function loadLocalPlugins(array $pluginBlacklist = []): void
     {
         // scope isolated require()
-        $includeClosure = function ($pluginFile) {
+        $includeClosure = static function ($pluginFile) {
             require($pluginFile);
         };
-        if (PHP_VERSION_ID >= 50400) {
-            $includeClosure = $includeClosure->bindTo(null);
-        }
 
         $pluginBlacklist = array_fill_keys($pluginBlacklist, true);
 
-        $files = scandir($this->getPluginsDir()) ?: array();
+        $files = scandir($this->getPluginsDir()) ?: [];
         foreach ($files as $file) {
             if ($file[0] === '.') {
                 continue;
@@ -672,7 +690,7 @@ class Pico
                         "Unable to load plugin '" . $className . "' from '" . $pluginFile . "': File not found"
                     );
                 }
-            } elseif (substr($file, -4) === '.php') {
+            } elseif (substr_compare($file, '.php', -4) === 0) {
                 $className = preg_replace('/^[0-9]+-/', '', substr($file, 0, -4));
                 $pluginFile = $file;
             } else {
@@ -693,7 +711,7 @@ class Pico
                 $this->plugins[$className] = $plugin;
 
                 if ($plugin instanceof PicoPluginInterface) {
-                    if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+                    if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
                         $this->nativePlugins[$className] = $plugin;
                     }
                 }
@@ -737,7 +755,7 @@ class Pico
      *
      * @throws RuntimeException thrown when the plugin couldn't be loaded
      */
-    public function loadPlugin($plugin)
+    public function loadPlugin($plugin): PicoPluginInterface
     {
         if (!is_object($plugin)) {
             $className = (string) $plugin;
@@ -759,13 +777,13 @@ class Pico
 
         $this->plugins[$className] = $plugin;
 
-        if (defined($className . '::API_VERSION') && ($className::API_VERSION >= static::API_VERSION)) {
+        if (defined($className . '::API_VERSION') && ($className::API_VERSION >= self::API_VERSION)) {
             $this->nativePlugins[$className] = $plugin;
         }
 
         // trigger onPluginManuallyLoaded event
         // the event is also triggered on the newly loaded plugin, allowing you to distinguish manual and auto loading
-        $this->triggerEvent('onPluginManuallyLoaded', array($plugin));
+        $this->triggerEvent('onPluginManuallyLoaded', [ $plugin ]);
 
         return $plugin;
     }
@@ -797,13 +815,13 @@ class Pico
      * @see https://github.com/marcj/topsort.php/blob/1.1.0/src/Implementations/ArraySort.php
      *     \MJS\TopSort\Implementations\ArraySort class
      */
-    protected function sortPlugins()
+    protected function sortPlugins(): void
     {
         $plugins = $this->plugins;
         $nativePlugins = $this->nativePlugins;
-        $sortedPlugins = array();
-        $sortedNativePlugins = array();
-        $visitedPlugins = array();
+        $sortedPlugins = [];
+        $sortedNativePlugins = [];
+        $visitedPlugins = [];
 
         $visitPlugin = function ($plugin) use (
             $plugins,
@@ -819,7 +837,7 @@ class Pico
             if (!isset($visitedPlugins[$pluginName])) {
                 $visitedPlugins[$pluginName] = true;
 
-                $dependencies = array();
+                $dependencies = [];
                 if ($plugin instanceof PicoPluginInterface) {
                     $dependencies = $plugin->getDependencies();
                 }
@@ -869,7 +887,7 @@ class Pico
      *
      * @throws RuntimeException thrown when the plugin wasn't found
      */
-    public function getPlugin($pluginName)
+    public function getPlugin(string $pluginName): object
     {
         if (isset($this->plugins[$pluginName])) {
             return $this->plugins[$pluginName];
@@ -886,7 +904,7 @@ class Pico
      *
      * @return object[]|null
      */
-    public function getPlugins()
+    public function getPlugins(): ?array
     {
         return $this->plugins;
     }
@@ -905,18 +923,18 @@ class Pico
      * @see Pico::setConfig()
      * @see Pico::getConfig()
      */
-    protected function loadConfig()
+    protected function loadConfig(): void
     {
         // load config closure
         $yamlParser = $this->getYamlParser();
         $loadConfigClosure = function ($configFile) use ($yamlParser) {
             $yaml = file_get_contents($configFile);
             $config = $yamlParser->parse($yaml);
-            return is_array($config) ? $config : array();
+            return is_array($config) ? $config : [];
         };
 
         // load main config file (config/config.yml)
-        $this->config = is_array($this->config) ? $this->config : array();
+        $this->config = is_array($this->config) ? $this->config : [];
         if (is_file($this->getConfigDir() . 'config.yml')) {
             $this->config += $loadConfigClosure($this->getConfigDir() . 'config.yml');
         }
@@ -930,7 +948,7 @@ class Pico
         }
 
         // merge default config
-        $this->config += array(
+        $this->config += [
             'site_title' => 'Pico',
             'base_url' => null,
             'rewrite_url' => null,
@@ -951,8 +969,43 @@ class Pico
             'content_config' => null,
             'assets_dir' => 'assets/',
             'assets_url' => null,
-            'plugins_url' => null
-        );
+            'plugins_url' => null,
+        ];
+
+        // normalize string options; YAML users may explicitly set e.g.
+        // `pages_order: ~`, what yields NULL and would break strict typed
+        // internal functions (e.g. `strtolower()`) on PHP 8
+        $stringConfigKeys = [
+            'site_title',
+            'theme',
+            'date_format',
+            'pages_order_by_meta',
+            'pages_order_by',
+            'pages_order',
+            'content_ext',
+            'assets_dir',
+        ];
+        foreach ($stringConfigKeys as $configKey) {
+            if (is_scalar($this->config[$configKey])) {
+                $this->config[$configKey] = (string) $this->config[$configKey];
+            } else {
+                $this->config[$configKey] = '';
+            }
+        }
+        $defaultStringConfig = [
+            'site_title' => 'Pico',
+            'theme' => 'default',
+            'date_format' => '%D %T',
+            'pages_order_by_meta' => 'author',
+            'pages_order_by' => 'alpha',
+            'pages_order' => 'asc',
+            'content_ext' => '.md',
+        ];
+        foreach ($defaultStringConfig as $configKey => $defaultValue) {
+            if ($this->config[$configKey] === '') {
+                $this->config[$configKey] = $defaultValue;
+            }
+        }
 
         if (!$this->config['base_url']) {
             $this->config['base_url'] = $this->getBaseUrl();
@@ -1004,7 +1057,7 @@ class Pico
             $this->config['content_dir'] = $this->getAbsolutePath($this->config['content_dir']);
         }
 
-        $defaultContentConfig = array('extra' => true, 'breaks' => false, 'escape' => false, 'auto_urls' => true);
+        $defaultContentConfig = [ 'extra' => true, 'breaks' => false, 'escape' => false, 'auto_urls' => true ];
         if (!is_array($this->config['content_config'])) {
             $this->config['content_config'] = $defaultContentConfig;
         } else {
@@ -1042,7 +1095,7 @@ class Pico
      *
      * @throws LogicException thrown if Pico already started processing
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         if ($this->locked) {
             throw new LogicException("You cannot modify Pico's config after processing has started");
@@ -1058,16 +1111,16 @@ class Pico
      * @see Pico::setConfig()
      * @see Pico::loadConfig()
      *
-     * @param string $configName optional name of a config variable
-     * @param mixed  $default    optional default value to return when the
-     *     named config variable doesn't exist
+     * @param string|null $configName optional name of a config variable
+     * @param mixed  $default         optional default value to return when
+     *     the named config variable doesn't exist
      *
      * @return mixed if no name of a config variable has been supplied, the
      *     config array is returned; otherwise it returns either the value of
      *     the named config variable, or, if the named config variable doesn't
      *     exist, the provided default value or NULL
      */
-    public function getConfig($configName = null, $default = null)
+    public function getConfig(?string $configName = null, $default = null)
     {
         if ($configName !== null) {
             return isset($this->config[$configName]) ? $this->config[$configName] : $default;
@@ -1082,27 +1135,34 @@ class Pico
      * @see Pico::getTheme()
      * @see Pico::getThemeApiVersion()
      */
-    protected function loadTheme()
+    protected function loadTheme(): void
     {
-        $themeConfig = array();
+        if (!is_dir($this->getThemesDir() . $this->getTheme())) {
+            throw new RuntimeException(
+                'Couldn\'t load theme "' . $this->theme . '": No such theme directory'
+            );
+        }
+
+        $themeConfig = [];
 
         // load theme config from pico-theme.yml
         $themeConfigFile = $this->getThemesDir() . $this->getTheme() . '/pico-theme.yml';
         if (is_file($themeConfigFile)) {
             $themeConfigYaml = file_get_contents($themeConfigFile);
             $themeConfig = $this->getYamlParser()->parse($themeConfigYaml);
-            $themeConfig = is_array($themeConfig) ? $themeConfig : array();
+            $themeConfig = is_array($themeConfig) ? $themeConfig : [];
         }
 
-        $themeConfig += array(
+        $themeConfig += [
             'api_version' => null,
-            'meta' => array(),
-            'twig_config' => array()
-        );
+            'meta' => [],
+            'twig_config' => [],
+        ];
 
         // theme API version
-        if (is_int($themeConfig['api_version']) || preg_match('/^[0-9]+$/', $themeConfig['api_version'])) {
-            $this->themeApiVersion = (int) $themeConfig['api_version'];
+        $themeApiVersion = $themeConfig['api_version'];
+        if (is_int($themeApiVersion) || (is_string($themeApiVersion) && preg_match('/^[0-9]+$/', $themeApiVersion))) {
+            $this->themeApiVersion = (int) $themeApiVersion;
         } else {
             $this->themeApiVersion = 0;
         }
@@ -1110,7 +1170,7 @@ class Pico
         unset($themeConfig['api_version']);
 
         // twig config
-        $themeTwigConfig = array('autoescape' => 'html', 'strict_variables' => false, 'charset' => 'utf-8');
+        $themeTwigConfig = [ 'autoescape' => 'html', 'strict_variables' => false, 'charset' => 'utf-8' ];
         foreach ($themeTwigConfig as $key => $_) {
             if (isset($themeConfig['twig_config'][$key])) {
                 $themeTwigConfig[$key] = $themeConfig['twig_config'][$key];
@@ -1119,8 +1179,8 @@ class Pico
 
         unset($themeConfig['twig_config']);
 
-        $defaultTwigConfig = array('debug' => null, 'cache' => false, 'auto_reload' => null);
-        $this->config['twig_config'] = is_array($this->config['twig_config']) ? $this->config['twig_config'] : array();
+        $defaultTwigConfig = [ 'debug' => null, 'cache' => false, 'auto_reload' => null ];
+        $this->config['twig_config'] = is_array($this->config['twig_config']) ? $this->config['twig_config'] : [];
         $this->config['twig_config'] = array_merge($defaultTwigConfig, $themeTwigConfig, $this->config['twig_config']);
 
         if ($this->config['twig_config']['autoescape'] === true) {
@@ -1134,7 +1194,7 @@ class Pico
         }
 
         // meta headers
-        $this->themeMetaHeaders = is_array($themeConfig['meta']) ? $themeConfig['meta'] : array();
+        $this->themeMetaHeaders = is_array($themeConfig['meta']) ? $themeConfig['meta'] : [];
         unset($themeConfig['meta']);
 
         // theme config
@@ -1145,10 +1205,10 @@ class Pico
         }
 
         // check for theme compatibility
-        if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < static::API_VERSION)) {
+        if (!isset($this->plugins['PicoDeprecated']) && ($this->themeApiVersion < self::API_VERSION)) {
             throw new RuntimeException(
                 'Current theme "' . $this->theme . '" uses API version ' . $this->themeApiVersion . ', but Pico '
-                . 'provides API version ' . static::API_VERSION . ' and PicoDeprecated isn\'t loaded'
+                . 'provides API version ' . self::API_VERSION . ' and PicoDeprecated isn\'t loaded'
             );
         }
     }
@@ -1159,9 +1219,9 @@ class Pico
      * @see Pico::loadTheme()
      * @see Pico::getThemeApiVersion()
      *
-     * @return string
+     * @return string|null
      */
-    public function getTheme()
+    public function getTheme(): ?string
     {
         return $this->theme;
     }
@@ -1172,9 +1232,9 @@ class Pico
      * @see Pico::loadTheme()
      * @see Pico::getTheme()
      *
-     * @return int
+     * @return int|null
      */
-    public function getThemeApiVersion()
+    public function getThemeApiVersion(): ?int
     {
         return $this->themeApiVersion;
     }
@@ -1216,7 +1276,7 @@ class Pico
      *
      * @see Pico::getRequestUrl()
      */
-    protected function evaluateRequestUrl()
+    protected function evaluateRequestUrl(): void
     {
         // use QUERY_STRING; e.g. /pico/?sub/page
         $pathComponent = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
@@ -1232,11 +1292,11 @@ class Pico
             $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
 
             $basePath = dirname($scriptName);
-            $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+            $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
             $requestUri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-            if ($requestUri && (substr($requestUri, 0, $basePathLength) === $basePath)) {
+            if ($requestUri && (substr_compare($requestUri, $basePath, 0, $basePathLength) === 0)) {
                 $requestUri = substr($requestUri, $basePathLength);
                 if ($requestUri && (($queryStringPos = strpos($requestUri, '?')) !== false)) {
                     $requestUri = substr($requestUri, 0, $queryStringPos);
@@ -1259,7 +1319,7 @@ class Pico
      *
      * @return string|null request URL
      */
-    public function getRequestUrl()
+    public function getRequestUrl(): ?string
     {
         return $this->requestUrl;
     }
@@ -1280,7 +1340,7 @@ class Pico
      *
      * @return string path to the resolved content file
      */
-    public function resolveFilePath($requestUrl)
+    public function resolveFilePath(string $requestUrl): string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentExt = $this->getConfig('content_ext');
@@ -1312,9 +1372,9 @@ class Pico
      *
      * @see Pico::resolveFilePath()
      *
-     * @return string|null file pat
+     * @return string|null file path
      */
-    public function getRequestFile()
+    public function getRequestFile(): ?string
     {
         return $this->requestFile;
     }
@@ -1328,7 +1388,7 @@ class Pico
      *
      * @return string raw contents of the file
      */
-    public function loadFileContent($file)
+    public function loadFileContent(string $file): string
     {
         return file_get_contents($file);
     }
@@ -1345,13 +1405,13 @@ class Pico
      *
      * @return string raw contents of the 404 file
      */
-    public function load404Content($file)
+    public function load404Content(string $file): string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
         $contentExt = $this->getConfig('content_ext');
 
-        if (substr($file, 0, $contentDirLength) === $contentDir) {
+        if (substr_compare($file, $contentDir, 0, $contentDirLength) === 0) {
             $errorFileDir = substr($file, $contentDirLength);
 
             while ($errorFileDir !== '.') {
@@ -1386,7 +1446,7 @@ class Pico
      *
      * @return string|null raw contents
      */
-    public function getRawContent()
+    public function getRawContent(): ?string
     {
         return $this->rawContent;
     }
@@ -1398,7 +1458,7 @@ class Pico
      *
      * @return bool TRUE if Pico is serving a 404 page, FALSE otherwise
      */
-    public function is404Content()
+    public function is404Content(): bool
     {
         return $this->is404Content;
     }
@@ -1413,10 +1473,10 @@ class Pico
      *     key to search for, the array value is later used to access the
      *     found value
      */
-    public function getMetaHeaders()
+    public function getMetaHeaders(): array
     {
         if ($this->metaHeaders === null) {
-            $this->metaHeaders = array(
+            $this->metaHeaders = [
                 'Title' => 'title',
                 'Description' => 'description',
                 'Author' => 'author',
@@ -1425,14 +1485,14 @@ class Pico
                 'Time' => 'time',
                 'Robots' => 'robots',
                 'Template' => 'template',
-                'Hidden' => 'hidden'
-            );
+                'Hidden' => 'hidden',
+            ];
 
             if ($this->themeMetaHeaders) {
                 $this->metaHeaders += $this->themeMetaHeaders;
             }
 
-            $this->triggerEvent('onMetaHeaders', array(&$this->metaHeaders));
+            $this->triggerEvent('onMetaHeaders', [ &$this->metaHeaders ]);
         }
 
         return $this->metaHeaders;
@@ -1444,13 +1504,13 @@ class Pico
      * This method triggers the `onYamlParserRegistered` event when the Symfony
      * YAML parser wasn't initiated yet.
      *
-     * @return \Symfony\Component\Yaml\Parser Symfony YAML parser
+     * @return YamlParser Symfony YAML parser
      */
-    public function getYamlParser()
+    public function getYamlParser(): YamlParser
     {
         if ($this->yamlParser === null) {
-            $this->yamlParser = new \Symfony\Component\Yaml\Parser();
-            $this->triggerEvent('onYamlParserRegistered', array(&$this->yamlParser));
+            $this->yamlParser = new YamlParser();
+            $this->triggerEvent('onYamlParserRegistered', [ &$this->yamlParser ]);
         }
 
         return $this->yamlParser;
@@ -1473,17 +1533,16 @@ class Pico
      *
      * @return array parsed meta data
      *
-     * @throws \Symfony\Component\Yaml\Exception\ParseException thrown when the
-     *     meta data is invalid
+     * @throws YamlParseException thrown when the meta data is invalid
      */
-    public function parseFileMeta($rawContent, array $headers)
+    public function parseFileMeta(string $rawContent, array $headers): array
     {
-        $meta = array();
+        $meta = [];
         $pattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
             . "(?:(.*?)(?:\r)?\n)?(?(2)\*\/|---)[[:blank:]]*(?:(?:\r)?\n|$)/s";
         if (preg_match($pattern, $rawContent, $rawMetaMatches) && isset($rawMetaMatches[3])) {
-            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: array();
-            $meta = is_array($meta) ? $meta : array('title' => $meta);
+            $meta = $this->getYamlParser()->parse($rawMetaMatches[3]) ?: [];
+            $meta = is_array($meta) ? $meta : [ 'title' => $meta ];
 
             foreach ($headers as $name => $key) {
                 if (isset($meta[$name])) {
@@ -1507,25 +1566,36 @@ class Pico
                     $meta['date'] = '';
                 }
 
+                // normalize non-scalar values (e.g. an array passed by mistake) to
+                // avoid type errors of PHP's string and date functions
+                $meta['date'] = is_scalar($meta['date']) ? (string) $meta['date'] : '';
+                $meta['time'] = is_scalar($meta['time']) ? $meta['time'] : '';
+
                 if (empty($meta['time'])) {
                     $meta['time'] = strtotime($meta['date']) ?: '';
-                } elseif (empty($meta['date'])) {
-                    $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
-                    $meta['date'] = date($rawDateFormat, $meta['time']);
+                } else {
+                    $meta['time'] = is_numeric($meta['time']) ? (int) $meta['time'] : strtotime($meta['time']);
+                    $meta['time'] = $meta['time'] ?: '';
+
+                    if (empty($meta['date']) && $meta['time']) {
+                        $rawDateFormat = (date('H:i:s', $meta['time']) === '00:00:00') ? 'Y-m-d' : 'Y-m-d H:i:s';
+                        $meta['date'] = date($rawDateFormat, $meta['time']);
+                    }
                 }
             } else {
                 $meta['date'] = $meta['time'] = '';
             }
 
+            if ($meta['date_formatted'] && !is_scalar($meta['date_formatted'])) {
+                $meta['date_formatted'] = '';
+            }
+
             if (empty($meta['date_formatted'])) {
                 if ($meta['time']) {
-                    $encodingList = mb_detect_order();
-                    if ($encodingList === array('ASCII', 'UTF-8')) {
-                        $encodingList[] = 'Windows-1252';
-                    }
-
-                    $rawFormattedDate = strftime($this->getConfig('date_format'), $meta['time']);
-                    $meta['date_formatted'] = mb_convert_encoding($rawFormattedDate, 'UTF-8', $encodingList);
+                    $meta['date_formatted'] = $this->formatDate(
+                        (string) $this->getConfig('date_format'),
+                        (int) $meta['time']
+                    );
                 } else {
                     $meta['date_formatted'] = '';
                 }
@@ -1539,13 +1609,241 @@ class Pico
     }
 
     /**
+     * Formats a timestamp using a `strftime()` compatible format string
+     *
+     * PHP 8.1 deprecated `strftime()` and PHP 9 is going to remove it, thus
+     * Pico formats dates on its own. The format string follows the semantics
+     * of `strftime()` (and the C library function it wraps), so that existing
+     * `date_format` config values keep working. Locale-dependent names (e.g.
+     * `%a`, `%A`, `%b`, `%B` and `%p`) are taken from the locale set with
+     * Pico's `locale` config option, provided that PHP's `intl` extension is
+     * available; otherwise Pico falls back to the C locale (i.e. English).
+     *
+     * @see Pico::parseFileMeta()
+     * @see https://pubs.opengroup.org/onlinepubs/9699919799/functions/strftime.html
+     *
+     * @param string $format    `strftime()` compatible format string
+     * @param int    $timestamp timestamp to format
+     *
+     * @return string formatted date
+     */
+    public function formatDate(string $format, int $timestamp): string
+    {
+        $dateTime = (new DateTimeImmutable('@' . $timestamp))
+            ->setTimezone(new DateTimeZone(date_default_timezone_get()));
+
+        $result = '';
+        $formatLength = strlen($format);
+        for ($i = 0; $i < $formatLength; $i++) {
+            if ($format[$i] !== '%') {
+                $result .= $format[$i];
+                continue;
+            }
+
+            $i++;
+            if ($i >= $formatLength) {
+                $result .= '%';
+                break;
+            }
+
+            // skip alternate representation modifiers (e.g. "%Ec" or "%Od")
+            if (($format[$i] === 'E') || ($format[$i] === 'O')) {
+                $i++;
+                if ($i >= $formatLength) {
+                    break;
+                }
+            }
+
+            $result .= $this->formatDateDirective($format[$i], $dateTime, $timestamp);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Formats a single `strftime()` conversion specification
+     *
+     * @see Pico::formatDate()
+     *
+     * @param string            $directive conversion specifier (e.g. "Y")
+     * @param DateTimeImmutable $dateTime  date to format
+     * @param int               $timestamp timestamp of the date to format
+     *
+     * @return string formatted conversion specification
+     */
+    protected function formatDateDirective(string $directive, DateTimeImmutable $dateTime, int $timestamp): string
+    {
+        switch ($directive) {
+            case 'a':
+                return $this->formatDateLocaleName('ccc', $dateTime, $dateTime->format('D'));
+            case 'A':
+                return $this->formatDateLocaleName('cccc', $dateTime, $dateTime->format('l'));
+            case 'b':
+            case 'h':
+                return $this->formatDateLocaleName('LLL', $dateTime, $dateTime->format('M'));
+            case 'B':
+                return $this->formatDateLocaleName('LLLL', $dateTime, $dateTime->format('F'));
+            case 'c':
+                return $this->formatDate('%a %b %e %H:%M:%S %Y', $timestamp);
+            case 'C':
+                return sprintf('%02d', intdiv((int) $dateTime->format('Y'), 100));
+            case 'd':
+                return $dateTime->format('d');
+            case 'D':
+                return $dateTime->format('m/d/y');
+            case 'e':
+                return sprintf('%2d', (int) $dateTime->format('j'));
+            case 'F':
+                return $dateTime->format('Y-m-d');
+            case 'g':
+                return substr($dateTime->format('o'), -2);
+            case 'G':
+                return $dateTime->format('o');
+            case 'H':
+                return $dateTime->format('H');
+            case 'I':
+                return $dateTime->format('h');
+            case 'j':
+                return sprintf('%03d', ((int) $dateTime->format('z')) + 1);
+            case 'k':
+                return sprintf('%2d', (int) $dateTime->format('G'));
+            case 'l':
+                return sprintf('%2d', (int) $dateTime->format('g'));
+            case 'm':
+                return $dateTime->format('m');
+            case 'M':
+                return $dateTime->format('i');
+            case 'n':
+                return "\n";
+            case 'p':
+                return $this->formatDateLocaleName('a', $dateTime, $dateTime->format('A'));
+            case 'P':
+                return strtolower($this->formatDateLocaleName('a', $dateTime, $dateTime->format('A')));
+            case 'r':
+                return $this->formatDate('%I:%M:%S %p', $timestamp);
+            case 'R':
+                return $dateTime->format('H:i');
+            case 's':
+                return (string) $timestamp;
+            case 'S':
+                return $dateTime->format('s');
+            case 't':
+                return "\t";
+            case 'T':
+                return $dateTime->format('H:i:s');
+            case 'u':
+                return $dateTime->format('N');
+            case 'U':
+                return sprintf('%02d', $this->getWeekNumber($dateTime, false));
+            case 'V':
+                return $dateTime->format('W');
+            case 'w':
+                return $dateTime->format('w');
+            case 'W':
+                return sprintf('%02d', $this->getWeekNumber($dateTime, true));
+            case 'x':
+                return $dateTime->format('m/d/y');
+            case 'X':
+                return $dateTime->format('H:i:s');
+            case 'y':
+                return $dateTime->format('y');
+            case 'Y':
+                return $dateTime->format('Y');
+            case 'z':
+                return $dateTime->format('O');
+            case 'Z':
+                return $dateTime->format('T');
+            case '%':
+                return '%';
+            default:
+                return '%' . $directive;
+        }
+    }
+
+    /**
+     * Calculates a week number according to `strftime()`'s `%U` and `%W`
+     * conversion specifications
+     *
+     * `%U` counts the weeks of the year with Sunday as the first day of the
+     * week, `%W` uses Monday instead. Both count the days before the first
+     * Sunday resp. Monday as week 0.
+     *
+     * @see Pico::formatDateDirective()
+     *
+     * @param DateTimeImmutable $dateTime  date to calculate the week number for
+     * @param bool              $mondayFirst whether weeks start on Monday
+     *
+     * @return int week number
+     */
+    protected function getWeekNumber(DateTimeImmutable $dateTime, bool $mondayFirst): int
+    {
+        $dayOfYear = (int) $dateTime->format('z');
+        $weekDay = (int) $dateTime->format('w');
+        if ($mondayFirst) {
+            $weekDay = ($weekDay + 6) % 7;
+        }
+
+        return intdiv($dayOfYear + 7 - $weekDay, 7);
+    }
+
+    /**
+     * Returns a locale-dependent date name (e.g. month names)
+     *
+     * This method uses PHP's `intl` extension and the locale set with Pico's
+     * `locale` config option, if available. It returns the given fallback
+     * value otherwise.
+     *
+     * @see Pico::formatDateDirective()
+     *
+     * @param string            $pattern  ICU date pattern to format
+     * @param DateTimeImmutable $dateTime date to format
+     * @param string            $fallback value to return if `intl` is missing
+     *
+     * @return string formatted date name
+     */
+    protected function formatDateLocaleName(string $pattern, DateTimeImmutable $dateTime, string $fallback): string
+    {
+        static $formatters = [];
+
+        if (!class_exists('IntlDateFormatter')) {
+            return $fallback;
+        }
+
+        // the C locale (i.e. the default) provides English names only, thus
+        // we can simply use the fallback value in this case
+        $locale = setlocale(LC_TIME, '0');
+        if (!$locale || preg_match('/^(?:C|POSIX)(?:\..*)?$/', $locale)) {
+            return $fallback;
+        }
+
+        $cacheKey = $locale . "\0" . $pattern;
+        if (!isset($formatters[$cacheKey])) {
+            try {
+                $formatters[$cacheKey] = new IntlDateFormatter(
+                    $locale,
+                    IntlDateFormatter::NONE,
+                    IntlDateFormatter::NONE,
+                    $dateTime->getTimezone()->getName(),
+                    IntlDateFormatter::GREGORIAN,
+                    $pattern
+                );
+            } catch (Exception $e) {
+                return $fallback;
+            }
+        }
+
+        $formattedDate = $formatters[$cacheKey]->format($dateTime);
+        return ($formattedDate !== false) ? $formattedDate : $fallback;
+    }
+
+    /**
      * Returns the parsed meta data of the requested page
      *
      * @see Pico::parseFileMeta()
      *
      * @return array|null parsed meta data
      */
-    public function getFileMeta()
+    public function getFileMeta(): ?array
     {
         return $this->meta;
     }
@@ -1558,17 +1856,20 @@ class Pico
      *
      * @return Parsedown Parsedown markdown parser
      */
-    public function getParsedown()
+    public function getParsedown(): Parsedown
     {
         if ($this->parsedown === null) {
-            $className = $this->config['content_config']['extra'] ? 'ParsedownExtra' : 'Parsedown';
-            $this->parsedown = new $className();
+            if ($this->config['content_config']['extra']) {
+                $this->parsedown = new ParsedownExtra();
+            } else {
+                $this->parsedown = new Parsedown();
+            }
 
             $this->parsedown->setBreaksEnabled((bool) $this->config['content_config']['breaks']);
             $this->parsedown->setMarkupEscaped((bool) $this->config['content_config']['escape']);
             $this->parsedown->setUrlsLinked((bool) $this->config['content_config']['auto_urls']);
 
-            $this->triggerEvent('onParsedownRegistered', array(&$this->parsedown));
+            $this->triggerEvent('onParsedownRegistered', [ &$this->parsedown ]);
         }
 
         return $this->parsedown;
@@ -1584,12 +1885,14 @@ class Pico
      * @see Pico::parseFileContent()
      * @see Pico::getFileContent()
      *
-     * @param string $rawContent raw contents of a page
-     * @param array  $meta       meta data to use for %meta.*% replacement
+     * @param string      $rawContent raw contents of a page
+     * @param array       $meta       meta data to use for %meta.*% replacement
+     * @param string|null $pageId     unique ID of the page for %page_*%
+     *     replacement, might be NULL
      *
      * @return string prepared Markdown contents
      */
-    public function prepareFileContent($rawContent, array $meta = array())
+    public function prepareFileContent(string $rawContent, array $meta = [], ?string $pageId = null): string
     {
         // remove meta header
         $metaHeaderPattern = "/^(?:\xEF\xBB\xBF)?(\/(\*)|---)[[:blank:]]*(?:\r)?\n"
@@ -1597,7 +1900,7 @@ class Pico
         $markdown = preg_replace($metaHeaderPattern, '', $rawContent, 1);
 
         // replace placeholders
-        $markdown = $this->substituteFileContent($markdown, $meta);
+        $markdown = $this->substituteFileContent($markdown, $meta, $pageId);
 
         return $markdown;
     }
@@ -1605,17 +1908,19 @@ class Pico
     /**
      * Replaces all %...% placeholders in a page's contents
      *
-     * @param string $markdown Markdown contents of a page
-     * @param array  $meta     meta data to use for %meta.*% replacement
+     * @param string      $markdown Markdown contents of a page
+     * @param array       $meta     meta data to use for %meta.*% replacement
+     * @param string|null $pageId   unique ID of the page for %page_*%
+     *     replacement, might be NULL
      *
      * @return string substituted Markdown contents
      */
-    public function substituteFileContent($markdown, array $meta = array())
+    public function substituteFileContent(string $markdown, array $meta = [], ?string $pageId = null): string
     {
-        $variables = array();
+        $variables = [];
 
         // replace %version%
-        $variables['%version%'] = static::VERSION;
+        $variables['%version%'] = self::VERSION;
 
         // replace %site_title%
         $variables['%site_title%'] = $this->getConfig('site_title');
@@ -1638,6 +1943,18 @@ class Pico
 
         // replace %theme_url%
         $variables['%theme_url%'] = $this->getConfig('themes_url') . $this->getTheme();
+
+        // replace %page_id%, %page_url% and %page_path%
+        if ($pageId !== null) {
+            $pageUrl = ($pageId !== 'index') ? ((basename($pageId) !== 'index') ? $pageId : dirname($pageId)) : '';
+
+            $pagePath = dirname($pageId);
+            $pagePath = !in_array($pagePath, [ '', '.', '/', '\\' ], true) ? $pagePath : '';
+
+            $variables['%page_id%'] = $pageId;
+            $variables['%page_url%'] = $pageUrl;
+            $variables['%page_path%'] = $pagePath;
+        }
 
         // replace %meta.*%
         if ($meta) {
@@ -1670,7 +1987,7 @@ class Pico
      *
      * @return string parsed contents (HTML)
      */
-    public function parseFileContent($markdown, $singleLine = false)
+    public function parseFileContent(string $markdown, bool $singleLine = false): string
     {
         $markdownParser = $this->getParsedown();
         return !$singleLine ? @$markdownParser->text($markdown) : @$markdownParser->line($markdown);
@@ -1685,7 +2002,7 @@ class Pico
      *
      * @return string|null parsed contents
      */
-    public function getFileContent()
+    public function getFileContent(): ?string
     {
         return $this->content;
     }
@@ -1722,12 +2039,14 @@ class Pico
      * @see Pico::discoverPageSiblings()
      * @see Pico::getPages()
      */
-    protected function readPages()
+    protected function readPages(): void
     {
         $contentDir = $this->getConfig('content_dir');
+        $contentDirLength = strlen($contentDir);
         $contentExt = $this->getConfig('content_ext');
+        $contentExtLength = strlen($contentExt);
 
-        $this->pages = array();
+        $this->pages = [];
         $files = $this->getFiles($contentDir, $contentExt, self::SORT_NONE);
         foreach ($files as $i => $file) {
             // skip 404 page
@@ -1736,29 +2055,29 @@ class Pico
                 continue;
             }
 
-            $id = substr($file, strlen($contentDir), -strlen($contentExt));
+            $id = substr($file, $contentDirLength, -$contentExtLength);
 
             // trigger onSinglePageLoading event
             // skip inaccessible pages (e.g. drop "sub.md" if "sub/index.md" exists) by default
             $conflictFile = $contentDir . $id . '/index' . $contentExt;
             $skipFile = in_array($conflictFile, $files, true) ?: null;
-            $this->triggerEvent('onSinglePageLoading', array($id, &$skipFile));
+            $this->triggerEvent('onSinglePageLoading', [ $id, &$skipFile ]);
 
             if ($skipFile) {
                 continue;
             }
 
             $url = $this->getPageUrl($id);
-            if ($file !== $this->requestFile) {
+            if (($file !== $this->requestFile) || $this->is404Content) {
                 $rawContent = $this->loadFileContent($file);
 
                 // trigger onSinglePageContent event
-                $this->triggerEvent('onSinglePageContent', array($id, &$rawContent));
+                $this->triggerEvent('onSinglePageContent', [ $id, &$rawContent ]);
 
                 $headers = $this->getMetaHeaders();
                 try {
                     $meta = $this->parseFileMeta($rawContent, $headers);
-                } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+                } catch (YamlParseException $e) {
                     $meta = $this->parseFileMeta('', $headers);
                     $meta['YAML_ParseError'] = $e->getMessage();
                 }
@@ -1770,7 +2089,7 @@ class Pico
             // build page data
             // title, description, author and date are assumed to be pretty basic data
             // everything else is accessible through $page['meta']
-            $page = array(
+            $page = [
                 'id' => $id,
                 'url' => $url,
                 'title' => &$meta['title'],
@@ -1781,17 +2100,17 @@ class Pico
                 'date_formatted' => &$meta['date_formatted'],
                 'hidden' => ($meta['hidden'] || preg_match('/(?:^|\/)_/', $id)),
                 'raw_content' => &$rawContent,
-                'meta' => &$meta
-            );
+                'meta' => &$meta,
+            ];
 
-            if ($file === $this->requestFile) {
+            if (($file === $this->requestFile) && !$this->is404Content) {
                 $page['content'] = &$this->content;
             }
 
             unset($rawContent, $meta);
 
             // trigger onSinglePageLoaded event
-            $this->triggerEvent('onSinglePageLoaded', array(&$page));
+            $this->triggerEvent('onSinglePageLoaded', [ &$page ]);
 
             if ($page !== null) {
                 $this->pages[$id] = $page;
@@ -1805,7 +2124,7 @@ class Pico
      * @see Pico::readPages()
      * @see Pico::getPages()
      */
-    protected function sortPages()
+    protected function sortPages(): void
     {
         // sort pages
         $order = strtolower($this->getConfig('pages_order'));
@@ -1830,11 +2149,18 @@ class Pico
         if ($orderBy === 'meta') {
             // sort by arbitrary meta value
             $orderByMeta = $this->getConfig('pages_order_by_meta');
-            uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order, $orderByMeta) {
-                $aSortValue = isset($a['meta'][$orderByMeta]) ? $a['meta'][$orderByMeta] : null;
-                $aSortValueNull = ($aSortValue === null);
+            $orderByMetaKeys = explode('.', $orderByMeta);
 
-                $bSortValue = isset($b['meta'][$orderByMeta]) ? $b['meta'][$orderByMeta] : null;
+            uasort($this->pages, function ($a, $b) use ($alphaSortClosure, $order, $orderByMetaKeys) {
+                $aSortValue = $a['meta'];
+                $bSortValue = $b['meta'];
+                
+                foreach ($orderByMetaKeys as $key) {
+                    $aSortValue = isset($aSortValue[$key]) ? $aSortValue[$key] : null;
+                    $bSortValue = isset($bSortValue[$key]) ? $bSortValue[$key] : null;
+                }
+
+                $aSortValueNull = ($aSortValue === null);
                 $bSortValueNull = ($bSortValue === null);
 
                 $cmp = 0;
@@ -1884,9 +2210,9 @@ class Pico
      * @see Pico::readPages()
      * @see Pico::getPages()
      */
-    protected function discoverPageSiblings()
+    protected function discoverPageSiblings(): void
     {
-        if (($this->getConfig('order_by') === 'date') && ($this->getConfig('order') === 'desc')) {
+        if (($this->getConfig('pages_order_by') === 'date') && ($this->getConfig('pages_order') === 'desc')) {
             $precedingPageKey = 'next_page';
             $succeedingPageKey = 'previous_page';
         } else {
@@ -1920,7 +2246,7 @@ class Pico
      *
      * @return array[]|null the data of all pages
      */
-    public function getPages()
+    public function getPages(): ?array
     {
         return $this->pages;
     }
@@ -1933,7 +2259,7 @@ class Pico
      * @see Pico::getPreviousPage()
      * @see Pico::getNextPage()
      */
-    protected function discoverCurrentPage()
+    protected function discoverCurrentPage(): void
     {
         $currentPageId = $this->getPageId($this->requestFile);
         if ($currentPageId && isset($this->pages[$currentPageId])) {
@@ -1950,7 +2276,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getCurrentPage()
+    public function getCurrentPage(): ?array
     {
         return $this->currentPage;
     }
@@ -1962,7 +2288,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getPreviousPage()
+    public function getPreviousPage(): ?array
     {
         return $this->previousPage;
     }
@@ -1974,7 +2300,7 @@ class Pico
      *
      * @return array|null page data
      */
-    public function getNextPage()
+    public function getNextPage(): ?array
     {
         return $this->nextPage;
     }
@@ -2019,9 +2345,9 @@ class Pico
      *
      * @see Pico::getPageTree()
      */
-    protected function buildPageTree()
+    protected function buildPageTree(): void
     {
-        $this->pageTree = array();
+        $this->pageTree = [];
         foreach ($this->pages as $id => &$pageData) {
             // main index page
             if ($id === 'index') {
@@ -2078,7 +2404,7 @@ class Pico
      *
      * @return array[]|null the tree structure of all pages
      */
-    public function getPageTree()
+    public function getPageTree(): ?array
     {
         return $this->pageTree;
     }
@@ -2095,19 +2421,19 @@ class Pico
      * @see https://twig.symfony.com/ Twig website
      * @see https://github.com/twigphp/Twig Twig on GitHub
      *
-     * @return Twig_Environment|null Twig template engine
+     * @return TwigEnvironment Twig template engine
      */
-    public function getTwig()
+    public function getTwig(): TwigEnvironment
     {
         if ($this->twig === null) {
             $twigConfig = $this->getConfig('twig_config');
 
-            $twigLoader = new Twig_Loader_Filesystem($this->getThemesDir() . $this->getTheme());
-            $this->twig = new Twig_Environment($twigLoader, $twigConfig);
+            $twigLoader = new TwigFilesystemLoader($this->getThemesDir() . $this->getTheme());
+            $this->twig = new TwigEnvironment($twigLoader, $twigConfig);
             $this->twig->addExtension(new PicoTwigExtension($this));
 
             if (!empty($twigConfig['debug'])) {
-                $this->twig->addExtension(new Twig_Extension_Debug());
+                $this->twig->addExtension(new TwigDebugExtension());
             }
 
             // register content filter
@@ -2115,24 +2441,24 @@ class Pico
             // this is the reason why we can't register this filter as part of PicoTwigExtension
             $pico = $this;
             $pages = &$this->pages;
-            $this->twig->addFilter(new Twig_SimpleFilter(
+            $this->twig->addFilter(new TwigFilter(
                 'content',
                 function ($page) use ($pico, &$pages) {
                     if (isset($pages[$page])) {
                         $pageData = &$pages[$page];
                         if (!isset($pageData['content'])) {
-                            $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta']);
+                            $markdown = $pico->prepareFileContent($pageData['raw_content'], $pageData['meta'], $page);
                             $pageData['content'] = $pico->parseFileContent($markdown);
                         }
                         return $pageData['content'];
                     }
                     return null;
                 },
-                array('is_safe' => array('html'))
+                [ 'is_safe' => [ 'html' ] ]
             ));
 
             // trigger onTwigRegistration event
-            $this->triggerEvent('onTwigRegistered', array(&$this->twig));
+            $this->triggerEvent('onTwigRegistered', [ &$this->twig ]);
         }
 
         return $this->twig;
@@ -2145,9 +2471,9 @@ class Pico
      *
      * @return array template variables
      */
-    protected function getTwigVariables()
+    protected function getTwigVariables(): array
     {
-        return array(
+        return [
             'config' => $this->getConfig(),
             'base_url' => rtrim($this->getBaseUrl(), '/'),
             'plugins_url' => rtrim($this->getConfig('plugins_url'), '/'),
@@ -2156,13 +2482,13 @@ class Pico
             'theme_url' => $this->getConfig('themes_url') . $this->getTheme(),
             'site_title' => $this->getConfig('site_title'),
             'meta' => $this->meta,
-            'content' => new Twig_Markup($this->content, 'UTF-8'),
+            'content' => new TwigMarkup($this->content, 'UTF-8'),
             'pages' => $this->pages,
             'previous_page' => $this->previousPage,
             'current_page' => $this->currentPage,
             'next_page' => $this->nextPage,
-            'version' => static::VERSION
-        );
+            'version' => self::VERSION,
+        ];
     }
 
     /**
@@ -2170,7 +2496,7 @@ class Pico
      *
      * @return string template name
      */
-    protected function getTwigTemplate()
+    protected function getTwigTemplate(): string
     {
         $templateName = !empty($this->meta['template']) ? $this->meta['template'] : 'index';
         return $templateName . '.twig';
@@ -2185,7 +2511,7 @@ class Pico
      *
      * @return string the base url
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         $baseUrl = $this->getConfig('base_url');
         if ($baseUrl) {
@@ -2217,7 +2543,7 @@ class Pico
         $protocol = 'http';
         if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             $secureProxyHeader = strtolower(current(explode(',', $_SERVER['HTTP_X_FORWARDED_PROTO'])));
-            $protocol = in_array($secureProxyHeader, array('https', 'on', 'ssl', '1'), true) ? 'https' : 'http';
+            $protocol = in_array($secureProxyHeader, [ 'https', 'on', 'ssl', '1' ], true) ? 'https' : 'http';
         } elseif (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] !== 'off')) {
             $protocol = 'https';
         } elseif ($port === 443) {
@@ -2225,7 +2551,7 @@ class Pico
         }
 
         $basePath = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '/';
-        $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+        $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
 
         if ((($protocol === 'http') && ($port !== 80)) || (($protocol === 'https') && ($port !== 443))) {
             $host = $host . ':' . $port;
@@ -2240,7 +2566,7 @@ class Pico
      *
      * @return bool TRUE if URL rewriting is enabled, FALSE otherwise
      */
-    public function isUrlRewritingEnabled()
+    public function isUrlRewritingEnabled(): bool
     {
         $urlRewritingEnabled = $this->getConfig('rewrite_url');
         if ($urlRewritingEnabled !== null) {
@@ -2263,7 +2589,7 @@ class Pico
      *
      * @return bool TRUE if Pico's debug mode is enabled, FALSE otherwise
      */
-    public function isDebugModeEnabled()
+    public function isDebugModeEnabled(): bool
     {
         $debugModeEnabled = $this->getConfig('debug');
         if ($debugModeEnabled !== null) {
@@ -2297,7 +2623,7 @@ class Pico
      *
      * @throws InvalidArgumentException thrown when invalid arguments got passed
      */
-    public function getPageUrl($page, $queryData = null, $dropIndex = true)
+    public function getPageUrl(string $page, $queryData = null, bool $dropIndex = true): string
     {
         if (is_array($queryData)) {
             $queryData = http_build_query($queryData, '', '&');
@@ -2313,7 +2639,7 @@ class Pico
             if ($page === 'index') {
                 $page = '';
             } elseif (($pagePathLength = strrpos($page, '/')) !== false) {
-                if (substr($page, $pagePathLength + 1) === 'index') {
+                if (substr_compare($page, 'index', $pagePathLength + 1) === 0) {
                     $page = substr($page, 0, $pagePathLength);
                 }
             }
@@ -2341,21 +2667,35 @@ class Pico
      *
      * @return string|null either the corresponding page ID or NULL
      */
-    public function getPageId($path)
+    public function getPageId(string $path): ?string
     {
         $contentDir = $this->getConfig('content_dir');
         $contentDirLength = strlen($contentDir);
-        if (substr($path, 0, $contentDirLength) !== $contentDir) {
+        if (substr_compare($path, $contentDir, 0, $contentDirLength) !== 0) {
             return null;
         }
 
         $contentExt = $this->getConfig('content_ext');
         $contentExtLength = strlen($contentExt);
-        if (substr($path, -$contentExtLength) !== $contentExt) {
+        if (substr_compare($path, $contentExt, -$contentExtLength) !== 0) {
             return null;
         }
 
         return substr($path, $contentDirLength, -$contentExtLength) ?: null;
+    }
+
+    /**
+     * Returns the URL of the themes folder of this Pico instance
+     *
+     * @see Pico::getUrlFromPath()
+     *
+     * @deprecated 2.1.0
+     *
+     * @return string
+     */
+    public function getBaseThemeUrl(): string
+    {
+        return $this->getConfig('themes_url');
     }
 
     /**
@@ -2374,38 +2714,24 @@ class Pico
      *
      * @return string URL with replaced placeholders
      */
-    public function substituteUrl($url)
+    public function substituteUrl(string $url): string
     {
-        $variables = array(
+        $variables = [
             '%base_url%?' => $this->getBaseUrl() . (!$this->isUrlRewritingEnabled() ? '?' : ''),
             '%base_url%' => rtrim($this->getBaseUrl(), '/'),
             '%plugins_url%' => rtrim($this->getConfig('plugins_url'), '/'),
             '%themes_url%' => rtrim($this->getConfig('themes_url'), '/'),
             '%assets_url%' => rtrim($this->getConfig('assets_url'), '/'),
-            '%theme_url%' => $this->getConfig('themes_url') . $this->getTheme()
-        );
+            '%theme_url%' => $this->getConfig('themes_url') . $this->getTheme(),
+        ];
 
         return str_replace(array_keys($variables), $variables, $url);
     }
 
     /**
-     * Returns the URL of the themes folder of this Pico instance
-     *
-     * @see Pico::getUrlFromPath()
-     *
-     * @deprecated 2.1.0
-     *
-     * @return string
-     */
-    public function getBaseThemeUrl()
-    {
-        return $this->getConfig('themes_url');
-    }
-
-    /**
      * Returns the URL of a given absolute path within this Pico instance
      *
-     * We assume that the given path is a arbitrary deep sub folder of the
+     * We assume that the given path is an arbitrary deep sub folder of the
      * script's base path (i.e. the directory {@path "index.php"} is in resp.
      * the `httpdocs` directory). If this isn't the case, we check whether it's
      * a sub folder of {@see Pico::$rootDir} (what is often identical to the
@@ -2420,17 +2746,17 @@ class Pico
      *
      * @return string the URL of the given folder
      */
-    public function getUrlFromPath($absolutePath)
+    public function getUrlFromPath(string $absolutePath): string
     {
         $absolutePath = str_replace('\\', '/', $absolutePath);
 
         $basePath = '';
         if (isset($_SERVER['SCRIPT_FILENAME']) && strrpos($_SERVER['SCRIPT_FILENAME'], '/')) {
             $basePath = dirname($_SERVER['SCRIPT_FILENAME']);
-            $basePath = !in_array($basePath, array('.', '/', '\\'), true) ? $basePath . '/' : '/';
+            $basePath = !in_array($basePath, [ '.', '/', '\\' ], true) ? $basePath . '/' : '/';
             $basePathLength = strlen($basePath);
 
-            if ((substr($absolutePath, 0, $basePathLength) === $basePath) && ($basePath !== '/')) {
+            if ((substr_compare($absolutePath, $basePath, 0, $basePathLength) === 0) && ($basePath !== '/')) {
                 return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
             }
         }
@@ -2439,7 +2765,7 @@ class Pico
             $basePath = $this->getRootDir();
             $basePathLength = strlen($basePath);
 
-            if (substr($absolutePath, 0, $basePathLength) === $basePath) {
+            if (substr_compare($absolutePath, $basePath, 0, $basePathLength) === 0) {
                 return $this->getBaseUrl() . substr($absolutePath, $basePathLength);
             }
         }
@@ -2468,7 +2794,7 @@ class Pico
      *     NULL if the URL GET parameter doesn't exist and no default value is
      *     given
      */
-    public function getUrlParameter($name, $filter = '', $options = null, $flags = null)
+    public function getUrlParameter(string $name, $filter = '', $options = null, $flags = null)
     {
         $variable = (isset($_GET[$name]) && is_scalar($_GET[$name])) ? $_GET[$name] : null;
         return $this->filterVariable($variable, $filter, $options, $flags);
@@ -2495,7 +2821,7 @@ class Pico
      *     NULL if the HTTP POST parameter doesn't exist and no default value
      *     is given
      */
-    public function getFormParameter($name, $filter = '', $options = null, $flags = null)
+    public function getFormParameter(string $name, $filter = '', $options = null, $flags = null)
     {
         $variable = (isset($_POST[$name]) && is_scalar($_POST[$name])) ? $_POST[$name] : null;
         return $this->filterVariable($variable, $filter, $options, $flags);
@@ -2551,7 +2877,7 @@ class Pico
             $defaultValue = isset($options['default']) ? $options['default'] : null;
         } elseif ($options !== null) {
             $defaultValue = $options;
-            $options = array('default' => $defaultValue);
+            $options = [ 'default' => $defaultValue ];
         }
 
         if ($variable === null) {
@@ -2563,7 +2889,7 @@ class Pico
             return false;
         }
 
-        $filterOptions = array('options' => $options, 'flags' => 0);
+        $filterOptions = [ 'options' => $options, 'flags' => 0 ];
         foreach ((array) $flags as $flag) {
             if (is_numeric($flag)) {
                 $filterOptions['flags'] |= (int) $flag;
@@ -2594,25 +2920,25 @@ class Pico
      *
      * @return array list of found files
      */
-    public function getFiles($directory, $fileExtension = '', $order = self::SORT_ASC)
+    public function getFiles(string $directory, string $fileExtension = '', int $order = self::SORT_ASC): array
     {
         $directory = rtrim($directory, '/');
         $fileExtensionLength = strlen($fileExtension);
-        $result = array();
+        $result = [];
 
         $files = scandir($directory, $order);
         if ($files !== false) {
             foreach ($files as $file) {
                 // exclude hidden files/dirs starting with a .; this also excludes the special dirs . and ..
                 // exclude files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (($file[0] === '.') || in_array(substr($file, -1), array('~', '#'), true)) {
+                if (($file[0] === '.') || in_array(substr($file, -1), [ '~', '#' ], true)) {
                     continue;
                 }
 
                 if (is_dir($directory . '/' . $file)) {
                     // get files recursively
                     $result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
-                } elseif (!$fileExtension || (substr($file, -$fileExtensionLength) === $fileExtension)) {
+                } elseif (!$fileExtension || (substr_compare($file, $fileExtension, -$fileExtensionLength) === 0)) {
                     $result[] = $directory . '/' . $file;
                 }
             }
@@ -2636,16 +2962,16 @@ class Pico
      *
      * @return array list of found files
      */
-    public function getFilesGlob($pattern, $order = self::SORT_ASC)
+    public function getFilesGlob(string $pattern, int $order = self::SORT_ASC): array
     {
-        $result = array();
+        $result = [];
         $sortFlag = ($order === self::SORT_NONE) ? GLOB_NOSORT : 0;
 
         $files = glob($pattern, GLOB_MARK | $sortFlag);
         if ($files) {
             foreach ($files as $file) {
                 // exclude dirs and files ending with a ~ (vim/nano backup) or # (emacs backup)
-                if (in_array(substr($file, -1), array('/', '~', '#'), true)) {
+                if (in_array(substr($file, -1), [ '/', '~', '#' ], true)) {
                     continue;
                 }
 
@@ -2659,15 +2985,15 @@ class Pico
     /**
      * Makes a relative path absolute to Pico's root dir
      *
-     * @param string $path     relative or absolute path
-     * @param string $basePath treat relative paths relative to the given path;
-     *     defaults to Pico::$rootDir
-     * @param bool   $endSlash whether to add a trailing slash to the absolute
-     *     path or not (defaults to TRUE)
+     * @param string $path          relative or absolute path
+     * @param string|null $basePath treat relative paths relative to the given
+     *     path; defaults to NULL, yielding Pico::$rootDir
+     * @param bool   $endSlash      whether to add a trailing slash to the
+     *     absolute path or not (defaults to TRUE)
      *
      * @return string absolute path
      */
-    public function getAbsolutePath($path, $basePath = null, $endSlash = true)
+    public function getAbsolutePath(string $path, ?string $basePath = null, bool $endSlash = true): string
     {
         if ($basePath === null) {
             $basePath = $this->getRootDir();
@@ -2678,7 +3004,7 @@ class Pico
                 $path = $basePath . $path;
             }
         } else {
-            if ($path[0] !== '/') {
+            if (($path === '') || ($path[0] !== '/')) {
                 $path = $basePath . $path;
             }
         }
@@ -2696,10 +3022,10 @@ class Pico
      *
      * @return string normalized path
      *
-     * @throws UnexpectedValueException thrown when a absolute path is passed
+     * @throws UnexpectedValueException thrown when an absolute path is passed
      *     although absolute paths aren't allowed
      */
-    public function getNormalizedPath($path, $allowAbsolutePath = false, $endSlash = true)
+    public function getNormalizedPath(string $path, bool $allowAbsolutePath = false, bool $endSlash = true): string
     {
         $absolutePath = '';
         if (DIRECTORY_SEPARATOR === '\\') {
@@ -2708,7 +3034,7 @@ class Pico
                 $path = substr($path, strlen($absolutePath));
             }
         } else {
-            if ($path[0] === '/') {
+            if (($path !== '') && ($path[0] === '/')) {
                 $absolutePath = '/';
                 $path = substr($path, 1);
             }
@@ -2723,7 +3049,7 @@ class Pico
         $path = str_replace('\\', '/', $path);
         $pathParts = explode('/', $path);
 
-        $resultParts = array();
+        $resultParts = [];
         foreach ($pathParts as $pathPart) {
             if (($pathPart === '') || ($pathPart === '.')) {
                 continue;
@@ -2747,17 +3073,17 @@ class Pico
      * Please note that URLs starting with a slash are considered absolute URLs
      * even though they don't include a scheme and host.
      *
-     * @param string $url      relative or absolute URL
-     * @param string $baseUrl  treat relative URLs relative to the given URL;
-     *     defaults to Pico::getBaseUrl()
-     * @param bool $endSlash   whether to add a trailing slash to the absolute
-     *     URL or not (defaults to TRUE)
+     * @param string $url          relative or absolute URL
+     * @param string|null $baseUrl treat relative URLs relative to the given
+     *     URL; defaults to NULL, yielding Pico::getBaseUrl()
+     * @param bool   $endSlash     whether to add a trailing slash to the
+     *     absolute URL or not (defaults to TRUE)
      *
      * @return string absolute URL
      */
-    public function getAbsoluteUrl($url, $baseUrl = null, $endSlash = true)
+    public function getAbsoluteUrl(string $url, ?string $baseUrl = null, bool $endSlash = true): string
     {
-        if (($url[0] !== '/') && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
+        if ((($url === '') || ($url[0] !== '/')) && !preg_match('#^[A-Za-z][A-Za-z0-9+\-.]*://#', $url)) {
             $url = (($baseUrl !== null) ? $baseUrl : $this->getBaseUrl()) . $url;
         }
 
@@ -2782,7 +3108,7 @@ class Pico
      * @param string $eventName name of the event to trigger
      * @param array  $params    optional parameters to pass
      */
-    public function triggerEvent($eventName, array $params = array())
+    public function triggerEvent(string $eventName, array $params = []): void
     {
         foreach ($this->nativePlugins as $plugin) {
             $plugin->handleEvent($eventName, $params);

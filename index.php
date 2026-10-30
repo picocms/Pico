@@ -10,6 +10,10 @@
  * License-Filename: LICENSE
  */
 
+// disable E_DEPRECATED, E_USER_DEPRECATED, and E_STRICT error reporting
+error_reporting(error_reporting() & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+error_reporting(error_reporting() & ~E_STRICT);
+
 // load dependencies
 if (is_file(__DIR__ . '/vendor/autoload.php')) {
     // composer root package
@@ -34,7 +38,7 @@ $pico = new Pico(
 );
 
 // override configuration?
-//$pico->setConfig(array());
+//$pico->setConfig([]);
 
 // run application
 echo $pico->run();

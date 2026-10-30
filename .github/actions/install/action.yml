@@ -1,0 +1,44 @@
+name: Install Pico CMS
+description: Installs Pico CMS to the given directory.
+
+inputs:
+    path:
+        description: Pico CMS source directory.
+        required: false
+        default: .
+
+runs:
+    using: "composite"
+    steps:
+        -   name: Setup Composer root version
+            if: ${{ github.ref_type == 'branch' }}
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                COMPOSER_ROOT_VERSION=
+
+                COMPOSER_ROOT_VERSION="$(composer config \
+                    extra.branch-alias."dev-${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" \
+                    2> /dev/null || true)"
+
+                if [ -z "$COMPOSER_ROOT_VERSION" ]; then
+                    COMPOSER_ROOT_VERSION="$(php -r "
+                        require('./lib/Pico.php');
+                        echo preg_replace('/\.[0-9]+-dev$/', '.x-dev', Pico::VERSION);
+                    ")"
+                fi
+
+                echo "COMPOSER_ROOT_VERSION=$COMPOSER_ROOT_VERSION" | tee -a "$GITHUB_ENV"
+
+        -   name: Install Composer dependencies
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                composer install
+
+        -   name: Read Pico version
+            shell: bash
+            working-directory: ${{ inputs.path }}
+            run: |
+                PICO_VERSION="$(php -r 'require("./lib/Pico.php"); echo Pico::VERSION;')"
+                echo "PICO_VERSION=$PICO_VERSION" | tee -a "$GITHUB_ENV"
